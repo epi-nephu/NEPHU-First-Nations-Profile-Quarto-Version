@@ -1,0 +1,113 @@
+.table-responsive {
+  width: auto !important;
+  max-width: fit-content;
+  margin: auto;
+}
+
+.title {
+  font-family: Arial;
+  font-weight: bold;
+  font-size: 20pt;
+  color: #253494;
+  text-align: center;
+}
+
+h1 {
+  font-family: Arial;
+  font-weight: bold;
+  font-size: 14pt;
+  color: #4F81BD;
+  margin-top: 5pt;
+}
+
+body {
+  font-family: Arial;
+  font-size: 11pt;
+}
+
+li > ul {
+  margin-bottom: 10pt;
+}
+
+.key-question {
+  font-family: Arial;
+  font-style: italic;
+  font-weight: bold;
+  font-size: 12pt;
+  color: #253494;
+  text-align: center;
+}
+
+.consultation-box {
+  padding-top: 10px;
+  background: #FFE5B4;
+  color: black;
+  border: 2px solid darkorange;
+  border-radius: 10px;
+}
+
+.consultation-box ul {
+  margin-top: 0pt !important;
+  margin-bottom: 0pt !important;
+}
+
+.consultation-box ul li {
+  margin-bottom: 0pt !important;
+}
+
+.summary-box {
+  padding-top: 10px;
+  background: white;
+  color: black;
+  border: 2px solid #4F81BD;
+  border-radius: 10px;
+}
+
+.summary-box ul {
+  margin-top: 0pt !important;
+  margin-bottom: 0pt !important;
+}
+
+.summary-box ul li {
+  margin-bottom: 0pt !important;
+}
+
+.question-box {
+  padding: 10px;
+  background: white;
+  color: black;
+  border: 2px solid #5BC788;
+  border-radius: 10px;
+}
+
+.question-box ul {
+  margin-top: 0pt !important;
+  margin-bottom: 0pt !important;
+}
+
+.question-box ul li {
+  margin-bottom: 0pt !important;
+}
+
+.fig-tab-title {
+  font-family: Arial;
+  font-style: italic;
+  font-size: 11pt;
+  text-align: center;
+  margin-bottom: 5pt;
+}
+
+.callout-body {
+  font-family: Arial;
+  font-size: 11pt !important;
+}
+
+.callout-body ul {
+  margin-top: 0pt !important;
+  margin-bottom: 0pt !important;
+}
+
+.callout-body ul li {
+  margin-bottom: 0pt !important;
+}
+
