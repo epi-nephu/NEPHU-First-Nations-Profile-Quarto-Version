@@ -1,0 +1,315 @@
+---
+title: "4A. Population Size and Distribution"
+---
+
+```{r}
+#
+source(here::here("setup.R"))
+```
+
+::: key-question
+How many people who identify as Aboriginal and/or Torres Strait Islander live in the NEPHU catchment and where do they reside?
+:::
+
+When considering the total number of people who identify as Aboriginal and/or Torres Strait Islander, under-identification is a key consideration. The impact of this is that population numbers are likely to be underestimated, and the true population number is likely to be higher than what is reported here. This needs to be considered not only within this section but throughout this report, and has implications not only for population size, but also for any inferences about service requirements. 
+
+NEPHU is the most populous LPHU in Victoria and has the largest number of residents who identify as Aboriginal and/or Torres Strait Islander. Whilst the Whittlesea and Hume LGAs have the highest absolute number of Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment, the population density is highest in the inner metro LGAs of Darebin and Yarra which have smaller geographical boundaries.
+
+:::{style="height: 1em;"}
+:::
+
+# Population Size and Distribution
+
+```{r}
+# ------------------------------------------------------------------------------
+# Total population by Aboriginality, with age, sex, and LGA breakdowns
+# Data from ABS Census
+# ------------------------------------------------------------------------------
+# Read in Census data
+aboriginal_lga <- f_read_census_population(table = "G07", 
+                                           level = "lga")
+
+# Join to LPHU reference table
+aboriginal_lga <- aboriginal_lga %>% 
+  dplyr::left_join(lphu_assign, by = "LGA_CODE_2021") %>% 
+  #
+  janitor::clean_names()
+
+# Aboriginal and non-Aboriginal peoples in each LPHU
+results <- list()
+
+for (i in lphu_names_short) {
+  
+  results[[i]] <- aboriginal_lga %>% 
+    dplyr::filter(lphu_short == i) %>% 
+    #
+    janitor::adorn_totals(name = i,
+                          fill = i) %>% 
+    #
+    dplyr::mutate(
+      lga_id = dplyr::case_when(
+        lga_code_2021 == i ~ i,
+        #
+        TRUE ~ as.character(lga_id)))
+  
+  }
+
+# Bind LPHU and Victorian data
+aboriginal_lga <- results[["NEPHU"]] %>% 
+  dplyr::bind_rows(results[["SEPHU"]]) %>%
+  dplyr::bind_rows(results[["WPHU"]]) %>% 
+  dplyr::bind_rows(results[["BSWPHU"]]) %>% 
+  dplyr::bind_rows(results[["LMPHU"]]) %>% 
+  dplyr::bind_rows(results[["GPHU"]]) %>% 
+  dplyr::bind_rows(results[["GWSMPHU"]]) %>% 
+  dplyr::bind_rows(results[["GVPHU"]]) %>% 
+  dplyr::bind_rows(results[["OMPHU"]]) %>% 
+  dplyr::bind_rows(aboriginal_lga %>% 
+                     janitor::adorn_totals(name = "VIC",
+                                           fill = "VIC") %>% 
+                     #
+                     dplyr::mutate(lga_id = dplyr::case_when(
+                       lga_code_2021 == "VIC" ~ "VIC",
+                       #
+                       TRUE ~ as.character(lga_id))) %>% 
+                     #
+                     dplyr::filter(lga_code_2021 == "VIC"))
+
+# Tidy up environment
+rm(i, results)
+
+# ------------------------------------------------------------------------------
+# Total population by Aboriginality, by LPHU
+# Data from ABS Census
+# ------------------------------------------------------------------------------
+population_lphu <- aboriginal_lga %>%
+  dplyr::filter(lga_name %in% lphu_names_short) %>% 
+  #
+  dplyr::mutate(
+    aboriginal_prop          = (tot_indigenous_p / tot_tot_p) * 100,
+    aboriginal_prop_per_lphu = tot_indigenous_p / sum(tot_indigenous_p) * 100,
+    #
+    non_aboriginal_n             = tot_non_indigenous_p + tot_indig_status_ns_p,
+    non_aboriginal_prop          = (non_aboriginal_n / tot_tot_p) * 100,
+    non_aboriginal_prop_per_lphu = non_aboriginal_n / sum(non_aboriginal_n) * 100) %>% 
+  #
+  dplyr::bind_rows(aboriginal_lga %>% 
+                     dplyr::filter(lga_name == "VIC") %>%
+                     #
+                     dplyr::mutate(
+                       aboriginal_prop          = (tot_indigenous_p / tot_tot_p) * 100,
+                       aboriginal_prop_per_lphu = tot_indigenous_p / sum(tot_indigenous_p) * 100,
+                       #
+                       non_aboriginal_n             = tot_non_indigenous_p + tot_indig_status_ns_p,
+                       non_aboriginal_prop          = (non_aboriginal_n / tot_tot_p) * 100,
+                       non_aboriginal_prop_per_lphu = non_aboriginal_n / sum(non_aboriginal_n) * 100)) %>%
+  #
+  dplyr::mutate(lphu_long = dplyr::case_when(
+    lphu_short == "NEPHU"   ~ "North Eastern PHU",
+    lphu_short == "SEPHU"   ~ "South Eastern PHU",
+    lphu_short == "WPHU"    ~ "Western PHU",
+    lphu_short == "BSWPHU"  ~ "Barwon South West PHU",
+    lphu_short == "LMPHU"   ~ "Loddon Mallee PHU",
+    lphu_short == "GPHU"    ~ "Gippsland Regional PHU",
+    lphu_short == "GVPHU"   ~ "Goulburn Valley PHU",
+    lphu_short == "GWSMPHU" ~ "Grampians PHU",
+    lphu_short == "OMPHU"   ~ "Ovens Murray PHU",
+    lphu_short == "VIC"     ~ "Victoria",
+    TRUE ~ NA_character_)) %>% 
+  #
+  dplyr::select(lphu_name = lga_name,
+                lphu_long,
+                aboriginal_n = tot_indigenous_p,
+                aboriginal_prop,
+                aboriginal_prop_per_lphu,
+                non_aboriginal_n = tot_non_indigenous_p,
+                non_aboriginal_prop,
+                non_aboriginal_prop_per_lphu)
+
+# ------------------------------------------------------------------------------
+# Total population by Aboriginality, by LGA
+# Data from ABS Census
+# ------------------------------------------------------------------------------
+population_lga <- aboriginal_lga %>%
+  dplyr::filter(lphu_short == "NEPHU" & lga_name != "NEPHU") %>% 
+  #
+  dplyr::mutate(
+    aboriginal_prop         = (tot_indigenous_p / tot_tot_p) * 100,
+    aboriginal_prop_per_lga = tot_indigenous_p / sum(tot_indigenous_p) * 100,
+    #
+    non_aboriginal_n            = tot_non_indigenous_p + tot_indig_status_ns_p,
+    non_aboriginal_prop         = (non_aboriginal_n / tot_tot_p) * 100,
+    non_aboriginal_prop_per_lga = non_aboriginal_n / sum(non_aboriginal_n) * 100) %>% 
+  #
+  dplyr::bind_rows(aboriginal_lga %>% 
+                     dplyr::filter(lga_name == "NEPHU") %>% 
+                     #
+                     dplyr::mutate(
+                       aboriginal_prop         = (tot_indigenous_p / tot_tot_p) * 100,
+                       aboriginal_prop_per_lga = tot_indigenous_p / sum(tot_indigenous_p) * 100,
+                       #
+                       non_aboriginal_n            = tot_non_indigenous_p + tot_indig_status_ns_p,
+                       non_aboriginal_prop         = (non_aboriginal_n / tot_tot_p) * 100,
+                       non_aboriginal_prop_per_lga = non_aboriginal_n / sum(non_aboriginal_n) * 100)) %>% 
+  #
+  dplyr::select(lga_name,
+                aboriginal_n = tot_indigenous_p,
+                aboriginal_prop,
+                aboriginal_prop_per_lga,
+                non_aboriginal_n = tot_non_indigenous_p,
+                non_aboriginal_prop,
+                non_aboriginal_prop_per_lga)
+
+# ------------------------------------------------------------------------------
+# Total population by Aboriginality, by SA2
+# Data from ABS Census
+# ------------------------------------------------------------------------------
+# Read in Census data
+aboriginal_sa2 <- f_read_census_population(table = "G07",
+                                           level = "sa2") %>% 
+  janitor::clean_names() %>% 
+  #
+  dplyr::mutate(sa2_code_2021 = as.character(sa2_code_2021))
+  
+aboriginal_sa2 <- aboriginal_sa2 %>% 
+  dplyr::bind_rows(aboriginal_sa2 %>% 
+                     dplyr::filter(sa2_code_2021 %in% nephu_sa2) %>% 
+                     #
+                     janitor::adorn_totals(name = "NEPHU") %>% 
+                     #
+                     dplyr::filter(sa2_code_2021 == "NEPHU"))
+
+# Data wrangling
+population_sa2 <- aboriginal_sa2 %>%
+  dplyr::filter(sa2_code_2021 %in% nephu_sa2) %>% 
+  #
+  dplyr::mutate(
+    aboriginal_prop         = (tot_indigenous_p / tot_tot_p) * 100,
+    aboriginal_prop_per_sa2 = tot_indigenous_p / sum(tot_indigenous_p) * 100,
+    #
+    non_aboriginal_n            = tot_non_indigenous_p + tot_indig_status_ns_p,
+    non_aboriginal_prop         = (non_aboriginal_n / tot_tot_p) * 100,
+    non_aboriginal_prop_per_sa2 = non_aboriginal_n / sum(non_aboriginal_n) * 100) %>% 
+  #
+  dplyr::bind_rows(aboriginal_sa2 %>% 
+                     dplyr::filter(sa2_code_2021 == "NEPHU") %>% 
+                     #
+                     dplyr::mutate(
+                       aboriginal_prop         = (tot_indigenous_p / tot_tot_p) * 100,
+                       aboriginal_prop_per_sa2 = tot_indigenous_p / sum(tot_indigenous_p) * 100,
+                       #
+                       non_aboriginal_n            = tot_non_indigenous_p + tot_indig_status_ns_p,
+                       non_aboriginal_prop         = (non_aboriginal_n / tot_tot_p) * 100,
+                       non_aboriginal_prop_per_sa2 = non_aboriginal_n / sum(non_aboriginal_n) * 100)) %>% 
+  #
+  dplyr::left_join(nephu_sa2.sf %>% 
+                     dplyr::select(sa2_code, sa2_name),
+                   by = c("sa2_code_2021" = "sa2_code")) %>% 
+  #
+  dplyr::select(sa2_code_2021,
+                sa2_name,
+                aboriginal_n = tot_indigenous_p,
+                aboriginal_prop,
+                aboriginal_prop_per_sa2,
+                non_aboriginal_n,
+                non_aboriginal_prop,
+                non_aboriginal_prop_per_sa2)
+
+# ------------------------------------------------------------------------------
+# Population density, by LGA
+# Data from ABS Census
+# ------------------------------------------------------------------------------
+density_lga <- dplyr::left_join(nephu_lga.sf, 
+                                aboriginal_lga %>% 
+                                  dplyr::select(lga_name, tot_indigenous_p),
+                                by = "lga_name") %>%
+  #
+  dplyr::mutate(pop_dens       = round(tot_indigenous_p / areasqkm, 1), 
+                pop_dens_label = paste0(lga_name, "\n(", pop_dens, ")"))
+
+# ------------------------------------------------------------------------------
+# Population density, by SA2
+# Data from ABS Census
+# ------------------------------------------------------------------------------
+density_sa2 <- dplyr::left_join(nephu_sa2.sf, 
+                                aboriginal_sa2 %>% 
+                                  dplyr::select(sa2_code_2021, tot_indigenous_p),
+                                by = c("sa2_code" = "sa2_code_2021")) %>%
+  #
+  dplyr::mutate(pop_dens = round(tot_indigenous_p / sa2_area, 1))
+```
+
+- Data for this indicator were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
+
+- NEPHU had the largest number of residents who identified as Aboriginal and/or Torres Strait Islander in the 2021 Census for the state of Victoria (n = 12,065), representing 0.7% of the NEPHU catchment population. 
+
+- 19% of Victorians who identified as Aboriginal and/or Torres Strait Islander reside in the NEPHU catchment. 
+
+- The proportion of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander was lower than for Victoria overall (n = 65,639, 1.0% of the state population). 
+
+- The majority of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander reside in the Whittlesea (n = 2,270), Hume (n = 1,870), Yarra Ranges (n = 1,713), Darebin (n = 1,441), and Knox (n = 1,022) LGAs. 
+
+- Despite having a smaller number of residents who identified as Aboriginal and/or Torres Strait Islander, these residents were concentrated in Darebin (27 people per square km) and Yarra (26 people per square km) LGAs. 
+
+- The NEPHU catchment SA2s with the largest number of residents identifying as Aboriginal and/or Torres Strait Islander were Healesville - Yarra Glen (n = 373), Lilydale - Coldstream (n = 260), and Reservoir - North East (n = 248). 
+
+- Despite having a smaller number of residents who identified as Aboriginal and/or Torres Strait Islander, these residents were concentrated in the SA2s of Collingwood (55 people per square km), Reservoir - North East (52 people per square km), Reservoir - South East (44 people per square km), and Fitzroy (41 people per square km).
+
+:::: {.panel-tabset}
+
+### Figure 4A-1
+
+::: {#fig_4A_1 .fig-tab-title}
+**Figure 4A-1:** Number of people who identified as Aboriginal and/or Torres Strait Islander, Victoria, by LPHU, 2021
+:::
+
+```{r}
+# Figure 4A-1
+population_lphu %>% 
+  dplyr::filter(lphu_name != "VIC") %>% 
+  #
+  dplyr::mutate(n_text = paste0(lphu_long,
+                                "\nCount: ", format(aboriginal_n, big.mark = ","))) %>% 
+  #
+  f_graph_bar_simple(x_variable = lphu_name,
+                     y_variable = aboriginal_n,
+                     #
+                     y_max    = NA,
+                     y_breaks = 1500,
+                     y_expand = 300,
+                     y_title  = "Number of people")
+```
+
+### Table 4A-1
+
+::: {#tab_4A_1 .fig-tab-title}
+**Table 4A-1:** Number and percentage of LPHU catchment population who identified as Aboriginal and/or Torres Strait Islander, Victoria, by LPHU, 2021
+:::
+
+```{r}
+#
+table_headers <- c("LPHU",
+                   "Number of Aboriginal<br>and/or Torres Strait<br>Islander people",
+                   "% of total LPHU<br>population",
+                   "% of Victorian Aboriginal<br>and/or Torres Strait<br>Islander population")
+
+population_lphu %>%
+  dplyr::mutate(aboriginal_prop          = round(aboriginal_prop, digits = 1),
+                aboriginal_prop_per_lphu = round(aboriginal_prop_per_lphu, digits = 1)) %>% 
+  #
+  dplyr::select(lphu_long,
+                aboriginal_n,
+                aboriginal_prop,
+                aboriginal_prop_per_lphu) %>% 
+  #
+  f_table_simple(total_row = 10,
+                 table_headers = table_headers)
+```
+
+::::
+
+
+
+
+::: {.callout-note title="Data notes" collapse="false"}
+:::
