@@ -9,6 +9,8 @@ book:
     - part: "2. Methods - Data Analysis"
     - part: "3. Methods - Consultation"
     - part: "4. Population"
+      chapters: 
+        - chapters/04a_population_size.qmd
     - part: "5. Demographics"
     - part: "6. Socioeconomic Determinants of Health"
     - part: "7. Cultural Determinants of Health"
