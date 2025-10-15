@@ -4,11 +4,22 @@
   margin: auto;
 }
 
+nav[aria-label="breadcrumb"] {
+  display: none !important;
+}
+
+header {
+  background-image: url('images/banner_separator.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 .title {
   font-family: Arial;
   font-weight: bold;
-  font-size: 20pt;
-  color: #253494;
+  font-size: 30pt;
+  color: white;
   text-align: center;
 }
 
@@ -26,7 +37,7 @@ body {
 }
 
 li > ul {
-  margin-bottom: 10pt;
+  margin-bottom: 5pt;
 }
 
 .key-question {
@@ -52,23 +63,6 @@ li > ul {
 }
 
 .consultation-box ul li {
-  margin-bottom: 0pt !important;
-}
-
-.summary-box {
-  padding-top: 10px;
-  background: white;
-  color: black;
-  border: 2px solid #4F81BD;
-  border-radius: 10px;
-}
-
-.summary-box ul {
-  margin-top: 0pt !important;
-  margin-bottom: 0pt !important;
-}
-
-.summary-box ul li {
   margin-bottom: 0pt !important;
 }
 
@@ -99,7 +93,7 @@ li > ul {
 
 .callout-body {
   font-family: Arial;
-  font-size: 11pt !important;
+  font-size: 10pt !important;
 }
 
 .callout-body ul {
@@ -109,5 +103,13 @@ li > ul {
 
 .callout-body ul li {
   margin-bottom: 0pt !important;
+}
+
+.download-link {
+  font-size: 9pt;
+  font-weight: bold;
+  border: 1px solid #4F81BD;
+  background: #4F81BD;
+  color: #fff;
 }
 
