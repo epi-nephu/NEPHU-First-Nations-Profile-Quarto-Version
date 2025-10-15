@@ -4,7 +4,7 @@
 #
 # Chart type: simple bar chart
 
-f_graph_bar_simple <- function(data, x_variable, y_variable, y_max, y_breaks, y_expand, y_title) {
+f_graph_bar_simple <- function(data, x_variable, x_angle = 0, y_variable, y_max, y_breaks, y_expand, y_title) {
   
   x_variable <- rlang::enquo(x_variable)
   y_variable <- rlang::enquo(y_variable)
@@ -25,7 +25,8 @@ f_graph_bar_simple <- function(data, x_variable, y_variable, y_max, y_breaks, y_
     #
     theme_classic() +
     #
-    theme(axis.title.y = element_text(size = 10, family = "Arial"))
+    theme(axis.text.x  = element_text(angle = x_angle),
+          axis.title.y = element_text(size = 10, family = "Arial"))
   
   figure <- figure %>% 
     plotly::ggplotly(tooltip = "text") %>%
