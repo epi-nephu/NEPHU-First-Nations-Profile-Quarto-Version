@@ -5,6 +5,7 @@ title: "4A. Population Size and Distribution"
 ```{r}
 #
 source(here::here("setup.R"))
+source(here::here("footnotes.R"))
 ```
 
 ::: key-question
@@ -18,7 +19,7 @@ NEPHU is the most populous LPHU in Victoria and has the largest number of reside
 :::{style="height: 1em;"}
 :::
 
-# Population Size and Distribution
+# Population Size
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -104,20 +105,26 @@ population_lphu <- aboriginal_lga %>%
                        non_aboriginal_prop          = (non_aboriginal_n / tot_tot_p) * 100,
                        non_aboriginal_prop_per_lphu = non_aboriginal_n / sum(non_aboriginal_n) * 100)) %>%
   #
-  dplyr::mutate(lphu_long = dplyr::case_when(
-    lphu_short == "NEPHU"   ~ "North Eastern PHU",
-    lphu_short == "SEPHU"   ~ "South Eastern PHU",
-    lphu_short == "WPHU"    ~ "Western PHU",
-    lphu_short == "BSWPHU"  ~ "Barwon South West PHU",
-    lphu_short == "LMPHU"   ~ "Loddon Mallee PHU",
-    lphu_short == "GPHU"    ~ "Gippsland Regional PHU",
-    lphu_short == "GVPHU"   ~ "Goulburn Valley PHU",
-    lphu_short == "GWSMPHU" ~ "Grampians PHU",
-    lphu_short == "OMPHU"   ~ "Ovens Murray PHU",
-    lphu_short == "VIC"     ~ "Victoria",
-    TRUE ~ NA_character_)) %>% 
+  dplyr::mutate(
+    lphu_short = dplyr::case_when(
+      lphu_short == "GPHU"    ~ "GRPHU",
+      lphu_short == "GWSMPHU" ~ "GPHU",
+      TRUE ~ as.character(lphu_short)),
+    #
+    lphu_long = dplyr::case_when(
+      lphu_short == "NEPHU"  ~ "North Eastern (NEPHU)",
+      lphu_short == "SEPHU"  ~ "South Eastern (SEPHU)",
+      lphu_short == "WPHU"   ~ "Western (WPHU)",
+      lphu_short == "BSWPHU" ~ "Barwon South West (BSWPHU)",
+      lphu_short == "LMPHU"  ~ "Loddon Mallee (LMPHU)",
+      lphu_short == "GRPHU"  ~ "Gippsland (GRPHU)",
+      lphu_short == "GVPHU"  ~ "Goulburn Valley (GVPHU)",
+      lphu_short == "GPHU"   ~ "Grampians (GPHU)",
+      lphu_short == "OMPHU"  ~ "Ovens Murray (OMPHU)",
+      lphu_short == "VIC"    ~ "Victoria",
+      TRUE ~ NA_character_)) %>% 
   #
-  dplyr::select(lphu_name = lga_name,
+  dplyr::select(lphu_short,
                 lphu_long,
                 aboriginal_n = tot_indigenous_p,
                 aboriginal_prop,
@@ -125,7 +132,95 @@ population_lphu <- aboriginal_lga %>%
                 non_aboriginal_n = tot_non_indigenous_p,
                 non_aboriginal_prop,
                 non_aboriginal_prop_per_lphu)
+```
 
+- Data for this indicator were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
+
+- NEPHU had the largest number of residents who identified as Aboriginal and/or Torres Strait Islander in the 2021 Census for the state of Victoria (n = 12,065), representing 0.7% of the NEPHU catchment population. 
+
+- 19% of Victorians who identified as Aboriginal and/or Torres Strait Islander reside in the NEPHU catchment. 
+
+- The proportion of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander was lower than for Victoria overall (n = 65,639, 1.0% of the state population). 
+
+:::: {.panel-tabset}
+
+### Figure 4A-1
+
+::: {#fig_4A_1 .fig-tab-title}
+**Figure 4A-1:** Number of people who identified as Aboriginal and/or Torres Strait Islander, Victoria, by LPHU, 2021
+:::
+
+```{r}
+#
+population_lphu %>% 
+  dplyr::filter(lphu_short != "VIC") %>% 
+  #
+  dplyr::mutate(n_text = paste0(lphu_long,
+                                "\nCount: ", format(aboriginal_n, big.mark = ","))) %>% 
+  #
+  f_graph_bar_simple(x_variable = lphu_short,
+                     y_variable = aboriginal_n,
+                     #
+                     y_max    = NA,
+                     y_breaks = 1500,
+                     y_expand = 300,
+                     y_title  = "Number of people")
+```
+
+### Table 4A-1
+
+::: {#tab_4A_1 .fig-tab-title}
+**Table 4A-1:** Number and percentage of LPHU catchment population who identified as Aboriginal and/or Torres Strait Islander, Victoria, by LPHU, 2021
+:::
+
+```{r}
+#
+table_headers <- c("LPHU",
+                   "Number of Aboriginal<br>and/or Torres Strait<br>Islander people",
+                   "% of total LPHU<br>population",
+                   "% of Victorian Aboriginal<br>and/or Torres Strait<br>Islander population")
+
+table_lphu <- population_lphu %>%
+  dplyr::select(lphu_long,
+                aboriginal_n,
+                aboriginal_prop,
+                aboriginal_prop_per_lphu) 
+
+#write.csv(table_lphu, paste0(here::here(), "/data", "/table_4a1", ".csv"), row.names = FALSE)
+
+table_lphu %>% 
+  dplyr::mutate(aboriginal_prop          = round(aboriginal_prop, digits = 1),
+                aboriginal_prop_per_lphu = round(aboriginal_prop_per_lphu, digits = 1)) %>% 
+  #
+  f_table_simple(total_row     = nrow(table_lphu),
+                 table_headers = table_headers)
+```
+
+:::{style="height: 1em;"}
+:::
+
+<a href="../data/table_4a1.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" collapse="false"}
+`r note_data_census`
+
+`r note_caveat_underidentification`
+:::
+
+::: {style="opacity: 0.75;"}
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+
+:::
+
+# Population Distribution and Density
+
+```{r}
 # ------------------------------------------------------------------------------
 # Total population by Aboriginality, by LGA
 # Data from ABS Census
@@ -206,6 +301,9 @@ population_sa2 <- aboriginal_sa2 %>%
                      dplyr::select(sa2_code, sa2_name),
                    by = c("sa2_code_2021" = "sa2_code")) %>% 
   #
+  dplyr::mutate(sa2_name = dplyr::case_when(is.na(sa2_name) ~ "NEPHU",
+                                            TRUE ~ sa2_name)) %>% 
+  #
   dplyr::select(sa2_code_2021,
                 sa2_name,
                 aboriginal_n = tot_indigenous_p,
@@ -224,8 +322,8 @@ density_lga <- dplyr::left_join(nephu_lga.sf,
                                   dplyr::select(lga_name, tot_indigenous_p),
                                 by = "lga_name") %>%
   #
-  dplyr::mutate(pop_dens       = round(tot_indigenous_p / areasqkm, 1), 
-                pop_dens_label = paste0(lga_name, "\n(", pop_dens, ")"))
+  dplyr::mutate(pop_dens     = round(tot_indigenous_p / areasqkm, 1), 
+                density_text = (paste0(lga_name, " LGA: ", format(pop_dens, big.mark = ","), " per square km")))
 
 # ------------------------------------------------------------------------------
 # Population density, by SA2
@@ -236,16 +334,11 @@ density_sa2 <- dplyr::left_join(nephu_sa2.sf,
                                   dplyr::select(sa2_code_2021, tot_indigenous_p),
                                 by = c("sa2_code" = "sa2_code_2021")) %>%
   #
-  dplyr::mutate(pop_dens = round(tot_indigenous_p / sa2_area, 1))
+  dplyr::mutate(pop_dens     = round(tot_indigenous_p / sa2_area, 1),
+                density_text = (paste0(sa2_name, ": ", format(pop_dens, big.mark = ","), " per square km")))
 ```
 
-- Data for this indicator were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
-
-- NEPHU had the largest number of residents who identified as Aboriginal and/or Torres Strait Islander in the 2021 Census for the state of Victoria (n = 12,065), representing 0.7% of the NEPHU catchment population. 
-
-- 19% of Victorians who identified as Aboriginal and/or Torres Strait Islander reside in the NEPHU catchment. 
-
-- The proportion of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander was lower than for Victoria overall (n = 65,639, 1.0% of the state population). 
+- Data for these indicators were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
 
 - The majority of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander reside in the Whittlesea (n = 2,270), Hume (n = 1,870), Yarra Ranges (n = 1,713), Darebin (n = 1,441), and Knox (n = 1,022) LGAs. 
 
@@ -257,59 +350,142 @@ density_sa2 <- dplyr::left_join(nephu_sa2.sf,
 
 :::: {.panel-tabset}
 
-### Figure 4A-1
+### Figure 4A-2
 
-::: {#fig_4A_1 .fig-tab-title}
-**Figure 4A-1:** Number of people who identified as Aboriginal and/or Torres Strait Islander, Victoria, by LPHU, 2021
-:::
-
-```{r}
-# Figure 4A-1
-population_lphu %>% 
-  dplyr::filter(lphu_name != "VIC") %>% 
-  #
-  dplyr::mutate(n_text = paste0(lphu_long,
-                                "\nCount: ", format(aboriginal_n, big.mark = ","))) %>% 
-  #
-  f_graph_bar_simple(x_variable = lphu_name,
-                     y_variable = aboriginal_n,
-                     #
-                     y_max    = NA,
-                     y_breaks = 1500,
-                     y_expand = 300,
-                     y_title  = "Number of people")
-```
-
-### Table 4A-1
-
-::: {#tab_4A_1 .fig-tab-title}
-**Table 4A-1:** Number and percentage of LPHU catchment population who identified as Aboriginal and/or Torres Strait Islander, Victoria, by LPHU, 2021
+::: {#fig_4A_2 .fig-tab-title}
+**Figure 4A-2:** Number of people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-table_headers <- c("LPHU",
-                   "Number of Aboriginal<br>and/or Torres Strait<br>Islander people",
-                   "% of total LPHU<br>population",
-                   "% of Victorian Aboriginal<br>and/or Torres Strait<br>Islander population")
-
-population_lphu %>%
-  dplyr::mutate(aboriginal_prop          = round(aboriginal_prop, digits = 1),
-                aboriginal_prop_per_lphu = round(aboriginal_prop_per_lphu, digits = 1)) %>% 
+population_lga %>% 
+  dplyr::filter(lga_name != "NEPHU") %>% 
   #
-  dplyr::select(lphu_long,
+  dplyr::mutate(n_text = paste0(lga_name, " LGA",
+                                "\nCount: ", format(aboriginal_n, big.mark = ","))) %>% 
+  #
+  f_graph_bar_simple(x_variable = lga_name,
+                     y_variable = aboriginal_n,
+                     #
+                     x_angle  = 90,
+                     y_max    = NA,
+                     y_breaks = 250,
+                     y_expand = 100,
+                     y_title  = "Number of people")
+```
+
+### Table 4A-2
+
+::: {#tab_4A_2 .fig-tab-title}
+**Table 4A-2:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+table_headers <- c("LGA",
+                   "Number of Aboriginal<br>and/or Torres Strait<br>Islander people",
+                   "% of total LGA<br>population",
+                   "% of NEPHU Aboriginal<br>and/or Torres Strait<br>Islander population")
+
+table_lga <- population_lga %>%
+  dplyr::select(lga_name,
                 aboriginal_n,
                 aboriginal_prop,
-                aboriginal_prop_per_lphu) %>% 
+                aboriginal_prop_per_lga)
+
+#write.csv(table_lga, paste0(here::here(), "/data", "/table_4a2", ".csv"), row.names = FALSE)
+
+table_lga %>% 
+  dplyr::mutate(aboriginal_prop         = round(aboriginal_prop, digits = 1),
+                aboriginal_prop_per_lga = round(aboriginal_prop_per_lga, digits = 1)) %>% 
   #
-  f_table_simple(total_row = 10,
+  f_table_simple(total_row     = nrow(table_lga),
                  table_headers = table_headers)
 ```
 
+:::{style="height: 1em;"}
+:::
+
+<a href="../data/table_4a2.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+### Figure 4A-3
+
+::: {#fig_4A_3 .fig-tab-title}
+**Figure 4A-3:** Population density (number of people per square km) for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+density_lga %>% 
+  f_graph_map_density()
+```
+
+### Figure 4A-4
+
+::: {#fig_4A_4 .fig-tab-title}
+**Figure 4A-4:** Population density (number of people per square km) for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by SA2, 2021
+:::
+
+```{r}
+#
+density_sa2 %>% 
+  f_graph_map_density()
+```
+
+### Table 4A-3
+
+::: {#tab_4A_3 .fig-tab-title}
+**Table 4A-3:** SA2s with at least 200 residents who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, 2021
+:::
+
+```{r}
+#
+table_headers <- c("SA2",
+                   "Number of Aboriginal<br>and/or Torres Strait<br>Islander people",
+                   "% of total SA2<br>population",
+                   "% of NEPHU Aboriginal<br>and/or Torres Strait<br>Islander population")
+
+table_sa2 <- population_sa2 %>%
+  dplyr::arrange(aboriginal_n) %>% 
+  #
+  dplyr::select(sa2_name,
+                aboriginal_n,
+                aboriginal_prop,
+                aboriginal_prop_per_sa2)
+
+#write.csv(table_sa2, paste0(here::here(), "/data", "/table_4a3", ".csv"), row.names = FALSE)
+
+table_sa2 %>% 
+  dplyr::filter(aboriginal_n >= 200 & sa2_name != "NEPHU") %>% 
+  #
+  dplyr::mutate(aboriginal_prop         = round(aboriginal_prop, digits = 1),
+                aboriginal_prop_per_sa2 = round(aboriginal_prop_per_sa2, digits = 1)) %>% 
+  #
+  dplyr::arrange(desc(aboriginal_n)) %>% 
+  #
+  f_table_simple(total_row     = NULL,
+                 table_headers = table_headers)
+```
+
+:::{style="height: 1em;"}
+:::
+
+<a href="../data/table_4a3.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+
 ::::
 
-
-
-
 ::: {.callout-note title="Data notes" collapse="false"}
+`r note_data_census`
+
+`r note_caveat_underidentification`
 :::
+
+::: {style="opacity: 0.75;"}
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+
+:::
+
