@@ -18,6 +18,7 @@ pacman::p_load(here,
                tidyverse,
                quarto,
                rlang,
+               glue,
                janitor,
                readxl,
                sf,
@@ -26,7 +27,8 @@ pacman::p_load(here,
                colorRamps,
                extrafont,
                ggnewscale,
-               plotly)
+               plotly,
+               leaflet)
 
 # ------------------------------------------------------------------------------
 # Data folders
@@ -35,6 +37,10 @@ root_folder <- str_extract(getwd(), "^.+Epidemiology")
 
 # NEPHU map objects
 load(file.path(root_folder, "Population Health Data/NEPHU Maps", "NEPHU_basemaps_sf.RData"))
+
+# Convert from GRS80 to WGS84 coordinate system for leaflet maps
+nephu_lga.sf <- st_transform(nephu_lga.sf, crs = 4326)
+nephu_sa2.sf <- st_transform(nephu_sa2.sf, crs = 4326)
 
 # ABS Census 2021
 census_lga_data_subfolder <- "Population Health Data/ABS Census Population Housing 2021 (GCP)/Data/LGA/VIC"
@@ -65,6 +71,7 @@ source(here::here("functions", "data prep", "f_read_natsihs.R"))
 source(here::here("functions", "data prep", "f_read_natsihs_sex.R"))
 
 source(here::here("functions", "graphs", "f_graph_bar_simple.R"))
+source(here::here("functions", "graphs", "f_graph_map_density.R"))
 
 source(here::here("functions", "graphs", "f_graph_grouped_lga.R"))
 source(here::here("functions", "graphs", "f_graph_grouped_agesex.R"))
@@ -109,9 +116,6 @@ nephu_lga <- nephu_lga.sf$lga_name
 nephu_poa <- nephu_poa.sf$poa_code
 nephu_sa2 <- nephu_sa2.sf$sa2_code
 nephu_sal <- nephu_sal.sf$sal_name
-
-# LGA labels to 'nudge' out of the way in maps
-nudge_lga <- c("Boroondara", "Darebin", "Yarra", "Maroondah", "Banyule")
 
 # IAREs
 iare_names <- c("Craigieburn - Sunbury", "Knox", "Maroondah", "Melbourne - East",
