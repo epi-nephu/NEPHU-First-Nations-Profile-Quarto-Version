@@ -11,14 +11,12 @@ book:
     - part: "4. Population"
       chapters: 
         - chapters/04a_population_size.qmd
+        - chapters/04b_population_growth.qmd
     - part: "5. Demographics"
     - part: "6. Socioeconomic Determinants of Health"
     - part: "7. Cultural Determinants of Health"
     - part: "8. Other Determinants of Health"
     - part: "9. Health Promoting and Risk Behaviours"
-      chapters:
-        - chapters/09a_preventive_healthyeating_example.qmd
-        - chapters/09b_preventive_physicalactivity_example.qmd
     - part: "10. Health Consequences"
     - references.qmd
 
@@ -44,5 +42,7 @@ execute:
   echo: false
   warning: false
   error: false
-  global: "setup.R"
+  global: 
+    - "setup.R"
+    - "footnotes.R"
 
