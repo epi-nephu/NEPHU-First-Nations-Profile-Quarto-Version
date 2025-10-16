@@ -1,0 +1,180 @@
+---
+title: "Population Growth"
+---
+
+```{r}
+#
+source(here::here("setup.R"))
+source(here::here("footnotes.R"))
+```
+
+::: key-question
+What are the drivers of population growth for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment?
+:::
+
+# Population Projections
+
+```{r}
+# ------------------------------------------------------------------------------
+# Population projections, with IARE breakdowns
+# Data from ABS Population Estimates and Projections
+# ------------------------------------------------------------------------------
+# Read in ABS data
+aboriginal_projections_iare <- readxl::read_xlsx(file.path(root_folder, 
+                                                           subfolder_projections, 
+                                                           "Aboriginal_IARE_Projections.xlsx"),
+                                                 skip = 1) %>% 
+  janitor::clean_names() %>% 
+  #
+  dplyr::select(iare_name = indigenous_regions,
+                erp_2021_number = x2021_no,
+                high_2031_number = x2031_high_series_no,
+                high_2031_rate = x2031_high_series_growth_rate_b_percent,
+                medium_2031_number = x2031_medium_series_no,
+                medium_2031_rate = x2031_medium_series_growth_rate_b_percent,
+                low_2031_number = x2031_low_series_no,
+                low_2031_rate = x2031_low_series_growth_rate_b_percent) %>%
+  #
+  dplyr::filter(!is.na(erp_2021_number))
+
+# Data wrangling
+aboriginal_projections_iare <- aboriginal_projections_iare %>% 
+  dplyr::filter(iare_name %in% c("Melbourne",
+                                 "Victoria exc. Melbourne",
+                                 "Victoria",
+                                 "Australia(c)")) %>% 
+  #
+  dplyr::mutate(
+    iare_name = dplyr::case_when(
+      iare_name == "Victoria exc. Melbourne" ~ "Rest of Victoria",
+      iare_name == "Australia(c)"            ~ "Australia",
+      #
+      TRUE ~ as.character(iare_name)))
+
+# Projections based on medium assumptions
+projections_medium <- aboriginal_projections_iare %>% 
+  dplyr::select(iare_name,
+                erp_2021_number,
+                medium_2031_number,
+                medium_2031_rate)
+```
+
+- Data for this indicator were obtained from [customised projections prepared by the ABS](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/estimates-and-projections-australian-aboriginal-and-torres-strait-islander-population/latest-release).
+
+- The Aboriginal and/or Torres Strait Islander population in the Greater Melbourne area is expected to grow from 2021-2031 at a rate of 1.9% per year, increasing from an estimated population of 38,217 in 2021 to 46,017 in 2031. 
+
+- This projected growth rate is slightly lower than the projected growth rate for Aboriginal and/or Torres Strait Islander people living in the rest of Victoria (2.3% per year) and Victoria overall (2.1% per year), but slightly higher than the projected growth rate for Aboriginal and/or Torres Strait Islander people living in Australia (1.8% per year). 
+
+:::: {.panel-tabset}
+
+### Table 4B-1
+
+::: {#tab_4B_1 .fig-tab-title}
+**Table 4B-1:** Population projections for Aboriginal and/or Torres Strait Islander people, Australia, by IARE, 2021 to 2031
+:::
+
+```{r}
+#
+table_headers <- c("IARE",
+                   "2021 population",
+                   "2031 population",
+                   "% growth per year")
+
+table_projections <- aboriginal_projections_iare %>%
+  dplyr::select(iare_name,
+                erp_2021_number,
+                medium_2031_number,
+                medium_2031_rate) 
+
+#write.csv(table_projections, paste0(here::here(), "/data", "/table_4b1", ".csv"), row.names = FALSE)
+
+table_projections %>%
+  f_table_simple(total_row     = nrow(table_projections),
+                 table_headers = table_headers)
+```
+
+:::{style="height: 1em;"}
+:::
+
+<a href="../data/table_4b1.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" collapse="false"}
+- These data are based on customised projections prepared for the Australian Government Department of Health by the ABS at the IARE level, and originally [published by the ABS](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/estimates-and-projections-australian-aboriginal-and-torres-strait-islander-population/latest-release). 
+
+- The baseline 2021 counts for comparison are based on [ABS Estimated Residential Population](https://www.abs.gov.au/statistics/people/population) calculations, which take into account the known under-reporting of Aboriginal and/or Torres Strait Islander status in the Census. 
+:::
+
+::: {style="opacity: 0.8;"}
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+
+:::
+
+# Birth Rate
+
+```{r}
+# ------------------------------------------------------------------------------
+# Birth rate, with IARE breakdowns
+# Data from AIHW Mothers and Babies
+# ------------------------------------------------------------------------------
+# Read in ABS data
+aboriginal_birthrate_iare <- readxl::read_xlsx(file.path(root_folder, 
+                                                         subfolder_birth, 
+                                                         "AIHW-PER-120-Aboriginal-Torres-Strait-Islander-mothers-babies-data-tables.xlsx"),
+                                               sheet = "Table 1.1",
+                                               skip  = 8) %>% 
+  janitor::clean_names()
+  
+# Data wrangling
+aboriginal_birthrate_iare <- aboriginal_birthrate_iare %>% 
+  dplyr::filter(year == 2020) %>% 
+  #
+  dplyr::filter(topic == "Indigenous region (IREG)" & category == "Melbourne" |
+                topic == "Indigenous region (IREG)" & category == "Victoria exc. Melbourne" |
+                topic == "Indigenous region (IREG)" & category == "Victoria exc. Melbourne" |
+                topic == "State or territory of birth" & category == "Vic" |
+                topic == "State or territory of birth" & category == "Australia") %>% 
+  #
+  dplyr::mutate(
+    iare_name = factor(dplyr::case_when(
+      category == "Melbourne"               ~ "Melbourne",
+      category == "Victoria exc. Melbourne" ~ "Rest of Victoria",
+      category == "Vic"                     ~ "Victoria",
+      category == "Australia"               ~ "Australia",
+      #
+      TRUE ~ NA_character_),
+      #
+      levels = c("Melbourne",
+                 "Rest of Victoria",
+                 "Victoria",
+                 "Australia")),
+    #
+    indigenous_status = dplyr::case_when(
+      indigenous_status == "Aboriginal and Torres Strait Islander" ~ "Aboriginal and/or Torres Strait Islander",
+      indigenous_status == "Non-Indigenous"                        ~ "Neither Aboriginal nor Torres Strait Islander",
+      #
+      TRUE ~ NA_character_)) %>% 
+  #
+  dplyr::select(iare_name,
+                indigenous_status,
+                number_births = number,
+                rate_births = number_per_1_000) %>% 
+  #
+  dplyr::arrange(iare_name, indigenous_status)
+```
+
+- Data for this indicator were obtained from the [AIHW Mothers and Babies Report](https://www.aihw.gov.au/reports/mothers-babies/australias-mothers-babies/contents/summary).
+
+  - Birth rate is calculated as the total number of births per 1,000 population as estimated by [ABS Estimated Residential Population](https://www.abs.gov.au/statistics/people/population) calculations. ERP calculations take into account the known under-reporting of Aboriginal and/or Torres Strait Islander status in the Census.
+
+- Birth rate is an important driver of population change for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment.
+
+- The birth rate for Aboriginal and/or Torres Strait Islander people for 2020 in Greater Melbourne (62 per 1,000 population) was lower than the birthrate for Aboriginal and/or Torres Strait Islander people in the rest of Victoria (87 per 1,000 population), all of Victoria combined (81 per 1,000 population), and Australia overall (75 per 1,000 population). 
+
+- Aboriginal and/or Torres Strait Islander people in Victoria during 2020 had higher birthrates (81 per 1,000 population) than non-Indigenous people in Victoria (55 per 1,000 population) and non-Indigenous people in Australia overall (55 per 1,000 population).
+
