@@ -1,5 +1,5 @@
 ---
-title: "4A. Population Size and Distribution"
+title: "Population Size and Distribution"
 ---
 
 ```{r}
@@ -16,7 +16,13 @@ When considering the total number of people who identify as Aboriginal and/or To
 
 NEPHU is the most populous LPHU in Victoria and has the largest number of residents who identify as Aboriginal and/or Torres Strait Islander. Whilst the Whittlesea and Hume LGAs have the highest absolute number of Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment, the population density is highest in the inner metro LGAs of Darebin and Yarra which have smaller geographical boundaries.
 
-:::{style="height: 1em;"}
+::: {style="opacity: 0.8;"}
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+
 :::
 
 # Population Size
@@ -209,7 +215,7 @@ table_lphu %>%
 `r note_caveat_underidentification`
 :::
 
-::: {style="opacity: 0.75;"}
+::: {style="opacity: 0.8;"}
 
 ```{r}
 #| out-width: "100%"
@@ -478,14 +484,5 @@ table_sa2 %>%
 `r note_data_census`
 
 `r note_caveat_underidentification`
-:::
-
-::: {style="opacity: 0.75;"}
-
-```{r}
-#| out-width: "100%"
-knitr::include_graphics(here::here("images", "banner_separator.png"))
-```
-
 :::
 
