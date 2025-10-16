@@ -15,6 +15,31 @@ header {
   background-position: center;
 }
 
+.page-navigation {
+  background-image: url('images/banner_separator.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.nav-page-text {
+  font-family: Arial;
+  font-weight: bold;
+  color: white;
+}
+
+.bi-arrow-left-short {
+  font-family: Arial;
+  font-weight: bold;
+  color: white;
+}
+
+.bi-arrow-right-short {
+  font-family: Arial;
+  font-weight: bold;
+  color: white;
+}
+
 .title {
   font-family: Arial;
   font-weight: bold;
@@ -28,7 +53,7 @@ h1 {
   font-weight: bold;
   font-size: 14pt;
   color: #4F81BD;
-  margin-top: 5pt;
+  margin-top: 0pt;
 }
 
 body {
