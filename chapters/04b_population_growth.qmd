@@ -107,12 +107,10 @@ table_projections %>%
 :::
 
 ::: {style="opacity: 0.8;"}
-
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-
 :::
 
 # Birth Rate
