@@ -4,13 +4,13 @@
 #
 # Chart type: simple bar chart
 
-f_graph_bar_simple <- function(data, x_variable, x_angle = 0, y_variable, y_max, y_breaks, y_expand, y_title) {
+f_graph_bar_simple <- function(data, x_variable, x_angle = 90, y_variable, y_max, y_breaks, y_expand, y_title) {
   
   x_variable <- rlang::enquo(x_variable)
   y_variable <- rlang::enquo(y_variable)
   
   figure <- data %>% 
-    ggplot(aes(x = forcats::fct_reorder(!!x_variable, desc(!!y_variable)), y = !!y_variable, text = n_text)) +
+    ggplot(aes(x = !!x_variable, y = !!y_variable, text = hover_text)) +
     #
     geom_col(col  = colour_black,
              fill = colour_lightblue) +
@@ -36,5 +36,16 @@ f_graph_bar_simple <- function(data, x_variable, x_angle = 0, y_variable, y_max,
   
   return(figure)
 
+}
+
+# Combine count and percentage charts into two-panel figure
+f_graph_bar_simple_combine <- function(figure_number, figure_percent) {
+  
+  figure <- plotly::subplot(figure_number, figure_percent,
+                            titleY = TRUE,
+                            margin = 0.05)
+  
+  return(figure)
+  
 }
 
