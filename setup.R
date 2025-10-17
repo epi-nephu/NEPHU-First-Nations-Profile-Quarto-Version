@@ -16,6 +16,7 @@ if (!require("pacman")) install.packages("pacman")
 
 pacman::p_load(here,
                tidyverse,
+               tidyr,
                quarto,
                rlang,
                glue,
@@ -63,26 +64,15 @@ subfolder_vcams       <- "Population Health Data/VCAMS/Data"
 # ------------------------------------------------------------------------------
 # Functions
 # ------------------------------------------------------------------------------
+source(here::here("functions", "data prep", "f_read_census_lga.R"))
 source(here::here("functions", "data prep", "f_read_census_population.R"))
 
-source(here::here("functions", "data prep", "f_read_census_lga.R"))
-source(here::here("functions", "data prep", "f_read_census_agesex.R"))
-source(here::here("functions", "data prep", "f_read_natsihs.R"))
-source(here::here("functions", "data prep", "f_read_natsihs_sex.R"))
-
+source(here::here("functions", "graphs", "f_graph_bar_population.R"))
 source(here::here("functions", "graphs", "f_graph_bar_simple.R"))
 source(here::here("functions", "graphs", "f_graph_map_density.R"))
-
-source(here::here("functions", "graphs", "f_graph_grouped_lga.R"))
-source(here::here("functions", "graphs", "f_graph_grouped_agesex.R"))
-source(here::here("functions", "graphs", "f_graph_survey_agesex.R"))
-source(here::here("functions", "graphs", "f_graph_survey_sex.R"))
+source(here::here("functions", "graphs", "f_graph_pyramid.R"))
 
 source(here::here("functions", "tables", "f_table_simple.R"))
-
-source(here::here("functions", "tables", "f_table_grouped.R"))
-source(here::here("functions", "tables", "f_table_survey_agesex.R"))
-source(here::here("functions", "tables", "f_table_survey_sex.R"))
 
 # ------------------------------------------------------------------------------
 # LGA reference data
