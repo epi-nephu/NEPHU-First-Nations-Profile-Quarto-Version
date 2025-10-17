@@ -2,7 +2,7 @@
 # Author: Alana Little, NEPHU (alana.little@austin.org.au)
 # Version 2.0, 15/08/2025
 #
-# Code for importing and wrangling data
+# Code for importing Census population data
 # Data source: ABS Census 2021
 # https://www.abs.gov.au/census
 
