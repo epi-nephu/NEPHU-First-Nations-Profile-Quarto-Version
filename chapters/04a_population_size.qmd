@@ -17,12 +17,10 @@ When considering the total number of people who identify as Aboriginal and/or To
 NEPHU is the most populous LPHU in Victoria and has the largest number of residents who identify as Aboriginal and/or Torres Strait Islander. Whilst the Whittlesea and Hume LGAs have the highest absolute number of Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment, the population density is highest in the inner metro LGAs of Darebin and Yarra which have smaller geographical boundaries.
 
 ::: {style="opacity: 0.8;"}
-
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-
 :::
 
 # Population Size
@@ -161,16 +159,14 @@ population_lphu <- aboriginal_lga %>%
 population_lphu %>% 
   dplyr::filter(lphu_short != "VIC") %>% 
   #
-  dplyr::mutate(n_text = paste0(lphu_long,
-                                "\nCount: ", format(aboriginal_n, big.mark = ","))) %>% 
+  dplyr::mutate(hover_text = paste0(lphu_long,
+                                    "\nCount: ", format(aboriginal_n, big.mark = ","))) %>% 
   #
-  f_graph_bar_simple(x_variable = lphu_short,
-                     y_variable = aboriginal_n,
-                     #
-                     y_max    = NA,
-                     y_breaks = 1500,
-                     y_expand = 300,
-                     y_title  = "Number of people")
+  f_graph_bar_population(x_variable = lphu_short,
+                         #
+                         y_max    = NA,
+                         y_breaks = 1500,
+                         y_expand = 300)
 ```
 
 ### Table 4A-1
@@ -216,12 +212,10 @@ table_lphu %>%
 :::
 
 ::: {style="opacity: 0.8;"}
-
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-
 :::
 
 # Population Distribution and Density
@@ -367,17 +361,15 @@ density_sa2 <- dplyr::left_join(nephu_sa2.sf,
 population_lga %>% 
   dplyr::filter(lga_name != "NEPHU") %>% 
   #
-  dplyr::mutate(n_text = paste0(lga_name, " LGA",
-                                "\nCount: ", format(aboriginal_n, big.mark = ","))) %>% 
+  dplyr::mutate(hover_text = paste0(lga_name, " LGA",
+                                    "\nCount: ", format(aboriginal_n, big.mark = ","))) %>% 
   #
-  f_graph_bar_simple(x_variable = lga_name,
-                     y_variable = aboriginal_n,
-                     #
-                     x_angle  = 90,
-                     y_max    = NA,
-                     y_breaks = 250,
-                     y_expand = 100,
-                     y_title  = "Number of people")
+  f_graph_bar_population(x_variable = lga_name,
+                         #
+                         x_angle  = 90,
+                         y_max    = NA,
+                         y_breaks = 250,
+                         y_expand = 100)
 ```
 
 ### Table 4A-2
