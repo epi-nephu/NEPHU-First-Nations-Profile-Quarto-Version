@@ -13,6 +13,8 @@ book:
         - chapters/04a_population_size.qmd
         - chapters/04b_population_growth.qmd
     - part: "5. Demographics"
+      chapters: 
+        - chapters/05a_demographics_agesex.qmd
     - part: "6. Socioeconomic Determinants of Health"
     - part: "7. Cultural Determinants of Health"
     - part: "8. Other Determinants of Health"
@@ -42,7 +44,4 @@ execute:
   echo: false
   warning: false
   error: false
-  global: 
-    - "setup.R"
-    - "footnotes.R"
 
