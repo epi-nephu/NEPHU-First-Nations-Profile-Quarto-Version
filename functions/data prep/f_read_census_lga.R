@@ -7,7 +7,7 @@
 # https://www.abs.gov.au/census
 
 # ------------------------------------------------------------------------------
-# Read in Census TableBuilder data - by LGA ----
+# Read in Census TableBuilder data - by LGA
 # ------------------------------------------------------------------------------
 f_read_census_lga <- function(file, variable) {
   
@@ -53,7 +53,7 @@ f_read_census_lga <- function(file, variable) {
 }
 
 # ------------------------------------------------------------------------------
-# Wrangle Census TableBuilder data - by LGA ----
+# Wrangle Census TableBuilder data - by LGA
 # ------------------------------------------------------------------------------
 f_wrangle_census_lga <- function(data, variable, level, dichot) {
   
