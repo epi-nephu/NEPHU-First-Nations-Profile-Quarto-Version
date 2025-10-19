@@ -8,8 +8,24 @@ source(here::here("setup.R"))
 source(here::here("footnotes.R"))
 ```
 
-::: key-question
+::: {.key-question}
 What are the drivers of population growth for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment?
+:::
+
+::: {.consultation-box}
+***A note about the impact of under-identification***
+
+`r note_box_underidentification`
+:::
+
+:::{style="height: 1em;"}
+:::
+
+::: {style="opacity: 0.8;"}
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
 :::
 
 # Population Projections
