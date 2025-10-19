@@ -8,13 +8,18 @@ source(here::here("setup.R"))
 source(here::here("footnotes.R"))
 ```
 
-::: key-question
+::: {.key-question}
 How many people who identify as Aboriginal and/or Torres Strait Islander live in the NEPHU catchment and where do they reside?
 :::
 
-When considering the total number of people who identify as Aboriginal and/or Torres Strait Islander, under-identification is a key consideration. The impact of this is that population numbers are likely to be underestimated, and the true population number is likely to be higher than what is reported here. This needs to be considered not only within this section but throughout this report, and has implications not only for population size, but also for any inferences about service requirements. 
+::: {.consultation-box}
+***A note about the impact of under-identification***
 
-NEPHU is the most populous LPHU in Victoria and has the largest number of residents who identify as Aboriginal and/or Torres Strait Islander. Whilst the Whittlesea and Hume LGAs have the highest absolute number of Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment, the population density is highest in the inner metro LGAs of Darebin and Yarra which have smaller geographical boundaries.
+`r note_box_underidentification`
+:::
+
+:::{style="height: 1em;"}
+:::
 
 ::: {style="opacity: 0.8;"}
 ```{r}
