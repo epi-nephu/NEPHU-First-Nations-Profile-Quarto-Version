@@ -8,14 +8,18 @@ source(here::here("setup.R"))
 source(here::here("footnotes.R"))
 ```
 
-::: key-question
+::: {.key-question}
 What is the age and sex structure of Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment?
 :::
 
-::: consultation-box
-***A note on the definition of older Aboriginal and/or Torres Strait Islander people*** 
+::: {.consultation-box}
+***A note about the impact of under-identification***
 
-Older Aboriginal and/or Torres Strait Islander people are defined as those aged 50 years and over. This is the [age range used by the Australian Institute of Health and Welfare](https://www.aihw.gov.au/reports/older-people/older-australians/contents/population-groups-of-interest/indigenous-australians), because Aboriginal and Torres Strait Islander people are more likely to develop serious medical conditions earlier in life and have a lower life expectancy than non-Indigenous Australians. 
+`r note_box_underidentification` 
+
+***A note about the definition of older Aboriginal and/or Torres Strait Islander people***
+
+`r note_box_olderage` 
 :::
 
 :::{style="height: 1em;"}
