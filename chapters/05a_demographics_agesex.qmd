@@ -25,13 +25,6 @@ What is the age and sex structure of Aboriginal and/or Torres Strait Islander pe
 :::{style="height: 1em;"}
 :::
 
-::: {style="opacity: 0.8;"}
-```{r}
-#| out-width: "100%"
-knitr::include_graphics(here::here("images", "banner_separator.png"))
-```
-:::
-
 # Age and Sex Distribution
 
 ```{r}
@@ -280,10 +273,10 @@ agesex_lphu %>%
                                     "\nRegion: ", region,
                                     "\nPercentage: ", sprintf("%.1f", abs(aboriginal_prop)))) %>% 
   #
-  f_graph_pyramid(prop_variable = aboriginal_prop,
-                  fill_variable = lphu_short,
-                  fill_values   = c("NEPHU" = colour_darkblue,
-                                    "VIC"   = colour_dodgerblue))
+  f_pyramid(prop_variable = aboriginal_prop,
+            fill_variable = lphu_short,
+            fill_values   = c("NEPHU" = colour_gradient_mid,
+                              "VIC"   = colour_table_dark))
 ```
 
 ### Figure 5A-2
@@ -325,10 +318,10 @@ agesex_lphu %>%
                         "\nIndigenous status: ", aboriginal_label,
                         "\nPercentage: ", sprintf("%.1f", abs(prop)))) %>% 
   #
-  f_graph_pyramid(prop_variable = prop,
-                  fill_variable = aboriginal_status,
-                  fill_values   = c("Identified as Aboriginal\nand/or Torres Strait Islander"       = colour_lightblue,
-                                    "Did not identify as Aboriginal\nand/or Torres Strait Islander" = colour_burgundy))
+  f_pyramid(prop_variable = prop,
+            fill_variable = aboriginal_status,
+            fill_values   = c("Identified as Aboriginal\nand/or Torres Strait Islander"       = colour_lightblue,
+                              "Did not identify as Aboriginal\nand/or Torres Strait Islander" = colour_burgundy))
 ```
 
 ### Figure 5A-3
@@ -375,11 +368,11 @@ for (i in nephu_lga) {
                         "\nIndigenous status: ", aboriginal_label,
                         "\nPercentage: ", sprintf("%.1f", abs(prop)))) %>% 
   #
-  f_graph_pyramid(chart_title   = paste0(i, " LGA"),
-                  prop_variable = prop,
-                  fill_variable = aboriginal_status,
-                  fill_values   = c("Identified as Aboriginal\nand/or Torres Strait Islander"       = colour_lightblue,
-                                    "Did not identify as Aboriginal\nand/or Torres Strait Islander" = colour_burgundy))
+  f_pyramid(chart_title   = paste0(i, " LGA"),
+            prop_variable = prop,
+            fill_variable = aboriginal_status,
+            fill_values   = c("Identified as Aboriginal\nand/or Torres Strait Islander"       = colour_lightblue,
+                              "Did not identify as Aboriginal\nand/or Torres Strait Islander" = colour_burgundy))
   
 }
 
@@ -476,13 +469,13 @@ figure_number <- women_lga %>%
   dplyr::mutate(hover_text = paste0("LGA: ", lga_name,
                                     "\nCount: ", format(aboriginal_n, big.mark = ","))) %>%
   #
-  f_graph_bar_simple(x_variable = lga_name,
-                     y_variable = aboriginal_n,
-                     #
-                     y_max    = NA,
-                     y_breaks = 100,
-                     y_expand = 50,
-                     y_title  = "Number of women")
+  f_bar_simple(x_variable = lga_name,
+               y_variable = aboriginal_n,
+               #
+               y_max    = NA,
+               y_breaks = 100,
+               y_expand = 50,
+               y_title  = "Number of women")
 
 figure_percent <- women_lga %>% 
   dplyr::filter(lga_name %in% nephu_lga) %>% 
@@ -490,15 +483,15 @@ figure_percent <- women_lga %>%
   dplyr::mutate(hover_text = paste0("LGA: ", lga_name,
                                     "\nPercentage: ", sprintf("%.1f", aboriginal_prop))) %>%
   #
-  f_graph_bar_simple(x_variable = lga_name,
-                     y_variable = aboriginal_prop,
-                     #
-                     y_max    = 100,
-                     y_breaks = 10,
-                     y_expand = 1,
-                     y_title  = "Percentage of women")
+  f_bar_simple(x_variable = lga_name,
+               y_variable = aboriginal_prop,
+               #
+               y_max    = 100,
+               y_breaks = 10,
+               y_expand = 1,
+               y_title  = "Percentage of women")
 
-f_graph_bar_simple_combine(figure_number, figure_percent)
+f_bar_simple_combine(figure_number, figure_percent)
 ```
 
 ### Table 5A-1
@@ -513,18 +506,18 @@ table_headers <- c("LGA",
                    "Number of Aboriginal<br>and/or Torres Strait<br>Islander women",
                    "% of Aboriginal<br>and/or Torres Strait<br>Islander women")
 
-table_lga <- women_lga %>%
+table <- women_lga %>%
   dplyr::filter(lga_name %in% c(nephu_lga, "NEPHU")) %>% 
   dplyr::select(lga_name,
                 aboriginal_n,
                 aboriginal_prop)
 
-#write.csv(table_lga, paste0(here::here(), "/data", "/table_5a1", ".csv"), row.names = FALSE)
+#write.csv(table, paste0(here::here(), "/data", "/table_5a1", ".csv"), row.names = FALSE)
 
-table_lga %>% 
+table %>% 
   dplyr::mutate(aboriginal_prop = round(aboriginal_prop, digits = 1)) %>% 
   #
-  f_table_simple(total_row     = nrow(table_lga),
+  f_table_simple(total_row     = nrow(table),
                  table_headers = table_headers)
 ```
 
