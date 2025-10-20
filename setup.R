@@ -64,13 +64,13 @@ subfolder_vcams       <- "Population Health Data/VCAMS/Data"
 # ------------------------------------------------------------------------------
 # Functions
 # ------------------------------------------------------------------------------
-source(here::here("functions", "data prep", "f_read_census_lga.R"))
-source(here::here("functions", "data prep", "f_read_census_population.R"))
+source(here::here("functions", "data prep", "f_read_census.R"))
 
-source(here::here("functions", "graphs", "f_graph_bar_population.R"))
-source(here::here("functions", "graphs", "f_graph_bar_simple.R"))
-source(here::here("functions", "graphs", "f_graph_map_density.R"))
-source(here::here("functions", "graphs", "f_graph_pyramid.R"))
+source(here::here("functions", "graphs", "f_bar_population.R"))
+source(here::here("functions", "graphs", "f_bar_simple.R"))
+source(here::here("functions", "graphs", "f_bar_simple_sex.R"))
+source(here::here("functions", "graphs", "f_map_density.R"))
+source(here::here("functions", "graphs", "f_pyramid.R"))
 
 source(here::here("functions", "tables", "f_table_simple.R"))
 
