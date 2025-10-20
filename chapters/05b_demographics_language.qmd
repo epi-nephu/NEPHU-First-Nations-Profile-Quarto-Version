@@ -1,0 +1,484 @@
+---
+title: "Language"
+---
+
+```{r}
+#
+source(here::here("setup.R"))
+source(here::here("footnotes.R"))
+```
+
+::: {.consultation-box}
+***A note about the impact of under-identification***
+
+`r note_box_underidentification`
+:::
+
+:::{style="height: 1em;"}
+:::
+
+::: {.key-question}
+What proportion of Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment speak an Aboriginal and/or Torres Strait Islander language at home?
+:::
+
+# Aboriginal and/or Torres Strait Islander Languages
+
+::: {.ctg-box}
+**This indicator aligns with Closing the Gap Outcome Area 16: Cultures and languages are strong, supported and flourishing**
+
+Target: By 2031, there is a sustained increase in number and strength of Aboriginal and/or Torres Strait Islander languages being spoken.
+:::
+
+:::{style="height: 1em;"}
+:::
+
+::: {.consultation-box}
+***Key points from stakeholder consultation***
+
+- As discussed in stakeholder consultations during the development of this report, these data may not be a true indicator of Closing the Gap Target 16, as there may be an increase in people who are learning and speaking Aboriginal and/or Torres Strait Islander languages but not necessarily speaking their language at home. 
+
+- It was also discussed that higher engagement amongst young people and children may be partly due to the success of community-driven language teaching efforts. The [Victorian Aboriginal Corporation for Languages (VACL)](https://vacl.org.au/) assists local communities with language revitalisation plans by running language camps, school programs, and events. For example, they have [partnered with Thornbury Primary School since 2012](https://www.vaeai.org.au/6895/), where students from Prep to Grade 6 have been learning Woiwurrung, the language of the Wurundjeri People.
+:::
+
+:::{style="height: 1em;"}
+:::
+
+```{r}
+# ------------------------------------------------------------------------------
+# Aboriginal language spoken at home, by LGA
+# Data from ABS Census using TableBuilderPro
+# ------------------------------------------------------------------------------
+# Read in Census data
+language_any_lga <- f_read_census_lga("Aboriginal_Language_LGA.csv",
+                                      variable = "language_home") %>% 
+  #
+  dplyr::filter(language_home != "Not stated")
+
+# Data wrangling
+language_any_lga <- language_any_lga %>%
+  #
+  dplyr::mutate(language_home = dplyr::case_when(
+    language_home == "Aboriginal and/or Torres Strait Islander Language used at home" ~ "yes",
+    TRUE ~ "no")) %>% 
+  #
+  f_wrangle_census_lga(variable = language_home,
+                       level    = "person",
+                       dichot   = "yes")
+
+# ------------------------------------------------------------------------------
+# Aboriginal language spoken at home, by age and sex
+# Data from ABS Census using TableBuilderPro
+# ------------------------------------------------------------------------------
+# Read in Census data
+language_any_agesex <- f_read_census_agesex("Aboriginal_Language_AgeSex.csv",
+                                            variable = "language_home") %>% 
+  #
+  dplyr::filter(language_home != "Not stated")
+
+# Data wrangling
+language_any_agesex <- language_any_agesex %>% 
+  #
+  dplyr::mutate(language_home = dplyr::case_when(
+    language_home == "Aboriginal and/or Torres Strait Islander Language used at home" ~ "yes",
+    TRUE ~ "no")) %>% 
+  #
+  f_wrangle_census_agesex(variable = language_home,
+                          dichot   = "yes")
+
+# ------------------------------------------------------------------------------
+# Aboriginal and/or Torres Strait Islander languages
+# Data from ABS Census using TableBuilderPro
+# ------------------------------------------------------------------------------
+# Read in Census data
+language_specific <- f_read_census_lga("Aboriginal_Language_Specific.csv",
+                                       variable = "language")
+
+# Data wrangling
+language_specific <- language_specific %>%
+  dplyr::filter(lga_name %in% c(nephu_lga)) %>%
+  #
+  dplyr::mutate(language = dplyr::case_when(
+    language == "Australian Indigenous Languages, nfd"       ~ "Australian Indigenous Languages",
+    language == "Other Australian Indigenous Languages, nec" ~ "Australian Indigenous Languages",
+    language == "Aboriginal English, so described"           ~ "Aboriginal English",
+    language == "Torres Strait Island Languages, nfd"        ~ "Torres Strait Island Languages",
+    #
+    TRUE ~ as.character(language))) %>% 
+  #
+  dplyr::mutate(aboriginal_n = aboriginal + torres_strait_islander + both_aboriginal_and_torres_strait_islander) %>%
+  #
+  dplyr::group_by(language) %>%
+  dplyr::summarise(aboriginal_n = sum(aboriginal_n)) %>%
+  dplyr::ungroup() %>% 
+  #
+  dplyr::filter(aboriginal_n > 0) %>% 
+  #
+  dplyr::arrange(desc(aboriginal_n), language) %>% 
+  #
+  janitor::adorn_totals() %>% 
+  #
+  dplyr::mutate(aboriginal_prop = aboriginal_n / 12065 * 100)
+```
+
+- Data for these indicators were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
+
+- Overall, 2.1% (n = 250) of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census reported speaking an Aboriginal and/or Torres Strait Islander language at home.
+
+- The number of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who reported speaking an Aboriginal and/or Torres Strait Islander language at home ranged from 62 (Darebin LGA) to 0 (Nillumbik LGA). 
+
+- The percentage of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who reported speaking an Aboriginal and/or Torres Strait Islander language at home ranged from 7.6% (Yarra LGA) to 0.0% (Nillumbik LGA). 
+
+- Younger people (aged < 40 years) were more likely to report speaking an Aboriginal and/or Torres Strait Islander language, with no speakers aged > 60 years reported in the NEPHU catchment. There were a higher number of female speakers than male speakers across most age groups (except 40-49 years). 
+
+- Data on which languages were spoken were available for 181 people. The most common languages spoken at home by people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander were Australian Indigenous Languages (including those not further described or not elsewhere classified) (n = 73), Yorta Yorta (n = 27), Nyungar (n = 15), and Aboriginal English (n = 11).
+
+:::: {.panel-tabset}
+
+### Figure 5B-1
+
+::: {#fig_5B_1 .fig-tab-title}
+**Figure 5B-1:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander who speak an Aboriginal and/or Torres Strait Islander language at home, NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+figure_number <- language_any_lga %>% 
+  dplyr::filter(lga_name %in% nephu_lga) %>% 
+  #
+  dplyr::mutate(hover_text = paste0("LGA: ", lga_name,
+                                    "\nCount: ", format(aboriginal_n, big.mark = ","))) %>%
+  #
+  f_bar_simple(x_variable = lga_name,
+               y_variable = aboriginal_n,
+               #
+               y_max    = NA,
+               y_breaks = 10,
+               y_expand = 10,
+               y_title  = "Number of people")
+
+figure_percent <- language_any_lga %>% 
+  dplyr::filter(lga_name %in% nephu_lga) %>% 
+  #
+  dplyr::mutate(hover_text = paste0("LGA: ", lga_name,
+                                    "\nPercentage: ", sprintf("%.1f", aboriginal_prop))) %>%
+  #
+  f_bar_simple(x_variable = lga_name,
+               y_variable = aboriginal_prop,
+               #
+               y_max    = 10,
+               y_breaks = 1,
+               y_expand = 0.1,
+               y_title  = "Percentage of people")
+
+f_bar_simple_combine(figure_number, figure_percent)
+```
+
+### Table 5B-1
+
+::: {#tab_5B-1 .fig-tab-title}
+**Table 5B-1:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander who speak an Aboriginal and/or Torres Strait Islander language at home, NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+table_headers <- c("LGA",
+                   "Number speaking language",
+                   "% speaking language")
+
+table <- language_any_lga %>%
+  dplyr::filter(lga_name %in% c(nephu_lga, "NEPHU")) %>% 
+  dplyr::select(lga_name,
+                aboriginal_n,
+                aboriginal_prop)
+
+#write.csv(table, paste0(here::here(), "/data", "/table_5b1", ".csv"), row.names = FALSE)
+
+table %>% 
+  dplyr::mutate(aboriginal_prop = round(aboriginal_prop, digits = 1)) %>% 
+  #
+  f_table_simple(total_row     = nrow(table),
+                 table_headers = table_headers)
+```
+
+:::{style="height: 1em;"}
+:::
+
+<a href="../data/table_5b1.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+### Figure 5B-2
+
+::: {#fig_5B_2 .fig-tab-title}
+**Figure 5B-2:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander who speak an Aboriginal and/or Torres Strait Islander language at home, NEPHU catchment, by age and sex, 2021
+:::
+
+```{r}
+#
+figure_number <- language_any_agesex %>% 
+  dplyr::filter(age_group %in% age_group_lvl) %>% 
+  #
+  dplyr::mutate(hover_text = paste0("\nSex: ", sex,
+                                    "\nAge group: ", age_group,
+                                    "\nCount: ", format(aboriginal_n, big.mark = ","))) %>%
+  #
+  f_bar_simple_sex(x_variable = age_group,
+                   y_variable = aboriginal_n,
+                   #
+                   y_max    = NA,
+                   y_breaks = 5,
+                   y_expand = 3,
+                   y_title  = "Number of people")
+
+figure_percent <- language_any_agesex %>% 
+  dplyr::filter(age_group %in% age_group_lvl) %>% 
+  #
+  dplyr::mutate(hover_text = paste0("\nSex: ", sex,
+                                    "\nAge group: ", age_group,
+                                    "\nPercentage: ", sprintf("%.1f", aboriginal_prop))) %>%
+  #
+  f_bar_simple_sex(x_variable = age_group,
+                   y_variable = aboriginal_prop,
+                   #
+                   y_max    = 5,
+                   y_breaks = 0.5,
+                   y_expand = 0.05,
+                   y_title  = "Percentage of people")
+
+f_bar_simple_sex_combine(figure_number, figure_percent)
+```
+
+### Table 5B-2
+
+::: {#tab_5B-2 .fig-tab-title}
+**Table 5B-2:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander who speak an Aboriginal and/or Torres Strait Islander language at home, NEPHU catchment, by age and sex, 2021
+:::
+
+```{r}
+#
+table_headers <- c("Age group",
+                   "n", "%", "n", "%", "n")
+
+table <- language_any_agesex %>% 
+  dplyr::select(age_group,
+                sex,
+                aboriginal_n,
+                aboriginal_prop) %>%
+  #
+  tidyr::pivot_wider(names_from  = sex,
+                     values_from = c("aboriginal_n", "aboriginal_prop"),
+                     names_vary  = "slowest") %>% 
+  #
+  janitor::clean_names() %>% 
+  #
+  dplyr::mutate(aboriginal_n_total = aboriginal_n_female + aboriginal_n_male)
+
+#write.csv(table, paste0(here::here(), "/data", "/table_5b2", ".csv"), row.names = FALSE)
+
+table %>% 
+  dplyr::mutate(aboriginal_prop_female = round(aboriginal_prop_female, digits = 1),
+                aboriginal_prop_male   = round(aboriginal_prop_male, digits = 1)) %>% 
+  #
+  f_table_simple(total_row     = nrow(table),
+                 table_headers = table_headers) %>% 
+  #
+  kableExtra::add_header_above(c(" "      = 1,
+                                 "Female" = 2,
+                                 "Male"   = 2,
+                                 "Total"  = 1)) %>% 
+  kableExtra::column_spec(2:6,
+                          width = "1in")
+```
+
+:::{style="height: 1em;"}
+:::
+
+<a href="../data/table_5b2.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+### Figure 5B-3
+
+::: {#fig_5B_3 .fig-tab-title}
+**Figure 5B-3:** Aboriginal and/or Torres Strait Islander languages spoken by people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, 2021
+:::
+
+```{r}
+#
+language_specific %>% 
+  dplyr::filter(language != "Total") %>%
+  #
+  dplyr::mutate(hover_text = paste0("\nLanguage: ", language,
+                                    "\nCount: ", format(aboriginal_n, big.mark = ","))) %>%
+  #
+  f_bar_simple_flip(x_variable = forcats::fct_reorder(factor(language), aboriginal_n, .desc = TRUE),
+                    y_variable = aboriginal_n,
+                    #
+                    y_max    = NA,
+                    y_breaks = 5,
+                    y_expand = 4,
+                    x_title  = "Number of people")
+```
+
+### Table 5B-3
+
+::: {#tab_5B-3 .fig-tab-title}
+**Table 5B-3:** Aboriginal and/or Torres Strait Islander languages spoken by people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, 2021
+:::
+
+```{r}
+#
+table_headers <- c("Language",
+                   "Number of people",
+                   "% of people")
+
+table <- language_specific
+
+#write.csv(table, paste0(here::here(), "/data", "/table_5b3", ".csv"), row.names = FALSE)
+
+table %>% 
+  dplyr::mutate(aboriginal_prop = round(aboriginal_prop, digits = 2)) %>% 
+  #
+  f_table_simple(total_row     = nrow(table),
+                 table_headers = table_headers)
+```
+
+:::{style="height: 1em;"}
+:::
+
+<a href="../data/table_5b3.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" collapse="false"}
+`r note_data_census`
+
+`r note_caveat_underidentification`
+
+`r note_caveat_unknown_agesex`
+
+- When a person listed more than one language, responses were accepted in the order they appeared on the Census form. The first response was included in the data and any extra responses were rejected.
+
+- Woiwurrung is included under Australian Indigenous Languages.
+
+- *Australian Indigenous Languages* includes languages not further described and languages not elsewhere classified.
+:::
+
+::: {style="opacity: 0.8;"}
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+:::
+
+# Languages Other Than English
+
+::: {.key-question}
+What proportion of Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment use other languages at home?
+:::
+
+```{r}
+# ------------------------------------------------------------------------------
+# Other languages
+# Data from ABS Census using TableBuilderPro
+# ------------------------------------------------------------------------------
+# Read in Census data
+language_other <- f_read_census_lga("Aboriginal_Language_Other.csv",
+                                    variable = "language")
+
+# Data wrangling
+language_other <- language_other %>%
+  dplyr::filter(lga_name %in% c(nephu_lga)) %>%
+  #
+  dplyr::filter(!language %in% c("English", "Not stated", "Inadequately described", "Non-verbal, so described")) %>% 
+  #
+  dplyr::mutate(aboriginal_n = aboriginal + torres_strait_islander + both_aboriginal_and_torres_strait_islander) %>%
+  #
+  dplyr::group_by(language) %>%
+  dplyr::summarise(aboriginal_n = sum(aboriginal_n)) %>%
+  dplyr::ungroup() %>% 
+  #
+  dplyr::filter(aboriginal_n > 0) %>% 
+  #
+  dplyr::arrange(desc(aboriginal_n), language) %>% 
+  #
+  janitor::adorn_totals() %>% 
+  #
+  dplyr::mutate(aboriginal_prop = aboriginal_n / 12065 * 100)
+```
+
+- Overall, 2.1% (n = 248) of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census reported using a language other than English or other than an Aboriginal and/or Torres Strait Islander language at home. 
+
+- The most common languages spoken at home by people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander were Italian (n = 38), Mandarin (n = 38), Arabic (n = 20), Greek (n = 19), and Spanish (n = 19). 
+
+- 27 people reporting using Auslan at home.
+
+:::: {.panel-tabset}
+
+### Figure 5B-4
+
+::: {#fig_5B_4 .fig-tab-title}
+**Figure 5B-4:** Other languages used by people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, 2021
+:::
+
+```{r}
+#
+language_other %>% 
+  dplyr::filter(language != "Total") %>%
+  #
+  dplyr::mutate(hover_text = paste0("\nLanguage: ", language,
+                                    "\nCount: ", format(aboriginal_n, big.mark = ","))) %>%
+  #
+  f_bar_simple_flip(x_variable = forcats::fct_reorder(factor(language), aboriginal_n, .desc = TRUE),
+                    y_variable = aboriginal_n,
+                    #
+                    y_max    = NA,
+                    y_breaks = 5,
+                    y_expand = 3,
+                    x_title  = "Number of people")
+```
+
+### Table 5B-4
+
+::: {#tab_5B-4 .fig-tab-title}
+**Table 5B-4:** Other languages used by people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, 2021
+:::
+
+```{r}
+#
+table_headers <- c("Language",
+                   "Number of people",
+                   "% of people")
+
+table <- language_other
+
+#write.csv(table, paste0(here::here(), "/data", "/table_5b4", ".csv"), row.names = FALSE)
+
+table %>% 
+  dplyr::mutate(aboriginal_prop = round(aboriginal_prop, digits = 2)) %>% 
+  #
+  f_table_simple(total_row     = nrow(table),
+                 table_headers = table_headers)
+```
+
+:::{style="height: 1em;"}
+:::
+
+<a href="../data/table_5b4.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" collapse="false"}
+`r note_data_census`
+
+`r note_caveat_underidentification`
+
+`r note_caveat_unknown_agesex`
+
+- When a person listed more than one language, responses were accepted in the order they appeared on the Census form. The first response was included in the data and any extra responses were rejected.
+:::
+
+::: {style="opacity: 0.8;"}
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+:::
+
+# English Proficiency
