@@ -93,6 +93,25 @@ li > ul {
   margin-bottom: 0pt !important;
 }
 
+.ctg-box {
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background: #CBC3E3;
+  color: black;
+  border: 2px solid darkorchid;
+  border-radius: 10px;
+}
+
+.ctg-box ul {
+  margin-top: 0pt !important;
+  margin-bottom: 0pt !important;
+}
+
+.ctg-box ul li {
+  margin-bottom: 0pt !important;
+}
+
 .question-box {
   padding: 10px;
   background: white;
