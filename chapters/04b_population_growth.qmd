@@ -21,13 +21,6 @@ What are the drivers of population growth for Aboriginal and/or Torres Strait Is
 :::{style="height: 1em;"}
 :::
 
-::: {style="opacity: 0.8;"}
-```{r}
-#| out-width: "100%"
-knitr::include_graphics(here::here("images", "banner_separator.png"))
-```
-:::
-
 # Population Projections
 
 ```{r}
@@ -96,16 +89,16 @@ table_headers <- c("IARE",
                    "2031 population",
                    "% growth per year")
 
-table_projections <- aboriginal_projections_iare %>%
+table <- aboriginal_projections_iare %>%
   dplyr::select(iare_name,
                 erp_2021_number,
                 medium_2031_number,
                 medium_2031_rate) 
 
-#write.csv(table_projections, paste0(here::here(), "/data", "/table_4b1", ".csv"), row.names = FALSE)
+#write.csv(table, paste0(here::here(), "/data", "/table_4b1", ".csv"), row.names = FALSE)
 
-table_projections %>%
-  f_table_simple(total_row     = nrow(table_projections),
+table %>%
+  f_table_simple(total_row     = nrow(table),
                  table_headers = table_headers)
 ```
 
