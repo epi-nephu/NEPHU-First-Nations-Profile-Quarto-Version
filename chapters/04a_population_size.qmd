@@ -21,13 +21,6 @@ How many people who identify as Aboriginal and/or Torres Strait Islander live in
 :::{style="height: 1em;"}
 :::
 
-::: {style="opacity: 0.8;"}
-```{r}
-#| out-width: "100%"
-knitr::include_graphics(here::here("images", "banner_separator.png"))
-```
-:::
-
 # Population Size
 
 ```{r}
@@ -167,11 +160,11 @@ population_lphu %>%
   dplyr::mutate(hover_text = paste0(lphu_long,
                                     "\nCount: ", format(aboriginal_n, big.mark = ","))) %>% 
   #
-  f_graph_bar_population(x_variable = lphu_short,
-                         #
-                         y_max    = NA,
-                         y_breaks = 1500,
-                         y_expand = 300)
+  f_bar_population(x_variable = lphu_short,
+                   #
+                   y_max    = NA,
+                   y_breaks = 1500,
+                   y_expand = 300)
 ```
 
 ### Table 4A-1
@@ -187,19 +180,19 @@ table_headers <- c("LPHU",
                    "% of total LPHU<br>population",
                    "% of Victorian Aboriginal<br>and/or Torres Strait<br>Islander population")
 
-table_lphu <- population_lphu %>%
+table <- population_lphu %>%
   dplyr::select(lphu_long,
                 aboriginal_n,
                 aboriginal_prop,
                 aboriginal_prop_per_lphu) 
 
-#write.csv(table_lphu, paste0(here::here(), "/data", "/table_4a1", ".csv"), row.names = FALSE)
+#write.csv(table, paste0(here::here(), "/data", "/table_4a1", ".csv"), row.names = FALSE)
 
-table_lphu %>% 
+table %>% 
   dplyr::mutate(aboriginal_prop          = round(aboriginal_prop, digits = 1),
                 aboriginal_prop_per_lphu = round(aboriginal_prop_per_lphu, digits = 1)) %>% 
   #
-  f_table_simple(total_row     = nrow(table_lphu),
+  f_table_simple(total_row     = nrow(table),
                  table_headers = table_headers)
 ```
 
@@ -369,12 +362,12 @@ population_lga %>%
   dplyr::mutate(hover_text = paste0(lga_name, " LGA",
                                     "\nCount: ", format(aboriginal_n, big.mark = ","))) %>% 
   #
-  f_graph_bar_population(x_variable = lga_name,
-                         #
-                         x_angle  = 90,
-                         y_max    = NA,
-                         y_breaks = 250,
-                         y_expand = 100)
+  f_bar_population(x_variable = lga_name,
+                   #
+                   x_angle  = 90,
+                   y_max    = NA,
+                   y_breaks = 250,
+                   y_expand = 100)
 ```
 
 ### Table 4A-2
@@ -390,19 +383,19 @@ table_headers <- c("LGA",
                    "% of total LGA<br>population",
                    "% of NEPHU Aboriginal<br>and/or Torres Strait<br>Islander population")
 
-table_lga <- population_lga %>%
+table <- population_lga %>%
   dplyr::select(lga_name,
                 aboriginal_n,
                 aboriginal_prop,
                 aboriginal_prop_per_lga)
 
-#write.csv(table_lga, paste0(here::here(), "/data", "/table_4a2", ".csv"), row.names = FALSE)
+#write.csv(table, paste0(here::here(), "/data", "/table_4a2", ".csv"), row.names = FALSE)
 
-table_lga %>% 
+table %>% 
   dplyr::mutate(aboriginal_prop         = round(aboriginal_prop, digits = 1),
                 aboriginal_prop_per_lga = round(aboriginal_prop_per_lga, digits = 1)) %>% 
   #
-  f_table_simple(total_row     = nrow(table_lga),
+  f_table_simple(total_row     = nrow(table),
                  table_headers = table_headers)
 ```
 
@@ -420,7 +413,7 @@ table_lga %>%
 ```{r}
 #
 density_lga %>% 
-  f_graph_map_density()
+  f_map_density()
 ```
 
 ### Figure 4A-4
@@ -432,7 +425,7 @@ density_lga %>%
 ```{r}
 #
 density_sa2 %>% 
-  f_graph_map_density()
+  f_map_density()
 ```
 
 ### Table 4A-3
@@ -448,7 +441,7 @@ table_headers <- c("SA2",
                    "% of total SA2<br>population",
                    "% of NEPHU Aboriginal<br>and/or Torres Strait<br>Islander population")
 
-table_sa2 <- population_sa2 %>%
+table <- population_sa2 %>%
   dplyr::arrange(aboriginal_n) %>% 
   #
   dplyr::select(sa2_name,
@@ -456,9 +449,9 @@ table_sa2 <- population_sa2 %>%
                 aboriginal_prop,
                 aboriginal_prop_per_sa2)
 
-#write.csv(table_sa2, paste0(here::here(), "/data", "/table_4a3", ".csv"), row.names = FALSE)
+#write.csv(table, paste0(here::here(), "/data", "/table_4a3", ".csv"), row.names = FALSE)
 
-table_sa2 %>% 
+table %>% 
   dplyr::filter(aboriginal_n >= 200 & sa2_name != "NEPHU") %>% 
   #
   dplyr::mutate(aboriginal_prop         = round(aboriginal_prop, digits = 1),
