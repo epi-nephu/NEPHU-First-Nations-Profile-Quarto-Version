@@ -18,9 +18,7 @@ When considering the total number of people who identify as Aboriginal and/or To
 # ------------------------------------------------------------------------------
 note_data_census <- glue::glue("
 - Data were obtained from the [ABS Census 2021](https://www.abs.gov.au/census) and are publicly available at Local Government Area (LGA), ABS Statistical Area Level 2 (SA2), and Indigenous Area of Residence (IARE) level.
-  
   - The 2021 Census was held on the evening of August 10th 2021.
-                                     
   - Aboriginal and/or Torres Strait Islander peoples were defined as those who identified themselves as Aboriginal and/or Torres Strait Islander in the Census.")
 
 # ------------------------------------------------------------------------------
