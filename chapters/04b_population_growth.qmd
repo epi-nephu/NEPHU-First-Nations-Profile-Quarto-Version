@@ -68,7 +68,7 @@ projections_medium <- aboriginal_projections_iare %>%
                 medium_2031_rate)
 ```
 
-- Data for this indicator were obtained from [customised projections prepared by the ABS](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/estimates-and-projections-australian-aboriginal-and-torres-strait-islander-population/latest-release).
+- Data for this topic were obtained from [customised projections prepared by the ABS](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/estimates-and-projections-australian-aboriginal-and-torres-strait-islander-population/latest-release).
 
 - The Aboriginal and/or Torres Strait Islander population in the Greater Melbourne area is expected to grow from 2021-2031 at a rate of 1.9% per year, increasing from an estimated population of 38,217 in 2021 to 46,017 in 2031. 
 
@@ -175,7 +175,7 @@ aboriginal_birthrate_iare <- aboriginal_birthrate_iare %>%
   dplyr::arrange(iare_name, indigenous_status)
 ```
 
-- Data for this indicator were obtained from the [AIHW Mothers and Babies Report](https://www.aihw.gov.au/reports/mothers-babies/australias-mothers-babies/contents/summary).
+- Data for this topic were obtained from the [AIHW Mothers and Babies Report](https://www.aihw.gov.au/reports/mothers-babies/australias-mothers-babies/contents/summary).
 
 - Birth rate is calculated as the total number of births per 1,000 population as estimated by [ABS Estimated Residential Population](https://www.abs.gov.au/statistics/people/population) calculations. ERP calculations take into account the known under-reporting of Aboriginal and/or Torres Strait Islander status in the Census.
 
