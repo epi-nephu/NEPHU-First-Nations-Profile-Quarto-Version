@@ -8,17 +8,17 @@ source(here::here("setup.R"))
 source(here::here("footnotes.R"))
 ```
 
-::: {.key-question}
-How many people who identify as Aboriginal and/or Torres Strait Islander live in the NEPHU catchment and where do they reside?
-:::
-
-::: {.consultation-box}
-***A note about the impact of under-identification***
+::: {.caveat-box}
+**A note about the impact of under-identification**
 
 `r note_box_underidentification`
 :::
 
-:::{style="height: 1em;"}
+:::{style="height: 2em;"}
+:::
+
+::: {.key-question}
+How many people who identify as Aboriginal and/or Torres Strait Islander live in the NEPHU catchment and where do they reside?
 :::
 
 # Population Size
@@ -203,11 +203,14 @@ table %>%
 
 ::::
 
-::: {.callout-note title="Data notes" collapse="false"}
+:::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-`r note_caveat_underidentification`
+:::{style="height: 1em;"}
 :::
+
+`r note_caveat_underidentification`
+::::
 
 ::: {style="opacity: 0.8;"}
 ```{r}
@@ -470,9 +473,12 @@ table %>%
 
 ::::
 
-::: {.callout-note title="Data notes" collapse="false"}
+:::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-`r note_caveat_underidentification`
+:::{style="height: 1em;"}
 :::
+
+`r note_caveat_underidentification`
+::::
 
