@@ -69,18 +69,38 @@ li > ul {
   font-family: Arial;
   font-style: italic;
   font-weight: bold;
-  font-size: 14pt;
+  font-size: 12pt;
   color: #253494;
   text-align: center;
+}
+
+.caveat-box {
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background: #FFF7E7;
+  color: black;
+  border: 2px solid darkorange;
+  border-radius: 10px;
+}
+
+.ctg-box {
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background: #F1EAFC;
+  color: black;
+  border: 2px solid darkorchid;
+  border-radius: 10px;
 }
 
 .consultation-box {
   padding-top: 10px;
   padding-left: 10px;
   padding-right: 10px;
-  background: #FFE5B4;
+  background: white;
   color: black;
-  border: 2px solid darkorange;
+  border: 2px solid #253494;
   border-radius: 10px;
 }
 
@@ -90,42 +110,6 @@ li > ul {
 }
 
 .consultation-box ul li {
-  margin-bottom: 0pt !important;
-}
-
-.ctg-box {
-  padding-top: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
-  background: #CBC3E3;
-  color: black;
-  border: 2px solid darkorchid;
-  border-radius: 10px;
-}
-
-.ctg-box ul {
-  margin-top: 0pt !important;
-  margin-bottom: 0pt !important;
-}
-
-.ctg-box ul li {
-  margin-bottom: 0pt !important;
-}
-
-.question-box {
-  padding: 10px;
-  background: white;
-  color: black;
-  border: 2px solid #5BC788;
-  border-radius: 10px;
-}
-
-.question-box ul {
-  margin-top: 0pt !important;
-  margin-bottom: 0pt !important;
-}
-
-.question-box ul li {
   margin-bottom: 0pt !important;
 }
 
