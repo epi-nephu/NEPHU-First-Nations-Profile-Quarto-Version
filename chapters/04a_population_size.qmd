@@ -136,7 +136,7 @@ population_lphu <- aboriginal_lga %>%
                 non_aboriginal_prop_per_lphu)
 ```
 
-- Data for this indicator were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
+- Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
 
 - NEPHU had the largest number of residents who identified as Aboriginal and/or Torres Strait Islander in the 2021 Census for the state of Victoria (n = 12,065), representing 0.7% of the NEPHU catchment population. 
 
@@ -189,8 +189,8 @@ table <- population_lphu %>%
 #write.csv(table, paste0(here::here(), "/data", "/table_4a1", ".csv"), row.names = FALSE)
 
 table %>% 
-  dplyr::mutate(aboriginal_prop          = round(aboriginal_prop, digits = 1),
-                aboriginal_prop_per_lphu = round(aboriginal_prop_per_lphu, digits = 1)) %>% 
+  dplyr::mutate(aboriginal_prop          = sprintf("%.1f", aboriginal_prop),
+                aboriginal_prop_per_lphu = sprintf("%.1f", aboriginal_prop_per_lphu)) %>% 
   #
   f_table_simple(total_row     = nrow(table),
                  table_headers = table_headers)
@@ -339,7 +339,7 @@ density_sa2 <- dplyr::left_join(nephu_sa2.sf,
                 density_text = (paste0(sa2_name, ": ", format(pop_dens, big.mark = ","), " per square km")))
 ```
 
-- Data for these indicators were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
+- Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
 
 - The majority of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander reside in the Whittlesea (n = 2,270), Hume (n = 1,870), Yarra Ranges (n = 1,713), Darebin (n = 1,441), and Knox (n = 1,022) LGAs. 
 
@@ -395,8 +395,8 @@ table <- population_lga %>%
 #write.csv(table, paste0(here::here(), "/data", "/table_4a2", ".csv"), row.names = FALSE)
 
 table %>% 
-  dplyr::mutate(aboriginal_prop         = round(aboriginal_prop, digits = 1),
-                aboriginal_prop_per_lga = round(aboriginal_prop_per_lga, digits = 1)) %>% 
+  dplyr::mutate(aboriginal_prop         = sprintf("%.1f", aboriginal_prop),
+                aboriginal_prop_per_lga = sprintf("%.1f", aboriginal_prop_per_lga)) %>% 
   #
   f_table_simple(total_row     = nrow(table),
                  table_headers = table_headers)
@@ -457,8 +457,8 @@ table <- population_sa2 %>%
 table %>% 
   dplyr::filter(aboriginal_n >= 200 & sa2_name != "NEPHU") %>% 
   #
-  dplyr::mutate(aboriginal_prop         = round(aboriginal_prop, digits = 1),
-                aboriginal_prop_per_sa2 = round(aboriginal_prop_per_sa2, digits = 1)) %>% 
+  dplyr::mutate(aboriginal_prop         = sprintf("%.1f", aboriginal_prop),
+                aboriginal_prop_per_sa2 = sprintf("%.1f", aboriginal_prop_per_sa2)) %>% 
   #
   dplyr::arrange(desc(aboriginal_n)) %>% 
   #
