@@ -5,8 +5,11 @@
 # Footnotes used across multiple indicators/sections of report
 
 # ------------------------------------------------------------------------------
-# Consultation boxes - data notes and caveats
+# Caveat boxes - data notes and caveats
 # ------------------------------------------------------------------------------
+note_box_comparisons <- glue::glue("
+Comparisons between Aboriginal and/or Torres Strait Islanders and non-Indigenous people in this section are provided as a rough guide only and should be interpreted with caution. Where different data sources have been used to provide comparisons, data may not be directly comparable due to differences in data collection, geographical areas, definitions, and analysis methods between data sources.")
+
 note_box_olderage <- glue::glue("
 Older Aboriginal and/or Torres Strait Islander people are defined as those aged 50 years and over. This is the [age range used by the Australian Institute of Health and Welfare](https://www.aihw.gov.au/reports/older-people/older-australians/contents/population-groups-of-interest/indigenous-australians), because Aboriginal and Torres Strait Islander people are more likely to develop serious medical conditions earlier in life and have a lower life expectancy than non-Indigenous Australians.")
 
@@ -21,9 +24,19 @@ note_data_census <- glue::glue("
   - The 2021 Census was held on the evening of August 10th 2021.
   - Aboriginal and/or Torres Strait Islander peoples were defined as those who identified themselves as Aboriginal and/or Torres Strait Islander in the Census.")
 
+note_data_phidu_perinatal <- glue::glue("
+- Data were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [National Perinatal Data Collection (NPDC)](https://www.aihw.gov.au/about-our-data/our-data-collections/national-perinatal-data-collection).
+  - The PHIDU Social Health Atlas is a compendium of demographic, social, health status, and health service utilisation indicators compiled by Torrens University Australia from a wide range of national, jurisdictional, and regional data sources.
+  - The NPDC collates data about births reported by midwives and other birth attendants to the perinatal data collections in each state and territory in Australia.
+  - Aboriginal and/or Torres Strait Islander mothers are defined as those who identified themselves as Aboriginal and/or Torres Strait Islander at the time of childbirth.
+  - Data were aggregated for a three-year period (January 2019 to December 2021).")
+
 # ------------------------------------------------------------------------------
 # Chart notes - caveats
 # ------------------------------------------------------------------------------
+note_caveat_iare_nephu <- glue::glue("
+- IAREs that are partly or entirely within the NEPHU catchment include: Craigieburn/Sunbury (Craigieburn), Knox, Maroondah, Melbourne East (Melbourne (E)), Melbourne North-East (Melbourne (NE)), Melbourne/Port Phillip (Port Phillip), Moreland/Broadmeadows (Broadmeadows), Northcote/Preston/Whittlesea (Northcote), Whitehorse, and Yarra Ranges.")
+
 note_caveat_underidentification <- glue::glue("
 - Reported counts and percentages are a likely underestimate due to under-identification.")
 
