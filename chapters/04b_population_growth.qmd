@@ -8,17 +8,17 @@ source(here::here("setup.R"))
 source(here::here("footnotes.R"))
 ```
 
-::: {.key-question}
-What are the drivers of population growth for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment?
-:::
-
-::: {.consultation-box}
-***A note about the impact of under-identification***
+::: {.caveat-box}
+**A note about the impact of under-identification**
 
 `r note_box_underidentification`
 :::
 
-:::{style="height: 1em;"}
+:::{style="height: 2em;"}
+:::
+
+::: {.key-question}
+What are the drivers of population growth for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment?
 :::
 
 # Population Projections
@@ -109,7 +109,7 @@ table %>%
 
 ::::
 
-::: {.callout-note title="Data notes" collapse="false"}
+::: {.callout-note title="Data notes" icon=false collapse=false}
 - These data are based on customised projections prepared for the Australian Government Department of Health by the ABS at the IARE level, and originally [published by the ABS](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/estimates-and-projections-australian-aboriginal-and-torres-strait-islander-population/latest-release). 
 
 - The baseline 2021 counts for comparison are based on [ABS Estimated Residential Population](https://www.abs.gov.au/statistics/people/population) calculations, which take into account the known under-reporting of Aboriginal and/or Torres Strait Islander status in the Census. 
@@ -177,7 +177,7 @@ aboriginal_birthrate_iare <- aboriginal_birthrate_iare %>%
 
 - Data for this indicator were obtained from the [AIHW Mothers and Babies Report](https://www.aihw.gov.au/reports/mothers-babies/australias-mothers-babies/contents/summary).
 
-  - Birth rate is calculated as the total number of births per 1,000 population as estimated by [ABS Estimated Residential Population](https://www.abs.gov.au/statistics/people/population) calculations. ERP calculations take into account the known under-reporting of Aboriginal and/or Torres Strait Islander status in the Census.
+- Birth rate is calculated as the total number of births per 1,000 population as estimated by [ABS Estimated Residential Population](https://www.abs.gov.au/statistics/people/population) calculations. ERP calculations take into account the known under-reporting of Aboriginal and/or Torres Strait Islander status in the Census.
 
 - Birth rate is an important driver of population change for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment.
 
