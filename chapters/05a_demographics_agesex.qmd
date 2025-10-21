@@ -8,21 +8,21 @@ source(here::here("setup.R"))
 source(here::here("footnotes.R"))
 ```
 
-::: {.key-question}
-What is the age and sex structure of Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment?
-:::
-
-::: {.consultation-box}
-***A note about the impact of under-identification***
+::: {.caveat-box}
+**A note about the impact of under-identification**
 
 `r note_box_underidentification` 
 
-***A note about the definition of older Aboriginal and/or Torres Strait Islander people***
+**A note about the definition of older Aboriginal and/or Torres Strait Islander people**
 
 `r note_box_olderage` 
 :::
 
-:::{style="height: 1em;"}
+:::{style="height: 2em;"}
+:::
+
+::: {.key-question}
+What is the age and sex structure of Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment?
 :::
 
 # Age and Sex Distribution
@@ -403,8 +403,11 @@ pyramid[["Yarra Ranges"]]
 
 ::::
 
-::: {.callout-note title="Data notes" collapse="false"}
+::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
+
+:::{style="height: 1em;"}
+:::
 
 `r note_caveat_underidentification`
 
@@ -528,8 +531,11 @@ table %>%
 
 ::::
 
-::: {.callout-note title="Data notes" collapse="false"}
+::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
+
+:::{style="height: 1em;"}
+:::
 
 `r note_caveat_underidentification`
 
