@@ -242,7 +242,7 @@ agesex_lga <- results[["Banyule"]] %>%
 rm(i, results)
 ```
 
-- Data for this indicator were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
+- Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
 
 - 50% of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander were male. 
 
@@ -450,7 +450,7 @@ women_lga <- census_agesex %>%
                        dichot   = "yes")
 ```
 
-- Data for this indicator were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
+- Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
 
 - 51% of women living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander were of reproductive age (15 to 49 years), compared to 47% of women living in the NEPHU catchment who did not identify as Aboriginal and/or Torres Strait Islander. 
 
@@ -518,7 +518,7 @@ table <- women_lga %>%
 #write.csv(table, paste0(here::here(), "/data", "/table_5a1", ".csv"), row.names = FALSE)
 
 table %>% 
-  dplyr::mutate(aboriginal_prop = round(aboriginal_prop, digits = 1)) %>% 
+  dplyr::mutate(aboriginal_prop = sprintf("%.1f", aboriginal_prop)) %>% 
   #
   f_table_simple(total_row     = nrow(table),
                  table_headers = table_headers)
