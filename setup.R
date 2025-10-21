@@ -65,6 +65,7 @@ subfolder_vcams       <- "Population Health Data/VCAMS/Data"
 # Functions
 # ------------------------------------------------------------------------------
 source(here::here("functions", "data prep", "f_read_census.R"))
+source(here::here("functions", "data prep", "f_read_phidu.R"))
 
 source(here::here("functions", "graphs", "f_bar_population.R"))
 source(here::here("functions", "graphs", "f_bar_simple.R"))
@@ -108,9 +109,9 @@ nephu_sa2 <- nephu_sa2.sf$sa2_code
 nephu_sal <- nephu_sal.sf$sal_name
 
 # IAREs
-iare_names <- c("Craigieburn - Sunbury", "Knox", "Maroondah", "Melbourne - East",
-                "Melbourne - North-East", "Melbourne - Port Phillip", 
-                "Moreland - Broadmeadows", "Northcote - Preston - Whittlesea",
+iare_names <- c("Craigieburn/Sunbury", "Knox", "Maroondah", "Melbourne East",
+                "Melbourne North-East", "Melbourne/Port Phillip", 
+                "Moreland/Broadmeadows", "Northcote/Preston/Whittlesea",
                 "Whitehorse", "Yarra Ranges")
 
 iare_short <- c("Craigieburn*", "Knox", "Maroondah", "East Melbourne",
@@ -118,9 +119,9 @@ iare_short <- c("Craigieburn*", "Knox", "Maroondah", "East Melbourne",
                 "Broadmeadows*", "Northcote*",
                 "Whitehorse", "Yarra Ranges")
 
-iare_inc_vic_lvl <- c("Craigieburn - Sunbury", "Knox", "Maroondah", "Melbourne - East",
-                      "Melbourne - North-East", "Melbourne - Port Phillip", 
-                      "Moreland - Broadmeadows", "Northcote - Preston - Whittlesea",
+iare_inc_vic_lvl <- c("Craigieburn/Sunbury", "Knox", "Maroondah", "Melbourne East",
+                      "Melbourne North-East", "Melbourne/Port Phillip", 
+                      "Moreland/Broadmeadows", "Northcote/Preston/Whittlesea",
                       "Whitehorse", "Yarra Ranges",
                       #
                       "Greater Melbourne", "Rest of Victoria", "Victoria")
