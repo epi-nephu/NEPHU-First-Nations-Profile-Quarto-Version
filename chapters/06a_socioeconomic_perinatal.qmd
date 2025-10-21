@@ -75,7 +75,7 @@ childhood_antenatal <- childhood_iare %>%
 
 - 44% (n = 664) of Aboriginal and/or Torres Strait Islander women in the Greater Melbourne area during 2019-2021 did not attend antenatal care during their first 10 weeks of pregnancy. This is higher than for all women living in LGAs within the [NEPHU catchment area](https://nephu.org.au/reports-and-publications/nephu-population-profile-general-report-2025/) (37%), however this comparison should be interpreted with caution as it includes both Aboriginal and/or Torres Strait Islander and non-Indigenous women and covers a different geographical area. 
 
-- The percentage of Aboriginal and/or Torres Strait Islander women living in IAREs within the NEPHU catchment who did not attend antenatal care during their first 10 weeks of pregnancy ranged from 76% (n = 50, Melbourne/Port Phillip IARE) to 22% (n = 9, Knox IARE), however small numbers limit the usefulness of these figures which should be interpreted with caution.
+- The percentage of Aboriginal and/or Torres Strait Islander women living in IAREs within the NEPHU catchment who did not attend antenatal care during their first 10 weeks of pregnancy ranged from 76% (n = 50, Melbourne/Port Phillip IARE) to 22% (n = 9, Knox IARE).
 
 **Key points from stakeholder consultation**
 
@@ -173,5 +173,142 @@ table %>%
 
 - The denominator for this indicator is Aboriginal and/or Torres Strait Islander women who had at least one pregnancy between January 2019 and December 2021.
 :::
+
+::: {style="opacity: 0.8;"}
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+:::
+
+# Smoking During Pregnancy
+
+```{r}
+# ------------------------------------------------------------------------------
+# Smoking during pregnancy
+# Data from PHIDU Social Health Atlas
+# ------------------------------------------------------------------------------
+# Data wrangling
+childhood_smoking <- childhood_iare %>%
+  dplyr::select(iare_name,
+                iare_name_short,
+                starts_with("smoking_")) %>% 
+  #
+  dplyr::mutate(iare_name = factor(iare_name, levels = iare_inc_vic_lvl)) %>% 
+  #
+  dplyr::arrange(iare_name)
+```
+
+- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases).
+
+- 33% (n = 500) of Aboriginal and/or Torres Strait Islander women in the Greater Melbourne area during 2019-2021 reported smoking during pregnancy. 
+
+- The percentage of women living in IAREs within the NEPHU catchment who reported smoking during pregnancy ranged from 44% (n = 29, Melbourne/Port Phillip IARE) to 21% (n = 12, Melbourne North-East IARE).
+
+**Key points from stakeholder consultation**
+
+- This indicator reports on smoking at any time during pregnancy, rather than consistent smoking during pregnancy. From stakeholder consultations during the development of this report smoking behaviours may vary during the course of a pregnancy, therefore these data may overestimate the number of women who consistently smoking during pregnancy.
+
+- Vaping was also discussed as being an increasing issue amongst communities, and was not captured in these data.
+
+:::: {.panel-tabset}
+
+### Figure 6A-2
+
+::: {#fig_6A_2 .fig-tab-title}
+**Figure 6A-2:** Number and percentage of women who identified as Aboriginal and/or Torres Strait Islander and who reported smoking during pregnancy, NEPHU catchment, by IARE, 2019-2021
+:::
+
+```{r}
+#
+figure_number <- childhood_smoking %>% 
+  dplyr::filter(iare_name %in% iare_names) %>% 
+  #
+  dplyr::mutate(hover_text = paste0("IARE: ", iare_name,
+                                    "\nCount: ", format(smoking_n, big.mark = ","))) %>%
+  #
+  f_bar_simple(x_variable = iare_name_short,
+               y_variable = smoking_n,
+               #
+               y_max    = NA,
+               y_breaks = 10,
+               y_expand = 5,
+               y_title  = "Number of women")
+
+figure_percent <- childhood_smoking %>% 
+  dplyr::filter(iare_name %in% iare_names) %>% 
+  #
+  dplyr::mutate(hover_text = paste0("IARE: ", iare_name,
+                                    "\nPercentage: ", sprintf("%.1f", smoking_prop))) %>%
+  #
+  f_bar_simple(x_variable = iare_name_short,
+               y_variable = smoking_prop,
+               #
+               y_max    = 100,
+               y_breaks = 10,
+               y_expand = 1,
+               y_title  = "Percentage of women")
+
+f_bar_simple_combine(figure_number, figure_percent)
+```
+
+### Table 6A-2
+
+::: {#tab_6A-2 .fig-tab-title}
+**Table 6A-2:** Number and percentage of women who identified as Aboriginal and/or Torres Strait Islander and who reported smoking during pregnancy, NEPHU catchment, by IARE, 2019-2021
+:::
+
+```{r}
+#
+table_headers <- c("IARE",
+                   "Smoked during pregnancy",
+                   "Total pregnant women",
+                   "% of pregnant women")
+
+table <- childhood_smoking %>%
+  dplyr::select(-iare_name_short)
+
+#write.csv(table, paste0(here::here(), "/data", "/table_6a2", ".csv"), row.names = FALSE)
+
+table %>% 
+  dplyr::mutate(smoking_prop = sprintf("%.1f", smoking_prop)) %>% 
+  #
+  f_table_simple(total_row     = nrow(table),
+                 table_headers = table_headers) %>% 
+  #
+  kableExtra::row_spec(row    = 11:12,
+                       italic = TRUE)
+```
+
+:::{style="height: 1em;"}
+:::
+
+<a href="../data/table_6a2.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_phidu_perinatal`
+
+:::{style="height: 1em;"}
+:::
+
+`r note_caveat_underidentification`
+
+`r note_caveat_iare_nephu`
+
+- Women are classified as smoking during pregnancy based on self-reporting of smoking at any time during their pregnancy.
+
+- The denominator for this indicator is Aboriginal and/or Torres Strait Islander women who had at least one pregnancy between January 2019 and December 2021.
+:::
+
+::: {style="opacity: 0.8;"}
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+:::
+
+# Premature Birth
 
 
