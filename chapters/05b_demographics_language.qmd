@@ -8,36 +8,25 @@ source(here::here("setup.R"))
 source(here::here("footnotes.R"))
 ```
 
-::: {.consultation-box}
-***A note about the impact of under-identification***
+::: {.caveat-box}
+**A note about the impact of under-identification**
 
 `r note_box_underidentification`
 :::
 
-:::{style="height: 1em;"}
+:::{style="height: 2em;"}
 :::
+
+# Aboriginal and/or Torres Strait Islander Languages
 
 ::: {.key-question}
 What proportion of Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment speak an Aboriginal and/or Torres Strait Islander language at home?
 :::
 
-# Aboriginal and/or Torres Strait Islander Languages
-
 ::: {.ctg-box}
 **This indicator aligns with Closing the Gap Outcome Area 16: Cultures and languages are strong, supported and flourishing**
 
 Target: By 2031, there is a sustained increase in number and strength of Aboriginal and/or Torres Strait Islander languages being spoken.
-:::
-
-:::{style="height: 1em;"}
-:::
-
-::: {.consultation-box}
-***Key points from stakeholder consultation***
-
-- As discussed in stakeholder consultations during the development of this report, these data may not be a true indicator of Closing the Gap Target 16, as there may be an increase in people who are learning and speaking Aboriginal and/or Torres Strait Islander languages but not necessarily speaking their language at home. 
-
-- It was also discussed that higher engagement amongst young people and children may be partly due to the success of community-driven language teaching efforts. The [Victorian Aboriginal Corporation for Languages (VACL)](https://vacl.org.au/) assists local communities with language revitalisation plans by running language camps, school programs, and events. For example, they have [partnered with Thornbury Primary School since 2012](https://www.vaeai.org.au/6895/), where students from Prep to Grade 6 have been learning Woiwurrung, the language of the Wurundjeri People.
 :::
 
 :::{style="height: 1em;"}
@@ -131,6 +120,27 @@ language_specific <- language_specific %>%
 - Younger people (aged < 40 years) were more likely to report speaking an Aboriginal and/or Torres Strait Islander language, with no speakers aged > 60 years reported in the NEPHU catchment. There were a higher number of female speakers than male speakers across most age groups (except 40-49 years). 
 
 - Data on which languages were spoken were available for 181 people. The most common languages spoken at home by people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander were Australian Indigenous Languages (including those not further described or not elsewhere classified) (n = 73), Yorta Yorta (n = 27), Nyungar (n = 15), and Aboriginal English (n = 11).
+
+**Key points from stakeholder consultation**
+
+- As discussed in stakeholder consultations during the development of this report, these data may not be a true indicator of Closing the Gap Target 16, as there may be an increase in people who are learning and speaking Aboriginal and/or Torres Strait Islander languages but not necessarily speaking their language at home. 
+
+- It was also discussed that higher engagement amongst young people and children may be partly due to the success of community-driven language teaching efforts. The [Victorian Aboriginal Corporation for Languages (VACL)](https://vacl.org.au/) assists local communities with language revitalisation plans by running language camps, school programs, and events. For example, they have [partnered with Thornbury Primary School since 2012](https://www.vaeai.org.au/6895/), where students from Prep to Grade 6 have been learning Woiwurrung, the language of the Wurundjeri People.
+
+::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+The following question was asked of all people completing the ABS Census 2021.
+
+- Does the person use a language other than English at home?
+  - No, English only
+  - Yes, Mandarin
+  - Yes, Arabic
+  - Yes, Cantonese
+  - Yes, Vietnamese
+  - Yes, Italian
+  - Yes, Greek
+  - Yes, other language (please specify)
+
+:::
 
 :::: {.panel-tabset}
 
@@ -346,8 +356,11 @@ table %>%
 
 ::::
 
-::: {.callout-note title="Data notes" collapse="false"}
+::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
+
+:::{style="height: 1em;"}
+:::
 
 `r note_caveat_underidentification`
 
@@ -409,6 +422,21 @@ language_other <- language_other %>%
 
 - 27 people reporting using Auslan at home.
 
+::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+The following question was asked of all people completing the ABS Census 2021.
+
+- Does the person use a language other than English at home?
+  - No, English only
+  - Yes, Mandarin
+  - Yes, Arabic
+  - Yes, Cantonese
+  - Yes, Vietnamese
+  - Yes, Italian
+  - Yes, Greek
+  - Yes, other language (please specify)
+
+:::
+
 :::: {.panel-tabset}
 
 ### Figure 5B-4
@@ -464,8 +492,11 @@ table %>%
 
 ::::
 
-::: {.callout-note title="Data notes" collapse="false"}
+::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
+
+:::{style="height: 1em;"}
+:::
 
 `r note_caveat_underidentification`
 
