@@ -17,6 +17,8 @@ book:
         - chapters/05a_demographics_agesex.qmd
         - chapters/05b_demographics_language.qmd
     - part: "6. Socioeconomic Determinants of Health"
+      chapters:
+        - chapters/06a_socioeconomic_perinatal.qmd
     - part: "7. Cultural Determinants of Health"
     - part: "8. Other Determinants of Health"
     - part: "9. Health Promoting and Risk Behaviours"
