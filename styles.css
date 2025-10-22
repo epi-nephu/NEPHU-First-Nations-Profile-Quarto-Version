@@ -92,6 +92,7 @@ li > ul {
   color: black;
   border: 2px solid darkorchid;
   border-radius: 10px;
+  text-align: center;
 }
 
 .consultation-box {
