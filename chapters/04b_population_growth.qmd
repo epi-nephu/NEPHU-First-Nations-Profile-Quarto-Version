@@ -143,7 +143,6 @@ aboriginal_birthrate_iare <- aboriginal_birthrate_iare %>%
   #
   dplyr::filter(topic == "Indigenous region (IREG)" & category == "Melbourne" |
                 topic == "Indigenous region (IREG)" & category == "Victoria exc. Melbourne" |
-                topic == "Indigenous region (IREG)" & category == "Victoria exc. Melbourne" |
                 topic == "State or territory of birth" & category == "Vic" |
                 topic == "State or territory of birth" & category == "Australia") %>% 
   #
