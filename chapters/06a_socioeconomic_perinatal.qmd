@@ -11,7 +11,7 @@ source(here::here("footnotes.R"))
 ::: {.caveat-box}
 **A note about identification of Aboriginal and/or Torres Strait Islander status**
 
-Stakeholder consultations undertaken during the development of this report highlighted that there are different drivers that impact on identification of Aboriginal and/or Torres Strait Islander status for perinatal indicators. For example, Aboriginal Health Liaison officers within some health services may increase support for First Nations mothers and families which may increase the likelihood of identification, however, fears of child removal related to past traumatic experiences may lead to a decreased likelihood of identification.
+Stakeholder consultations undertaken during the development of this report highlighted that there are different drivers that impact on identification of Aboriginal and/or Torres Strait Islander status for perinatal indicators. For example, Aboriginal Health Liaison Officers within some health services may increase support for First Nations mothers and families which may increase the likelihood of identification, however, fears of child removal related to past traumatic experiences may lead to a decreased likelihood of identification.
 
 The way the indicators in this chapter are defined also impacts on the representativeness of the data. For the more disaggregated data at IARE level sourced from the PHIDU Social Health Atlas, reliance on identification of the mother only will exclude Aboriginal and/or Torres Strait Islander babies born to non-Indigenous mothers (where the baby’s father and other family members may be Aboriginal and/or Torres Strait Islander), and therefore only tells part of the story. It is important that there is consistency across data metrics to allow meaningful comparisons. Stakeholder consultations during the development of this report have indicated that identification and reporting of the status of Aboriginal and/or Torres Strait Islander babies is important, not just of mothers. These data are available in the [National Perinatal Data Collection](https://www.aihw.gov.au/about-our-data/our-data-collections/national-perinatal-data-collection) but are not publicly available below state level.
 
@@ -311,4 +311,517 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 
 # Premature Birth
 
+```{r}
+# ------------------------------------------------------------------------------
+# Premature birth
+# Data from AIHW Mothers and Babies
+# ------------------------------------------------------------------------------
+# Read in ABS data
+childhood_premature <- readxl::read_xlsx(file.path(root_folder, 
+                                                   subfolder_birth, 
+                                                   "AIHW-PER-120-Aboriginal-Torres-Strait-Islander-mothers-babies-data-tables.xlsx"),
+                                         sheet = "Table 4.4",
+                                         skip  = 8) %>% 
+  janitor::clean_names()
+  
+# Data wrangling
+childhood_premature <- childhood_premature %>% 
+  dplyr::filter(year == "2020") %>% 
+  dplyr::filter(category %in% c("Melbourne", "Victoria exc. Melbourne")) %>% 
+  #
+  dplyr::mutate(
+    iare_name = factor(dplyr::case_when(
+      category == "Melbourne"               ~ "Melbourne",
+      category == "Victoria exc. Melbourne" ~ "Rest of Victoria",
+      TRUE ~ NA_character_),
+      #
+      levels = c("Melbourne",
+                 "Rest of Victoria")))
+```
+
+- Data for this topic were obtained from the [AIHW Mothers and Babies Report](https://www.aihw.gov.au/reports/mothers-babies/australias-mothers-babies/contents/summary).
+
+- In 2020, 88% (n = 414) of babies born to Aboriginal and/or Torres Strait Islander mothers in Greater Melbourne were born at term. 
+
+- In 2020, 88% (n = 598) of Aboriginal and/or Torres Strait Islander babies born in Greater Melbourne were born at term. 
+
+- Gestational age is the duration of pregnancy in completed weeks. Gestational age is grouped into 3 categories: pre-term (less than 37 weeks’ gestation), at term (37 to 41 weeks), and post-term (42 weeks and over).
+
+::: {style="opacity: 0.8;"}
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+:::
+
+# Birthweight
+
+::: {.ctg-box}
+**This topic aligns with Closing the Gap Outcome Area 2: Children are born healthy and strong**
+
+Target: By 2031, increase the proportion of Aboriginal and/or Torres Strait Islander babies with a healthy birthweight to 91%.
+:::
+
+:::{style="height: 1em;"}
+:::
+
+```{r}
+# ------------------------------------------------------------------------------
+# Birthweight, by IARE
+# Data from PHIDU Social Health Atlas
+# ------------------------------------------------------------------------------
+# Data wrangling
+childhood_birthweight <- childhood_iare %>%
+  dplyr::select(iare_name,
+                iare_name_short,
+                starts_with("low_")) %>% 
+  #
+  dplyr::mutate(iare_name = factor(iare_name, levels = iare_inc_vic_lvl),
+                #
+                birthweight_n     = low_birthweight_total - low_birthweight_n,
+                birthweight_total = low_birthweight_total,
+                birthweight_prop  = birthweight_n / birthweight_total * 100) %>% 
+  #
+  dplyr::select(iare_name,
+                iare_name_short,
+                starts_with("birthweight_")) %>% 
+  #
+  dplyr::arrange(iare_name)
+
+# ---------------------------------------------------------------------------------
+# Birthweight, by year
+# Data from AIHW Aboriginal and Torres Strait Islander Health Performance Framework
+# ---------------------------------------------------------------------------------
+# Read in AIHW data
+childhood_birthweight_year <- readxl::read_excel(file.path(root_folder, subfolder_framework, "101-Birthweight.xlsx"),
+                                                 sheet        = "D1.01.3",
+                                                 skip         = 1,
+                                                 trim_ws      = TRUE,
+                                                 .name_repair = "universal_quiet") %>%
+  janitor::clean_names() %>% 
+  #
+  dplyr::select(indigenous_status = x1,
+                x2011:x2020) %>% 
+  #
+  dplyr::filter(row_number() %in% c(8:9))
+
+# Data wrangling
+childhood_birthweight_year <- childhood_birthweight_year %>% 
+  dplyr::mutate(indigenous_status = dplyr::case_when(
+    indigenous_status == "Births to First Nations mothers" ~ "aboriginal",
+    TRUE ~ "non_aboriginal")) %>% 
+  #
+  tidyr::pivot_longer(!indigenous_status,
+                      names_to  = "year",
+                      values_to = "percent") %>% 
+  #
+  dplyr::mutate(year = stringr::str_sub(year, 2),
+                year = factor(year),
+                #
+                percent = as.numeric(percent))
+```
+
+- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases) and the [AIHW Aboriginal and Torres Strait Islander Performance Framework](https://www.indigenoushpf.gov.au/).
+
+- Low birthweight is defined as a liveborn baby weighing less than 2,500g at birth.
+
+- 92% (n = 1,959) of liveborn babies born to Aboriginal and/or Torres Strait Islander women in the Greater Melbourne area during 2019-2021 were of a healthy birthweight. 
+
+- 4 of the 7 IAREs in the NEPHU catchment area with data available for reporting were on or above the Closing the Gap target of 91%: Craigieburn/Sunbury (95%, n = 106), Yarra Ranges (94%, n = 93), Moreland/Broadmeadows (92%, n = 98), and Melbourne North-East (91%, n = 75).
+
+- 91% of Victorian Aboriginal and/or Torres Strait Islander babies born in 2022 were of a healthy birthweight, compared to 94% of Victorian non-Indigenous babies. There has been an improvement in the percentage of Aboriginal and/or Torres Strait Islander babies of a [healthy birthweight between 2014 and 2022](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/born-healthy-and-strong/).
+
+- In 2020, 8.9% of liveborn singleton babies born to Aboriginal and/or Torres Strait Islander mothers in Victoria were of a low birthweight, compared to 4.8% of babies born to non-Indigenous mothers. This trend has been stable over time, with babies born to Aboriginal and/or Torres Strait Islander mothers more likely to be of a low birthweight.
+
+:::: {.panel-tabset}
+
+### Figure 6A-3
+
+::: {#fig_6A_3 .fig-tab-title}
+**Figure 6A-3:** Number and percentage of singleton live births with a birthweight above 2,500g for babies born to women who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 2019-2021
+:::
+
+```{r}
+#
+figure_number <- childhood_birthweight %>% 
+  dplyr::filter(iare_name %in% iare_names) %>% 
+  #
+  dplyr::mutate(
+    birthweight_n_plot = dplyr::case_when(
+      is.na(birthweight_n) ~ 0,
+      TRUE ~ birthweight_n),
+    #
+    hover_text = ifelse(
+      is.na(birthweight_n),
+      paste0("IARE: ", iare_name,
+             "\nCount: ", "Data not available"),
+      paste0("IARE: ", iare_name,
+             "\nCount: ", format(birthweight_n, big.mark = ",")))) %>%
+  #
+  f_bar_simple(x_variable = iare_name_short,
+               y_variable = birthweight_n_plot,
+               #
+               y_max    = NA,
+               y_breaks = 50,
+               y_expand = 10,
+               y_title  = "Number of live births")
+
+figure_percent <- childhood_birthweight %>% 
+  dplyr::filter(iare_name %in% iare_names) %>% 
+  #
+  dplyr::mutate(
+    birthweight_prop_plot = dplyr::case_when(
+      is.na(birthweight_prop) ~ 0,
+      TRUE ~ birthweight_prop),
+    #
+    hover_text = ifelse(
+      is.na(birthweight_prop),
+      paste0("IARE: ", iare_name,
+             "\nPercentage: ", "Data not available"),
+      paste0("IARE: ", iare_name,
+             "\nPercentage: ", sprintf("%.1f", birthweight_prop)))) %>%
+  #
+  f_bar_simple(x_variable = iare_name_short,
+               y_variable = birthweight_prop_plot,
+               #
+               y_max    = 100,
+               y_breaks = 10,
+               y_expand = 1,
+               y_title  = "Percentage of live births",
+               #
+               ctg_target = 91)
+
+f_bar_simple_combine(figure_number, figure_percent)
+```
+
+### Table 6A-3
+
+::: {#tab_6A-3 .fig-tab-title}
+**Table 6A-3:** Number and percentage of singleton live births with a birthweight above 2,500g for babies born to women who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 2019-2021
+:::
+
+```{r}
+#
+table_headers <- c("IARE",
+                   "Birthweight above 2,500g",
+                   "Total live births",
+                   "% of live births")
+
+table <- childhood_birthweight %>%
+  dplyr::select(-iare_name_short)
+
+#write.csv(table, paste0(here::here(), "/data", "/table_6a3", ".csv"), row.names = FALSE)
+
+table %>% 
+  dplyr::mutate(birthweight_prop = round(birthweight_prop, digits = 1)) %>% 
+  #
+  f_table_simple(total_row     = nrow(table),
+                 table_headers = table_headers) %>% 
+  #
+  kableExtra::row_spec(row    = 11:12,
+                       italic = TRUE)
+```
+
+:::{style="height: 1em;"}
+:::
+
+<a href="../data/table_6a3.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+### Figure 6A-4
+
+::: {#fig_6A_4 .fig-tab-title}
+**Figure 6A-4:** Percentage of singleton live births with a birthweight below 2,500g, Victoria, by Aboriginal and/or Torres Strait Islander status of mother and year, 2011-2020
+:::
+
+```{r}
+#
+childhood_birthweight_year %>%
+  dplyr::mutate(
+    indigenous_label = dplyr::case_when(
+      indigenous_status == "aboriginal"     ~ "Aboriginal",
+      indigenous_status == "non_aboriginal" ~ "Non-Indigenous",
+      TRUE ~ NA_character_),
+    #
+    indigenous_status = factor(dplyr::case_when(
+      indigenous_status == "aboriginal"     ~ "Identified as Aboriginal\nand/or Torres Strait Islander",
+      indigenous_status == "non_aboriginal" ~ "Did not identify as Aboriginal\nand/or Torres Strait Islander",
+      TRUE ~ NA_character_),
+      #
+      levels = c("Identified as Aboriginal\nand/or Torres Strait Islander",
+                 "Did not identify as Aboriginal\nand/or Torres Strait Islander")),
+    #
+    hover_text = paste0("\nYear: ", year,
+                        "\nIndigenous status: ", indigenous_label,
+                        "\nPercentage: ", sprintf("%.1f", percent))) %>%
+  #
+  f_line_simple_indigenous(y_variable = percent,
+                           y_max      = 20,
+                           y_breaks   = 2,
+                           y_expand   = 0.25,
+                           y_title    = "Percentage of live births")
+```
+
+### Table 6A-4
+
+::: {#tab_6A-4 .fig-tab-title}
+**Table 6A-4:** Percentage of singleton live births with a birthweight below 2,500g, Victoria, by Aboriginal and/or Torres Strait Islander status of mother and year, 2011-2020
+:::
+
+```{r}
+#
+table_headers <- c("Year",
+                   "Yes (%)",
+                   "No (%)")
+
+table <- childhood_birthweight_year %>%
+  pivot_wider(names_from  = "indigenous_status",
+              names_vary  = "slowest",
+              values_from = "percent")
+
+#write.csv(table, paste0(here::here(), "/data", "/table_6a4", ".csv"), row.names = FALSE)
+
+table %>%
+  dplyr::mutate(aboriginal     = sprintf("%.1f", aboriginal),
+                non_aboriginal = sprintf("%.1f", non_aboriginal)) %>% 
+  #
+  f_table_simple(total_row     = NULL,
+                 table_headers = table_headers) %>% 
+  #
+  kableExtra::add_header_above(c(" " = 1,
+                                 "Identified as Aboriginal and/or Torres Strait Islander" = 2))
+```
+
+:::{style="height: 1em;"}
+:::
+
+<a href="../data/table_6a4.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+- Data for Figure 6A-3 and Table 6A-3 were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [National Perinatal Data Collection (NPDC)](https://www.aihw.gov.au/about-our-data/our-data-collections/national-perinatal-data-collection).
+  - The PHIDU Social Health Atlas is a compendium of demographic, social, health status, and health service utilisation indicators compiled by Torrens University Australia from a wide range of national, jurisdictional, and regional data sources.
+  - Data were aggregated for a three-year period (January 2019 to December 2021).
+
+:::{style="height: 1em;"}
+:::
+
+- Data for Figure 6A-4 and Table 6A-4 were obtained from the [AIHW Aboriginal and Torres Strait Islander Performance Framework](https://www.indigenoushpf.gov.au/) compiled from the [National Perinatal Data Collection (NPDC)](https://www.aihw.gov.au/about-our-data/our-data-collections/national-perinatal-data-collection).
+  - The AIHW Aboriginal and Torres Strait Islander Framework brings together information from a wide range of national, jurisdictional, and regional data sources to report on determinants of health, health outcomes, and health system performance for Aboriginal and/or Torres Strait Islander peoples.
+
+:::{style="height: 1em;"}
+:::
+
+- The NPDC collates data about births reported by midwives and other birth attendants to the perinatal data collections in each state and territory in Australia.
+  - Aboriginal and/or Torres Strait Islander mothers are defined as those who identified themselves as Aboriginal and/or Torres Strait Islander at the time of childbirth.
+
+:::{style="height: 1em;"}
+:::
+
+`r note_caveat_underidentification`
+
+`r note_caveat_iare_nephu`
+  
+`r note_caveat_iare_suppress`
+
+- *Low birthweight* is defined as a liveborn baby weighing less than 2,500g at birth.
+:::
+
+::: {style="opacity: 0.8;"}
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+:::
+
+# Breastfeeding
+
+```{r}
+# ---------------------------------------------------------------------------------
+# Breastfeeding
+# Data from AIHW Aboriginal and Torres Strait Islander Health Performance Framework
+# ---------------------------------------------------------------------------------
+# Read in AIHW data
+childhood_breastfed <- readxl::read_excel(file.path(root_folder, subfolder_framework, "220-Breastfeeding-practices.xlsx"),
+                                          sheet        = "D2.20.6",
+                                          skip         = 1,
+                                          trim_ws      = TRUE,
+                                          .name_repair = "universal_quiet") %>% 
+  janitor::clean_names() %>% 
+  #
+  dplyr::select(breastfed = x1,
+                aboriginal_prop = vic,
+                non_aboriginal_prop = x5) %>% 
+  #
+  dplyr::filter(row_number() %in% c(4, 7:10, 12))
+
+childhood_breastfed_totals <- readxl::read_excel(file.path(root_folder, subfolder_framework, "220-Breastfeeding-practices.xlsx"),
+                                          sheet        = "D2.20.6",
+                                          skip         = 1,
+                                          trim_ws      = TRUE,
+                                          .name_repair = "universal_quiet") %>% 
+  janitor::clean_names() %>% 
+  #
+  dplyr::select(breastfed = x1,
+                aboriginal_prop = vic,
+                non_aboriginal_prop = x5) %>% 
+  #
+  dplyr::filter(row_number() == 14) %>% 
+  #
+  dplyr::mutate(aboriginal_prop     = as.numeric(gsub("[^0-9.]", "", aboriginal_prop)),
+                non_aboriginal_prop = as.numeric(gsub("[^0-9.]", "", non_aboriginal_prop)))
+
+# Data wrangling
+childhood_breastfed <- childhood_breastfed %>% 
+  dplyr::mutate(
+    aboriginal_prop     = as.numeric(gsub("[^0-9.]", "", aboriginal_prop)),
+    non_aboriginal_prop = as.numeric(gsub("[^0-9.]", "", non_aboriginal_prop)),
+    #
+    aboriginal_estimate     = round(aboriginal_prop * childhood_breastfed_totals$aboriginal_prop[1] / 100, digits = 0),
+    non_aboriginal_estimate = round(non_aboriginal_prop * childhood_breastfed_totals$non_aboriginal_prop[1] / 100, digits = 0),
+    #
+    breastfed = factor(dplyr::case_when(
+      breastfed == "Currently breastfed"      ~ "Currently breastfed",
+      breastfed == "Less than 1 month"        ~ "< 1 month",
+      breastfed == "1 to less than 6 months"  ~ "1-6 months",
+      breastfed == "6 to less than 12 months" ~ "6-12 months",
+      breastfed == "12 months or more"        ~ "12+ months",
+      #
+      TRUE ~ "Never breastfed"),
+      #
+      levels = c("Never breastfed",
+                 "< 1 month",
+                 "1-6 months",
+                 "6-12 months",
+                 "12+ months",
+                 "Currently breastfed"))) %>% 
+  #
+  dplyr::select(breastfed,
+                aboriginal_estimate, aboriginal_prop,
+                non_aboriginal_estimate, non_aboriginal_prop) %>% 
+  #
+  dplyr::arrange(breastfed)
+```
+
+- Data for this topic were obtained from the [AIHW Aboriginal and Torres Strait Islander Performance Framework](https://www.indigenoushpf.gov.au/).
+
+- The National Health and Medical Research Council (NHMRC) [Infant Feeding Guidelines](https://www.nhmrc.gov.au/about-us/publications/infant-feeding-guidelines-information-health-workers) recommend that infants be exclusively breastfed until around six months of age when solid foods are being introduced. Continued breastfeeding to around 12 months of age is encouraged. 
+
+- 17% of Aboriginal and/or Torres Strait Islander children in Victoria aged 0-2 years were currently being breastfed during 2018-2019 and 60% had ever been breastfed.
+
+- Aboriginal and/or Torres Strait Islander children were less likely to be currently or ever breastfed than non-Indigenous children.
+
+**Key points from stakeholder consultation**
+
+- The nature of the relationship with the Maternal and Child Health Nurse Service was discussed at stakeholder consultations during the development of this report as being an important factor influencing breastfeeding practices. A [recent systematic review](https://pubmed.ncbi.nlm.nih.gov/35840537/) found that attending a First Nations specific service was a protective factor for breastfeeding amongst Aboriginal and/or Torres Strait Islander women.
+
+- Difficulty with feeding was also discussed as a factor influencing the duration of breastfeeding. A [small cohort study](https://pubmed.ncbi.nlm.nih.gov/40155937/) of Aboriginal and/or Torres Strait Islander women in rural Australia found around one third of women had experienced difficulties feeding.
+
+- Other barriers to breastfeeding discussed at stakeholder consultation included substance use and the need to return to work. Overall, however, breastfeeding rates were anecdotally reported to be improving over time.
+
+:::: {.panel-tabset}
+
+### Figure 6A-5
+
+::: {#fig_6A_5 .fig-tab-title}
+**Figure 6A-5:** Breastfeeding duration for children aged 0-2 years, Victoria, by Aboriginal and/or Torres Strait Islander status, 2018-2019
+:::
+
+```{r}
+#
+childhood_breastfed %>% 
+  dplyr::select(-aboriginal_estimate,
+                -non_aboriginal_estimate) %>% 
+  #
+  tidyr::pivot_longer(c(aboriginal_prop, non_aboriginal_prop),
+                      names_to  = "indigenous_status",
+                      values_to = "percent") %>% 
+  #
+  dplyr::mutate(
+    indigenous_label = dplyr::case_when(
+      indigenous_status == "aboriginal_prop"     ~ "Aboriginal",
+      indigenous_status == "non_aboriginal_prop" ~ "Non-Indigenous",
+      TRUE ~ NA_character_),
+    #
+    indigenous_status = factor(dplyr::case_when(
+      indigenous_status == "aboriginal_prop"     ~ "Identified as Aboriginal\nand/or Torres Strait Islander",
+      indigenous_status == "non_aboriginal_prop" ~ "Did not identify as Aboriginal\nand/or Torres Strait Islander",
+      TRUE ~ NA_character_),
+      #
+      levels = c("Identified as Aboriginal\nand/or Torres Strait Islander",
+                 "Did not identify as Aboriginal\nand/or Torres Strait Islander")),
+    #
+    hover_text = paste0("\nBreastfeeding duration: ", breastfed,
+                        "\nIndigenous status: ", indigenous_label,
+                        "\nPercentage: ", sprintf("%.1f", percent))) %>%
+  #
+  f_bar_simple_indigenous(x_variable = breastfed,
+                          y_variable = percent,
+                          y_max      = 50,
+                          y_breaks   = 5,
+                          y_expand   = 0.5,
+                          y_title    = "Percentage of children")
+```
+
+### Table 6A-5
+
+::: {#tab_6A-5 .fig-tab-title}
+**Table 6A-5:** Breastfeeding duration for children aged 0-2 years, Victoria, by Aboriginal and/or Torres Strait Islander status, 2018-2019
+:::
+
+```{r}
+#
+table_headers <- c("Breastfeeding duration",
+                   "Estimate", "Percent",
+                   "Estimate", "Percent")
+
+table <- childhood_breastfed %>%
+  janitor::adorn_totals() %>%
+  #
+  dplyr::mutate(
+    aboriginal_estimate     = round(aboriginal_estimate, digits = -2),
+    non_aboriginal_estimate = round(non_aboriginal_estimate, digits = -2),
+    #
+    aboriginal_prop = dplyr::case_when(
+      breastfed == "Total" ~ 100,
+      TRUE ~ aboriginal_prop),
+    #
+    non_aboriginal_prop = dplyr::case_when(
+      breastfed == "Total" ~ 100,
+      TRUE ~ non_aboriginal_prop)) 
+
+#write.csv(table, paste0(here::here(), "/data", "/table_6a5", ".csv"), row.names = FALSE)
+
+table %>% 
+  f_table_simple(total_row     = nrow(table),
+                 table_headers = table_headers) %>% 
+  kableExtra::add_header_above(c(" " = 1,
+                                 "Identified as Aboriginal\nand/or Torres Strait Islander"       = 2,
+                                 "Did not identify as Aboriginal\nand/or Torres Strait Islander" = 2))
+```
+
+:::{style="height: 1em;"}
+:::
+
+<a href="../data/table_6a5.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+- Data were obtained from the [AIHW Aboriginal and Torres Strait Islander Performance Framework](https://www.indigenoushpf.gov.au/), compiled from the [2018-19 ABS National Aboriginal and Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release) and the [2017-18 ABS National Health Survey](https://www.abs.gov.au/statistics/health/health-conditions-and-risks/national-health-survey/latest-release).
+  - The AIHW Aboriginal and Torres Strait Islander Performance Framework brings together information from a wide range of national, jurisdictional, and regional data sources to report on determinants of health, health outcomes, and health system performance for Aboriginal and/or Torres Strait Islander peoples.
+  - The 2018-19 ABS National Aboriginal and Torres Strait Islander Health Survey collected information from Aboriginal and/or Torres Strait Islander people of all ages in non-remote and remote areas of Australia, including discrete Aboriginal and/or Torres Strait Islander communities. 
+  - The 2017-18 ABS National Health Survey collected information from Australian residents of all ages living in private dwellings in both urban and rural areas of all Australian states and territories, including very remote communities and discrete Aboriginal and/or Torres Strait Islander communities.
+
+:::{style="height: 1em;"}
+:::
+
+`r note_caveat_underidentification`
+
+`r note_caveat_rounding`
+
+`r note_caveat_survey_estimate`
+
+`r note_caveat_survey_unknown`
+:::
 
