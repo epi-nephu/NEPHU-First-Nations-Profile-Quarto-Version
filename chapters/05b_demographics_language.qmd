@@ -24,7 +24,7 @@ What proportion of Aboriginal and/or Torres Strait Islander people living in the
 :::
 
 ::: {.ctg-box}
-**This topic aligns with Closing the Gap Outcome Area 16: Cultures and languages are strong, supported and flourishing**
+**This topic aligns with [Closing the Gap Outcome Area 16](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/culture-and-languages/): Cultures and languages are strong, supported and flourishing**
 
 Target: By 2031, there is a sustained increase in number and strength of Aboriginal and/or Torres Strait Islander languages being spoken.
 :::
