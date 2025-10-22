@@ -584,7 +584,10 @@ The following questions were asked of all people completing the ABS Census 2021.
   - Yes, Italian
   - Yes, Greek
   - Yes, other language (please specify)
-  
+
+:::{style="height: 1em;"}
+:::
+
 - How well does the person speak English?
   - Very well
   - Well
