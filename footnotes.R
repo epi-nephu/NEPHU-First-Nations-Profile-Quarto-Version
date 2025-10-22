@@ -37,6 +37,18 @@ note_data_phidu_perinatal <- glue::glue("
 note_caveat_iare_nephu <- glue::glue("
 - IAREs that are partly or entirely within the NEPHU catchment include: Craigieburn/Sunbury (Craigieburn), Knox, Maroondah, Melbourne East (Melbourne (E)), Melbourne North-East (Melbourne (NE)), Melbourne/Port Phillip (Port Phillip), Moreland/Broadmeadows (Broadmeadows), Northcote/Preston/Whittlesea (Northcote), Whitehorse, and Yarra Ranges.")
 
+note_caveat_iare_suppress <- glue::glue("
+- IAREs marked with 'Data not available' or '--' have data suppressed due to small numbers.")
+
+note_caveat_survey_estimate <- glue::glue("
+- Survey data do not represent exact numbers of people. As only a sample of people were surveyed, their results were converted into estimates for the entire population and/or reported as percentages.")
+
+note_caveat_survey_unknown <- glue::glue("
+- Unknown, not applicable, and not stated survey responses have been excluded.")
+
+note_caveat_rounding <- glue::glue("
+- Counts may not sum to the total and percentages may not sum to 100 due to small cell suppression, data masking, and rounding.")
+
 note_caveat_underidentification <- glue::glue("
 - Reported counts and percentages are a likely underestimate due to under-identification.")
 
