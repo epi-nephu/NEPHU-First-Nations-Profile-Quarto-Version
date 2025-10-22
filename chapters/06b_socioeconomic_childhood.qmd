@@ -1,0 +1,118 @@
+---
+title: "Early Childhood"
+---
+
+```{r}
+#
+source(here::here("setup.R"))
+source(here::here("footnotes.R"))
+```
+
+::: {.caveat-box}
+**A note about the impact of under-identification**
+
+`r note_box_underidentification`
+:::
+
+:::{style="height: 2em;"}
+:::
+
+::: {.key-question}
+Are Aboriginal and/or Torres Strait Islander children living in the NEPHU catchment getting the best start in life?
+:::
+
+# Preschool
+
+::: {.ctg-box}
+**This topic aligns with [Closing the Gap Outcome Area 3](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/early-childhood-education/): Children are engaged in high quality, culturally appropriate early childhood education in their early years**
+
+Target: By 2025, increase the proportion of Aboriginal and Torres Strait Islander children enrolled in Year Before Full-Time Schooling (YBFS) early childhood education to 95%.
+:::
+
+:::{style="height: 1em;"}
+:::
+
+```{r}
+# ------------------------------------------------------------------------------
+# Preschool enrollments
+# Data from Victorian Child and Adolescent Monitoring System
+# ------------------------------------------------------------------------------
+# Read in VCAMS data
+childhood_enrol <- readxl::read_xlsx(file.path(root_folder, subfolder_vcams, "VCAMS_indicator_4_3c.xlsx"), 
+                                     sheet        = "4.3c 2018 onwards", 
+                                     trim_ws      = TRUE, 
+                                     .name_repair = "universal_quiet") %>% 
+  #
+  janitor::clean_names()
+
+# Data wrangling
+childhood_enrol <- childhood_enrol %>%
+  dplyr::select(year,
+                aboriginal_n = numerator,
+                aboriginal_prop = indicator_calc) %>% 
+  #
+  dplyr::mutate(aboriginal_prop = aboriginal_prop * 100)
+
+# ------------------------------------------------------------------------------
+# Preschool attendance
+# Data from National Early Childhood Education and Care Collection
+# ------------------------------------------------------------------------------
+# Read in NECECC data
+childhood_attendance <- readxl::read_excel(file.path(root_folder, subfolder_ctg,
+                                                     "CTG03_Childhood_Education_Data_Tables.xlsx"),
+                                           skip  = 1,
+                                           sheet = "Table SE3a.1") %>% 
+    janitor::clean_names() %>% 
+    #
+    dplyr::rename(value = x3,
+                  indigenous_status = x4,
+                  year = x5,
+                  attendance = x6) %>%
+    #
+    tidyr::fill(value, indigenous_status, year, attendance) %>% 
+    #
+    dplyr::filter(!is.na(vic)) %>%
+    #
+    dplyr::select(value,
+                  year,
+                  indigenous_status,
+                  attendance,
+                  vic)
+
+# Data wrangling
+childhood_attendance <- childhood_attendance %>% 
+  dplyr::mutate(vic = as.numeric(vic),
+                #
+                attendance = factor(dplyr::case_when(
+                  attendance == "Did not attend"            ~ "Did not attend",
+                  attendance == "One to less than 10 hours" ~ "<10 hours",
+                  attendance == "10–14 hours"               ~ "10-14 hours",
+                  attendance == "15 hours or more"          ~ "15+ hours",
+                  #
+                  TRUE ~ NA_character_),
+                  #
+                  levels = c("Did not attend",
+                             "<10 hours",
+                             "10-14 hours",
+                             "15+ hours")))
+```
+
+- Data for this topic were obtained from the [Victorian Child and Adolescent Monitoring System (VCAMS)](https://www.vic.gov.au/victorian-child-and-adolescent-monitoring-system-vcams) and the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/).
+
+- In 2022, 100% of Aboriginal and/or Torres Strait Islander children in Victoria who were in the year before full-time schooling age cohort attended a funded kindergarten/preschool program. This is above the Closing the Gap target of 95%.
+
+- The percentage of enrolled children who attended for 15 or more hours in a week increased from 64% in 2016 to 75% in 2023.
+
+**Key points from stakeholder consultation**
+
+- At stakeholder consultations during the development of this report the impact of the scaling up of free kindergarten to 15 hours per week in 2022 was discussed as a potential contributing factor to rising preschool attendance.
+
+- The importance of and impact of improvements in cultural safety by educators was also discussed as a potential contributing factor to this increase.
+
+:::: {.panel-tabset}
+
+
+
+
+::::
+
