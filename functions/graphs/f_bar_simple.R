@@ -4,17 +4,32 @@
 #
 # Chart type: simple bar chart
 
-f_bar_simple <- function(data, x_variable, x_angle = 90, y_variable, y_max, y_breaks, y_expand, y_title) {
+f_bar_simple <- function(data, x_variable, x_angle = 90, y_variable, y_max, y_breaks, y_expand, y_title, ctg_target = NA) {
   
   x_variable <- rlang::enquo(x_variable)
   y_variable <- rlang::enquo(y_variable)
+  
+  ctg_target <- ctg_target
   
   figure <- data %>% 
     ggplot(aes(x = !!x_variable, y = !!y_variable, text = hover_text)) +
     #
     geom_col(col  = colour_black,
-             fill = colour_lightblue) +
-    #
+             fill = colour_lightblue)
+  
+  if (!is.na(ctg_target)) {
+    figure <- figure +
+      geom_hline(aes(yintercept = ctg_target, linetype = "CtG target (%)"),
+                 col         = colour_gradient_mid,
+                 linewidth   = 0.5,
+                 show.legend = TRUE) +
+      #
+      scale_linetype_manual(name = NULL,
+                            values = c("CtG target (%)" = "dashed"))
+    
+  }
+  
+  figure <- figure +
     scale_y_continuous(limits = c(0, y_max),
                        breaks = scales::breaks_width(y_breaks),
                        expand = expansion(add = c(0, y_expand)),
@@ -83,7 +98,13 @@ f_bar_simple_combine <- function(figure_number, figure_percent) {
   
   figure <- plotly::subplot(figure_number, figure_percent,
                             titleY = TRUE,
-                            margin = 0.05)
+                            margin = 0.05) %>% 
+    #
+    plotly::layout(legend = list(x = 0.775,
+                                 y = -0.4,
+                                 #
+                                 orientation = "h",
+                                 xanchor     = "center"))
   
   return(figure)
   
