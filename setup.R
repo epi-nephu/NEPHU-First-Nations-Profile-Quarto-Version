@@ -3,7 +3,7 @@
 # Version 2.0, 15/08/2025
 
 # General code that applies to all indicators
-# - Packages
+# - Packages and options
 # - Data folders
 # - LGA reference data
 # - Constants
@@ -31,6 +31,7 @@ pacman::p_load(here,
                plotly,
                leaflet)
 
+options(knitr.kable.NA = '--')
 # ------------------------------------------------------------------------------
 # Data folders
 # ------------------------------------------------------------------------------
@@ -68,8 +69,10 @@ source(here::here("functions", "data prep", "f_read_census.R"))
 source(here::here("functions", "data prep", "f_read_phidu.R"))
 
 source(here::here("functions", "graphs", "f_bar_population.R"))
+source(here::here("functions", "graphs", "f_bar_simple_indigenous.R"))
 source(here::here("functions", "graphs", "f_bar_simple.R"))
 source(here::here("functions", "graphs", "f_bar_simple_sex.R"))
+source(here::here("functions", "graphs", "f_line_simple_indigenous.R"))
 source(here::here("functions", "graphs", "f_map_density.R"))
 source(here::here("functions", "graphs", "f_pyramid.R"))
 
