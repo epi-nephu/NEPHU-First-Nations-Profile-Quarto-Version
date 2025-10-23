@@ -35,7 +35,7 @@ f_bar_simple_sex <- function(data, x_variable, x_angle = 90, y_variable, y_max, 
   figure <- figure %>% 
     plotly::ggplotly(tooltip = "text") %>%
     #
-    plotly::layout(hovermode = "x",
+    plotly::layout(hovermode = "closest",
                    #
                    yaxis = list(title = list(text     = y_title,
                                              standoff = 10)))
