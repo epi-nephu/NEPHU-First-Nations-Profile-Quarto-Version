@@ -24,6 +24,22 @@ note_data_census <- glue::glue("
   - The 2021 Census was held on the evening of August 10th 2021.
   - Aboriginal and/or Torres Strait Islander peoples were defined as those who identified themselves as Aboriginal and/or Torres Strait Islander in the Census.")
 
+note_data_ctg_aedc <- glue::glue("
+- Data were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the [2021 Australian Early Development Census (AEDC)](https://www.aedc.gov.au/).
+  - The Closing the Gap Information Repository brings together data from a wide range of data sources to provide up to date information for each Closing the Gap target, indicator, and contextual factors.
+  - The AEDC is a population-based measure of children’s development as they enter their first year of full-time school. It measures five important domains of early childhood development: physical health and wellbeing, social competence, emotional maturity, language and cognitive skills, and communication skills and general knowledge.
+  - Aboriginal and/or Torres Strait Islander children were defined as those who were identified as Aboriginal and/or Torres Strait Islander by their parent or guardian.")
+
+note_data_naplan <- glue::glue("
+- Data were obtained from the [National Assessment Program — Literacy and Numeracy (NAPLAN) program](https://www.acara.edu.au/reporting/national-report-on-schooling-in-australia/naplan-national-results), administered by the Australian Curriculum, Assessment, and Reporting Authority (ACARA).
+  - NAPLAN is a national assessment that tests students’ ability in three domains of literacy (reading, writing, and language conventions) and in numeracy. Students sit NAPLAN tests in Term 1 of Years 3, 5, 7, and 9.
+  - Students with a language background other than English, who arrived from overseas less than a year before the tests, and those with significant disabilities may be exempted from NAPLAN testing.
+  - The NAPLAN proficiencies include four levels for each assessment area at each year level:
+    - Exceeding: the student’s result exceeds expectations at the time of testing.
+    - Strong: the student’s result meets challenging but reasonable expectations at the time of testing.
+    - Developing: the student’s result indicates that they are working towards expectations at the time of testing.
+    - Needs additional support: the student’s result indicates that they are not achieving the learning outcomes expected at the time of testing. They are likely to need additional support to progress satisfactorily.")
+
 note_data_phidu_perinatal <- glue::glue("
 - Data were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [National Perinatal Data Collection (NPDC)](https://www.aihw.gov.au/about-our-data/our-data-collections/national-perinatal-data-collection).
   - The PHIDU Social Health Atlas is a compendium of demographic, social, health status, and health service utilisation indicators compiled by Torrens University Australia from a wide range of national, jurisdictional, and regional data sources.
