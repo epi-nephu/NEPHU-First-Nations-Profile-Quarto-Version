@@ -16,12 +16,16 @@ f_line_simple_indigenous <- function(data, y_variable, y_max, y_breaks, y_expand
     #
     geom_line(linewidth = 1.5)
   
+  # Add the CtG target line if relevant
   if (!is.na(ctg_target)) {
     figure <- figure +
-      geom_hline(aes(yintercept = ctg_target),
-                 col       = colour_gradient_mid,
-                 linetype  = "dashed",
-                 linewidth = 0.5)
+      geom_hline(aes(yintercept = ctg_target, linetype = "CtG target (%)"),
+                 col         = colour_gradient_mid,
+                 linewidth   = 0.5,
+                 show.legend = TRUE) +
+      #
+      scale_linetype_manual(name = NULL,
+                            values = c("CtG target (%)" = "dashed"))
     
   }
   
@@ -42,9 +46,34 @@ f_line_simple_indigenous <- function(data, y_variable, y_max, y_breaks, y_expand
     theme(axis.title.y = element_text(size = 10, family = "Arial"))
   
   figure <- figure %>% 
-    plotly::ggplotly(tooltip = "text") %>%
-    #
-    plotly::layout(hovermode = "x",
+    plotly::ggplotly(tooltip = "text")
+  
+  # Finicky wrangling to get combined legend to display properly when CtG line present
+  legend_labels <- levels(factor(data$indigenous_status))
+  
+  line_traces <- which(vapply(figure$x$data, function(tr) tr$type == "scatter" && tr$mode == "lines", logical(1)))
+  
+  for (i in seq_along(line_traces)) {
+    
+    if (i <= length(legend_labels)) {
+      
+      figure$x$data[[line_traces[i]]]$name <- legend_labels[i]
+      
+    }
+  }
+  
+  for (i in seq_along(figure$x$data)) {
+    
+    if (!is.null(figure$x$data[[i]]$name) &&
+        grepl("CtG", figure$x$data[[i]]$name, ignore.case = TRUE)) {
+      
+      figure$x$data[[i]]$name <- "CtG target (%)"
+      
+    }
+  }
+
+  figure <- figure %>% 
+    plotly::layout(hovermode = "closest",
                    #
                    yaxis = list(title = list(text     = y_title,
                                              standoff = 10)),
