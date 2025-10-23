@@ -35,7 +35,7 @@ f_bar_simple_indigenous <- function(data, x_variable, x_angle = 0, y_variable, y
   figure <- figure %>% 
     plotly::ggplotly(tooltip = "text") %>%
     #
-    plotly::layout(hovermode = "x",
+    plotly::layout(hovermode = "closest",
                    #
                    yaxis = list(title = list(text     = y_title,
                                              standoff = 10)),
