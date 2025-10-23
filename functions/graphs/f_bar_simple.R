@@ -18,6 +18,7 @@ f_bar_simple <- function(data, x_variable, x_angle = 90, y_variable, y_max, y_br
              fill = colour_lightblue)
   
   if (!is.na(ctg_target)) {
+    
     figure <- figure +
       geom_hline(aes(yintercept = ctg_target, linetype = "CtG target (%)"),
                  col         = colour_gradient_mid,
@@ -46,7 +47,7 @@ f_bar_simple <- function(data, x_variable, x_angle = 90, y_variable, y_max, y_br
   figure <- figure %>% 
     plotly::ggplotly(tooltip = "text") %>%
     #
-    plotly::layout(hovermode = "x",
+    plotly::layout(hovermode = "closest",
                    #
                    yaxis = list(title = list(text     = y_title,
                                              standoff = 10)))
