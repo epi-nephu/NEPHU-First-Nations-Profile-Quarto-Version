@@ -55,7 +55,7 @@ childhood_enrol <- childhood_enrol %>%
 
 # ------------------------------------------------------------------------------
 # Preschool attendance
-# Data from National Early Childhood Education and Care Collection
+# Data from CtG Information Repository
 # ------------------------------------------------------------------------------
 # Read in NECECC data
 childhood_attendance <- readxl::read_excel(file.path(root_folder, subfolder_ctg,
@@ -111,8 +111,614 @@ childhood_attendance <- childhood_attendance %>%
 
 :::: {.panel-tabset}
 
+### Figure 6B-1
 
+::: {#fig_6B_1 .fig-tab-title}
+**Figure 6B-1:** Number and percentage of Aboriginal and/or Torres Strait Islander children enrolled in a preschool program, Victoria, 2018-2022
+:::
 
+```{r}
+#
+figure_number <- childhood_enrol %>% 
+  dplyr::mutate(hover_text = paste0("Year: ", year,
+                                    "\nCount: ", format(aboriginal_n, big.mark = ","))) %>%
+  #
+  f_line_simple(y_variable = aboriginal_n,
+                y_max      = NA,
+                y_breaks   = 200,
+                y_expand   = 100,
+                y_title    = "Number of children")
+
+figure_percent <- childhood_enrol %>% 
+  dplyr::mutate(hover_text = paste0("Year: ", year,
+                                    "\nPercentage: ", sprintf("%.1f", aboriginal_prop))) %>%
+  #
+  f_line_simple(y_variable = aboriginal_prop,
+                y_max      = 100,
+                y_breaks   = 10,
+                y_expand   = 1,
+                y_title    = "Percentage of children",
+                ctg_target = 95)
+
+f_line_simple_combine(figure_number, figure_percent)
+```
+
+### Table 6B-1
+
+::: {#tab_6B-1 .fig-tab-title}
+**Table 6B-1:** Number and percentage of Aboriginal and/or Torres Strait Islander children enrolled in a preschool program, Victoria, 2018-2022
+:::
+
+```{r}
+#
+table_headers <- c("Year",
+                   "Number of children",
+                   "% of children")
+
+table <- childhood_enrol
+
+#write.csv(table, paste0(here::here(), "/data", "/table_6b1", ".csv"), row.names = FALSE)
+
+table %>% 
+  dplyr::mutate(year            = as.character(year),
+                aboriginal_prop = sprintf("%.1f", aboriginal_prop)) %>% 
+  #
+  f_table_simple(total_row     = NULL,
+                 table_headers = table_headers) %>% 
+  #
+  kableExtra::column_spec(2:3,
+                          width = "1.5in")
+```
+
+:::{style="height: 1em;"}
+:::
+
+<a href="../data/table_6b1.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+### Figure 6B-2
+
+::: {#fig_6B_2 .fig-tab-title}
+**Figure 6B-2:** Preschool attendance during the one week reference period for Aboriginal and/or Torres Strait Islander children enrolled in a preschool program, Victoria, 2016-2023
+:::
+
+```{r}
+#
+childhood_attendance %>% 
+  dplyr::filter(value == "Proportion") %>% 
+  dplyr::filter(indigenous_status == "Aboriginal and Torres Strait Islander children") %>% 
+  #
+  dplyr::mutate(
+    vic_plot = dplyr::case_when(
+      is.na(vic) ~ 0,
+      TRUE ~ vic),
+    #
+    hover_text = ifelse(
+      is.na(vic),
+      paste0("Year: ", year,
+             "\nAttendance: ", attendance,
+             "\nPercentage: ", "Data not available"),
+      paste0("Year: ", year,
+             "\nAttendance: ", attendance,
+             "\nPercentage: ", sprintf("%.1f", vic)))) %>%
+  #
+  f_bar_stacked(x_variable    = year,
+                y_variable    = vic_plot,
+                fill_variable = attendance,
+                fill_values   = c(colour_yellow, colour_orange, colour_green, colour_lightblue),
+                fill_labels   = c("Did not attend", "<10 hours", "10-14 hours", "15+ hours"),
+                #
+                y_max    = 100,
+                y_breaks = 10,
+                y_expand = 1,
+                y_title  = "Percentage of enrolled children")
+```
+
+### Table 6B-2
+
+::: {#tab_6B-2 .fig-tab-title}
+**Table 6B-2:** Preschool attendance during the one week reference period for Aboriginal and/or Torres Strait Islander children enrolled in a preschool program, Victoria, 2016-2023
+:::
+
+```{r}
+#
+table_headers <- c("Year",
+                   "n", "%",
+                   "n", "%",
+                   "n", "%",
+                   "n", "%")
+
+table <- childhood_attendance %>% 
+  dplyr::filter(indigenous_status == "Aboriginal and Torres Strait Islander children") %>% 
+  #
+  dplyr::arrange(year) %>% 
+  #
+  tidyr::pivot_wider(names_from  = "value",
+                     values_from = "vic") %>%
+  #
+  tidyr::pivot_wider(names_from  = "attendance",
+                     values_from = c("Number", "Proportion"),
+                     names_vary  = "slowest") %>% 
+  #
+  janitor::clean_names() %>% 
+  #
+  dplyr::select(-indigenous_status)
+
+#write.csv(table, paste0(here::here(), "/data", "/table_6b2", ".csv"), row.names = FALSE)
+
+table %>% 
+  dplyr::mutate(proportion_15_hours       = round(proportion_15_hours, digits = 1),
+                proportion_10_14_hours    = round(proportion_10_14_hours, digits = 1),
+                proportion_10_hours       = round(proportion_10_hours, digits = 1),
+                proportion_did_not_attend = round(proportion_did_not_attend, digits = 1)) %>% 
+  #
+  f_table_simple(total_row     = NULL,
+                 table_headers = table_headers) %>% 
+  #
+  kableExtra::add_header_above(c(" " = 1,
+                                 "Attended 15+ hours"   = 2,
+                                 "Attended 10-14 hours" = 2,
+                                 "Attended <10 hours"   = 2,
+                                 "Did not attend"       = 2)) %>% 
+  #
+  kableExtra::column_spec(2:9,
+                          width = "0.75in")
+```
+
+:::{style="height: 1em;"}
+:::
+
+<a href="../data/table_6b2.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+- Data for Figure 6B-1 and Table 6B-1 were obtained from the [Victorian Child and Adolescent Monitoring System (VCAMS)](https://www.vic.gov.au/victorian-child-and-adolescent-monitoring-system-vcams).
+  - VCAMS brings together data from a wide range of sources about early childhood, family functioning, and communities to monitor and report against the indicators in the VCAMS Outcomes Framework.
+  - This indicator uses the “year before school” population as the denominator. This is a proportion of all 4 and 5 year old children which reflects the age composition of the cohort of children who are in the year before starting school during a single calendar year. These calculations are based on the [ABS Estimated Residential Population](https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071), which takes into account the known under-reporting of Aboriginal and/or Torres Strait Islander status in the Census.
+
+:::{style="height: 1em;"}
+:::
+
+- Data for Figure 6B-2 and Table 6B-2 were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/) compiled from the [National Early Childhood Education and Care Collection (NECECC)](https://www.abs.gov.au/statistics/people/education/preschool-education/latest-release).
+  - The Closing the Gap Information Repository brings together data from a wide range of data sources to provide up to date information for each Closing the Gap target, indicator, and contextual factors.
+  - The NECECC collates data on preschool enrollments, attendance, and service providers from the Australian Government, state and territory education departments, and the Catholic Education Office of the Archdiocese of Canberra and Goulburn. The NECEEC conducts an annual census on the first Friday in August, with the reference week for data collection being the week before the census date.
+  - Aboriginal and/or Torres Strait Islander children are defined as those who were identified as Aboriginal and/or Torres Strait Islander by a parent or guardian.
+  - Data were not available for 2020 and 2021 due to the impact of COVID restrictions on preschool program delivery in Victoria.
+
+:::{style="height: 1em;"}
+:::
+
+`r note_caveat_underidentification`
+
+:::
+
+::: {style="opacity: 0.8;"}
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+:::
+
+# Early Childhood Development
+
+::: {.ctg-box}
+**This topic aligns with [Closing the Gap Outcome Area 4](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/children-thriving/): Aboriginal and Torres Strait Islander children thrive in their early years**
+
+Target: By 2031, increase the proportion of Aboriginal and Torres Strait Islander children assessed as developmentally on track in all five domains of the Australian Early Development Census (AEDC) to 55%.
+:::
+
+:::{style="height: 1em;"}
+:::
+
+```{r}
+# ------------------------------------------------------------------------------
+# Early childhood development
+# Data from CtG Information Repository
+# ------------------------------------------------------------------------------
+# Read in AEDC data
+childhood_develop <- readxl::read_excel(file.path(root_folder, subfolder_ctg,
+                                                  "CTG04_Early_Years_Data_Tables.xlsx"),
+                                        skip  = 1,
+                                        sheet = "Table CtG4A.1") %>% 
+  janitor::clean_names() %>% 
+  #
+  dplyr::rename(indigenous_status = x3,
+                year = x4) %>%
+  #
+  tidyr::fill(indigenous_status, year) %>%
+  #
+  dplyr::filter(row_number() %in% 1:14) %>%
+  dplyr::filter(!is.na(vic)) %>% 
+  #
+  dplyr::select(indigenous_status,
+                year,
+                vic)
+
+# Data wrangling
+childhood_develop <- childhood_develop %>% 
+  dplyr::mutate(
+    vic = as.numeric(vic),
+    #
+    year = dplyr::case_when(year == "2009 (b)" ~ "2009",
+                            TRUE ~ year),
+    #
+    indigenous_label = dplyr::case_when(
+      indigenous_status == "Aboriginal and Torres Strait Islander children" ~ "Aboriginal",
+      indigenous_status == "Non-Indigenous children"                        ~ "Non-Indigenous",
+      TRUE ~ NA_character_),
+    #
+    indigenous_status = factor(dplyr::case_when(
+      indigenous_label == "Aboriginal"     ~ "Identified as Aboriginal\nand/or Torres Strait Islander",
+      indigenous_label == "Non-Indigenous" ~ "Did not identify as Aboriginal\nand/or Torres Strait Islander",
+      TRUE ~ NA_character_),
+      #
+      levels = c("Identified as Aboriginal\nand/or Torres Strait Islander",
+                 "Did not identify as Aboriginal\nand/or Torres Strait Islander")))
+```
+
+- Data for this topic were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/).
+
+- In 2021, 36% of Aboriginal and/or Torres Strait Islander children in Victoria who were assessed during their first year of school were developmentally on track for all five AEDC domains, compared to 32% in 2009.   
+
+- This is below the Closing the Gap target of 55%, and is lower than for non-Indigenous children in 2021 (58%).
+
+**Key points from stakeholder consultation**
+
+- At stakeholder consultations during the development of this report, a lack of culturally safe and accessible health services for the diagnosis of childhood health issues was cited as a possible barrier.
+
+- For example, whilst a very high proportion of Aboriginal and/or Torres Strait Islander babies have their hearing screened at birth, middle ear infections and associated hearing problems are a common childhood issue for First Nations children.
+
+:::: {.panel-tabset}
+
+### Figure 6B-3
+
+::: {#fig_6B_3 .fig-tab-title}
+**Figure 6B-3:** Percentage of children assessed as developmentally on track for all five AEDC domains, Victoria, by Aboriginal and/or Torres Strait Islander status, 2009-2021
+:::
+
+```{r}
+#
+childhood_develop %>% 
+  dplyr::mutate(hover_text = paste0("\nYear: ", year,
+                                    "\nIndigenous status: ", indigenous_label,
+                                    "\nPercentage: ", sprintf("%.1f", vic))) %>%
+  #
+  f_line_simple_indigenous(y_variable = vic,
+                           y_max = 100,
+                           y_breaks = 10,
+                           y_expand = 1,
+                           y_title = "Percentage of children",
+                           ctg_target = 55)
+```
+
+### Table 6B-3
+
+::: {#tab_6B-3 .fig-tab-title}
+**Table 6B-3:** Percentage of children assessed as developmentally on track for all five AEDC domains, Victoria, by Aboriginal and/or Torres Strait Islander status, 2009-2021
+:::
+
+```{r}
+#
+table_headers <- c("Year",
+                   "Yes (%)",
+                   "No (%)")
+
+table <- childhood_develop %>%
+  dplyr::select(-indigenous_status) %>% 
+  #
+  pivot_wider(names_from  = "indigenous_label",
+              names_vary  = "slowest",
+              values_from = "vic") %>% 
+  #
+  janitor::clean_names() %>%
+  #
+  dplyr::arrange(year)
+
+#write.csv(table, paste0(here::here(), "/data", "/table_6b3", ".csv"), row.names = FALSE)
+
+table %>%
+  dplyr::mutate(aboriginal     = sprintf("%.1f", aboriginal),
+                non_indigenous = sprintf("%.1f", non_indigenous)) %>% 
+  #
+  f_table_simple(total_row     = NULL,
+                 table_headers = table_headers) %>% 
+  #
+  kableExtra::add_header_above(c(" " = 1,
+                                 "Identified as Aboriginal and/or Torres Strait Islander" = 2))
+  
+```
+
+:::{style="height: 1em;"}
+:::
+
+<a href="../data/table_6b3.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+
+`r note_data_ctg_aedc`
+
+:::{style="height: 1em;"}
+:::
+
+`r note_caveat_underidentification`
+:::
+
+::: {style="opacity: 0.8;"}
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+:::
+
+# Childhood Numeracy and Literacy
+
+```{r}
+# ------------------------------------------------------------------------------
+# Childhood literacy - reading
+# Data from NAPLAN
+# ------------------------------------------------------------------------------
+# Read in NAPLAN data
+naplan_reading <- f_read_naplan(data_sheet = "Table SE5c.1")
+
+# ------------------------------------------------------------------------------
+# Childhood literacy - writing
+# Data from NAPLAN
+# ------------------------------------------------------------------------------
+# Read in NAPLAN data
+naplan_writing <- f_read_naplan(data_sheet = "Table SE5c.2")
+
+# ------------------------------------------------------------------------------
+# Childhood numeracy
+# Data from NAPLAN
+# ------------------------------------------------------------------------------
+# Read in NAPLAN data
+naplan_numeracy <- f_read_naplan(data_sheet = "Table SE5c.3")
+```
+
+- Data for this topic were obtained from the [National Assessment Program — Literacy and Numeracy (NAPLAN) program](https://www.acara.edu.au/reporting/national-report-on-schooling-in-australia/naplan-national-results), administered by the Australian Curriculum, Assessment, and Reporting Authority (ACARA).
+
+- In 2024, 75% of Victorian Aboriginal and/or Torres Strait Islander children in Year 3, 78% of children in Year 5, 74% of children in Year 7, and 72% of children in Year 9 were at or above the NAPLAN reading minimum standard (exceeding, strong, or developing). This was lower than for non-Indigenous children at each year level (Year 3 = 90%, Year 5 = 93%, Year 7 = 92%, Year 9 = 90%).
+
+- In 2024, 81% of Victorian Aboriginal and/or Torres Strait Islander children in Year 3, 78% of children in Year 5, 75% of children in Year 7, and 72% of children in Year 9 were at or above the NAPLAN writing minimum standard (exceeding, strong, or developing). This was lower than for non-Indigenous children at each year level (Year 3 = 94%, Year 5 = 93%, Year 7 = 92%, Year 9 = 90%).
+
+- In 2024, 75% of Victorian Aboriginal and/or Torres Strait Islander children in Year 3, 75% of children in Year 5, 72% of children in Year 7, and 69% of children in Year 9 were at or above the NAPLAN numeracy minimum standard (exceeding, strong, or developing). This was lower than for non-Indigenous children at each year level (Year 3 = 91%, Year 5 = 92%, Year 7 = 91%, Year 9 = 90%).
+
+:::: {.panel-tabset}
+
+### Figure 6B-4
+
+::: {#fig_6B_4 .fig-tab-title}
+**Figure 6B-4:** Percentage of Aboriginal and/or Torres Strait Islander children at each NAPLAN reading proficiency level, Victoria, 2024
+:::
+
+```{r}
+#
+naplan_reading %>%
+  dplyr::filter(indigenous_status == "Aboriginal and Torres Strait Islander students") %>% 
+  #
+  dplyr::mutate(hover_text = paste0("Grade: ", grade,
+                                    "\nNAPLAN level: ", achievement,
+                                    "\nPercentage: ", sprintf("%.1f", vic))) %>%
+  #
+  f_bar_stacked(x_variable    = grade,
+                y_variable    = vic,
+                fill_variable = forcats::fct_rev(achievement),
+                fill_values   = c(colour_gray, colour_yellow, colour_orange, colour_green, colour_lightblue),
+                fill_labels   = c("Exempt", "Needs additional support", "Developing", "Strong", "Exceeding"),
+                #
+                y_max    = 100,
+                y_breaks = 10,
+                y_expand = 1,
+                y_title  = "Percentage of children")
+```
+
+### Table 6B-4
+
+::: {#tab_6B-4 .fig-tab-title}
+**Table 6B-4:** Percentage of Aboriginal and/or Torres Strait Islander children at each NAPLAN reading proficiency level, Victoria, 2024
+:::
+
+```{r}
+#
+table_headers <- c("Proficiency level",
+                   "Year 3",
+                   "Year 5",
+                   "Year 7",
+                   "Year 9")
+
+table <- naplan_reading %>% 
+  dplyr::filter(indigenous_status == "Aboriginal and Torres Strait Islander students") %>%
+  #
+  dplyr::select(-indigenous_status,
+                -year) %>% 
+  #
+  tidyr::pivot_wider(names_from  = "grade",
+                     values_from = "vic") %>% 
+  #
+  janitor::clean_names() %>% 
+  #
+  janitor::adorn_totals()
+
+#write.csv(table, paste0(here::here(), "/data", "/table_6b4", ".csv"), row.names = FALSE)
+
+table %>% 
+  dplyr::mutate(year_3 = sprintf("%.1f", year_3),
+                year_5 = sprintf("%.1f", year_5),
+                year_7 = sprintf("%.1f", year_7),
+                year_9 = sprintf("%.1f", year_9)) %>% 
+  #
+  f_table_simple(total_row     = nrow(table),
+                 table_headers = table_headers) %>% 
+  #
+  kableExtra::column_spec(2:5,
+                          width = "1in")
+```
+
+:::{style="height: 1em;"}
+:::
+
+<a href="../data/table_6b4.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+### Figure 6B-5
+
+::: {#fig_6B_5 .fig-tab-title}
+**Figure 6B-5:** Percentage of Aboriginal and/or Torres Strait Islander children at each NAPLAN writing proficiency level, Victoria, 2024
+:::
+
+```{r}
+#
+naplan_writing %>%
+  dplyr::filter(indigenous_status == "Aboriginal and Torres Strait Islander students") %>% 
+  #
+  dplyr::mutate(hover_text = paste0("Grade: ", grade,
+                                    "\nNAPLAN level: ", achievement,
+                                    "\nPercentage: ", sprintf("%.1f", vic))) %>%
+  #
+  f_bar_stacked(x_variable    = grade,
+                y_variable    = vic,
+                fill_variable = forcats::fct_rev(achievement),
+                fill_values   = c(colour_gray, colour_yellow, colour_orange, colour_green, colour_lightblue),
+                fill_labels   = c("Exempt", "Needs additional support", "Developing", "Strong", "Exceeding"),
+                #
+                y_max    = 100,
+                y_breaks = 10,
+                y_expand = 1,
+                y_title  = "Percentage of children")
+```
+
+### Table 6B-5
+
+::: {#tab_6B-5 .fig-tab-title}
+**Table 6B-5:** Percentage of Aboriginal and/or Torres Strait Islander children at each NAPLAN writing proficiency level, Victoria, 2024
+:::
+
+```{r}
+#
+table_headers <- c("Proficiency level",
+                   "Year 3",
+                   "Year 5",
+                   "Year 7",
+                   "Year 9")
+
+table <- naplan_writing %>% 
+  dplyr::filter(indigenous_status == "Aboriginal and Torres Strait Islander students") %>%
+  #
+  dplyr::select(-indigenous_status,
+                -year) %>% 
+  #
+  tidyr::pivot_wider(names_from  = "grade",
+                     values_from = "vic") %>% 
+  #
+  janitor::clean_names() %>% 
+  #
+  janitor::adorn_totals()
+
+#write.csv(table, paste0(here::here(), "/data", "/table_6b5", ".csv"), row.names = FALSE)
+
+table %>% 
+  dplyr::mutate(year_3 = sprintf("%.1f", year_3),
+                year_5 = sprintf("%.1f", year_5),
+                year_7 = sprintf("%.1f", year_7),
+                year_9 = sprintf("%.1f", year_9)) %>% 
+  #
+  f_table_simple(total_row     = nrow(table),
+                 table_headers = table_headers) %>% 
+  #
+  kableExtra::column_spec(2:5,
+                          width = "1in")
+```
+
+:::{style="height: 1em;"}
+:::
+
+<a href="../data/table_6b5.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+### Figure 6B-6
+
+::: {#fig_6B_6 .fig-tab-title}
+**Figure 6B-6:** Percentage of Aboriginal and/or Torres Strait Islander children at each NAPLAN numeracy proficiency level, Victoria, 2024
+:::
+
+```{r}
+#
+naplan_numeracy %>%
+  dplyr::filter(indigenous_status == "Aboriginal and Torres Strait Islander students") %>% 
+  #
+  dplyr::mutate(hover_text = paste0("Grade: ", grade,
+                                    "\nNAPLAN level: ", achievement,
+                                    "\nPercentage: ", sprintf("%.1f", vic))) %>%
+  #
+  f_bar_stacked(x_variable    = grade,
+                y_variable    = vic,
+                fill_variable = forcats::fct_rev(achievement),
+                fill_values   = c(colour_gray, colour_yellow, colour_orange, colour_green, colour_lightblue),
+                fill_labels   = c("Exempt", "Needs additional support", "Developing", "Strong", "Exceeding"),
+                #
+                y_max    = 102,
+                y_breaks = 10,
+                y_expand = 1,
+                y_title  = "Percentage of children")
+```
+
+### Table 6B-6
+
+::: {#tab_6B-6 .fig-tab-title}
+**Table 6B-6:** Percentage of Aboriginal and/or Torres Strait Islander children at each NAPLAN numeracy proficiency level, Victoria, 2024
+:::
+
+```{r}
+#
+table_headers <- c("Proficiency level",
+                   "Year 3",
+                   "Year 5",
+                   "Year 7",
+                   "Year 9")
+
+table <- naplan_numeracy %>% 
+  dplyr::filter(indigenous_status == "Aboriginal and Torres Strait Islander students") %>%
+  #
+  dplyr::select(-indigenous_status,
+                -year) %>% 
+  #
+  tidyr::pivot_wider(names_from  = "grade",
+                     values_from = "vic") %>% 
+  #
+  janitor::clean_names() %>% 
+  #
+  janitor::adorn_totals()
+
+#write.csv(table, paste0(here::here(), "/data", "/table_6b6", ".csv"), row.names = FALSE)
+
+table %>% 
+  dplyr::mutate(year_3 = sprintf("%.1f", year_3),
+                year_5 = sprintf("%.1f", year_5),
+                year_7 = sprintf("%.1f", year_7),
+                year_9 = sprintf("%.1f", year_9)) %>% 
+  #
+  f_table_simple(total_row     = nrow(table),
+                 table_headers = table_headers) %>% 
+  #
+  kableExtra::column_spec(2:5,
+                          width = "1in")
+```
+
+:::{style="height: 1em;"}
+:::
+
+<a href="../data/table_6b6.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_naplan`
+
+:::{style="height: 1em;"}
+:::
+
+`r note_caveat_underidentification`
+
+`r note_caveat_rounding`
+:::
 
