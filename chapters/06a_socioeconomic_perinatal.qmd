@@ -757,7 +757,8 @@ childhood_breastfed %>%
                 y_max         = 50,
                 y_breaks      = 5,
                 y_expand      = 0.5,
-                y_title       = "Percentage of children")
+                y_title       = "Percentage of children",
+                legend_offset = -0.4)
 ```
 
 ### Table 6A-5
