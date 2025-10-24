@@ -33,14 +33,13 @@ What is the average educational attainment for Aboriginal and/or Torres Strait I
 # Data from ABS Census using TableBuilderPro
 # ------------------------------------------------------------------------------
 # Read in Census data
-education_school_lga <- f_read_census_lga("Aboriginal_Education_School_LGA.csv",
-                                          variable = "school_year") %>% 
+school_lga <- f_read_census_lga("Aboriginal_Education_School_LGA.csv",
+                                variable = "school_year") %>% 
   #
   dplyr::filter(!school_year %in% c("Not stated", "Not applicable")) 
 
 # Data wrangling
-education_school_lga <- education_school_lga %>% 
-  #
+school_lga <- school_lga %>% 
   dplyr::mutate(school_year = dplyr::case_when(
     school_year == "Year 12 or equivalent" ~ "Year 12",
     school_year == "Year 11 or equivalent" ~ "Year 9-11",
@@ -72,14 +71,13 @@ education_school_lga <- education_school_lga %>%
 # Data from ABS Census using TableBuilderPro
 # ------------------------------------------------------------------------------
 # Read in Census data
-education_school_agesex <- f_read_census_agesex("Aboriginal_Education_School_AgeSex.csv",
-                                                variable = "school_year") %>% 
+school_agesex <- f_read_census_agesex("Aboriginal_Education_School_AgeSex.csv",
+                                      variable = "school_year") %>% 
   #
   dplyr::filter(!school_year %in% c("Not stated", "Not applicable"))
 
 # Data wrangling - by age and sex
-education_school_agesex <- education_school_agesex %>% 
-  #
+school_agesex <- school_agesex %>% 
   dplyr::mutate(school_year = dplyr::case_when(
     school_year == "Year 12 or equivalent" ~ "Year 12",
     school_year == "Year 11 or equivalent" ~ "Year 9-11",
@@ -145,7 +143,7 @@ The following question was asked of all people aged 15 years and over completing
 
 ```{r}
 #
-education_school_lga %>% 
+school_lga %>% 
   dplyr::filter(lga_name %in% nephu_lga) %>% 
   #
   tidyr::pivot_longer(cols      = ends_with("_n"),
@@ -191,7 +189,7 @@ table_headers <- c("LGA",
                    "n", "%",
                    "Total")
 
-table <- education_school_lga %>% 
+table <- school_lga %>% 
   dplyr::filter(lga_name %in% c(nephu_lga, "NEPHU"))
 
 #write.csv(table, paste0(here::here(), "/data", "/table_6c1", ".csv"), row.names = FALSE)
@@ -227,7 +225,7 @@ table %>%
 
 ```{r}
 #
-education_school_agesex %>% 
+school_agesex %>% 
   dplyr::filter(age_group %in% age_group_lvl) %>% 
   #
   tidyr::pivot_longer(cols      = ends_with("_n"),
@@ -275,7 +273,7 @@ table_headers <- c("Age group",
                    "n", "%",
                    "Total")
 
-table <- education_school_agesex
+table <- school_agesex
 
 #write.csv(table, paste0(here::here(), "/data", "/table_6c2", ".csv"), row.names = FALSE)
 
@@ -286,6 +284,7 @@ table <- table %>%
 
 table %>% 
   dplyr::filter(sex == "Female") %>% 
+  #
   dplyr::select(-sex) %>% 
   #
   f_table_simple(total_row     = nrow(table) / 2,
@@ -302,6 +301,7 @@ table %>%
 
 table %>% 
   dplyr::filter(sex == "Male") %>% 
+  #
   dplyr::select(-sex) %>% 
   #
   f_table_simple(total_row     = nrow(table) / 2,
@@ -361,10 +361,10 @@ Target: By 2031, increase the proportion of Aboriginal and Torres Strait Islande
 # Data from ABS Census via CtG Information Repository
 # ------------------------------------------------------------------------------
 # Read in ABS data
-education_year12_trend <- readxl::read_excel(file.path(root_folder, subfolder_ctg,
-                                                       "CTG05_Learning_Potential_Data_Tables.xlsx"),
-                                             skip  = 1,
-                                             sheet = "Table CtG5A.1") %>% 
+year12_trend <- readxl::read_excel(file.path(root_folder, subfolder_ctg,
+                                             "CTG05_Learning_Potential_Data_Tables.xlsx"),
+                                   skip  = 1,
+                                   sheet = "Table CtG5A.1") %>% 
   janitor::clean_names() %>% 
   #
   dplyr::rename(indigenous_status = x3,
@@ -381,7 +381,7 @@ education_year12_trend <- readxl::read_excel(file.path(root_folder, subfolder_ct
                 unit)
 
 # Data wrangling
-education_year12_trend <- education_year12_trend %>% 
+year12_trend <- year12_trend %>% 
   dplyr::mutate(
     vic = as.numeric(vic),
     #
@@ -408,8 +408,8 @@ education_year12_trend <- education_year12_trend %>%
 # Data from ABS Census using TableBuilderPro
 # ------------------------------------------------------------------------------
 # Data wrangling
-education_year12_youth <- f_read_census_agesex("Aboriginal_Education_School_YoungAdult.csv",
-                                               variable = "school_year") %>% 
+year12_youth <- f_read_census_agesex("Aboriginal_Education_School_YoungAdult.csv",
+                                     variable = "school_year") %>% 
   #
   dplyr::filter(!school_year %in% c("Not stated", "Not applicable")) %>%
   #
@@ -418,19 +418,19 @@ education_year12_youth <- f_read_census_agesex("Aboriginal_Education_School_Youn
     TRUE ~ "no"))
 
 # Data wrangling - by LGA
-education_year12_lga <- education_year12_youth %>% 
+year12_lga <- year12_youth %>% 
   f_wrangle_census_lga(variable = school_year,
                        level    = "person",
                        dichot   = "yes")
 
 # Data wrangling - by sex
-education_year12_sex <- education_year12_youth %>%
+year12_sex <- year12_youth %>%
   f_wrangle_census_agesex(variable = school_year,
                           dichot   = "yes") %>% 
   #
   dplyr::filter(age_group == "Total") %>% 
   #
-  dplyr::bind_rows(education_year12_lga %>% 
+  dplyr::bind_rows(year12_lga %>% 
                      dplyr::filter(lga_name == "NEPHU") %>% 
                      #
                      dplyr::mutate(age_group = "NEPHU",
@@ -439,7 +439,7 @@ education_year12_sex <- education_year12_youth %>%
                      dplyr::select(-lga_name))
 ```
 
-- Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
+- Data for this topic were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the ABS Census for the Census years between 2001 and 2021, as well as the [ABS Census 2021](https://www.abs.gov.au/census).
 
 - The percentage of Aboriginal and/or Torres Strait Islander people aged 20-24 years living in Victoria with a Year 12 or equivalent education increased from 49% in 2001 to 73% in 2021. 
 
@@ -447,7 +447,7 @@ education_year12_sex <- education_year12_youth %>%
 
 - The number of people aged 20-24 years living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who had a Year 12 or equivalent education ranged from 141 (Whittlesea LGA) to 21 (Manningham LGA). 
 
-- The gap between the observed number of Aboriginal and/or Torres Strait Islanders aged 20-24 years with a Year 12 or equivalent education and the number expected if the rate was the same as for non-Indigenous people was biggest for Hume and Knox LGAs. 
+- The gap between the observed number of Aboriginal and/or Torres Strait Islander people aged 20-24 years with a Year 12 or equivalent education and the number expected if the rate was the same as for non-Indigenous people was biggest for Hume and Knox LGAs. 
 
 - The percentage of people aged 20-24 years living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who had a Year 12 or equivalent education ranged from 90% (Yarra LGA) to 65% (Knox LGA). 
 
@@ -486,7 +486,7 @@ The following question was asked of all people aged 15 years and over completing
 
 ```{r}
 #
-education_year12_trend %>% 
+year12_trend %>% 
   dplyr::filter(unit == "prop") %>% 
   #
   dplyr::mutate(hover_text = paste0("Year: ", year,
@@ -515,7 +515,7 @@ table_headers <- c("Year",
                    "Yes (n)", "Yes (%)",
                    "No (n)", "No (%)")
 
-table <- education_year12_trend %>% 
+table <- year12_trend %>% 
   dplyr::select(-indigenous_status) %>% 
   #
   pivot_wider(names_from  = c("indigenous_label", "unit"),
@@ -559,7 +559,7 @@ table %>%
 
 ```{r}
 #
-figure_number <- education_year12_lga %>% 
+figure_number <- year12_lga %>% 
   dplyr::filter(lga_name %in% nephu_lga) %>% 
   #
   dplyr::mutate(hover_text = paste0("LGA: ", lga_name,
@@ -572,7 +572,7 @@ figure_number <- education_year12_lga %>%
                y_expand   = 22,
                y_title    = "Number of people")
 
-figure_percent <- education_year12_lga %>% 
+figure_percent <- year12_lga %>% 
   dplyr::filter(lga_name %in% nephu_lga) %>% 
   #
   dplyr::mutate(hover_text = paste0("LGA: ", lga_name,
@@ -597,7 +597,7 @@ f_bar_simple_combine(figure_number, figure_percent)
 
 ```{r}
 #
-education_year12_lga %>% 
+year12_lga %>% 
   dplyr::filter(lga_name %in% nephu_lga) %>% 
   #
   tidyr::pivot_longer(c(aboriginal_n, aboriginal_exp_non),
@@ -644,7 +644,7 @@ table_headers <- c("LGA",
                    "n", "%",
                    " ")
 
-table <- education_year12_lga %>%
+table <- year12_lga %>%
   dplyr::filter(lga_name %in% c(nephu_lga, "NEPHU")) %>% 
   #
   dplyr::select(lga_name,
@@ -694,7 +694,7 @@ table_headers <- c("Sex",
                    "n", "%",
                    " ")
 
-table <- education_year12_sex %>%
+table <- year12_sex %>%
   dplyr::select(sex,
                 aboriginal_n,
                 aboriginal_prop,
@@ -758,4 +758,595 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
 :::
 
+# Highest Level of Education
 
+```{r}
+# ------------------------------------------------------------------------------
+# Highest level of education - entire population, by LGA
+# Data from ABS Census using TableBuilderPro
+# ------------------------------------------------------------------------------
+# Read in Census data
+qualification <- f_read_census_lga("Aboriginal_Education_Qualification_LGA.csv",
+                                   variable = "qualification") %>% 
+  #
+  dplyr::filter(!qualification %in% c("Not stated", "Not applicable", "Supplementary Codes")) 
+
+# Data wrangling
+qualification_non_aboriginal <- qualification %>% 
+  #
+  dplyr::mutate(qualification = dplyr::case_when(
+    qualification == "Postgraduate Degree Level"                       ~ "Postgraduate",
+    qualification == "Graduate Diploma and Graduate Certificate Level" ~ "Postgraduate",
+    qualification == "Bachelor Degree Level"                           ~ "Undergraduate",
+    qualification == "Advanced Diploma and Diploma Level"              ~ "Certificate and Diploma",
+    qualification == "Certificate III & IV Level"                      ~ "Certificate and Diploma",
+    qualification == "Certificate I & II Level"                        ~ "Certificate and Diploma",
+    qualification == "Secondary Education - Years 10 and above"        ~ "Year 10-12",
+    qualification == "Secondary Education - Years 9 and below"         ~ "Year 9 and below",
+    TRUE ~ NA_character_)) %>% 
+  #
+  f_wrangle_census_lga(variable = qualification,
+                       level    = "person",
+                       dichot   = "no") %>% 
+  #
+  dplyr::mutate(postgrad_prop    = non_aboriginal_n_postgraduate / non_aboriginal_total * 100,
+                undergrad_prop   = non_aboriginal_n_undergraduate / non_aboriginal_total * 100,
+                certificate_prop = non_aboriginal_n_certificate_and_diploma / non_aboriginal_total * 100,
+                year_10_12_prop  = non_aboriginal_n_year_10_12 / non_aboriginal_total * 100,
+                year_9_prop      = non_aboriginal_n_year_9_and_below / non_aboriginal_total * 100) %>% 
+  #
+  dplyr::select(lga_name,
+                postgrad_n = non_aboriginal_n_postgraduate,
+                postgrad_prop,
+                undergrad_n = non_aboriginal_n_undergraduate,
+                undergrad_prop,
+                certificate_n = non_aboriginal_n_certificate_and_diploma,
+                certificate_prop,
+                year_10_12_n = non_aboriginal_n_year_10_12,
+                year_10_12_prop,
+                year_9_n = non_aboriginal_n_year_9_and_below,
+                year_9_prop,
+                non_aboriginal_total)
+
+qualification_lga <- qualification %>% 
+  #
+  dplyr::mutate(qualification = dplyr::case_when(
+    qualification == "Postgraduate Degree Level"                       ~ "Postgraduate",
+    qualification == "Graduate Diploma and Graduate Certificate Level" ~ "Postgraduate",
+    qualification == "Bachelor Degree Level"                           ~ "Undergraduate",
+    qualification == "Advanced Diploma and Diploma Level"              ~ "Certificate and Diploma",
+    qualification == "Certificate III & IV Level"                      ~ "Certificate and Diploma",
+    qualification == "Certificate I & II Level"                        ~ "Certificate and Diploma",
+    qualification == "Secondary Education - Years 10 and above"        ~ "Year 10-12",
+    qualification == "Secondary Education - Years 9 and below"         ~ "Year 9 and below",
+    TRUE ~ NA_character_)) %>% 
+  #
+  f_wrangle_census_lga(variable = qualification,
+                       level    = "person",
+                       dichot   = "no") %>% 
+  #
+  dplyr::mutate(postgrad_prop    = aboriginal_n_postgraduate / aboriginal_total * 100,
+                undergrad_prop   = aboriginal_n_undergraduate / aboriginal_total * 100,
+                certificate_prop = aboriginal_n_certificate_and_diploma / aboriginal_total * 100,
+                year_10_12_prop  = aboriginal_n_year_10_12 / aboriginal_total * 100,
+                year_9_prop      = aboriginal_n_year_9_and_below / aboriginal_total * 100) %>% 
+  #
+  dplyr::select(lga_name,
+                postgrad_n = aboriginal_n_postgraduate,
+                postgrad_prop,
+                undergrad_n = aboriginal_n_undergraduate,
+                undergrad_prop,
+                certificate_n = aboriginal_n_certificate_and_diploma,
+                certificate_prop,
+                year_10_12_n = aboriginal_n_year_10_12,
+                year_10_12_prop,
+                year_9_n = aboriginal_n_year_9_and_below,
+                year_9_prop,
+                aboriginal_total)
+
+# ------------------------------------------------------------------------------
+# Highest level of education - entire population, by age and sex
+# Data from ABS Census using TableBuilderPro
+# ------------------------------------------------------------------------------
+# Read in Census data
+qualification_agesex <- f_read_census_agesex("Aboriginal_Education_Qualification_AgeSex.csv",
+                                             variable = "qualification") %>% 
+  #
+  dplyr::filter(!qualification %in% c("Not stated", "Not applicable", "Supplementary Codes")) 
+
+# Data wrangling
+qualification_agesex <- qualification_agesex %>% 
+  #
+  dplyr::mutate(qualification = dplyr::case_when(
+    qualification == "Postgraduate Degree Level"                       ~ "Postgraduate",
+    qualification == "Graduate Diploma and Graduate Certificate Level" ~ "Postgraduate",
+    qualification == "Bachelor Degree Level"                           ~ "Undergraduate",
+    qualification == "Advanced Diploma and Diploma Level"              ~ "Certificate and Diploma",
+    qualification == "Certificate III & IV Level"                      ~ "Certificate and Diploma",
+    qualification == "Certificate I & II Level"                        ~ "Certificate and Diploma",
+    qualification == "Secondary Education - Years 10 and above"        ~ "Year 10-12",
+    qualification == "Secondary Education - Years 9 and below"         ~ "Year 9 and below",
+    TRUE ~ NA_character_)) %>% 
+  #
+  f_wrangle_census_agesex(variable = qualification,
+                          dichot   = "no") %>% 
+  #
+  dplyr::mutate(aboriginal_total = aboriginal_n_postgraduate + aboriginal_n_undergraduate + aboriginal_n_certificate_and_diploma + aboriginal_n_year_10_12 + aboriginal_n_year_9_and_below,
+                #
+                postgrad_prop    = aboriginal_n_postgraduate / aboriginal_total * 100,
+                undergrad_prop   = aboriginal_n_undergraduate / aboriginal_total * 100,
+                certificate_prop = aboriginal_n_certificate_and_diploma / aboriginal_total * 100,
+                year_10_12_prop  = aboriginal_n_year_10_12 / aboriginal_total * 100,
+                year_9_prop      = aboriginal_n_year_9_and_below / aboriginal_total * 100) %>% 
+  #
+  dplyr::mutate(across(where(is.numeric), ~replace(., is.na(.), 0)),
+                across(where(is.numeric), ~replace(., is.nan(.), 0))) %>% 
+  #
+  dplyr::select(age_group,
+                sex,
+                postgrad_n = aboriginal_n_postgraduate,
+                postgrad_prop,
+                undergrad_n = aboriginal_n_undergraduate,
+                undergrad_prop,
+                certificate_n = aboriginal_n_certificate_and_diploma,
+                certificate_prop,
+                year_10_12_n = aboriginal_n_year_10_12,
+                year_10_12_prop,
+                year_9_n = aboriginal_n_year_9_and_below,
+                year_9_prop,
+                aboriginal_total)
+```
+
+- Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
+
+- Overall, 49% (n = 3,849) of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census had a tertiary qualification (Certificate III or above). This was lower than for non-Indigenous people living in the NEPHU catchment (62%). 
+
+- The number of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who had a tertiary qualification (Certificate III or above) ranged from 604 (Whittlesea LGA) to 87 (Manningham LGA). 
+
+- The percentage of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who had a tertiary qualification (Certificate III or above) ranged from 61% (Yarra LGA) to 41% (Hume LGA). 
+
+- Younger people were more likely to have a tertiary qualification than older people. 
+
+- Females were more likely to have a university degree (undergraduate and/or postgraduate) than males.
+
+::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+The following questions were asked of all people aged 15 years and over completing the ABS Census 2021.
+
+- What is the highest year of primary or secondary school the person has completed?
+  - Year 12 or equivalent
+  - Year 11 or equivalent
+  - Year 10 or equivalent
+  - Year 9 or equivalent
+  - Year 8 or equivalent
+  - Did not go to school
+
+:::{style="height: 1em;"}
+:::
+
+- Has the person completed any educational qualification?
+  - No
+  - No, still studying for first qualification
+  - Yes, trade certificate/apprenticeship
+  - Yes, other qualification (certificate, diploma, or degree)
+
+:::{style="height: 1em;"}
+:::
+  
+- What is the level of the highest qualification the person has completed?
+  - Free text response
+
+:::
+
+:::: {.panel-tabset}
+
+### Figure 6C-6
+
+::: {#fig_6C_6 .fig-tab-title}
+**Figure 6C-6:** Highest level of education for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+qualification_lga %>% 
+  dplyr::filter(lga_name %in% nephu_lga) %>%
+  #
+  tidyr::pivot_longer(cols      = ends_with("_n"),
+                      names_to  = "comparison",
+                      values_to = "aboriginal_n") %>%
+  #
+  dplyr::mutate(comparison = factor(dplyr::case_when(
+    comparison == "postgrad_n"    ~ "Postgraduate",
+    comparison == "undergrad_n"   ~ "Undergraduate",
+    comparison == "certificate_n" ~ "Certificate and Diploma",
+    comparison == "year_10_12_n"  ~ "Years 10-12",
+    comparison == "year_9_n"      ~ "Year 9 and below",
+    TRUE ~ NA_character_),
+    levels = c("Postgraduate",
+               "Undergraduate",
+               "Certificate and Diploma",
+               "Years 10-12",
+               "Year 9 and below"))) %>% 
+  #
+  dplyr::mutate(hover_text = paste0("LGA: ", lga_name,
+                                    "\nLevel: ", comparison,
+                                    "\nCount: ", format(aboriginal_n, big.mark = ","))) %>%
+  #
+  f_bar_stacked(x_variable    = lga_name,
+                y_variable    = aboriginal_n,
+                fill_variable = forcats::fct_rev(comparison),
+                fill_values   = c(colour_burgundy, colour_yellow, colour_orange, colour_green, colour_lightblue),
+                y_max         = NA,
+                y_breaks      = 200,
+                y_expand      = 25,
+                y_title       = "Number of people",
+                x_angle       = 90,
+                legend_offset = -0.3)
+```
+
+### Table 6C-6
+
+::: {#tab_6C_6 .fig-tab-title}
+**Table 6C-6:** Highest level of education for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+table_headers <- c("LGA",
+                   "n", "%",
+                   "n", "%",
+                   "n", "%",
+                   "n", "%",
+                   "n", "%",
+                   "Total")
+
+table <- qualification_lga %>% 
+  dplyr::filter(lga_name %in% c(nephu_lga, "NEPHU"))
+
+#write.csv(table, paste0(here::here(), "/data", "/table_6c6", ".csv"), row.names = FALSE)
+
+table %>% 
+  dplyr::mutate(postgrad_prop    = sprintf("%.1f", postgrad_prop),
+                undergrad_prop   = sprintf("%.1f", undergrad_prop),
+                certificate_prop = sprintf("%.1f", certificate_prop),
+                year_10_12_prop  = sprintf("%.1f", year_10_12_prop),
+                year_9_prop      = sprintf("%.1f", year_9_prop)) %>% 
+  #
+  f_table_simple(total_row     = nrow(table),
+                 table_headers = table_headers) %>% 
+  #
+  kableExtra::column_spec(2:12,
+                          width = "0.75in") %>% 
+  #
+  kableExtra::add_header_above(c(" " = 1,
+                                 "Postgraduate"            = 2,
+                                 "Undergraduate"           = 2,
+                                 "Certificate and Diploma" = 2,
+                                 "Years 10-12"             = 2,
+                                 "Year 9 and below"        = 2,
+                                 " " = 1))
+```
+
+:::{style="height: 1em;"}
+:::
+
+<a href="../data/table_6c6.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+### Figure 6C-7
+
+::: {#fig_6C_7 .fig-tab-title}
+**Figure 6C-7:** Highest level of education for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
+:::
+
+```{r}
+#
+qualification_agesex %>% 
+  dplyr::filter(age_group %in% age_group_lvl) %>%
+  #
+  tidyr::pivot_longer(cols      = ends_with("_n"),
+                      names_to  = "comparison",
+                      values_to = "aboriginal_n") %>%
+  #
+  dplyr::mutate(comparison = factor(dplyr::case_when(
+    comparison == "postgrad_n"    ~ "Postgraduate",
+    comparison == "undergrad_n"   ~ "Undergraduate",
+    comparison == "certificate_n" ~ "Certificate and Diploma",
+    comparison == "year_10_12_n"  ~ "Years 10-12",
+    comparison == "year_9_n"      ~ "Year 9 and below",
+    TRUE ~ NA_character_),
+    levels = c("Postgraduate",
+               "Undergraduate",
+               "Certificate and Diploma",
+               "Years 10-12",
+               "Year 9 and below"))) %>% 
+  #
+  dplyr::mutate(hover_text = paste0("Sex: ", sex,
+                                    "\nAge group: ", age_group,
+                                    "\nLevel: ", comparison,
+                                    "\nCount: ", format(aboriginal_n, big.mark = ","))) %>%
+  #
+  f_bar_stacked(x_variable    = age_group,
+                y_variable    = aboriginal_n,
+                fill_variable = forcats::fct_rev(comparison),
+                fill_values   = c(colour_burgundy, colour_yellow, colour_orange, colour_green, colour_lightblue),
+                y_max         = NA,
+                y_breaks      = 200,
+                y_expand      = 25,
+                y_title       = "Number of people",
+                x_angle       = 90,
+                legend_offset = -0.3,
+                facet_wrap    = "yes")
+```
+
+### Table 6C-7
+
+::: {#tab_6C_7 .fig-tab-title}
+**Table 6C-7:** Highest level of education for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
+:::
+
+```{r}
+#
+table_headers <- c("Age group",
+                   "n", "%",
+                   "n", "%",
+                   "n", "%",
+                   "n", "%",
+                   "n", "%",
+                   "Total")
+
+table <- qualification_agesex
+
+#write.csv(table, paste0(here::here(), "/data", "/table_6c7", ".csv"), row.names = FALSE)
+
+table <- table %>% 
+  dplyr::mutate(postgrad_prop    = sprintf("%.1f", postgrad_prop),
+                undergrad_prop   = sprintf("%.1f", undergrad_prop),
+                certificate_prop = sprintf("%.1f", certificate_prop),
+                year_10_12_prop  = sprintf("%.1f", year_10_12_prop),
+                year_9_prop      = sprintf("%.1f", year_9_prop))
+
+table %>% 
+  dplyr::filter(sex == "Female") %>% 
+  #
+  dplyr::select(-sex) %>%
+  #
+  f_table_simple(total_row     = nrow(table) / 2,
+                 table_headers = table_headers) %>% 
+  #
+  kableExtra::column_spec(2:12,
+                          width = "0.75in") %>% 
+  #
+  kableExtra::add_header_above(c("Female" = 1,
+                                 "Postgraduate"            = 2,
+                                 "Undergraduate"           = 2,
+                                 "Certificate and Diploma" = 2,
+                                 "Years 10-12"             = 2,
+                                 "Year 9 and below"        = 2,
+                                 " " = 1))
+
+table %>% 
+  dplyr::filter(sex == "Male") %>% 
+  #
+  dplyr::select(-sex) %>%
+  #
+  f_table_simple(total_row     = nrow(table) / 2,
+                 table_headers = table_headers) %>% 
+  #
+  kableExtra::column_spec(2:12,
+                          width = "0.75in") %>% 
+  #
+  kableExtra::add_header_above(c("Male" = 1,
+                                 "Postgraduate"            = 2,
+                                 "Undergraduate"           = 2,
+                                 "Certificate and Diploma" = 2,
+                                 "Years 10-12"             = 2,
+                                 "Year 9 and below"        = 2,
+                                 " " = 1))
+```
+
+:::{style="height: 1em;"}
+:::
+
+<a href="../data/table_6c7.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_census`
+
+:::{style="height: 1em;"}
+:::
+
+`r note_caveat_underidentification`
+
+`r note_caveat_unknown_agesex`
+
+- People who did not attend school are included in the *Year 9 and below* category.
+:::
+
+::: {style="opacity: 0.8;"}
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+:::
+
+# Tertiary Qualifications
+
+::: {.ctg-box}
+**This topic aligns with [Closing the Gap Outcome Area 6](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/further-education-pathways/): Students reach their full potential through further education pathways**
+
+Target: By 2031, increase the proportion of Aboriginal and Torres Strait Islander people aged 25–34 years who have completed a tertiary qualification (Certificate III and above) to 70%.
+:::
+
+:::{style="height: 1em;"}
+:::
+
+```{r}
+# ------------------------------------------------------------------------------
+# Tertiary qualifications - trend over time
+# Data from ABS Census via CtG Information Repository
+# ------------------------------------------------------------------------------
+# Read in ABS data
+uni_trend <- readxl::read_excel(file.path(root_folder, subfolder_ctg,
+                                          "CTG06_Education_Pathways_Data_Tables.xlsx"),
+                                skip  = 1,
+                                sheet = "Table CtG6A.1") %>% 
+  janitor::clean_names() %>% 
+  #
+  dplyr::rename(indigenous_status = x3,
+                year = x4) %>%
+  #
+  tidyr::fill(indigenous_status, year) %>%
+  #
+  dplyr::filter(!is.na(vic)) %>% 
+  dplyr::filter(row_number() %in% 1:20) %>%
+  #
+  dplyr::select(indigenous_status,
+                year,
+                vic,
+                unit)
+
+# Data wrangling
+uni_trend <- uni_trend %>% 
+  dplyr::mutate(    
+    vic = as.numeric(vic),
+    #
+    unit = dplyr::case_when(
+      unit == "no." ~ "n",
+      unit == "%"   ~ "prop",
+      TRUE ~ NA_character_),
+    #
+    indigenous_label = dplyr::case_when(
+      indigenous_status == "Aboriginal and Torres Strait Islander people" ~ "Aboriginal",
+      indigenous_status == "Non-Indigenous people"                        ~ "Non-Indigenous",
+      TRUE ~ NA_character_),
+    #
+    indigenous_status = factor(dplyr::case_when(
+      indigenous_label == "Aboriginal"     ~ "Identified as Aboriginal\nand/or Torres Strait Islander",
+      indigenous_label == "Non-Indigenous" ~ "Did not identify as Aboriginal\nand/or Torres Strait Islander",
+      TRUE ~ NA_character_),
+      #
+      levels = c("Identified as Aboriginal\nand/or Torres Strait Islander",
+                 "Did not identify as Aboriginal\nand/or Torres Strait Islander")))
+
+# ------------------------------------------------------------------------------
+# Tertiary qualifications - young adults
+# Data from ABS Census using TableBuilderPro
+# ------------------------------------------------------------------------------
+# Data wrangling
+uni_youth <- f_read_census_agesex("Aboriginal_Education_Qualification_YoungAdult.csv",
+                                  variable = "qualification") %>% 
+  #
+  dplyr::filter(!qualification %in% c("Not stated", "Not applicable", "Supplementary Codes")) %>%
+  #
+  dplyr::mutate(qualification = dplyr::case_when(
+    qualification == "Postgraduate Degree Level"                       ~ "yes",
+    qualification == "Graduate Diploma and Graduate Certificate Level" ~ "yes",
+    qualification == "Bachelor Degree Level"                           ~ "yes",
+    qualification == "Advanced Diploma and Diploma Level"              ~ "yes",
+    qualification == "Certificate III & IV Level"                      ~ "yes",
+    #
+    TRUE ~ "no"))
+
+# Data wrangling - by LGA
+uni_youth_lga <- uni_youth %>% 
+  f_wrangle_census_lga(variable = qualification,
+                       level    = "person",
+                       dichot   = "yes")
+
+# Data wrangling - by sex
+uni_youth_sex <- uni_youth %>%
+  f_wrangle_census_agesex(variable = qualification,
+                          dichot   = "yes") %>% 
+  #
+  dplyr::filter(age_group == "Total") %>% 
+  #
+  dplyr::bind_rows(uni_youth_lga %>% 
+                     dplyr::filter(lga_name == "NEPHU") %>%
+                     #
+                     dplyr::mutate(age_group = "NEPHU",
+                                   sex       = "NEPHU") %>% 
+                     #
+                     dplyr::select(-lga_name))
+```
+
+- Data for this topic were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the ABS Census for the Census years between 2001 and 2021, as well as the [ABS Census 2021](https://www.abs.gov.au/census). 
+
+- The percentage of Aboriginal and/or Torres Strait Islander people aged 25-34 years living in Victoria with a tertiary qualification (Certificate III and above) increased from 29% in 2001 to 59% in 2021. 
+
+- Overall, 65% (n = 1,155) of people aged 25-34 years living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census had a tertiary qualification (Certificate III and above). This was lower than for non-Indigenous people living in the NEPHU catchment (81%). 
+
+- The number of people aged 25-34 years living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who had a tertiary qualification (Certificate III and above) ranged from 186 (Darebin LGA) to 15 (Manningham LGA). 
+
+- The gap between the observed number of Aboriginal and/or Torres Strait Islander people aged 25-34 years who had a tertiary qualification (Certificate III and above) and the expected number if the proportion was the same as for non-Indigenous people was biggest for Darebin LGA and Hume LGAs. 
+
+- The percentage of people aged 25-34 years living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who had a tertiary qualification (Certificate III and above) ranged from 91% (Nillumbik LGA) to 56% (Knox LGA). 
+
+- 71% (n = 632) of females living in the NEPHU catchment aged 25-34 years who identified as Aboriginal and/or Torres Strait Islander in the Census had a tertiary qualification, compared to 59% (n = 523) of males.
+
+**Key points from stakeholder consultation**
+
+- 4 out of 12 LGAs in the NEPHU catchment currently above the Closing the Gap target, showing the progress that has been made in achieving this target.  
+
+- Multiple Aboriginal Community-Controlled Organisations in Victoria are now offering programs for tertiary education.
+
+- For example, the [Victorian Aboriginal Community Services Association (VASCAL)](https://www.vacsal.org.au/), offers a Certificate IV and Diploma of Community Services. The [Victorian Aboriginal Community Controlled Health Organisation (VACCHO)](https://www.vaccho.org.au/) also offers a range of Diplomas, including a Diploma of Counselling and a Diploma of Business.
+
+::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+The following questions were asked of all people aged 15 years and over completing the ABS Census 2021.
+
+- What is the highest year of primary or secondary school the person has completed?
+  - Year 12 or equivalent
+  - Year 11 or equivalent
+  - Year 10 or equivalent
+  - Year 9 or equivalent
+  - Year 8 or equivalent
+  - Did not go to school
+
+:::{style="height: 1em;"}
+:::
+
+- Has the person completed any educational qualification?
+  - No
+  - No, still studying for first qualification
+  - Yes, trade certificate/apprenticeship
+  - Yes, other qualification (certificate, diploma, or degree)
+
+:::{style="height: 1em;"}
+:::
+  
+- What is the level of the highest qualification the person has completed?
+  - Free text response
+
+:::
+
+:::: {.panel-tabset}
+
+### Figure 6C-8
+
+::: {#fig_6C_8 .fig-tab-title}
+**Figure 6C-8:** Percentage of people aged 25-34 years who identified as Aboriginal and/or Torres Strait Islander and who have completed a tertiary qualification (Certificate III and above), Victoria, by Aboriginal and/or Torres Strait Islander status, 2001-2021
+:::
+
+```{r}
+#
+uni_trend %>% 
+  dplyr::filter(unit == "prop") %>% 
+  #
+  dplyr::mutate(hover_text = paste0("Year: ", year,
+                                    "\nIndigenous status: ", indigenous_label,
+                                    "\nPercentage: ", sprintf("%.1f", vic))) %>%
+  #
+  f_line_grouped(y_variable    = vic,
+                 fill_variable = indigenous_status,
+                 fill_values   = c(colour_lightblue, colour_burgundy),
+                 y_max         = 100,
+                 y_breaks      = 10,
+                 y_expand      = 1,
+                 y_title       = "Percentage of people",
+                 ctg_target    = 70)
+```
+
+
+
+::::
