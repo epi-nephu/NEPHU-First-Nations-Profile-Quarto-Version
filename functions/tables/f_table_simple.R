@@ -9,7 +9,7 @@ f_table_simple <- function(data, total_row, table_headers) {
   table <- data %>% 
     knitr::kable(format      = "html",
                  format.args = list(big.mark = ","),
-                 align       = "lrrrrrrrrrr",
+                 align       = "lrrrrrrrrrrrrrrrrrrrr",
                  col.names   = c(table_headers),
                  escape      = FALSE) %>%
     #
