@@ -10,6 +10,9 @@
 note_box_comparisons <- glue::glue("
 Comparisons between Aboriginal and/or Torres Strait Islanders and non-Indigenous people in this section are provided as a rough guide only and should be interpreted with caution. Where different data sources have been used to provide comparisons, data may not be directly comparable due to differences in data collection, geographical areas, definitions, and analysis methods between data sources.")
 
+note_box_obsexp <- glue::glue("
+The observed vs. expected charts and tables compare what we see in the data (the observed number) with what we would have seen if there was no gap or difference between Aboriginal and/or Torres Strait Islander people and non-Aboriginal and/or Torres Strait Islander people in each LGA or sex/age group (the expected number). If all things were truly equitable, then the observed and expected numbers within each LGA or within each sex/age group would be the same.")
+
 note_box_olderage <- glue::glue("
 Older Aboriginal and/or Torres Strait Islander people are defined as those aged 50 years and over. This is the [age range used by the Australian Institute of Health and Welfare](https://www.aihw.gov.au/reports/older-people/older-australians/contents/population-groups-of-interest/indigenous-australians), because Aboriginal and Torres Strait Islander people are more likely to develop serious medical conditions earlier in life and have a lower life expectancy than non-Indigenous Australians.")
 

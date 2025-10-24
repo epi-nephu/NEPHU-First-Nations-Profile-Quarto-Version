@@ -160,11 +160,10 @@ figure_number <- language_any_lga %>%
   #
   f_bar_simple(x_variable = lga_name,
                y_variable = aboriginal_n,
-               #
-               y_max    = NA,
-               y_breaks = 10,
-               y_expand = 10,
-               y_title  = "Number of people")
+               y_max      = NA,
+               y_breaks   = 10,
+               y_expand   = 9,
+               y_title    = "Number of people")
 
 figure_percent <- language_any_lga %>% 
   dplyr::filter(lga_name %in% nephu_lga) %>% 
@@ -174,11 +173,10 @@ figure_percent <- language_any_lga %>%
   #
   f_bar_simple(x_variable = lga_name,
                y_variable = aboriginal_prop,
-               #
-               y_max    = 10,
-               y_breaks = 1,
-               y_expand = 0.1,
-               y_title  = "Percentage of people")
+               y_max      = 10,
+               y_breaks   = 1,
+               y_expand   = 0.1,
+               y_title    = "Percentage of people")
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```
@@ -230,13 +228,14 @@ figure_number <- language_any_agesex %>%
                                     "\nAge group: ", age_group,
                                     "\nCount: ", format(aboriginal_n, big.mark = ","))) %>%
   #
-  f_bar_simple_sex(x_variable = age_group,
-                   y_variable = aboriginal_n,
-                   #
-                   y_max    = NA,
-                   y_breaks = 5,
-                   y_expand = 3,
-                   y_title  = "Number of people")
+  f_bar_grouped(x_variable    = age_group,
+                y_variable    = aboriginal_n,
+                fill_variable = sex,
+                fill_values   = c(colour_lightblue, colour_dodgerblue),
+                y_max         = NA,
+                y_breaks      = 5,
+                y_expand      = 2.5,
+                y_title       = "Number of people")
 
 figure_percent <- language_any_agesex %>% 
   dplyr::filter(age_group %in% age_group_lvl) %>% 
@@ -245,15 +244,16 @@ figure_percent <- language_any_agesex %>%
                                     "\nAge group: ", age_group,
                                     "\nPercentage: ", sprintf("%.1f", aboriginal_prop))) %>%
   #
-  f_bar_simple_sex(x_variable = age_group,
-                   y_variable = aboriginal_prop,
-                   #
-                   y_max    = 5,
-                   y_breaks = 0.5,
-                   y_expand = 0.05,
-                   y_title  = "Percentage of people")
+  f_bar_grouped(x_variable    = age_group,
+                y_variable    = aboriginal_prop,
+                fill_variable = sex,
+                fill_values   = c(colour_lightblue, colour_dodgerblue),
+                y_max         = 5,
+                y_breaks      = 0.5,
+                y_expand      = 0.05,
+                y_title       = "Percentage of people")
 
-f_bar_simple_sex_combine(figure_number, figure_percent)
+f_bar_grouped_combine(figure_number, figure_percent)
 ```
 
 ### Table 5B-2
@@ -319,11 +319,10 @@ language_specific %>%
   #
   f_bar_simple_flip(x_variable = forcats::fct_reorder(factor(language), aboriginal_n, .desc = TRUE),
                     y_variable = aboriginal_n,
-                    #
-                    y_max    = NA,
-                    y_breaks = 5,
-                    y_expand = 4,
-                    x_title  = "Number of people")
+                    y_max      = NA,
+                    y_breaks   = 5,
+                    y_expand   = 2.5,
+                    x_title    = "Number of people")
 ```
 
 ### Table 5B-3
@@ -457,11 +456,10 @@ language_other %>%
   #
   f_bar_simple_flip(x_variable = forcats::fct_reorder(factor(language), aboriginal_n, .desc = TRUE),
                     y_variable = aboriginal_n,
-                    #
-                    y_max    = NA,
-                    y_breaks = 5,
-                    y_expand = 3,
-                    x_title  = "Number of people")
+                    y_max      = NA,
+                    y_breaks   = 5,
+                    y_expand   = 2.5,
+                    x_title    = "Number of people")
 ```
 
 ### Table 5B-4
@@ -614,11 +612,10 @@ figure_number <- english_lga %>%
   #
   f_bar_simple(x_variable = lga_name,
                y_variable = aboriginal_n,
-               #
-               y_max    = NA,
-               y_breaks = 250,
-               y_expand = 75,
-               y_title  = "Number of people")
+               y_max      = NA,
+               y_breaks   = 250,
+               y_expand   = 50,
+               y_title    = "Number of people")
 
 figure_percent <- english_lga %>% 
   dplyr::filter(lga_name %in% nephu_lga) %>% 
@@ -628,11 +625,10 @@ figure_percent <- english_lga %>%
   #
   f_bar_simple(x_variable = lga_name,
                y_variable = aboriginal_prop,
-               #
-               y_max    = 100,
-               y_breaks = 10,
-               y_expand = 1,
-               y_title  = "Percentage of people")
+               y_max      = 100,
+               y_breaks   = 10,
+               y_expand   = 1,
+               y_title    = "Percentage of people")
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```
@@ -684,13 +680,14 @@ figure_number <- english_agesex %>%
                                     "\nAge group: ", age_group,
                                     "\nCount: ", format(aboriginal_n, big.mark = ","))) %>%
   #
-  f_bar_simple_sex(x_variable = age_group,
-                   y_variable = aboriginal_n,
-                   #
-                   y_max    = NA,
-                   y_breaks = 200,
-                   y_expand = 75,
-                   y_title  = "Number of people")
+  f_bar_grouped(x_variable    = age_group,
+                y_variable    = aboriginal_n,
+                fill_variable = sex,
+                fill_values   = c(colour_lightblue, colour_dodgerblue),
+                y_max         = NA,
+                y_breaks      = 200,
+                y_expand      = 50,
+                y_title       = "Number of people")
 
 figure_percent <- english_agesex %>% 
   dplyr::filter(age_group %in% age_group_lvl) %>% 
@@ -699,15 +696,16 @@ figure_percent <- english_agesex %>%
                                     "\nAge group: ", age_group,
                                     "\nPercentage: ", sprintf("%.1f", aboriginal_prop))) %>%
   #
-  f_bar_simple_sex(x_variable = age_group,
-                   y_variable = aboriginal_prop,
-                   #
-                   y_max    = 100,
-                   y_breaks = 10,
-                   y_expand = 1,
-                   y_title  = "Percentage of people")
+  f_bar_grouped(x_variable    = age_group,
+                y_variable    = aboriginal_prop,
+                fill_variable = sex,
+                fill_values   = c(colour_lightblue, colour_dodgerblue),
+                y_max         = 100,
+                y_breaks      = 10,
+                y_expand      = 1,
+                y_title       = "Percentage of people")
 
-f_bar_simple_sex_combine(figure_number, figure_percent)
+f_bar_grouped_combine(figure_number, figure_percent)
 ```
 
 ### Table 5B-6

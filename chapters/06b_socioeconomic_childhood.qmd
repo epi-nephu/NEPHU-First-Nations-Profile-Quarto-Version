@@ -126,7 +126,7 @@ figure_number <- childhood_enrol %>%
   f_line_simple(y_variable = aboriginal_n,
                 y_max      = NA,
                 y_breaks   = 200,
-                y_expand   = 100,
+                y_expand   = 75,
                 y_title    = "Number of children")
 
 figure_percent <- childhood_enrol %>% 
@@ -205,12 +205,10 @@ childhood_attendance %>%
                 y_variable    = vic_plot,
                 fill_variable = attendance,
                 fill_values   = c(colour_yellow, colour_orange, colour_green, colour_lightblue),
-                fill_labels   = c("Did not attend", "<10 hours", "10-14 hours", "15+ hours"),
-                #
-                y_max    = 100,
-                y_breaks = 10,
-                y_expand = 1,
-                y_title  = "Percentage of enrolled children")
+                y_max         = 100,
+                y_breaks      = 10,
+                y_expand      = 1,
+                y_title       = "Percentage of enrolled children")
 ```
 
 ### Table 6B-2
@@ -383,12 +381,14 @@ childhood_develop %>%
                                     "\nIndigenous status: ", indigenous_label,
                                     "\nPercentage: ", sprintf("%.1f", vic))) %>%
   #
-  f_line_simple_indigenous(y_variable = vic,
-                           y_max = 100,
-                           y_breaks = 10,
-                           y_expand = 1,
-                           y_title = "Percentage of children",
-                           ctg_target = 55)
+  f_line_grouped(y_variable    = vic,
+                 fill_variable = indigenous_status,
+                 fill_values   = c(colour_lightblue, colour_burgundy),
+                 y_max         = 100,
+                 y_breaks      = 10,
+                 y_expand      = 1,
+                 y_title       = "Percentage of children",
+                 ctg_target    = 55)
 ```
 
 ### Table 6B-3
@@ -506,12 +506,10 @@ naplan_reading %>%
                 y_variable    = vic,
                 fill_variable = forcats::fct_rev(achievement),
                 fill_values   = c(colour_gray, colour_yellow, colour_orange, colour_green, colour_lightblue),
-                fill_labels   = c("Exempt", "Needs additional support", "Developing", "Strong", "Exceeding"),
-                #
-                y_max    = 100,
-                y_breaks = 10,
-                y_expand = 1,
-                y_title  = "Percentage of children")
+                y_max         = 100,
+                y_breaks      = 10,
+                y_expand      = 1,
+                y_title       = "Percentage of children")
 ```
 
 ### Table 6B-4
@@ -580,12 +578,10 @@ naplan_writing %>%
                 y_variable    = vic,
                 fill_variable = forcats::fct_rev(achievement),
                 fill_values   = c(colour_gray, colour_yellow, colour_orange, colour_green, colour_lightblue),
-                fill_labels   = c("Exempt", "Needs additional support", "Developing", "Strong", "Exceeding"),
-                #
-                y_max    = 100,
-                y_breaks = 10,
-                y_expand = 1,
-                y_title  = "Percentage of children")
+                y_max         = 100,
+                y_breaks      = 10,
+                y_expand      = 1,
+                y_title       = "Percentage of children")
 ```
 
 ### Table 6B-5
@@ -654,12 +650,10 @@ naplan_numeracy %>%
                 y_variable    = vic,
                 fill_variable = forcats::fct_rev(achievement),
                 fill_values   = c(colour_gray, colour_yellow, colour_orange, colour_green, colour_lightblue),
-                fill_labels   = c("Exempt", "Needs additional support", "Developing", "Strong", "Exceeding"),
-                #
-                y_max    = 102,
-                y_breaks = 10,
-                y_expand = 1,
-                y_title  = "Percentage of children")
+                y_max         = 102,
+                y_breaks      = 10,
+                y_expand      = 1,
+                y_title       = "Percentage of children")
 ```
 
 ### Table 6B-6

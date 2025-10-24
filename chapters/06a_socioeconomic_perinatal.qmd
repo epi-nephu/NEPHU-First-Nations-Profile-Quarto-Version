@@ -101,11 +101,10 @@ figure_number <- childhood_antenatal %>%
   #
   f_bar_simple(x_variable = iare_name_short,
                y_variable = antenatal_n,
-               #
-               y_max    = NA,
-               y_breaks = 20,
-               y_expand = 10,
-               y_title  = "Number of women")
+               y_max      = NA,
+               y_breaks   = 20,
+               y_expand   = 10,
+               y_title    = "Number of women")
 
 figure_percent <- childhood_antenatal %>% 
   dplyr::filter(iare_name %in% iare_names) %>% 
@@ -115,11 +114,10 @@ figure_percent <- childhood_antenatal %>%
   #
   f_bar_simple(x_variable = iare_name_short,
                y_variable = antenatal_prop,
-               #
-               y_max    = 100,
-               y_breaks = 10,
-               y_expand = 1,
-               y_title  = "Percentage of women")
+               y_max      = 100,
+               y_breaks   = 10,
+               y_expand   = 1,
+               y_title    = "Percentage of women")
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```
@@ -229,11 +227,10 @@ figure_number <- childhood_smoking %>%
   #
   f_bar_simple(x_variable = iare_name_short,
                y_variable = smoking_n,
-               #
-               y_max    = NA,
-               y_breaks = 10,
-               y_expand = 5,
-               y_title  = "Number of women")
+               y_max      = NA,
+               y_breaks   = 10,
+               y_expand   = 5,
+               y_title    = "Number of women")
 
 figure_percent <- childhood_smoking %>% 
   dplyr::filter(iare_name %in% iare_names) %>% 
@@ -243,11 +240,10 @@ figure_percent <- childhood_smoking %>%
   #
   f_bar_simple(x_variable = iare_name_short,
                y_variable = smoking_prop,
-               #
-               y_max    = 100,
-               y_breaks = 10,
-               y_expand = 1,
-               y_title  = "Percentage of women")
+               y_max      = 100,
+               y_breaks   = 10,
+               y_expand   = 1,
+               y_title    = "Percentage of women")
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```
@@ -460,11 +456,10 @@ figure_number <- childhood_birthweight %>%
   #
   f_bar_simple(x_variable = iare_name_short,
                y_variable = birthweight_n_plot,
-               #
-               y_max    = NA,
-               y_breaks = 50,
-               y_expand = 10,
-               y_title  = "Number of live births")
+               y_max      = NA,
+               y_breaks   = 50,
+               y_expand   = 6,
+               y_title    = "Number of live births")
 
 figure_percent <- childhood_birthweight %>% 
   dplyr::filter(iare_name %in% iare_names) %>% 
@@ -483,12 +478,10 @@ figure_percent <- childhood_birthweight %>%
   #
   f_bar_simple(x_variable = iare_name_short,
                y_variable = birthweight_prop_plot,
-               #
-               y_max    = 100,
-               y_breaks = 10,
-               y_expand = 1,
-               y_title  = "Percentage of live births",
-               #
+               y_max      = 100,
+               y_breaks   = 10,
+               y_expand   = 1,
+               y_title    = "Percentage of live births",
                ctg_target = 91)
 
 f_bar_simple_combine(figure_number, figure_percent)
@@ -554,11 +547,13 @@ childhood_birthweight_year %>%
                         "\nIndigenous status: ", indigenous_label,
                         "\nPercentage: ", sprintf("%.1f", percent))) %>%
   #
-  f_line_simple_indigenous(y_variable = percent,
-                           y_max      = 20,
-                           y_breaks   = 2,
-                           y_expand   = 0.25,
-                           y_title    = "Percentage of live births")
+  f_line_grouped(y_variable    = percent,
+                 fill_variable = indigenous_status,
+                 fill_values   = c(colour_lightblue, colour_burgundy),
+                 y_max         = 20,
+                 y_breaks      = 2,
+                 y_expand      = 0.25,
+                 y_title       = "Percentage of live births")
 ```
 
 ### Table 6A-4
@@ -755,12 +750,14 @@ childhood_breastfed %>%
                         "\nIndigenous status: ", indigenous_label,
                         "\nPercentage: ", sprintf("%.1f", percent))) %>%
   #
-  f_bar_simple_indigenous(x_variable = breastfed,
-                          y_variable = percent,
-                          y_max      = 50,
-                          y_breaks   = 5,
-                          y_expand   = 0.5,
-                          y_title    = "Percentage of children")
+  f_bar_grouped(x_variable    = breastfed,
+                y_variable    = percent,
+                fill_variable = indigenous_status,
+                fill_values   = c(colour_lightblue, colour_burgundy),
+                y_max         = 50,
+                y_breaks      = 5,
+                y_expand      = 0.5,
+                y_title       = "Percentage of children")
 ```
 
 ### Table 6A-5

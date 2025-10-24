@@ -160,11 +160,13 @@ population_lphu %>%
   dplyr::mutate(hover_text = paste0(lphu_long,
                                     "\nCount: ", format(aboriginal_n, big.mark = ","))) %>% 
   #
-  f_bar_population(x_variable = lphu_short,
-                   #
-                   y_max    = NA,
-                   y_breaks = 1500,
-                   y_expand = 300)
+  f_bar_simple(x_variable = forcats::fct_reorder(lphu_short, desc(aboriginal_n)),
+               y_variable = aboriginal_n,
+               y_max      = NA,
+               y_breaks   = 1500,
+               y_expand   = 150,
+               y_title    = "Number of people",
+               x_angle    = 0)
 ```
 
 ### Table 4A-1
@@ -365,12 +367,12 @@ population_lga %>%
   dplyr::mutate(hover_text = paste0(lga_name, " LGA",
                                     "\nCount: ", format(aboriginal_n, big.mark = ","))) %>% 
   #
-  f_bar_population(x_variable = lga_name,
-                   #
-                   x_angle  = 90,
-                   y_max    = NA,
-                   y_breaks = 250,
-                   y_expand = 100)
+  f_bar_simple(x_variable = forcats::fct_reorder(lga_name, desc(aboriginal_n)),
+               y_variable = aboriginal_n,
+               y_max      = NA,
+               y_breaks   = 250,
+               y_expand   = 25,
+               y_title    = "Number of people")
 ```
 
 ### Table 4A-2

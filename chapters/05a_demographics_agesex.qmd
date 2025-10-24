@@ -474,11 +474,10 @@ figure_number <- women_lga %>%
   #
   f_bar_simple(x_variable = lga_name,
                y_variable = aboriginal_n,
-               #
-               y_max    = NA,
-               y_breaks = 100,
-               y_expand = 50,
-               y_title  = "Number of women")
+               y_max      = NA,
+               y_breaks   = 100,
+               y_expand   = 40,
+               y_title    = "Number of women")
 
 figure_percent <- women_lga %>% 
   dplyr::filter(lga_name %in% nephu_lga) %>% 
@@ -488,11 +487,10 @@ figure_percent <- women_lga %>%
   #
   f_bar_simple(x_variable = lga_name,
                y_variable = aboriginal_prop,
-               #
-               y_max    = 100,
-               y_breaks = 10,
-               y_expand = 1,
-               y_title  = "Percentage of women")
+               y_max      = 100,
+               y_breaks   = 10,
+               y_expand   = 1,
+               y_title    = "Percentage of women")
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```
