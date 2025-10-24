@@ -102,7 +102,7 @@ f_bar_simple_flip <- function(data, x_variable, y_variable, y_max, y_breaks, y_e
 ################################################################################
 # Combine count and percentage charts into two-panel figure
 ################################################################################
-f_bar_simple_combine <- function(figure_number, figure_percent, legend_offset = -0.4) {
+f_bar_simple_combine <- function(figure_number, figure_percent, legend_offset = -0.3) {
   
   figure <- plotly::subplot(figure_number, figure_percent,
                             titleY = TRUE,
