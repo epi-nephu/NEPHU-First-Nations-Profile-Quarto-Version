@@ -4,7 +4,11 @@
 #
 # Chart type: simple bar chart
 
-f_bar_simple <- function(data, x_variable, x_angle = 90, y_variable, y_max, y_breaks, y_expand, y_title, ctg_target = NA) {
+################################################################################
+# Classic simple bar chart
+################################################################################
+f_bar_simple <- function(data, x_variable, y_variable, y_max, y_breaks, y_expand, 
+                         y_title, x_angle = 90, ctg_target = NA) {
   
   x_variable <- rlang::enquo(x_variable)
   y_variable <- rlang::enquo(y_variable)
@@ -47,7 +51,7 @@ f_bar_simple <- function(data, x_variable, x_angle = 90, y_variable, y_max, y_br
   figure <- figure %>% 
     plotly::ggplotly(tooltip = "text") %>%
     #
-    plotly::layout(hovermode = "closest",
+    plotly::layout(hovermode = "x",
                    #
                    yaxis = list(title = list(text     = y_title,
                                              standoff = 10)))
@@ -56,7 +60,9 @@ f_bar_simple <- function(data, x_variable, x_angle = 90, y_variable, y_max, y_br
 
 }
 
+################################################################################
 # Flipped x-axis and y-axis
+################################################################################
 f_bar_simple_flip <- function(data, x_variable, y_variable, y_max, y_breaks, y_expand, x_title) {
   
   x_variable <- rlang::enquo(x_variable)
@@ -94,15 +100,17 @@ f_bar_simple_flip <- function(data, x_variable, y_variable, y_max, y_breaks, y_e
   
 }
 
+################################################################################
 # Combine count and percentage charts into two-panel figure
-f_bar_simple_combine <- function(figure_number, figure_percent) {
+################################################################################
+f_bar_simple_combine <- function(figure_number, figure_percent, legend_offset = -0.4) {
   
   figure <- plotly::subplot(figure_number, figure_percent,
                             titleY = TRUE,
                             margin = 0.05) %>% 
     #
     plotly::layout(legend = list(x = 0.775,
-                                 y = -0.4,
+                                 y = legend_offset,
                                  #
                                  orientation = "h",
                                  xanchor     = "center"))

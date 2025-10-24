@@ -4,6 +4,9 @@
 #
 # Chart type: simple line chart
 
+################################################################################
+# Classic simple line chart
+################################################################################
 f_line_simple <- function(data, y_variable, y_max, y_breaks, y_expand, y_title, ctg_target = NA) {
   
   y_variable <- rlang::enquo(y_variable)
@@ -45,7 +48,7 @@ f_line_simple <- function(data, y_variable, y_max, y_breaks, y_expand, y_title, 
   figure <- figure %>%
     plotly::ggplotly(tooltip = "text") %>%
     #
-    plotly::layout(hovermode = "closest",
+    plotly::layout(hovermode = "x",
                    #
                    yaxis = list(title = list(text     = y_title,
                                              standoff = 10)))
@@ -54,7 +57,9 @@ f_line_simple <- function(data, y_variable, y_max, y_breaks, y_expand, y_title, 
 
 }
 
+################################################################################
 # Combine count and percentage charts into two-panel figure
+################################################################################
 f_line_simple_combine <- function(figure_number, figure_percent) {
   
   figure <- plotly::subplot(figure_number, figure_percent,

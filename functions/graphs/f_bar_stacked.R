@@ -4,10 +4,11 @@
 #
 # Chart type: stacked bar chart
 
-f_bar_stacked <- function(data, x_variable, y_variable, 
-                          fill_variable, fill_values, fill_labels,
-                          y_max, y_breaks, y_expand, y_title, 
-                          legend_pos = -0.1, x_angle = 0) {
+################################################################################
+# Stacked bar chart
+################################################################################
+f_bar_stacked <- function(data, x_variable, y_variable, fill_variable, fill_values,
+                          y_max, y_breaks, y_expand, y_title, legend_pos = -0.1, x_angle = 0) {
   
   x_variable    <- rlang::enquo(x_variable)
   y_variable    <- rlang::enquo(y_variable)
@@ -24,7 +25,6 @@ f_bar_stacked <- function(data, x_variable, y_variable,
                        labels = scales::comma_format(big.mark = ",")) +
     #
     scale_fill_manual(values = fill_values,
-                      labels = fill_labels,
                       name   = NULL) +
     #
     labs(x = NULL,
@@ -38,7 +38,7 @@ f_bar_stacked <- function(data, x_variable, y_variable,
   figure <- figure %>% 
     plotly::ggplotly(tooltip = "text") %>%
     #
-    plotly::layout(hovermode = "closest",
+    plotly::layout(hovermode = "x",
                    #
                    yaxis = list(title = list(text     = y_title,
                                              standoff = 10)),
@@ -52,5 +52,27 @@ f_bar_stacked <- function(data, x_variable, y_variable,
 
   return(figure)
 
+}
+
+################################################################################
+# Combine count and percentage charts into two-panel figure
+################################################################################
+f_bar_stacked_combine <- function(figure_number, figure_percent, legend_offset = -0.3) {
+  
+  figure <- plotly::subplot(figure_number, figure_percent,
+                            titleY = TRUE,
+                            margin = 0.05) %>% 
+    #
+    plotly::layout(legend = list(x = 0.5,
+                                 y = legend_offset,
+                                 #
+                                 orientation = "h",
+                                 xanchor     = "center"))
+  
+  figure$x$data[[3]]$showlegend <- FALSE
+  figure$x$data[[4]]$showlegend <- FALSE
+  
+  return(figure)
+  
 }
 
