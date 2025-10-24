@@ -45,8 +45,7 @@ f_bar_simple <- function(data, x_variable, y_variable, y_max, y_breaks, y_expand
     #
     theme_classic() +
     #
-    theme(axis.text.x  = element_text(angle = x_angle),
-          axis.title.y = element_text(size = 10, family = "Arial"))
+    theme(axis.text.x  = element_text(angle = x_angle))
   
   figure <- figure %>% 
     plotly::ggplotly(tooltip = "text") %>%
@@ -54,6 +53,7 @@ f_bar_simple <- function(data, x_variable, y_variable, y_max, y_breaks, y_expand
     plotly::layout(hovermode = "x",
                    #
                    yaxis = list(title = list(text     = y_title,
+                                             font     = list(size = 13, family = "Arial"),
                                              standoff = 10)))
   
   return(figure)
@@ -84,8 +84,6 @@ f_bar_simple_flip <- function(data, x_variable, y_variable, y_max, y_breaks, y_e
     #
     theme_classic() +
     #
-    theme(axis.title.x = element_text(size = 10, family = "Arial")) +
-    #
     coord_flip()
   
   figure <- figure %>% 
@@ -94,6 +92,7 @@ f_bar_simple_flip <- function(data, x_variable, y_variable, y_max, y_breaks, y_e
     plotly::layout(hovermode = "y",
                    #
                    xaxis = list(title = list(text     = x_title,
+                                             font     = list(size = 13, family = "Arial"),
                                              standoff = 10)))
   
   return(figure)
@@ -116,6 +115,6 @@ f_bar_simple_combine <- function(figure_number, figure_percent, legend_offset = 
                                  xanchor     = "center"))
   
   return(figure)
-  
+
 }
 

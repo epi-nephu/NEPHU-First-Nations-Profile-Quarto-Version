@@ -4,11 +4,8 @@
 #
 # Chart type: stacked bar chart
 
-################################################################################
-# Stacked bar chart
-################################################################################
 f_bar_stacked <- function(data, x_variable, y_variable, fill_variable, fill_values,
-                          y_max, y_breaks, y_expand, y_title, legend_pos = -0.1, x_angle = 0) {
+                          y_max, y_breaks, y_expand, y_title, legend_offset = -0.1, x_angle = 0, facet_wrap = "no") {
   
   x_variable    <- rlang::enquo(x_variable)
   y_variable    <- rlang::enquo(y_variable)
@@ -32,8 +29,16 @@ f_bar_stacked <- function(data, x_variable, y_variable, fill_variable, fill_valu
     #
     theme_classic() +
     #
-    theme(axis.text.x  = element_text(angle = x_angle),
-          axis.title.y = element_text(size = 10, family = "Arial"))
+    theme(axis.text.x  = element_text(angle = x_angle))
+  
+  if (facet_wrap == "yes") {
+      
+      figure <- figure +
+        facet_wrap(.~ sex,
+                   scale          = "free_x",
+                   strip.position = "bottom")
+
+  }
   
   figure <- figure %>% 
     plotly::ggplotly(tooltip = "text") %>%
@@ -41,10 +46,11 @@ f_bar_stacked <- function(data, x_variable, y_variable, fill_variable, fill_valu
     plotly::layout(hovermode = "x",
                    #
                    yaxis = list(title = list(text     = y_title,
+                                             font     = list(size = 13, family = "Arial"),
                                              standoff = 10)),
                    #
                    legend = list(x = 0.5,
-                                 y = legend_pos,
+                                 y = legend_offset,
                                  #
                                  orientation = "h",
                                  traceorder  = "reversed",
@@ -52,27 +58,5 @@ f_bar_stacked <- function(data, x_variable, y_variable, fill_variable, fill_valu
 
   return(figure)
 
-}
-
-################################################################################
-# Combine count and percentage charts into two-panel figure
-################################################################################
-f_bar_stacked_combine <- function(figure_number, figure_percent, legend_offset = -0.3) {
-  
-  figure <- plotly::subplot(figure_number, figure_percent,
-                            titleY = TRUE,
-                            margin = 0.05) %>% 
-    #
-    plotly::layout(legend = list(x = 0.5,
-                                 y = legend_offset,
-                                 #
-                                 orientation = "h",
-                                 xanchor     = "center"))
-  
-  figure$x$data[[3]]$showlegend <- FALSE
-  figure$x$data[[4]]$showlegend <- FALSE
-  
-  return(figure)
-  
 }
 

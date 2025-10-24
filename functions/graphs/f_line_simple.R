@@ -41,9 +41,7 @@ f_line_simple <- function(data, y_variable, y_max, y_breaks, y_expand, y_title, 
     labs(x = NULL,
          y = NULL) +
     #
-    theme_classic() +
-    #
-    theme(axis.title.y = element_text(size = 10, family = "Arial"))
+    theme_classic()
   
   figure <- figure %>%
     plotly::ggplotly(tooltip = "text") %>%
@@ -51,6 +49,7 @@ f_line_simple <- function(data, y_variable, y_max, y_breaks, y_expand, y_title, 
     plotly::layout(hovermode = "x",
                    #
                    yaxis = list(title = list(text     = y_title,
+                                             font     = list(size = 13, family = "Arial"),
                                              standoff = 10)))
   
   return(figure)

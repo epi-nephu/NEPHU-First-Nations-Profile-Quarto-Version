@@ -33,8 +33,7 @@ f_bar_grouped <- function(data, x_variable, y_variable, fill_variable, fill_valu
     #
     theme_classic() +
     #
-    theme(axis.text.x  = element_text(angle = x_angle),
-          axis.title.y = element_text(size = 10, family = "Arial"))
+    theme(axis.text.x  = element_text(angle = x_angle))
   
   figure <- figure %>% 
     plotly::ggplotly(tooltip = "text") %>%
@@ -42,6 +41,7 @@ f_bar_grouped <- function(data, x_variable, y_variable, fill_variable, fill_valu
     plotly::layout(hovermode = "x",
                    #
                    yaxis = list(title = list(text     = y_title,
+                                             font     = list(size = 13, family = "Arial"),
                                              standoff = 10)),
                    legend = list(x = 0.5,
                                  y = legend_offset,

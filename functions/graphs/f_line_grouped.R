@@ -45,9 +45,7 @@ f_line_grouped <- function(data, y_variable, fill_variable, fill_values,
     labs(x = NULL,
          y = NULL) +
     #
-    theme_classic() +
-    #
-    theme(axis.title.y = element_text(size = 10, family = "Arial"))
+    theme_classic()
   
   figure <- figure %>% 
     plotly::ggplotly(tooltip = "text")
@@ -80,6 +78,7 @@ f_line_grouped <- function(data, y_variable, fill_variable, fill_values,
     plotly::layout(hovermode = "x",
                    #
                    yaxis = list(title = list(text     = y_title,
+                                             font     = list(size = 13, family = "Arial"),
                                              standoff = 10)),
                    #
                    legend = list(x = 0.5,
