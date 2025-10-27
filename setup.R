@@ -133,23 +133,50 @@ iare_inc_vic_lvl <- c("Craigieburn/Sunbury", "Knox", "Maroondah", "Melbourne Eas
 # ------------------------------------------------------------------------------
 # Colours
 # ------------------------------------------------------------------------------
-colour_burgundy   <- "#5C1441"
-colour_darkblue   <- "#191D43"
-colour_lightblue  <- "#374091"
-colour_dodgerblue <- "#1C86EE"
-colour_orange     <- "#D55E00"
-colour_green      <- "#5BC788"
-colour_yellow     <- "#F0E442"
+colour_white <- "white"
+colour_black <- "black"
+colour_gray  <- "gray30"
 
-colour_white      <- "white"
-colour_black      <- "black"
-colour_gray       <- "gray30"
+colour_simplebar  <- "#374091"
+colour_simpleline <- "#374091"
 
-colour_gradient_low  <- "#FFFF99"
-colour_gradient_mid  <- "#41B6C4"
-colour_gradient_high <- "#253494"
+colour_ctgtarget <- "#41B6C4"
 
-colour_table_light <- "#B5CEFA"
-colour_table_mid   <- "#8FB6F5"
-colour_table_dark  <- "#1C86EE"
+colour_maplow  <- "#FFFF99"
+colour_mapmid  <- "#41B6C4"
+colour_maphigh <- "#253494"
+
+colour_pyramidnephu <- "#41B6C4"
+colour_pyramidvic   <- "#1C86EE"
+
+colour_aboriginal    <- "#374091"
+colour_nonaboriginal <- "#5C1441"
+
+colour_female <- "#374091"
+colour_male   <- "#1C86EE"
+
+colour_stack1    <- "#374091"
+colour_stack2    <- "#5BC788"
+colour_stack3    <- "#D55E00"
+colour_stack4    <- "#F0E442"
+colour_stack5    <- "#5C1441"
+colour_stackgrey <- "gray30"
+
+
+
+# colour_burgundy   <- "#5C1441"
+# colour_darkblue   <- "#191D43"
+# colour_lightblue  <- "#374091"
+# colour_dodgerblue <- "#1C86EE"
+# colour_orange     <- "#D55E00"
+# colour_green      <- "#5BC788"
+# colour_yellow     <- "#F0E442"
+# 
+# colour_gradient_low  <- "#FFFF99"
+# colour_gradient_mid  <- "#41B6C4"
+# colour_gradient_high <- "#253494"
+# 
+# colour_table_light <- "#B5CEFA"
+# colour_table_mid   <- "#8FB6F5"
+# colour_table_dark  <- "#1C86EE"
 
