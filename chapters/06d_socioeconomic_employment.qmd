@@ -1,0 +1,168 @@
+---
+title: "Employment"
+---
+
+```{r}
+#
+source(here::here("setup.R"))
+source(here::here("setup_footnotes.R"))
+
+# Set up numbering for exporting tables as .csv
+table_section <- "06D"
+table_count   <- 0
+```
+
+::: {.caveat-box}
+**A note about the impact of under-identification**
+
+`r note_box_underidentification`
+
+**A note about interpreting observed vs. expected figures**
+
+`r note_box_obsexp`
+:::
+
+:::{style="height: 2em;"}
+:::
+
+::: {.key-question}
+Are Aboriginal and/or Torres Strait Islanders living in the NEPHU catchment gainfully employed?
+:::
+
+# Engagement in Employment, Education, or Training
+
+## Entire Population
+
+```{r}
+# ------------------------------------------------------------------------------
+# Engagement in employment, education, or training - entire population, by LGA
+# Data from ABS Census using TableBuilderPro
+# ------------------------------------------------------------------------------
+# Read in Census data
+engaged_lga <- f_read_census_lga("Aboriginal_Employment_Engagement_LGA.csv",
+                                 variable = "engagement") %>% 
+  #
+  dplyr::filter(!engagement %in% c("Engagement status undetermined/not stated", "Not applicable"))
+
+# Data wrangling
+engaged_lga <- engaged_lga %>% 
+  #
+  dplyr::mutate(engagement = dplyr::case_when(
+    engagement == "Fully engaged"              ~ "Fully engaged",
+    engagement == "Partially engaged"          ~ "Partially engaged",
+    engagement == "At least partially engaged" ~ "Partially engaged",
+    engagement == "Not engaged"                ~ "Not engaged",
+    TRUE ~ NA_character_)) %>% 
+  #
+  f_wrangle_census_lga(variable = engagement,
+                       level    = "person",
+                       dichot   = "no") %>% 
+  #
+  dplyr::mutate(fully_prop     = aboriginal_n_fully_engaged / aboriginal_total * 100,
+                partially_prop = aboriginal_n_partially_engaged / aboriginal_total * 100,
+                not_prop       = aboriginal_n_not_engaged / aboriginal_total * 100) %>% 
+  #
+  dplyr::select(lga_name,
+                fully_n = aboriginal_n_fully_engaged,
+                fully_prop,
+                partially_n = aboriginal_n_partially_engaged,
+                partially_prop,
+                not_n = aboriginal_n_not_engaged,
+                not_prop,
+                aboriginal_total)
+
+# ------------------------------------------------------------------------------------
+# Engagement in employment, education, or training - entire population, by age and sex
+# Data from ABS Census using TableBuilderPro
+# ------------------------------------------------------------------------------------
+# Read in Census data
+engaged_agesex <- f_read_census_agesex("Aboriginal_Employment_Engagement_AgeSex.csv",
+                                       variable = "engagement") %>% 
+  #
+  dplyr::filter(!engagement %in% c("Engagement status undetermined/not stated", "Not applicable"))
+
+# Data wrangling
+engaged_agesex <- engaged_agesex %>% 
+  #
+  dplyr::mutate(engagement = dplyr::case_when(
+    engagement == "Fully engaged"              ~ "Fully engaged",
+    engagement == "Partially engaged"          ~ "Partially engaged",
+    engagement == "At least partially engaged" ~ "Partially engaged",
+    engagement == "Not engaged"                ~ "Not engaged",
+    #
+    TRUE ~ NA_character_)) %>% 
+  #
+  f_wrangle_census_agesex(variable = engagement,
+                          dichot   = "no") %>% 
+  #
+  dplyr::mutate(aboriginal_total = aboriginal_n_fully_engaged + aboriginal_n_partially_engaged + aboriginal_n_not_engaged,
+                fully_prop       = aboriginal_n_fully_engaged / aboriginal_total * 100,
+                partially_prop   = aboriginal_n_partially_engaged / aboriginal_total * 100,
+                not_prop         = aboriginal_n_not_engaged / aboriginal_total * 100) %>% 
+  #
+  dplyr::mutate(across(where(is.numeric), ~replace(., is.na(.), 0)),
+                across(where(is.numeric), ~replace(., is.nan(.), 0))) %>% 
+  #
+  dplyr::select(age_group,
+                sex,
+                fully_n = aboriginal_n_fully_engaged,
+                fully_prop,
+                partially_n = aboriginal_n_partially_engaged,
+                partially_prop,
+                not_n = aboriginal_n_not_engaged,
+                not_prop,
+                aboriginal_total)
+```
+
+- Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
+
+-	Overall, 52% (n = 4,334) of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census were fully engaged in employment, education, or training and a further 19% (n = 1,590) were partially engaged.
+
+- The number of people who identified as Aboriginal and/or Torres Strait Islander in the Census living in different LGAs within the NEPHU catchment who were fully engaged in employment, education, or training ranged from 724 (Whittlesea LGA) to 125 (Nillumbik LGA).
+
+- The percentage of people who identified as Aboriginal and/or Torres Strait Islander in the Census living in different LGAs within the NEPHU catchment who were fully engaged in employment, education, or training ranged from 63% (Boroondara LGA) to 49% (Darebin LGA).
+
+- Younger people were more likely to be fully or partially engaged in employment, education, or training. Males were more likely to be fully engaged and females were more likely to be partially engaged.
+
+::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+The following questions were asked of all people aged 15 years and over completing the ABS Census 2021.
+
+- Is the person attending a school or any other education institution?
+  - No
+  - Yes, full-time student
+  - Yes, part-time student
+  
+Notes:
+- Includes tertiary education and vocational education and training providers (e.g. TAFE and private training providers).
+- Includes external, online, or correspondence study.
+
+:::{style="height: 1em;"}
+:::
+
+- Last week, did the person have a job of any kind?
+  - Yes, worked for payment or profit
+  - Yes, but absent on holidays, on paid leave, on strike, or temporarily stood down
+  - Yes, unpaid work in a family business
+  - Yes, other unpaid work
+  - No, did not have a job
+  
+Notes:
+- A job means any type of work (including casual, temporary, part-time, or full-time) if it was for one hour or more.
+- *Last week* refers to the week before Census night (Tuesday August 10th 2021)
+
+:::{style="height: 1em;"}
+:::
+
+- Last week, how many hours did the person work in all jobs?
+  - Free text response
+  
+Notes:
+- Include any overtime or extra time worked.
+- Exclude any time off (including leave).
+- *Last week* refers to the week before Census night (Tuesday August 10th 2021)
+
+:::{style="height: 1em;"}
+:::
+
+- Did the person actively look for work at any time in the last four weeks?
+:::
