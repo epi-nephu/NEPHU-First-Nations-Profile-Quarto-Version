@@ -5,7 +5,7 @@ title: "Population Size and Distribution"
 ```{r}
 #
 source(here::here("setup.R"))
-source(here::here("footnotes.R"))
+source(here::here("setup_footnotes.R"))
 ```
 
 ::: {.caveat-box}
@@ -177,6 +177,8 @@ population_lphu %>%
 
 ```{r}
 #
+table_number <- "Table_04A_01"
+
 table_headers <- c("LPHU",
                    "Number of Aboriginal<br>and/or Torres Strait<br>Islander people",
                    "% of total LPHU<br>population",
@@ -186,9 +188,13 @@ table <- population_lphu %>%
   dplyr::select(lphu_long,
                 aboriginal_n,
                 aboriginal_prop,
-                aboriginal_prop_per_lphu) 
+                aboriginal_prop_per_lphu)
 
-#write.csv(table, paste0(here::here(), "/data", "/table_4a1", ".csv"), row.names = FALSE)
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
 
 table %>% 
   dplyr::mutate(aboriginal_prop          = sprintf("%.1f", aboriginal_prop),
@@ -201,7 +207,7 @@ table %>%
 :::{style="height: 1em;"}
 :::
 
-<a href="../data/table_4a1.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(table_number, '.csv')" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -383,6 +389,8 @@ population_lga %>%
 
 ```{r}
 #
+table_number <- "Table_04A_02"
+
 table_headers <- c("LGA",
                    "Number of Aboriginal<br>and/or Torres Strait<br>Islander people",
                    "% of total LGA<br>population",
@@ -394,7 +402,11 @@ table <- population_lga %>%
                 aboriginal_prop,
                 aboriginal_prop_per_lga)
 
-#write.csv(table, paste0(here::here(), "/data", "/table_4a2", ".csv"), row.names = FALSE)
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
 
 table %>% 
   dplyr::mutate(aboriginal_prop         = sprintf("%.1f", aboriginal_prop),
@@ -407,7 +419,7 @@ table %>%
 :::{style="height: 1em;"}
 :::
 
-<a href="../data/table_4a2.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(table_number, '.csv')" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ### Figure 4A-3
 
@@ -441,6 +453,8 @@ density_sa2 %>%
 
 ```{r}
 #
+table_number <- "Table_04A_03"
+
 table_headers <- c("SA2",
                    "Number of Aboriginal<br>and/or Torres Strait<br>Islander people",
                    "% of total SA2<br>population",
@@ -454,7 +468,11 @@ table <- population_sa2 %>%
                 aboriginal_prop,
                 aboriginal_prop_per_sa2)
 
-#write.csv(table, paste0(here::here(), "/data", "/table_4a3", ".csv"), row.names = FALSE)
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
 
 table %>% 
   dplyr::filter(aboriginal_n >= 200 & sa2_name != "NEPHU") %>% 
@@ -471,7 +489,7 @@ table %>%
 :::{style="height: 1em;"}
 :::
 
-<a href="../data/table_4a3.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(table_number, '.csv')" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
