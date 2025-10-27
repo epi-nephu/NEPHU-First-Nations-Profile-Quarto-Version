@@ -5,7 +5,11 @@ title: "Age and Sex Distribution"
 ```{r}
 #
 source(here::here("setup.R"))
-source(here::here("footnotes.R"))
+source(here::here("setup_footnotes.R"))
+
+# Set up numbering for exporting tables as .csv
+table_section <- "05A"
+table_count   <- 0
 ```
 
 ::: {.caveat-box}
@@ -275,8 +279,8 @@ agesex_lphu %>%
   #
   f_pyramid(prop_variable = aboriginal_prop,
             fill_variable = lphu_short,
-            fill_values   = c("NEPHU" = colour_gradient_mid,
-                              "VIC"   = colour_table_dark))
+            fill_values   = c("NEPHU" = colour_pyramidnephu,
+                              "VIC"   = colour_pyramidvic))
 ```
 
 ### Figure 5A-2
@@ -320,8 +324,8 @@ agesex_lphu %>%
   #
   f_pyramid(prop_variable = prop,
             fill_variable = aboriginal_status,
-            fill_values   = c("Identified as Aboriginal\nand/or Torres Strait Islander"       = colour_lightblue,
-                              "Did not identify as Aboriginal\nand/or Torres Strait Islander" = colour_burgundy))
+            fill_values   = c("Identified as Aboriginal\nand/or Torres Strait Islander"       = colour_aboriginal,
+                              "Did not identify as Aboriginal\nand/or Torres Strait Islander" = colour_nonaboriginal))
 ```
 
 ### Figure 5A-3
@@ -371,8 +375,8 @@ for (i in nephu_lga) {
   f_pyramid(chart_title   = paste0(i, " LGA"),
             prop_variable = prop,
             fill_variable = aboriginal_status,
-            fill_values   = c("Identified as Aboriginal\nand/or Torres Strait Islander"       = colour_lightblue,
-                              "Did not identify as Aboriginal\nand/or Torres Strait Islander" = colour_burgundy))
+            fill_values   = c("Identified as Aboriginal\nand/or Torres Strait Islander"       = colour_aboriginal,
+                              "Did not identify as Aboriginal\nand/or Torres Strait Islander" = colour_nonaboriginal))
   
 }
 
@@ -503,6 +507,9 @@ f_bar_simple_combine(figure_number, figure_percent)
 
 ```{r}
 #
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
 table_headers <- c("LGA",
                    "Number of Aboriginal<br>and/or Torres Strait<br>Islander women",
                    "% of Aboriginal<br>and/or Torres Strait<br>Islander women")
@@ -513,7 +520,11 @@ table <- women_lga %>%
                 aboriginal_n,
                 aboriginal_prop)
 
-#write.csv(table, paste0(here::here(), "/data", "/table_5a1", ".csv"), row.names = FALSE)
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
 
 table %>% 
   dplyr::mutate(aboriginal_prop = sprintf("%.1f", aboriginal_prop)) %>% 
@@ -525,7 +536,7 @@ table %>%
 :::{style="height: 1em;"}
 :::
 
-<a href="../data/table_5a1.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 

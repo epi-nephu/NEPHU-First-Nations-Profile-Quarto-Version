@@ -5,7 +5,11 @@ title: "Early Childhood"
 ```{r}
 #
 source(here::here("setup.R"))
-source(here::here("footnotes.R"))
+source(here::here("setup_footnotes.R"))
+
+# Set up numbering for exporting tables as .csv
+table_section <- "06B"
+table_count   <- 0
 ```
 
 ::: {.caveat-box}
@@ -151,13 +155,20 @@ f_line_simple_combine(figure_number, figure_percent)
 
 ```{r}
 #
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
 table_headers <- c("Year",
                    "Number of children",
                    "% of children")
 
 table <- childhood_enrol
 
-#write.csv(table, paste0(here::here(), "/data", "/table_6b1", ".csv"), row.names = FALSE)
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
 
 table %>% 
   dplyr::mutate(year            = as.character(year),
@@ -173,7 +184,7 @@ table %>%
 :::{style="height: 1em;"}
 :::
 
-<a href="../data/table_6b1.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ### Figure 6B-2
 
@@ -204,7 +215,7 @@ childhood_attendance %>%
   f_bar_stacked(x_variable    = year,
                 y_variable    = vic_plot,
                 fill_variable = attendance,
-                fill_values   = c(colour_yellow, colour_orange, colour_green, colour_lightblue),
+                fill_values   = c(colour_stack4, colour_stack3, colour_stack2, colour_stack1),
                 y_max         = 100,
                 y_breaks      = 10,
                 y_expand      = 1,
@@ -219,6 +230,9 @@ childhood_attendance %>%
 
 ```{r}
 #
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
 table_headers <- c("Year",
                    "n", "%",
                    "n", "%",
@@ -241,7 +255,11 @@ table <- childhood_attendance %>%
   #
   dplyr::select(-indigenous_status)
 
-#write.csv(table, paste0(here::here(), "/data", "/table_6b2", ".csv"), row.names = FALSE)
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
 
 table %>% 
   dplyr::mutate(proportion_15_hours       = round(proportion_15_hours, digits = 1),
@@ -265,7 +283,7 @@ table %>%
 :::{style="height: 1em;"}
 :::
 
-<a href="../data/table_6b2.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -383,7 +401,7 @@ childhood_develop %>%
   #
   f_line_grouped(y_variable    = vic,
                  fill_variable = indigenous_status,
-                 fill_values   = c(colour_lightblue, colour_burgundy),
+                 fill_values   = c(colour_aboriginal, colour_nonaboriginal),
                  y_max         = 100,
                  y_breaks      = 10,
                  y_expand      = 1,
@@ -399,6 +417,9 @@ childhood_develop %>%
 
 ```{r}
 #
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
 table_headers <- c("Year",
                    "Yes (%)",
                    "No (%)")
@@ -414,7 +435,11 @@ table <- childhood_develop %>%
   #
   dplyr::arrange(year)
 
-#write.csv(table, paste0(here::here(), "/data", "/table_6b3", ".csv"), row.names = FALSE)
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
 
 table %>%
   dplyr::mutate(aboriginal     = sprintf("%.1f", aboriginal),
@@ -431,7 +456,7 @@ table %>%
 :::{style="height: 1em;"}
 :::
 
-<a href="../data/table_6b3.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -505,7 +530,7 @@ naplan_reading %>%
   f_bar_stacked(x_variable    = grade,
                 y_variable    = vic,
                 fill_variable = forcats::fct_rev(achievement),
-                fill_values   = c(colour_gray, colour_yellow, colour_orange, colour_green, colour_lightblue),
+                fill_values   = c(colour_stackgrey, colour_stack4, colour_stack3, colour_stack2, colour_stack1),
                 y_max         = 100,
                 y_breaks      = 10,
                 y_expand      = 1,
@@ -520,6 +545,9 @@ naplan_reading %>%
 
 ```{r}
 #
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
 table_headers <- c("Proficiency level",
                    "Year 3",
                    "Year 5",
@@ -539,7 +567,11 @@ table <- naplan_reading %>%
   #
   janitor::adorn_totals()
 
-#write.csv(table, paste0(here::here(), "/data", "/table_6b4", ".csv"), row.names = FALSE)
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
 
 table %>% 
   dplyr::mutate(year_3 = sprintf("%.1f", year_3),
@@ -557,7 +589,7 @@ table %>%
 :::{style="height: 1em;"}
 :::
 
-<a href="../data/table_6b4.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ### Figure 6B-5
 
@@ -577,7 +609,7 @@ naplan_writing %>%
   f_bar_stacked(x_variable    = grade,
                 y_variable    = vic,
                 fill_variable = forcats::fct_rev(achievement),
-                fill_values   = c(colour_gray, colour_yellow, colour_orange, colour_green, colour_lightblue),
+                fill_values   = c(colour_stackgrey, colour_stack4, colour_stack3, colour_stack2, colour_stack1),
                 y_max         = 100,
                 y_breaks      = 10,
                 y_expand      = 1,
@@ -592,6 +624,9 @@ naplan_writing %>%
 
 ```{r}
 #
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
 table_headers <- c("Proficiency level",
                    "Year 3",
                    "Year 5",
@@ -611,7 +646,11 @@ table <- naplan_writing %>%
   #
   janitor::adorn_totals()
 
-#write.csv(table, paste0(here::here(), "/data", "/table_6b5", ".csv"), row.names = FALSE)
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
 
 table %>% 
   dplyr::mutate(year_3 = sprintf("%.1f", year_3),
@@ -629,7 +668,7 @@ table %>%
 :::{style="height: 1em;"}
 :::
 
-<a href="../data/table_6b5.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ### Figure 6B-6
 
@@ -649,7 +688,7 @@ naplan_numeracy %>%
   f_bar_stacked(x_variable    = grade,
                 y_variable    = vic,
                 fill_variable = forcats::fct_rev(achievement),
-                fill_values   = c(colour_gray, colour_yellow, colour_orange, colour_green, colour_lightblue),
+                fill_values   = c(colour_stackgrey, colour_stack4, colour_stack3, colour_stack2, colour_stack1),
                 y_max         = 102,
                 y_breaks      = 10,
                 y_expand      = 1,
@@ -664,6 +703,9 @@ naplan_numeracy %>%
 
 ```{r}
 #
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
 table_headers <- c("Proficiency level",
                    "Year 3",
                    "Year 5",
@@ -683,7 +725,11 @@ table <- naplan_numeracy %>%
   #
   janitor::adorn_totals()
 
-#write.csv(table, paste0(here::here(), "/data", "/table_6b6", ".csv"), row.names = FALSE)
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
 
 table %>% 
   dplyr::mutate(year_3 = sprintf("%.1f", year_3),
@@ -701,7 +747,7 @@ table %>%
 :::{style="height: 1em;"}
 :::
 
-<a href="../data/table_6b6.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 

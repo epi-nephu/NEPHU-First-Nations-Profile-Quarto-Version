@@ -5,7 +5,11 @@ title: "Language"
 ```{r}
 #
 source(here::here("setup.R"))
-source(here::here("footnotes.R"))
+source(here::here("setup_footnotes.R"))
+
+# Set up numbering for exporting tables as .csv
+table_section <- "05B"
+table_count   <- 0
 ```
 
 ::: {.caveat-box}
@@ -189,6 +193,9 @@ f_bar_simple_combine(figure_number, figure_percent)
 
 ```{r}
 #
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
 table_headers <- c("LGA",
                    "Number speaking language",
                    "% speaking language")
@@ -199,7 +206,11 @@ table <- language_any_lga %>%
                 aboriginal_n,
                 aboriginal_prop)
 
-#write.csv(table, paste0(here::here(), "/data", "/table_5b1", ".csv"), row.names = FALSE)
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
 
 table %>% 
   dplyr::mutate(aboriginal_prop = sprintf("%.1f", aboriginal_prop)) %>% 
@@ -211,7 +222,7 @@ table %>%
 :::{style="height: 1em;"}
 :::
 
-<a href="../data/table_5b1.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ### Figure 5B-2
 
@@ -231,7 +242,7 @@ figure_number <- language_any_agesex %>%
   f_bar_grouped(x_variable    = age_group,
                 y_variable    = aboriginal_n,
                 fill_variable = sex,
-                fill_values   = c(colour_lightblue, colour_dodgerblue),
+                fill_values   = c(colour_female, colour_male),
                 y_max         = NA,
                 y_breaks      = 5,
                 y_expand      = 2.5,
@@ -247,7 +258,7 @@ figure_percent <- language_any_agesex %>%
   f_bar_grouped(x_variable    = age_group,
                 y_variable    = aboriginal_prop,
                 fill_variable = sex,
-                fill_values   = c(colour_lightblue, colour_dodgerblue),
+                fill_values   = c(colour_female, colour_male),
                 y_max         = 5,
                 y_breaks      = 0.5,
                 y_expand      = 0.05,
@@ -264,6 +275,9 @@ f_bar_grouped_combine(figure_number, figure_percent)
 
 ```{r}
 #
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
 table_headers <- c("Age group",
                    "n", "%", "n", "%", "n")
 
@@ -281,7 +295,11 @@ table <- language_any_agesex %>%
   #
   dplyr::mutate(aboriginal_n_total = aboriginal_n_female + aboriginal_n_male)
 
-#write.csv(table, paste0(here::here(), "/data", "/table_5b2", ".csv"), row.names = FALSE)
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
 
 table %>% 
   dplyr::mutate(aboriginal_prop_female = sprintf("%.1f", aboriginal_prop_female),
@@ -301,7 +319,7 @@ table %>%
 :::{style="height: 1em;"}
 :::
 
-<a href="../data/table_5b2.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ### Figure 5B-3
 
@@ -333,13 +351,20 @@ language_specific %>%
 
 ```{r}
 #
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
 table_headers <- c("Language",
                    "Number of people",
                    "% of people")
 
 table <- language_specific
 
-#write.csv(table, paste0(here::here(), "/data", "/table_5b3", ".csv"), row.names = FALSE)
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
 
 table %>% 
   dplyr::mutate(aboriginal_prop = sprintf("%.2f", aboriginal_prop)) %>% 
@@ -351,7 +376,7 @@ table %>%
 :::{style="height: 1em;"}
 :::
 
-<a href="../data/table_5b3.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -470,13 +495,20 @@ language_other %>%
 
 ```{r}
 #
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
 table_headers <- c("Language",
                    "Number of people",
                    "% of people")
 
 table <- language_other
 
-#write.csv(table, paste0(here::here(), "/data", "/table_5b4", ".csv"), row.names = FALSE)
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
 
 table %>% 
   dplyr::mutate(aboriginal_prop = sprintf("%.2f", aboriginal_prop)) %>% 
@@ -488,7 +520,7 @@ table %>%
 :::{style="height: 1em;"}
 :::
 
-<a href="../data/table_5b4.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -641,6 +673,9 @@ f_bar_simple_combine(figure_number, figure_percent)
 
 ```{r}
 #
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
 table_headers <- c("LGA",
                    "Number of people",
                    "% of people")
@@ -651,7 +686,11 @@ table <- english_lga %>%
                 aboriginal_n,
                 aboriginal_prop)
 
-#write.csv(table, paste0(here::here(), "/data", "/table_5b5", ".csv"), row.names = FALSE)
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
 
 table %>% 
   dplyr::mutate(aboriginal_prop = sprintf("%.1f", aboriginal_prop)) %>% 
@@ -663,7 +702,7 @@ table %>%
 :::{style="height: 1em;"}
 :::
 
-<a href="../data/table_5b5.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ### Figure 5B-6
 
@@ -683,7 +722,7 @@ figure_number <- english_agesex %>%
   f_bar_grouped(x_variable    = age_group,
                 y_variable    = aboriginal_n,
                 fill_variable = sex,
-                fill_values   = c(colour_lightblue, colour_dodgerblue),
+                fill_values   = c(colour_female, colour_male),
                 y_max         = NA,
                 y_breaks      = 200,
                 y_expand      = 50,
@@ -699,7 +738,7 @@ figure_percent <- english_agesex %>%
   f_bar_grouped(x_variable    = age_group,
                 y_variable    = aboriginal_prop,
                 fill_variable = sex,
-                fill_values   = c(colour_lightblue, colour_dodgerblue),
+                fill_values   = c(colour_female, colour_male),
                 y_max         = 100,
                 y_breaks      = 10,
                 y_expand      = 1,
@@ -716,6 +755,9 @@ f_bar_grouped_combine(figure_number, figure_percent)
 
 ```{r}
 #
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
 table_headers <- c("Age group",
                    "n", "%", "n", "%", "n")
 
@@ -733,7 +775,11 @@ table <- english_agesex %>%
   #
   dplyr::mutate(aboriginal_n_total = aboriginal_n_female + aboriginal_n_male)
 
-#write.csv(table, paste0(here::here(), "/data", "/table_5b6", ".csv"), row.names = FALSE)
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
 
 table %>% 
   dplyr::mutate(aboriginal_prop_female = sprintf("%.1f", aboriginal_prop_female),
@@ -753,7 +799,7 @@ table %>%
 :::{style="height: 1em;"}
 :::
 
-<a href="../data/table_5b2.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 

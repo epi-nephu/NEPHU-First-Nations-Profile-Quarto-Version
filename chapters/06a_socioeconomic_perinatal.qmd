@@ -5,7 +5,11 @@ title: "Perinatal Factors"
 ```{r}
 #
 source(here::here("setup.R"))
-source(here::here("footnotes.R"))
+source(here::here("setup_footnotes.R"))
+
+# Set up numbering for exporting tables as .csv
+table_section <- "06A"
+table_count   <- 0
 ```
 
 ::: {.caveat-box}
@@ -130,6 +134,9 @@ f_bar_simple_combine(figure_number, figure_percent)
 
 ```{r}
 #
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
 table_headers <- c("IARE",
                    "Did not attend antenatal care",
                    "Total pregnant women",
@@ -138,7 +145,11 @@ table_headers <- c("IARE",
 table <- childhood_antenatal %>%
   dplyr::select(-iare_name_short)
 
-#write.csv(table, paste0(here::here(), "/data", "/table_6a1", ".csv"), row.names = FALSE)
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
 
 table %>% 
   dplyr::mutate(antenatal_prop = sprintf("%.1f", antenatal_prop)) %>% 
@@ -153,7 +164,7 @@ table %>%
 :::{style="height: 1em;"}
 :::
 
-<a href="../data/table_6a1.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -256,6 +267,9 @@ f_bar_simple_combine(figure_number, figure_percent)
 
 ```{r}
 #
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
 table_headers <- c("IARE",
                    "Smoked during pregnancy",
                    "Total pregnant women",
@@ -264,7 +278,11 @@ table_headers <- c("IARE",
 table <- childhood_smoking %>%
   dplyr::select(-iare_name_short)
 
-#write.csv(table, paste0(here::here(), "/data", "/table_6a2", ".csv"), row.names = FALSE)
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
 
 table %>% 
   dplyr::mutate(smoking_prop = sprintf("%.1f", smoking_prop)) %>% 
@@ -279,7 +297,7 @@ table %>%
 :::{style="height: 1em;"}
 :::
 
-<a href="../data/table_6a2.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -495,6 +513,9 @@ f_bar_simple_combine(figure_number, figure_percent)
 
 ```{r}
 #
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
 table_headers <- c("IARE",
                    "Birthweight above 2,500g",
                    "Total live births",
@@ -503,7 +524,11 @@ table_headers <- c("IARE",
 table <- childhood_birthweight %>%
   dplyr::select(-iare_name_short)
 
-#write.csv(table, paste0(here::here(), "/data", "/table_6a3", ".csv"), row.names = FALSE)
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
 
 table %>% 
   dplyr::mutate(birthweight_prop = round(birthweight_prop, digits = 1)) %>% 
@@ -518,7 +543,7 @@ table %>%
 :::{style="height: 1em;"}
 :::
 
-<a href="../data/table_6a3.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ### Figure 6A-4
 
@@ -549,7 +574,7 @@ childhood_birthweight_year %>%
   #
   f_line_grouped(y_variable    = percent,
                  fill_variable = indigenous_status,
-                 fill_values   = c(colour_lightblue, colour_burgundy),
+                 fill_values   = c(colour_aboriginal, colour_nonaboriginal),
                  y_max         = 20,
                  y_breaks      = 2,
                  y_expand      = 0.25,
@@ -564,6 +589,9 @@ childhood_birthweight_year %>%
 
 ```{r}
 #
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
 table_headers <- c("Year",
                    "Yes (%)",
                    "No (%)")
@@ -573,7 +601,11 @@ table <- childhood_birthweight_year %>%
               names_vary  = "slowest",
               values_from = "percent")
 
-#write.csv(table, paste0(here::here(), "/data", "/table_6a4", ".csv"), row.names = FALSE)
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
 
 table %>%
   dplyr::mutate(aboriginal     = sprintf("%.1f", aboriginal),
@@ -589,7 +621,7 @@ table %>%
 :::{style="height: 1em;"}
 :::
 
-<a href="../data/table_6a4.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -753,7 +785,7 @@ childhood_breastfed %>%
   f_bar_grouped(x_variable    = breastfed,
                 y_variable    = percent,
                 fill_variable = indigenous_status,
-                fill_values   = c(colour_lightblue, colour_burgundy),
+                fill_values   = c(colour_aboriginal, colour_nonaboriginal),
                 y_max         = 50,
                 y_breaks      = 5,
                 y_expand      = 0.5,
@@ -769,6 +801,9 @@ childhood_breastfed %>%
 
 ```{r}
 #
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
 table_headers <- c("Breastfeeding duration",
                    "Estimate", "Percent",
                    "Estimate", "Percent")
@@ -788,7 +823,11 @@ table <- childhood_breastfed %>%
       breastfed == "Total" ~ 100,
       TRUE ~ non_aboriginal_prop)) 
 
-#write.csv(table, paste0(here::here(), "/data", "/table_6a5", ".csv"), row.names = FALSE)
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
 
 table %>% 
   f_table_simple(total_row     = nrow(table),
@@ -801,7 +840,7 @@ table %>%
 :::{style="height: 1em;"}
 :::
 
-<a href="../data/table_6a5.csv" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
