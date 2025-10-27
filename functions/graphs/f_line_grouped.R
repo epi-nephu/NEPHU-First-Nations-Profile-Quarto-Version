@@ -24,7 +24,7 @@ f_line_grouped <- function(data, y_variable, fill_variable, fill_values,
   if (!is.na(ctg_target)) {
     figure <- figure +
       geom_hline(aes(yintercept = ctg_target, linetype = "CtG target (%)"),
-                 col         = colour_gradient_mid,
+                 col         = colour_ctgtarget,
                  linewidth   = 0.5,
                  show.legend = TRUE) +
       #

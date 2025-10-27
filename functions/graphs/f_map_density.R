@@ -6,7 +6,7 @@
 
 f_map_density <- function(data) {
   
-  pal <- colorNumeric(palette  = c(colour_gradient_low, colour_gradient_mid, colour_gradient_high),
+  pal <- colorNumeric(palette  = c(colour_maplow, colour_mapmid, colour_maphigh),
                       domain   = data$pop_dens,
                       na.color = colour_white)
   

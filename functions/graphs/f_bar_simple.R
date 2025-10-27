@@ -19,13 +19,13 @@ f_bar_simple <- function(data, x_variable, y_variable, y_max, y_breaks, y_expand
     ggplot(aes(x = !!x_variable, y = !!y_variable, text = hover_text)) +
     #
     geom_col(col  = colour_black,
-             fill = colour_lightblue)
+             fill = colour_simplebar)
   
   if (!is.na(ctg_target)) {
     
     figure <- figure +
       geom_hline(aes(yintercept = ctg_target, linetype = "CtG target (%)"),
-                 col         = colour_gradient_mid,
+                 col         = colour_ctgtarget,
                  linewidth   = 0.5,
                  show.legend = TRUE) +
       #
@@ -72,7 +72,7 @@ f_bar_simple_flip <- function(data, x_variable, y_variable, y_max, y_breaks, y_e
     ggplot(aes(x = !!x_variable, y = !!y_variable, text = hover_text)) +
     #
     geom_col(col  = colour_black,
-             fill = colour_lightblue) +
+             fill = colour_simplebar) +
     #
     scale_y_continuous(limits = c(0, y_max),
                        breaks = scales::breaks_width(y_breaks),

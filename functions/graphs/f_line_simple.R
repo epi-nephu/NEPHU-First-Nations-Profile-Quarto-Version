@@ -16,14 +16,14 @@ f_line_simple <- function(data, y_variable, y_max, y_breaks, y_expand, y_title, 
   figure <- data %>% 
     ggplot(aes(x = year, y = !!y_variable, group = 1, text = hover_text)) +
     #
-    geom_line(col       = colour_lightblue,
+    geom_line(col       = colour_simpleline,
               linewidth = 1.5)
   
   if (!is.na(ctg_target)) {
     
     figure <- figure +
       geom_hline(aes(yintercept = ctg_target, linetype = "CtG target (%)"),
-                 col         = colour_gradient_mid,
+                 col         = colour_ctgtarget,
                  linewidth   = 0.5,
                  show.legend = TRUE) +
       #
