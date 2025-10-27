@@ -177,7 +177,7 @@ population_lphu %>%
 
 ```{r}
 #
-table_number <- "Table_04A_01"
+table_number <- paste0("Table_04A_", "01")
 
 table_headers <- c("LPHU",
                    "Number of Aboriginal<br>and/or Torres Strait<br>Islander people",
@@ -389,7 +389,7 @@ population_lga %>%
 
 ```{r}
 #
-table_number <- "Table_04A_02"
+table_number <- paste0("Table_04A_", "02")
 
 table_headers <- c("LGA",
                    "Number of Aboriginal<br>and/or Torres Strait<br>Islander people",
@@ -453,7 +453,7 @@ density_sa2 %>%
 
 ```{r}
 #
-table_number <- "Table_04A_03"
+table_number <- paste0("Table_04A_", "03")
 
 table_headers <- c("SA2",
                    "Number of Aboriginal<br>and/or Torres Strait<br>Islander people",
