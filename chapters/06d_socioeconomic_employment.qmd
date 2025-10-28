@@ -125,7 +125,7 @@ engaged_agesex <- engaged_agesex %>%
 - Younger people were more likely to be fully or partially engaged in employment, education, or training. Males were more likely to be fully engaged and females were more likely to be partially engaged.
 
 ::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-The following questions were asked of all people aged 15 years and over completing the ABS Census 2021.
+The following questions were asked of all people aged 15 years and over completing the ABS Census 2021. Responses were cross tabulated to determine the type of engagement in work and/or study (fully engaged, partially engaged, at least partially engaged, not engaged) for each respondent.
 
 - Is the person attending a school or any other education institution?
   - No
@@ -148,7 +148,7 @@ Notes:
   
 Notes:
 - A job means any type of work (including casual, temporary, part-time, or full-time) if it was for one hour or more.
-- *Last week* refers to the week before Census night (Tuesday August 10th 2021)
+- *Last week* refers to the week before Census night (Tuesday August 10th 2021).
 
 :::{style="height: 1em;"}
 :::
@@ -157,12 +157,817 @@ Notes:
   - Free text response
   
 Notes:
-- Include any overtime or extra time worked.
-- Exclude any time off (including leave).
-- *Last week* refers to the week before Census night (Tuesday August 10th 2021)
+- Include any overtime or extra time worked and exclude any time off (including leave).
+- *Last week* refers to the week before Census night (Tuesday August 10th 2021).
 
 :::{style="height: 1em;"}
 :::
 
 - Did the person actively look for work at any time in the last four weeks?
+  - No, did not look for work
+  - Yes, looked for full-time work
+  - Yes, looked for part-time work
+  
+Notes:
+- *Full-time* work means 35 hours or more per week.
+- Examples of actively looking for work: writing/telephoning/applying to an employer for work, having a job interview, checking or registering with an employment agency, taking steps to purchase/start a business, advertising/tendering for work, contacting friends/relatives in order to obtain work, and answering an advertisement for a job.
+- *Last four weeks* refers to the four weeks before Census night (Tuesday August 10th 2021).
+
+:::{style="height: 1em;"}
 :::
+
+- If the person had found a job, could they have started work last week?
+  - Yes, could have started work last week
+  - No, already had a job to go to
+  - No, temporarily ill or injured
+  - No, other reason
+  
+Notes:
+- This question only applied to people who responded that they were actively looking for work during the previous four weeks.
+- *Last week* refers to the week before Census night (Tuesday August 10th 2021).
+
+:::
+
+:::: {.panel-tabset}
+
+### Figure 6D-1
+
+::: {#fig_6D_1 .fig-tab-title}
+**Figure 6D-1:** Engagement in employment, education, or training for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+engaged_lga %>% 
+  dplyr::filter(lga_name %in% nephu_lga) %>% 
+  #
+  tidyr::pivot_longer(cols      = ends_with("_n"),
+                      names_to  = "comparison",
+                      values_to = "aboriginal_n") %>%
+  #
+  dplyr::mutate(comparison = factor(dplyr::case_when(
+    comparison == "fully_n"     ~ "Fully engaged",
+    comparison == "partially_n" ~ "Partially engaged",
+    comparison == "not_n"       ~ "Not engaged",
+    TRUE ~ NA_character_),
+    levels = c("Fully engaged",
+               "Partially engaged",
+               "Not engaged"))) %>% 
+  #
+  dplyr::mutate(hover_text = paste0("LGA: ", lga_name,
+                                    "\nEngagement: ", comparison,
+                                    "\nCount: ", format(aboriginal_n, big.mark = ","))) %>%
+  #
+  f_bar_stacked(x_variable    = lga_name,
+                y_variable    = aboriginal_n,
+                fill_variable = forcats::fct_rev(comparison),
+                fill_values   = c(colour_stack3, colour_stack2, colour_stack1),
+                y_max         = NA,
+                y_breaks      = 200,
+                y_expand      = 25,
+                y_title       = "Number of people",
+                x_angle       = 90,
+                legend_offset = -0.3)
+```
+
+### Table 6D-1
+
+::: {#tab_6D_1 .fig-tab-title}
+**Table 6D-1:** Engagement in employment, education, or training for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table_headers <- c("LGA",
+                   "n", "%",
+                   "n", "%",
+                   "n", "%",
+                   "Total")
+
+table <- engaged_lga %>% 
+  dplyr::filter(lga_name %in% c(nephu_lga, "NEPHU"))
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(fully_prop     = sprintf("%.1f", fully_prop),
+                partially_prop = sprintf("%.1f", partially_prop),
+                not_prop       = sprintf("%.1f", not_prop)) %>% 
+  #
+  f_table_simple(total_row     = nrow(table),
+                 table_headers = table_headers) %>% 
+  #
+  kableExtra::column_spec(2:8,
+                          width = "1in") %>% 
+  #
+  kableExtra::add_header_above(c(" " = 1,
+                                 "Fully engaged"     = 2,
+                                 "Partially engaged" = 2,
+                                 "Not engaged"       = 2,
+                                 " " = 1))
+```
+
+:::{style="height: 1em;"}
+:::
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+### Figure 6D-2
+
+::: {#fig_6D_2 .fig-tab-title}
+**Figure 6D-2:** Engagement in employment, education, or training for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
+:::
+
+```{r}
+#
+engaged_agesex %>% 
+  dplyr::filter(age_group %in% age_group_lvl) %>% 
+  #
+  tidyr::pivot_longer(cols      = ends_with("_n"),
+                      names_to  = "comparison",
+                      values_to = "aboriginal_n") %>%
+  #
+  dplyr::mutate(comparison = factor(dplyr::case_when(
+    comparison == "fully_n"     ~ "Fully engaged",
+    comparison == "partially_n" ~ "Partially engaged",
+    comparison == "not_n"       ~ "Not engaged",
+    TRUE ~ NA_character_),
+    levels = c("Fully engaged",
+               "Partially engaged",
+               "Not engaged"))) %>%  
+  #
+  dplyr::mutate(hover_text = paste0("Sex: ", sex,
+                                    "\nAge group: ", age_group,
+                                    "\nEngagement: ", comparison,
+                                    "\nCount: ", format(aboriginal_n, big.mark = ","))) %>%
+  #
+  f_bar_stacked(x_variable    = age_group,
+                y_variable    = aboriginal_n,
+                fill_variable = forcats::fct_rev(comparison),
+                fill_values   = c(colour_stack3, colour_stack2, colour_stack1),
+                y_max         = NA,
+                y_breaks      = 200,
+                y_expand      = 100,
+                y_title       = "Number of people",
+                x_angle       = 90,
+                legend_offset = -0.3,
+                facet_wrap    = "yes")
+```
+
+### Table 6D-2
+
+::: {#tab_6D_2 .fig-tab-title}
+**Table 6D-2:** Engagement in employment, education, or training for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table_headers <- c("Age group",
+                   "n", "%",
+                   "n", "%",
+                   "n", "%",
+                   "Total")
+
+table <- engaged_agesex
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table <- table %>% 
+  dplyr::mutate(fully_prop     = sprintf("%.1f", fully_prop),
+                partially_prop = sprintf("%.1f", partially_prop),
+                not_prop       = sprintf("%.1f", not_prop))
+
+table %>% 
+  dplyr::filter(sex == "Female") %>% 
+  #
+  dplyr::select(-sex) %>% 
+  #
+  f_table_simple(total_row     = nrow(table) / 2,
+                 table_headers = table_headers) %>% 
+  #
+  kableExtra::column_spec(2:8,
+                          width = "1in") %>% 
+  #
+  kableExtra::add_header_above(c("Female" = 1,
+                                 "Fully engaged"     = 2,
+                                 "Partially engaged" = 2,
+                                 "Not engaged"       = 2,
+                                 " " = 1))
+
+table %>% 
+  dplyr::filter(sex == "Male") %>% 
+  #
+  dplyr::select(-sex) %>% 
+  #
+  f_table_simple(total_row     = nrow(table) / 2,
+                 table_headers = table_headers) %>% 
+  #
+  kableExtra::column_spec(2:8,
+                          width = "1in") %>% 
+  #
+  kableExtra::add_header_above(c("Male" = 1,
+                                 "Fully engaged"     = 2,
+                                 "Partially engaged" = 2,
+                                 "Not engaged"       = 2,
+                                 " " = 1))
+```
+
+:::{style="height: 1em;"}
+:::
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_census`
+
+:::{style="height: 1em;"}
+:::
+
+`r note_caveat_underidentification`
+
+`r note_caveat_unknown_agesex`
+:::
+
+::: {style="opacity: 0.8;"}
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+:::
+
+## Young Adults
+
+::: {.ctg-box}
+**This topic aligns with [Closing the Gap Outcome Area 7](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/youth-engagement/): Aboriginal and Torres Strait Islander youth are engaged in employment or education**
+
+Target: By 2031, increase the proportion of Aboriginal and Torres Strait Islander youth (aged 15-24 years) who are in employment, education, or training to 67%.
+:::
+
+:::{style="height: 1em;"}
+:::
+
+```{r}
+# ------------------------------------------------------------------------------
+# Engagement in employment, education, or training - trend over time
+# Data from ABS Census via CtG Information Repository
+# ------------------------------------------------------------------------------
+# Read in ABS data
+fully_trend <- readxl::read_excel(file.path(root_folder, subfolder_ctg,
+                                            "CTG07_Employment_Education_Data_Tables.xlsx"),
+                                  skip  = 1,
+                                  sheet = "Table CtG7A.1") %>% 
+  janitor::clean_names() %>% 
+  #
+  dplyr::rename(indigenous_status = x3,
+                year = x4) %>%
+  #
+  tidyr::fill(indigenous_status, year) %>%
+  #
+  dplyr::filter(!is.na(vic)) %>% 
+  dplyr::filter(row_number() %in% 1:20) %>%
+  #
+  dplyr::select(indigenous_status,
+                year,
+                vic,
+                unit)
+
+# Data wrangling
+fully_trend <- fully_trend %>% 
+  dplyr::mutate(
+    vic = as.numeric(vic),
+    #
+    unit = dplyr::case_when(
+      unit == "no." ~ "n",
+      unit == "%"   ~ "prop",
+      TRUE ~ NA_character_),
+    #
+    indigenous_label = dplyr::case_when(
+      indigenous_status == "Aboriginal and Torres Strait Islander people" ~ "Aboriginal",
+      indigenous_status == "Non-Indigenous people"                        ~ "Non-Indigenous",
+      TRUE ~ NA_character_),
+    #
+    indigenous_status = factor(dplyr::case_when(
+      indigenous_label == "Aboriginal"     ~ "Identified as Aboriginal\nand/or Torres Strait Islander",
+      indigenous_label == "Non-Indigenous" ~ "Did not identify as Aboriginal\nand/or Torres Strait Islander",
+      TRUE ~ NA_character_),
+      #
+      levels = c("Identified as Aboriginal\nand/or Torres Strait Islander",
+                 "Did not identify as Aboriginal\nand/or Torres Strait Islander")))
+
+# ------------------------------------------------------------------------------
+# Engagement in employment, education, or training - young adults
+# Data from ABS Census using TableBuilderPro
+# ------------------------------------------------------------------------------
+# Data wrangling
+fully_youth <- f_read_census_agesex("Aboriginal_Employment_Engagement_YoungAdult.csv",
+                                    variable = "engagement") %>% 
+  #
+  dplyr::filter(!engagement %in% c("Engagement status undetermined/not stated", "Not applicable")) %>%
+  #
+  dplyr::mutate(engagement = dplyr::case_when(
+    engagement == "Fully engaged" ~ "yes",
+    #
+    TRUE ~ "no"))
+
+# Data wrangling - by LGA
+fully_youth_lga <- fully_youth %>% 
+  f_wrangle_census_lga(variable = engagement,
+                       level    = "person",
+                       dichot   = "yes")
+
+# Data wrangling - by age and sex
+fully_youth_sex <- fully_youth %>%
+  f_wrangle_census_agesex(variable = engagement,
+                          dichot   = "yes") %>% 
+  #
+  dplyr::filter(age_group == "Total") %>% 
+  #
+  dplyr::bind_rows(fully_youth_lga %>% 
+                     dplyr::filter(lga_name == "NEPHU") %>% 
+                     #
+                     dplyr::mutate(age_group = "NEPHU",
+                                   sex       = "NEPHU") %>% 
+                     #
+                     dplyr::select(-lga_name))
+
+# ------------------------------------------------------------------------------
+# Engagement in employment, education, or training - by age
+# Data from ABS Census via CtG Information Repository
+# ------------------------------------------------------------------------------
+# Read in ABS data
+fully_age <- readxl::read_excel(file.path(root_folder, subfolder_ctg,
+                                          "CTG07_Employment_Education_Data_Tables.xlsx"),
+                                skip  = 1,
+                                sheet = "Table CtG7A.3") %>% 
+  janitor::clean_names() %>% 
+  #
+  dplyr::rename(indigenous_status = x2,
+                year = x3,
+                age = x4) %>%
+  #
+  tidyr::fill(indigenous_status, year, age) %>%
+  #
+  dplyr::filter(!is.na(vic)) %>%
+  dplyr::filter(year == "2021") %>% 
+  dplyr::filter(indigenous_status != "Indigenous status not stated") %>%
+  #
+  dplyr::select(indigenous_status,
+                age,
+                vic,
+                unit)
+
+# Data wrangling
+fully_age <- fully_age %>% 
+  dplyr::mutate(
+    age = stringr::str_replace(age, "years old", "yrs"),
+    #
+    vic = as.numeric(vic),
+    #
+    unit = dplyr::case_when(
+      unit == "no." ~ "n",
+      unit == "%"   ~ "prop",
+      TRUE ~ NA_character_),
+    #
+    indigenous_label = dplyr::case_when(
+      indigenous_status == "Aboriginal and Torres Strait Islander people" ~ "Aboriginal",
+      indigenous_status == "Non-Indigenous people"                        ~ "Non-Indigenous",
+      TRUE ~ NA_character_),
+    #
+    indigenous_status = factor(dplyr::case_when(
+      indigenous_label == "Aboriginal"     ~ "Identified as Aboriginal\nand/or Torres Strait Islander",
+      indigenous_label == "Non-Indigenous" ~ "Did not identify as Aboriginal\nand/or Torres Strait Islander",
+      TRUE ~ NA_character_),
+      #
+      levels = c("Identified as Aboriginal\nand/or Torres Strait Islander",
+                 "Did not identify as Aboriginal\nand/or Torres Strait Islander")))
+```
+
+- Data for this topic were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the ABS Census for the Census years between 2001 and 2021, as well as the [ABS Census 2021](https://www.abs.gov.au/census).
+
+- The percentage of Aboriginal and/or Torres Strait Islander people aged 15-24 years living in Victoria who were fully engaged in education, employment, or training increased from 60% in 2001 to 66% in 2021.
+
+- Overall, 70% (n = 1,555) of people aged 15-24 years living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census were fully engaged in education, employment, or training. This was lower than for non-Indigenous people living in the NEPHU catchment (82%).
+
+- The number of people aged 15-24 years living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who were fully engaged in education, employment, or training ranged from 243 (Whittlesea LGA) to 36 (Manningham LGA).
+
+- The gap between Aboriginal and/or Torres Strait Islander and non-Indigenous people was biggest for Whittlesea and Hume LGAs.
+
+- The percentage of people aged 15-24 years living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who were fully engaged in education, employment, or training ranged from 100% (Nillumbik LGA) to 63% (Hume LGA).
+
+- 9 of the 12 LGAs in the NEPHU catchment were on or above the Closing the Gap target of 67%.
+
+- 72% (n = 819) of males aged 15-24 years living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census were fully engaged in education, employment, or training, compared to 68% (n = 736) of females.
+
+- The percentage of people fully engaged in education, employment, or training decreased with increasing age between the ages of 15 and 24 years for both Aboriginal and/or Torres Strait Islander and non-Indigenous people.
+
+**Key points from stakeholder consultation**
+
+- At stakeholder consultations during the development of this report these data were discussed as being good evidence against stigma surrounding Aboriginal youth employment and youth justice.
+
+- Given the improvement seen in youth engagement in education, employment, or training over time, it was also discussed whether the Closing the Gap target should now be higher.
+
+::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+The following questions were asked of all people aged 15 years and over completing the ABS Census 2021. Responses were cross tabulated to determine the type of engagement in work and/or study (fully engaged, partially engaged, at least partially engaged, not engaged) for each respondent.
+
+- Is the person attending a school or any other education institution?
+  - No
+  - Yes, full-time student
+  - Yes, part-time student
+  
+Notes:
+- Includes tertiary education and vocational education and training providers (e.g. TAFE and private training providers).
+- Includes external, online, or correspondence study.
+
+:::{style="height: 1em;"}
+:::
+
+- Last week, did the person have a job of any kind?
+  - Yes, worked for payment or profit
+  - Yes, but absent on holidays, on paid leave, on strike, or temporarily stood down
+  - Yes, unpaid work in a family business
+  - Yes, other unpaid work
+  - No, did not have a job
+  
+Notes:
+- A job means any type of work (including casual, temporary, part-time, or full-time) if it was for one hour or more.
+- *Last week* refers to the week before Census night (Tuesday August 10th 2021).
+
+:::{style="height: 1em;"}
+:::
+
+- Last week, how many hours did the person work in all jobs?
+  - Free text response
+  
+Notes:
+- Include any overtime or extra time worked and exclude any time off (including leave).
+- *Last week* refers to the week before Census night (Tuesday August 10th 2021).
+
+:::{style="height: 1em;"}
+:::
+
+- Did the person actively look for work at any time in the last four weeks?
+  - No, did not look for work
+  - Yes, looked for full-time work
+  - Yes, looked for part-time work
+  
+Notes:
+- *Full-time* work means 35 hours or more per week.
+- Examples of actively looking for work: writing/telephoning/applying to an employer for work, having a job interview, checking or registering with an employment agency, taking steps to purchase/start a business, advertising/tendering for work, contacting friends/relatives in order to obtain work, and answering an advertisement for a job.
+- *Last four weeks* refers to the four weeks before Census night (Tuesday August 10th 2021).
+
+:::{style="height: 1em;"}
+:::
+
+- If the person had found a job, could they have started work last week?
+  - Yes, could have started work last week
+  - No, already had a job to go to
+  - No, temporarily ill or injured
+  - No, other reason
+  
+Notes:
+- This question only applied to people who responded that they were actively looking for work during the previous four weeks.
+- *Last week* refers to the week before Census night (Tuesday August 10th 2021).
+
+:::
+
+:::: {.panel-tabset}
+
+### Figure 6D-3
+
+::: {#fig_6D_3 .fig-tab-title}
+**Figure 6D-3:** Percentage of people aged 15-24 years who identified as Aboriginal and/or Torres Strait Islander and who were fully engaged in education, employment, or training, Victoria, by Aboriginal and/or Torres Strait Islander status, 2001-2021
+:::
+
+```{r}
+#
+fully_trend %>% 
+  dplyr::filter(unit == "prop") %>% 
+  #
+  dplyr::mutate(hover_text = paste0("Year: ", year,
+                                    "\nIndigenous status: ", indigenous_label,
+                                    "\nPercentage: ", sprintf("%.1f", vic))) %>%
+  #
+  f_line_grouped(y_variable    = vic,
+                 fill_variable = indigenous_status,
+                 fill_values   = c(colour_aboriginal, colour_nonaboriginal),
+                 y_max         = 100,
+                 y_breaks      = 10,
+                 y_expand      = 1,
+                 y_title       = "Percentage of people",
+                 ctg_target    = 67)
+```
+
+### Table 6D-3
+
+::: {#tab_6D_3 .fig-tab-title}
+**Table 6D-3:** Number and percentage of people aged 15-24 years who identified as Aboriginal and/or Torres Strait Islander and who were fully engaged in education, employment, or training, Victoria, by Aboriginal and/or Torres Strait Islander status, 2001-2021
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table_headers <- c("Year",
+                   "Yes (n)", "Yes (%)",
+                   "No (n)", "No (%)")
+
+table <- fully_trend %>% 
+  dplyr::select(-indigenous_status) %>% 
+  #
+  pivot_wider(names_from  = c("indigenous_label", "unit"),
+              names_vary  = "slowest",
+              values_from = "vic") %>% 
+  #
+  janitor::clean_names() %>%
+  #
+  dplyr::select(year,
+                aboriginal_n,
+                aboriginal_prop,
+                non_indigenous_n,
+                non_indigenous_prop) %>% 
+  #
+  dplyr::arrange(year)
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(aboriginal_prop     = sprintf("%.1f", aboriginal_prop),
+                non_indigenous_prop = sprintf("%.1f", non_indigenous_prop)) %>% 
+  #
+  f_table_simple(total_row     = NULL,
+                 table_headers = table_headers) %>%
+  #
+  kableExtra::add_header_above(c(" " = 1,
+                                 "Identified as Aboriginal and/or Torres Strait Islander" = 4),
+                               align = "right")
+```
+
+:::{style="height: 1em;"}
+:::
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+### Figure 6D-4
+
+::: {#fig_6D_4 .fig-tab-title}
+**Figure 6D-4:** Number and percentage of people aged 15-24 years who identified as Aboriginal and/or Torres Strait Islander and who were fully engaged in education, employment, or training, NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+figure_number <- fully_youth_lga %>% 
+  dplyr::filter(lga_name %in% nephu_lga) %>% 
+  #
+  dplyr::mutate(hover_text = paste0("LGA: ", lga_name,
+                                    "\nCount: ", format(aboriginal_n, big.mark = ","))) %>%
+  #
+  f_bar_simple(x_variable = lga_name,
+               y_variable = aboriginal_n,
+               y_max      = NA,
+               y_breaks   = 25,
+               y_expand   = 10,
+               y_title    = "Number of people")
+
+figure_percent <- fully_youth_lga %>% 
+  dplyr::filter(lga_name %in% nephu_lga) %>% 
+  #
+  dplyr::mutate(hover_text = paste0("LGA: ", lga_name,
+                                    "\nPercentage: ", sprintf("%.1f", aboriginal_prop))) %>%
+  #
+  f_bar_simple(x_variable = lga_name,
+               y_variable = aboriginal_prop,
+               y_max      = 100,
+               y_breaks   = 10,
+               y_expand   = 1,
+               y_title    = "Percentage of people",
+               ctg_target = 67)
+
+f_bar_simple_combine(figure_number, figure_percent)
+```
+
+### Figure 6D-5
+
+::: {#fig_6D_5 .fig-tab-title}
+**Figure 6D-5:** Observed vs. expected number of people aged 15-24 years who were fully engaged in education, employment, or training and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+fully_youth_lga %>%
+  f_bar_obsexp_lga(y_max    = NA,
+                   y_breaks = 50,
+                   y_expand = 10)
+```
+
+### Table 6D-4
+
+::: {#tab_6D_4 .fig-tab-title}
+**Table 6D-4:** Observed vs. expected number of people aged 15-24 years who were fully engaged in education, employment, or training and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- fully_youth_lga %>%
+  dplyr::filter(lga_name %in% c(nephu_lga, "NEPHU")) %>% 
+  #
+  dplyr::select(lga_name,
+                aboriginal_n,
+                aboriginal_prop,
+                aboriginal_exp_non,
+                non_aboriginal_prop,
+                aboriginal_diff_label)
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  f_table_obsexp(total_row   = nrow(table),
+                 column_name = "LGA",
+                 header_name = NULL)
+```
+
+:::{style="height: 1em;"}
+:::
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+### Table 6D-5
+
+::: {#tab_6D_5 .fig-tab-title}
+**Table 6D-5:** Observed vs. expected number of people aged 15-24 years who were fully engaged in education, employment, or training and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by sex, 2021
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- fully_youth_sex %>%
+  dplyr::select(sex,
+                aboriginal_n,
+                aboriginal_prop,
+                aboriginal_exp_non,
+                non_aboriginal_prop,
+                aboriginal_diff_label)
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  f_table_obsexp(total_row   = nrow(table),
+                 column_name = "Sex",
+                 header_name = " ")
+```
+
+:::{style="height: 1em;"}
+:::
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+### Figure 6D-6
+
+::: {#fig_6D_6 .fig-tab-title}
+**Figure 6D-6:** Percentage of people aged 15-24 years who identified as Aboriginal and/or Torres Strait Islander and who were fully engaged in education, employment, or training, Victoria, by Aboriginal and/or Torres Strait Islander status and age, 2021
+:::
+
+```{r}
+#
+fully_age %>%
+  dplyr::filter(unit == "prop") %>% 
+  #
+  dplyr::mutate(
+    hover_text = paste0("\nAge: ", age,
+                        "\nIndigenous status: ", indigenous_label,
+                        "\nPercentage: ", sprintf("%.1f", vic))) %>%
+  #
+  f_bar_grouped(x_variable    = age,
+                y_variable    = vic,
+                fill_variable = indigenous_status,
+                fill_values   = c(colour_aboriginal, colour_nonaboriginal),
+                y_max         = 100,
+                y_breaks      = 10,
+                y_expand      = 1,
+                y_title       = "Percentage of people",
+                x_angle       = 0,
+                legend_offset = -0.1)
+```
+
+### Table 6D-6
+
+::: {#tab_6D_6 .fig-tab-title}
+**Table 6D-6:** Number and percentage of people aged 15-24 years who identified as Aboriginal and/or Torres Strait Islander and who were fully engaged in education, employment, or training, Victoria, by Aboriginal and/or Torres Strait Islander status and age, 2021
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table_headers <- c("Age",
+                   "Yes (n)", "Yes (%)",
+                   "No (n)", "No (%)")
+
+table <- fully_age %>% 
+  dplyr::select(-indigenous_status) %>% 
+  #
+  pivot_wider(names_from  = c("indigenous_label", "unit"),
+              names_vary  = "slowest",
+              values_from = "vic") %>% 
+  #
+  janitor::clean_names() %>%
+  #
+  dplyr::select(age,
+                aboriginal_n,
+                aboriginal_prop,
+                non_indigenous_n,
+                non_indigenous_prop) %>% 
+  #
+  dplyr::arrange(age)
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(aboriginal_prop     = sprintf("%.1f", aboriginal_prop),
+                non_indigenous_prop = sprintf("%.1f", non_indigenous_prop)) %>% 
+  #
+  f_table_simple(total_row     = NULL,
+                 table_headers = table_headers) %>%
+  #
+  kableExtra::add_header_above(c(" " = 1,
+                                 "Identified as Aboriginal and/or Torres Strait Islander" = 4),
+                               align = "right")
+```
+
+:::{style="height: 1em;"}
+:::
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+
+`r note_data_census`
+
+:::{style="height: 1em;"}
+:::
+
+- Data for Figure 6D-3 and Table 6D-3 were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the ABS Census for the Census years between 2001 and 2021.
+  - The Closing the Gap Information Repository brings together data from a wide range of data sources to provide up to date information for each Closing the Gap target, indicator, and contextual factors.
+
+:::{style="height: 1em;"}
+:::
+
+`r note_caveat_underidentification`
+
+`r note_caveat_unknown_agesex`
+:::
+
+::: {style="opacity: 0.8;"}
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+:::
+
+# Employment
+
+## Entire Population
+
+
+
+
