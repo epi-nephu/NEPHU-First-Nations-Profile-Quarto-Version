@@ -95,10 +95,9 @@ school_agesex <- school_agesex %>%
                           dichot   = "no") %>% 
   #
   dplyr::mutate(aboriginal_total = aboriginal_n_year_12 + aboriginal_n_year_9_11 + aboriginal_n_year_8_and_below,
-                #
-                year_12_prop   = aboriginal_n_year_12 / aboriginal_total * 100,
-                year_9_11_prop = aboriginal_n_year_9_11 / aboriginal_total * 100,
-                year_8_prop    = aboriginal_n_year_8_and_below / aboriginal_total * 100) %>% 
+                year_12_prop     = aboriginal_n_year_12 / aboriginal_total * 100,
+                year_9_11_prop   = aboriginal_n_year_9_11 / aboriginal_total * 100,
+                year_8_prop      = aboriginal_n_year_8_and_below / aboriginal_total * 100) %>% 
   #
   dplyr::mutate(across(where(is.numeric), ~replace(., is.na(.), 0)),
                 across(where(is.numeric), ~replace(., is.nan(.), 0))) %>% 
@@ -163,9 +162,9 @@ school_lga %>%
                "Years 9-11 and equivalent",
                "Year 8 and below"))) %>% 
   #
-  dplyr::mutate(hover_text = paste0("LGA: ", lga_name,
-                                    "\nGrade: ", comparison,
-                                    "\nCount: ", format(aboriginal_n, big.mark = ","))) %>%
+  dplyr::mutate(hover_text = paste0(lga_name, " LGA", "\n",
+                                    comparison, "\n",
+                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>%
   #
   f_bar_stacked(x_variable    = lga_name,
                 y_variable    = aboriginal_n,
@@ -252,10 +251,10 @@ school_agesex %>%
                "Years 9-11 and equivalent",
                "Year 8 and below"))) %>% 
   #
-  dplyr::mutate(hover_text = paste0("Sex: ", sex,
-                                    "\nAge group: ", age_group,
-                                    "\nGrade: ", comparison,
-                                    "\nCount: ", format(aboriginal_n, big.mark = ","))) %>%
+  dplyr::mutate(hover_text = paste0(sex, "\n",
+                                    age_group, "\n",
+                                    comparison, "\n",
+                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>%
   #
   f_bar_stacked(x_variable    = age_group,
                 y_variable    = aboriginal_n,
@@ -379,8 +378,7 @@ Target: By 2031, increase the proportion of Aboriginal and Torres Strait Islande
 # Data from ABS Census via CtG Information Repository
 # ------------------------------------------------------------------------------
 # Read in ABS data
-year12_trend <- readxl::read_excel(file.path(root_folder, subfolder_ctg,
-                                             "CTG05_Learning_Potential_Data_Tables.xlsx"),
+year12_trend <- readxl::read_excel(file.path(root_folder, subfolder_ctg, "CTG05_Learning_Potential_Data_Tables.xlsx"),
                                    skip  = 1,
                                    sheet = "Table CtG5A.1") %>% 
   janitor::clean_names() %>% 
@@ -507,9 +505,9 @@ The following question was asked of all people aged 15 years and over completing
 year12_trend %>% 
   dplyr::filter(unit == "prop") %>% 
   #
-  dplyr::mutate(hover_text = paste0("Year: ", year,
-                                    "\nIndigenous status: ", indigenous_label,
-                                    "\nPercentage: ", sprintf("%.1f", vic))) %>%
+  dplyr::mutate(hover_text = paste0(year, "\n",
+                                    indigenous_label, "\n",
+                                    "Percentage: ", sprintf("%.1f", vic))) %>%
   #
   f_line_grouped(y_variable    = vic,
                  fill_variable = indigenous_status,
@@ -587,8 +585,8 @@ table %>%
 figure_number <- year12_lga %>% 
   dplyr::filter(lga_name %in% nephu_lga) %>% 
   #
-  dplyr::mutate(hover_text = paste0("LGA: ", lga_name,
-                                    "\nCount: ", format(aboriginal_n, big.mark = ","))) %>%
+  dplyr::mutate(hover_text = paste0(lga_name, " LGA", "\n",
+                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>%
   #
   f_bar_simple(x_variable = lga_name,
                y_variable = aboriginal_n,
@@ -600,8 +598,8 @@ figure_number <- year12_lga %>%
 figure_percent <- year12_lga %>% 
   dplyr::filter(lga_name %in% nephu_lga) %>% 
   #
-  dplyr::mutate(hover_text = paste0("LGA: ", lga_name,
-                                    "\nPercentage: ", sprintf("%.1f", aboriginal_prop))) %>%
+  dplyr::mutate(hover_text = paste0(lga_name, " LGA", "\n",
+                                    "Percentage: ", sprintf("%.1f", aboriginal_prop))) %>%
   #
   f_bar_simple(x_variable = lga_name,
                y_variable = aboriginal_prop,
@@ -904,9 +902,9 @@ qualification_lga %>%
                "Certificate and Diploma",
                "High School and below"))) %>% 
   #
-  dplyr::mutate(hover_text = paste0("LGA: ", lga_name,
-                                    "\nLevel: ", comparison,
-                                    "\nCount: ", format(aboriginal_n, big.mark = ","))) %>%
+  dplyr::mutate(hover_text = paste0(lga_name, "\n",
+                                    comparison, "\n",
+                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>%
   #
   f_bar_stacked(x_variable    = lga_name,
                 y_variable    = aboriginal_n,
@@ -998,10 +996,10 @@ qualification_agesex %>%
                "Certificate and Diploma",
                "High School and below"))) %>% 
   #
-  dplyr::mutate(hover_text = paste0("Sex: ", sex,
-                                    "\nAge group: ", age_group,
-                                    "\nLevel: ", comparison,
-                                    "\nCount: ", format(aboriginal_n, big.mark = ","))) %>%
+  dplyr::mutate(hover_text = paste0(sex, "\n",
+                                    age_group, "\n",
+                                    comparison, "\n",
+                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>%
   #
   f_bar_stacked(x_variable    = age_group,
                 y_variable    = aboriginal_n,
@@ -1129,8 +1127,7 @@ Target: By 2031, increase the proportion of Aboriginal and Torres Strait Islande
 # Data from ABS Census via CtG Information Repository
 # ------------------------------------------------------------------------------
 # Read in ABS data
-uni_trend <- readxl::read_excel(file.path(root_folder, subfolder_ctg,
-                                          "CTG06_Education_Pathways_Data_Tables.xlsx"),
+uni_trend <- readxl::read_excel(file.path(root_folder, subfolder_ctg, "CTG06_Education_Pathways_Data_Tables.xlsx"),
                                 skip  = 1,
                                 sheet = "Table CtG6A.1") %>% 
   janitor::clean_names() %>% 
@@ -1274,9 +1271,9 @@ The following questions were asked of all people aged 15 years and over completi
 uni_trend %>% 
   dplyr::filter(unit == "prop") %>% 
   #
-  dplyr::mutate(hover_text = paste0("Year: ", year,
-                                    "\nIndigenous status: ", indigenous_label,
-                                    "\nPercentage: ", sprintf("%.1f", vic))) %>%
+  dplyr::mutate(hover_text = paste0(year, "\n",
+                                    indigenous_label, "\n",
+                                    "Percentage: ", sprintf("%.1f", vic))) %>%
   #
   f_line_grouped(y_variable    = vic,
                  fill_variable = indigenous_status,
@@ -1354,8 +1351,8 @@ table %>%
 figure_number <- uni_lga %>% 
   dplyr::filter(lga_name %in% nephu_lga) %>% 
   #
-  dplyr::mutate(hover_text = paste0("LGA: ", lga_name,
-                                    "\nCount: ", format(aboriginal_n, big.mark = ","))) %>%
+  dplyr::mutate(hover_text = paste0(lga_name, " LGA", "\n",
+                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>%
   #
   f_bar_simple(x_variable = lga_name,
                y_variable = aboriginal_n,
@@ -1367,8 +1364,8 @@ figure_number <- uni_lga %>%
 figure_percent <- uni_lga %>% 
   dplyr::filter(lga_name %in% nephu_lga) %>% 
   #
-  dplyr::mutate(hover_text = paste0("LGA: ", lga_name,
-                                    "\nPercentage: ", sprintf("%.1f", aboriginal_prop))) %>%
+  dplyr::mutate(hover_text = paste0(lga_name, " LGA", "\n",
+                                    "Percentage: ", sprintf("%.1f", aboriginal_prop))) %>%
   #
   f_bar_simple(x_variable = lga_name,
                y_variable = aboriginal_prop,

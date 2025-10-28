@@ -161,8 +161,8 @@ population_lphu <- aboriginal_lga %>%
 population_lphu %>% 
   dplyr::filter(lphu_short != "VIC") %>% 
   #
-  dplyr::mutate(hover_text = paste0(lphu_long,
-                                    "\nCount: ", format(aboriginal_n, big.mark = ","))) %>% 
+  dplyr::mutate(hover_text = paste0(lphu_long, "\n",
+                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>% 
   #
   f_bar_simple(x_variable = forcats::fct_reorder(lphu_short, desc(aboriginal_n)),
                y_variable = aboriginal_n,
@@ -375,8 +375,8 @@ density_sa2 <- dplyr::left_join(nephu_sa2.sf,
 population_lga %>% 
   dplyr::filter(lga_name != "NEPHU") %>% 
   #
-  dplyr::mutate(hover_text = paste0(lga_name, " LGA",
-                                    "\nCount: ", format(aboriginal_n, big.mark = ","))) %>% 
+  dplyr::mutate(hover_text = paste0(lga_name, " LGA", "\n",
+                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>% 
   #
   f_bar_simple(x_variable = forcats::fct_reorder(lga_name, desc(aboriginal_n)),
                y_variable = aboriginal_n,

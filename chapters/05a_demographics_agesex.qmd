@@ -272,10 +272,10 @@ agesex_lphu %>%
   dplyr::mutate(region = dplyr::case_when(lphu_short == "VIC" ~ "Victoria",
                                           TRUE ~ lphu_short),
                 #
-                hover_text = paste0("\nSex: ", sex,
-                                    "\nAge group: ", age_group,
-                                    "\nRegion: ", region,
-                                    "\nPercentage: ", sprintf("%.1f", abs(aboriginal_prop)))) %>% 
+                hover_text = paste0(sex, "\n",
+                                    age_group, "\n",
+                                    region, "\n",
+                                    "Percentage: ", sprintf("%.1f", abs(aboriginal_prop)))) %>% 
   #
   f_pyramid(prop_variable = aboriginal_prop,
             fill_variable = lphu_short,
@@ -317,10 +317,10 @@ agesex_lphu %>%
       levels = c("Identified as Aboriginal\nand/or Torres Strait Islander",
                  "Did not identify as Aboriginal\nand/or Torres Strait Islander")),
     #
-    hover_text = paste0("\nSex: ", sex,
-                        "\nAge group: ", age_group,
-                        "\nIndigenous status: ", aboriginal_label,
-                        "\nPercentage: ", sprintf("%.1f", abs(prop)))) %>% 
+    hover_text = paste0(sex, "\n",
+                        age_group, "\n",
+                        aboriginal_label, "\n",
+                        "Percentage: ", sprintf("%.1f", abs(prop)))) %>% 
   #
   f_pyramid(prop_variable = prop,
             fill_variable = aboriginal_status,
@@ -367,10 +367,10 @@ for (i in nephu_lga) {
       levels = c("Identified as Aboriginal\nand/or Torres Strait Islander",
                  "Did not identify as Aboriginal\nand/or Torres Strait Islander")),
     #
-    hover_text = paste0("\nSex: ", sex,
-                        "\nAge group: ", age_group,
-                        "\nIndigenous status: ", aboriginal_label,
-                        "\nPercentage: ", sprintf("%.1f", abs(prop)))) %>% 
+    hover_text = paste0(sex, "\n",
+                        age_group, "\n",
+                        aboriginal_label, "\n",
+                        "Percentage: ", sprintf("%.1f", abs(prop)))) %>% 
   #
   f_pyramid(chart_title   = paste0(i, " LGA"),
             prop_variable = prop,
@@ -473,8 +473,8 @@ women_lga <- census_agesex %>%
 figure_number <- women_lga %>% 
   dplyr::filter(lga_name %in% nephu_lga) %>% 
   #
-  dplyr::mutate(hover_text = paste0("LGA: ", lga_name,
-                                    "\nCount: ", format(aboriginal_n, big.mark = ","))) %>%
+  dplyr::mutate(hover_text = paste0(lga_name, " LGA", "\n",
+                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>%
   #
   f_bar_simple(x_variable = lga_name,
                y_variable = aboriginal_n,
@@ -486,8 +486,8 @@ figure_number <- women_lga %>%
 figure_percent <- women_lga %>% 
   dplyr::filter(lga_name %in% nephu_lga) %>% 
   #
-  dplyr::mutate(hover_text = paste0("LGA: ", lga_name,
-                                    "\nPercentage: ", sprintf("%.1f", aboriginal_prop))) %>%
+  dplyr::mutate(hover_text = paste0(lga_name, " LGA", "\n",
+                                    "Percentage: ", sprintf("%.1f", aboriginal_prop))) %>%
   #
   f_bar_simple(x_variable = lga_name,
                y_variable = aboriginal_prop,

@@ -159,8 +159,8 @@ The following question was asked of all people completing the ABS Census 2021.
 figure_number <- language_any_lga %>% 
   dplyr::filter(lga_name %in% nephu_lga) %>% 
   #
-  dplyr::mutate(hover_text = paste0("LGA: ", lga_name,
-                                    "\nCount: ", format(aboriginal_n, big.mark = ","))) %>%
+  dplyr::mutate(hover_text = paste0(lga_name, " LGA", "\n",
+                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>%
   #
   f_bar_simple(x_variable = lga_name,
                y_variable = aboriginal_n,
@@ -172,8 +172,8 @@ figure_number <- language_any_lga %>%
 figure_percent <- language_any_lga %>% 
   dplyr::filter(lga_name %in% nephu_lga) %>% 
   #
-  dplyr::mutate(hover_text = paste0("LGA: ", lga_name,
-                                    "\nPercentage: ", sprintf("%.1f", aboriginal_prop))) %>%
+  dplyr::mutate(hover_text = paste0(lga_name, " LGA", "\n",
+                                    "Percentage: ", sprintf("%.1f", aboriginal_prop))) %>%
   #
   f_bar_simple(x_variable = lga_name,
                y_variable = aboriginal_prop,
@@ -235,9 +235,9 @@ table %>%
 figure_number <- language_any_agesex %>% 
   dplyr::filter(age_group %in% age_group_lvl) %>% 
   #
-  dplyr::mutate(hover_text = paste0("\nSex: ", sex,
-                                    "\nAge group: ", age_group,
-                                    "\nCount: ", format(aboriginal_n, big.mark = ","))) %>%
+  dplyr::mutate(hover_text = paste0(sex, "\n",
+                                    age_group, "\n",
+                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>%
   #
   f_bar_grouped(x_variable    = age_group,
                 y_variable    = aboriginal_n,
@@ -251,9 +251,9 @@ figure_number <- language_any_agesex %>%
 figure_percent <- language_any_agesex %>% 
   dplyr::filter(age_group %in% age_group_lvl) %>% 
   #
-  dplyr::mutate(hover_text = paste0("\nSex: ", sex,
-                                    "\nAge group: ", age_group,
-                                    "\nPercentage: ", sprintf("%.1f", aboriginal_prop))) %>%
+  dplyr::mutate(hover_text = paste0(sex, "\n",
+                                    age_group, "\n",
+                                    "Percentage: ", sprintf("%.1f", aboriginal_prop))) %>%
   #
   f_bar_grouped(x_variable    = age_group,
                 y_variable    = aboriginal_prop,
@@ -332,8 +332,8 @@ table %>%
 language_specific %>% 
   dplyr::filter(language != "Total") %>%
   #
-  dplyr::mutate(hover_text = paste0("\nLanguage: ", language,
-                                    "\nCount: ", format(aboriginal_n, big.mark = ","))) %>%
+  dplyr::mutate(hover_text = paste0(language, "\n",
+                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>%
   #
   f_bar_simple_flip(x_variable = forcats::fct_reorder(factor(language), aboriginal_n, .desc = TRUE),
                     y_variable = aboriginal_n,
@@ -476,8 +476,8 @@ The following question was asked of all people completing the ABS Census 2021.
 language_other %>% 
   dplyr::filter(language != "Total") %>%
   #
-  dplyr::mutate(hover_text = paste0("\nLanguage: ", language,
-                                    "\nCount: ", format(aboriginal_n, big.mark = ","))) %>%
+  dplyr::mutate(hover_text = paste0(language, "\n",
+                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>%
   #
   f_bar_simple_flip(x_variable = forcats::fct_reorder(factor(language), aboriginal_n, .desc = TRUE),
                     y_variable = aboriginal_n,
@@ -639,8 +639,8 @@ The following questions were asked of all people completing the ABS Census 2021.
 figure_number <- english_lga %>% 
   dplyr::filter(lga_name %in% nephu_lga) %>% 
   #
-  dplyr::mutate(hover_text = paste0("LGA: ", lga_name,
-                                    "\nCount: ", format(aboriginal_n, big.mark = ","))) %>%
+  dplyr::mutate(hover_text = paste0(lga_name, "\n",
+                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>%
   #
   f_bar_simple(x_variable = lga_name,
                y_variable = aboriginal_n,
@@ -652,8 +652,8 @@ figure_number <- english_lga %>%
 figure_percent <- english_lga %>% 
   dplyr::filter(lga_name %in% nephu_lga) %>% 
   #
-  dplyr::mutate(hover_text = paste0("LGA: ", lga_name,
-                                    "\nPercentage: ", sprintf("%.1f", aboriginal_prop))) %>%
+  dplyr::mutate(hover_text = paste0(lga_name, "\n",
+                                    "Percentage: ", sprintf("%.1f", aboriginal_prop))) %>%
   #
   f_bar_simple(x_variable = lga_name,
                y_variable = aboriginal_prop,
@@ -715,9 +715,9 @@ table %>%
 figure_number <- english_agesex %>% 
   dplyr::filter(age_group %in% age_group_lvl) %>% 
   #
-  dplyr::mutate(hover_text = paste0("\nSex: ", sex,
-                                    "\nAge group: ", age_group,
-                                    "\nCount: ", format(aboriginal_n, big.mark = ","))) %>%
+  dplyr::mutate(hover_text = paste0(sex, "\n",
+                                    age_group, "\n",
+                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>%
   #
   f_bar_grouped(x_variable    = age_group,
                 y_variable    = aboriginal_n,
@@ -731,9 +731,9 @@ figure_number <- english_agesex %>%
 figure_percent <- english_agesex %>% 
   dplyr::filter(age_group %in% age_group_lvl) %>% 
   #
-  dplyr::mutate(hover_text = paste0("\nSex: ", sex,
-                                    "\nAge group: ", age_group,
-                                    "\nPercentage: ", sprintf("%.1f", aboriginal_prop))) %>%
+  dplyr::mutate(hover_text = paste0(sex, "\n",
+                                    age_group, "\n",
+                                    "Percentage: ", sprintf("%.1f", aboriginal_prop))) %>%
   #
   f_bar_grouped(x_variable    = age_group,
                 y_variable    = aboriginal_prop,

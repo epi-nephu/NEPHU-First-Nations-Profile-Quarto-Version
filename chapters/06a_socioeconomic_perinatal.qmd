@@ -100,8 +100,8 @@ childhood_antenatal <- childhood_iare %>%
 figure_number <- childhood_antenatal %>% 
   dplyr::filter(iare_name %in% iare_names) %>% 
   #
-  dplyr::mutate(hover_text = paste0("IARE: ", iare_name,
-                                    "\nCount: ", format(antenatal_n, big.mark = ","))) %>%
+  dplyr::mutate(hover_text = paste0(iare_name, " IARE", "\n",
+                                    "Count: ", format(antenatal_n, big.mark = ","))) %>%
   #
   f_bar_simple(x_variable = iare_name_short,
                y_variable = antenatal_n,
@@ -113,8 +113,8 @@ figure_number <- childhood_antenatal %>%
 figure_percent <- childhood_antenatal %>% 
   dplyr::filter(iare_name %in% iare_names) %>% 
   #
-  dplyr::mutate(hover_text = paste0("IARE: ", iare_name,
-                                    "\nPercentage: ", sprintf("%.1f", antenatal_prop))) %>%
+  dplyr::mutate(hover_text = paste0(iare_name, " IARE", "\n",
+                                    "Percentage: ", sprintf("%.1f", antenatal_prop))) %>%
   #
   f_bar_simple(x_variable = iare_name_short,
                y_variable = antenatal_prop,
@@ -233,8 +233,8 @@ childhood_smoking <- childhood_iare %>%
 figure_number <- childhood_smoking %>% 
   dplyr::filter(iare_name %in% iare_names) %>% 
   #
-  dplyr::mutate(hover_text = paste0("IARE: ", iare_name,
-                                    "\nCount: ", format(smoking_n, big.mark = ","))) %>%
+  dplyr::mutate(hover_text = paste0(iare_name, " IARE", "\n",
+                                    "Count: ", format(smoking_n, big.mark = ","))) %>%
   #
   f_bar_simple(x_variable = iare_name_short,
                y_variable = smoking_n,
@@ -246,8 +246,8 @@ figure_number <- childhood_smoking %>%
 figure_percent <- childhood_smoking %>% 
   dplyr::filter(iare_name %in% iare_names) %>% 
   #
-  dplyr::mutate(hover_text = paste0("IARE: ", iare_name,
-                                    "\nPercentage: ", sprintf("%.1f", smoking_prop))) %>%
+  dplyr::mutate(hover_text = paste0(iare_name, " IARE", "\n",
+                                    "Percentage: ", sprintf("%.1f", smoking_prop))) %>%
   #
   f_bar_simple(x_variable = iare_name_short,
                y_variable = smoking_prop,
@@ -331,9 +331,7 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 # Data from AIHW Mothers and Babies
 # ------------------------------------------------------------------------------
 # Read in ABS data
-childhood_premature <- readxl::read_xlsx(file.path(root_folder, 
-                                                   subfolder_birth, 
-                                                   "AIHW-PER-120-Aboriginal-Torres-Strait-Islander-mothers-babies-data-tables.xlsx"),
+childhood_premature <- readxl::read_xlsx(file.path(root_folder, subfolder_birth, "AIHW-PER-120-Aboriginal-Torres-Strait-Islander-mothers-babies-data-tables.xlsx"),
                                          sheet = "Table 4.4",
                                          skip  = 8) %>% 
   janitor::clean_names()
@@ -467,10 +465,10 @@ figure_number <- childhood_birthweight %>%
     #
     hover_text = ifelse(
       is.na(birthweight_n),
-      paste0("IARE: ", iare_name,
-             "\nCount: ", "Data not available"),
-      paste0("IARE: ", iare_name,
-             "\nCount: ", format(birthweight_n, big.mark = ",")))) %>%
+      paste0(iare_name, " IARE", "\n",
+             "Count: ", "Data not available"),
+      paste0(iare_name, " IARE", "\n",
+             "Count: ", format(birthweight_n, big.mark = ",")))) %>%
   #
   f_bar_simple(x_variable = iare_name_short,
                y_variable = birthweight_n_plot,
@@ -489,10 +487,10 @@ figure_percent <- childhood_birthweight %>%
     #
     hover_text = ifelse(
       is.na(birthweight_prop),
-      paste0("IARE: ", iare_name,
-             "\nPercentage: ", "Data not available"),
-      paste0("IARE: ", iare_name,
-             "\nPercentage: ", sprintf("%.1f", birthweight_prop)))) %>%
+      paste0(iare_name, " IARE", "\n",
+             "Percentage: ", "Data not available"),
+      paste0(iare_name, " IARE", "\n",
+             "Percentage: ", sprintf("%.1f", birthweight_prop)))) %>%
   #
   f_bar_simple(x_variable = iare_name_short,
                y_variable = birthweight_prop_plot,
@@ -568,9 +566,9 @@ childhood_birthweight_year %>%
       levels = c("Identified as Aboriginal\nand/or Torres Strait Islander",
                  "Did not identify as Aboriginal\nand/or Torres Strait Islander")),
     #
-    hover_text = paste0("\nYear: ", year,
-                        "\nIndigenous status: ", indigenous_label,
-                        "\nPercentage: ", sprintf("%.1f", percent))) %>%
+    hover_text = paste0(year, "\n",
+                        indigenous_label, "\n",
+                        "Percentage: ", sprintf("%.1f", percent))) %>%
   #
   f_line_grouped(y_variable    = percent,
                  fill_variable = indigenous_status,
@@ -778,9 +776,9 @@ childhood_breastfed %>%
       levels = c("Identified as Aboriginal\nand/or Torres Strait Islander",
                  "Did not identify as Aboriginal\nand/or Torres Strait Islander")),
     #
-    hover_text = paste0("\nBreastfeeding duration: ", breastfed,
-                        "\nIndigenous status: ", indigenous_label,
-                        "\nPercentage: ", sprintf("%.1f", percent))) %>%
+    hover_text = paste0(breastfed, "\n",
+                        indigenous_label, "\n",
+                        "Percentage: ", sprintf("%.1f", percent))) %>%
   #
   f_bar_grouped(x_variable    = breastfed,
                 y_variable    = percent,
@@ -832,6 +830,7 @@ if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
 table %>% 
   f_table_simple(total_row     = nrow(table),
                  table_headers = table_headers) %>% 
+  #
   kableExtra::add_header_above(c(" " = 1,
                                  "Identified as Aboriginal\nand/or Torres Strait Islander"       = 2,
                                  "Did not identify as Aboriginal\nand/or Torres Strait Islander" = 2))

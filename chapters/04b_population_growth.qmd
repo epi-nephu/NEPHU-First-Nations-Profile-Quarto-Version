@@ -33,9 +33,7 @@ What are the drivers of population growth for Aboriginal and/or Torres Strait Is
 # Data from ABS Population Estimates and Projections
 # ------------------------------------------------------------------------------
 # Read in ABS data
-aboriginal_projections_iare <- readxl::read_xlsx(file.path(root_folder, 
-                                                           subfolder_projections, 
-                                                           "Aboriginal_IARE_Projections.xlsx"),
+aboriginal_projections_iare <- readxl::read_xlsx(file.path(root_folder, subfolder_projections, "Aboriginal_IARE_Projections.xlsx"),
                                                  skip = 1) %>% 
   janitor::clean_names() %>% 
   #
@@ -141,9 +139,7 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 # Data from AIHW Mothers and Babies
 # ------------------------------------------------------------------------------
 # Read in ABS data
-aboriginal_birthrate_iare <- readxl::read_xlsx(file.path(root_folder, 
-                                                         subfolder_birth, 
-                                                         "AIHW-PER-120-Aboriginal-Torres-Strait-Islander-mothers-babies-data-tables.xlsx"),
+aboriginal_birthrate_iare <- readxl::read_xlsx(file.path(root_folder, subfolder_birth, "AIHW-PER-120-Aboriginal-Torres-Strait-Islander-mothers-babies-data-tables.xlsx"),
                                                sheet = "Table 1.1",
                                                skip  = 8) %>% 
   janitor::clean_names()

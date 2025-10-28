@@ -62,8 +62,7 @@ childhood_enrol <- childhood_enrol %>%
 # Data from CtG Information Repository
 # ------------------------------------------------------------------------------
 # Read in NECECC data
-childhood_attendance <- readxl::read_excel(file.path(root_folder, subfolder_ctg,
-                                                     "CTG03_Childhood_Education_Data_Tables.xlsx"),
+childhood_attendance <- readxl::read_excel(file.path(root_folder, subfolder_ctg, "CTG03_Childhood_Education_Data_Tables.xlsx"),
                                            skip  = 1,
                                            sheet = "Table SE3a.1") %>% 
     janitor::clean_names() %>% 
@@ -124,8 +123,8 @@ childhood_attendance <- childhood_attendance %>%
 ```{r}
 #
 figure_number <- childhood_enrol %>% 
-  dplyr::mutate(hover_text = paste0("Year: ", year,
-                                    "\nCount: ", format(aboriginal_n, big.mark = ","))) %>%
+  dplyr::mutate(hover_text = paste0(year, "\n",
+                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>%
   #
   f_line_simple(y_variable = aboriginal_n,
                 y_max      = NA,
@@ -134,8 +133,8 @@ figure_number <- childhood_enrol %>%
                 y_title    = "Number of children")
 
 figure_percent <- childhood_enrol %>% 
-  dplyr::mutate(hover_text = paste0("Year: ", year,
-                                    "\nPercentage: ", sprintf("%.1f", aboriginal_prop))) %>%
+  dplyr::mutate(hover_text = paste0(year, "\n",
+                                    "Percentage: ", sprintf("%.1f", aboriginal_prop))) %>%
   #
   f_line_simple(y_variable = aboriginal_prop,
                 y_max      = 100,
@@ -205,12 +204,12 @@ childhood_attendance %>%
     #
     hover_text = ifelse(
       is.na(vic),
-      paste0("Year: ", year,
-             "\nAttendance: ", attendance,
-             "\nPercentage: ", "Data not available"),
-      paste0("Year: ", year,
-             "\nAttendance: ", attendance,
-             "\nPercentage: ", sprintf("%.1f", vic)))) %>%
+      paste0(year, "\n",
+             attendance, "\n",
+             "Percentage: ", "Data not available"),
+      paste0(year, "\n",
+             attendance, "\n",
+             "Percentage: ", sprintf("%.1f", vic)))) %>%
   #
   f_bar_stacked(x_variable    = year,
                 y_variable    = vic_plot,
@@ -332,8 +331,7 @@ Target: By 2031, increase the proportion of Aboriginal and Torres Strait Islande
 # Data from CtG Information Repository
 # ------------------------------------------------------------------------------
 # Read in AEDC data
-childhood_develop <- readxl::read_excel(file.path(root_folder, subfolder_ctg,
-                                                  "CTG04_Early_Years_Data_Tables.xlsx"),
+childhood_develop <- readxl::read_excel(file.path(root_folder, subfolder_ctg, "CTG04_Early_Years_Data_Tables.xlsx"),
                                         skip  = 1,
                                         sheet = "Table CtG4A.1") %>% 
   janitor::clean_names() %>% 
@@ -395,9 +393,9 @@ childhood_develop <- childhood_develop %>%
 ```{r}
 #
 childhood_develop %>% 
-  dplyr::mutate(hover_text = paste0("\nYear: ", year,
-                                    "\nIndigenous status: ", indigenous_label,
-                                    "\nPercentage: ", sprintf("%.1f", vic))) %>%
+  dplyr::mutate(hover_text = paste0(year, "\n",
+                                    indigenous_label, "\n",
+                                    "Percentage: ", sprintf("%.1f", vic))) %>%
   #
   f_line_grouped(y_variable    = vic,
                  fill_variable = indigenous_status,
@@ -523,9 +521,9 @@ naplan_numeracy <- f_read_naplan(data_sheet = "Table SE5c.3")
 naplan_reading %>%
   dplyr::filter(indigenous_status == "Aboriginal and Torres Strait Islander students") %>% 
   #
-  dplyr::mutate(hover_text = paste0("Grade: ", grade,
-                                    "\nNAPLAN level: ", achievement,
-                                    "\nPercentage: ", sprintf("%.1f", vic))) %>%
+  dplyr::mutate(hover_text = paste0(grade, "\n",
+                                    achievement, "\n",
+                                    "Percentage: ", sprintf("%.1f", vic))) %>%
   #
   f_bar_stacked(x_variable    = grade,
                 y_variable    = vic,
@@ -602,9 +600,9 @@ table %>%
 naplan_writing %>%
   dplyr::filter(indigenous_status == "Aboriginal and Torres Strait Islander students") %>% 
   #
-  dplyr::mutate(hover_text = paste0("Grade: ", grade,
-                                    "\nNAPLAN level: ", achievement,
-                                    "\nPercentage: ", sprintf("%.1f", vic))) %>%
+  dplyr::mutate(hover_text = paste0(grade, "\n",
+                                    achievement, "\n",
+                                    "Percentage: ", sprintf("%.1f", vic))) %>%
   #
   f_bar_stacked(x_variable    = grade,
                 y_variable    = vic,
@@ -681,9 +679,9 @@ table %>%
 naplan_numeracy %>%
   dplyr::filter(indigenous_status == "Aboriginal and Torres Strait Islander students") %>% 
   #
-  dplyr::mutate(hover_text = paste0("Grade: ", grade,
-                                    "\nNAPLAN level: ", achievement,
-                                    "\nPercentage: ", sprintf("%.1f", vic))) %>%
+  dplyr::mutate(hover_text = paste0(grade, "\n",
+                                    achievement, "\n",
+                                    "Percentage: ", sprintf("%.1f", vic))) %>%
   #
   f_bar_stacked(x_variable    = grade,
                 y_variable    = vic,
