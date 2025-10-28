@@ -70,6 +70,7 @@ source(here::here("functions", "data prep", "f_read_naplan.R"))
 source(here::here("functions", "data prep", "f_read_phidu.R"))
 
 source(here::here("functions", "graphs", "f_bar_grouped.R"))
+source(here::here("functions", "graphs", "f_bar_obsexp.R"))
 source(here::here("functions", "graphs", "f_bar_simple.R"))
 source(here::here("functions", "graphs", "f_bar_stacked.R"))
 source(here::here("functions", "graphs", "f_line_grouped.R"))
@@ -77,6 +78,7 @@ source(here::here("functions", "graphs", "f_line_simple.R"))
 source(here::here("functions", "graphs", "f_map_density.R"))
 source(here::here("functions", "graphs", "f_pyramid.R"))
 
+source(here::here("functions", "tables", "f_table_obsexp.R"))
 source(here::here("functions", "tables", "f_table_simple.R"))
 
 # ------------------------------------------------------------------------------
