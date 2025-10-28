@@ -89,7 +89,6 @@ engaged_agesex <- engaged_agesex %>%
     engagement == "Partially engaged"          ~ "Partially engaged",
     engagement == "At least partially engaged" ~ "Partially engaged",
     engagement == "Not engaged"                ~ "Not engaged",
-    #
     TRUE ~ NA_character_)) %>% 
   #
   f_wrangle_census_agesex(variable = engagement,
@@ -214,9 +213,9 @@ engaged_lga %>%
                "Partially engaged",
                "Not engaged"))) %>% 
   #
-  dplyr::mutate(hover_text = paste0(lga_name, " LGA\n",
-                                    comparison,
-                                    "\nCount: ", format(aboriginal_n, big.mark = ","))) %>%
+  dplyr::mutate(hover_text = paste0(lga_name, " LGA", "\n",
+                                    comparison, "\n",
+                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>%
   #
   f_bar_stacked(x_variable    = lga_name,
                 y_variable    = aboriginal_n,
@@ -305,8 +304,8 @@ engaged_agesex %>%
   #
   dplyr::mutate(hover_text = paste0(sex, "\n",
                                     age_group, "\n",
-                                    comparison,
-                                    "\nCount: ", format(aboriginal_n, big.mark = ","))) %>%
+                                    comparison, "\n",
+                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>%
   #
   f_bar_stacked(x_variable    = age_group,
                 y_variable    = aboriginal_n,
@@ -428,8 +427,7 @@ Target: By 2031, increase the proportion of Aboriginal and Torres Strait Islande
 # Data from ABS Census via CtG Information Repository
 # ------------------------------------------------------------------------------
 # Read in ABS data
-fully_trend <- readxl::read_excel(file.path(root_folder, subfolder_ctg,
-                                            "CTG07_Employment_Education_Data_Tables.xlsx"),
+fully_trend <- readxl::read_excel(file.path(root_folder, subfolder_ctg, "CTG07_Employment_Education_Data_Tables.xlsx"),
                                   skip  = 1,
                                   sheet = "Table CtG7A.1") %>% 
   janitor::clean_names() %>% 
@@ -482,7 +480,6 @@ fully_youth <- f_read_census_agesex("Aboriginal_Employment_Engagement_YoungAdult
   #
   dplyr::mutate(engagement = dplyr::case_when(
     engagement == "Fully engaged" ~ "yes",
-    #
     TRUE ~ "no"))
 
 # Data wrangling - by LGA
@@ -511,8 +508,7 @@ fully_youth_sex <- fully_youth %>%
 # Data from ABS Census via CtG Information Repository
 # ------------------------------------------------------------------------------
 # Read in ABS data
-fully_age <- readxl::read_excel(file.path(root_folder, subfolder_ctg,
-                                          "CTG07_Employment_Education_Data_Tables.xlsx"),
+fully_age <- readxl::read_excel(file.path(root_folder, subfolder_ctg, "CTG07_Employment_Education_Data_Tables.xlsx"),
                                 skip  = 1,
                                 sheet = "Table CtG7A.3") %>% 
   janitor::clean_names() %>% 
@@ -660,8 +656,8 @@ fully_trend %>%
   dplyr::filter(unit == "prop") %>% 
   #
   dplyr::mutate(hover_text = paste0(year, "\n",
-                                    indigenous_label,
-                                    "\nPercentage: ", sprintf("%.1f", vic))) %>%
+                                    indigenous_label, "\n",
+                                    "Percentage: ", sprintf("%.1f", vic))) %>%
   #
   f_line_grouped(y_variable    = vic,
                  fill_variable = indigenous_status,
@@ -739,8 +735,8 @@ table %>%
 figure_number <- fully_youth_lga %>% 
   dplyr::filter(lga_name %in% nephu_lga) %>% 
   #
-  dplyr::mutate(hover_text = paste0(lga_name, " LGA",
-                                    "\nCount: ", format(aboriginal_n, big.mark = ","))) %>%
+  dplyr::mutate(hover_text = paste0(lga_name, " LGA", "\n",
+                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>%
   #
   f_bar_simple(x_variable = lga_name,
                y_variable = aboriginal_n,
@@ -752,8 +748,8 @@ figure_number <- fully_youth_lga %>%
 figure_percent <- fully_youth_lga %>% 
   dplyr::filter(lga_name %in% nephu_lga) %>% 
   #
-  dplyr::mutate(hover_text = paste0(lga_name, " LGA",
-                                    "\nPercentage: ", sprintf("%.1f", aboriginal_prop))) %>%
+  dplyr::mutate(hover_text = paste0(lga_name, " LGA", "\n",
+                                    "Percentage: ", sprintf("%.1f", aboriginal_prop))) %>%
   #
   f_bar_simple(x_variable = lga_name,
                y_variable = aboriginal_prop,
@@ -867,8 +863,8 @@ fully_age %>%
   #
   dplyr::mutate(
     hover_text = paste0(age, "\n",
-                        indigenous_label,
-                        "\nPercentage: ", sprintf("%.1f", vic))) %>%
+                        indigenous_label, "\n",
+                        "Percentage: ", sprintf("%.1f", vic))) %>%
   #
   f_bar_grouped(x_variable    = age,
                 y_variable    = vic,
@@ -1159,9 +1155,9 @@ status_lga %>%
                "Employed (on leave)",
                "Unemployed"))) %>% 
   #
-  dplyr::mutate(hover_text = paste0(lga_name, " LGA\n",
-                                    comparison,
-                                    "\nCount: ", format(aboriginal_n, big.mark = ","))) %>%
+  dplyr::mutate(hover_text = paste0(lga_name, " LGA", "\n",
+                                    comparison, "\n",
+                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>%
   #
   f_bar_stacked(x_variable    = lga_name,
                 y_variable    = aboriginal_n,
