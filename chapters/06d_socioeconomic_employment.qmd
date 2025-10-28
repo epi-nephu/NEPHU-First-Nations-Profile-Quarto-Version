@@ -214,8 +214,8 @@ engaged_lga %>%
                "Partially engaged",
                "Not engaged"))) %>% 
   #
-  dplyr::mutate(hover_text = paste0("LGA: ", lga_name,
-                                    "\nEngagement: ", comparison,
+  dplyr::mutate(hover_text = paste0(lga_name, " LGA\n",
+                                    comparison,
                                     "\nCount: ", format(aboriginal_n, big.mark = ","))) %>%
   #
   f_bar_stacked(x_variable    = lga_name,
@@ -303,9 +303,9 @@ engaged_agesex %>%
                "Partially engaged",
                "Not engaged"))) %>%  
   #
-  dplyr::mutate(hover_text = paste0("Sex: ", sex,
-                                    "\nAge group: ", age_group,
-                                    "\nEngagement: ", comparison,
+  dplyr::mutate(hover_text = paste0(sex, "\n",
+                                    age_group, "\n",
+                                    comparison,
                                     "\nCount: ", format(aboriginal_n, big.mark = ","))) %>%
   #
   f_bar_stacked(x_variable    = age_group,
@@ -659,8 +659,8 @@ Notes:
 fully_trend %>% 
   dplyr::filter(unit == "prop") %>% 
   #
-  dplyr::mutate(hover_text = paste0("Year: ", year,
-                                    "\nIndigenous status: ", indigenous_label,
+  dplyr::mutate(hover_text = paste0(year, "\n",
+                                    indigenous_label,
                                     "\nPercentage: ", sprintf("%.1f", vic))) %>%
   #
   f_line_grouped(y_variable    = vic,
@@ -739,7 +739,7 @@ table %>%
 figure_number <- fully_youth_lga %>% 
   dplyr::filter(lga_name %in% nephu_lga) %>% 
   #
-  dplyr::mutate(hover_text = paste0("LGA: ", lga_name,
+  dplyr::mutate(hover_text = paste0(lga_name, " LGA",
                                     "\nCount: ", format(aboriginal_n, big.mark = ","))) %>%
   #
   f_bar_simple(x_variable = lga_name,
@@ -752,7 +752,7 @@ figure_number <- fully_youth_lga %>%
 figure_percent <- fully_youth_lga %>% 
   dplyr::filter(lga_name %in% nephu_lga) %>% 
   #
-  dplyr::mutate(hover_text = paste0("LGA: ", lga_name,
+  dplyr::mutate(hover_text = paste0(lga_name, " LGA",
                                     "\nPercentage: ", sprintf("%.1f", aboriginal_prop))) %>%
   #
   f_bar_simple(x_variable = lga_name,
@@ -866,8 +866,8 @@ fully_age %>%
   dplyr::filter(unit == "prop") %>% 
   #
   dplyr::mutate(
-    hover_text = paste0("\nAge: ", age,
-                        "\nIndigenous status: ", indigenous_label,
+    hover_text = paste0(age, "\n",
+                        indigenous_label,
                         "\nPercentage: ", sprintf("%.1f", vic))) %>%
   #
   f_bar_grouped(x_variable    = age,
@@ -968,6 +968,214 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 
 ## Entire Population
 
+```{r}
+# ------------------------------------------------------------------------------
+# Employment - entire population, by LGA
+# Data from ABS Census using TableBuilderPro
+# ------------------------------------------------------------------------------
+# Read in Census data
+status_lga <- f_read_census_lga("Aboriginal_Employment_Status_LGA.csv",
+                                variable = "status") %>% 
+  #
+  dplyr::filter(!status %in% c("Not stated", "Not applicable"))
 
+# Data wrangling
+status_lga <- status_lga %>% 
+  #
+  dplyr::mutate(status = dplyr::case_when(
+    status == "Employed, worked full-time"             ~ "Full-time",
+    status == "Employed, worked part-time"             ~ "Part-time",
+    status == "Employed, away from work"               ~ "On leave",
+    status == "Unemployed, looking for full-time work" ~ "Unemployed",
+    status == "Unemployed, looking for part-time work" ~ "Unemployed",
+    status == "Not in the labour force"                ~ "Unemployed",
+    TRUE ~ NA_character_)) %>% 
+  #
+  f_wrangle_census_lga(variable = status,
+                       level    = "person",
+                       dichot   = "no") %>% 
+  #
+  dplyr::mutate(full_prop  = aboriginal_n_full_time / aboriginal_total * 100,
+                part_prop  = aboriginal_n_part_time / aboriginal_total * 100,
+                leave_prop = aboriginal_n_on_leave / aboriginal_total * 100,
+                not_prop   = aboriginal_n_unemployed / aboriginal_total * 100) %>% 
+  #
+  dplyr::select(lga_name,
+                full_n = aboriginal_n_full_time,
+                full_prop,
+                part_n = aboriginal_n_part_time,
+                part_prop,
+                leave_n = aboriginal_n_on_leave,
+                leave_prop,
+                not_n = aboriginal_n_unemployed,
+                not_prop,
+                aboriginal_total)
+
+# ------------------------------------------------------------------------------
+# Employment - entire population, by age and sex
+# Data from ABS Census using TableBuilderPro
+# ------------------------------------------------------------------------------
+# Read in Census data
+status_agesex <- f_read_census_agesex("Aboriginal_Employment_Status_AgeSex.csv",
+                                      variable = "status") %>% 
+  #
+  dplyr::filter(!status %in% c("Not stated", "Not applicable"))
+
+# Data wrangling
+status_agesex <- status_agesex %>% 
+  #
+  dplyr::mutate(status = dplyr::case_when(
+    status == "Employed, worked full-time"             ~ "Full-time",
+    status == "Employed, worked part-time"             ~ "Part-time",
+    status == "Employed, away from work"               ~ "On leave",
+    status == "Unemployed, looking for full-time work" ~ "Unemployed",
+    status == "Unemployed, looking for part-time work" ~ "Unemployed",
+    status == "Not in the labour force"                ~ "Unemployed",
+    TRUE ~ NA_character_)) %>% 
+  #
+  f_wrangle_census_agesex(variable = status,
+                          dichot   = "no") %>% 
+  #
+  dplyr::mutate(aboriginal_total = aboriginal_n_full_time + aboriginal_n_part_time + aboriginal_n_on_leave + aboriginal_n_unemployed,
+                full_prop        = aboriginal_n_full_time / aboriginal_total * 100,
+                part_prop        = aboriginal_n_part_time / aboriginal_total * 100,
+                leave_prop       = aboriginal_n_on_leave / aboriginal_total * 100,
+                not_prop         = aboriginal_n_unemployed / aboriginal_total * 100) %>% 
+  #
+  dplyr::mutate(across(where(is.numeric), ~replace(., is.na(.), 0)),
+                across(where(is.numeric), ~replace(., is.nan(.), 0))) %>% 
+  #
+  dplyr::select(age_group,
+                sex,
+                full_n = aboriginal_n_full_time,
+                full_prop,
+                part_n = aboriginal_n_part_time,
+                part_prop,
+                leave_n = aboriginal_n_on_leave,
+                leave_prop,
+                not_n = aboriginal_n_unemployed,
+                not_prop,
+                aboriginal_total)
+```
+
+- Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
+
+- Overall, 36% (n = 2,970) of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census were employed full-time, 19% (n = 1,599) were employed part-time, 5.2% (n = 435) were on leave from work, and 40% (n = 3,355) were unemployed. Unemployed people includes both people who are not part of the labour force and those who were actively looking for work.
+
+- This was similar to non-Indigenous people living in the NEPHU catchment (38% employed full-time, 22% employed part-time, 4.0% on leave from work, and 37% unemployed).
+
+- Younger people were more likely to be employed (full-time, part-time, or on leave).
+
+- Males were more likely to be employed full-time than females.
+
+::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+The following questions were asked of all people aged 15 years and over completing the ABS Census 2021. Responses were cross tabulated to determine the labour force status (employed full-time, employed part-time, employed but away from work, unemployed but looking for work, not in the labour force) for each respondent.
+
+- Last week, did the person have a job of any kind?
+  - Yes, worked for payment or profit
+  - Yes, but absent on holidays, on paid leave, on strike, or temporarily stood down
+  - Yes, unpaid work in a family business
+  - Yes, other unpaid work
+  - No, did not have a job
+  
+Notes:
+- A job means any type of work (including casual, temporary, part-time, or full-time) if it was for one hour or more.
+- *Last week* refers to the week before Census night (Tuesday August 10th 2021).
+
+:::{style="height: 1em;"}
+:::
+
+- In the main job held last week, was the person:
+  - Working for an employer
+  - Working in own business
+  
+Notes:
+- If the person had more than one job, the *main job* refers to the job where they usually work the most hours.
+- *Last week* refers to the week before Census night (Tuesday August 10th 2021).
+
+:::{style="height: 1em;"}
+:::
+
+- Last week, how many hours did the person work in all jobs?
+  - Free text response
+  
+Notes:
+- Include any overtime or extra time worked and exclude any time off (including leave).
+- *Last week* refers to the week before Census night (Tuesday August 10th 2021).
+
+:::{style="height: 1em;"}
+:::
+
+- Did the person actively look for work at any time in the last four weeks?
+  - No, did not look for work
+  - Yes, looked for full-time work
+  - Yes, looked for part-time work
+  
+Notes:
+- *Full-time* work means 35 hours or more per week.
+- Examples of actively looking for work: writing/telephoning/applying to an employer for work, having a job interview, checking or registering with an employment agency, taking steps to purchase/start a business, advertising/tendering for work, contacting friends/relatives in order to obtain work, and answering an advertisement for a job.
+- *Last four weeks* refers to the four weeks before Census night (Tuesday August 10th 2021).
+
+:::{style="height: 1em;"}
+:::
+
+- If the person had found a job, could they have started work last week?
+  - Yes, could have started work last week
+  - No, already had a job to go to
+  - No, temporarily ill or injured
+  - No, other reason
+  
+Notes:
+- This question only applied to people who responded that they were actively looking for work during the previous four weeks.
+- *Last week* refers to the week before Census night (Tuesday August 10th 2021).
+
+:::
+
+:::: {.panel-tabset}
+
+### Figure 6D-7
+
+::: {#fig_6D_7 .fig-tab-title}
+**Figure 6D-7:** Employment status for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+status_lga %>% 
+  dplyr::filter(lga_name %in% nephu_lga) %>% 
+  #
+  tidyr::pivot_longer(cols      = ends_with("_n"),
+                      names_to  = "comparison",
+                      values_to = "aboriginal_n") %>%
+  #
+  dplyr::mutate(comparison = factor(dplyr::case_when(
+    comparison == "full_n"  ~ "Employed (full-time)",
+    comparison == "part_n"  ~ "Employed (part-time)",
+    comparison == "leave_n" ~ "Employed (on leave)",
+    comparison == "not_n"   ~ "Unemployed",
+    TRUE ~ NA_character_),
+    levels = c("Employed (full-time)",
+               "Employed (part-time)",
+               "Employed (on leave)",
+               "Unemployed"))) %>% 
+  #
+  dplyr::mutate(hover_text = paste0(lga_name, " LGA\n",
+                                    comparison,
+                                    "\nCount: ", format(aboriginal_n, big.mark = ","))) %>%
+  #
+  f_bar_stacked(x_variable    = lga_name,
+                y_variable    = aboriginal_n,
+                fill_variable = forcats::fct_rev(comparison),
+                fill_values   = c(colour_stack4, colour_stack3, colour_stack2, colour_stack1),
+                y_max         = NA,
+                y_breaks      = 200,
+                y_expand      = 25,
+                y_title       = "Number of people",
+                x_angle       = 90,
+                legend_offset = -0.3)
+```
+
+
+::::
 
 

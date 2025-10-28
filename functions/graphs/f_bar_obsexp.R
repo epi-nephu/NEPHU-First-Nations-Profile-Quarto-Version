@@ -29,8 +29,8 @@ f_bar_obsexp_lga <- function(data, y_max, y_breaks, y_expand, y_title = "Number 
         levels = c("Observed number identifying as Aboriginal and/or Torres Strait Islander", 
                    "Expected number based on NEPHU non-Indigenous population"))) %>% 
     #
-    dplyr::mutate(hover_text = paste0("LGA: ", lga_name,
-                                      "\n", comparison_label,
+    dplyr::mutate(hover_text = paste0(lga_name, " LGA\n",
+                                      comparison_label,
                                       "\nCount: ", format(n, big.mark = ",")))
 
   figure <- data %>% 
