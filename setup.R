@@ -66,6 +66,7 @@ subfolder_vcams       <- "Population Health Data/VCAMS/Data"
 # Functions
 # ------------------------------------------------------------------------------
 source(here::here("functions", "data prep", "f_read_census.R"))
+source(here::here("functions", "data prep", "f_read_ctg.R"))
 source(here::here("functions", "data prep", "f_read_naplan.R"))
 source(here::here("functions", "data prep", "f_read_phidu.R"))
 

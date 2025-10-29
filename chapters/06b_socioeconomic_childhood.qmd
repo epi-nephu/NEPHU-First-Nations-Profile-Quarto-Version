@@ -59,45 +59,30 @@ childhood_enrol <- childhood_enrol %>%
 
 # ------------------------------------------------------------------------------
 # Preschool attendance
-# Data from CtG Information Repository
+# Data from NECECC via CtG Information Repository
 # ------------------------------------------------------------------------------
 # Read in NECECC data
-childhood_attendance <- readxl::read_excel(file.path(root_folder, subfolder_ctg, "CTG03_Childhood_Education_Data_Tables.xlsx"),
-                                           skip  = 1,
-                                           sheet = "Table SE3a.1") %>% 
-    janitor::clean_names() %>% 
-    #
-    dplyr::rename(value = x3,
-                  indigenous_status = x4,
-                  year = x5,
-                  attendance = x6) %>%
-    #
-    tidyr::fill(value, indigenous_status, year, attendance) %>% 
-    #
-    dplyr::filter(!is.na(vic)) %>%
-    #
-    dplyr::select(value,
-                  year,
-                  indigenous_status,
-                  attendance,
-                  vic)
-
-# Data wrangling
-childhood_attendance <- childhood_attendance %>% 
-  dplyr::mutate(vic = as.numeric(vic),
-                #
-                attendance = factor(dplyr::case_when(
-                  attendance == "Did not attend"            ~ "Did not attend",
-                  attendance == "One to less than 10 hours" ~ "<10 hours",
-                  attendance == "10–14 hours"               ~ "10-14 hours",
-                  attendance == "15 hours or more"          ~ "15+ hours",
-                  #
-                  TRUE ~ NA_character_),
-                  #
-                  levels = c("Did not attend",
-                             "<10 hours",
-                             "10-14 hours",
-                             "15+ hours")))
+childhood_attendance <- f_read_ctg_indigenous("CTG03_Childhood_Education_Data_Tables.xlsx",
+                                              data_sheet     = "Table SE3a.1",
+                                              column_select  = c(value = "x3",
+                                                                 indigenous_status = "x4",
+                                                                 year = "x5",
+                                                                 attendance = "x6",
+                                                                 "vic",
+                                                                 "unit"),
+                                              fill_variables = vars(value, indigenous_status, year, attendance),
+                                              row_select     = 1:128) %>% 
+  #
+  dplyr::mutate(attendance = factor(dplyr::case_when(
+    attendance == "Did not attend"            ~ "Did not attend",
+    attendance == "One to less than 10 hours" ~ "<10 hours",
+    attendance == "10–14 hours"               ~ "10-14 hours",
+    attendance == "15 hours or more"          ~ "15+ hours",
+    TRUE ~ NA_character_),
+    levels = c("Did not attend",
+               "<10 hours",
+               "10-14 hours",
+               "15+ hours")))
 ```
 
 - Data for this topic were obtained from the [Victorian Child and Adolescent Monitoring System (VCAMS)](https://www.vic.gov.au/victorian-child-and-adolescent-monitoring-system-vcams) and the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/).
@@ -195,7 +180,7 @@ table %>%
 #
 childhood_attendance %>% 
   dplyr::filter(value == "Proportion") %>% 
-  dplyr::filter(indigenous_status == "Aboriginal and Torres Strait Islander children") %>% 
+  dplyr::filter(indigenous_label == "Aboriginal") %>% 
   #
   dplyr::mutate(
     vic_plot = dplyr::case_when(
@@ -239,7 +224,11 @@ table_headers <- c("Year",
                    "n", "%")
 
 table <- childhood_attendance %>% 
-  dplyr::filter(indigenous_status == "Aboriginal and Torres Strait Islander children") %>% 
+  dplyr::filter(indigenous_label == "Aboriginal") %>% 
+  #
+  dplyr::select(-indigenous_status,
+                -indigenous_label,
+                -unit) %>% 
   #
   dplyr::arrange(year) %>% 
   #
@@ -250,9 +239,7 @@ table <- childhood_attendance %>%
                      values_from = c("Number", "Proportion"),
                      names_vary  = "slowest") %>% 
   #
-  janitor::clean_names() %>% 
-  #
-  dplyr::select(-indigenous_status)
+  janitor::clean_names()
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -328,46 +315,20 @@ Target: By 2031, increase the proportion of Aboriginal and Torres Strait Islande
 ```{r}
 # ------------------------------------------------------------------------------
 # Early childhood development
-# Data from CtG Information Repository
+# Data from AEDC via CtG Information Repository
 # ------------------------------------------------------------------------------
 # Read in AEDC data
-childhood_develop <- readxl::read_excel(file.path(root_folder, subfolder_ctg, "CTG04_Early_Years_Data_Tables.xlsx"),
-                                        skip  = 1,
-                                        sheet = "Table CtG4A.1") %>% 
-  janitor::clean_names() %>% 
+childhood_develop <- f_read_ctg_indigenous("CTG04_Early_Years_Data_Tables.xlsx",
+                                           data_sheet     = "Table CtG4A.1",
+                                           column_select  = c(indigenous_status = "x3",
+                                                              year = "x4",
+                                                              "vic",
+                                                              "unit"),
+                                           fill_variables = vars(indigenous_status, year),
+                                           row_select     = 1:10) %>% 
   #
-  dplyr::rename(indigenous_status = x3,
-                year = x4) %>%
-  #
-  tidyr::fill(indigenous_status, year) %>%
-  #
-  dplyr::filter(row_number() %in% 1:14) %>%
-  dplyr::filter(!is.na(vic)) %>% 
-  #
-  dplyr::select(indigenous_status,
-                year,
-                vic)
-
-# Data wrangling
-childhood_develop <- childhood_develop %>% 
-  dplyr::mutate(
-    vic = as.numeric(vic),
-    #
-    year = dplyr::case_when(year == "2009 (b)" ~ "2009",
-                            TRUE ~ year),
-    #
-    indigenous_label = dplyr::case_when(
-      indigenous_status == "Aboriginal and Torres Strait Islander children" ~ "Aboriginal",
-      indigenous_status == "Non-Indigenous children"                        ~ "Non-Indigenous",
-      TRUE ~ NA_character_),
-    #
-    indigenous_status = factor(dplyr::case_when(
-      indigenous_label == "Aboriginal"     ~ "Identified as Aboriginal\nand/or Torres Strait Islander",
-      indigenous_label == "Non-Indigenous" ~ "Did not identify as Aboriginal\nand/or Torres Strait Islander",
-      TRUE ~ NA_character_),
-      #
-      levels = c("Identified as Aboriginal\nand/or Torres Strait Islander",
-                 "Did not identify as Aboriginal\nand/or Torres Strait Islander")))
+  dplyr::mutate(year = dplyr::case_when(year == "2009 (b)" ~ "2009",
+                                        TRUE ~ year))
 ```
 
 - Data for this topic were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/).
@@ -423,7 +384,8 @@ table_headers <- c("Year",
                    "No (%)")
 
 table <- childhood_develop %>%
-  dplyr::select(-indigenous_status) %>% 
+  dplyr::select(-indigenous_status,
+                -unit) %>% 
   #
   pivot_wider(names_from  = "indigenous_label",
               names_vary  = "slowest",

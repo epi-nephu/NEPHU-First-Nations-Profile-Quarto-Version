@@ -346,7 +346,6 @@ childhood_premature <- childhood_premature %>%
       category == "Melbourne"               ~ "Melbourne",
       category == "Victoria exc. Melbourne" ~ "Rest of Victoria",
       TRUE ~ NA_character_),
-      #
       levels = c("Melbourne",
                  "Rest of Victoria")))
 ```
@@ -427,9 +426,8 @@ childhood_birthweight_year <- childhood_birthweight_year %>%
                       names_to  = "year",
                       values_to = "percent") %>% 
   #
-  dplyr::mutate(year = stringr::str_sub(year, 2),
-                year = factor(year),
-                #
+  dplyr::mutate(year    = stringr::str_sub(year, 2),
+                year    = factor(year),
                 percent = as.numeric(percent))
 ```
 
@@ -562,7 +560,6 @@ childhood_birthweight_year %>%
       indigenous_status == "aboriginal"     ~ "Identified as Aboriginal\nand/or Torres Strait Islander",
       indigenous_status == "non_aboriginal" ~ "Did not identify as Aboriginal\nand/or Torres Strait Islander",
       TRUE ~ NA_character_),
-      #
       levels = c("Identified as Aboriginal\nand/or Torres Strait Islander",
                  "Did not identify as Aboriginal\nand/or Torres Strait Islander")),
     #
@@ -711,9 +708,7 @@ childhood_breastfed <- childhood_breastfed %>%
       breastfed == "1 to less than 6 months"  ~ "1-6 months",
       breastfed == "6 to less than 12 months" ~ "6-12 months",
       breastfed == "12 months or more"        ~ "12+ months",
-      #
       TRUE ~ "Never breastfed"),
-      #
       levels = c("Never breastfed",
                  "< 1 month",
                  "1-6 months",

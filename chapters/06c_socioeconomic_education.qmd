@@ -378,46 +378,14 @@ Target: By 2031, increase the proportion of Aboriginal and Torres Strait Islande
 # Data from ABS Census via CtG Information Repository
 # ------------------------------------------------------------------------------
 # Read in ABS data
-year12_trend <- readxl::read_excel(file.path(root_folder, subfolder_ctg, "CTG05_Learning_Potential_Data_Tables.xlsx"),
-                                   skip  = 1,
-                                   sheet = "Table CtG5A.1") %>% 
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(indigenous_status = x3,
-                year = x4) %>%
-  #
-  tidyr::fill(indigenous_status, year) %>%
-  #
-  dplyr::filter(!is.na(vic)) %>% 
-  dplyr::filter(row_number() %in% 1:20) %>%
-  #
-  dplyr::select(indigenous_status,
-                year,
-                vic,
-                unit)
-
-# Data wrangling
-year12_trend <- year12_trend %>% 
-  dplyr::mutate(
-    vic = as.numeric(vic),
-    #
-    unit = dplyr::case_when(
-      unit == "no." ~ "n",
-      unit == "%"   ~ "prop",
-      TRUE ~ NA_character_),
-    #
-    indigenous_label = dplyr::case_when(
-      indigenous_status == "Aboriginal and Torres Strait Islander people" ~ "Aboriginal",
-      indigenous_status == "Non-Indigenous people"                        ~ "Non-Indigenous",
-      TRUE ~ NA_character_),
-    #
-    indigenous_status = factor(dplyr::case_when(
-      indigenous_label == "Aboriginal"     ~ "Identified as Aboriginal\nand/or Torres Strait Islander",
-      indigenous_label == "Non-Indigenous" ~ "Did not identify as Aboriginal\nand/or Torres Strait Islander",
-      TRUE ~ NA_character_),
-      #
-      levels = c("Identified as Aboriginal\nand/or Torres Strait Islander",
-                 "Did not identify as Aboriginal\nand/or Torres Strait Islander")))
+year12_trend <- f_read_ctg_indigenous("CTG05_Learning_Potential_Data_Tables.xlsx",
+                                      data_sheet     = "Table CtG5A.1",
+                                      column_select  = c(indigenous_status = "x3",
+                                                         year = "x4",
+                                                         "vic",
+                                                         "unit"),
+                                      fill_variables = vars(indigenous_status, year),
+                                      row_select     = 1:20)
 
 # ------------------------------------------------------------------------------
 # Year 12 completion - young adults
@@ -1127,46 +1095,14 @@ Target: By 2031, increase the proportion of Aboriginal and Torres Strait Islande
 # Data from ABS Census via CtG Information Repository
 # ------------------------------------------------------------------------------
 # Read in ABS data
-uni_trend <- readxl::read_excel(file.path(root_folder, subfolder_ctg, "CTG06_Education_Pathways_Data_Tables.xlsx"),
-                                skip  = 1,
-                                sheet = "Table CtG6A.1") %>% 
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(indigenous_status = x3,
-                year = x4) %>%
-  #
-  tidyr::fill(indigenous_status, year) %>%
-  #
-  dplyr::filter(!is.na(vic)) %>% 
-  dplyr::filter(row_number() %in% 1:20) %>%
-  #
-  dplyr::select(indigenous_status,
-                year,
-                vic,
-                unit)
-
-# Data wrangling
-uni_trend <- uni_trend %>% 
-  dplyr::mutate(    
-    vic = as.numeric(vic),
-    #
-    unit = dplyr::case_when(
-      unit == "no." ~ "n",
-      unit == "%"   ~ "prop",
-      TRUE ~ NA_character_),
-    #
-    indigenous_label = dplyr::case_when(
-      indigenous_status == "Aboriginal and Torres Strait Islander people" ~ "Aboriginal",
-      indigenous_status == "Non-Indigenous people"                        ~ "Non-Indigenous",
-      TRUE ~ NA_character_),
-    #
-    indigenous_status = factor(dplyr::case_when(
-      indigenous_label == "Aboriginal"     ~ "Identified as Aboriginal\nand/or Torres Strait Islander",
-      indigenous_label == "Non-Indigenous" ~ "Did not identify as Aboriginal\nand/or Torres Strait Islander",
-      TRUE ~ NA_character_),
-      #
-      levels = c("Identified as Aboriginal\nand/or Torres Strait Islander",
-                 "Did not identify as Aboriginal\nand/or Torres Strait Islander")))
+uni_trend <- f_read_ctg_indigenous("CTG06_Education_Pathways_Data_Tables.xlsx",
+                                   data_sheet     = "Table CtG6A.1",
+                                   column_select  = c(indigenous_status = "x3",
+                                                      year = "x4",
+                                                      "vic",
+                                                      "unit"),
+                                   fill_variables = vars(indigenous_status, year),
+                                   row_select     = 1:20)
 
 # ------------------------------------------------------------------------------
 # Tertiary qualifications - young adults

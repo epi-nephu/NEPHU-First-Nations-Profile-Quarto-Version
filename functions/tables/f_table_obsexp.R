@@ -39,7 +39,7 @@ f_table_obsexp <- function(data, total_row, column_name, header_name) {
   header_labels <- c(header_name, 
                      "Observed values\n(identified as Aboriginal\nand/or Torres Strait Islander)",
                      "Expected values\n(based on NEPHU\nnon-Aboriginal population)",
-                     "Differenc\nbetween observed\nand expected")
+                     "Difference\nbetween observed\nand expected")
   
   header_widths <- c(1, 2, 2, 1)
   
