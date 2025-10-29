@@ -29,9 +29,9 @@ table_count   <- 0
 Are Aboriginal and/or Torres Strait Islanders living in the NEPHU catchment gainfully employed?
 :::
 
-# Engagement in Employment, Education, or Training
+## Engagement in Employment, Education, or Training
 
-## Entire Population
+### Entire Population
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -130,10 +130,6 @@ The following questions were asked of all people aged 15 years and over completi
   - No
   - Yes, full-time student
   - Yes, part-time student
-  
-Notes:
-- Includes tertiary education and vocational education and training providers (e.g. TAFE and private training providers).
-- Includes external, online, or correspondence study.
 
 :::{style="height: 1em;"}
 :::
@@ -144,20 +140,12 @@ Notes:
   - Yes, unpaid work in a family business
   - Yes, other unpaid work
   - No, did not have a job
-  
-Notes:
-- A job means any type of work (including casual, temporary, part-time, or full-time) if it was for one hour or more.
-- *Last week* refers to the week before Census night (Tuesday August 10th 2021).
 
 :::{style="height: 1em;"}
 :::
 
 - Last week, how many hours did the person work in all jobs?
   - Free text response
-  
-Notes:
-- Include any overtime or extra time worked and exclude any time off (including leave).
-- *Last week* refers to the week before Census night (Tuesday August 10th 2021).
 
 :::{style="height: 1em;"}
 :::
@@ -166,11 +154,6 @@ Notes:
   - No, did not look for work
   - Yes, looked for full-time work
   - Yes, looked for part-time work
-  
-Notes:
-- *Full-time* work means 35 hours or more per week.
-- Examples of actively looking for work: writing/telephoning/applying to an employer for work, having a job interview, checking or registering with an employment agency, taking steps to purchase/start a business, advertising/tendering for work, contacting friends/relatives in order to obtain work, and answering an advertisement for a job.
-- *Last four weeks* refers to the four weeks before Census night (Tuesday August 10th 2021).
 
 :::{style="height: 1em;"}
 :::
@@ -180,16 +163,12 @@ Notes:
   - No, already had a job to go to
   - No, temporarily ill or injured
   - No, other reason
-  
-Notes:
-- This question only applied to people who responded that they were actively looking for work during the previous four weeks.
-- *Last week* refers to the week before Census night (Tuesday August 10th 2021).
 
 :::
 
 :::: {.panel-tabset}
 
-### Figure 6D-1
+#### Figure 6D-1
 
 ::: {#fig_6D_1 .fig-tab-title}
 **Figure 6D-1:** Engagement in employment, education, or training for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
@@ -229,7 +208,7 @@ engaged_lga %>%
                 legend_offset = -0.3)
 ```
 
-### Table 6D-1
+#### Table 6D-1
 
 ::: {#tab_6D_1 .fig-tab-title}
 **Table 6D-1:** Engagement in employment, education, or training for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
@@ -278,7 +257,7 @@ table %>%
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-### Figure 6D-2
+#### Figure 6D-2
 
 ::: {#fig_6D_2 .fig-tab-title}
 **Figure 6D-2:** Engagement in employment, education, or training for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
@@ -320,7 +299,7 @@ engaged_agesex %>%
                 facet_wrap    = "yes")
 ```
 
-### Table 6D-2
+#### Table 6D-2
 
 ::: {#tab_6D_2 .fig-tab-title}
 **Table 6D-2:** Engagement in employment, education, or training for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
@@ -403,14 +382,7 @@ table %>%
 `r note_caveat_unknown_agesex`
 :::
 
-::: {style="opacity: 0.8;"}
-```{r}
-#| out-width: "100%"
-knitr::include_graphics(here::here("images", "banner_separator.png"))
-```
-:::
-
-## Young Adults
+### Young Adults
 
 ::: {.ctg-box}
 **This topic aligns with [Closing the Gap Outcome Area 7](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/youth-engagement/): Aboriginal and Torres Strait Islander youth are engaged in employment or education**
@@ -522,10 +494,6 @@ The following questions were asked of all people aged 15 years and over completi
   - No
   - Yes, full-time student
   - Yes, part-time student
-  
-Notes:
-- Includes tertiary education and vocational education and training providers (e.g. TAFE and private training providers).
-- Includes external, online, or correspondence study.
 
 :::{style="height: 1em;"}
 :::
@@ -536,20 +504,12 @@ Notes:
   - Yes, unpaid work in a family business
   - Yes, other unpaid work
   - No, did not have a job
-  
-Notes:
-- A job means any type of work (including casual, temporary, part-time, or full-time) if it was for one hour or more.
-- *Last week* refers to the week before Census night (Tuesday August 10th 2021).
 
 :::{style="height: 1em;"}
 :::
 
 - Last week, how many hours did the person work in all jobs?
   - Free text response
-  
-Notes:
-- Include any overtime or extra time worked and exclude any time off (including leave).
-- *Last week* refers to the week before Census night (Tuesday August 10th 2021).
 
 :::{style="height: 1em;"}
 :::
@@ -558,11 +518,6 @@ Notes:
   - No, did not look for work
   - Yes, looked for full-time work
   - Yes, looked for part-time work
-  
-Notes:
-- *Full-time* work means 35 hours or more per week.
-- Examples of actively looking for work: writing/telephoning/applying to an employer for work, having a job interview, checking or registering with an employment agency, taking steps to purchase/start a business, advertising/tendering for work, contacting friends/relatives in order to obtain work, and answering an advertisement for a job.
-- *Last four weeks* refers to the four weeks before Census night (Tuesday August 10th 2021).
 
 :::{style="height: 1em;"}
 :::
@@ -572,16 +527,12 @@ Notes:
   - No, already had a job to go to
   - No, temporarily ill or injured
   - No, other reason
-  
-Notes:
-- This question only applied to people who responded that they were actively looking for work during the previous four weeks.
-- *Last week* refers to the week before Census night (Tuesday August 10th 2021).
 
 :::
 
 :::: {.panel-tabset}
 
-### Figure 6D-3
+#### Figure 6D-3
 
 ::: {#fig_6D_3 .fig-tab-title}
 **Figure 6D-3:** Percentage of people aged 15-24 years who identified as Aboriginal and/or Torres Strait Islander and who were fully engaged in education, employment, or training, Victoria, by Aboriginal and/or Torres Strait Islander status, 2001-2021
@@ -606,7 +557,7 @@ fully_trend %>%
                  ctg_target    = 67)
 ```
 
-### Table 6D-3
+#### Table 6D-3
 
 ::: {#tab_6D_3 .fig-tab-title}
 **Table 6D-3:** Number and percentage of people aged 15-24 years who identified as Aboriginal and/or Torres Strait Islander and who were fully engaged in education, employment, or training, Victoria, by Aboriginal and/or Torres Strait Islander status, 2001-2021
@@ -661,7 +612,7 @@ table %>%
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-### Figure 6D-4
+#### Figure 6D-4
 
 ::: {#fig_6D_4 .fig-tab-title}
 **Figure 6D-4:** Number and percentage of people aged 15-24 years who identified as Aboriginal and/or Torres Strait Islander and who were fully engaged in education, employment, or training, NEPHU catchment, by LGA, 2021
@@ -699,7 +650,7 @@ figure_percent <- fully_youth_lga %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-### Figure 6D-5
+#### Figure 6D-5
 
 ::: {#fig_6D_5 .fig-tab-title}
 **Figure 6D-5:** Observed vs. expected number of people aged 15-24 years who were fully engaged in education, employment, or training and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
@@ -713,7 +664,7 @@ fully_youth_lga %>%
                    y_expand = 10)
 ```
 
-### Table 6D-4
+#### Table 6D-4
 
 ::: {#tab_6D_4 .fig-tab-title}
 **Table 6D-4:** Observed vs. expected number of people aged 15-24 years who were fully engaged in education, employment, or training and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
@@ -751,7 +702,7 @@ table %>%
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-### Table 6D-5
+#### Table 6D-5
 
 ::: {#tab_6D_5 .fig-tab-title}
 **Table 6D-5:** Observed vs. expected number of people aged 15-24 years who were fully engaged in education, employment, or training and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by sex, 2021
@@ -787,7 +738,7 @@ table %>%
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-### Figure 6D-6
+#### Figure 6D-6
 
 ::: {#fig_6D_6 .fig-tab-title}
 **Figure 6D-6:** Percentage of people aged 15-24 years who identified as Aboriginal and/or Torres Strait Islander and who were fully engaged in education, employment, or training, Victoria, by Aboriginal and/or Torres Strait Islander status and age, 2021
@@ -815,7 +766,7 @@ fully_age %>%
                 legend_offset = -0.1)
 ```
 
-### Table 6D-6
+#### Table 6D-6
 
 ::: {#tab_6D_6 .fig-tab-title}
 **Table 6D-6:** Number and percentage of people aged 15-24 years who identified as Aboriginal and/or Torres Strait Islander and who were fully engaged in education, employment, or training, Victoria, by Aboriginal and/or Torres Strait Islander status and age, 2021
@@ -897,9 +848,9 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
 :::
 
-# Employment
+## Employment
 
-## Entire Population
+### Entire Population
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -1010,10 +961,6 @@ The following questions were asked of all people aged 15 years and over completi
   - Yes, unpaid work in a family business
   - Yes, other unpaid work
   - No, did not have a job
-  
-Notes:
-- A job means any type of work (including casual, temporary, part-time, or full-time) if it was for one hour or more.
-- *Last week* refers to the week before Census night (Tuesday August 10th 2021).
 
 :::{style="height: 1em;"}
 :::
@@ -1021,20 +968,12 @@ Notes:
 - In the main job held last week, was the person:
   - Working for an employer
   - Working in own business
-  
-Notes:
-- If the person had more than one job, the *main job* refers to the job where they usually work the most hours.
-- *Last week* refers to the week before Census night (Tuesday August 10th 2021).
 
 :::{style="height: 1em;"}
 :::
 
 - Last week, how many hours did the person work in all jobs?
   - Free text response
-  
-Notes:
-- Include any overtime or extra time worked and exclude any time off (including leave).
-- *Last week* refers to the week before Census night (Tuesday August 10th 2021).
 
 :::{style="height: 1em;"}
 :::
@@ -1043,11 +982,6 @@ Notes:
   - No, did not look for work
   - Yes, looked for full-time work
   - Yes, looked for part-time work
-  
-Notes:
-- *Full-time* work means 35 hours or more per week.
-- Examples of actively looking for work: writing/telephoning/applying to an employer for work, having a job interview, checking or registering with an employment agency, taking steps to purchase/start a business, advertising/tendering for work, contacting friends/relatives in order to obtain work, and answering an advertisement for a job.
-- *Last four weeks* refers to the four weeks before Census night (Tuesday August 10th 2021).
 
 :::{style="height: 1em;"}
 :::
@@ -1057,16 +991,12 @@ Notes:
   - No, already had a job to go to
   - No, temporarily ill or injured
   - No, other reason
-  
-Notes:
-- This question only applied to people who responded that they were actively looking for work during the previous four weeks.
-- *Last week* refers to the week before Census night (Tuesday August 10th 2021).
 
 :::
 
 :::: {.panel-tabset}
 
-### Figure 6D-7
+#### Figure 6D-7
 
 ::: {#fig_6D_7 .fig-tab-title}
 **Figure 6D-7:** Employment status for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
@@ -1108,7 +1038,7 @@ status_lga %>%
                 legend_offset = -0.3)
 ```
 
-### Table 6D-7
+#### Table 6D-7
 
 ::: {#tab_6D_7 .fig-tab-title}
 **Table 6D-7:** Employment status for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
@@ -1160,7 +1090,7 @@ table %>%
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-### Figure 6D-8
+#### Figure 6D-8
 
 ::: {#fig_6D_8 .fig-tab-title}
 **Figure 6D-8:** Employment status for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
@@ -1204,7 +1134,7 @@ status_agesex %>%
                 facet_wrap    = "yes")
 ```
 
-### Table 6D-8
+#### Table 6D-8
 
 ::: {#tab_6D_8 .fig-tab-title}
 **Table 6D-8:** Employment status for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
@@ -1295,14 +1225,7 @@ table %>%
 - Unemployed people are defined as people who were not currently employed and were actively looking for work (either part-time or full-time) or people who were not part of the labour force.
 :::
 
-::: {style="opacity: 0.8;"}
-```{r}
-#| out-width: "100%"
-knitr::include_graphics(here::here("images", "banner_separator.png"))
-```
-:::
-
-# Working Age Adults
+### Working Age Adults
 
 ::: {.ctg-box}
 **This topic aligns with [Closing the Gap Outcome Area 8](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/economic-participation/): Strong economic participation and development of Aboriginal and Torres Strait Islander people and communities**
@@ -1393,10 +1316,6 @@ The following questions were asked of all people aged 15 years and over completi
   - Yes, unpaid work in a family business
   - Yes, other unpaid work
   - No, did not have a job
-  
-Notes:
-- A job means any type of work (including casual, temporary, part-time, or full-time) if it was for one hour or more.
-- *Last week* refers to the week before Census night (Tuesday August 10th 2021).
 
 :::{style="height: 1em;"}
 :::
@@ -1404,20 +1323,12 @@ Notes:
 - In the main job held last week, was the person:
   - Working for an employer
   - Working in own business
-  
-Notes:
-- If the person had more than one job, the *main job* refers to the job where they usually work the most hours.
-- *Last week* refers to the week before Census night (Tuesday August 10th 2021).
 
 :::{style="height: 1em;"}
 :::
 
 - Last week, how many hours did the person work in all jobs?
   - Free text response
-  
-Notes:
-- Include any overtime or extra time worked and exclude any time off (including leave).
-- *Last week* refers to the week before Census night (Tuesday August 10th 2021).
 
 :::{style="height: 1em;"}
 :::
@@ -1426,11 +1337,6 @@ Notes:
   - No, did not look for work
   - Yes, looked for full-time work
   - Yes, looked for part-time work
-  
-Notes:
-- *Full-time* work means 35 hours or more per week.
-- Examples of actively looking for work: writing/telephoning/applying to an employer for work, having a job interview, checking or registering with an employment agency, taking steps to purchase/start a business, advertising/tendering for work, contacting friends/relatives in order to obtain work, and answering an advertisement for a job.
-- *Last four weeks* refers to the four weeks before Census night (Tuesday August 10th 2021).
 
 :::{style="height: 1em;"}
 :::
@@ -1440,16 +1346,12 @@ Notes:
   - No, already had a job to go to
   - No, temporarily ill or injured
   - No, other reason
-  
-Notes:
-- This question only applied to people who responded that they were actively looking for work during the previous four weeks.
-- *Last week* refers to the week before Census night (Tuesday August 10th 2021).
 
 :::
 
 :::: {.panel-tabset}
 
-### Figure 6D-9
+#### Figure 6D-9
 
 ::: {#fig_6D_9 .fig-tab-title}
 **Figure 6D-9:** Percentage of people aged 25-64 years who identified as Aboriginal and/or Torres Strait Islander and who were employed (full-time, part-time, or on leave), Victoria, by Aboriginal and/or Torres Strait Islander status, 1991-2021
@@ -1474,7 +1376,7 @@ status_trend %>%
                  ctg_target    = 62)
 ```
 
-### Table 6D-9
+#### Table 6D-9
 
 ::: {#tab_6D_9 .fig-tab-title}
 **Table 6D-9:** Percentage of people aged 25-64 years who identified as Aboriginal and/or Torres Strait Islander and who were employed (full-time, part-time, or on leave), Victoria, by Aboriginal and/or Torres Strait Islander status, 1991-2021
@@ -1529,7 +1431,7 @@ table %>%
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-### Figure 6D-10
+#### Figure 6D-10
 
 ::: {#fig_6D_10 .fig-tab-title}
 **Figure 6D-10:** Number and percentage of people aged 25-64 years who identified as Aboriginal and/or Torres Strait Islander and who were employed (full-time, part-time, or on leave), NEPHU catchment, by LGA, 2021
@@ -1567,7 +1469,7 @@ figure_percent <- status_working_lga %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-### Figure 6D-11
+#### Figure 6D-11
 
 ::: {#fig_6D_11 .fig-tab-title}
 **Figure 6D-11:** Observed vs. expected number of people aged 25-64 years who were employed (full-time, part-time, or on leave) and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
@@ -1581,7 +1483,7 @@ status_working_lga %>%
                    y_expand = 50)
 ```
 
-### Table 6D-10
+#### Table 6D-10
 
 ::: {#tab_6D_10 .fig-tab-title}
 **Table 6D-10:** Observed vs. expected number of people aged 25-64 years who were employed (full-time, part-time, or on leave) and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
@@ -1619,7 +1521,7 @@ table %>%
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-### Table 6D-11
+#### Table 6D-11
 
 ::: {#tab_6D_11 .fig-tab-title}
 **Table 6D-11:** Observed vs. expected number of people aged 25-64 years who were employed (full-time, part-time, or on leave) and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by sex, 2021

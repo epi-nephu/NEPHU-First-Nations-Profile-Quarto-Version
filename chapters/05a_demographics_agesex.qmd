@@ -29,7 +29,7 @@ table_count   <- 0
 What is the age and sex structure of Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment?
 :::
 
-# Age and Sex Distribution
+## Age and Sex Distribution
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -258,7 +258,7 @@ rm(i, results)
 
 :::: {.panel-tabset}
 
-### Figure 5A-1
+#### Figure 5A-1
 
 ::: {#fig_5A_1 .fig-tab-title}
 **Figure 5A-1:** Age and sex distribution of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander compared to people living in Victoria who identified as Aboriginal and/or Torres Strait Islander, 2021
@@ -283,7 +283,7 @@ agesex_lphu %>%
                               "VIC"   = colour_pyramidvic))
 ```
 
-### Figure 5A-2
+#### Figure 5A-2
 
 ::: {#fig_5A_2 .fig-tab-title}
 **Figure 5A-2:** Age and sex distribution of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander compared to people living in the NEPHU catchment who did not identify as Aboriginal and/or Torres Strait Islander, 2021
@@ -328,7 +328,7 @@ agesex_lphu %>%
                               "Did not identify as Aboriginal\nand/or Torres Strait Islander" = colour_nonaboriginal))
 ```
 
-### Figure 5A-3
+#### Figure 5A-3
 
 ::: {#fig_5A_3 .fig-tab-title}
 **Figure 5A-3:** Age and sex distribution of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander compared to people living in the NEPHU catchment who did not identify as Aboriginal and/or Torres Strait Islander, by LGA, 2021
@@ -425,7 +425,7 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
 :::
 
-# Women of Reproductive Age
+## Women of Reproductive Age
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -462,7 +462,7 @@ women_lga <- census_agesex %>%
 
 :::: {.panel-tabset}
 
-### Figure 5A-4
+#### Figure 5A-4
 
 ::: {#fig_5A-4 .fig-tab-title}
 **Figure 5A-4:** Number and percentage of women who identified as Aboriginal and/or Torres Strait Islander and who were of reproductive age, NEPHU catchment, by LGA, 2021
@@ -499,7 +499,7 @@ figure_percent <- women_lga %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-### Table 5A-1
+#### Table 5A-1
 
 ::: {#tab_5A-1 .fig-tab-title}
 **Table 5A-1:** Number and percentage of women who identified as Aboriginal and/or Torres Strait Islander and who were of reproductive age, NEPHU catchment, by LGA, 2021

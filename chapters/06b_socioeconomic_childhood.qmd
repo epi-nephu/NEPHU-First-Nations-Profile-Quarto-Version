@@ -25,7 +25,7 @@ table_count   <- 0
 Are Aboriginal and/or Torres Strait Islander children living in the NEPHU catchment getting the best start in life?
 :::
 
-# Preschool
+## Preschool
 
 ::: {.ctg-box}
 **This topic aligns with [Closing the Gap Outcome Area 3](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/early-childhood-education/): Children are engaged in high quality, culturally appropriate early childhood education in their early years**
@@ -99,7 +99,7 @@ childhood_attendance <- f_read_ctg_indigenous("CTG03_Childhood_Education_Data_Ta
 
 :::: {.panel-tabset}
 
-### Figure 6B-1
+#### Figure 6B-1
 
 ::: {#fig_6B_1 .fig-tab-title}
 **Figure 6B-1:** Number and percentage of Aboriginal and/or Torres Strait Islander children enrolled in a preschool program, Victoria, 2018-2022
@@ -131,7 +131,7 @@ figure_percent <- childhood_enrol %>%
 f_line_simple_combine(figure_number, figure_percent)
 ```
 
-### Table 6B-1
+#### Table 6B-1
 
 ::: {#tab_6B-1 .fig-tab-title}
 **Table 6B-1:** Number and percentage of Aboriginal and/or Torres Strait Islander children enrolled in a preschool program, Victoria, 2018-2022
@@ -170,7 +170,7 @@ table %>%
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-### Figure 6B-2
+#### Figure 6B-2
 
 ::: {#fig_6B_2 .fig-tab-title}
 **Figure 6B-2:** Preschool attendance during the one week reference period for Aboriginal and/or Torres Strait Islander children enrolled in a preschool program, Victoria, 2016-2023
@@ -206,7 +206,7 @@ childhood_attendance %>%
                 y_title       = "Percentage of enrolled children")
 ```
 
-### Table 6B-2
+#### Table 6B-2
 
 ::: {#tab_6B-2 .fig-tab-title}
 **Table 6B-2:** Preschool attendance during the one week reference period for Aboriginal and/or Torres Strait Islander children enrolled in a preschool program, Victoria, 2016-2023
@@ -301,7 +301,7 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
 :::
 
-# Early Childhood Development
+## Early Childhood Development
 
 ::: {.ctg-box}
 **This topic aligns with [Closing the Gap Outcome Area 4](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/children-thriving/): Aboriginal and Torres Strait Islander children thrive in their early years**
@@ -345,7 +345,7 @@ childhood_develop <- f_read_ctg_indigenous("CTG04_Early_Years_Data_Tables.xlsx",
 
 :::: {.panel-tabset}
 
-### Figure 6B-3
+#### Figure 6B-3
 
 ::: {#fig_6B_3 .fig-tab-title}
 **Figure 6B-3:** Percentage of children assessed as developmentally on track for all five AEDC domains, Victoria, by Aboriginal and/or Torres Strait Islander status, 2009-2021
@@ -368,7 +368,7 @@ childhood_develop %>%
                  ctg_target    = 55)
 ```
 
-### Table 6B-3
+#### Table 6B-3
 
 ::: {#tab_6B-3 .fig-tab-title}
 **Table 6B-3:** Percentage of children assessed as developmentally on track for all five AEDC domains, Victoria, by Aboriginal and/or Torres Strait Islander status, 2009-2021
@@ -437,7 +437,7 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
 :::
 
-# Childhood Numeracy and Literacy
+## Childhood Numeracy and Literacy
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -472,7 +472,7 @@ naplan_numeracy <- f_read_naplan(data_sheet = "Table SE5c.3")
 
 :::: {.panel-tabset}
 
-### Figure 6B-4
+#### Figure 6B-4
 
 ::: {#fig_6B_4 .fig-tab-title}
 **Figure 6B-4:** Percentage of Aboriginal and/or Torres Strait Islander children at each NAPLAN reading proficiency level, Victoria, 2024
@@ -497,7 +497,7 @@ naplan_reading %>%
                 y_title       = "Percentage of children")
 ```
 
-### Table 6B-4
+#### Table 6B-4
 
 ::: {#tab_6B-4 .fig-tab-title}
 **Table 6B-4:** Percentage of Aboriginal and/or Torres Strait Islander children at each NAPLAN reading proficiency level, Victoria, 2024
@@ -551,7 +551,7 @@ table %>%
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-### Figure 6B-5
+#### Figure 6B-5
 
 ::: {#fig_6B_5 .fig-tab-title}
 **Figure 6B-5:** Percentage of Aboriginal and/or Torres Strait Islander children at each NAPLAN writing proficiency level, Victoria, 2024
@@ -576,7 +576,7 @@ naplan_writing %>%
                 y_title       = "Percentage of children")
 ```
 
-### Table 6B-5
+#### Table 6B-5
 
 ::: {#tab_6B-5 .fig-tab-title}
 **Table 6B-5:** Percentage of Aboriginal and/or Torres Strait Islander children at each NAPLAN writing proficiency level, Victoria, 2024
@@ -630,7 +630,7 @@ table %>%
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-### Figure 6B-6
+#### Figure 6B-6
 
 ::: {#fig_6B_6 .fig-tab-title}
 **Figure 6B-6:** Percentage of Aboriginal and/or Torres Strait Islander children at each NAPLAN numeracy proficiency level, Victoria, 2024
@@ -655,7 +655,7 @@ naplan_numeracy %>%
                 y_title       = "Percentage of children")
 ```
 
-### Table 6B-6
+#### Table 6B-6
 
 ::: {#tab_6B-6 .fig-tab-title}
 **Table 6B-6:** Percentage of Aboriginal and/or Torres Strait Islander children at each NAPLAN numeracy proficiency level, Victoria, 2024

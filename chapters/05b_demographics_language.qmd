@@ -21,7 +21,7 @@ table_count   <- 0
 :::{style="height: 2em;"}
 :::
 
-# Aboriginal and/or Torres Strait Islander Languages
+## Aboriginal and/or Torres Strait Islander Languages
 
 ::: {.key-question}
 What proportion of Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment speak an Aboriginal and/or Torres Strait Islander language at home?
@@ -148,7 +148,7 @@ The following question was asked of all people completing the ABS Census 2021.
 
 :::: {.panel-tabset}
 
-### Figure 5B-1
+#### Figure 5B-1
 
 ::: {#fig_5B_1 .fig-tab-title}
 **Figure 5B-1:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander who speak an Aboriginal and/or Torres Strait Islander language at home, NEPHU catchment, by LGA, 2021
@@ -185,7 +185,7 @@ figure_percent <- language_any_lga %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-### Table 5B-1
+#### Table 5B-1
 
 ::: {#tab_5B-1 .fig-tab-title}
 **Table 5B-1:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander who speak an Aboriginal and/or Torres Strait Islander language at home, NEPHU catchment, by LGA, 2021
@@ -224,7 +224,7 @@ table %>%
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-### Figure 5B-2
+#### Figure 5B-2
 
 ::: {#fig_5B_2 .fig-tab-title}
 **Figure 5B-2:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander who speak an Aboriginal and/or Torres Strait Islander language at home, NEPHU catchment, by age and sex, 2021
@@ -267,7 +267,7 @@ figure_percent <- language_any_agesex %>%
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
 
-### Table 5B-2
+#### Table 5B-2
 
 ::: {#tab_5B-2 .fig-tab-title}
 **Table 5B-2:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander who speak an Aboriginal and/or Torres Strait Islander language at home, NEPHU catchment, by age and sex, 2021
@@ -321,7 +321,7 @@ table %>%
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-### Figure 5B-3
+#### Figure 5B-3
 
 ::: {#fig_5B_3 .fig-tab-title}
 **Figure 5B-3:** Aboriginal and/or Torres Strait Islander languages spoken by people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, 2021
@@ -343,7 +343,7 @@ language_specific %>%
                     x_title    = "Number of people")
 ```
 
-### Table 5B-3
+#### Table 5B-3
 
 ::: {#tab_5B-3 .fig-tab-title}
 **Table 5B-3:** Aboriginal and/or Torres Strait Islander languages spoken by people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, 2021
@@ -404,7 +404,7 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
 :::
 
-# Languages Other Than English
+## Languages Other Than English
 
 ::: {.key-question}
 What proportion of Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment use other languages at home?
@@ -465,7 +465,7 @@ The following question was asked of all people completing the ABS Census 2021.
 
 :::: {.panel-tabset}
 
-### Figure 5B-4
+#### Figure 5B-4
 
 ::: {#fig_5B_4 .fig-tab-title}
 **Figure 5B-4:** Other languages used by people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, 2021
@@ -487,7 +487,7 @@ language_other %>%
                     x_title    = "Number of people")
 ```
 
-### Table 5B-4
+#### Table 5B-4
 
 ::: {#tab_5B-4 .fig-tab-title}
 **Table 5B-4:** Other languages used by people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, 2021
@@ -544,7 +544,7 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
 :::
 
-# English Proficiency
+## English Proficiency
 
 ::: {.key-question}
 What is the average level of English proficiency for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment?
@@ -628,7 +628,7 @@ The following questions were asked of all people completing the ABS Census 2021.
 
 :::: {.panel-tabset}
 
-### Figure 5B-5
+#### Figure 5B-5
 
 ::: {#fig_5B_5 .fig-tab-title}
 **Figure 5B-5:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander with a high level of English proficiency, NEPHU catchment, by LGA, 2021
@@ -665,7 +665,7 @@ figure_percent <- english_lga %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-### Table 5B-5
+#### Table 5B-5
 
 ::: {#tab_5B-5 .fig-tab-title}
 **Table 5B-5:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander with a high level of English proficiency, NEPHU catchment, by LGA, 2021
@@ -704,7 +704,7 @@ table %>%
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-### Figure 5B-6
+#### Figure 5B-6
 
 ::: {#fig_5B_6 .fig-tab-title}
 **Figure 5B-6:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander with a high level of English proficiency, NEPHU catchment, by age and sex, 2021
@@ -747,7 +747,7 @@ figure_percent <- english_agesex %>%
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
 
-### Table 5B-6
+#### Table 5B-6
 
 ::: {#tab_5B-6 .fig-tab-title}
 **Table 5B-6:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander with a high level of English proficiency, NEPHU catchment, by age and sex, 2021

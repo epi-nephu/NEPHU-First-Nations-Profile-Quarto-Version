@@ -25,7 +25,7 @@ table_count   <- 0
 What are the drivers of population growth for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment?
 :::
 
-# Population Projections
+## Population Projections
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -78,7 +78,7 @@ projections_medium <- aboriginal_projections_iare %>%
 
 :::: {.panel-tabset}
 
-### Table 4B-1
+#### Table 4B-1
 
 ::: {#tab_4B_1 .fig-tab-title}
 **Table 4B-1:** Population projections for Aboriginal and/or Torres Strait Islander people, Australia, by IARE, 2021 to 2031
@@ -131,7 +131,7 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
 :::
 
-# Birth Rate
+## Birth Rate
 
 ```{r}
 # ------------------------------------------------------------------------------

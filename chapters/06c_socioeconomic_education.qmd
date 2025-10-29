@@ -29,7 +29,7 @@ table_count   <- 0
 What is the average educational attainment for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment?
 :::
 
-# Highest Level of School Completed
+## Highest Level of School Completed
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -138,7 +138,7 @@ The following question was asked of all people aged 15 years and over completing
 
 :::: {.panel-tabset}
 
-### Figure 6C-1
+#### Figure 6C-1
 
 ::: {#fig_6C_1 .fig-tab-title}
 **Figure 6C-1:** Highest level of school completed for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
@@ -178,7 +178,7 @@ school_lga %>%
                 legend_offset = -0.3)
 ```
 
-### Table 6C-1
+#### Table 6C-1
 
 ::: {#tab_6C_1 .fig-tab-title}
 **Table 6C-1:** Highest level of school completed for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
@@ -227,7 +227,7 @@ table %>%
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-### Figure 6C-2
+#### Figure 6C-2
 
 ::: {#fig_6C_2 .fig-tab-title}
 **Figure 6C-2:** Highest level of school completed for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
@@ -269,7 +269,7 @@ school_agesex %>%
                 facet_wrap    = "yes")
 ```
 
-### Table 6C-2
+#### Table 6C-2
 
 ::: {#tab_6C_2 .fig-tab-title}
 **Table 6C-2:** Highest level of school completed for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
@@ -361,7 +361,7 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
 :::
 
-# Year 12 Completion
+## Year 12 Completion
 
 ::: {.ctg-box}
 **This topic aligns with [Closing the Gap Outcome Area 5](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/student-learning-potential/): Aboriginal and Torres Strait Islander students achieve their full learning potential**
@@ -462,7 +462,7 @@ The following question was asked of all people aged 15 years and over completing
 
 :::: {.panel-tabset}
 
-### Figure 6C-3
+#### Figure 6C-3
 
 ::: {#fig_6C_3 .fig-tab-title}
 **Figure 6C-3:** Percentage of people aged 20-24 years who identified as Aboriginal and/or Torres Strait Islander and who have completed Year 12 or equivalent, Victoria, by Aboriginal and/or Torres Strait Islander status, 2001-2021
@@ -487,7 +487,7 @@ year12_trend %>%
                  ctg_target    = 96)
 ```
 
-### Table 6C-3
+#### Table 6C-3
 
 ::: {#tab_6C_3 .fig-tab-title}
 **Table 6C-3:** Number and percentage of people aged 20-24 years who identified as Aboriginal and/or Torres Strait Islander and who have completed Year 12 or equivalent, Victoria, by Aboriginal and/or Torres Strait Islander status, 2001-2021
@@ -542,7 +542,7 @@ table %>%
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-### Figure 6C-4
+#### Figure 6C-4
 
 ::: {#fig_6C_4 .fig-tab-title}
 **Figure 6C-4:** Number and percentage of people aged 20-24 years who identified as Aboriginal and/or Torres Strait Islander and who have completed Year 12 or equivalent, NEPHU catchment, by LGA, 2021
@@ -580,7 +580,7 @@ figure_percent <- year12_lga %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-### Figure 6C-5
+#### Figure 6C-5
 
 ::: {#fig_6C_5 .fig-tab-title}
 **Figure 6C-5:** Observed vs. expected number of people aged 20-24 years who have completed Year 12 or equivalent and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
@@ -594,7 +594,7 @@ year12_lga %>%
                    y_expand = 20)
 ```
 
-### Table 6C-4
+#### Table 6C-4
 
 ::: {#tab_6C_4 .fig-tab-title}
 **Table 6C-4:** Observed vs. expected number of people aged 20-24 years who have completed Year 12 or equivalent and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
@@ -632,7 +632,7 @@ table %>%
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-### Table 6C-5
+#### Table 6C-5
 
 ::: {#tab_6C_5 .fig-tab-title}
 **Table 6C-5:** Observed vs. expected number of people aged 20-24 years who have completed Year 12 or equivalent and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by sex, 2021
@@ -697,7 +697,7 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
 :::
 
-# Highest Level of Education
+## Highest Level of Education
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -844,7 +844,7 @@ The following questions were asked of all people aged 15 years and over completi
 
 :::: {.panel-tabset}
 
-### Figure 6C-6
+#### Figure 6C-6
 
 ::: {#fig_6C_6 .fig-tab-title}
 **Figure 6C-6:** Highest level of education for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
@@ -886,7 +886,7 @@ qualification_lga %>%
                 legend_offset = -0.3)
 ```
 
-### Table 6C-6
+#### Table 6C-6
 
 ::: {#tab_6C_6 .fig-tab-title}
 **Table 6C-6:** Highest level of education for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
@@ -938,7 +938,7 @@ table %>%
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-### Figure 6C-7
+#### Figure 6C-7
 
 ::: {#fig_6C_7 .fig-tab-title}
 **Figure 6C-7:** Highest level of education for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
@@ -982,7 +982,7 @@ qualification_agesex %>%
                 facet_wrap    = "yes")
 ```
 
-### Table 6C-7
+#### Table 6C-7
 
 ::: {#tab_6C_7 .fig-tab-title}
 **Table 6C-7:** Highest level of education for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
@@ -1078,7 +1078,7 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
 :::
 
-# Tertiary Qualifications
+## Tertiary Qualifications
 
 ::: {.ctg-box}
 **This topic aligns with [Closing the Gap Outcome Area 6](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/further-education-pathways/): Students reach their full potential through further education pathways**
@@ -1196,7 +1196,7 @@ The following questions were asked of all people aged 15 years and over completi
 
 :::: {.panel-tabset}
 
-### Figure 6C-8
+#### Figure 6C-8
 
 ::: {#fig_6C_8 .fig-tab-title}
 **Figure 6C-8:** Percentage of people aged 25-34 years who identified as Aboriginal and/or Torres Strait Islander and who have completed a tertiary qualification (Certificate III and above), Victoria, by Aboriginal and/or Torres Strait Islander status, 2001-2021
@@ -1221,7 +1221,7 @@ uni_trend %>%
                  ctg_target    = 70)
 ```
 
-### Table 6C-8
+#### Table 6C-8
 
 ::: {#tab_6C_8 .fig-tab-title}
 **Table 6C-8:** Number and percentage of people aged 25-34 years who identified as Aboriginal and/or Torres Strait Islander and who have completed a tertiary qualification (Certificate III and above), Victoria, by Aboriginal and/or Torres Strait Islander status, 2001-2021
@@ -1276,7 +1276,7 @@ table %>%
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-### Figure 6C-9
+#### Figure 6C-9
 
 ::: {#fig_6C_9 .fig-tab-title}
 **Figure 6C-9:** Number and percentage of people aged 25-34 years who identified as Aboriginal and/or Torres Strait Islander and who have completed a tertiary qualification (Certificate III and above), NEPHU catchment, by LGA, 2021
@@ -1314,7 +1314,7 @@ figure_percent <- uni_lga %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-### Figure 6C-10
+#### Figure 6C-10
 
 ::: {#fig_6C_10 .fig-tab-title}
 **Figure 6C-10:** Observed vs. expected number of people aged 25-34 years who have completed a tertiary qualification (Certificate III and above) and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
@@ -1328,7 +1328,7 @@ uni_lga %>%
                    y_expand = 10)
 ```
 
-### Table 6C-9
+#### Table 6C-9
 
 ::: {#tab_6C_9 .fig-tab-title}
 **Table 6C-9:** Observed vs. expected number of people aged 25-34 years who have completed a tertiary qualification (Certificate III and above) and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
@@ -1366,7 +1366,7 @@ table %>%
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-### Table 6C-10
+#### Table 6C-10
 
 ::: {#tab_6C_10 .fig-tab-title}
 **Table 6C-10:** Observed vs. expected number of people aged 25-34 years who have completed a tertiary qualification (Certificate III and above) and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by sex, 2021

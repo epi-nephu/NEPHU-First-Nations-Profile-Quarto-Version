@@ -55,7 +55,7 @@ childhood_iare <- f_read_phidu_iare(
                     antenatal_prop  = "aboriginal_women_who_did_not_attend_antenatal_care_within_the_first_10_weeks"))
 ```
 
-# Antenatal Care Attendance
+## Antenatal Care Attendance
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -89,7 +89,7 @@ childhood_antenatal <- childhood_iare %>%
 
 :::: {.panel-tabset}
 
-### Figure 6A-1
+#### Figure 6A-1
 
 ::: {#fig_6A_1 .fig-tab-title}
 **Figure 6A-1:** Number and percentage of women who identified as Aboriginal and/or Torres Strait Islander and who did not attend antenatal care during the first 10 weeks of pregnancy, NEPHU catchment, by IARE, 2019-2021
@@ -126,7 +126,7 @@ figure_percent <- childhood_antenatal %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-### Table 6A-1
+#### Table 6A-1
 
 ::: {#tab_6A-1 .fig-tab-title}
 **Table 6A-1:** Number and percentage of women who identified as Aboriginal and/or Torres Strait Islander and who did not attend antenatal care during the first 10 weeks of pregnancy, NEPHU catchment, by IARE, 2019-2021
@@ -190,7 +190,7 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
 :::
 
-# Smoking During Pregnancy
+## Smoking During Pregnancy
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -222,7 +222,7 @@ childhood_smoking <- childhood_iare %>%
 
 :::: {.panel-tabset}
 
-### Figure 6A-2
+#### Figure 6A-2
 
 ::: {#fig_6A_2 .fig-tab-title}
 **Figure 6A-2:** Number and percentage of women who identified as Aboriginal and/or Torres Strait Islander and who reported smoking during pregnancy, NEPHU catchment, by IARE, 2019-2021
@@ -259,7 +259,7 @@ figure_percent <- childhood_smoking %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-### Table 6A-2
+#### Table 6A-2
 
 ::: {#tab_6A-2 .fig-tab-title}
 **Table 6A-2:** Number and percentage of women who identified as Aboriginal and/or Torres Strait Islander and who reported smoking during pregnancy, NEPHU catchment, by IARE, 2019-2021
@@ -323,7 +323,7 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
 :::
 
-# Premature Birth
+## Premature Birth
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -365,7 +365,7 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
 :::
 
-# Birthweight
+## Birthweight
 
 ::: {.ctg-box}
 **This topic aligns with [Closing the Gap Outcome Area 2](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/born-healthy-and-strong/): Children are born healthy and strong**
@@ -445,7 +445,7 @@ childhood_birthweight_year <- childhood_birthweight_year %>%
 
 :::: {.panel-tabset}
 
-### Figure 6A-3
+#### Figure 6A-3
 
 ::: {#fig_6A_3 .fig-tab-title}
 **Figure 6A-3:** Number and percentage of singleton live births with a birthweight above 2,500g for babies born to women who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 2019-2021
@@ -501,7 +501,7 @@ figure_percent <- childhood_birthweight %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-### Table 6A-3
+#### Table 6A-3
 
 ::: {#tab_6A-3 .fig-tab-title}
 **Table 6A-3:** Number and percentage of singleton live births with a birthweight above 2,500g for babies born to women who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 2019-2021
@@ -541,7 +541,7 @@ table %>%
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-### Figure 6A-4
+#### Figure 6A-4
 
 ::: {#fig_6A_4 .fig-tab-title}
 **Figure 6A-4:** Percentage of singleton live births with a birthweight below 2,500g, Victoria, by Aboriginal and/or Torres Strait Islander status of mother and year, 2011-2020
@@ -576,7 +576,7 @@ childhood_birthweight_year %>%
                  y_title       = "Percentage of live births")
 ```
 
-### Table 6A-4
+#### Table 6A-4
 
 ::: {#tab_6A-4 .fig-tab-title}
 **Table 6A-4:** Percentage of singleton live births with a birthweight below 2,500g, Victoria, by Aboriginal and/or Torres Strait Islander status of mother and year, 2011-2020
@@ -656,7 +656,7 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
 :::
 
-# Breastfeeding
+## Breastfeeding
 
 ```{r}
 # ---------------------------------------------------------------------------------
@@ -741,7 +741,7 @@ childhood_breastfed <- childhood_breastfed %>%
 
 :::: {.panel-tabset}
 
-### Figure 6A-5
+#### Figure 6A-5
 
 ::: {#fig_6A_5 .fig-tab-title}
 **Figure 6A-5:** Breastfeeding duration for children aged 0-2 years, Victoria, by Aboriginal and/or Torres Strait Islander status, 2018-2019
@@ -786,7 +786,7 @@ childhood_breastfed %>%
                 legend_offset = -0.4)
 ```
 
-### Table 6A-5
+#### Table 6A-5
 
 ::: {#tab_6A-5 .fig-tab-title}
 **Table 6A-5:** Breastfeeding duration for children aged 0-2 years, Victoria, by Aboriginal and/or Torres Strait Islander status, 2018-2019

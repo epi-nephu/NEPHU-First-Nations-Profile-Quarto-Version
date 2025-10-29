@@ -48,10 +48,18 @@ header {
   text-align: center;
 }
 
-h1 {
+h2 {
   font-family: Arial;
   font-weight: bold;
   font-size: 14pt;
+  color: #4F81BD;
+  margin-top: 0pt;
+}
+
+h3 {
+  font-family: Arial;
+  font-weight: bold;
+  font-size: 12pt;
   color: #4F81BD;
   margin-top: 0pt;
 }

@@ -25,7 +25,7 @@ table_count   <- 0
 How many people who identify as Aboriginal and/or Torres Strait Islander live in the NEPHU catchment and where do they reside?
 :::
 
-# Population Size
+## Population Size
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -150,7 +150,7 @@ population_lphu <- aboriginal_lga %>%
 
 :::: {.panel-tabset}
 
-### Figure 4A-1
+#### Figure 4A-1
 
 ::: {#fig_4A_1 .fig-tab-title}
 **Figure 4A-1:** Number of people who identified as Aboriginal and/or Torres Strait Islander, Victoria, by LPHU, 2021
@@ -173,7 +173,7 @@ population_lphu %>%
                x_angle    = 0)
 ```
 
-### Table 4A-1
+#### Table 4A-1
 
 ::: {#tab_4A_1 .fig-tab-title}
 **Table 4A-1:** Number and percentage of LPHU catchment population who identified as Aboriginal and/or Torres Strait Islander, Victoria, by LPHU, 2021
@@ -232,7 +232,7 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
 :::
 
-# Population Distribution and Density
+## Population Distribution and Density
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -364,7 +364,7 @@ density_sa2 <- dplyr::left_join(nephu_sa2.sf,
 
 :::: {.panel-tabset}
 
-### Figure 4A-2
+#### Figure 4A-2
 
 ::: {#fig_4A_2 .fig-tab-title}
 **Figure 4A-2:** Number of people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
@@ -386,7 +386,7 @@ population_lga %>%
                y_title    = "Number of people")
 ```
 
-### Table 4A-2
+#### Table 4A-2
 
 ::: {#tab_4A_2 .fig-tab-title}
 **Table 4A-2:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
@@ -427,7 +427,7 @@ table %>%
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-### Figure 4A-3
+#### Figure 4A-3
 
 ::: {#fig_4A_3 .fig-tab-title}
 **Figure 4A-3:** Population density (number of people per square km) for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
@@ -439,7 +439,7 @@ density_lga %>%
   f_map_density()
 ```
 
-### Figure 4A-4
+#### Figure 4A-4
 
 ::: {#fig_4A_4 .fig-tab-title}
 **Figure 4A-4:** Population density (number of people per square km) for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by SA2, 2021
@@ -451,7 +451,7 @@ density_sa2 %>%
   f_map_density()
 ```
 
-### Table 4A-3
+#### Table 4A-3
 
 ::: {#tab_4A_3 .fig-tab-title}
 **Table 4A-3:** SA2s with at least 200 residents who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, 2021

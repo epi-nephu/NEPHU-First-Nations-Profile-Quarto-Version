@@ -40,6 +40,7 @@ format:
     grid: 
       body-width: 1000px
     number-sections: false
+    anchor-sections: false
     toc: true
     toc-location: right
     toc-depth: 3
