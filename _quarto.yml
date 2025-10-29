@@ -21,6 +21,7 @@ book:
         - chapters/06a_socioeconomic_perinatal.qmd
         - chapters/06b_socioeconomic_childhood.qmd
         - chapters/06c_socioeconomic_education.qmd
+        - chapters/06d_socioeconomic_employment.qmd
     - part: "7. Cultural Determinants of Health"
     - part: "8. Other Determinants of Health"
     - part: "9. Health Promoting and Risk Behaviours"
