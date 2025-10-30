@@ -257,7 +257,7 @@ table %>%
                 aboriginal_prop_male   = sprintf("%.1f", aboriginal_prop_male)) %>% 
   #
   f_table_grouped_sex(n_variable = "count",
-                      col_header = "Age group",
+                      column_name = "Age group",
                       total_row  = nrow(table))
 ```
 
@@ -678,7 +678,7 @@ table %>%
                 aboriginal_prop_male   = sprintf("%.1f", aboriginal_prop_male)) %>% 
   #
   f_table_grouped_sex(n_variable = "count",
-                      col_header = "Age group",
+                      column_name = "Age group",
                       total_row  = nrow(table))
 ```
 

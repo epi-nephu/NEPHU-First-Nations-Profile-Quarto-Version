@@ -7,7 +7,7 @@
 ################################################################################
 # By sex
 ################################################################################
-f_table_grouped_sex <- function(data, n_variable, col_header, total_row) {
+f_table_grouped_sex <- function(data, n_variable, column_name, total_row) {
   
   if (n_variable == "count") {
     
@@ -25,7 +25,7 @@ f_table_grouped_sex <- function(data, n_variable, col_header, total_row) {
     knitr::kable(format      = "html",
                  format.args = list(big.mark = ","),
                  align       = "lrrrrrr",
-                 col.names   = c(col_header, table_headers),
+                 col.names   = c(column_name, table_headers),
                  escape      = FALSE) %>%
     #
     kableExtra::kable_styling(bootstrap_options = c("hover", "responsive"),
@@ -53,13 +53,13 @@ f_table_grouped_sex <- function(data, n_variable, col_header, total_row) {
 ################################################################################
 # By Indigenous status
 ################################################################################
-f_table_grouped_indigenous <- function(data, col_header, total_row) {
+f_table_grouped_indigenous <- function(data, column_name, total_row) {
   
   table <- data %>% 
     knitr::kable(format      = "html",
                  format.args = list(big.mark = ","),
                  align       = "lrrrrrr",
-                 col.names   = c(col_header, "Yes (n)", "Yes (%)", "No (n)", "No (%)"),
+                 col.names   = c(column_name, "Yes (n)", "Yes (%)", "No (n)", "No (%)"),
                  escape      = FALSE) %>%
     #
     kableExtra::kable_styling(bootstrap_options = c("hover", "responsive"),

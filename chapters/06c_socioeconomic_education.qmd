@@ -476,7 +476,7 @@ table %>%
   dplyr::mutate(aboriginal_prop     = sprintf("%.1f", aboriginal_prop),
                 non_indigenous_prop = sprintf("%.1f", non_indigenous_prop)) %>% 
   #
-  f_table_grouped_indigenous(col_header = "Year",
+  f_table_grouped_indigenous(column_name = "Year",
                              total_row  = NULL)
 ```
 
@@ -1131,7 +1131,7 @@ table %>%
   dplyr::mutate(aboriginal_prop     = sprintf("%.1f", aboriginal_prop),
                 non_indigenous_prop = sprintf("%.1f", non_indigenous_prop)) %>% 
   #
-  f_table_grouped_indigenous(col_header = "Year",
+  f_table_grouped_indigenous(column_name = "Year",
                              total_row  = NULL)
 ```
 
