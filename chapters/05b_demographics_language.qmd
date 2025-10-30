@@ -110,7 +110,7 @@ language_specific <- language_specific %>%
   #
   janitor::adorn_totals() %>% 
   #
-  dplyr::mutate(aboriginal_prop = aboriginal_n / 12065 * 100)
+  dplyr::mutate(aboriginal_prop = aboriginal_n / 12065 * 100) # Manually set the total number of Aboriginal people (n = 12065)
 ```
 
 - Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
@@ -157,30 +157,18 @@ The following question was asked of all people completing the ABS Census 2021.
 ```{r}
 #
 figure_number <- language_any_lga %>% 
-  dplyr::filter(lga_name %in% nephu_lga) %>% 
-  #
-  dplyr::mutate(hover_text = paste0(lga_name, " LGA", "\n",
-                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>%
-  #
-  f_bar_simple(x_variable = lga_name,
-               y_variable = aboriginal_n,
-               y_max      = NA,
-               y_breaks   = 10,
-               y_expand   = 9,
-               y_title    = "Number of people")
+  f_bar_simple_lga(y_variable = aboriginal_n,
+                   y_max      = NA,
+                   y_breaks   = 10,
+                   y_expand   = 9,
+                   y_title    = "Number of people")
 
 figure_percent <- language_any_lga %>% 
-  dplyr::filter(lga_name %in% nephu_lga) %>% 
-  #
-  dplyr::mutate(hover_text = paste0(lga_name, " LGA", "\n",
-                                    "Percentage: ", sprintf("%.1f", aboriginal_prop))) %>%
-  #
-  f_bar_simple(x_variable = lga_name,
-               y_variable = aboriginal_prop,
-               y_max      = 10,
-               y_breaks   = 1,
-               y_expand   = 0.1,
-               y_title    = "Percentage of people")
+  f_bar_simple_lga(y_variable = aboriginal_prop,
+                   y_max      = 10,
+                   y_breaks   = 1,
+                   y_expand   = 0.1,
+                   y_title    = "Percentage of people")
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```
@@ -196,15 +184,8 @@ f_bar_simple_combine(figure_number, figure_percent)
 table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
-table_headers <- c("LGA",
-                   "Number speaking language",
-                   "% speaking language")
-
 table <- language_any_lga %>%
-  dplyr::filter(lga_name %in% c(nephu_lga, "NEPHU")) %>% 
-  dplyr::select(lga_name,
-                aboriginal_n,
-                aboriginal_prop)
+  f_preptable_simple_lga()
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -216,7 +197,9 @@ table %>%
   dplyr::mutate(aboriginal_prop = sprintf("%.1f", aboriginal_prop)) %>% 
   #
   f_table_simple(total_row     = nrow(table),
-                 table_headers = table_headers)
+                 table_headers = c("LGA",
+                                   "Number speaking language",
+                                   "% speaking language"))
 ```
 
 :::{style="height: 1em;"}
@@ -233,36 +216,18 @@ table %>%
 ```{r}
 #
 figure_number <- language_any_agesex %>% 
-  dplyr::filter(age_group %in% age_group_lvl) %>% 
-  #
-  dplyr::mutate(hover_text = paste0(sex, "\n",
-                                    age_group, "\n",
-                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>%
-  #
-  f_bar_grouped(x_variable    = age_group,
-                y_variable    = aboriginal_n,
-                fill_variable = sex,
-                fill_values   = c(colour_female, colour_male),
-                y_max         = NA,
-                y_breaks      = 5,
-                y_expand      = 2.5,
-                y_title       = "Number of people")
+  f_bar_grouped_agesex(y_variable = aboriginal_n,
+                       y_max      = NA,
+                       y_breaks   = 5,
+                       y_expand   = 2.5,
+                       y_title    = "Number of people")
 
 figure_percent <- language_any_agesex %>% 
-  dplyr::filter(age_group %in% age_group_lvl) %>% 
-  #
-  dplyr::mutate(hover_text = paste0(sex, "\n",
-                                    age_group, "\n",
-                                    "Percentage: ", sprintf("%.1f", aboriginal_prop))) %>%
-  #
-  f_bar_grouped(x_variable    = age_group,
-                y_variable    = aboriginal_prop,
-                fill_variable = sex,
-                fill_values   = c(colour_female, colour_male),
-                y_max         = 5,
-                y_breaks      = 0.5,
-                y_expand      = 0.05,
-                y_title       = "Percentage of people")
+  f_bar_grouped_agesex(y_variable = aboriginal_prop,
+                       y_max      = 5,
+                       y_breaks   = 0.5,
+                       y_expand   = 0.05,
+                       y_title    = "Percentage of people")
 
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
@@ -278,22 +243,8 @@ f_bar_grouped_combine(figure_number, figure_percent)
 table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
-table_headers <- c("Age group",
-                   "n", "%", "n", "%", "n")
-
 table <- language_any_agesex %>% 
-  dplyr::select(age_group,
-                sex,
-                aboriginal_n,
-                aboriginal_prop) %>%
-  #
-  tidyr::pivot_wider(names_from  = sex,
-                     values_from = c("aboriginal_n", "aboriginal_prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::mutate(aboriginal_n_total = aboriginal_n_female + aboriginal_n_male)
+  f_preptable_grouped_agesex()
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -305,15 +256,9 @@ table %>%
   dplyr::mutate(aboriginal_prop_female = sprintf("%.1f", aboriginal_prop_female),
                 aboriginal_prop_male   = sprintf("%.1f", aboriginal_prop_male)) %>% 
   #
-  f_table_simple(total_row     = nrow(table),
-                 table_headers = table_headers) %>% 
-  #
-  kableExtra::add_header_above(c(" "      = 1,
-                                 "Female" = 2,
-                                 "Male"   = 2,
-                                 "Total"  = 1)) %>% 
-  kableExtra::column_spec(2:6,
-                          width = "1in")
+  f_table_grouped_sex(n_variable = "count",
+                      col_header = "Age group",
+                      total_row  = nrow(table))
 ```
 
 :::{style="height: 1em;"}
@@ -354,10 +299,6 @@ language_specific %>%
 table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
-table_headers <- c("Language",
-                   "Number of people",
-                   "% of people")
-
 table <- language_specific
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
@@ -370,7 +311,9 @@ table %>%
   dplyr::mutate(aboriginal_prop = sprintf("%.2f", aboriginal_prop)) %>% 
   #
   f_table_simple(total_row     = nrow(table),
-                 table_headers = table_headers)
+                 table_headers = c("Language",
+                                   "Number of people",
+                                   "% of people"))
 ```
 
 :::{style="height: 1em;"}
@@ -498,10 +441,6 @@ language_other %>%
 table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
-table_headers <- c("Language",
-                   "Number of people",
-                   "% of people")
-
 table <- language_other
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
@@ -514,7 +453,9 @@ table %>%
   dplyr::mutate(aboriginal_prop = sprintf("%.2f", aboriginal_prop)) %>% 
   #
   f_table_simple(total_row     = nrow(table),
-                 table_headers = table_headers)
+                 table_headers = c("Language",
+                                   "Number of people",
+                                   "% of people"))
 ```
 
 :::{style="height: 1em;"}
@@ -637,30 +578,18 @@ The following questions were asked of all people completing the ABS Census 2021.
 ```{r}
 #
 figure_number <- english_lga %>% 
-  dplyr::filter(lga_name %in% nephu_lga) %>% 
-  #
-  dplyr::mutate(hover_text = paste0(lga_name, "\n",
-                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>%
-  #
-  f_bar_simple(x_variable = lga_name,
-               y_variable = aboriginal_n,
-               y_max      = NA,
-               y_breaks   = 250,
-               y_expand   = 50,
-               y_title    = "Number of people")
+  f_bar_simple_lga(y_variable = aboriginal_n,
+                   y_max      = NA,
+                   y_breaks   = 250,
+                   y_expand   = 50,
+                   y_title    = "Number of people")
 
 figure_percent <- english_lga %>% 
-  dplyr::filter(lga_name %in% nephu_lga) %>% 
-  #
-  dplyr::mutate(hover_text = paste0(lga_name, "\n",
-                                    "Percentage: ", sprintf("%.1f", aboriginal_prop))) %>%
-  #
-  f_bar_simple(x_variable = lga_name,
-               y_variable = aboriginal_prop,
-               y_max      = 100,
-               y_breaks   = 10,
-               y_expand   = 1,
-               y_title    = "Percentage of people")
+  f_bar_simple_lga(y_variable = aboriginal_prop,
+                   y_max      = 100,
+                   y_breaks   = 10,
+                   y_expand   = 1,
+                   y_title    = "Percentage of people")
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```
@@ -676,15 +605,8 @@ f_bar_simple_combine(figure_number, figure_percent)
 table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
-table_headers <- c("LGA",
-                   "Number of people",
-                   "% of people")
-
 table <- english_lga %>%
-  dplyr::filter(lga_name %in% c(nephu_lga, "NEPHU")) %>% 
-  dplyr::select(lga_name,
-                aboriginal_n,
-                aboriginal_prop)
+  f_preptable_simple_lga()
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -696,7 +618,9 @@ table %>%
   dplyr::mutate(aboriginal_prop = sprintf("%.1f", aboriginal_prop)) %>% 
   #
   f_table_simple(total_row     = nrow(table),
-                 table_headers = table_headers)
+                 table_headers = c("LGA",
+                                   "Number of people",
+                                   "% of people"))
 ```
 
 :::{style="height: 1em;"}
@@ -712,37 +636,19 @@ table %>%
 
 ```{r}
 #
-figure_number <- english_agesex %>% 
-  dplyr::filter(age_group %in% age_group_lvl) %>% 
-  #
-  dplyr::mutate(hover_text = paste0(sex, "\n",
-                                    age_group, "\n",
-                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>%
-  #
-  f_bar_grouped(x_variable    = age_group,
-                y_variable    = aboriginal_n,
-                fill_variable = sex,
-                fill_values   = c(colour_female, colour_male),
-                y_max         = NA,
-                y_breaks      = 200,
-                y_expand      = 50,
-                y_title       = "Number of people")
+figure_number <- english_agesex %>%
+  f_bar_grouped_agesex(y_variable = aboriginal_n,
+                       y_max      = NA,
+                       y_breaks   = 200,
+                       y_expand   = 50,
+                       y_title    = "Number of people")
 
 figure_percent <- english_agesex %>% 
-  dplyr::filter(age_group %in% age_group_lvl) %>% 
-  #
-  dplyr::mutate(hover_text = paste0(sex, "\n",
-                                    age_group, "\n",
-                                    "Percentage: ", sprintf("%.1f", aboriginal_prop))) %>%
-  #
-  f_bar_grouped(x_variable    = age_group,
-                y_variable    = aboriginal_prop,
-                fill_variable = sex,
-                fill_values   = c(colour_female, colour_male),
-                y_max         = 100,
-                y_breaks      = 10,
-                y_expand      = 1,
-                y_title       = "Percentage of people")
+  f_bar_grouped_agesex(y_variable = aboriginal_prop,
+                       y_max      = 100,
+                       y_breaks   = 10,
+                       y_expand   = 1,
+                       y_title    = "Percentage of people")
 
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
@@ -758,22 +664,8 @@ f_bar_grouped_combine(figure_number, figure_percent)
 table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
-table_headers <- c("Age group",
-                   "n", "%", "n", "%", "n")
-
 table <- english_agesex %>% 
-  dplyr::select(age_group,
-                sex,
-                aboriginal_n,
-                aboriginal_prop) %>%
-  #
-  tidyr::pivot_wider(names_from  = sex,
-                     values_from = c("aboriginal_n", "aboriginal_prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::mutate(aboriginal_n_total = aboriginal_n_female + aboriginal_n_male)
+  f_preptable_grouped_agesex()
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -785,15 +677,9 @@ table %>%
   dplyr::mutate(aboriginal_prop_female = sprintf("%.1f", aboriginal_prop_female),
                 aboriginal_prop_male   = sprintf("%.1f", aboriginal_prop_male)) %>% 
   #
-  f_table_simple(total_row     = nrow(table),
-                 table_headers = table_headers) %>% 
-  #
-  kableExtra::add_header_above(c(" "      = 1,
-                                 "Female" = 2,
-                                 "Male"   = 2,
-                                 "Total"  = 1)) %>% 
-  kableExtra::column_spec(2:6,
-                          width = "1in")
+  f_table_grouped_sex(n_variable = "count",
+                      col_header = "Age group",
+                      total_row  = nrow(table))
 ```
 
 :::{style="height: 1em;"}

@@ -89,11 +89,6 @@ projections_medium <- aboriginal_projections_iare %>%
 table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
-table_headers <- c("IARE",
-                   "2021 population",
-                   "2031 population",
-                   "% growth per year")
-
 table <- aboriginal_projections_iare %>%
   dplyr::select(iare_name,
                 erp_2021_number,
@@ -108,7 +103,10 @@ if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
 
 table %>%
   f_table_simple(total_row     = nrow(table),
-                 table_headers = table_headers)
+                 table_headers = c("IARE",
+                                   "2021 population",
+                                   "2031 population",
+                                   "% growth per year"))
 ```
 
 :::{style="height: 1em;"}

@@ -108,9 +108,6 @@ childhood_attendance <- f_read_ctg_indigenous("CTG03_Childhood_Education_Data_Ta
 ```{r}
 #
 figure_number <- childhood_enrol %>% 
-  dplyr::mutate(hover_text = paste0(year, "\n",
-                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>%
-  #
   f_line_simple(y_variable = aboriginal_n,
                 y_max      = NA,
                 y_breaks   = 200,
@@ -118,9 +115,6 @@ figure_number <- childhood_enrol %>%
                 y_title    = "Number of children")
 
 figure_percent <- childhood_enrol %>% 
-  dplyr::mutate(hover_text = paste0(year, "\n",
-                                    "Percentage: ", sprintf("%.1f", aboriginal_prop))) %>%
-  #
   f_line_simple(y_variable = aboriginal_prop,
                 y_max      = 100,
                 y_breaks   = 10,
@@ -142,10 +136,6 @@ f_line_simple_combine(figure_number, figure_percent)
 table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
-table_headers <- c("Year",
-                   "Number of children",
-                   "% of children")
-
 table <- childhood_enrol
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
@@ -159,7 +149,9 @@ table %>%
                 aboriginal_prop = sprintf("%.1f", aboriginal_prop)) %>% 
   #
   f_table_simple(total_row     = NULL,
-                 table_headers = table_headers) %>% 
+                 table_headers = c("Year",
+                                   "Number of children",
+                                   "% of children")) %>% 
   #
   kableExtra::column_spec(2:3,
                           width = "1.25in")
@@ -217,12 +209,6 @@ childhood_attendance %>%
 table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
-table_headers <- c("Year",
-                   "n", "%",
-                   "n", "%",
-                   "n", "%",
-                   "n", "%")
-
 table <- childhood_attendance %>% 
   dplyr::filter(indigenous_label == "Aboriginal") %>% 
   #
@@ -254,7 +240,8 @@ table %>%
                 proportion_did_not_attend = round(proportion_did_not_attend, digits = 1)) %>% 
   #
   f_table_simple(total_row     = NULL,
-                 table_headers = table_headers) %>% 
+                 table_headers = c("Year",
+                                   "n", "%", "n", "%", "n", "%", "n", "%")) %>% 
   #
   kableExtra::add_header_above(c(" " = 1,
                                  "Attended 15+ hours"   = 2,
@@ -328,7 +315,9 @@ childhood_develop <- f_read_ctg_indigenous("CTG04_Early_Years_Data_Tables.xlsx",
                                            row_select     = 1:10) %>% 
   #
   dplyr::mutate(year = dplyr::case_when(year == "2009 (b)" ~ "2009",
-                                        TRUE ~ year))
+                                        TRUE ~ year)) %>% 
+  #
+  dplyr::rename(prop = vic)
 ```
 
 - Data for this topic were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/).
@@ -354,18 +343,12 @@ childhood_develop <- f_read_ctg_indigenous("CTG04_Early_Years_Data_Tables.xlsx",
 ```{r}
 #
 childhood_develop %>% 
-  dplyr::mutate(hover_text = paste0(year, "\n",
-                                    indigenous_label, "\n",
-                                    "Percentage: ", sprintf("%.1f", vic))) %>%
-  #
-  f_line_grouped(y_variable    = vic,
-                 fill_variable = indigenous_status,
-                 fill_values   = c(colour_aboriginal, colour_nonaboriginal),
-                 y_max         = 100,
-                 y_breaks      = 10,
-                 y_expand      = 1,
-                 y_title       = "Percentage of children",
-                 ctg_target    = 55)
+  f_line_grouped_indigenous(y_variable = prop,
+                            y_max      = 100,
+                            y_breaks   = 10,
+                            y_expand   = 1,
+                            y_title    = "Percentage of children",
+                            ctg_target = 55)
 ```
 
 #### Table 6B-3
@@ -379,17 +362,13 @@ childhood_develop %>%
 table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
-table_headers <- c("Year",
-                   "Yes (%)",
-                   "No (%)")
-
 table <- childhood_develop %>%
   dplyr::select(-indigenous_status,
                 -unit) %>% 
   #
   pivot_wider(names_from  = "indigenous_label",
               names_vary  = "slowest",
-              values_from = "vic") %>% 
+              values_from = "prop") %>% 
   #
   janitor::clean_names() %>%
   #
@@ -406,11 +385,12 @@ table %>%
                 non_indigenous = sprintf("%.1f", non_indigenous)) %>% 
   #
   f_table_simple(total_row     = NULL,
-                 table_headers = table_headers) %>% 
+                 table_headers = c("Year",
+                                   "Yes (%)",
+                                   "No (%)")) %>% 
   #
   kableExtra::add_header_above(c(" " = 1,
                                  "Identified as Aboriginal and/or Torres Strait Islander" = 2))
-  
 ```
 
 :::{style="height: 1em;"}
@@ -508,12 +488,6 @@ naplan_reading %>%
 table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
-table_headers <- c("Proficiency level",
-                   "Year 3",
-                   "Year 5",
-                   "Year 7",
-                   "Year 9")
-
 table <- naplan_reading %>% 
   dplyr::filter(indigenous_status == "Aboriginal and Torres Strait Islander students") %>%
   #
@@ -540,7 +514,11 @@ table %>%
                 year_9 = sprintf("%.1f", year_9)) %>% 
   #
   f_table_simple(total_row     = nrow(table),
-                 table_headers = table_headers) %>% 
+                 table_headers = c("Proficiency level",
+                                   "Year 3",
+                                   "Year 5",
+                                   "Year 7",
+                                   "Year 9")) %>% 
   #
   kableExtra::column_spec(2:5,
                           width = "1in")
@@ -587,12 +565,6 @@ naplan_writing %>%
 table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
-table_headers <- c("Proficiency level",
-                   "Year 3",
-                   "Year 5",
-                   "Year 7",
-                   "Year 9")
-
 table <- naplan_writing %>% 
   dplyr::filter(indigenous_status == "Aboriginal and Torres Strait Islander students") %>%
   #
@@ -619,7 +591,11 @@ table %>%
                 year_9 = sprintf("%.1f", year_9)) %>% 
   #
   f_table_simple(total_row     = nrow(table),
-                 table_headers = table_headers) %>% 
+                 table_headers = c("Proficiency level",
+                                   "Year 3",
+                                   "Year 5",
+                                   "Year 7",
+                                   "Year 9")) %>% 
   #
   kableExtra::column_spec(2:5,
                           width = "1in")
@@ -666,12 +642,6 @@ naplan_numeracy %>%
 table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
-table_headers <- c("Proficiency level",
-                   "Year 3",
-                   "Year 5",
-                   "Year 7",
-                   "Year 9")
-
 table <- naplan_numeracy %>% 
   dplyr::filter(indigenous_status == "Aboriginal and Torres Strait Islander students") %>%
   #
@@ -698,7 +668,11 @@ table %>%
                 year_9 = sprintf("%.1f", year_9)) %>% 
   #
   f_table_simple(total_row     = nrow(table),
-                 table_headers = table_headers) %>% 
+                 table_headers = c("Proficiency level",
+                                   "Year 3",
+                                   "Year 5",
+                                   "Year 7",
+                                   "Year 9")) %>% 
   #
   kableExtra::column_spec(2:5,
                           width = "1in")

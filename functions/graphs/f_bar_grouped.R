@@ -5,7 +5,7 @@
 # Chart type: grouped bar chart
 
 ################################################################################
-# Grouped bar chart
+# Classic grouped bar chart
 ################################################################################
 f_bar_grouped <- function(data, x_variable, y_variable, fill_variable, fill_values,
                           y_max, y_breaks, y_expand, y_title, x_angle = 90, legend_offset = -0.3) {
@@ -45,6 +45,73 @@ f_bar_grouped <- function(data, x_variable, y_variable, fill_variable, fill_valu
                                              standoff = 10)),
                    legend = list(x = 0.5,
                                  y = legend_offset,
+                                 #
+                                 orientation = "h",
+                                 xanchor     = "center"))
+  
+  return(figure)
+  
+}
+
+################################################################################
+# By age and sex
+################################################################################
+f_bar_grouped_agesex <- function(data, y_variable, y_max, y_breaks, y_expand, y_title) {
+  
+  y_variable <- rlang::enquo(y_variable)
+  
+  data <- data %>% 
+    dplyr::filter(age_group %in% age_group_lvl)
+  
+  if (rlang::as_name(y_variable) == "aboriginal_n") {
+    
+    data <- data %>% 
+      dplyr::mutate(hover_text = paste0(sex, "\n",
+                                        age_group, "\n",
+                                        "Count: ", format(!!y_variable, big.mark = ",")))
+    
+  }
+  
+  if (rlang::as_name(y_variable) == "aboriginal_prop") {
+    
+    data <- data %>% 
+      dplyr::mutate(hover_text = paste0(sex, "\n",
+                                        age_group, "\n",
+                                        "Percentage: ", sprintf("%.1f", !!y_variable)))
+    
+  }
+
+  figure <- data %>% 
+    ggplot(aes(x = age_group, y = !!y_variable, group = sex, fill = sex, text = hover_text)) +
+    #
+    geom_col(position = "dodge",
+             col      = colour_gray) +
+    #
+    scale_y_continuous(limits = c(0, y_max),
+                       breaks = scales::breaks_width(y_breaks),
+                       expand = expansion(add = c(0, y_expand)),
+                       labels = scales::comma_format(big.mark = ",")) +
+    #
+    scale_fill_manual(values = c(colour_female, colour_male),
+                      guide  = "none") +
+    #
+    labs(x = NULL,
+         y = NULL) +
+    #
+    theme_classic() +
+    #
+    theme(axis.text.x  = element_text(angle = 90))
+  
+  figure <- figure %>% 
+    plotly::ggplotly(tooltip = "text") %>%
+    #
+    plotly::layout(hovermode = "x",
+                   #
+                   yaxis = list(title = list(text     = y_title,
+                                             font     = list(size = 13, family = "Arial"),
+                                             standoff = 10)),
+                   legend = list(x = 0.5,
+                                 y = -0.3,
                                  #
                                  orientation = "h",
                                  xanchor     = "center"))

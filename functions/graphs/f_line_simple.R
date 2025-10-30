@@ -13,6 +13,22 @@ f_line_simple <- function(data, y_variable, y_max, y_breaks, y_expand, y_title, 
   
   ctg_target <- ctg_target
   
+  if (rlang::as_name(y_variable) == "aboriginal_n") {
+    
+    data <- data %>% 
+      dplyr::mutate(hover_text = paste0(year, "\n",
+                                        "Count: ", format(!!y_variable, big.mark = ",")))
+    
+  }
+  
+  if (rlang::as_name(y_variable) == "aboriginal_prop") {
+    
+    data <- data %>% 
+      dplyr::mutate(hover_text = paste0(year, "\n",
+                                        "Percentage: ", sprintf("%.1f", !!y_variable)))
+    
+  }
+  
   figure <- data %>% 
     ggplot(aes(x = year, y = !!y_variable, group = 1, text = hover_text)) +
     #

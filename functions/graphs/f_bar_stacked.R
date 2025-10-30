@@ -4,6 +4,9 @@
 #
 # Chart type: stacked bar chart
 
+################################################################################
+# Classic stacked bar chart
+################################################################################
 f_bar_stacked <- function(data, x_variable, y_variable, fill_variable, fill_values,
                           y_max, y_breaks, y_expand, y_title, legend_offset = -0.1, x_angle = 0, facet_wrap = "no") {
   
@@ -58,5 +61,110 @@ f_bar_stacked <- function(data, x_variable, y_variable, fill_variable, fill_valu
 
   return(figure)
 
+}
+
+################################################################################
+# By LGA 
+################################################################################
+f_bar_stacked_lga <- function(data, fill_values, y_max, y_breaks, y_expand, y_title = "Number of people") {
+  
+  data <- data %>% 
+    dplyr::mutate(hover_text = paste0(lga_name, " LGA", "\n",
+                                      comparison, "\n",
+                                      "Count: ", format(aboriginal_n, big.mark = ",")))
+  
+  figure <- data %>% 
+    ggplot(aes(x = lga_name, y = aboriginal_n, fill = forcats::fct_rev(comparison), text = hover_text)) +
+    #
+    geom_col(col = colour_gray) +
+    #
+    scale_y_continuous(limits = c(0, y_max),
+                       breaks = scales::breaks_width(y_breaks),
+                       expand = expansion(add = c(0, y_expand)),
+                       labels = scales::comma_format(big.mark = ",")) +
+    #
+    scale_fill_manual(values = fill_values,
+                      name   = NULL) +
+    #
+    labs(x = NULL,
+         y = NULL) +
+    #
+    theme_classic() +
+    #
+    theme(axis.text.x  = element_text(angle = 90))
+  
+  figure <- figure %>% 
+    plotly::ggplotly(tooltip = "text") %>%
+    #
+    plotly::layout(hovermode = "x",
+                   #
+                   yaxis = list(title = list(text     = y_title,
+                                             font     = list(size = 13, family = "Arial"),
+                                             standoff = 10)),
+                   #
+                   legend = list(x = 0.5,
+                                 y = -0.3,
+                                 #
+                                 orientation = "h",
+                                 traceorder  = "reversed",
+                                 xanchor     = "center"))
+  
+  return(figure)
+  
+}
+
+################################################################################
+# By age and sex 
+################################################################################
+f_bar_stacked_agesex <- function(data, fill_values, y_max, y_breaks, y_expand, y_title = "Number of people") {
+  
+  data <- data %>% 
+    dplyr::mutate(hover_text = paste0(sex, "\n",
+                                      age_group, "\n",
+                                      comparison, "\n",
+                                      "Count: ", format(aboriginal_n, big.mark = ",")))
+  
+  figure <- data %>% 
+    ggplot(aes(x = age_group, y = aboriginal_n, fill = forcats::fct_rev(comparison), text = hover_text)) +
+    #
+    geom_col(col = colour_gray) +
+    #
+    scale_y_continuous(limits = c(0, y_max),
+                       breaks = scales::breaks_width(y_breaks),
+                       expand = expansion(add = c(0, y_expand)),
+                       labels = scales::comma_format(big.mark = ",")) +
+    #
+    scale_fill_manual(values = fill_values,
+                      name   = NULL) +
+    #
+    labs(x = NULL,
+         y = NULL) +
+    #
+    theme_classic() +
+    #
+    theme(axis.text.x  = element_text(angle = 90)) +
+    #
+    facet_wrap(.~ sex,
+               scale          = "free_x",
+               strip.position = "bottom")
+  
+  figure <- figure %>% 
+    plotly::ggplotly(tooltip = "text") %>%
+    #
+    plotly::layout(hovermode = "x",
+                   #
+                   yaxis = list(title = list(text     = y_title,
+                                             font     = list(size = 13, family = "Arial"),
+                                             standoff = 10)),
+                   #
+                   legend = list(x = 0.5,
+                                 y = -0.3,
+                                 #
+                                 orientation = "h",
+                                 traceorder  = "reversed",
+                                 xanchor     = "center"))
+  
+  return(figure)
+  
 }
 

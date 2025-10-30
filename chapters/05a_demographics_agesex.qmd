@@ -48,9 +48,8 @@ census_agesex <- census_agesex[2:(grep("Data source", census_agesex[, 1]) -1), ]
   #
   janitor::clean_names() %>% 
   #
-  dplyr::mutate(lga_name = if_else(lga_name == "Total", "VIC", lga_name),
-                lga_name = if_else(lga_name == "", NA_character_, lga_name),
-                #
+  dplyr::mutate(lga_name  = if_else(lga_name == "Total", "VIC", lga_name),
+                lga_name  = if_else(lga_name == "", NA_character_, lga_name),
                 age_group = if_else(age_group == "", NA_character_, age_group)) %>% 
   #
   tidyr::fill(lga_name, age_group) %>% 
@@ -59,7 +58,6 @@ census_agesex <- census_agesex[2:(grep("Data source", census_agesex[, 1]) -1), ]
     lga_name == "Bayside (Vic.)"  ~ "Bayside",
     lga_name == "Kingston (Vic.)" ~ "Kingston",
     lga_name == "Latrobe (Vic.)"  ~ "Latrobe",
-    #
     TRUE ~ as.character(lga_name)))
 
 # Join to LPHU reference table
@@ -170,13 +168,11 @@ agesex_lphu <- results[["NEPHU"]] %>%
     aboriginal_prop = dplyr::case_when(
       sex == "Female" ~ -aboriginal_prop,
       sex == "Male"   ~ aboriginal_prop,
-      #
       TRUE ~ NA_real_),
     #
     non_aboriginal_prop = dplyr::case_when(
       sex == "Female" ~ -non_aboriginal_prop,
       sex == "Male"   ~ non_aboriginal_prop,
-      #
       TRUE ~ NA_real_))
 
 # Tidy up environment
@@ -233,13 +229,11 @@ agesex_lga <- results[["Banyule"]] %>%
     aboriginal_prop = dplyr::case_when(
       sex == "Female" ~ -aboriginal_prop,
       sex == "Male"   ~ aboriginal_prop,
-      #
       TRUE ~ NA_real_),
     #
     non_aboriginal_prop = dplyr::case_when(
       sex == "Female" ~ -non_aboriginal_prop,
       sex == "Male"   ~ non_aboriginal_prop,
-      #
       TRUE ~ NA_real_))
 
 # Tidy up environment
@@ -446,7 +440,6 @@ women_lga <- census_agesex %>%
     age_reproductive = dplyr::case_when(
       age_group %in% c("15-19 years", "20-24 years", "25-29 years", "30-34 years", 
                        "35-39 years", "40-44 years", "45-49 years") ~ "Yes",
-      #
       TRUE ~ "No")) %>% 
   #
   f_wrangle_census_lga(variable = age_reproductive,
@@ -471,30 +464,18 @@ women_lga <- census_agesex %>%
 ```{r}
 #
 figure_number <- women_lga %>% 
-  dplyr::filter(lga_name %in% nephu_lga) %>% 
-  #
-  dplyr::mutate(hover_text = paste0(lga_name, " LGA", "\n",
-                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>%
-  #
-  f_bar_simple(x_variable = lga_name,
-               y_variable = aboriginal_n,
-               y_max      = NA,
-               y_breaks   = 100,
-               y_expand   = 40,
-               y_title    = "Number of women")
+  f_bar_simple_lga(y_variable = aboriginal_n,
+                   y_max      = NA,
+                   y_breaks   = 100,
+                   y_expand   = 40,
+                   y_title    = "Number of women")
 
-figure_percent <- women_lga %>% 
-  dplyr::filter(lga_name %in% nephu_lga) %>% 
-  #
-  dplyr::mutate(hover_text = paste0(lga_name, " LGA", "\n",
-                                    "Percentage: ", sprintf("%.1f", aboriginal_prop))) %>%
-  #
-  f_bar_simple(x_variable = lga_name,
-               y_variable = aboriginal_prop,
-               y_max      = 100,
-               y_breaks   = 10,
-               y_expand   = 1,
-               y_title    = "Percentage of women")
+figure_percent <- women_lga %>%
+  f_bar_simple_lga(y_variable = aboriginal_prop,
+                   y_max      = 100,
+                   y_breaks   = 10,
+                   y_expand   = 1,
+                   y_title    = "Percentage of women")
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```
@@ -510,15 +491,8 @@ f_bar_simple_combine(figure_number, figure_percent)
 table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
-table_headers <- c("LGA",
-                   "Number of Aboriginal<br>and/or Torres Strait<br>Islander women",
-                   "% of Aboriginal<br>and/or Torres Strait<br>Islander women")
-
 table <- women_lga %>%
-  dplyr::filter(lga_name %in% c(nephu_lga, "NEPHU")) %>% 
-  dplyr::select(lga_name,
-                aboriginal_n,
-                aboriginal_prop)
+  f_preptable_simple_lga()
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -530,7 +504,9 @@ table %>%
   dplyr::mutate(aboriginal_prop = sprintf("%.1f", aboriginal_prop)) %>% 
   #
   f_table_simple(total_row     = nrow(table),
-                 table_headers = table_headers)
+                 table_headers = c("LGA",
+                                   "Number of Aboriginal<br>and/or Torres Strait<br>Islander women",
+                                   "% of Aboriginal<br>and/or Torres Strait<br>Islander women"))
 ```
 
 :::{style="height: 1em;"}
