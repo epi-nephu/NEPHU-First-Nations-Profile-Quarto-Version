@@ -79,6 +79,8 @@ source(here::here("functions", "graphs", "f_line_simple.R"))
 source(here::here("functions", "graphs", "f_map_density.R"))
 source(here::here("functions", "graphs", "f_pyramid.R"))
 
+source(here::here("functions", "tables", "f_table_dataprep.R"))
+source(here::here("functions", "tables", "f_table_grouped.R"))
 source(here::here("functions", "tables", "f_table_obsexp.R"))
 source(here::here("functions", "tables", "f_table_simple.R"))
 
