@@ -191,21 +191,11 @@ engaged_lga %>%
     levels = c("Fully engaged",
                "Partially engaged",
                "Not engaged"))) %>% 
-  #
-  dplyr::mutate(hover_text = paste0(lga_name, " LGA", "\n",
-                                    comparison, "\n",
-                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>%
-  #
-  f_bar_stacked(x_variable    = lga_name,
-                y_variable    = aboriginal_n,
-                fill_variable = forcats::fct_rev(comparison),
-                fill_values   = c(colour_stack3, colour_stack2, colour_stack1),
-                y_max         = NA,
-                y_breaks      = 200,
-                y_expand      = 25,
-                y_title       = "Number of people",
-                x_angle       = 90,
-                legend_offset = -0.3)
+  
+  f_bar_stacked_lga(fill_values = c(colour_stack3, colour_stack2, colour_stack1),
+                    y_max       = NA,
+                    y_breaks    = 200,
+                    y_expand    = 25)
 ```
 
 #### Table 6D-1
@@ -218,12 +208,6 @@ engaged_lga %>%
 #
 table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
-table_headers <- c("LGA",
-                   "n", "%",
-                   "n", "%",
-                   "n", "%",
-                   "Total")
 
 table <- engaged_lga %>% 
   dplyr::filter(lga_name %in% c(nephu_lga, "NEPHU"))
@@ -240,7 +224,7 @@ table %>%
                 not_prop       = sprintf("%.1f", not_prop)) %>% 
   #
   f_table_simple(total_row     = nrow(table),
-                 table_headers = table_headers) %>% 
+                 table_headers = c("LGA", "n", "%", "n", "%", "n", "%", "Total")) %>% 
   #
   kableExtra::column_spec(2:8,
                           width = "1in") %>% 
@@ -279,24 +263,12 @@ engaged_agesex %>%
     TRUE ~ NA_character_),
     levels = c("Fully engaged",
                "Partially engaged",
-               "Not engaged"))) %>%  
+               "Not engaged"))) %>% 
   #
-  dplyr::mutate(hover_text = paste0(sex, "\n",
-                                    age_group, "\n",
-                                    comparison, "\n",
-                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>%
-  #
-  f_bar_stacked(x_variable    = age_group,
-                y_variable    = aboriginal_n,
-                fill_variable = forcats::fct_rev(comparison),
-                fill_values   = c(colour_stack3, colour_stack2, colour_stack1),
-                y_max         = NA,
-                y_breaks      = 200,
-                y_expand      = 100,
-                y_title       = "Number of people",
-                x_angle       = 90,
-                legend_offset = -0.3,
-                facet_wrap    = "yes")
+  f_bar_stacked_agesex(fill_values = c(colour_stack3, colour_stack2, colour_stack1),
+                       y_max       = NA,
+                       y_breaks    = 200,
+                       y_expand    = 100)
 ```
 
 #### Table 6D-2
@@ -309,12 +281,6 @@ engaged_agesex %>%
 #
 table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
-table_headers <- c("Age group",
-                   "n", "%",
-                   "n", "%",
-                   "n", "%",
-                   "Total")
 
 table <- engaged_agesex
 
@@ -335,7 +301,7 @@ table %>%
   dplyr::select(-sex) %>% 
   #
   f_table_simple(total_row     = nrow(table) / 2,
-                 table_headers = table_headers) %>% 
+                 table_headers = c("Age group", "n", "%", "n", "%", "n", "%", "Total")) %>% 
   #
   kableExtra::column_spec(2:8,
                           width = "1in") %>% 
@@ -352,7 +318,7 @@ table %>%
   dplyr::select(-sex) %>% 
   #
   f_table_simple(total_row     = nrow(table) / 2,
-                 table_headers = table_headers) %>% 
+                 table_headers = c("Age group", "n", "%", "n", "%", "n", "%", "Total")) %>% 
   #
   kableExtra::column_spec(2:8,
                           width = "1in") %>% 
@@ -541,20 +507,16 @@ The following questions were asked of all people aged 15 years and over completi
 ```{r}
 #
 fully_trend %>% 
-  dplyr::filter(unit == "prop") %>% 
+  dplyr::filter(unit == "prop") %>%
   #
-  dplyr::mutate(hover_text = paste0(year, "\n",
-                                    indigenous_label, "\n",
-                                    "Percentage: ", sprintf("%.1f", vic))) %>%
+  dplyr::rename(prop = vic) %>% 
   #
-  f_line_grouped(y_variable    = vic,
-                 fill_variable = indigenous_status,
-                 fill_values   = c(colour_aboriginal, colour_nonaboriginal),
-                 y_max         = 100,
-                 y_breaks      = 10,
-                 y_expand      = 1,
-                 y_title       = "Percentage of people",
-                 ctg_target    = 67)
+  f_line_grouped_indigenous(y_variable = prop,
+                            y_max      = 100,
+                            y_breaks   = 10,
+                            y_expand   = 1,
+                            y_title    = "Percentage of people",
+                            ctg_target = 67)
 ```
 
 #### Table 6D-3
@@ -568,26 +530,8 @@ fully_trend %>%
 table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
-table_headers <- c("Year",
-                   "Yes (n)", "Yes (%)",
-                   "No (n)", "No (%)")
-
 table <- fully_trend %>% 
-  dplyr::select(-indigenous_status) %>% 
-  #
-  pivot_wider(names_from  = c("indigenous_label", "unit"),
-              names_vary  = "slowest",
-              values_from = "vic") %>% 
-  #
-  janitor::clean_names() %>%
-  #
-  dplyr::select(year,
-                aboriginal_n,
-                aboriginal_prop,
-                non_indigenous_n,
-                non_indigenous_prop) %>% 
-  #
-  dplyr::arrange(year)
+  f_preptable_grouped_indigenous(x_variable = year)
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -599,12 +543,8 @@ table %>%
   dplyr::mutate(aboriginal_prop     = sprintf("%.1f", aboriginal_prop),
                 non_indigenous_prop = sprintf("%.1f", non_indigenous_prop)) %>% 
   #
-  f_table_simple(total_row     = NULL,
-                 table_headers = table_headers) %>%
-  #
-  kableExtra::add_header_above(c(" " = 1,
-                                 "Identified as Aboriginal and/or Torres Strait Islander" = 4),
-                               align = "right")
+  f_table_grouped_indigenous(column_name = "Year",
+                             total_row  = NULL)
 ```
 
 :::{style="height: 1em;"}
@@ -621,31 +561,19 @@ table %>%
 ```{r}
 #
 figure_number <- fully_youth_lga %>% 
-  dplyr::filter(lga_name %in% nephu_lga) %>% 
-  #
-  dplyr::mutate(hover_text = paste0(lga_name, " LGA", "\n",
-                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>%
-  #
-  f_bar_simple(x_variable = lga_name,
-               y_variable = aboriginal_n,
-               y_max      = NA,
-               y_breaks   = 25,
-               y_expand   = 10,
-               y_title    = "Number of people")
+  f_bar_simple_lga(y_variable = aboriginal_n,
+                   y_max      = NA,
+                   y_breaks   = 25,
+                   y_expand   = 10,
+                   y_title    = "Number of people")
 
 figure_percent <- fully_youth_lga %>% 
-  dplyr::filter(lga_name %in% nephu_lga) %>% 
-  #
-  dplyr::mutate(hover_text = paste0(lga_name, " LGA", "\n",
-                                    "Percentage: ", sprintf("%.1f", aboriginal_prop))) %>%
-  #
-  f_bar_simple(x_variable = lga_name,
-               y_variable = aboriginal_prop,
-               y_max      = 100,
-               y_breaks   = 10,
-               y_expand   = 1,
-               y_title    = "Percentage of people",
-               ctg_target = 67)
+  f_bar_simple_lga(y_variable = aboriginal_prop,
+                   y_max      = 100,
+                   y_breaks   = 10,
+                   y_expand   = 1,
+                   y_title    = "Percentage of people",
+                   ctg_target = 67)
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```
@@ -676,14 +604,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- fully_youth_lga %>%
-  dplyr::filter(lga_name %in% c(nephu_lga, "NEPHU")) %>% 
-  #
-  dplyr::select(lga_name,
-                aboriginal_n,
-                aboriginal_prop,
-                aboriginal_exp_non,
-                non_aboriginal_prop,
-                aboriginal_diff_label)
+  f_preptable_obsexp_lga()
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -714,12 +635,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- fully_youth_sex %>%
-  dplyr::select(sex,
-                aboriginal_n,
-                aboriginal_prop,
-                aboriginal_exp_non,
-                non_aboriginal_prop,
-                aboriginal_diff_label)
+  f_preptable_obsexp_sex()
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -782,21 +698,7 @@ table_headers <- c("Age",
                    "No (n)", "No (%)")
 
 table <- fully_age %>% 
-  dplyr::select(-indigenous_status) %>% 
-  #
-  pivot_wider(names_from  = c("indigenous_label", "unit"),
-              names_vary  = "slowest",
-              values_from = "vic") %>% 
-  #
-  janitor::clean_names() %>%
-  #
-  dplyr::select(age,
-                aboriginal_n,
-                aboriginal_prop,
-                non_indigenous_n,
-                non_indigenous_prop) %>% 
-  #
-  dplyr::arrange(age)
+  f_preptable_grouped_indigenous(x_variable = age)
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -808,12 +710,8 @@ table %>%
   dplyr::mutate(aboriginal_prop     = sprintf("%.1f", aboriginal_prop),
                 non_indigenous_prop = sprintf("%.1f", non_indigenous_prop)) %>% 
   #
-  f_table_simple(total_row     = NULL,
-                 table_headers = table_headers) %>%
-  #
-  kableExtra::add_header_above(c(" " = 1,
-                                 "Identified as Aboriginal and/or Torres Strait Islander" = 4),
-                               align = "right")
+  f_table_grouped_indigenous(column_name = "Age",
+                             total_row  = NULL)
 ```
 
 :::{style="height: 1em;"}
@@ -1022,20 +920,10 @@ status_lga %>%
                "Employed (on leave)",
                "Unemployed"))) %>% 
   #
-  dplyr::mutate(hover_text = paste0(lga_name, " LGA", "\n",
-                                    comparison, "\n",
-                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>%
-  #
-  f_bar_stacked(x_variable    = lga_name,
-                y_variable    = aboriginal_n,
-                fill_variable = forcats::fct_rev(comparison),
-                fill_values   = c(colour_stack4, colour_stack3, colour_stack2, colour_stack1),
-                y_max         = NA,
-                y_breaks      = 200,
-                y_expand      = 25,
-                y_title       = "Number of people",
-                x_angle       = 90,
-                legend_offset = -0.3)
+  f_bar_stacked_lga(fill_values = c(colour_stack4, colour_stack3, colour_stack2, colour_stack1),
+                    y_max       = NA,
+                    y_breaks    = 200,
+                    y_expand    = 25)
 ```
 
 #### Table 6D-7
@@ -1048,13 +936,6 @@ status_lga %>%
 #
 table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
-table_headers <- c("LGA",
-                   "n", "%",
-                   "n", "%",
-                   "n", "%",
-                   "n", "%",
-                   "Total")
 
 table <- status_lga %>% 
   dplyr::filter(lga_name %in% c(nephu_lga, "NEPHU"))
@@ -1072,7 +953,8 @@ table %>%
                 not_prop   = sprintf("%.1f", not_prop)) %>% 
   #
   f_table_simple(total_row     = nrow(table),
-                 table_headers = table_headers) %>% 
+                 table_headers = c("LGA",
+                                   "n", "%", "n", "%", "n", "%", "n", "%", "Total")) %>% 
   #
   kableExtra::column_spec(2:10,
                           width = "1in") %>% 
@@ -1114,24 +996,12 @@ status_agesex %>%
     levels = c("Employed (full-time)",
                "Employed (part-time)",
                "Employed (on leave)",
-               "Unemployed"))) %>%  
+               "Unemployed"))) %>%
   #
-  dplyr::mutate(hover_text = paste0(sex, "\n",
-                                    age_group, "\n",
-                                    comparison, "\n",
-                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>%
-  #
-  f_bar_stacked(x_variable    = age_group,
-                y_variable    = aboriginal_n,
-                fill_variable = forcats::fct_rev(comparison),
-                fill_values   = c(colour_stack4, colour_stack3, colour_stack2, colour_stack1),
-                y_max         = NA,
-                y_breaks      = 200,
-                y_expand      = 150,
-                y_title       = "Number of people",
-                x_angle       = 90,
-                legend_offset = -0.3,
-                facet_wrap    = "yes")
+  f_bar_stacked_agesex(fill_values = c(colour_stack4, colour_stack3, colour_stack2, colour_stack1),
+                       y_max       = NA,
+                       y_breaks    = 200,
+                       y_expand    = 150)
 ```
 
 #### Table 6D-8
@@ -1144,13 +1014,6 @@ status_agesex %>%
 #
 table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
-table_headers <- c("Age group",
-                   "n", "%",
-                   "n", "%",
-                   "n", "%",
-                   "n", "%",
-                   "Total")
 
 table <- status_agesex
 
@@ -1172,7 +1035,8 @@ table %>%
   dplyr::select(-sex) %>% 
   #
   f_table_simple(total_row     = nrow(table) / 2,
-                 table_headers = table_headers) %>% 
+                 table_headers = c("Age group",
+                                   "n", "%", "n", "%", "n", "%", "n", "%", "Total")) %>% 
   #
   kableExtra::column_spec(2:10,
                           width = "1in") %>% 
@@ -1190,7 +1054,8 @@ table %>%
   dplyr::select(-sex) %>% 
   #
   f_table_simple(total_row     = nrow(table) / 2,
-                 table_headers = table_headers) %>% 
+                 table_headers = c("Age group",
+                                   "n", "%", "n", "%", "n", "%", "n", "%", "Total")) %>% 
   #
   kableExtra::column_spec(2:10,
                           width = "1in") %>% 
@@ -1360,20 +1225,16 @@ The following questions were asked of all people aged 15 years and over completi
 ```{r}
 #
 status_trend %>% 
-  dplyr::filter(unit == "prop") %>% 
+  dplyr::filter(unit == "prop") %>%
   #
-  dplyr::mutate(hover_text = paste0(year, "\n",
-                                    indigenous_label, "\n",
-                                    "Percentage: ", sprintf("%.1f", vic))) %>%
+  dplyr::rename(prop = vic) %>% 
   #
-  f_line_grouped(y_variable    = vic,
-                 fill_variable = indigenous_status,
-                 fill_values   = c(colour_aboriginal, colour_nonaboriginal),
-                 y_max         = 100,
-                 y_breaks      = 10,
-                 y_expand      = 1,
-                 y_title       = "Percentage of people",
-                 ctg_target    = 62)
+  f_line_grouped_indigenous(y_variable = prop,
+                            y_max      = 100,
+                            y_breaks   = 10,
+                            y_expand   = 1,
+                            y_title    = "Percentage of people",
+                            ctg_target = 62)
 ```
 
 #### Table 6D-9
@@ -1387,26 +1248,8 @@ status_trend %>%
 table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
-table_headers <- c("Year",
-                   "Yes (n)", "Yes (%)",
-                   "No (n)", "No (%)")
-
 table <- status_trend %>% 
-  dplyr::select(-indigenous_status) %>% 
-  #
-  pivot_wider(names_from  = c("indigenous_label", "unit"),
-              names_vary  = "slowest",
-              values_from = "vic") %>% 
-  #
-  janitor::clean_names() %>%
-  #
-  dplyr::select(year,
-                aboriginal_n,
-                aboriginal_prop,
-                non_indigenous_n,
-                non_indigenous_prop) %>% 
-  #
-  dplyr::arrange(year)
+  f_preptable_grouped_indigenous(x_variable = year)
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -1418,12 +1261,8 @@ table %>%
   dplyr::mutate(aboriginal_prop     = sprintf("%.1f", aboriginal_prop),
                 non_indigenous_prop = sprintf("%.1f", non_indigenous_prop)) %>% 
   #
-  f_table_simple(total_row     = NULL,
-                 table_headers = table_headers) %>%
-  #
-  kableExtra::add_header_above(c(" " = 1,
-                                 "Identified as Aboriginal and/or Torres Strait Islander" = 4),
-                               align = "right")
+  f_table_grouped_indigenous(column_name = "Year",
+                             total_row  = NULL)
 ```
 
 :::{style="height: 1em;"}
@@ -1439,32 +1278,20 @@ table %>%
 
 ```{r}
 #
-figure_number <- status_working_lga %>% 
-  dplyr::filter(lga_name %in% nephu_lga) %>% 
-  #
-  dplyr::mutate(hover_text = paste0(lga_name, " LGA", "\n",
-                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>%
-  #
-  f_bar_simple(x_variable = lga_name,
-               y_variable = aboriginal_n,
-               y_max      = NA,
-               y_breaks   = 100,
-               y_expand   = 10,
-               y_title    = "Number of people")
+figure_number <- status_working_lga %>%
+  f_bar_simple_lga(y_variable = aboriginal_n,
+                   y_max      = NA,
+                   y_breaks   = 100,
+                   y_expand   = 10,
+                   y_title    = "Number of people")
 
 figure_percent <- status_working_lga %>% 
-  dplyr::filter(lga_name %in% nephu_lga) %>% 
-  #
-  dplyr::mutate(hover_text = paste0(lga_name, " LGA", "\n",
-                                    "Percentage: ", sprintf("%.1f", aboriginal_prop))) %>%
-  #
-  f_bar_simple(x_variable = lga_name,
-               y_variable = aboriginal_prop,
-               y_max      = 100,
-               y_breaks   = 10,
-               y_expand   = 1,
-               y_title    = "Percentage of people",
-               ctg_target = 62)
+  f_bar_simple_lga(y_variable = aboriginal_prop,
+                   y_max      = 100,
+                   y_breaks   = 10,
+                   y_expand   = 1,
+                   y_title    = "Percentage of people",
+                   ctg_target = 62)
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```
@@ -1495,14 +1322,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- status_working_lga %>%
-  dplyr::filter(lga_name %in% c(nephu_lga, "NEPHU")) %>% 
-  #
-  dplyr::select(lga_name,
-                aboriginal_n,
-                aboriginal_prop,
-                aboriginal_exp_non,
-                non_aboriginal_prop,
-                aboriginal_diff_label)
+  f_preptable_obsexp_lga()
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -1533,12 +1353,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- status_working_sex %>%
-  dplyr::select(sex,
-                aboriginal_n,
-                aboriginal_prop,
-                aboriginal_exp_non,
-                non_aboriginal_prop,
-                aboriginal_diff_label)
+  f_preptable_obsexp_sex()
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -1579,6 +1394,252 @@ table %>%
 - Employed people are defined as those who were employed full-time (35 hours or more per week), part-time (less than 35 hours per week), or on leave from work in the week prior to Census night.
 
 - Unemployed people are defined as people who were not currently employed and were actively looking for work (either part-time or full-time) or people who were not part of the labour force.
+:::
+
+::: {style="opacity: 0.8;"}
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+:::
+
+## Volunteer Work
+
+```{r}
+# ------------------------------------------------------------------------------
+# Volunteer work, by LGA
+# Data from ABS Census using TableBuilderPro
+# ------------------------------------------------------------------------------
+# Read in Census data
+volunteer_lga <- f_read_census_lga("Aboriginal_Employment_Volunteer_LGA.csv",
+                                   variable = "volunteer") %>% 
+  #
+  dplyr::filter(!volunteer %in% c("Not stated", "Not applicable"))
+  
+# Data wrangling
+volunteer_lga <- volunteer_lga %>% 
+  #
+  dplyr::mutate(volunteer = dplyr::case_when(
+    volunteer == "Volunteer" ~ "yes",
+    TRUE ~ "no")) %>% 
+  #
+  f_wrangle_census_lga(variable = volunteer,
+                       level    = "person",
+                       dichot   = "yes")
+
+# ------------------------------------------------------------------------------
+# Volunteer work, by age and sex
+# Data from ABS Census using TableBuilderPro
+# ------------------------------------------------------------------------------
+# Read in Census data
+volunteer_agesex <- f_read_census_agesex("Aboriginal_Employment_Volunteer_AgeSex.csv",
+                                         variable = "volunteer") %>% 
+  #
+  dplyr::filter(!volunteer %in% c("Not stated", "Not applicable"))
+
+# Data wrangling
+volunteer_agesex <- volunteer_agesex %>%
+  #
+  dplyr::mutate(volunteer = dplyr::case_when(
+    volunteer == "Volunteer" ~ "yes",
+    TRUE ~ "no")) %>% 
+  #
+  f_wrangle_census_agesex(variable = volunteer,
+                          dichot   = "yes")
+```
+
+- Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
+
+- Overall, 14% (n = 1,154) of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census did volunteer work for an organisation or group. This was similar to non-Indigenous people living in the NEPHU catchment (14%).
+
+- The number of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who did volunteer work for an organisation or group ranged from 193 (Yarra Ranges LGA) to 34 (Nillumbik LGA).
+
+- The gap between Aboriginal and/or Torres Strait Islander and non-Indigenous people was biggest for Whittlesea and Hume LGAs.
+
+- The percentage of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who did volunteer work for an organisation or group ranged from 22% (Yarra LGA) to 9.3% (Hume LGA).
+
+**Key points from stakeholder consultation**
+
+- Consultation feedback during the development of this report emphasised that these data are unlikely to be an underestimate.
+
+- It was discussed that many Aboriginal and/or Torres Strait Islander people do not see helping out in their community as volunteering activity, but rather something that is just done.
+
+::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+The following question was asked of all people aged 15 years and over completing the ABS Census 2021.
+
+- In the last 12 months did the person spend any time doing unpaid voluntary work for an organisation or group?
+  - No, did not do any voluntary work
+  - Yes, did voluntary work
+
+:::
+
+:::: {.panel-tabset}
+
+#### Figure 6D-12
+
+::: {#fig_6D_12 .fig-tab-title}
+**Figure 6D-12:**: Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who did volunteer work for an organisation or group, NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+figure_number <- volunteer_lga %>% 
+  f_bar_simple_lga(y_variable = aboriginal_n,
+                   y_max      = NA,
+                   y_breaks   = 25,
+                   y_expand   = 13,
+                   y_title    = "Number of people")
+
+figure_percent <- volunteer_lga %>% 
+  f_bar_simple_lga(y_variable = aboriginal_prop,
+                   y_max      = 50,
+                   y_breaks   = 5,
+                   y_expand   = 0.5,
+                   y_title    = "Percentage of people")
+
+f_bar_simple_combine(figure_number, figure_percent)
+```
+
+#### Figure 6D-13
+
+::: {#fig_6D_13 .fig-tab-title}
+**Figure 6D-13:**: Observed vs. expected number of people who did volunteer work for an organisation or group and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+volunteer_lga %>% 
+  f_bar_obsexp_lga(y_max    = NA,
+                   y_breaks = 25,
+                   y_expand = 10)
+```
+
+#### Table 6D-12
+
+::: {#tab_6D_12 .fig-tab-title}
+**Table 6D-12:** Observed vs. expected number of people who did volunteer work for an organisation or group and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- volunteer_lga %>%
+  f_preptable_obsexp_lga()
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  f_table_obsexp(total_row   = nrow(table),
+                 column_name = "LGA",
+                 header_name = " ")
+```
+
+:::{style="height: 1em;"}
+:::
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+#### Figure 6D-13
+
+::: {#fig_6D_13 .fig-tab-title}
+**Figure 6D-13:**: Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who did volunteer work for an organisation or group, NEPHU catchment, by age and sex, 2021
+:::
+
+```{r}
+#
+figure_number <- volunteer_agesex %>% 
+  f_bar_grouped_agesex(y_variable = aboriginal_n,
+                       y_max      = NA,
+                       y_breaks   = 25,
+                       y_expand   = 25,
+                       y_title    = "Number of people")
+
+figure_percent <- volunteer_agesex %>% 
+  f_bar_grouped_agesex(y_variable = aboriginal_prop,
+                       y_max      = 50,
+                       y_breaks   = 5,
+                       y_expand   = 0.5,
+                       y_title    = "Percentage of people")
+
+f_bar_grouped_combine(figure_number, figure_percent)
+```
+
+#### Figure 6D-14
+
+::: {#fig_6D_14 .fig-tab-title}
+**Figure 6D-14:**: Observed vs. expected number of people who did volunteer work for an organisation or group and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021 
+:::
+
+```{r}
+#
+volunteer_agesex %>% 
+  f_bar_obsexp_agesex(y_max    = NA,
+                      y_breaks = 25,
+                      y_expand = 20)
+```
+
+#### Table 6D-13
+
+::: {#tab_6D_13 .fig-tab-title}
+**Table 6D-13:** Observed vs. expected number of people who did volunteer work for an organisation or group and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- volunteer_agesex %>%
+  f_preptable_obsexp_agesex()
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::filter(sex == "Female") %>%
+  #
+  dplyr::select(-sex) %>% 
+  #
+  f_table_obsexp(total_row   = nrow(table) / 2,
+                 column_name = "Age group",
+                 header_name = "Female")
+
+table %>% 
+  dplyr::filter(sex == "Male") %>%
+  #
+  dplyr::select(-sex) %>% 
+  #
+  f_table_obsexp(total_row   = nrow(table) / 2,
+                 column_name = "Age group",
+                 header_name = "Male")
+```
+
+:::{style="height: 1em;"}
+:::
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+
+`r note_data_census`
+
+:::{style="height: 1em;"}
+:::
+
+`r note_caveat_underidentification`
+
+`r note_caveat_unknown_agesex`
 :::
 
 ::: {style="opacity: 0.8;"}
