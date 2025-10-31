@@ -4,7 +4,7 @@
 #
 # Table type: simple (univariate) tables
 
-f_table_simple <- function(data, total_row, table_headers) {
+f_table_simple <- function(data, total_row = nrow(table), last_column = ncol(table), table_headers, iare = "no") {
   
   table <- data %>% 
     knitr::kable(format      = "html",
@@ -21,7 +21,18 @@ f_table_simple <- function(data, total_row, table_headers) {
                               font_size  = 12) %>%
     #
     kableExtra::row_spec(row  = c(0, total_row),
-                         bold = TRUE)
+                         bold = TRUE) %>% 
+    #
+    kableExtra::column_spec(2:last_column,
+                            width = "1in")
+  
+  if (iare == "yes") {
+    
+    table <- table %>% 
+      kableExtra::row_spec(row    = 11:12,
+                           italic = TRUE)
+
+  }
   
   return(table)
   

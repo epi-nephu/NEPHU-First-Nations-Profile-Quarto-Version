@@ -7,7 +7,7 @@
 ################################################################################
 # By sex
 ################################################################################
-f_table_grouped_sex <- function(data, n_variable, column_name, total_row) {
+f_table_grouped_sex <- function(data, n_variable, column_name, total_row = nrow(table)) {
   
   if (n_variable == "count") {
     
@@ -53,13 +53,25 @@ f_table_grouped_sex <- function(data, n_variable, column_name, total_row) {
 ################################################################################
 # By Indigenous status
 ################################################################################
-f_table_grouped_indigenous <- function(data, column_name, total_row) {
+f_table_grouped_indigenous <- function(data, n_variable, column_name, total_row = nrow(table), last_column = ncol(table)) {
+
+  if (n_variable == "count") {
+    
+    table_headers <- c("Count", "Percent", "Count", "Percent", "Total")
+    
+  }
+  
+  if (n_variable == "estimate") {
+    
+    table_headers <- c("Estimate", "Percent", "Estimate", "Percent", "Total")
+    
+  }
   
   table <- data %>% 
     knitr::kable(format      = "html",
                  format.args = list(big.mark = ","),
-                 align       = "lrrrrrr",
-                 col.names   = c(column_name, "Yes (n)", "Yes (%)", "No (n)", "No (%)"),
+                 align       = "lrrrrr",
+                 col.names   = c(column_name, table_headers),
                  escape      = FALSE) %>%
     #
     kableExtra::kable_styling(bootstrap_options = c("hover", "responsive"),
@@ -70,10 +82,15 @@ f_table_grouped_indigenous <- function(data, column_name, total_row) {
                               font_size  = 12) %>%
     #
     kableExtra::row_spec(row  = c(0, total_row),
-                         bold = TRUE) %>%    
+                         bold = TRUE) %>%
+    #
+    kableExtra::column_spec(last_column,
+                            width = "1.25in") %>% 
     #
     kableExtra::add_header_above(c(" " = 1,
-                                   "Identified as Aboriginal and/or Torres Strait Islander" = 4),
+                                   "Identified as Aboriginal\nand/or Torres Strait Islander"       = 2,
+                                   "Did not identify as Aboriginal\nand/or Torres Strait Islander" = 2,
+                                   " " = 1),
                                  align = "right")
   
   return(table)

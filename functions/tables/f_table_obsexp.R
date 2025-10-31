@@ -17,7 +17,7 @@ f_table_obsexp <- function(data, total_row, column_name, header_name) {
     knitr::kable(format      = "html",
                  format.args = list(big.mark = ","),
                  align       = "lrrrrrrrrrrrrrrrrrrrr",
-                 col.names   = c(column_name, "n", "%", "n", "%", " "),
+                 col.names   = c(column_name, "Count", "Percent", "Count", "Percent", " "),
                  escape      = FALSE) %>%
     #
     kableExtra::kable_styling(bootstrap_options = c("hover", "responsive"),
