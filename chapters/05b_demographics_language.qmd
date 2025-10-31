@@ -144,6 +144,9 @@ The following question was asked of all people completing the ABS Census 2021.
   - Yes, Greek
   - Yes, other language (please specify)
 
+:::{style="height: 2em;"}
+:::
+
 :::
 
 :::: {.panel-tabset}
@@ -196,10 +199,12 @@ if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
 table %>% 
   dplyr::mutate(aboriginal_prop = sprintf("%.1f", aboriginal_prop)) %>% 
   #
-  f_table_simple(total_row     = nrow(table),
-                 table_headers = c("LGA",
+  f_table_simple(table_headers = c("LGA",
                                    "Number speaking language",
-                                   "% speaking language"))
+                                   "Percent speaking language")) %>% 
+  #
+  kableExtra::column_spec(2:3,
+                          width = "2in")
 ```
 
 :::{style="height: 1em;"}
@@ -257,8 +262,7 @@ table %>%
                 aboriginal_prop_male   = sprintf("%.1f", aboriginal_prop_male)) %>% 
   #
   f_table_grouped_sex(n_variable = "count",
-                      column_name = "Age group",
-                      total_row  = nrow(table))
+                      column_name = "Age group")
 ```
 
 :::{style="height: 1em;"}
@@ -310,10 +314,12 @@ if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
 table %>% 
   dplyr::mutate(aboriginal_prop = sprintf("%.2f", aboriginal_prop)) %>% 
   #
-  f_table_simple(total_row     = nrow(table),
-                 table_headers = c("Language",
+  f_table_simple(table_headers = c("Language",
                                    "Number of people",
-                                   "% of people"))
+                                   "Percent of people")) %>% 
+  #
+  kableExtra::column_spec(2:3,
+                          width = "2in")
 ```
 
 :::{style="height: 1em;"}
@@ -403,6 +409,9 @@ The following question was asked of all people completing the ABS Census 2021.
   - Yes, Italian
   - Yes, Greek
   - Yes, other language (please specify)
+  
+:::{style="height: 2em;"}
+:::
 
 :::
 
@@ -452,10 +461,12 @@ if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
 table %>% 
   dplyr::mutate(aboriginal_prop = sprintf("%.2f", aboriginal_prop)) %>% 
   #
-  f_table_simple(total_row     = nrow(table),
-                 table_headers = c("Language",
+  f_table_simple(table_headers = c("Language",
                                    "Number of people",
-                                   "% of people"))
+                                   "Percent of people")) %>% 
+  #
+  kableExtra::column_spec(2:3,
+                          width = "2in")
 ```
 
 :::{style="height: 1em;"}
@@ -565,6 +576,9 @@ The following questions were asked of all people completing the ABS Census 2021.
   - Not well
   - Not at all
 
+:::{style="height: 2em;"}
+:::
+
 :::
 
 :::: {.panel-tabset}
@@ -617,10 +631,12 @@ if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
 table %>% 
   dplyr::mutate(aboriginal_prop = sprintf("%.1f", aboriginal_prop)) %>% 
   #
-  f_table_simple(total_row     = nrow(table),
-                 table_headers = c("LGA",
+  f_table_simple(table_headers = c("LGA",
                                    "Number of people",
-                                   "% of people"))
+                                   "Percent of people")) %>% 
+  #
+  kableExtra::column_spec(2:3,
+                          width = "2in")
 ```
 
 :::{style="height: 1em;"}
@@ -678,8 +694,7 @@ table %>%
                 aboriginal_prop_male   = sprintf("%.1f", aboriginal_prop_male)) %>% 
   #
   f_table_grouped_sex(n_variable = "count",
-                      column_name = "Age group",
-                      total_row  = nrow(table))
+                      column_name = "Age group")
 ```
 
 :::{style="height: 1em;"}

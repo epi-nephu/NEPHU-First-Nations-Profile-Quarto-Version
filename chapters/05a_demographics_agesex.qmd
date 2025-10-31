@@ -503,10 +503,12 @@ if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
 table %>% 
   dplyr::mutate(aboriginal_prop = sprintf("%.1f", aboriginal_prop)) %>% 
   #
-  f_table_simple(total_row     = nrow(table),
-                 table_headers = c("LGA",
-                                   "Number of Aboriginal<br>and/or Torres Strait<br>Islander women",
-                                   "% of Aboriginal<br>and/or Torres Strait<br>Islander women"))
+  f_table_simple(table_headers = c("LGA",
+                                   "Number of Aboriginal and/or Torres Strait Islander women",
+                                   "Percent of Aboriginal and/or Torres Strait Islander women")) %>% 
+  #
+  kableExtra::column_spec(2:3,
+                          width = "2.5in")
 ```
 
 :::{style="height: 1em;"}

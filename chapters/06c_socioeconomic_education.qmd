@@ -134,6 +134,9 @@ The following question was asked of all people aged 15 years and over completing
   - Year 8 or equivalent
   - Did not go to school
 
+:::{style="height: 2em;"}
+:::
+
 :::
 
 :::: {.panel-tabset}
@@ -193,12 +196,9 @@ table %>%
                 year_9_11_prop = sprintf("%.1f", year_9_11_prop),
                 year_8_prop    = sprintf("%.1f", year_8_prop)) %>% 
   #
-  f_table_simple(total_row     = nrow(table),
-                 table_headers = c("LGA",
-                                   "n", "%", "n", "%", "n", "%", "Total")) %>% 
-  #
-  kableExtra::column_spec(2:8,
-                          width = "1in") %>% 
+  f_table_simple(table_headers = c("LGA",
+                                   "Count", "Percent", "Count", "Percent", "Count", "Percent",
+                                   "Total")) %>%
   #
   kableExtra::add_header_above(c(" " = 1,
                                  "Year 12 and equivalent"    = 2,
@@ -272,11 +272,10 @@ table %>%
   dplyr::select(-sex) %>% 
   #
   f_table_simple(total_row     = nrow(table) / 2,
+                 last_column   = ncol(table) - 1,
                  table_headers = c("Age group",
-                                   "n", "%", "n", "%", "n", "%", "Total")) %>% 
-  #
-  kableExtra::column_spec(2:8,
-                          width = "1in") %>% 
+                                   "Count", "Percent", "Count", "Percent", "Count", "Percent",
+                                   "Total")) %>%
   #
   kableExtra::add_header_above(c("Female" = 1,
                                  "Year 12 and equivalent"    = 2,
@@ -290,11 +289,10 @@ table %>%
   dplyr::select(-sex) %>% 
   #
   f_table_simple(total_row     = nrow(table) / 2,
+                 last_column   = ncol(table) - 1,
                  table_headers = c("Age group",
-                                   "n", "%", "n", "%", "n", "%", "Total")) %>% 
-  #
-  kableExtra::column_spec(2:8,
-                          width = "1in") %>% 
+                                   "Count", "Percent", "Count", "Percent", "Count", "Percent",
+                                   "Total")) %>%
   #
   kableExtra::add_header_above(c("Male" = 1,
                                  "Year 12 and equivalent"    = 2,
@@ -427,6 +425,9 @@ The following question was asked of all people aged 15 years and over completing
   - Year 8 or equivalent
   - Did not go to school
 
+:::{style="height: 2em;"}
+:::
+
 :::
 
 :::: {.panel-tabset}
@@ -464,7 +465,9 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- year12_trend %>%
-  f_preptable_grouped_indigenous(x_variable = year)
+  f_preptable_grouped_indigenous(x_variable = year) %>% 
+  #
+  dplyr::mutate(total_n = aboriginal_n + non_indigenous_n)
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -476,8 +479,9 @@ table %>%
   dplyr::mutate(aboriginal_prop     = sprintf("%.1f", aboriginal_prop),
                 non_indigenous_prop = sprintf("%.1f", non_indigenous_prop)) %>% 
   #
-  f_table_grouped_indigenous(column_name = "Year",
-                             total_row  = NULL)
+  f_table_grouped_indigenous(n_variable  = "count",
+                             column_name = "Year",
+                             total_row   = NULL)
 ```
 
 :::{style="height: 1em;"}
@@ -758,6 +762,9 @@ The following questions were asked of all people aged 15 years and over completi
 - What is the level of the highest qualification the person has completed?
   - Free text response
 
+:::{style="height: 2em;"}
+:::
+
 :::
 
 :::: {.panel-tabset}
@@ -821,12 +828,9 @@ table %>%
                 certificate_prop     = sprintf("%.1f", certificate_prop),
                 year_highschool_prop = sprintf("%.1f", year_highschool_prop)) %>% 
   #
-  f_table_simple(total_row     = nrow(table),
-                 table_headers = c("LGA", 
-                                   "n", "%", "n", "%", "n", "%", "n", "%", "Total")) %>% 
-  #
-  kableExtra::column_spec(2:10,
-                          width = "0.75in") %>% 
+  f_table_simple(table_headers = c("LGA", 
+                                   "Count", "Percent", "Count", "Percent", "Count", "Percent", "Count", "Percent",
+                                   "Total")) %>%
   #
   kableExtra::add_header_above(c(" " = 1,
                                  "Postgraduate"            = 2,
@@ -905,10 +909,12 @@ table %>%
   dplyr::select(-sex) %>%
   #
   f_table_simple(total_row     = nrow(table) / 2,
+                 last_column   = ncol(table) - 1,
                  table_headers = c("Age group",
-                                   "n", "%", "n", "%", "n", "%", "n", "%", "Total")) %>% 
+                                   "Count", "Percent", "Count", "Percent", "Count", "Percent", "Count", "Percent",
+                                   "Total")) %>%
   #
-  kableExtra::column_spec(2:10,
+  kableExtra::column_spec(2:9,
                           width = "0.75in") %>% 
   #
   kableExtra::add_header_above(c("Female" = 1,
@@ -924,10 +930,12 @@ table %>%
   dplyr::select(-sex) %>%
   #
   f_table_simple(total_row     = nrow(table) / 2,
+                 last_column   = ncol(table) - 1,
                  table_headers = c("Age group",
-                                   "n", "%", "n", "%", "n", "%", "n", "%", "Total")) %>% 
+                                   "Count", "Percent", "Count", "Percent", "Count", "Percent", "Count", "Percent",
+                                   "Total")) %>%
   #
-  kableExtra::column_spec(2:10,
+  kableExtra::column_spec(2:9,
                           width = "0.75in") %>% 
   #
   kableExtra::add_header_above(c("Male" = 1,
@@ -1079,6 +1087,9 @@ The following questions were asked of all people aged 15 years and over completi
 - What is the level of the highest qualification the person has completed?
   - Free text response
 
+:::{style="height: 2em;"}
+:::
+
 :::
 
 :::: {.panel-tabset}
@@ -1114,12 +1125,10 @@ uni_trend %>%
 table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
-table_headers <- c("Year",
-                   "Yes (n)", "Yes (%)",
-                   "No (n)", "No (%)")
-
 table <- uni_trend %>% 
-  f_preptable_grouped_indigenous(x_variable = year)
+  f_preptable_grouped_indigenous(x_variable = year) %>% 
+  #
+  dplyr::mutate(total_n = aboriginal_n + non_indigenous_n)
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -1131,8 +1140,9 @@ table %>%
   dplyr::mutate(aboriginal_prop     = sprintf("%.1f", aboriginal_prop),
                 non_indigenous_prop = sprintf("%.1f", non_indigenous_prop)) %>% 
   #
-  f_table_grouped_indigenous(column_name = "Year",
-                             total_row  = NULL)
+  f_table_grouped_indigenous(n_variable  = "count",
+                             column_name = "Year",
+                             total_row   = NULL)
 ```
 
 :::{style="height: 1em;"}

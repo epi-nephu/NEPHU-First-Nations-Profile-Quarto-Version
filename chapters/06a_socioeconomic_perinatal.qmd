@@ -139,14 +139,14 @@ if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
 table %>% 
   dplyr::mutate(aboriginal_prop = sprintf("%.1f", aboriginal_prop)) %>% 
   #
-  f_table_simple(total_row     = nrow(table),
+  f_table_simple(iare          = "yes",
                  table_headers = c("IARE",
                                    "Did not attend antenatal care",
                                    "Total pregnant women",
-                                   "% of pregnant women")) %>% 
+                                   "Percent of pregnant women")) %>% 
   #
-  kableExtra::row_spec(row    = 11:12,
-                       italic = TRUE)
+  kableExtra::column_spec(2:4,
+                          width = "2in")
 ```
 
 :::{style="height: 1em;"}
@@ -260,14 +260,14 @@ if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
 table %>% 
   dplyr::mutate(aboriginal_prop = sprintf("%.1f", aboriginal_prop)) %>% 
   #
-  f_table_simple(total_row     = nrow(table),
+  f_table_simple(iare          = "yes",
                  table_headers = c("IARE",
                                    "Smoked during pregnancy",
                                    "Total pregnant women",
-                                   "% of pregnant women")) %>% 
+                                   "Percent of pregnant women")) %>% 
   #
-  kableExtra::row_spec(row    = 11:12,
-                       italic = TRUE)
+  kableExtra::column_spec(2:4,
+                          width = "2in")
 ```
 
 :::{style="height: 1em;"}
@@ -484,14 +484,14 @@ if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
 table %>% 
   dplyr::mutate(aboriginal_prop = round(aboriginal_prop, digits = 1)) %>% 
   #
-  f_table_simple(total_row     = nrow(table),
+  f_table_simple(iare          = "yes",
                  table_headers = c("IARE",
                                    "Birthweight above 2,500g",
                                    "Total live births",
-                                   "% of live births")) %>% 
+                                   "Percent of live births")) %>% 
   #
-  kableExtra::row_spec(row    = 11:12,
-                       italic = TRUE)
+  kableExtra::column_spec(2:4,
+                          width = "2in")
 ```
 
 :::{style="height: 1em;"}
@@ -699,7 +699,7 @@ childhood_breastfed %>%
   #
   tidyr::pivot_longer(c(aboriginal_prop, non_aboriginal_prop),
                       names_to  = "indigenous_status",
-                      values_to = "percent") %>% 
+                      values_to = "prop") %>% 
   #
   dplyr::mutate(
     indigenous_label = dplyr::case_when(
@@ -713,21 +713,15 @@ childhood_breastfed %>%
       TRUE ~ NA_character_),
       #
       levels = c("Identified as Aboriginal\nand/or Torres Strait Islander",
-                 "Did not identify as Aboriginal\nand/or Torres Strait Islander")),
-    #
-    hover_text = paste0(breastfed, "\n",
-                        indigenous_label, "\n",
-                        "Percentage: ", sprintf("%.1f", percent))) %>%
+                 "Did not identify as Aboriginal\nand/or Torres Strait Islander"))) %>% 
   #
-  f_bar_grouped(x_variable    = breastfed,
-                y_variable    = percent,
-                fill_variable = indigenous_status,
-                fill_values   = c(colour_aboriginal, colour_nonaboriginal),
-                y_max         = 50,
-                y_breaks      = 5,
-                y_expand      = 0.5,
-                y_title       = "Percentage of children",
-                legend_offset = -0.4)
+  f_bar_grouped_indigenous(x_variable    = breastfed,
+                           y_variable    = prop,
+                           y_max         = 50,
+                           y_breaks      = 5,
+                           y_expand      = 0.5,
+                           y_title       = "Percentage of children",
+                           legend_offset = -0.4)
 ```
 
 #### Table 6A-5
@@ -747,6 +741,7 @@ table <- childhood_breastfed %>%
   dplyr::mutate(
     aboriginal_estimate     = round(aboriginal_estimate, digits = -2),
     non_aboriginal_estimate = round(non_aboriginal_estimate, digits = -2),
+    total_estimate          = aboriginal_estimate + non_aboriginal_estimate,
     #
     aboriginal_prop = dplyr::case_when(
       breastfed == "Total" ~ 100,
@@ -763,14 +758,8 @@ if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
 }
 
 table %>% 
-  f_table_simple(total_row     = nrow(table),
-                 table_headers = c("Breastfeeding duration",
-                                   "Estimate", "Percent",
-                                   "Estimate", "Percent")) %>% 
-  #
-  kableExtra::add_header_above(c(" " = 1,
-                                 "Identified as Aboriginal\nand/or Torres Strait Islander"       = 2,
-                                 "Did not identify as Aboriginal\nand/or Torres Strait Islander" = 2))
+  f_table_grouped_indigenous(n_variable  = "estimate",
+                             column_name = "Breastfeeding duration")
 ```
 
 :::{style="height: 1em;"}

@@ -200,11 +200,13 @@ table %>%
   dplyr::mutate(aboriginal_prop          = sprintf("%.1f", aboriginal_prop),
                 aboriginal_prop_per_lphu = sprintf("%.1f", aboriginal_prop_per_lphu)) %>% 
   #
-  f_table_simple(total_row     = nrow(table),
-                 table_headers = c("LPHU",
-                                   "Number of Aboriginal<br>and/or Torres Strait<br>Islander people",
-                                   "% of total LPHU<br>population",
-                                   "% of Victorian Aboriginal<br>and/or Torres Strait<br>Islander population"))
+  f_table_simple(table_headers = c("LPHU",
+                                   "Number of Aboriginal and/or Torres Strait Islander people",
+                                   "Percent of total LPHU population",
+                                   "Percent of Victorian Aboriginal and/or Torre Strait Islander population")) %>% 
+  #
+  kableExtra::column_spec(2:4,
+                          width = "2.5in")
 ```
 
 :::{style="height: 1em;"}
@@ -221,6 +223,10 @@ table %>%
 :::
 
 `r note_caveat_underidentification`
+
+:::{style="height: 2em;"}
+:::
+
 ::::
 
 ::: {style="opacity: 0.8;"}
@@ -411,11 +417,13 @@ table %>%
   dplyr::mutate(aboriginal_prop         = sprintf("%.1f", aboriginal_prop),
                 aboriginal_prop_per_lga = sprintf("%.1f", aboriginal_prop_per_lga)) %>% 
   #
-  f_table_simple(total_row     = nrow(table),
-                 table_headers = c("LGA",
-                                   "Number of Aboriginal<br>and/or Torres Strait<br>Islander people",
-                                   "% of total LGA<br>population",
-                                   "% of NEPHU Aboriginal<br>and/or Torres Strait<br>Islander population"))
+  f_table_simple(table_headers = c("LGA",
+                                   "Number of Aboriginal and/or Torres Strait Islander people",
+                                   "Percent of total LGA population",
+                                   "Percent of NEPHU Aboriginal and/or Torres Strait Islander population")) %>% 
+  #
+  kableExtra::column_spec(2:4,
+                          width = "2.5in")
 ```
 
 :::{style="height: 1em;"}
@@ -482,9 +490,12 @@ table %>%
   #
   f_table_simple(total_row     = NULL,
                  table_headers = c("SA2",
-                                   "Number of Aboriginal<br>and/or Torres Strait<br>Islander people",
-                                   "% of total SA2<br>population",
-                                   "% of NEPHU Aboriginal<br>and/or Torres Strait<br>Islander population"))
+                                   "Number of Aboriginal and/or Torres Strait Islander people",
+                                   "Percent of total SA2 population",
+                                   "Percent of NEPHU Aboriginal and/or Torres Strait Islander population")) %>% 
+  #
+  kableExtra::column_spec(2:4,
+                          width = "2.5in")
 ```
 
 :::{style="height: 1em;"}
@@ -501,5 +512,9 @@ table %>%
 :::
 
 `r note_caveat_underidentification`
+
+:::{style="height: 2em;"}
+:::
+
 ::::
 

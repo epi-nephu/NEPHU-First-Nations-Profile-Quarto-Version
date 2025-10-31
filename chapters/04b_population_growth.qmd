@@ -102,11 +102,13 @@ if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
 }
 
 table %>%
-  f_table_simple(total_row     = nrow(table),
-                 table_headers = c("IARE",
+  f_table_simple(table_headers = c("IARE",
                                    "2021 population",
                                    "2031 population",
-                                   "% growth per year"))
+                                   "Percent growth per year")) %>% 
+  #
+  kableExtra::column_spec(2:4,
+                          width = "2in")
 ```
 
 :::{style="height: 1em;"}
@@ -117,9 +119,9 @@ table %>%
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
-- These data are based on customised projections prepared for the Australian Government Department of Health by the ABS at the IARE level, and originally [published by the ABS](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/estimates-and-projections-australian-aboriginal-and-torres-strait-islander-population/latest-release). 
+- These data are based on customised projections prepared for the Australian Government Department of Health by the ABS at the IARE level, and originally [published by the ABS](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/estimates-and-projections-australian-aboriginal-and-torres-strait-islander-population/latest-release).
 
-- The baseline 2021 counts for comparison are based on [ABS Estimated Residential Population](https://www.abs.gov.au/statistics/people/population) calculations, which take into account the known under-reporting of Aboriginal and/or Torres Strait Islander status in the Census. 
+- The baseline 2021 counts for comparison are based on [ABS Estimated Residential Population](https://www.abs.gov.au/statistics/people/population) calculations, which take into account the known under-reporting of Aboriginal and/or Torres Strait Islander status in the Census.
 :::
 
 ::: {style="opacity: 0.8;"}
