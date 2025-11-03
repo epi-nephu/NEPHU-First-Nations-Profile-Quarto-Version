@@ -18,7 +18,7 @@ table_count   <- 0
 `r note_box_underidentification`
 :::
 
-:::{style="height: 2em;"}
+::: {style="height: 2em;"}
 :::
 
 ::: {.key-question}
@@ -209,7 +209,7 @@ table %>%
                           width = "2.5in")
 ```
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
@@ -224,7 +224,7 @@ table %>%
 
 `r note_caveat_underidentification`
 
-:::{style="height: 2em;"}
+::: {style="height: 2em;"}
 :::
 
 ::::
@@ -426,7 +426,7 @@ table %>%
                           width = "2.5in")
 ```
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
@@ -498,7 +498,7 @@ table %>%
                           width = "2.5in")
 ```
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
@@ -508,12 +508,12 @@ table %>%
 :::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 `r note_caveat_underidentification`
 
-:::{style="height: 2em;"}
+::: {style="height: 2em;"}
 :::
 
 ::::

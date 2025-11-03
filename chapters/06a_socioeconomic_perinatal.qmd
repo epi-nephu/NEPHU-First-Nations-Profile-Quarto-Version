@@ -24,7 +24,7 @@ The way the indicators in this chapter are defined also impacts on the represent
 `r note_box_comparisons`
 :::
 
-:::{style="height: 2em;"}
+::: {style="height: 2em;"}
 :::
 
 ::: {.key-question}
@@ -149,17 +149,17 @@ table %>%
                           width = "2in")
 ```
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
-::: {.callout-note title="Data notes" icon=false collapse=false}
+:::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_phidu_perinatal`
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 `r note_caveat_underidentification`
@@ -169,7 +169,7 @@ table %>%
 - Women are classified as attending antenatal care in line with recommendations if they attended within the first 10 weeks of pregnancy.
 
 - The denominator for this indicator is Aboriginal and/or Torres Strait Islander women who had at least one pregnancy between January 2019 and December 2021.
-:::
+::::
 
 ::: {style="opacity: 0.8;"}
 ```{r}
@@ -270,17 +270,17 @@ table %>%
                           width = "2in")
 ```
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
-::: {.callout-note title="Data notes" icon=false collapse=false}
+:::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_phidu_perinatal`
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 `r note_caveat_underidentification`
@@ -290,7 +290,7 @@ table %>%
 - Women are classified as smoking during pregnancy based on self-reporting of smoking at any time during their pregnancy.
 
 - The denominator for this indicator is Aboriginal and/or Torres Strait Islander women who had at least one pregnancy between January 2019 and December 2021.
-:::
+::::
 
 ::: {style="opacity: 0.8;"}
 ```{r}
@@ -349,7 +349,7 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 Target: By 2031, increase the proportion of Aboriginal and/or Torres Strait Islander babies with a healthy birthweight to 91%.
 :::
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 ```{r}
@@ -494,7 +494,7 @@ table %>%
                           width = "2in")
 ```
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
@@ -560,31 +560,31 @@ table %>%
                                  "Identified as Aboriginal and/or Torres Strait Islander" = 2))
 ```
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
-::: {.callout-note title="Data notes" icon=false collapse=false}
+:::: {.callout-note title="Data notes" icon=false collapse=false}
 - Data for Figure 6A-3 and Table 6A-3 were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [National Perinatal Data Collection (NPDC)](https://www.aihw.gov.au/about-our-data/our-data-collections/national-perinatal-data-collection).
   - The PHIDU Social Health Atlas is a compendium of demographic, social, health status, and health service utilisation indicators compiled by Torrens University Australia from a wide range of national, jurisdictional, and regional data sources.
   - Data were aggregated for a three-year period (January 2019 to December 2021).
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 - Data for Figure 6A-4 and Table 6A-4 were obtained from the [AIHW Aboriginal and Torres Strait Islander Performance Framework](https://www.indigenoushpf.gov.au/) compiled from the [National Perinatal Data Collection (NPDC)](https://www.aihw.gov.au/about-our-data/our-data-collections/national-perinatal-data-collection).
   - The AIHW Aboriginal and Torres Strait Islander Framework brings together information from a wide range of national, jurisdictional, and regional data sources to report on determinants of health, health outcomes, and health system performance for Aboriginal and/or Torres Strait Islander peoples.
 
-:::{style="height: 1em;"}
-:::
+::: {style="height: 1em;"}
+::::
 
 - The NPDC collates data about births reported by midwives and other birth attendants to the perinatal data collections in each state and territory in Australia.
   - Aboriginal and/or Torres Strait Islander mothers are defined as those who identified themselves as Aboriginal and/or Torres Strait Islander at the time of childbirth.
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 `r note_caveat_underidentification`
@@ -594,7 +594,7 @@ table %>%
 `r note_caveat_iare_suppress`
 
 - *Low birthweight* is defined as a liveborn baby weighing less than 2,500g at birth.
-:::
+::::
 
 ::: {style="opacity: 0.8;"}
 ```{r}
@@ -765,7 +765,7 @@ table %>%
                              column_name = "Breastfeeding duration")
 ```
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
@@ -778,7 +778,7 @@ table %>%
   - The 2018-19 ABS National Aboriginal and Torres Strait Islander Health Survey collected information from Aboriginal and/or Torres Strait Islander people of all ages in non-remote and remote areas of Australia, including discrete Aboriginal and/or Torres Strait Islander communities. 
   - The 2017-18 ABS National Health Survey collected information from Australian residents of all ages living in private dwellings in both urban and rural areas of all Australian states and territories, including very remote communities and discrete Aboriginal and/or Torres Strait Islander communities.
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 `r note_caveat_underidentification`

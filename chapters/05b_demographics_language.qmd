@@ -18,7 +18,7 @@ table_count   <- 0
 `r note_box_underidentification`
 :::
 
-:::{style="height: 2em;"}
+::: {style="height: 2em;"}
 :::
 
 ## Aboriginal and/or Torres Strait Islander Languages
@@ -33,7 +33,7 @@ What proportion of Aboriginal and/or Torres Strait Islander people living in the
 Target: By 2031, there is a sustained increase in number and strength of Aboriginal and/or Torres Strait Islander languages being spoken.
 :::
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 ```{r}
@@ -131,7 +131,7 @@ language_specific <- language_specific %>%
 
 - It was also discussed that higher engagement amongst young people and children may be partly due to the success of community-driven language teaching efforts. The [Victorian Aboriginal Corporation for Languages (VACL)](https://vacl.org.au/) assists local communities with language revitalisation plans by running language camps, school programs, and events. For example, they have [partnered with Thornbury Primary School since 2012](https://www.vaeai.org.au/6895/), where students from Prep to Grade 6 have been learning Woiwurrung, the language of the Wurundjeri People.
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+:::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
 The following question was asked of all people completing the ABS Census 2021.
 
 - Does the person use a language other than English at home?
@@ -144,10 +144,10 @@ The following question was asked of all people completing the ABS Census 2021.
   - Yes, Greek
   - Yes, other language (please specify)
 
-:::{style="height: 2em;"}
+::: {style="height: 2em;"}
 :::
 
-:::
+::::
 
 :::: {.panel-tabset}
 
@@ -207,7 +207,7 @@ table %>%
                           width = "2in")
 ```
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
@@ -265,7 +265,7 @@ table %>%
                       column_name = "Age group")
 ```
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
@@ -322,17 +322,17 @@ table %>%
                           width = "2in")
 ```
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
-::: {.callout-note title="Data notes" icon=false collapse=false}
+:::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 `r note_caveat_underidentification`
@@ -344,7 +344,7 @@ table %>%
 - Woiwurrung is included under Australian Indigenous Languages.
 
 - *Australian Indigenous Languages* includes languages not further described and languages not elsewhere classified.
-:::
+::::
 
 ::: {style="opacity: 0.8;"}
 ```{r}
@@ -397,7 +397,7 @@ language_other <- language_other %>%
 
 - 27 people reporting using Auslan at home.
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+:::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
 The following question was asked of all people completing the ABS Census 2021.
 
 - Does the person use a language other than English at home?
@@ -410,10 +410,10 @@ The following question was asked of all people completing the ABS Census 2021.
   - Yes, Greek
   - Yes, other language (please specify)
   
-:::{style="height: 2em;"}
+::: {style="height: 2em;"}
 :::
 
-:::
+::::
 
 :::: {.panel-tabset}
 
@@ -469,17 +469,17 @@ table %>%
                           width = "2in")
 ```
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
-::: {.callout-note title="Data notes" icon=false collapse=false}
+:::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 `r note_caveat_underidentification`
@@ -487,7 +487,7 @@ table %>%
 `r note_caveat_unknown_agesex`
 
 - When a person listed more than one language, responses were accepted in the order they appeared on the Census form. The first response was included in the data and any extra responses were rejected.
-:::
+::::
 
 ::: {style="opacity: 0.8;"}
 ```{r}
@@ -554,7 +554,7 @@ english_agesex <- english_agesex %>%
 
 - This pattern was seen across all LGAs, for both males and females, and across all age groups.
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+:::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
 The following questions were asked of all people completing the ABS Census 2021.
 
 - Does the person use a language other than English at home?
@@ -567,7 +567,7 @@ The following questions were asked of all people completing the ABS Census 2021.
   - Yes, Greek
   - Yes, other language (please specify)
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 - How well does the person speak English?
@@ -576,10 +576,10 @@ The following questions were asked of all people completing the ABS Census 2021.
   - Not well
   - Not at all
 
-:::{style="height: 2em;"}
+::: {style="height: 2em;"}
 :::
 
-:::
+::::
 
 :::: {.panel-tabset}
 
@@ -639,7 +639,7 @@ table %>%
                           width = "2in")
 ```
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
@@ -697,21 +697,21 @@ table %>%
                       column_name = "Age group")
 ```
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
-::: {.callout-note title="Data notes" icon=false collapse=false}
+:::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 `r note_caveat_underidentification`
 
 `r note_caveat_unknown_agesex`
-:::
+::::
 
