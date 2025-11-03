@@ -165,6 +165,7 @@ colour_stack2    <- "#5BC788"
 colour_stack3    <- "#D55E00"
 colour_stack4    <- "#F0E442"
 colour_stack5    <- "#5C1441"
+colour_stack6    <- "#1C86EE"
 colour_stackgrey <- "gray30"
 
 
