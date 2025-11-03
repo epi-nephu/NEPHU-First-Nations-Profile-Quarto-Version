@@ -84,7 +84,7 @@ f_table_grouped_indigenous <- function(data, n_variable, column_name, total_row 
     kableExtra::row_spec(row  = c(0, total_row),
                          bold = TRUE) %>%
     #
-    kableExtra::column_spec(last_column,
+    kableExtra::column_spec(2:last_column,
                             width = "1.25in") %>% 
     #
     kableExtra::add_header_above(c(" " = 1,

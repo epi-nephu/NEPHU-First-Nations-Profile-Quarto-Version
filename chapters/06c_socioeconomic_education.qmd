@@ -449,7 +449,6 @@ year12_trend %>%
                             y_max      = 100,
                             y_breaks   = 10,
                             y_expand   = 1,
-                            y_title    = "Percentage of people",
                             ctg_target = 96)
 ```
 
@@ -465,9 +464,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- year12_trend %>%
-  f_preptable_grouped_indigenous(x_variable = year) %>% 
-  #
-  dplyr::mutate(total_n = aboriginal_n + non_indigenous_n)
+  f_preptable_grouped_indigenous(x_variable = year)
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -550,8 +547,7 @@ if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
 }
 
 table %>% 
-  f_table_obsexp(total_row   = nrow(table),
-                 column_name = "LGA",
+  f_table_obsexp(column_name = "LGA",
                  header_name = " ")
 ```
 
@@ -581,8 +577,7 @@ if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
 }
 
 table %>% 
-  f_table_obsexp(total_row   = nrow(table),
-                 column_name = "Sex",
+  f_table_obsexp(column_name = "Sex",
                  header_name = " ")
 ```
 
@@ -798,8 +793,7 @@ qualification_lga %>%
   f_bar_stacked_lga(fill_values = c(colour_stack4, colour_stack3, colour_stack2, colour_stack1),
                     y_max       = NA,
                     y_breaks    = 200,
-                    y_expand    = 100,
-                    y_title     = "Number of people")
+                    y_expand    = 100)
 ```
 
 #### Table 6C-6
@@ -874,8 +868,7 @@ qualification_agesex %>%
   f_bar_stacked_agesex(fill_values = c(colour_stack4, colour_stack3, colour_stack2, colour_stack1),
                        y_max       = NA,
                        y_breaks    = 200,
-                       y_expand    = 190,
-                       y_title     = "Number of people")
+                       y_expand    = 190)
 ```
 
 #### Table 6C-7
@@ -1110,7 +1103,6 @@ uni_trend %>%
                             y_max      = 100,
                             y_breaks   = 10,
                             y_expand   = 1,
-                            y_title    = "Percentage of people",
                             ctg_target = 70)
 ```
 
@@ -1126,9 +1118,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- uni_trend %>% 
-  f_preptable_grouped_indigenous(x_variable = year) %>% 
-  #
-  dplyr::mutate(total_n = aboriginal_n + non_indigenous_n)
+  f_preptable_grouped_indigenous(x_variable = year)
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -1211,8 +1201,7 @@ if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
 }
 
 table %>% 
-  f_table_obsexp(total_row   = nrow(table),
-                 column_name = "LGA",
+  f_table_obsexp(column_name = "LGA",
                  header_name = " ")
 ```
 
@@ -1242,8 +1231,7 @@ if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
 }
 
 table %>% 
-  f_table_obsexp(total_row   = nrow(table),
-                 column_name = "Sex",
+  f_table_obsexp(column_name = "Sex",
                  header_name = " ")
 ```
 

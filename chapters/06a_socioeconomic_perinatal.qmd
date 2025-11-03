@@ -553,6 +553,9 @@ table %>%
                                    "Yes (%)",
                                    "No (%)")) %>% 
   #
+  kableExtra::column_spec(2:3,
+                          width = "1.75in") %>% 
+  #
   kableExtra::add_header_above(c(" " = 1,
                                  "Identified as Aboriginal and/or Torres Strait Islander" = 2))
 ```

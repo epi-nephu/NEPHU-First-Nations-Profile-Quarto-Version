@@ -132,11 +132,14 @@ f_preptable_grouped_indigenous <- function(data, x_variable) {
     #
     janitor::clean_names() %>%
     #
+    dplyr::mutate(total_n = aboriginal_n + non_indigenous_n) %>% 
+    #
     dplyr::select(!!x_variable,
                   aboriginal_n,
                   aboriginal_prop,
                   non_indigenous_n,
-                  non_indigenous_prop) %>% 
+                  non_indigenous_prop,
+                  total_n) %>% 
     #
     dplyr::arrange(!!x_variable)
   

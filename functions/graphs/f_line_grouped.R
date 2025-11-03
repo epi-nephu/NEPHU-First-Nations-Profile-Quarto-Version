@@ -7,8 +7,7 @@
 ################################################################################
 # Classic grouped line chart
 ################################################################################
-f_line_grouped <- function(data, y_variable, fill_variable, fill_values, 
-                           y_max, y_breaks, y_expand, y_title, ctg_target = NA) {
+f_line_grouped <- function(data, y_variable, fill_variable, fill_values, y_max, y_breaks, y_expand, y_title = "Percentage of people", ctg_target = NA) {
 
   y_variable    <- rlang::enquo(y_variable)
   fill_variable <- rlang::enquo(fill_variable)
@@ -93,7 +92,7 @@ f_line_grouped <- function(data, y_variable, fill_variable, fill_values,
 ################################################################################
 # By indigenous status
 ################################################################################
-f_line_grouped_indigenous <- function(data, y_variable, y_max, y_breaks, y_expand, y_title, ctg_target = NA) {
+f_line_grouped_indigenous <- function(data, y_variable, y_max, y_breaks, y_expand, y_title = "Percentage of people", ctg_target = NA) {
   
   y_variable <- rlang::enquo(y_variable)
 

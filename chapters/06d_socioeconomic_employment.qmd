@@ -163,6 +163,9 @@ The following questions were asked of all people aged 15 years and over completi
   - No, already had a job to go to
   - No, temporarily ill or injured
   - No, other reason
+  
+:::{style="height: 2em;"}
+:::
 
 :::
 
@@ -223,11 +226,9 @@ table %>%
                 partially_prop = sprintf("%.1f", partially_prop),
                 not_prop       = sprintf("%.1f", not_prop)) %>% 
   #
-  f_table_simple(total_row     = nrow(table),
-                 table_headers = c("LGA", "n", "%", "n", "%", "n", "%", "Total")) %>% 
-  #
-  kableExtra::column_spec(2:8,
-                          width = "1in") %>% 
+  f_table_simple(table_headers = c("LGA", 
+                                   "Count", "Percent", "Count", "Percent", "Count", "Percent",
+                                   "Total")) %>% 
   #
   kableExtra::add_header_above(c(" " = 1,
                                  "Fully engaged"     = 2,
@@ -301,10 +302,10 @@ table %>%
   dplyr::select(-sex) %>% 
   #
   f_table_simple(total_row     = nrow(table) / 2,
-                 table_headers = c("Age group", "n", "%", "n", "%", "n", "%", "Total")) %>% 
-  #
-  kableExtra::column_spec(2:8,
-                          width = "1in") %>% 
+                 last_column   = ncol(table) - 1,
+                 table_headers = c("Age group",
+                                   "Count", "Percent", "Count", "Percent", "Count", "Percent",
+                                   "Total")) %>%
   #
   kableExtra::add_header_above(c("Female" = 1,
                                  "Fully engaged"     = 2,
@@ -318,10 +319,10 @@ table %>%
   dplyr::select(-sex) %>% 
   #
   f_table_simple(total_row     = nrow(table) / 2,
-                 table_headers = c("Age group", "n", "%", "n", "%", "n", "%", "Total")) %>% 
-  #
-  kableExtra::column_spec(2:8,
-                          width = "1in") %>% 
+                 last_column   = ncol(table) - 1,
+                 table_headers = c("Age group",
+                                   "Count", "Percent", "Count", "Percent", "Count", "Percent",
+                                   "Total")) %>% 
   #
   kableExtra::add_header_above(c("Male" = 1,
                                  "Fully engaged"     = 2,
@@ -493,6 +494,9 @@ The following questions were asked of all people aged 15 years and over completi
   - No, already had a job to go to
   - No, temporarily ill or injured
   - No, other reason
+  
+:::{style="height: 2em;"}
+:::
 
 :::
 
@@ -515,7 +519,6 @@ fully_trend %>%
                             y_max      = 100,
                             y_breaks   = 10,
                             y_expand   = 1,
-                            y_title    = "Percentage of people",
                             ctg_target = 67)
 ```
 
@@ -543,8 +546,9 @@ table %>%
   dplyr::mutate(aboriginal_prop     = sprintf("%.1f", aboriginal_prop),
                 non_indigenous_prop = sprintf("%.1f", non_indigenous_prop)) %>% 
   #
-  f_table_grouped_indigenous(column_name = "Year",
-                             total_row  = NULL)
+  f_table_grouped_indigenous(n_variable  = "count",
+                             column_name = "Year",
+                             total_row   = NULL)
 ```
 
 :::{style="height: 1em;"}
@@ -613,8 +617,7 @@ if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
 }
 
 table %>% 
-  f_table_obsexp(total_row   = nrow(table),
-                 column_name = "LGA",
+  f_table_obsexp(column_name = "LGA",
                  header_name = NULL)
 ```
 
@@ -644,8 +647,7 @@ if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
 }
 
 table %>% 
-  f_table_obsexp(total_row   = nrow(table),
-                 column_name = "Sex",
+  f_table_obsexp(column_name = "Sex",
                  header_name = " ")
 ```
 
@@ -663,23 +665,18 @@ table %>%
 ```{r}
 #
 fully_age %>%
-  dplyr::filter(unit == "prop") %>% 
+  dplyr::filter(unit == "prop") %>%
   #
-  dplyr::mutate(
-    hover_text = paste0(age, "\n",
-                        indigenous_label, "\n",
-                        "Percentage: ", sprintf("%.1f", vic))) %>%
+  dplyr::rename(prop = vic) %>%
   #
-  f_bar_grouped(x_variable    = age,
-                y_variable    = vic,
-                fill_variable = indigenous_status,
-                fill_values   = c(colour_aboriginal, colour_nonaboriginal),
-                y_max         = 100,
-                y_breaks      = 10,
-                y_expand      = 1,
-                y_title       = "Percentage of people",
-                x_angle       = 0,
-                legend_offset = -0.1)
+  f_bar_grouped_indigenous(x_variable    = age,
+                           y_variable    = prop,
+                           y_max         = 100,
+                           y_breaks      = 10,
+                           y_expand      = 1,
+                           y_title       = "Percentage of people",
+                           x_angle       = 0,
+                           legend_offset = -0.1)
 ```
 
 #### Table 6D-6
@@ -692,10 +689,6 @@ fully_age %>%
 #
 table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
-table_headers <- c("Age",
-                   "Yes (n)", "Yes (%)",
-                   "No (n)", "No (%)")
 
 table <- fully_age %>% 
   f_preptable_grouped_indigenous(x_variable = age)
@@ -710,8 +703,9 @@ table %>%
   dplyr::mutate(aboriginal_prop     = sprintf("%.1f", aboriginal_prop),
                 non_indigenous_prop = sprintf("%.1f", non_indigenous_prop)) %>% 
   #
-  f_table_grouped_indigenous(column_name = "Age",
-                             total_row  = NULL)
+  f_table_grouped_indigenous(n_variable  = "count",
+                             column_name = "Age",
+                             total_row   = NULL)
 ```
 
 :::{style="height: 1em;"}
@@ -890,6 +884,9 @@ The following questions were asked of all people aged 15 years and over completi
   - No, temporarily ill or injured
   - No, other reason
 
+:::{style="height: 2em;"}
+:::
+
 :::
 
 :::: {.panel-tabset}
@@ -952,17 +949,14 @@ table %>%
                 leave_prop = sprintf("%.1f", leave_prop),
                 not_prop   = sprintf("%.1f", not_prop)) %>% 
   #
-  f_table_simple(total_row     = nrow(table),
-                 table_headers = c("LGA",
-                                   "n", "%", "n", "%", "n", "%", "n", "%", "Total")) %>% 
-  #
-  kableExtra::column_spec(2:10,
-                          width = "1in") %>% 
+  f_table_simple(table_headers = c("LGA",
+                                   "Count", "Percent", "Count", "Percent", "Count", "Percent", "Count", "Percent",
+                                   "Total")) %>%
   #
   kableExtra::add_header_above(c(" " = 1,
-                                 "Employed\n(full-time)" = 2,
-                                 "Employed\n(part-time)" = 2,
-                                 "Employed\n(on leave)"  = 2,
+                                 "Employed (full-time)" = 2,
+                                 "Employed (part-time)" = 2,
+                                 "Employed (on leave)"  = 2,
                                  "Unemployed"            = 2,
                                  " " = 1))
 ```
@@ -1035,16 +1029,18 @@ table %>%
   dplyr::select(-sex) %>% 
   #
   f_table_simple(total_row     = nrow(table) / 2,
+                 last_column   = ncol(table) - 1,
                  table_headers = c("Age group",
-                                   "n", "%", "n", "%", "n", "%", "n", "%", "Total")) %>% 
+                                   "Count", "Percent", "Count", "Percent", "Count", "Percent", "Count", "Percent",
+                                   "Total")) %>%
   #
   kableExtra::column_spec(2:10,
-                          width = "1in") %>% 
+                          width = "0.75in") %>%
   #
   kableExtra::add_header_above(c("Female" = 1,
-                                 "Employed\n(full-time)" = 2,
-                                 "Employed\n(part-time)" = 2,
-                                 "Employed\n(on leave)"  = 2,
+                                 "Employed (full-time)" = 2,
+                                 "Employed (part-time)" = 2,
+                                 "Employed (on leave)"  = 2,
                                  "Unemployed"            = 2,
                                  " " = 1))
 
@@ -1054,16 +1050,18 @@ table %>%
   dplyr::select(-sex) %>% 
   #
   f_table_simple(total_row     = nrow(table) / 2,
+                 last_column   = ncol(table) - 1,
                  table_headers = c("Age group",
-                                   "n", "%", "n", "%", "n", "%", "n", "%", "Total")) %>% 
+                                   "Count", "Percent", "Count", "Percent", "Count", "Percent", "Count", "Percent",
+                                   "Total")) %>%
   #
   kableExtra::column_spec(2:10,
-                          width = "1in") %>% 
+                          width = "0.75in") %>%
   #
   kableExtra::add_header_above(c("Male" = 1,
-                                 "Employed\n(full-time)" = 2,
-                                 "Employed\n(part-time)" = 2,
-                                 "Employed\n(on leave)"  = 2,
+                                 "Employed (full-time)" = 2,
+                                 "Employed (part-time)" = 2,
+                                 "Employed (on leave)"  = 2,
                                  "Unemployed"            = 2,
                                  " " = 1))
 ```
@@ -1212,6 +1210,9 @@ The following questions were asked of all people aged 15 years and over completi
   - No, temporarily ill or injured
   - No, other reason
 
+:::{style="height: 2em;"}
+:::
+
 :::
 
 :::: {.panel-tabset}
@@ -1233,7 +1234,6 @@ status_trend %>%
                             y_max      = 100,
                             y_breaks   = 10,
                             y_expand   = 1,
-                            y_title    = "Percentage of people",
                             ctg_target = 62)
 ```
 
@@ -1261,8 +1261,9 @@ table %>%
   dplyr::mutate(aboriginal_prop     = sprintf("%.1f", aboriginal_prop),
                 non_indigenous_prop = sprintf("%.1f", non_indigenous_prop)) %>% 
   #
-  f_table_grouped_indigenous(column_name = "Year",
-                             total_row  = NULL)
+  f_table_grouped_indigenous(n_variable  = "count",
+                             column_name = "Year",
+                             total_row   = NULL)
 ```
 
 :::{style="height: 1em;"}
@@ -1331,8 +1332,7 @@ if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
 }
 
 table %>% 
-  f_table_obsexp(total_row   = nrow(table),
-                 column_name = "LGA",
+  f_table_obsexp(column_name = "LGA",
                  header_name = NULL)
 ```
 
@@ -1362,8 +1362,7 @@ if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
 }
 
 table %>% 
-  f_table_obsexp(total_row   = nrow(table),
-                 column_name = "Sex",
+  f_table_obsexp(column_name = "Sex",
                  header_name = " ")
 ```
 
@@ -1471,6 +1470,9 @@ The following question was asked of all people aged 15 years and over completing
   - No, did not do any voluntary work
   - Yes, did voluntary work
 
+:::{style="height: 2em;"}
+:::
+
 :::
 
 :::: {.panel-tabset}
@@ -1535,8 +1537,7 @@ if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
 }
 
 table %>% 
-  f_table_obsexp(total_row   = nrow(table),
-                 column_name = "LGA",
+  f_table_obsexp(column_name = "LGA",
                  header_name = " ")
 ```
 

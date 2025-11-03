@@ -4,7 +4,7 @@
 #
 # Table type: observed/expected tables
 
-f_table_obsexp <- function(data, total_row, column_name, header_name) {
+f_table_obsexp <- function(data, total_row = nrow(table), column_name, header_name) {
   
   if (is.null(header_name) || header_name == "") {
     header_name <- " "
@@ -34,7 +34,7 @@ f_table_obsexp <- function(data, total_row, column_name, header_name) {
                             width = "1in") %>%
     #
     kableExtra::column_spec(6,
-                            width = "1.25in")
+                            width = "1.5in")
 
   header_labels <- c(header_name, 
                      "Observed values\n(identified as Aboriginal\nand/or Torres Strait Islander)",
