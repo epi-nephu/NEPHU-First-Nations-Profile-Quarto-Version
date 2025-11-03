@@ -115,7 +115,7 @@ engaged_agesex <- engaged_agesex %>%
 
 - Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
 
--	Overall, 52% (n = 4,334) of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census were fully engaged in employment, education, or training and a further 19% (n = 1,590) were partially engaged.
+- Overall, 52% (n = 4,334) of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census were fully engaged in employment, education, or training and a further 19% (n = 1,590) were partially engaged.
 
 - The number of people who identified as Aboriginal and/or Torres Strait Islander in the Census living in different LGAs within the NEPHU catchment who were fully engaged in employment, education, or training ranged from 724 (Whittlesea LGA) to 125 (Nillumbik LGA).
 
