@@ -22,7 +22,7 @@ table_count   <- 0
 `r note_box_obsexp`
 :::
 
-:::{style="height: 2em;"}
+::: {style="height: 2em;"}
 :::
 
 ::: {.key-question}
@@ -123,7 +123,7 @@ engaged_agesex <- engaged_agesex %>%
 
 - Younger people were more likely to be fully or partially engaged in employment, education, or training. Males were more likely to be fully engaged and females were more likely to be partially engaged.
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+:::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
 The following questions were asked of all people aged 15 years and over completing the ABS Census 2021. Responses were cross tabulated to determine the type of engagement in work and/or study (fully engaged, partially engaged, at least partially engaged, not engaged) for each respondent.
 
 - Is the person attending a school or any other education institution?
@@ -131,7 +131,7 @@ The following questions were asked of all people aged 15 years and over completi
   - Yes, full-time student
   - Yes, part-time student
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 - Last week, did the person have a job of any kind?
@@ -141,13 +141,13 @@ The following questions were asked of all people aged 15 years and over completi
   - Yes, other unpaid work
   - No, did not have a job
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 - Last week, how many hours did the person work in all jobs?
   - Free text response
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 - Did the person actively look for work at any time in the last four weeks?
@@ -155,7 +155,7 @@ The following questions were asked of all people aged 15 years and over completi
   - Yes, looked for full-time work
   - Yes, looked for part-time work
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 - If the person had found a job, could they have started work last week?
@@ -164,10 +164,10 @@ The following questions were asked of all people aged 15 years and over completi
   - No, temporarily ill or injured
   - No, other reason
   
-:::{style="height: 2em;"}
+::: {style="height: 2em;"}
 :::
 
-:::
+::::
 
 :::: {.panel-tabset}
 
@@ -237,7 +237,7 @@ table %>%
                                  " " = 1))
 ```
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
@@ -331,23 +331,23 @@ table %>%
                                  " " = 1))
 ```
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
-::: {.callout-note title="Data notes" icon=false collapse=false}
+:::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 `r note_caveat_underidentification`
 
 `r note_caveat_unknown_agesex`
-:::
+::::
 
 ### Young Adults
 
@@ -357,7 +357,7 @@ table %>%
 Target: By 2031, increase the proportion of Aboriginal and Torres Strait Islander youth (aged 15-24 years) who are in employment, education, or training to 67%.
 :::
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 ```{r}
@@ -454,7 +454,7 @@ fully_age <- f_read_ctg_indigenous("CTG07_Employment_Education_Data_Tables.xlsx"
 
 - Given the improvement seen in youth engagement in education, employment, or training over time, it was also discussed whether the Closing the Gap target should now be higher.
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+:::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
 The following questions were asked of all people aged 15 years and over completing the ABS Census 2021. Responses were cross tabulated to determine the type of engagement in work and/or study (fully engaged, partially engaged, at least partially engaged, not engaged) for each respondent.
 
 - Is the person attending a school or any other education institution?
@@ -462,7 +462,7 @@ The following questions were asked of all people aged 15 years and over completi
   - Yes, full-time student
   - Yes, part-time student
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 - Last week, did the person have a job of any kind?
@@ -472,13 +472,13 @@ The following questions were asked of all people aged 15 years and over completi
   - Yes, other unpaid work
   - No, did not have a job
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 - Last week, how many hours did the person work in all jobs?
   - Free text response
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 - Did the person actively look for work at any time in the last four weeks?
@@ -486,7 +486,7 @@ The following questions were asked of all people aged 15 years and over completi
   - Yes, looked for full-time work
   - Yes, looked for part-time work
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 - If the person had found a job, could they have started work last week?
@@ -495,10 +495,10 @@ The following questions were asked of all people aged 15 years and over completi
   - No, temporarily ill or injured
   - No, other reason
   
-:::{style="height: 2em;"}
+::: {style="height: 2em;"}
 :::
 
-:::
+::::
 
 :::: {.panel-tabset}
 
@@ -551,7 +551,7 @@ table %>%
                              total_row   = NULL)
 ```
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
@@ -621,7 +621,7 @@ table %>%
                  header_name = NULL)
 ```
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
@@ -651,7 +651,7 @@ table %>%
                  header_name = " ")
 ```
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
@@ -708,30 +708,30 @@ table %>%
                              total_row   = NULL)
 ```
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
-::: {.callout-note title="Data notes" icon=false collapse=false}
+:::: {.callout-note title="Data notes" icon=false collapse=false}
 
 `r note_data_census`
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 - Data for Figure 6D-3 and Table 6D-3 were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the ABS Census for the Census years between 2001 and 2021.
   - The Closing the Gap Information Repository brings together data from a wide range of data sources to provide up to date information for each Closing the Gap target, indicator, and contextual factors.
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 `r note_caveat_underidentification`
 
 `r note_caveat_unknown_agesex`
-:::
+::::
 
 ::: {style="opacity: 0.8;"}
 ```{r}
@@ -844,7 +844,7 @@ status_agesex <- status_agesex %>%
 
 - Males were more likely to be employed full-time than females.
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+:::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
 The following questions were asked of all people aged 15 years and over completing the ABS Census 2021. Responses were cross tabulated to determine the labour force status (employed full-time, employed part-time, employed but away from work, unemployed but looking for work, not in the labour force) for each respondent.
 
 - Last week, did the person have a job of any kind?
@@ -854,20 +854,20 @@ The following questions were asked of all people aged 15 years and over completi
   - Yes, other unpaid work
   - No, did not have a job
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 - In the main job held last week, was the person:
   - Working for an employer
   - Working in own business
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 - Last week, how many hours did the person work in all jobs?
   - Free text response
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 - Did the person actively look for work at any time in the last four weeks?
@@ -875,7 +875,7 @@ The following questions were asked of all people aged 15 years and over completi
   - Yes, looked for full-time work
   - Yes, looked for part-time work
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 - If the person had found a job, could they have started work last week?
@@ -884,10 +884,10 @@ The following questions were asked of all people aged 15 years and over completi
   - No, temporarily ill or injured
   - No, other reason
 
-:::{style="height: 2em;"}
+::: {style="height: 2em;"}
 :::
 
-:::
+::::
 
 :::: {.panel-tabset}
 
@@ -961,7 +961,7 @@ table %>%
                                  " " = 1))
 ```
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
@@ -1066,17 +1066,17 @@ table %>%
                                  " " = 1))
 ```
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
-::: {.callout-note title="Data notes" icon=false collapse=false}
+:::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 `r note_caveat_underidentification`
@@ -1086,7 +1086,7 @@ table %>%
 - Employed people are defined as those who were employed full-time (35 hours or more per week), part-time (less than 35 hours per week), or on leave from work in the week prior to Census night.
 
 - Unemployed people are defined as people who were not currently employed and were actively looking for work (either part-time or full-time) or people who were not part of the labour force.
-:::
+::::
 
 ### Working Age Adults
 
@@ -1096,7 +1096,7 @@ table %>%
 Target: By 2031, increase the proportion of Aboriginal and Torres Strait Islander people aged 25-64 years who are employed to 62%.
 :::
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 ```{r}
@@ -1170,7 +1170,7 @@ status_working_sex <- status_working %>%
 
 - 66% (n = 1,661) of females living in the NEPHU catchment aged 25-64 years who identified as Aboriginal and/or Torres Strait Islander in the Census were employed (full-time, part-time, or on leave), compared to 73% (n = 1,792) of males.
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+:::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
 The following questions were asked of all people aged 15 years and over completing the ABS Census 2021. Responses were cross tabulated to determine the labour force status (employed full-time, employed part-time, employed but away from work, unemployed but looking for work, not in the labour force) for each respondent.
 
 - Last week, did the person have a job of any kind?
@@ -1180,20 +1180,20 @@ The following questions were asked of all people aged 15 years and over completi
   - Yes, other unpaid work
   - No, did not have a job
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 - In the main job held last week, was the person:
   - Working for an employer
   - Working in own business
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 - Last week, how many hours did the person work in all jobs?
   - Free text response
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 - Did the person actively look for work at any time in the last four weeks?
@@ -1201,7 +1201,7 @@ The following questions were asked of all people aged 15 years and over completi
   - Yes, looked for full-time work
   - Yes, looked for part-time work
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 - If the person had found a job, could they have started work last week?
@@ -1210,10 +1210,10 @@ The following questions were asked of all people aged 15 years and over completi
   - No, temporarily ill or injured
   - No, other reason
 
-:::{style="height: 2em;"}
+::: {style="height: 2em;"}
 :::
 
-:::
+::::
 
 :::: {.panel-tabset}
 
@@ -1266,7 +1266,7 @@ table %>%
                              total_row   = NULL)
 ```
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
@@ -1336,7 +1336,7 @@ table %>%
                  header_name = NULL)
 ```
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
@@ -1366,24 +1366,24 @@ table %>%
                  header_name = " ")
 ```
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
-::: {.callout-note title="Data notes" icon=false collapse=false}
+:::: {.callout-note title="Data notes" icon=false collapse=false}
 
 `r note_data_census`
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 - Data for Figure 6D-3 and Table 6D-3 were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the ABS Census for the Census years between 2001 and 2021.
   - The Closing the Gap Information Repository brings together data from a wide range of data sources to provide up to date information for each Closing the Gap target, indicator, and contextual factors.
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 `r note_caveat_underidentification`
@@ -1393,7 +1393,7 @@ table %>%
 - Employed people are defined as those who were employed full-time (35 hours or more per week), part-time (less than 35 hours per week), or on leave from work in the week prior to Census night.
 
 - Unemployed people are defined as people who were not currently employed and were actively looking for work (either part-time or full-time) or people who were not part of the labour force.
-:::
+::::
 
 ::: {style="opacity: 0.8;"}
 ```{r}
@@ -1463,24 +1463,24 @@ volunteer_agesex <- volunteer_agesex %>%
 
 - It was discussed that many Aboriginal and/or Torres Strait Islander people do not see helping out in their community as volunteering activity, but rather something that is just done.
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+:::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
 The following question was asked of all people aged 15 years and over completing the ABS Census 2021.
 
 - In the last 12 months did the person spend any time doing unpaid voluntary work for an organisation or group?
   - No, did not do any voluntary work
   - Yes, did voluntary work
 
-:::{style="height: 2em;"}
+::: {style="height: 2em;"}
 :::
 
-:::
+::::
 
 :::: {.panel-tabset}
 
 #### Figure 6D-12
 
 ::: {#fig_6D_12 .fig-tab-title}
-**Figure 6D-12:**: Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who did volunteer work for an organisation or group, NEPHU catchment, by LGA, 2021
+**Figure 6D-12:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who did volunteer work for an organisation or group, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
@@ -1505,7 +1505,7 @@ f_bar_simple_combine(figure_number, figure_percent)
 #### Figure 6D-13
 
 ::: {#fig_6D_13 .fig-tab-title}
-**Figure 6D-13:**: Observed vs. expected number of people who did volunteer work for an organisation or group and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+**Figure 6D-13:** Observed vs. expected number of people who did volunteer work for an organisation or group and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
@@ -1541,15 +1541,15 @@ table %>%
                  header_name = " ")
 ```
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Figure 6D-13
+#### Figure 6D-14
 
-::: {#fig_6D_13 .fig-tab-title}
-**Figure 6D-13:**: Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who did volunteer work for an organisation or group, NEPHU catchment, by age and sex, 2021
+::: {#fig_6D_14 .fig-tab-title}
+**Figure 6D-14:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who did volunteer work for an organisation or group, NEPHU catchment, by age and sex, 2021
 :::
 
 ```{r}
@@ -1571,10 +1571,10 @@ figure_percent <- volunteer_agesex %>%
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
 
-#### Figure 6D-14
+#### Figure 6D-15
 
-::: {#fig_6D_14 .fig-tab-title}
-**Figure 6D-14:**: Observed vs. expected number of people who did volunteer work for an organisation or group and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021 
+::: {#fig_6D_15 .fig-tab-title}
+**Figure 6D-15:** Observed vs. expected number of people who did volunteer work for an organisation or group and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021 
 :::
 
 ```{r}
@@ -1624,24 +1624,24 @@ table %>%
                  header_name = "Male")
 ```
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
-::: {.callout-note title="Data notes" icon=false collapse=false}
+:::: {.callout-note title="Data notes" icon=false collapse=false}
 
 `r note_data_census`
 
-:::{style="height: 1em;"}
+::: {style="height: 1em;"}
 :::
 
 `r note_caveat_underidentification`
 
 `r note_caveat_unknown_agesex`
-:::
+::::
 
 ::: {style="opacity: 0.8;"}
 ```{r}
@@ -1649,4 +1649,248 @@ table %>%
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
 :::
+
+## Unpaid Carers
+
+```{r}
+# ------------------------------------------------------------------------------
+# Unpaid carers - entire population, by LGA
+# Data from ABS Census using TableBuilderPro
+# ------------------------------------------------------------------------------
+# Read in Census data
+carer_lga <- f_read_census_lga("Aboriginal_Employment_Carer_LGA.csv",
+                               variable = "carer") %>% 
+  #
+  dplyr::filter(!carer %in% c("Not stated", "Not applicable"))
+
+# Data wrangling
+carer_lga <- carer_lga %>% 
+  #
+  dplyr::mutate(carer = dplyr::case_when(
+    carer == "Provided unpaid assistance" ~ "yes",
+    TRUE ~ "no")) %>% 
+  #
+  f_wrangle_census_lga(variable = carer,
+                       level    = "person",
+                       dichot   = "yes")
+
+# ------------------------------------------------------------------------------
+# Unpaid carers - entire population, by age and sex
+# Data from ABS Census using TableBuilderPro
+# ------------------------------------------------------------------------------
+# Read in Census data
+carer_agesex <- f_read_census_agesex("Aboriginal_Employment_Carer_AgeSex.csv",
+                                     variable = "carer") %>% 
+  #
+  dplyr::filter(!carer %in% c("Not stated", "Not applicable"))
+
+# Data wrangling
+carer_agesex <- carer_agesex %>%
+  #
+  dplyr::mutate(carer = dplyr::case_when(
+    carer == "Provided unpaid assistance" ~ "yes",
+    #
+    TRUE ~ "no")) %>% 
+  
+  f_wrangle_census_agesex(variable = carer,
+                          dichot   = "yes")
+```
+
+- Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
+
+- Overall, 17% (n = 1,430) of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census undertook unpaid caring duties. This was higher than for non-Indigenous people living in the NEPHU catchment (14%).
+
+- The number of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who undertook unpaid caring duties ranged from 233 (Hume LGA) to 35 (Manningham LGA).
+
+- The gap between Aboriginal and/or Torres Strait Islander and non-Indigenous people was biggest for Hume, Knox, and Whittlesea LGAs.
+
+- The percentage of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who undertook unpaid caring duties ranged from 22% (Whitehorse LGA) to 13% (Yarra LGA).
+
+- Females were more likely to undertake unpaid caring duties compared to males.
+
+**Key points from stakeholder consultation**
+
+- The Aboriginal kinship system is a cultural strength of communities and often creates a network of people who have caring responsibilities.
+
+- Individuals may not be defining themselves as ‘carers’ despite undertaking unpaid caring duties for family or other community members. This could lead to an underestimate of the number of unpaid carers.
+
+:::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+The following question was asked of all people aged 15 years and over completing the ABS Census 2021.
+
+- In the last two weeks did the person spend time providing unpaid care, help, or assistance to family members or others because of a disability, a long-term health condition, or problems related to old age?
+  - No, did not provide unpaid care, help, or assistance
+  - Yes, provided unpaid care, help, or assistance
+
+::: {style="height: 2em;"}
+:::
+
+::::
+
+:::: {.panel-tabset}
+
+#### Figure 6D-16
+
+::: {#fig_6D_16 .fig-tab-title}
+**Figure 6D-16:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who undertook unpaid caring duties, NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+figure_number <- carer_lga %>% 
+  f_bar_simple_lga(y_variable = aboriginal_n,
+                   y_max      = NA,
+                   y_breaks   = 25,
+                   y_expand   = 20,
+                   y_title    = "Number of people")
+
+figure_percent <- carer_lga %>% 
+  f_bar_simple_lga(y_variable = aboriginal_prop,
+                   y_max      = 50,
+                   y_breaks   = 5,
+                   y_expand   = 0.5,
+                   y_title    = "Percentage of people")
+
+f_bar_simple_combine(figure_number, figure_percent)
+```
+
+#### Figure 6D-17
+
+::: {#fig_6D_17 .fig-tab-title}
+**Figure 6D-17:** Observed vs. expected number of people who undertook unpaid caring duties and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+carer_lga %>% 
+  f_bar_obsexp_lga(y_max    = NA,
+                   y_breaks = 25,
+                   y_expand = 20)
+```
+
+#### Table 6D-14
+
+::: {#tab_6D_14 .fig-tab-title}
+**Table 6D-14:** Observed vs. expected number of people who undertook unpaid caring duties and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- carer_lga %>%
+  f_preptable_obsexp_lga()
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  f_table_obsexp(column_name = "LGA",
+                 header_name = " ")
+```
+
+::: {style="height: 1em;"}
+:::
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+#### Figure 6D-18
+
+::: {#fig_6D_18 .fig-tab-title}
+**Figure 6D-18:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who undertook unpaid caring duties, NEPHU catchment, by age and sex, 2021
+:::
+
+```{r}
+#
+figure_number <- carer_agesex %>% 
+  f_bar_grouped_agesex(y_variable = aboriginal_n,
+                       y_max      = NA,
+                       y_breaks   = 25,
+                       y_expand   = 15,
+                       y_title    = "Number of people")
+
+figure_percent <- carer_agesex %>% 
+  f_bar_grouped_agesex(y_variable = aboriginal_prop,
+                       y_max      = 50,
+                       y_breaks   = 5,
+                       y_expand   = 0.5,
+                       y_title    = "Percentage of people")
+
+f_bar_grouped_combine(figure_number, figure_percent)
+```
+
+#### Figure 6D-19
+
+::: {#fig_6D_19 .fig-tab-title}
+**Figure 6D-19:** Observed vs. expected number of people who undertook unpaid caring duties and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
+:::
+
+```{r}
+#
+carer_agesex %>% 
+  f_bar_obsexp_agesex(y_max    = NA,
+                      y_breaks = 25,
+                      y_expand = 20)
+```
+
+#### Table 6D-15
+
+::: {#tab_6D_15 .fig-tab-title}
+**Table 6D-15:** Observed vs. expected number of people who undertook unpaid caring duties and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- carer_agesex %>%
+  f_preptable_obsexp_agesex()
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::filter(sex == "Female") %>%
+  #
+  dplyr::select(-sex) %>% 
+  #
+  f_table_obsexp(total_row   = nrow(table) / 2,
+                 column_name = "Age group",
+                 header_name = "Female")
+
+table %>% 
+  dplyr::filter(sex == "Male") %>%
+  #
+  dplyr::select(-sex) %>% 
+  #
+  f_table_obsexp(total_row   = nrow(table) / 2,
+                 column_name = "Age group",
+                 header_name = "Male")
+```
+
+::: {style="height: 1em;"}
+:::
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+:::: {.callout-note title="Data notes" icon=false collapse=false}
+
+`r note_data_census`
+
+::: {style="height: 1em;"}
+:::
+
+`r note_caveat_underidentification`
+
+`r note_caveat_unknown_agesex`
+::::
 
