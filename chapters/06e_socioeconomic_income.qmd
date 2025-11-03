@@ -1,0 +1,459 @@
+---
+title: "Income"
+---
+
+```{r}
+#
+source(here::here("setup.R"))
+source(here::here("setup_footnotes.R"))
+
+# Set up numbering for exporting tables as .csv
+table_section <- "06E"
+table_count   <- 0
+
+figure_count <- 0
+```
+
+::: {.caveat-box}
+**A note about the impact of under-identification**
+
+`r note_box_underidentification`
+:::
+
+::: {style="height: 2em;"}
+:::
+
+::: {.key-question}
+What is the average income for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment?
+:::
+
+## Weekly Household Income
+
+```{r}
+# ------------------------------------------------------------------------------
+# Household weekly income
+# Data from ABS Census using TableBuilderPro
+# ------------------------------------------------------------------------------
+# Read in Census data
+household <- f_read_census_lga("Aboriginal_Income_Household.csv",
+                               variable = "income") %>% 
+  #
+  dplyr::filter(!income %in% c("Partial income stated", "All incomes not stated", "Not applicable")) %>%
+  #
+  dplyr::mutate(income = dplyr::case_when(
+    income == "$3,500 or more ($182,000 or more)" ~ "More than 3000",
+    income == "$3,000-$3,499 ($156,000-$181,999)" ~ "More than 3000",
+    income == "$2,500-$2,999 ($130,000-$155,999)" ~ "1500 to 2999",
+    income == "$2,000-$2,499 ($104,000-$129,999)" ~ "1500 to 2999",
+    income == "$1,750-$1,999 ($91,000-$103,999)"  ~ "1500 to 2999",
+    income == "$1,500-$1,749 ($78,000-$90,999)"   ~ "1500 to 2999",
+    income == "$1,250-$1,499 ($65,000-$77,999)"   ~ "500 to 1499",
+    income == "$1,000-$1,249 ($52,000-$64,999)"   ~ "500 to 1499",
+    income == "$800-$999 ($41,600-$51,999)"       ~ "500 to 1499",
+    income == "$650-$799 ($33,800-$41,599)"       ~ "500 to 1499",
+    income == "$500-$649 ($26,000-$33,799)"       ~ "500 to 1499",
+    income == "$400-$499 ($20,800-$25,999)"       ~ "Less than 499",
+    income == "$300-$399 ($15,600-$20,799)"       ~ "Less than 499",
+    income == "$150-$299 ($7,800-$15,599)"        ~ "Less than 499",
+    income == "$1-$149 ($1-$7,799)"               ~ "Less than 499",
+    income == "Nil income"                        ~ "Less than 499",
+    TRUE ~ NA_character_))
+
+# Data wrangling
+household_lga <- household %>% 
+  f_wrangle_census_lga(variable = income,
+                       level    = "household",
+                       dichot   = "no") %>% 
+  #
+  dplyr::mutate(more_3000_prop = aboriginal_n_more_than_3000 / aboriginal_total * 100,
+                more_1500_prop = aboriginal_n_1500_to_2999 / aboriginal_total * 100,
+                more_500_prop  = aboriginal_n_500_to_1499 / aboriginal_total * 100,
+                less_500_prop  = aboriginal_n_less_than_499 / aboriginal_total * 100) %>% 
+  #
+  dplyr::select(lga_name,
+                more_3000_n = aboriginal_n_more_than_3000,
+                more_3000_prop,
+                more_1500_n = aboriginal_n_1500_to_2999,
+                more_1500_prop,
+                more_500_n = aboriginal_n_500_to_1499,
+                more_500_prop,
+                less_500_n = aboriginal_n_less_than_499,
+                less_500_prop,
+                aboriginal_total)
+```
+
+- Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
+
+- Overall, 28% (n = 1,683) of households in the NEPHU catchment with at least one member who identified as Aboriginal and/or Torres Strait Islander in the Census had a weekly household income of more than \$1,500. This was lower than for non-Indigenous households where 35% had a weekly income of more than \$1,500.
+
+- The number of households in different LGAs within the NEPHU catchment with at least one member who identified as Aboriginal and/or Torres Strait Islander with a weekly income of less than \$500 ranged from 209 (Darebin LGA) to 18 (Nillumbik LGAs).
+
+- The percentage of households in different LGAs within the NEPHU catchment with at least one member who identified as Aboriginal and/or Torres Strait Islander with a weekly income of less than \$500 ranged from 26% (Darebin LGA) to 10% (Boroondara and Nillumbik LGAs).
+
+:::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+The following question was asked of all people aged 15 years and over completing the ABS Census 2021. Responses for each household member were summed to calculate the total weekly household income.
+
+- What is the total of all income the person usually receives?
+  - Free text response
+
+::: {style="height: 1em;"}
+:::
+
+::::
+
+:::: {.panel-tabset}
+
+#### Figure 6E-1
+
+::: {#fig_6E_1 .fig-tab-title}
+**Figure 6E-1:** Weekly income for households with at least one person who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+household_lga %>% 
+  dplyr::filter(lga_name %in% nephu_lga) %>% 
+  #
+  tidyr::pivot_longer(cols      = ends_with("_n"),
+                      names_to  = "comparison",
+                      values_to = "aboriginal_n") %>%
+  #
+  dplyr::mutate(comparison = factor(dplyr::case_when(
+    comparison == "more_3000_n" ~ ">$3,000",
+    comparison == "more_1500_n" ~ "$1,500-$2,999",
+    comparison == "more_500_n"  ~ "$500-$1,499",
+    comparison == "less_500_n"  ~ "<$500",
+    TRUE ~ NA_character_),
+    levels = c("<$500",
+               "$500-$1,499",
+               "$1,500-$2,999",
+               ">$3,000"))) %>% 
+  
+  f_bar_stacked_lga(fill_values = c(colour_stack4, colour_stack3, colour_stack2, colour_stack1),
+                    y_max       = NA,
+                    y_breaks    = 100,
+                    y_expand    = 75,
+                    y_title     = "Number of households")
+```
+
+#### Table 6E-1
+
+::: {#tab_6E_1 .fig-tab-title}
+**Table 6E-1:** Weekly income for households with at least one person who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- household_lga %>% 
+  dplyr::filter(lga_name %in% c(nephu_lga, "NEPHU"))
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(more_3000_prop = sprintf("%.1f", more_3000_prop),
+                more_1500_prop = sprintf("%.1f", more_1500_prop),
+                more_500_prop  = sprintf("%.1f", more_500_prop),
+                less_500_prop  = sprintf("%.1f", less_500_prop)) %>% 
+  #
+  f_table_simple(table_headers = c("LGA", 
+                                   "Count", "Percent", "Count", "Percent", "Count", "Percent", "Count", "Percent",
+                                   "Total")) %>% 
+  #
+  kableExtra::column_spec(2:10,
+                          width = "0.75in") %>% 
+  
+  kableExtra::add_header_above(c(" " = 1,
+                                 "More than <span>$</span>3,000"           = 2,
+                                 "<span>$</span>1,500–<span>$</span>2,999" = 2,
+                                 "<span>$</span>500–<span>$</span>1,499"   = 2,
+                                 "Less than <span>$</span>500"             = 2,
+                                 " " = 1),
+                               escape = FALSE)
+```
+
+::: {style="height: 1em;"}
+:::
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+:::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_census`
+
+::: {style="height: 1em;"}
+:::
+
+`r note_caveat_underidentification`
+
+- Households include both family and non-family households.
+
+- Income can come from a range of sources, including employment, investments, businesses, government benefits, and government allowances.
+::::
+
+::: {style="opacity: 0.8;"}
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+:::
+
+## Income Support Payments
+
+```{r}
+# ------------------------------------------------------------------------------
+# Type of income support, by LGA
+# Data from ABS Census using TableBuilderPro
+# ------------------------------------------------------------------------------
+# Read in Census data
+benefit_lga <- f_read_census_lga("Aboriginal_Income_Benefit_LGA.csv",
+                                 variable = "benefit") %>% 
+  #
+  dplyr::filter(!benefit %in% c("Not applicable",
+                                "Type of benefit unknown", 
+                                "Did not receive government pension or allowance", 
+                                "Admin not available",
+                                "Nil or negative income")) %>% 
+  #
+  dplyr::mutate(benefit = dplyr::case_when(
+    benefit == "Carer Allowance" ~ "Carer support",
+    benefit == "Carer Payment"   ~ "Carer support",
+    #
+    benefit == "Disability Support Pension" ~ "Disability support",
+    benefit == "Mobility Allowance"         ~ "Disability support",
+    #
+    benefit == "Dad and Partner Pay"         ~ "Family and parenting",
+    benefit == "Family Tax Benefits"         ~ "Family and parenting",
+    benefit == "Paid Parental Leave Payment" ~ "Family and parenting",
+    benefit == "Parenting Payment"           ~ "Family and parenting",
+    #
+    benefit == "Age Pension"     ~ "Older Australians",
+    benefit == "Widow Allowance" ~ "Older Australians",
+    #
+    benefit == "Austudy/Abstudy"                  ~ "Work and study",
+    benefit == "Newstart Allowance and Jobseeker" ~ "Work and study",
+    benefit == "Youth Allowance"                  ~ "Work and study",
+    #
+    benefit == "Future Flexible Support Payment"          ~ "Other payments",
+    benefit == "Special Benefit"                          ~ "Other payments",
+    benefit == "Other government pensions and allowances" ~ "Other payments",
+    TRUE ~ NA_character_))  
+
+# Data wrangling
+benefit_lga <- benefit_lga %>% 
+  f_wrangle_census_lga(variable = benefit,
+                       level    = "person",
+                       dichot   = "no") %>% 
+  #
+  dplyr::mutate(carer_prop      = aboriginal_n_carer_support / aboriginal_total * 100,
+                disability_prop = aboriginal_n_disability_support / aboriginal_total * 100,
+                family_prop     = aboriginal_n_family_and_parenting / aboriginal_total * 100,
+                older_prop      = aboriginal_n_older_australians / aboriginal_total * 100,
+                study_prop      = aboriginal_n_work_and_study / aboriginal_total * 100,
+                other_prop      = aboriginal_n_other_payments / aboriginal_total * 100) %>% 
+  #
+  dplyr::select(lga_name,
+                carer_n = aboriginal_n_carer_support,
+                carer_prop,
+                disability_n = aboriginal_n_disability_support,
+                disability_prop,
+                family_n = aboriginal_n_family_and_parenting,
+                family_prop,
+                older_n = aboriginal_n_older_australians,
+                older_prop,
+                study_n = aboriginal_n_work_and_study,
+                study_prop,
+                other_n = aboriginal_n_other_payments,
+                other_prop,
+                aboriginal_total)
+
+# ------------------------------------------------------------------------------
+# Type of income support, by age and sex
+# Data from ABS Census using TableBuilderPro
+# ------------------------------------------------------------------------------
+# Read in Census data
+benefit_agesex <- f_read_census_agesex("Aboriginal_Income_Benefit_AgeSex.csv",
+                                       variable = "benefit") %>% 
+  #
+  dplyr::filter(!benefit %in% c("Not applicable",
+                                "Type of benefit unknown", 
+                                "Did not receive government pension or allowance", 
+                                "Admin not available",
+                                "Nil or negative income")) %>% 
+  #
+  dplyr::mutate(benefit = dplyr::case_when(
+    benefit == "Carer Allowance" ~ "Carer support",
+    benefit == "Carer Payment"   ~ "Carer support",
+    #
+    benefit == "Disability Support Pension" ~ "Disability support",
+    benefit == "Mobility Allowance"         ~ "Disability support",
+    #
+    benefit == "Dad and Partner Pay"         ~ "Family and parenting",
+    benefit == "Family Tax Benefits"         ~ "Family and parenting",
+    benefit == "Paid Parental Leave Payment" ~ "Family and parenting",
+    benefit == "Parenting Payment"           ~ "Family and parenting",
+    #
+    benefit == "Age Pension"     ~ "Older Australians",
+    benefit == "Widow Allowance" ~ "Older Australians",
+    #
+    benefit == "Austudy/Abstudy"                  ~ "Work and study",
+    benefit == "Newstart Allowance and Jobseeker" ~ "Work and study",
+    benefit == "Youth Allowance"                  ~ "Work and study",
+    #
+    benefit == "Future Flexible Support Payment"          ~ "Other payments",
+    benefit == "Special Benefit"                          ~ "Other payments",
+    benefit == "Other government pensions and allowances" ~ "Other payments",
+    TRUE ~ NA_character_))
+
+# Data wrangling
+benefit_agesex <- benefit_agesex %>% 
+  f_wrangle_census_agesex(variable = benefit,
+                          dichot   = "no") %>% 
+  #
+  dplyr::mutate(aboriginal_total = aboriginal_n_carer_support + aboriginal_n_disability_support + 
+                                   aboriginal_n_family_and_parenting + aboriginal_n_older_australians + 
+                                   aboriginal_n_work_and_study + aboriginal_n_other_payments,
+                #
+                carer_prop      = aboriginal_n_carer_support / aboriginal_total * 100,
+                disability_prop = aboriginal_n_disability_support / aboriginal_total * 100,
+                family_prop     = aboriginal_n_family_and_parenting / aboriginal_total * 100,
+                older_prop      = aboriginal_n_older_australians / aboriginal_total * 100,
+                study_prop      = aboriginal_n_work_and_study / aboriginal_total * 100,
+                other_prop      = aboriginal_n_other_payments / aboriginal_total * 100) %>% 
+  #
+  dplyr::mutate(across(where(is.numeric), ~replace(., is.na(.), 0)),
+                across(where(is.numeric), ~replace(., is.nan(.), 0))) %>% 
+  #
+  dplyr::select(age_group,
+                sex,
+                carer_n = aboriginal_n_carer_support,
+                carer_prop,
+                disability_n = aboriginal_n_disability_support,
+                disability_prop,
+                family_n = aboriginal_n_family_and_parenting,
+                family_prop,
+                older_n = aboriginal_n_older_australians,
+                older_prop,
+                study_n = aboriginal_n_work_and_study,
+                study_prop,
+                other_n = aboriginal_n_other_payments,
+                other_prop,
+                aboriginal_total)
+```
+
+- Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census) linked to data from the Australian Taxation Office and Department of Social Services held in the [Person Level Integrated Data Asset (PLIDA)](https://www.abs.gov.au/about/data-services/data-integration/integrated-data/person-level-integrated-data-asset-plida).
+
+- The most common main types of income support payment received by people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census were work and study (48%, n = 1,814), family and parenting (20%, n = 741), and disability support (16%, n = 611).
+
+- The number of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census and who were receiving a work and study support payment ranged from 308 (Darebin and Whittlesea LGAs) to 30 (Manningham LGA).
+
+- Of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census and who were receiving income support, the percentage who were receiving a work and study support payment ranged from 67% (Boroondara LGA) to 42% (Banyule and Nillumbik LGAs).
+
+- The number of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census and who were receiving a family and parenting support payment ranged from 183 (Whittlesea LGA) to 10 (Boroondara LGA).
+
+- Of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census and who were receiving income support, the percentage who were receiving a family and parenting support payment ranged from 27% (Whittlesea LGA) to 6.5% (Yarra LGA).
+
+- The number of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census and who were receiving a disability support payment ranged from 99 (Darebin and Hume LGAs) to 10 (Nillumbik and Manningham LGAs).
+
+- Of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census and who were receiving income support, the percentage who were receiving a disability support payment ranged from 19% (Banyule LGA) to 12% (Boroondara LGA).
+
+:::: {.panel-tabset}
+
+#### Figure 6E-2
+
+::: {#fig_6E_2 .fig-tab-title}
+**Figure 6E-2:** Main type of income support payment for people receiving income support and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 01 July 2020 to 30 June 2021
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+benefit_lga %>% 
+  dplyr::filter(lga_name %in% nephu_lga) %>% 
+  #
+  tidyr::pivot_longer(cols      = ends_with("_n"),
+                      names_to  = "comparison",
+                      values_to = "aboriginal_n") %>%
+  #
+  dplyr::mutate(comparison = factor(dplyr::case_when(
+    comparison == "study_n"      ~ "Work/study",
+    comparison == "family_n"     ~ "Family/parenting",
+    comparison == "disability_n" ~ "Disability support",
+    comparison == "older_n"      ~ "Older Australians",
+    comparison == "carer_n"      ~ "Carer support",
+    comparison == "other_n"      ~ "Other payments",
+    TRUE ~ NA_character_),
+    levels = c("Work/study",
+               "Family/parenting",
+               "Disability support",
+               "Older Australians",
+               "Carer support",
+               "Other payments"))) %>% 
+  #
+  f_bar_stacked_lga(fill_values = c(colour_stack6, colour_stack5, colour_stack4, colour_stack3, colour_stack2, colour_stack1),
+                    y_max       = NA,
+                    y_breaks    = 100,
+                    y_expand    = 25)
+```
+
+#### Table 6E-2
+
+::: {#tab_6E_2 .fig-tab-title}
+**Table 6E-2:** Main type of income support payment for people receiving income support and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 01 July 2020 to 30 June 2021
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- benefit_lga %>% 
+  dplyr::filter(lga_name %in% c(nephu_lga, "NEPHU"))
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(study_prop  = sprintf("%.1f", study_prop),
+                family_prop  = sprintf("%.1f", family_prop),
+                disability_prop = sprintf("%.1f", disability_prop),
+                older_prop = sprintf("%.1f", older_prop),
+                carer_prop = sprintf("%.1f", carer_prop),
+                other_prop   = sprintf("%.1f", other_prop)) %>% 
+  #
+  f_table_simple(table_headers = c("LGA",
+                                   "Count", "Percent", "Count", "Percent", "Count", "Percent",
+                                   "Count", "Percent", "Count", "Percent", "Count", "Percent",
+                                   "Total")) %>%
+  #
+  kableExtra::column_spec(2:14,
+                          width = "0.5in") %>% 
+  #
+  kableExtra::add_header_above(c(" " = 1,
+                                 "Carer support"      = 2,
+                                 "Disability support" = 2,
+                                 "Family/parenting"   = 2,
+                                 "Older Australians"  = 2,
+                                 "Study/work"         = 2,
+                                 "Other payments"     = 2,
+                                 " " = 1))
+```
+
+
+::::
+
+
+
