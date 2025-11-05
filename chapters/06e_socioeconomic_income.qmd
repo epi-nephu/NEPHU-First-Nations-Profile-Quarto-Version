@@ -366,6 +366,10 @@ benefit_agesex <- benefit_agesex %>%
 
 - Of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census and who were receiving income support, the percentage who were receiving a disability support payment ranged from 19% (Banyule LGA) to 12% (Boroondara LGA).
 
+**Key points from stakeholder consultation**
+
+- At stakeholder consultations during the development of this report it was mentioned that people often encounter barriers when trying to access income support payments.
+
 :::: {.panel-tabset}
 
 #### Figure 6E-2
@@ -427,12 +431,12 @@ if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
 }
 
 table %>% 
-  dplyr::mutate(study_prop  = sprintf("%.1f", study_prop),
-                family_prop  = sprintf("%.1f", family_prop),
+  dplyr::mutate(study_prop      = sprintf("%.1f", study_prop),
+                family_prop     = sprintf("%.1f", family_prop),
                 disability_prop = sprintf("%.1f", disability_prop),
-                older_prop = sprintf("%.1f", older_prop),
-                carer_prop = sprintf("%.1f", carer_prop),
-                other_prop   = sprintf("%.1f", other_prop)) %>% 
+                older_prop      = sprintf("%.1f", older_prop),
+                carer_prop      = sprintf("%.1f", carer_prop),
+                other_prop      = sprintf("%.1f", other_prop)) %>% 
   #
   f_table_simple(table_headers = c("LGA",
                                    "Count", "Percent", "Count", "Percent", "Count", "Percent",
@@ -452,8 +456,630 @@ table %>%
                                  " " = 1))
 ```
 
+::: {style="height: 1em;"}
+:::
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+#### Figure 6E-3
+
+::: {#fig_6E_3 .fig-tab-title}
+**Figure 6E-3:** Main type of income support payment for people receiving income support and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 01 July 2020 to 30 June 2021
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+benefit_agesex %>% 
+  dplyr::filter(age_group %in% age_group_lvl) %>% 
+  #
+  tidyr::pivot_longer(cols      = ends_with("_n"),
+                      names_to  = "comparison",
+                      values_to = "aboriginal_n") %>%
+  #
+  dplyr::mutate(comparison = factor(dplyr::case_when(
+    comparison == "study_n"      ~ "Work/study",
+    comparison == "family_n"     ~ "Family/parenting",
+    comparison == "disability_n" ~ "Disability support",
+    comparison == "older_n"      ~ "Older Australians",
+    comparison == "carer_n"      ~ "Carer support",
+    comparison == "other_n"      ~ "Other payments",
+    TRUE ~ NA_character_),
+    levels = c("Work/study",
+               "Family/parenting",
+               "Disability support",
+               "Older Australians",
+               "Carer support",
+               "Other payments"))) %>% 
+  #
+  f_bar_stacked_agesex(fill_values = c(colour_stack6, colour_stack5, colour_stack4, colour_stack3, colour_stack2, colour_stack1),
+                       y_max       = NA,
+                       y_breaks    = 100,
+                       y_expand    = 60)
+```
+
+#### Table 6E-3
+
+::: {#tab_6E_3 .fig-tab-title}
+**Table 6E-3:** Main type of income support payment for people receiving income support and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 01 July 2020 to 30 June 2021
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- benefit_agesex
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table <- table %>% 
+  dplyr::mutate(study_prop      = sprintf("%.1f", study_prop),
+                family_prop     = sprintf("%.1f", family_prop),
+                disability_prop = sprintf("%.1f", disability_prop),
+                older_prop      = sprintf("%.1f", older_prop),
+                carer_prop      = sprintf("%.1f", carer_prop),
+                other_prop      = sprintf("%.1f", other_prop))
+
+table %>% 
+  dplyr::filter(sex == "Female") %>% 
+  #
+  dplyr::select(-sex) %>% 
+  #
+  f_table_simple(total_row     = nrow(table) / 2,
+                 last_column   = ncol(table) - 1,
+                 table_headers = c("Age group",
+                                   "Count", "Percent", "Count", "Percent", "Count", "Percent",
+                                   "Count", "Percent", "Count", "Percent", "Count", "Percent",
+                                   "Total")) %>%
+  #
+  kableExtra::column_spec(2:14,
+                          width = "0.5in") %>% 
+  #
+  kableExtra::add_header_above(c("Female" = 1,
+                                 "Carer support"      = 2,
+                                 "Disability support" = 2,
+                                 "Family/parenting"   = 2,
+                                 "Older Australians"  = 2,
+                                 "Study/work"         = 2,
+                                 "Other payments"     = 2,
+                                 " " = 1))
+
+table %>% 
+  dplyr::filter(sex == "Male") %>% 
+  #
+  dplyr::select(-sex) %>% 
+  #
+  f_table_simple(total_row     = nrow(table) / 2,
+                 last_column   = ncol(table) - 1,
+                 table_headers = c("Age group",
+                                   "Count", "Percent", "Count", "Percent", "Count", "Percent",
+                                   "Count", "Percent", "Count", "Percent", "Count", "Percent",
+                                   "Total")) %>% 
+  #
+  kableExtra::column_spec(2:14,
+                          width = "0.5in") %>% 
+  #
+  kableExtra::add_header_above(c("Male" = 1,
+                                 "Carer support"      = 2,
+                                 "Disability support" = 2,
+                                 "Family/parenting"   = 2,
+                                 "Older Australians"  = 2,
+                                 "Study/work"         = 2,
+                                 "Other payments"     = 2,
+                                 " " = 1))
+```
+
+::: {style="height: 1em;"}
+:::
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
+:::: {.callout-note title="Data notes" icon=false collapse=false}
+- Data were obtained from the [ABS Census 2021](https://www.abs.gov.au/census) linked to data from the Australian Taxation Office and Department of Social Services held in the [Person Level Integrated Data Asset (PLIDA)](https://www.abs.gov.au/about/data-services/data-integration/integrated-data/person-level-integrated-data-asset-plida). Data are publicly available at Local Government Area (LGA), ABS Statistical Area Level 2 (SA2), and Indigenous Area of Residence (IARE) level.
+  - PLIDA is a secure linked data asset maintained by the ABS that brings together information on health, education, government payments, income and taxation, employment, and population demographics.
+  - The 2021 Census was held on the evening of August 10th 2021.
+  - Aboriginal and/or Torres Strait Islander peoples were defined as those who identified themselves as Aboriginal and/or Torres Strait Islander in the Census.
 
+::: {style="height: 1em;"}
+:::
+
+`r note_caveat_underidentification`
+
+`r note_caveat_unknown_agesex`
+
+::: {style="height: 0.1em;"}
+:::
+
+- The types of income support payments were classified as:
+  - Carer support (Carer Allowance, Carer Payment)
+  - Disability support (Disability Support Pension, Mobility Allowance)
+  - Family and parenting (Dad and Partner Pay, Family Tax Benefits, Paid Parental Leave Payment, Parenting Payment)
+  - Older Australians (Age Pension, Widow Allowance)
+  - Work and study (Austudy/Abstudy, Newstart Allowance and Jobseeker, Youth Allowance)
+  - Other payments (Future Flexible Support Payment, Special Benefit, other government pensions and allowances)
+
+::: {style="height: 1em;"}
+:::
+
+- This indicator measures the main type of income support payment received. People may have received more than one type of income support payment.
+
+- A number of regions across the state were in various stages of lockdown during the 2020/2021 financial year. This resulted in a greater number of people being stood down from work than usual, which may have had an impact on the receipt of income support payments.
+::::
+
+::: {style="opacity: 0.8;"}
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+:::
+
+## Financial Security
+
+### Basic Living Expenses
+
+```{r}
+# ------------------------------------------------------------------------------
+# Basic living expenses
+# Data from ABS National Aboriginal and Torres Strait Islander Health Survey
+# ------------------------------------------------------------------------------
+# Read in NATSIHS data
+financial_expenses <- f_read_natsihs_sex("Indicator_Vic_Sex_Financial_LivingExpenses.csv")
+
+# Data wrangling
+financial_expenses <- financial_expenses %>% 
+  dplyr::rowwise() %>% 
+  dplyr::mutate(answered_n = sum(across(had_days_without_money_for_basic_living_expenses_in_last_12_months_n:did_not_have_days_without_money_for_basic_living_expenses_in_last_12_months_n))) %>% 
+  dplyr::ungroup() %>% 
+  #
+  janitor::adorn_totals(fill = "Total") %>% 
+  #
+  dplyr::rename(withoutyes_n = had_days_without_money_for_basic_living_expenses_in_last_12_months_n,
+                withoutno_n  = did_not_have_days_without_money_for_basic_living_expenses_in_last_12_months_n) %>% 
+  #
+  dplyr::mutate(across(withoutyes_n:withoutno_n,
+                       ~ . / answered_n * 100,
+                       .names = "{.col}_prop"),
+                #
+                answered_prop = answered_n / answered_n * 100) %>% 
+  #
+  dplyr::rename_with(~ stringr::str_replace(., "_n_prop$", "_prop"), ends_with("_n_prop")) %>% 
+  #
+  dplyr::select(sex,
+                starts_with("withoutyes"),
+                starts_with("withoutno"),
+                starts_with("answered")) %>%
+  #
+  tidyr::pivot_longer(!sex,
+                      names_to = c("answer", ".value"),
+                      names_pattern = "(.+)_(.+)") %>% 
+    #
+  dplyr::mutate(answer = factor(dplyr::recode(answer,
+                                              "withoutyes" = "Yes",
+                                              "withoutno"  = "No",
+                                              "answered"   = "Total"),
+                                levels = c("Yes",
+                                           "No",
+                                           "Total")))
+```
+
+- Data for this topic were obtained from the [2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release).
+
+- Overall, 43% of Aboriginal and/or Torres Strait Islander survey respondents aged 15 years and over living in Greater Melbourne reported that they had at least one day during the previous 12 months where they did not have money for basic living expenses. This equates to approximately 16,400 Aboriginal and/or Torres Strait Islander people.
+
+- Females were more likely to report having at least one day where they did not have money for basic living expenses than males (49% vs. 38%).
+
+:::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+The following question was asked of all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+
+- Did your household have any days without money for basic living expenses in the last 12 months?
+  - Had days without money for basic living expenses in last 12 months
+  - Did not have days without money for basic living expenses in last 12 months
+
+::: {style="height: 2em;"}
+:::
+
+::::
+
+:::: {.panel-tabset}
+
+#### Table 6E-4
+
+::: {#tab_6E_4 .fig-tab-title}
+**Table 6E-4:** Whether had days without money for basic living expenses during the previous 12 months for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- financial_expenses %>% 
+  tidyr::pivot_wider(names_from  = "sex",
+                     values_from = c("n", "prop"),
+                     names_vary  = "slowest") %>% 
+  #
+  janitor::clean_names() %>% 
+  #
+  dplyr::rename(days_without_money = answer)
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(prop_male   = sprintf("%.1f", prop_male),
+                prop_female = sprintf("%.1f", prop_female),
+                prop_total  = sprintf("%.1f", prop_total)) %>%
+  #
+  f_table_grouped_sex(n_variable  = "estimate",
+                      column_name = "Days without money<br>for basic expenses")
+```
+
+::: {style="height: 1em;"}
+:::
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+:::: {.callout-note title="Data notes" icon=false collapse=false}
+
+`r note_data_natsihs`
+
+::: {style="height: 1em;"}
+:::
+
+`r note_caveat_underidentification`
+
+`r note_caveat_unknown_agesex`
+
+`r note_caveat_survey_unknown`
+
+`r note_caveat_survey_estimate`
+::::
+
+### Emergency Funds
+
+```{r}
+# ------------------------------------------------------------------------------
+# Ability to raise money in an emergency
+# Data from ABS National Aboriginal and Torres Strait Islander Health Survey
+# ------------------------------------------------------------------------------
+# Read in NATSIHS data
+financial_emergency <- f_read_natsihs_sex("Indicator_Vic_Sex_Financial_Emergency.csv")
+
+# Data wrangling
+financial_emergency <- financial_emergency %>% 
+  dplyr::rowwise() %>% 
+  dplyr::mutate(answered_n = sum(across(could_raise_2000_in_a_week_n:could_not_raise_2000_in_a_week_n))) %>% 
+  dplyr::ungroup() %>% 
+  #
+  janitor::adorn_totals(fill = "Total") %>% 
+  #
+  dplyr::rename(raiseyes_n = could_raise_2000_in_a_week_n,
+                raiseno_n  = could_not_raise_2000_in_a_week_n) %>% 
+  #
+  dplyr::mutate(across(raiseyes_n:raiseno_n,
+                       ~ . / answered_n * 100,
+                       .names = "{.col}_prop"),
+                #
+                answered_prop = answered_n / answered_n * 100) %>% 
+  #
+  dplyr::rename_with(~ stringr::str_replace(., "_n_prop$", "_prop"), ends_with("_n_prop")) %>% 
+  #
+  dplyr::select(sex,
+                starts_with("raiseyes"),
+                starts_with("raiseno"),
+                starts_with("answered")) %>% 
+  #
+  tidyr::pivot_longer(!sex,
+                      names_to = c("answer", ".value"),
+                      names_pattern = "(.+)_(.+)") %>% 
+  #
+  dplyr::mutate(answer = factor(dplyr::recode(answer,
+                                              "raiseyes" = "Yes",
+                                              "raiseno"  = "No",
+                                              "answered" = "Total"),
+                                levels = c("Yes", 
+                                           "No", 
+                                           "Total")))
+```
+
+- Data for this topic were obtained from the [2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release).
+
+- Overall, 61% of Aboriginal and/or Torres Strait Islander survey respondents aged 15 years and over living in Greater Melbourne reported that their household would be able to raise $2,000 in a week during an emergency. This equates to approximately 23,200 Aboriginal and/or Torres Strait Islander people.
+
+- Females were more likely to report that their household would be able to raise emergency funds than males (64% vs. 58%).
+
+:::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+The following question was asked of all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+
+- Could your household raise \$2,000 in an emergency?
+  - Yes, could raise \$2,000 in a week
+  - No, could not raise \$2,000 in a week
+
+::: {style="height: 2em;"}
+:::
+
+::::
+
+:::: {.panel-tabset}
+
+#### Table 6E-5
+
+::: {#tab_6E_5 .fig-tab-title}
+**Table 6E-5:** Whether household members could raise $2,000 in a week in an emergency for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- financial_emergency %>% 
+  tidyr::pivot_wider(names_from  = "sex",
+                     values_from = c("n", "prop"),
+                     names_vary  = "slowest") %>% 
+  #
+  janitor::clean_names() %>% 
+  #
+  dplyr::rename(emergency_funds = answer)
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(prop_male   = sprintf("%.1f", prop_male),
+                prop_female = sprintf("%.1f", prop_female),
+                prop_total  = sprintf("%.1f", prop_total)) %>%
+  #
+  f_table_grouped_sex(n_variable  = "estimate",
+                      column_name = "Could raise $2,000<br>for an emergency")
+```
+
+::: {style="height: 1em;"}
+:::
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+:::: {.callout-note title="Data notes" icon=false collapse=false}
+
+`r note_data_natsihs`
+
+::: {style="height: 1em;"}
+:::
+
+`r note_caveat_underidentification`
+
+`r note_caveat_unknown_agesex`
+
+`r note_caveat_survey_unknown`
+
+`r note_caveat_survey_estimate`
+::::
+
+### Food Security
+
+```{r}
+# ------------------------------------------------------------------------------
+# Food security
+# Data from ABS National Aboriginal and Torres Strait Islander Health Survey
+# ------------------------------------------------------------------------------
+# Read in NATSIHS data
+financial_foodsecurity <- f_read_natsihs_sex("Indicator_Vic_Sex_Financial_FoodSecurity.csv")
+
+# Data wrangling
+financial_foodsecurity <- financial_foodsecurity %>% 
+  dplyr::rowwise() %>% 
+  dplyr::mutate(answered_n = sum(across(food_secure_n:severely_food_insecure_n))) %>% 
+  dplyr::ungroup() %>% 
+  #
+  janitor::adorn_totals(fill = "Total") %>% 
+  #
+  dplyr::rename(secure_n   = food_secure_n,
+                marginal_n = marginally_food_insecure_n,
+                moderate_n = moderately_food_insecure_n,
+                severe_n   = severely_food_insecure_n) %>% 
+  #
+  dplyr::mutate(across(secure_n:severe_n,
+                       ~ . / answered_n * 100,
+                       .names = "{.col}_prop"),
+                #
+                answered_prop = answered_n / answered_n * 100) %>% 
+  #
+  dplyr::rename_with(~ stringr::str_replace(., "_n_prop$", "_prop"), ends_with("_n_prop")) %>% 
+  #
+  dplyr::select(sex,
+                starts_with("secure"),
+                starts_with("marginal"),
+                starts_with("moderate"),
+                starts_with("severe"),
+                starts_with("answered")) %>% 
+  #
+  tidyr::pivot_longer(!sex,
+                      names_to = c("answer", ".value"),
+                      names_pattern = "(.+)_(.+)") %>%
+  #
+  dplyr::mutate(answer = factor(dplyr::recode(answer,
+                                              "secure"   = "Food secure",
+                                              "marginal" = "Marginal insecurity",
+                                              "moderate" = "Moderate insecurity",
+                                              "severe"   = "Severe insecurity",
+                                              "answered" = "Total"),
+                                levels = c("Food secure", 
+                                           "Marginal insecurity", 
+                                           "Moderate insecurity", 
+                                           "Severe insecurity",
+                                           "Total")))
+```
+
+- Data for this topic were obtained from the [2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release).
+
+- Overall, 59% of Aboriginal and/or Torres Strait Islander survey respondents aged 15 years and over living in Greater Melbourne reported that they were food secure at all times during the previous 12 months. This equates to approximately 22,900 Aboriginal and/or Torres Strait Islander people.
+
+- Males were more likely to report being food secure than females (62% vs. 55%).
+
+:::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+The following questions were asked of all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+
+- How often in the last 12 months were you worried about food running out before you had money to buy more?
+  - Often
+  - Sometimes
+  - Never
+
+::: {style="height: 1em;"}
+:::
+
+- How often in the last 12 months did you not have enough food and no money to buy more?
+  - Often
+  - Sometimes
+  - Never
+  
+::: {style="height: 1em;"}
+:::
+
+- How often in the last 12 months was your household unable to afford to eat healthy or nutritious meals?
+  - Often
+  - Sometimes
+  - Never
+  
+::: {style="height: 1em;"}
+:::
+
+If at least one of these questions was answered in the affirmative (often or sometimes), additional questions were asked to determine the level of food insecurity (marginal, moderate, or severe).
+
+- Did adults in the household eat smaller meals or skip meals because there was not enough money for food?
+- How often in the last 12 months did adults eat smaller meals or skip meals?
+- Did the person feel that they ate less than they should because there was not enough money for food?
+- Was the person was ever hungry but did not eat because there was not enough money for food?
+- Did the person lose weight because there was not enough money for food?
+- Did adults in the household not eat for a day because there was not enough money for food?
+- How often in the last 12 months did adults not eat for a day?
+
+::: {style="height: 2em;"}
+:::
+
+::::
+
+:::: {.panel-tabset}
+
+#### Figure 6E-4
+
+::: {#fig_6E_4 .fig-tab-title}
+**Figure 6E-4:** Estimated number of people and percentage of survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander and level of food security during the previous 12 months, Greater Melbourne, by sex, 2022-2023
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+figure_number <- financial_foodsecurity %>% 
+  dplyr::filter(sex != "Total" & answer != "Total") %>%
+  dplyr::mutate(answer = stringr::str_wrap(answer, width = 10)) %>% 
+  #
+  f_bar_grouped_sex(x_variable = answer,
+                    y_variable = n,
+                    y_max      = NA,
+                    y_breaks   = 1500,
+                    y_expand   = 1000,
+                    y_title    = "Estimated number of people")
+
+figure_percent <- financial_foodsecurity %>% 
+  dplyr::filter(sex != "Total" & answer != "Total") %>%
+  dplyr::mutate(answer = stringr::str_wrap(answer, width = 10)) %>% 
+  #
+  f_bar_grouped_sex(x_variable = answer,
+                    y_variable = prop,
+                    y_max      = 100,
+                    y_breaks   = 10,
+                    y_expand   = 1,
+                    y_title    = "Percentage of survey respondents")
+
+f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
+```
+
+#### Table 6E-6
+
+::: {#tab_6E_6 .fig-tab-title}
+**Table 6E-6:** Level of food security during the previous 12 months for survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- financial_foodsecurity %>% 
+  tidyr::pivot_wider(names_from  = "sex",
+                     values_from = c("n", "prop"),
+                     names_vary  = "slowest") %>% 
+  #
+  janitor::clean_names() %>% 
+  #
+  dplyr::rename(food_security = answer)
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(prop_male   = sprintf("%.1f", prop_male),
+                prop_female = sprintf("%.1f", prop_female),
+                prop_total  = sprintf("%.1f", prop_total)) %>%
+  #
+  f_table_grouped_sex(n_variable  = "estimate",
+                      column_name = "Food security")
+```
+
+::: {style="height: 1em;"}
+:::
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+:::: {.callout-note title="Data notes" icon=false collapse=false}
+
+`r note_data_natsihs`
+
+::: {style="height: 1em;"}
+:::
+
+`r note_caveat_underidentification`
+
+`r note_caveat_unknown_agesex`
+
+`r note_caveat_survey_unknown`
+
+`r note_caveat_survey_estimate`
+
+::: {style="height: 0.1em;"}
+:::
+
+- Food security is defined as having enough food and/or money to buy food needed for an active, healthy life at all times during the previous 12 months.
+  - Marginal food insecurity is generally characterised by worrying about running out of food or experiencing a lack of selection of food due to a lack of money for food.
+  - Moderate food insecurity is generally characterised by compromising on the quality and/or quantity of food due to a lack of money for food.
+  - Severe food insecurity is generally characterised by missing meals or reducing food intake due to a lack of money for food.
+  
+::: {style="height: 2em;"}
+:::
+
+::::
 
