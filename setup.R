@@ -68,6 +68,7 @@ subfolder_vcams       <- "Population Health Data/VCAMS/Data"
 source(here::here("functions", "data prep", "f_read_census.R"))
 source(here::here("functions", "data prep", "f_read_ctg.R"))
 source(here::here("functions", "data prep", "f_read_naplan.R"))
+source(here::here("functions", "data prep", "f_read_natsihs.R"))
 source(here::here("functions", "data prep", "f_read_phidu.R"))
 
 source(here::here("functions", "graphs", "f_bar_grouped.R"))
@@ -167,22 +168,4 @@ colour_stack4    <- "#F0E442"
 colour_stack5    <- "#5C1441"
 colour_stack6    <- "#1C86EE"
 colour_stackgrey <- "gray30"
-
-
-
-# colour_burgundy   <- "#5C1441"
-# colour_darkblue   <- "#191D43"
-# colour_lightblue  <- "#374091"
-# colour_dodgerblue <- "#1C86EE"
-# colour_orange     <- "#D55E00"
-# colour_green      <- "#5BC788"
-# colour_yellow     <- "#F0E442"
-# 
-# colour_gradient_low  <- "#FFFF99"
-# colour_gradient_mid  <- "#41B6C4"
-# colour_gradient_high <- "#253494"
-# 
-# colour_table_light <- "#B5CEFA"
-# colour_table_mid   <- "#8FB6F5"
-# colour_table_dark  <- "#1C86EE"
 
