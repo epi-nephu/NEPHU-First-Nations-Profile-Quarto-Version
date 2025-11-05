@@ -17,7 +17,7 @@ f_table_grouped_sex <- function(data, n_variable, column_name, total_row = nrow(
   
   if (n_variable == "estimate") {
     
-    table_headers <- c("Estimate", "Percent", "Estimate", "Percent", "Total")
+    table_headers <- c("Estimate", "Percent", "Estimate", "Percent", "Estimate", "Estimate")
   
   }
   
@@ -36,15 +36,33 @@ f_table_grouped_sex <- function(data, n_variable, column_name, total_row = nrow(
                               font_size  = 12) %>%
     #
     kableExtra::row_spec(row  = c(0, total_row),
-                         bold = TRUE) %>%    
-    #
-    kableExtra::add_header_above(c(" "      = 1,
-                                   "Female" = 2,
-                                   "Male"   = 2,
-                                   "Total"  = 1)) %>% 
-    #
-    kableExtra::column_spec(2:6,
-                            width = "1in")
+                         bold = TRUE)
+
+  if (n_variable == "count") {
+    
+    table <- table %>% 
+      kableExtra::add_header_above(c(" "      = 1,
+                                     "Female" = 2,
+                                     "Male"   = 2,
+                                     "Total"  = 1)) %>% 
+      #
+      kableExtra::column_spec(2:6,
+                              width = "1in")
+
+  }
+  
+  if (n_variable == "estimate") {
+    
+    table <- table %>%
+      kableExtra::add_header_above(c(" "      = 1,
+                                     "Female" = 2,
+                                     "Male"   = 2,
+                                     "Total"  = 2)) %>% 
+      #
+      kableExtra::column_spec(2:7,
+                              width = "1in")
+
+  }
   
   return(table)
 
