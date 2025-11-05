@@ -1,0 +1,202 @@
+---
+title: "Housing"
+---
+
+```{r}
+#
+source(here::here("setup.R"))
+source(here::here("setup_footnotes.R"))
+
+# Set up numbering for exporting tables as .csv
+table_section <- "06F"
+table_count   <- 0
+
+figure_count <- 0
+```
+
+::: {.caveat-box}
+**A note about the impact of under-identification**
+
+`r note_box_underidentification`
+
+**A note about interpreting observed vs. expected figures**
+
+`r note_box_obsexp`
+:::
+
+::: {style="height: 2em;"}
+:::
+
+::: {.key-question}
+Are Aboriginal and/or Torres Strait Islander people in the NEPHU catchment living in affordable and suitable housing?
+:::
+
+## Housing Suitability
+
+### Overcrowding
+
+::: {.ctg-box}
+**This topic aligns with [Closing the Gap Outcome Area 9](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/housing/): Aboriginal and Torres Strait Islander people secure appropriate, affordable housing that is aligned with their priorities and need**
+
+Target: By 2031, increase the proportion of Aboriginal and Torres Strait Islander people living in appropriately sized (not overcrowded) housing to 88%.
+:::
+
+::: {style="height: 1em;"}
+:::
+
+```{r}
+# ------------------------------------------------------------------------------
+# Overcrowding
+# Data from ABS Census using TableBuilderPro
+# ------------------------------------------------------------------------------
+# Read in TableBuilder data
+overcrowded_lga <- f_read_census_lga("Aboriginal_Household_Overcrowding_LGA.csv",
+                                     variable = "overcrowding") %>% 
+  #
+  dplyr::filter(!overcrowding %in% c("Not stated", "Not applicable", "Unable to determine")) %>%
+  #
+  dplyr::mutate(overcrowding = dplyr::case_when(
+    overcrowding == "Four or more extra bedrooms needed" ~ "No",
+    overcrowding == "Three extra bedrooms needed"        ~ "No",
+    overcrowding == "Two extra bedrooms needed"          ~ "No",
+    overcrowding == "One extra bedroom needed"           ~ "No",
+    overcrowding == "No bedrooms needed or spare"        ~ "Yes",
+    overcrowding == "One bedroom spare"                  ~ "Yes",
+    overcrowding == "Two bedrooms spare"                 ~ "Yes",
+    overcrowding == "Three bedrooms spare"               ~ "Yes",
+    overcrowding == "Four or more bedrooms spare"        ~ "Yes",
+    #
+    TRUE ~ NA_character_))
+
+# Data wrangling - by LGA
+overcrowded_lga <- overcrowded_lga %>% 
+  f_wrangle_census_lga(variable = overcrowding,
+                       level    = "household",
+                       dichot   = "yes")
+```
+
+- Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
+
+- Overall, 93% (n = 5,654) of households in the NEPHU catchment with at least one member who identified as Aboriginal and/or Torres Strait Islander in the Census had an adequate number of bedrooms. This was similar to non-Indigenous households in the NEPHU catchment (97%).
+
+- The number of Aboriginal and/or Torres Strait Islander households in different LGAs within the NEPHU catchment with an adequate number of bedrooms ranged from 917 (Whittlesea LGA) to 155 (Manningham LGA).
+
+- The gap between the observed number of Aboriginal and/or Torres Strait Islander appropriately sized households and the number expected if the rate was the same as for non-Indigenous households was biggest for Yarra Ranges and Darebin LGAs.
+
+- The percentage of Aboriginal and/or Torres Strait Islander households in different LGAs within the NEPHU catchment with an adequate number of bedrooms (not overcrowded) ranged from 98% (Boroondara LGA) to 91% (Hume LGA).
+
+**Key points from stakeholder consultation**
+
+- All 12 LGAs in the NEPHU catchment were above the Closing the Gap target of 88%.
+
+- At stakeholder consultation during the development of this report, it was discussed that these data were thought to be an underestimate of overcrowding. Reasons for possible underreporting of overcrowding included fears of losing social housing or child protection involvement.
+
+- It was also noted however that Aboriginal and/or Torres Strait Islander people have a strong culture of supporting each other to address housing needs. 
+
+:::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+The following questions were asked of all people completing the ABS Census 2021. The answers to these questions were cross-tabulated for all household members to assess the number of bedrooms required for the household, based on the [Canadian National Occupancy Standard](https://meteor.aihw.gov.au/content/386254) for housing appropriateness.
+
+- Is the person male, female, and/or non-binary?
+- What is the person's date of birth and age?
+- What is the person's relationship to Person 1 (the person completing the Census form for the household)?
+- How many bedrooms are there in this dwelling?
+
+::: {style="height: 2em;"}
+:::
+
+::::
+
+:::: {.panel-tabset}
+
+#### Figure 6F-1
+
+::: {#fig_6F_1 .fig-tab-title}
+**Figure 6F-1:** Number and percentage of appropriately sized (not overcrowded) Aboriginal and/or Torres Strait Islander households, NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+figure_number <- overcrowded_lga %>%
+  f_bar_simple_lga(y_variable = aboriginal_n,
+                   y_max      = NA,
+                   y_breaks   = 100,
+                   y_expand   = 100,
+                   y_title    = "Number of households")
+
+figure_percent <- overcrowded_lga %>% 
+  f_bar_simple_lga(y_variable = aboriginal_prop,
+                   y_max      = 100,
+                   y_breaks   = 10,
+                   y_expand   = 1,
+                   y_title    = "Percentage of households",
+                   ctg_target = 88)
+
+f_bar_simple_combine(figure_number, figure_percent)
+```
+
+#### Figure 6F-2
+
+::: {#fig_6F_2 .fig-tab-title}
+**Figure 6F-2:** Observed vs. expected number of appropriately sized (not overcrowded) Aboriginal and/or Torres Strait Islander households, NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+overcrowded_lga %>% 
+  f_bar_obsexp_lga(y_max    = NA,
+                   y_breaks = 100,
+                   y_expand = 75,
+                   y_title  = "Number of households")
+```
+
+#### Table 6F-1
+
+::: {#tab_6F_1 .fig-tab-title}
+**Table 6F-1:** Observed vs. expected number of appropriately sized (not overcrowded) Aboriginal and/or Torres Strait Islander households, NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- overcrowded_lga %>%
+  f_preptable_obsexp_lga()
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  f_table_obsexp(column_name = "LGA",
+                 header_name = " ")
+```
+
+::: {style="height: 1em;"}
+:::
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+:::: {.callout-note title="Data notes" icon=false collapse=false}
+
+`r note_data_census`
+
+::: {style="height: 1em;"}
+:::
+
+`r note_caveat_underidentification`
+
+- Households include both family and non-family households.
+
+- *Appropriately sized households* were defined as those where extra bedrooms were not required.
+::::
+
+
