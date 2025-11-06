@@ -141,6 +141,7 @@ li > ul {
 }
 
 .callout-body ul li {
+  margin-top: 0pt !important;
   margin-bottom: 0pt !important;
 }
 
