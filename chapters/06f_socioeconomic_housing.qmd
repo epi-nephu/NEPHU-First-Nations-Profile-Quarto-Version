@@ -101,9 +101,7 @@ The following questions were asked of all people completing the ABS Census 2021.
 - What is the person's relationship to Person 1 (the person completing the Census form for the household)?
 - How many bedrooms are there in this dwelling?
 
-::: {style="height: 2em;"}
-:::
-
+<div style="height: 2em;"></div>
 ::::
 
 :::: {.panel-tabset}
@@ -186,17 +184,1108 @@ table %>%
 ::::
 
 :::: {.callout-note title="Data notes" icon=false collapse=false}
-
 `r note_data_census`
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 `r note_caveat_underidentification`
 
-- Households include both family and non-family households.
+`r note_caveat_household`
 
 - *Appropriately sized households* were defined as those where extra bedrooms were not required.
 ::::
 
+### Housing Quality
+
+```{r}
+# ------------------------------------------------------------------------------
+# Housing of acceptable standard
+# Data from ABS National Aboriginal and Torres Strait Islander Health Survey
+# ------------------------------------------------------------------------------
+# Read in NATSIHS data
+suitability_acceptable <- f_read_natsihs_sex("Indicator_Vic_Sex_Household_Acceptable.csv")
+
+# Data wrangling
+suitability_acceptable <- suitability_acceptable %>% 
+  dplyr::rowwise() %>% 
+  dplyr::mutate(answered_n = sum(across(household_living_in_house_of_an_acceptable_standard_n:household_living_in_house_not_of_an_acceptable_standard_n))) %>% 
+  dplyr::ungroup() %>% 
+  #
+  janitor::adorn_totals(fill = "Total") %>% 
+  #
+  dplyr::rename(yes_n = household_living_in_house_of_an_acceptable_standard_n,
+                no_n  = household_living_in_house_not_of_an_acceptable_standard_n) %>% 
+  #
+  dplyr::mutate(across(yes_n:no_n,
+                       ~ . / answered_n * 100,
+                       .names = "{.col}_prop"),
+                #
+                answered_prop = answered_n / answered_n * 100) %>% 
+  #
+  dplyr::rename_with(~ stringr::str_replace(., "_n_prop$", "_prop"), ends_with("_n_prop")) %>% 
+  #
+  dplyr::select(sex,
+                starts_with("yes"),
+                starts_with("no"),
+                starts_with("answered")) %>% 
+  #
+  tidyr::pivot_longer(!sex,
+                      names_to = c("answer", ".value"),
+                      names_pattern = "(.+)_(.+)") %>% 
+  #
+  dplyr::mutate(answer = factor(dplyr::recode(answer,
+                                              "yes"      = "Yes",
+                                              "no"       = "No",
+                                              "answered" = "Total"),
+                                levels = c("Yes",
+                                           "No",
+                                           "Total")))
+
+# ------------------------------------------------------------------------------
+# Housing - structural issues
+# Data from ABS National Aboriginal and Torres Strait Islander Health Survey
+# ------------------------------------------------------------------------------
+# Read in NATSIHS data
+suitability_structural <- f_read_natsihs_sex("Indicator_Vic_Sex_Household_Structural.csv")
+
+# Data wrangling
+suitability_structural <- suitability_structural %>% 
+  dplyr::rowwise() %>% 
+  dplyr::mutate(answered_n = sum(across(none_n:ten_n)),
+                lesstwo_n  = sum(across(none_n:one_n)),
+                moretwo_n  = sum(across(two_n:ten_n))) %>% 
+  dplyr::ungroup() %>% 
+  #
+  janitor::adorn_totals(fill = "Total") %>% 
+  #
+  dplyr::rename(yes_n = lesstwo_n,
+                no_n  = moretwo_n) %>% 
+  #
+  dplyr::mutate(across(yes_n:no_n,
+                       ~ . / answered_n * 100,
+                       .names = "{.col}_prop"),
+                #
+                answered_prop = answered_n / answered_n * 100,
+                #
+                category = "Less than two structural issues") %>% 
+  #
+  dplyr::rename_with(~ stringr::str_replace(., "_n_prop$", "_prop"), ends_with("_n_prop")) %>% 
+  #
+  dplyr::select(category,
+                sex,
+                starts_with("yes"),
+                starts_with("no_"),
+                starts_with("answered")) %>% 
+  #
+  tidyr::pivot_longer(!c(sex, category),
+                      names_to = c("answer", ".value"),
+                      names_pattern = "(.+)_(.+)") %>% 
+  #
+  dplyr::mutate(answer = factor(dplyr::recode(answer,
+                                              "yes"      = "Yes",
+                                              "no"       = "No",
+                                              "answered" = "Total"),
+                                levels = c("Yes",
+                                           "No",
+                                           "Total")))
+
+# ------------------------------------------------------------------------------
+# Housing - working bathroom
+# Data from ABS National Aboriginal and Torres Strait Islander Health Survey
+# ------------------------------------------------------------------------------
+# Read in NATSIHS data
+suitability_bathroom <- f_read_natsihs_sex("Indicator_Vic_Sex_Household_Bathroom.csv")
+
+# Data wrangling
+suitability_bathroom <- suitability_bathroom %>% 
+  dplyr::rowwise() %>% 
+  dplyr::mutate(answered_n = sum(across(has_working_facilities_for_washing_people_n:does_not_have_working_facilities_for_washing_people_n))) %>% 
+  dplyr::ungroup() %>% 
+  #
+  janitor::adorn_totals(fill = "Total") %>% 
+  #
+  dplyr::rename(yes_n = has_working_facilities_for_washing_people_n,
+                no_n  = does_not_have_working_facilities_for_washing_people_n) %>% 
+  #
+  dplyr::mutate(across(yes_n:no_n,
+                       ~ . / answered_n * 100,
+                       .names = "{.col}_prop"),
+                #
+                answered_prop = answered_n / answered_n * 100,
+                #
+                category = "Adequate bathing facilities") %>% 
+  #
+  dplyr::rename_with(~ stringr::str_replace(., "_n_prop$", "_prop"), ends_with("_n_prop")) %>% 
+  #
+  dplyr::select(category,
+                sex,
+                starts_with("yes"),
+                starts_with("no"),
+                starts_with("answered")) %>% 
+  #
+  tidyr::pivot_longer(!c(sex, category),
+                      names_to = c("answer", ".value"),
+                      names_pattern = "(.+)_(.+)") %>% 
+  #
+  dplyr::mutate(answer = factor(dplyr::recode(answer,
+                                              "yes"      = "Yes",
+                                              "no"       = "No",
+                                              "answered" = "Total"),
+                                levels = c("Yes",
+                                           "No",
+                                           "Total")))
+
+# ------------------------------------------------------------------------------
+# Housing - working kitchen
+# Data from ABS National Aboriginal and Torres Strait Islander Health Survey
+# ------------------------------------------------------------------------------
+# Read in NATSIHS data
+suitability_kitchen <- f_read_natsihs_sex("Indicator_Vic_Sex_Household_Kitchen.csv")
+
+# Data wrangling
+suitability_kitchen <- suitability_kitchen %>% 
+  dplyr::rowwise() %>% 
+  dplyr::mutate(answered_n = sum(across(has_working_facilities_for_storing_and_preparing_food_n:does_not_have_working_facilities_for_storing_and_preparing_food_n))) %>% 
+  dplyr::ungroup() %>% 
+  #
+  janitor::adorn_totals(fill = "Total") %>% 
+  #
+  dplyr::rename(yes_n = has_working_facilities_for_storing_and_preparing_food_n,
+                no_n  = does_not_have_working_facilities_for_storing_and_preparing_food_n) %>% 
+  #
+  dplyr::mutate(across(yes_n:no_n,
+                       ~ . / answered_n * 100,
+                       .names = "{.col}_prop"),
+                #
+                answered_prop = answered_n / answered_n * 100,
+                #
+                category = "Adequate cooking facilities") %>% 
+  #
+  dplyr::rename_with(~ stringr::str_replace(., "_n_prop$", "_prop"), ends_with("_n_prop")) %>% 
+  #
+  dplyr::select(category,
+                sex,
+                starts_with("yes"),
+                starts_with("no"),
+                starts_with("answered")) %>% 
+  #
+  tidyr::pivot_longer(!c(sex, category),
+                      names_to = c("answer", ".value"),
+                      names_pattern = "(.+)_(.+)") %>% 
+  #
+  dplyr::mutate(answer = factor(dplyr::recode(answer,
+                                              "yes"      = "Yes",
+                                              "no"       = "No",
+                                              "answered" = "Total"),
+                                levels = c("Yes",
+                                           "No",
+                                           "Total")))
+
+# ------------------------------------------------------------------------------
+# Housing - working laundry
+# Data from ABS National Aboriginal and Torres Strait Islander Health Survey
+# ------------------------------------------------------------------------------
+# Read in NATSIHS data
+suitability_laundry <- f_read_natsihs_sex("Indicator_Vic_Sex_Household_Laundry.csv")
+
+# Data wrangling
+suitability_laundry <- suitability_laundry %>% 
+  dplyr::rowwise() %>% 
+  dplyr::mutate(answered_n = sum(across(has_working_facilities_for_washing_clothes_or_bedding_n:does_not_have_working_facilities_for_washing_clothes_or_bedding_n))) %>% 
+  dplyr::ungroup() %>% 
+  #
+  janitor::adorn_totals(fill = "Total") %>% 
+  #
+  dplyr::rename(yes_n = has_working_facilities_for_washing_clothes_or_bedding_n,
+                no_n  = does_not_have_working_facilities_for_washing_clothes_or_bedding_n) %>% 
+  #
+  dplyr::mutate(across(yes_n:no_n,
+                       ~ . / answered_n * 100,
+                       .names = "{.col}_prop"),
+                #
+                answered_prop = answered_n / answered_n * 100,
+                #
+                category = "Adequate laundry facilities") %>% 
+  #
+  dplyr::rename_with(~ stringr::str_replace(., "_n_prop$", "_prop"), ends_with("_n_prop")) %>% 
+  #
+  dplyr::select(category,
+                sex,
+                starts_with("yes"),
+                starts_with("no"),
+                starts_with("answered")) %>% 
+  #
+  tidyr::pivot_longer(!c(sex, category),
+                      names_to = c("answer", ".value"),
+                      names_pattern = "(.+)_(.+)") %>% 
+  #
+  dplyr::mutate(answer = factor(dplyr::recode(answer,
+                                              "yes"      = "Yes",
+                                              "no"       = "No",
+                                              "answered" = "Total"),
+                                levels = c("Yes",
+                                           "No",
+                                           "Total")))
+
+# ------------------------------------------------------------------------------
+# Housing - working sewerage
+# Data from ABS National Aboriginal and Torres Strait Islander Health Survey
+# ------------------------------------------------------------------------------
+# Read in NATSIHS data
+suitability_sewerage <- f_read_natsihs_sex("Indicator_Vic_Sex_Household_Sewerage.csv")
+
+# Data wrangling
+suitability_sewerage <- suitability_sewerage %>% 
+  dplyr::rowwise() %>% 
+  dplyr::mutate(answered_n = sum(across(has_working_sewerage_facilities_n:does_not_have_working_sewerage_facilities_n))) %>% 
+  dplyr::ungroup() %>% 
+  #
+  janitor::adorn_totals(fill = "Total") %>% 
+  #
+  dplyr::rename(yes_n = has_working_sewerage_facilities_n,
+                no_n  = does_not_have_working_sewerage_facilities_n) %>% 
+  #
+  dplyr::mutate(across(yes_n:no_n,
+                       ~ . / answered_n * 100,
+                       .names = "{.col}_prop"),
+                #
+                answered_prop = answered_n / answered_n * 100,
+                #
+                category = "Sewerage connection") %>% 
+  #
+  dplyr::rename_with(~ stringr::str_replace(., "_n_prop$", "_prop"), ends_with("_n_prop")) %>% 
+  #
+  dplyr::select(category,
+                sex,
+                starts_with("yes"),
+                starts_with("no"),
+                starts_with("answered")) %>% 
+  #
+  tidyr::pivot_longer(!c(sex, category),
+                      names_to = c("answer", ".value"),
+                      names_pattern = "(.+)_(.+)") %>% 
+  #
+  dplyr::mutate(answer = factor(dplyr::recode(answer,
+                                              "yes"      = "Yes",
+                                              "no"       = "No",
+                                              "answered" = "Total"),
+                                levels = c("Yes",
+                                           "No",
+                                           "Total")))
+
+# ------------------------------------------------------------------------------
+# Housing - combine information about housing issues
+# Data from ABS National Aboriginal and Torres Strait Islander Health Survey
+# ------------------------------------------------------------------------------
+suitability_combined <- suitability_structural %>% 
+  dplyr::bind_rows(suitability_kitchen) %>% 
+  dplyr::bind_rows(suitability_laundry) %>% 
+  dplyr::bind_rows(suitability_bathroom) %>% 
+  dplyr::bind_rows(suitability_sewerage)
+```
+
+- Data for this topic were obtained from the [2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release).
+
+- Overall, 83% of Aboriginal and/or Torres Strait Islander survey respondents aged 15 years and over living in Greater Melbourne reported that they were living in a dwelling of an acceptable standard. This equates to approximately 33,100 Aboriginal and/or Torres Strait Islander people.
+
+- Females were more likely to report living in a dwelling of an acceptable standard than males (85% vs. 81%).
+
+- The most commonly reported housing quality issues by Aboriginal and/or Torres Strait Islander survey respondents living in Greater Melbourne were structural issues (15% of survey respondents, approximately 5,800 people) and a lack of adequate facilities for storing and preparing food (7.1% of survey respondents, approximately 2,800 people).
+
+- Males were more likely to report each type of housing quality issue than females.
+
+:::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+The following questions were asked of all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+
+- Is your household living in a house or dwelling of an acceptable standard?
+  - Household living in house/dwelling of acceptable standard
+  - Household living in house/dwelling not of an acceptable standard
+
+<div style="height: 1em;"></div>
+
+- Number of major structural problems
+  - Multiple choice (none to ten or more)
+
+<div style="height: 1em;"></div>
+
+- Does your household have working facilities for washing people?
+  - Has working facilities for washing people
+  - Does not have working facilities for washing people
+
+<div style="height: 1em;"></div>
+
+- Does your household have working facilities for washing clothes or bedding?
+  - Has working facilities for washing clothes or bedding
+  - Does not have working facilities for washing clothes or bedding
+  
+<div style="height: 1em;"></div>
+
+- Does your household have working facilities for storing and preparing food?
+  - Has working facilities for storing and preparing food
+  - Does not have working facilities for storing and preparing food
+  
+<div style="height: 1em;"></div>
+
+- Does your household have working sewerage facilities?
+  - Has working sewerage facilities
+  - Does not have working sewerage facilities
+  
+<div style="height: 2em;"></div>
+::::
+
+:::: {.panel-tabset}
+
+#### Table 6F-2
+
+::: {#tab_6F_2 .fig-tab-title}
+**Table 6F-2:** Whether they were living in a house or dwelling of acceptable standard for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- suitability_acceptable %>% 
+  tidyr::pivot_wider(names_from  = "sex",
+                     values_from = c("n", "prop"),
+                     names_vary  = "slowest") %>% 
+  #
+  janitor::clean_names() %>% 
+  #
+  dplyr::rename(acceptable_standard = answer)
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(prop_male   = sprintf("%.1f", prop_male),
+                prop_female = sprintf("%.1f", prop_female),
+                prop_total  = sprintf("%.1f", prop_total)) %>%
+  #
+  f_table_grouped_sex(n_variable  = "estimate",
+                      column_name = "House/dwelling of<br>acceptable standard")
+```
+
+::: {style="height: 1em;"}
+:::
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+#### Figure 6F-3
+
+::: {#fig_6F_3 .fig-tab-title}
+**Figure 6F-3:** Estimated number of people and percentage of survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander reporting housing quality issues, Greater Melbourne, by sex, 2022-2023
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+figure_number <- suitability_combined %>% 
+  dplyr::filter(sex != "Total" & answer == "No") %>%
+  dplyr::mutate(answer = dplyr::recode(category,
+                                       "Less than two structural issues" = "Structural",
+                                       "Adequate cooking facilities"     = "Cooking",
+                                       "Adequate laundry facilities"     = "Laundry",
+                                       "Adequate bathing facilities"     = "Bathing",
+                                       "Sewerage connection"             = "Sewerage")) %>% 
+  #
+  f_bar_grouped_sex(x_variable = answer,
+                    y_variable = n,
+                    y_max      = NA,
+                    y_breaks   = 500,
+                    y_expand   = 100,
+                    y_title    = "Estimated number of people")
+
+figure_percent <- suitability_combined %>% 
+  dplyr::filter(sex != "Total" & answer == "No") %>%
+  dplyr::mutate(answer = dplyr::recode(category,
+                                       "Less than two structural issues" = "Structural",
+                                       "Adequate cooking facilities"     = "Cooking",
+                                       "Adequate laundry facilities"     = "Laundry",
+                                       "Adequate bathing facilities"     = "Bathing",
+                                       "Sewerage connection"             = "Sewerage")) %>%  
+  #
+  f_bar_grouped_sex(x_variable = answer,
+                    y_variable = prop,
+                    y_max      = 50,
+                    y_breaks   = 5,
+                    y_expand   = 0.5,
+                    y_title    = "Percentage of survey respondents")
+
+f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
+```
+
+#### Table 6F-3
+
+::: {#tab_6F_3 .fig-tab-title}
+**Table 6F-3:** Housing quality issues for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- suitability_combined %>% 
+  tidyr::pivot_wider(names_from  = "sex",
+                     values_from = c("n", "prop"),
+                     names_vary  = "slowest") %>% 
+  #
+  janitor::clean_names()
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::filter(answer != "Total") %>%
+  #
+  dplyr::select(-category) %>% 
+  #
+  dplyr::mutate(prop_male   = sprintf("%.1f", prop_male),
+                prop_female = sprintf("%.1f", prop_female),
+                prop_total  = sprintf("%.1f", prop_total)) %>%
+  #
+  f_table_grouped_sex(n_variable  = "estimate",
+                      column_name = " ",
+                      total_row   = NULL) %>% 
+  #
+  kableExtra::pack_rows("Less than two structural issues", 1, 2) %>% 
+  kableExtra::pack_rows("Adequate cooking facilities", 3, 4) %>% 
+  kableExtra::pack_rows("Adequate laundry facilities", 5, 6) %>% 
+  kableExtra::pack_rows("Adequate bathing facilities", 7, 8) %>% 
+  kableExtra::pack_rows("Sewerage connection", 9, 10)
+```
+
+::: {style="height: 1em;"}
+:::
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+:::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_natsihs`
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+`r note_caveat_unknown_agesex`
+
+`r note_caveat_survey_unknown`
+
+`r note_caveat_survey_estimate`
+
+`r note_caveat_household`
+
+- A house or dwelling is of an acceptable standard if there are working facilities for washing people, for washing clothes or bedding, for storing and preparing food, sewerage facilities, and if there are no more than two major structural problems.
+::::
+
+::: {style="opacity: 0.8;"}
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+:::
+
+## Housing Affordability
+
+### Housing Tenure
+
+```{r}
+# ------------------------------------------------------------------------------
+# Housing tenure type
+# Data from ABS Census using TableBuilderPro
+# ------------------------------------------------------------------------------
+# Read in TableBuilder data
+tenure_lga <- f_read_census_lga("Aboriginal_Household_Tenure_LGA.csv",
+                                variable = "tenure") %>% 
+  #
+  dplyr::filter(!tenure %in% c("Not stated", "Not applicable")) %>%
+  #
+  dplyr::mutate(tenure = dplyr::case_when(
+    tenure == "Owned outright"        ~ "Owned (outright)",
+    tenure == "Owned with a mortgage" ~ "Owned (mortgage)",
+    #
+    tenure == "Rented" ~ "Rented",
+    #
+    tenure == "Other"                                  ~ "Other",
+    tenure == "Occupied rent free"                     ~ "Other",
+    tenure == "Occupied under a life tenure scheme"    ~ "Other",
+    tenure == "Purchased under a shared equity scheme" ~ "Other",
+    TRUE ~ NA_character_))
+
+# Data wrangling
+tenure_lga <- tenure_lga %>% 
+  f_wrangle_census_lga(variable = tenure,
+                       level    = "household",
+                       dichot   = "no") %>% 
+  #
+  dplyr::mutate(outright_prop = aboriginal_n_owned_outright / aboriginal_total * 100,
+                mortgage_prop = aboriginal_n_owned_mortgage / aboriginal_total * 100,
+                rented_prop   = aboriginal_n_rented / aboriginal_total * 100,
+                other_prop    = aboriginal_n_other / aboriginal_total * 100) %>% 
+  #
+  dplyr::select(lga_name,
+                outright_n = aboriginal_n_owned_outright,
+                outright_prop,
+                mortgage_n = aboriginal_n_owned_mortgage,
+                mortgage_prop,
+                rented_n = aboriginal_n_rented,
+                rented_prop,
+                other_n = aboriginal_n_other,
+                other_prop,
+                aboriginal_total)
+```
+
+- Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
+
+- Overall, 52% (n = 3,347) of households in the NEPHU catchment with at least one member who identified as Aboriginal and/or Torres Strait Islander in the Census were renting, 30% (n = 1,910) owned their home with a mortgage, and 16% (n = 989) owned their home outright.
+
+- The percentage of rented households with at least one member who identified as Aboriginal and/or Torres Strait Islander was higher than for non-Indigenous households (52% vs 27%), while the percentage of mortgaged or owned outright homes was lower than for non-Indigenous households (owned with mortgage: 30% vs 38%; owned outright: 16% vs 33%).
+
+- In Yarra (75%) and Darebin (76%) LGAs, higher proportions of households were rented, which may reflect the younger age profile of these LGAs.
+
+:::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+The following question was asked of all people completing the ABS Census 2021.
+
+- Is this dwelling:
+  - Owned outright
+  - Owned with a mortgage
+  - Purchased under a shared equity scheme
+  - Rented
+  - Occupied rent free
+  - Occupied under a life tenure scheme
+  - Other
+  
+<div style="height: 2em;"></div>
+::::
+
+:::: {.panel-tabset}
+
+#### Figure 6F-4
+
+::: {#fig_6F_4 .fig-tab-title}
+**Figure 6F-4:** Housing tenure type for Aboriginal and/or Torres Strait Islander households, NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+tenure_lga %>% 
+  dplyr::filter(lga_name %in% nephu_lga) %>% 
+  #
+  tidyr::pivot_longer(cols      = ends_with("_n"),
+                      names_to  = "comparison",
+                      values_to = "aboriginal_n") %>%
+  #
+  dplyr::mutate(comparison = factor(dplyr::case_when(
+    comparison == "outright_n" ~ "Owned (outright)",
+    comparison == "mortgage_n" ~ "Owned (mortgage)",
+    comparison == "rented_n"   ~ "Rented",
+    comparison == "other_n"    ~ "Other",
+    TRUE ~ NA_character_),
+    levels = c("Owned (outright)",
+               "Owned (mortgage)",
+               "Rented",
+               "Other"))) %>% 
+  
+  f_bar_stacked_lga(fill_values = c(colour_stack4, colour_stack3, colour_stack2, colour_stack1),
+                    y_max       = NA,
+                    y_breaks    = 100,
+                    y_expand    = 10,
+                    y_title     = "Number of households")
+```
+
+#### Table 6F-4
+
+::: {#tab_6F_4 .fig-tab-title}
+**Table 6F-4:** Housing tenure type for Aboriginal and/or Torres Strait Islander households, NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- tenure_lga %>% 
+  dplyr::filter(lga_name %in% c(nephu_lga, "NEPHU"))
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(outright_prop = sprintf("%.1f", outright_prop),
+                mortgage_prop = sprintf("%.1f", mortgage_prop),
+                rented_prop   = sprintf("%.1f", rented_prop),
+                other_prop    = sprintf("%.1f", other_prop)) %>% 
+  #
+  f_table_simple(table_headers = c("LGA", 
+                                   "Count", "Percent", "Count", "Percent", "Count", "Percent", "Count", "Percent",
+                                   "Total")) %>% 
+  #
+  kableExtra::column_spec(2:10,
+                          width = "0.75in") %>% 
+  
+  kableExtra::add_header_above(c(" " = 1,
+                                 "Owned (outright)" = 2,
+                                 "Owned (mortgage)" = 2,
+                                 "Rented"           = 2,
+                                 "Other"            = 2,
+                                 " " = 1))
+```
+
+::: {style="height: 1em;"}
+:::
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+:::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_census`
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+`r note_caveat_household`
+
+- *Other* includes dwellings purchased under a shared equity scheme, occupied under a life tenure scheme (e.g. retirement villages), or occupied rent-free.
+::::
+
+### Housing Stress
+
+```{r}
+# ------------------------------------------------------------------------------
+# Mortgage/rental stress
+# Data from ABS Census using TableBuilderPro
+# ------------------------------------------------------------------------------
+# Read in TableBuilder data
+mortgage_lga <- f_read_census_lga("Aboriginal_Household_Mortgage_LGA.csv",
+                                  variable = "stress") %>% 
+  #
+  dplyr::mutate(stress = dplyr::case_when(
+    stress == "Households where mortgage repayments are more than 30% of household income" ~ "Mortgage more than 30",
+    TRUE ~ "Mortgage less than 30"))
+
+rental_lga <- f_read_census_lga("Aboriginal_Household_Rent_LGA.csv",
+                                variable = "stress") %>% 
+  #
+  dplyr::filter(!stress %in% c("Not applicable")) %>%
+  #
+  dplyr::mutate(stress = dplyr::case_when(
+    stress == "Households where rent payments are more than 30% of household income" ~ "Rent more than 30",
+    TRUE ~ "Rent less than 30"))
+
+# Data wrangling
+stress_lga <- mortgage_lga %>% 
+  dplyr::bind_rows(rental_lga) %>% 
+  #
+  dplyr::mutate(stress = dplyr::case_when(
+    stress == "Mortgage more than 30" ~ "yes",
+    stress == "Rent more than 30"     ~ "yes",
+    TRUE ~ "no")) %>% 
+  #
+  f_wrangle_census_lga(variable = stress,
+                       level    = "household",
+                       dichot   = "yes")
+```
+
+- Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
+
+- Overall, 13% (n = 1,244) of households in the NEPHU catchment with at least one member who identified as Aboriginal and/or Torres Strait Islander in the Census spent more than 30% of their annual household income on housing costs (mortgage or rent). This was slightly higher than for non-Indigenous households in the NEPHU catchment (11%).
+
+- The number of Aboriginal and/or Torres Strait Islander households in different LGAs within the NEPHU catchment that spent more than 30% of their annual household income on housing costs ranged from 203 (Whittlesea LGA) to 28 (Nillumbik LGA).
+
+- The gap between the observed number of Aboriginal and/or Torres Strait Islander households that spent more than 30% of their annual household income on housing costs and the number expected if the rate was the same as for non-Indigenous households was biggest for Darebin and Yarra Ranges LGAs.
+
+- The percentage of Aboriginal and/or Torres Strait Islander households in different LGAs within the NEPHU catchment that spent more than 30% of their annual household income on housing costs ranged from 14% (Whitehorse and Manningham LGAs) to 9.3% (Boroondara LGA).
+
+:::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+The following questions were asked of all people aged 15 years and over completing the ABS Census 2021. Responses for each household member were summed to calculate the total weekly household income.
+
+- What is the total of all income the person usually receives?
+  - Free text response
+
+<div style="height: 1em;"></div>
+
+- Is this dwelling:
+  - Owned outright
+  - Owned with a mortgage
+  - Purchased under a shared equity scheme
+  - Rented
+  - Occupied rent free
+  - Occupied under a life tenure scheme
+  - Other
+
+<div style="height: 1em;"></div>
+
+- How much does your household pay for this dwelling?
+  - Free text response
+  
+<div style="height: 2em;"></div>
+::::
+
+:::: {.panel-tabset}
+
+#### Figure 6F-5
+
+::: {#fig_6F_5 .fig-tab-title}
+**Figure 6F-5:** Number and percentage of Aboriginal and/or Torres Strait Islander households that spent more than 30% of their annual household income on housing costs (mortgage or rent), NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+figure_number <- stress_lga %>% 
+  f_bar_simple_lga(y_variable = aboriginal_n,
+                   y_max      = NA,
+                   y_breaks   = 20,
+                   y_expand   = 1,
+                   y_title    = "Number of households")
+
+figure_percent <- stress_lga %>% 
+  f_bar_simple_lga(y_variable = aboriginal_prop,
+                   y_max      = 50,
+                   y_breaks   = 5,
+                   y_expand   = 0.5,
+                   y_title    = "Percentage of households")
+
+f_bar_simple_combine(figure_number, figure_percent)
+```
+
+#### Figure 6F-6
+
+::: {#fig_6F_6 .fig-tab-title}
+**Figure 6F-6:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander households that spent more than 30% of their annual household income on housing costs (mortgage or rent), NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+stress_lga %>%
+  f_bar_obsexp_lga(y_max    = NA,
+                   y_breaks = 20,
+                   y_expand = 1,
+                   y_title  = "Number of households")
+```
+
+#### Table 6F-5
+
+::: {#tab_6F_5 .fig-tab-title}
+**Table 6F-5:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander households that spent more than 30% of their annual household income on housing costs (mortgage or rent), NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- stress_lga %>%
+  f_preptable_obsexp_lga()
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  f_table_obsexp(column_name = "LGA",
+                 header_name = NULL)
+```
+
+::: {style="height: 1em;"}
+:::
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+:::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_census`
+
+<div style="height: 1em;"></div>
+
+- Data for Figure 6D-3 and Table 6D-3 were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the ABS Census for the Census years between 2001 and 2021.
+  - The Closing the Gap Information Repository brings together data from a wide range of data sources to provide up to date information for each Closing the Gap target, indicator, and contextual factors.
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+`r note_caveat_household`
+
+- This indicator includes dwellings owned with a mortgage, purchased under a shared equity scheme, or rented.
+
+<div style="height: 0.1em;"></div>
+
+- Mortgage or rental payments greater than 30% of household income may not indicate a household is in financial distress.
+  - Households may choose to live in an area with higher costs due to proximity to work, schooling, or other lifestyle factors.
+  - Higher income households may be able to spend more of their income on housing without this affecting their ability to pay for other costs of living.
+  - Some households may choose to pay more than the minimum required payment in order to pay off a mortgage faster.
+
+<div style="height: 1em;"></div>
+
+- A number of regions across the state were in various stages of lockdown on 2021 Census night. This resulted in a greater number of people being stood down from work than usual, which may have had an impact on housing affordability and housing stress.
+
+<div style="height: 2em;"></div>
+::::
+
+### Homelessness
+
+```{r}
+# ------------------------------------------------------------------------------
+# Homelessness, by LGA
+# Data from ABS Census using TableBuilderPro
+# ------------------------------------------------------------------------------
+# Read in Census data
+homeless_lga <- f_read_census_lga("Aboriginal_Household_Homeless_LGA.csv",
+                                  variable = "homeless") %>% 
+  #
+  dplyr::mutate(homeless = dplyr::case_when(
+    homeless == "Not applicable" ~ "no",
+    TRUE ~ "yes"))  
+
+# Data wrangling
+homeless_lga <- homeless_lga %>% 
+  f_wrangle_census_lga(variable = homeless,
+                       level    = "person",
+                       dichot   = "yes")
+
+# ------------------------------------------------------------------------------
+# Homelessness, by age and sex
+# Data from ABS Census using TableBuilderPro
+# ------------------------------------------------------------------------------
+# Read in Census data
+homeless_agesex <- f_read_census_agesex("Aboriginal_Household_Homeless_AgeSex.csv",
+                                        variable = "homeless") %>% 
+  #
+  dplyr::mutate(homeless = dplyr::case_when(
+    homeless == "Not applicable" ~ "no",
+    TRUE ~ "yes")) 
+
+# Data wrangling
+homeless_agesex <- homeless_agesex %>% 
+  f_wrangle_census_agesex(variable = homeless,
+                          dichot   = "yes")
+```
+
+- Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
+
+- Overall, 2.2% (n = 264) of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census were homeless or marginally housed on Census night. This was higher than for non-Indigenous people living in the NEPHU catchment (0.64%).
+
+- The number of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who were homeless or marginally housed on Census night ranged from 64 (Darebin LGA) to 0 (Nillumbik LGA).
+
+- The gap between the observed number of Aboriginal and/or Torres Strait Islander people who were homeless or marginally housed on Census night and the number expected if the rate was the same as for non-Indigenous people was biggest for Darebin, Yarra Ranges, and Whittlesea LGAs.
+
+- The percentage of people who identified as Aboriginal and/or Torres Strait Islander in the Census living in different LGAs within the NEPHU catchment who were homeless or marginally housed on Census night ranged from 4.5% (Whitehorse LGA) to 0.0% (Nillumbik LGA).
+
+- There were a higher number of homeless or marginally housed females compared to males, particularly in the 40-49 year age group.
+
+- The gap between the observed number of Aboriginal and/or Torres Strait Islander people who were homeless or marginally housed on Census night and the number expected if the rate was the same as for non-Indigenous people was biggest for people aged less than 20 years and 40-49 years for both males and females.
+
+:::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+The following question was asked of all people completing the ABS Census 2021.
+
+- Where does the person usually live?
+  - Free text response
+  
+<div style="height: 2em;"></div>
+::::
+
+:::: {.panel-tabset}
+
+#### Figure 6F-7
+
+::: {#fig_6F_7 .fig-tab-title}
+**Figure 6F-7:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who were homeless or marginally housed on Census night, NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+figure_number <- homeless_lga %>% 
+  f_bar_simple_lga(y_variable = aboriginal_n,
+                   y_max      = NA,
+                   y_breaks   = 10,
+                   y_expand   = 7,
+                   y_title    = "Number of people")
+
+figure_percent <- homeless_lga %>% 
+  f_bar_simple_lga(y_variable = aboriginal_prop,
+                   y_max      = 10,
+                   y_breaks   = 1,
+                   y_expand   = 0.1,
+                   y_title    = "Percentage of people")
+
+f_bar_simple_combine(figure_number, figure_percent)
+```
+
+#### Figure 6F-8
+
+::: {#fig_6F_8 .fig-tab-title}
+**Figure 6F-8:** Observed vs. expected number of people who were homeless or marginally housed on Census night and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+homeless_lga %>%
+  f_bar_obsexp_lga(y_max    = NA,
+                   y_breaks = 10,
+                   y_expand = 7)
+```
+
+#### Table 6F-6
+
+::: {#tab_6F_6 .fig-tab-title}
+**Table 6F-6:** Observed vs. expected number of people who were homeless or marginally housed on Census night and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- homeless_lga %>%
+  f_preptable_obsexp_lga()
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  f_table_obsexp(column_name = "LGA",
+                 header_name = NULL)
+```
+
+::: {style="height: 1em;"}
+:::
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+#### Figure 6F-9
+
+::: {#fig_6F_9 .fig-tab-title}
+**Figure 6F-9:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who were homeless or marginally housed on Census night, NEPHU catchment, by age and sex, 2021
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+figure_number <- homeless_agesex %>%
+  f_bar_grouped_agesex(y_variable = aboriginal_n,
+                       y_max      = NA,
+                       y_breaks   = 5,
+                       y_expand   = 5,
+                       y_title    = "Number of people")
+
+figure_percent <- homeless_agesex %>% 
+  f_bar_grouped_agesex(y_variable = aboriginal_prop,
+                       y_max      = 10,
+                       y_breaks   = 1,
+                       y_expand   = 0.1,
+                       y_title    = "Percentage of people")
+
+f_bar_grouped_combine(figure_number, figure_percent)
+```
+
+#### Figure 6F-10
+
+::: {#fig_6F_10 .fig-tab-title}
+**Figure 6F-10:** Observed vs. expected number of people who were homeless or marginally housed on Census night and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+homeless_agesex %>%
+  f_bar_obsexp_agesex(y_max    = NA,
+                      y_breaks = 5,
+                      y_expand = 5)
+```
+
+#### Table 6F-7
+
+::: {#tab_6F_7 .fig-tab-title}
+**Table 6F-7:** Observed vs. expected number of people who were homeless or marginally housed on Census night and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- homeless_agesex %>%
+  f_preptable_obsexp_agesex()
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::filter(sex == "Female") %>%
+  #
+  dplyr::select(-sex) %>% 
+  #
+  f_table_obsexp(total_row   = nrow(table) / 2,
+                 column_name = "Age group",
+                 header_name = "Female")
+
+table %>% 
+  dplyr::filter(sex == "Male") %>%
+  #
+  dplyr::select(-sex) %>% 
+  #
+  f_table_obsexp(total_row   = nrow(table) / 2,
+                 column_name = "Age group",
+                 header_name = "Male")
+```
+
+::: {style="height: 1em;"}
+:::
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+:::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_census`
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+`r note_caveat_unknown_agesex`
+
+- *Homeless* is defined as people who were living in improvised dwellings, tents, or sleeping out; living in supported accommodation for the homeless; staying temporarily with other households; living in boarding houses; living in severely crowded dwellings; or living in other temporary lodgings on Census night.
+
+- *Marginally housed* is defined as people who were living in other (not severely) crowded dwellings, living in other improvised dwellings, or marginally housed in caravan parks on Census night.
+
+- A number of regions across the state were in various stages of lockdown on 2021 Census night. This resulted in a greater number of people being stood down from work than usual, which may have had an impact on housing affordability and housing stress.
+::::
 
