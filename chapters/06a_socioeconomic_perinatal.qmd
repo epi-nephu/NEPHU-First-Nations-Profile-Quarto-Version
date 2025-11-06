@@ -159,8 +159,7 @@ table %>%
 :::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_phidu_perinatal`
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 `r note_caveat_underidentification`
 
@@ -280,8 +279,7 @@ table %>%
 :::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_phidu_perinatal`
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 `r note_caveat_underidentification`
 
@@ -572,20 +570,17 @@ table %>%
   - The PHIDU Social Health Atlas is a compendium of demographic, social, health status, and health service utilisation indicators compiled by Torrens University Australia from a wide range of national, jurisdictional, and regional data sources.
   - Data were aggregated for a three-year period (January 2019 to December 2021).
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 - Data for Figure 6A-4 and Table 6A-4 were obtained from the [AIHW Aboriginal and Torres Strait Islander Performance Framework](https://www.indigenoushpf.gov.au/) compiled from the [National Perinatal Data Collection (NPDC)](https://www.aihw.gov.au/about-our-data/our-data-collections/national-perinatal-data-collection).
   - The AIHW Aboriginal and Torres Strait Islander Framework brings together information from a wide range of national, jurisdictional, and regional data sources to report on determinants of health, health outcomes, and health system performance for Aboriginal and/or Torres Strait Islander peoples.
 
-::: {style="height: 1em;"}
-::::
+<div style="height: 1em;"></div>
 
 - The NPDC collates data about births reported by midwives and other birth attendants to the perinatal data collections in each state and territory in Australia.
   - Aboriginal and/or Torres Strait Islander mothers are defined as those who identified themselves as Aboriginal and/or Torres Strait Islander at the time of childbirth.
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 `r note_caveat_underidentification`
 
@@ -778,8 +773,7 @@ table %>%
   - The 2018-19 ABS National Aboriginal and Torres Strait Islander Health Survey collected information from Aboriginal and/or Torres Strait Islander people of all ages in non-remote and remote areas of Australia, including discrete Aboriginal and/or Torres Strait Islander communities. 
   - The 2017-18 ABS National Health Survey collected information from Australian residents of all ages living in private dwellings in both urban and rural areas of all Australian states and territories, including very remote communities and discrete Aboriginal and/or Torres Strait Islander communities.
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 `r note_caveat_underidentification`
 

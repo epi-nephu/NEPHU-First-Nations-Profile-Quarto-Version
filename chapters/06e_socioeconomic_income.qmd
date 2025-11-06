@@ -96,9 +96,7 @@ The following question was asked of all people aged 15 years and over completing
 - What is the total of all income the person usually receives?
   - Free text response
 
-::: {style="height: 1em;"}
-:::
-
+<div style="height: 2em;"></div>
 ::::
 
 :::: {.panel-tabset}
@@ -190,12 +188,11 @@ table %>%
 :::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 `r note_caveat_underidentification`
 
-- Households include both family and non-family households.
+`r note_caveat_household`
 
 - Income can come from a range of sources, including employment, investments, businesses, government benefits, and government allowances.
 ::::
@@ -588,15 +585,13 @@ table %>%
   - The 2021 Census was held on the evening of August 10th 2021.
   - Aboriginal and/or Torres Strait Islander peoples were defined as those who identified themselves as Aboriginal and/or Torres Strait Islander in the Census.
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 `r note_caveat_underidentification`
 
 `r note_caveat_unknown_agesex`
 
-::: {style="height: 0.1em;"}
-:::
+<div style="height: 0.1em;"></div>
 
 - The types of income support payments were classified as:
   - Carer support (Carer Allowance, Carer Payment)
@@ -606,8 +601,7 @@ table %>%
   - Work and study (Austudy/Abstudy, Newstart Allowance and Jobseeker, Youth Allowance)
   - Other payments (Future Flexible Support Payment, Special Benefit, other government pensions and allowances)
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 - This indicator measures the main type of income support payment received. People may have received more than one type of income support payment.
 
@@ -683,9 +677,7 @@ The following question was asked of all people aged 15 years and over completing
   - Had days without money for basic living expenses in last 12 months
   - Did not have days without money for basic living expenses in last 12 months
 
-::: {style="height: 2em;"}
-:::
-
+<div style="height: 2em;"></div>
 ::::
 
 :::: {.panel-tabset}
@@ -733,11 +725,9 @@ table %>%
 ::::
 
 :::: {.callout-note title="Data notes" icon=false collapse=false}
-
 `r note_data_natsihs`
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 `r note_caveat_underidentification`
 
@@ -808,9 +798,7 @@ The following question was asked of all people aged 15 years and over completing
   - Yes, could raise \$2,000 in a week
   - No, could not raise \$2,000 in a week
 
-::: {style="height: 2em;"}
-:::
-
+<div style="height: 2em;"></div>
 ::::
 
 :::: {.panel-tabset}
@@ -858,11 +846,9 @@ table %>%
 ::::
 
 :::: {.callout-note title="Data notes" icon=false collapse=false}
-
 `r note_data_natsihs`
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 `r note_caveat_underidentification`
 
@@ -942,24 +928,21 @@ The following questions were asked of all people aged 15 years and over completi
   - Sometimes
   - Never
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 - How often in the last 12 months did you not have enough food and no money to buy more?
   - Often
   - Sometimes
   - Never
   
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 - How often in the last 12 months was your household unable to afford to eat healthy or nutritious meals?
   - Often
   - Sometimes
   - Never
   
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 If at least one of these questions was answered in the affirmative (often or sometimes), additional questions were asked to determine the level of food insecurity (marginal, moderate, or severe).
 
@@ -971,9 +954,7 @@ If at least one of these questions was answered in the affirmative (often or som
 - Did adults in the household not eat for a day because there was not enough money for food?
 - How often in the last 12 months did adults not eat for a day?
 
-::: {style="height: 2em;"}
-:::
-
+<div style="height: 2em;"></div>
 ::::
 
 :::: {.panel-tabset}
@@ -1056,11 +1037,9 @@ table %>%
 ::::
 
 :::: {.callout-note title="Data notes" icon=false collapse=false}
-
 `r note_data_natsihs`
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 `r note_caveat_underidentification`
 
@@ -1070,16 +1049,13 @@ table %>%
 
 `r note_caveat_survey_estimate`
 
-::: {style="height: 0.1em;"}
-:::
+<div style="height: 0.1em;"></div>
 
 - Food security is defined as having enough food and/or money to buy food needed for an active, healthy life at all times during the previous 12 months.
   - Marginal food insecurity is generally characterised by worrying about running out of food or experiencing a lack of selection of food due to a lack of money for food.
   - Moderate food insecurity is generally characterised by compromising on the quality and/or quantity of food due to a lack of money for food.
   - Severe food insecurity is generally characterised by missing meals or reducing food intake due to a lack of money for food.
   
-::: {style="height: 2em;"}
-:::
-
+<div style="height: 2em;"></div>
 ::::
 

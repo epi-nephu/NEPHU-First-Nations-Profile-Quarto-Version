@@ -404,8 +404,7 @@ pyramid[["Yarra Ranges"]]
 :::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 `r note_caveat_underidentification`
 
@@ -521,8 +520,7 @@ table %>%
 :::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 `r note_caveat_underidentification`
 

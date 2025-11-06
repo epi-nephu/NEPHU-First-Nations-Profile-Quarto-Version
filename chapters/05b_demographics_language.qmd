@@ -144,9 +144,7 @@ The following question was asked of all people completing the ABS Census 2021.
   - Yes, Greek
   - Yes, other language (please specify)
 
-::: {style="height: 2em;"}
-:::
-
+<div style="height: 2em;"></div>
 ::::
 
 :::: {.panel-tabset}
@@ -332,8 +330,7 @@ table %>%
 :::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 `r note_caveat_underidentification`
 
@@ -410,9 +407,7 @@ The following question was asked of all people completing the ABS Census 2021.
   - Yes, Greek
   - Yes, other language (please specify)
   
-::: {style="height: 2em;"}
-:::
-
+<div style="height: 2em;"></div>
 ::::
 
 :::: {.panel-tabset}
@@ -479,8 +474,7 @@ table %>%
 :::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 `r note_caveat_underidentification`
 
@@ -567,8 +561,7 @@ The following questions were asked of all people completing the ABS Census 2021.
   - Yes, Greek
   - Yes, other language (please specify)
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 - How well does the person speak English?
   - Very well
@@ -576,9 +569,7 @@ The following questions were asked of all people completing the ABS Census 2021.
   - Not well
   - Not at all
 
-::: {style="height: 2em;"}
-:::
-
+<div style="height: 2em;"></div>
 ::::
 
 :::: {.panel-tabset}
@@ -707,8 +698,7 @@ table %>%
 :::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 `r note_caveat_underidentification`
 

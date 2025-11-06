@@ -219,14 +219,11 @@ table %>%
 :::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-:::{style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 `r note_caveat_underidentification`
 
-::: {style="height: 2em;"}
-:::
-
+<div style="height: 2em;"></div>
 ::::
 
 ::: {style="opacity: 0.8;"}
@@ -508,13 +505,10 @@ table %>%
 :::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 `r note_caveat_underidentification`
 
-::: {style="height: 2em;"}
-:::
-
+<div style="height: 2em;"></div>
 ::::
 

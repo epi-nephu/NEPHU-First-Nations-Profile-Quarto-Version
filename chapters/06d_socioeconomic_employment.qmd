@@ -131,8 +131,7 @@ The following questions were asked of all people aged 15 years and over completi
   - Yes, full-time student
   - Yes, part-time student
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 - Last week, did the person have a job of any kind?
   - Yes, worked for payment or profit
@@ -141,22 +140,19 @@ The following questions were asked of all people aged 15 years and over completi
   - Yes, other unpaid work
   - No, did not have a job
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 - Last week, how many hours did the person work in all jobs?
   - Free text response
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 - Did the person actively look for work at any time in the last four weeks?
   - No, did not look for work
   - Yes, looked for full-time work
   - Yes, looked for part-time work
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 - If the person had found a job, could they have started work last week?
   - Yes, could have started work last week
@@ -164,9 +160,7 @@ The following questions were asked of all people aged 15 years and over completi
   - No, temporarily ill or injured
   - No, other reason
   
-::: {style="height: 2em;"}
-:::
-
+<div style="height: 2em;"></div>
 ::::
 
 :::: {.panel-tabset}
@@ -341,8 +335,7 @@ table %>%
 :::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 `r note_caveat_underidentification`
 
@@ -462,8 +455,7 @@ The following questions were asked of all people aged 15 years and over completi
   - Yes, full-time student
   - Yes, part-time student
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 - Last week, did the person have a job of any kind?
   - Yes, worked for payment or profit
@@ -472,22 +464,19 @@ The following questions were asked of all people aged 15 years and over completi
   - Yes, other unpaid work
   - No, did not have a job
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 - Last week, how many hours did the person work in all jobs?
   - Free text response
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 - Did the person actively look for work at any time in the last four weeks?
   - No, did not look for work
   - Yes, looked for full-time work
   - Yes, looked for part-time work
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 - If the person had found a job, could they have started work last week?
   - Yes, could have started work last week
@@ -495,9 +484,7 @@ The following questions were asked of all people aged 15 years and over completi
   - No, temporarily ill or injured
   - No, other reason
   
-::: {style="height: 2em;"}
-:::
-
+<div style="height: 2em;"></div>
 ::::
 
 :::: {.panel-tabset}
@@ -716,17 +703,14 @@ table %>%
 ::::
 
 :::: {.callout-note title="Data notes" icon=false collapse=false}
-
 `r note_data_census`
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 - Data for Figure 6D-3 and Table 6D-3 were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the ABS Census for the Census years between 2001 and 2021.
   - The Closing the Gap Information Repository brings together data from a wide range of data sources to provide up to date information for each Closing the Gap target, indicator, and contextual factors.
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 `r note_caveat_underidentification`
 
@@ -854,29 +838,25 @@ The following questions were asked of all people aged 15 years and over completi
   - Yes, other unpaid work
   - No, did not have a job
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 - In the main job held last week, was the person:
   - Working for an employer
   - Working in own business
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 - Last week, how many hours did the person work in all jobs?
   - Free text response
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 - Did the person actively look for work at any time in the last four weeks?
   - No, did not look for work
   - Yes, looked for full-time work
   - Yes, looked for part-time work
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 - If the person had found a job, could they have started work last week?
   - Yes, could have started work last week
@@ -884,9 +864,7 @@ The following questions were asked of all people aged 15 years and over completi
   - No, temporarily ill or injured
   - No, other reason
 
-::: {style="height: 2em;"}
-:::
-
+<div style="height: 2em;"></div>
 ::::
 
 :::: {.panel-tabset}
@@ -1076,8 +1054,7 @@ table %>%
 :::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 `r note_caveat_underidentification`
 
@@ -1180,29 +1157,25 @@ The following questions were asked of all people aged 15 years and over completi
   - Yes, other unpaid work
   - No, did not have a job
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 - In the main job held last week, was the person:
   - Working for an employer
   - Working in own business
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 - Last week, how many hours did the person work in all jobs?
   - Free text response
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 - Did the person actively look for work at any time in the last four weeks?
   - No, did not look for work
   - Yes, looked for full-time work
   - Yes, looked for part-time work
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 - If the person had found a job, could they have started work last week?
   - Yes, could have started work last week
@@ -1210,9 +1183,7 @@ The following questions were asked of all people aged 15 years and over completi
   - No, temporarily ill or injured
   - No, other reason
 
-::: {style="height: 2em;"}
-:::
-
+<div style="height: 2em;"></div>
 ::::
 
 :::: {.panel-tabset}
@@ -1374,17 +1345,14 @@ table %>%
 ::::
 
 :::: {.callout-note title="Data notes" icon=false collapse=false}
-
 `r note_data_census`
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 - Data for Figure 6D-3 and Table 6D-3 were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the ABS Census for the Census years between 2001 and 2021.
   - The Closing the Gap Information Repository brings together data from a wide range of data sources to provide up to date information for each Closing the Gap target, indicator, and contextual factors.
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 `r note_caveat_underidentification`
 
@@ -1470,9 +1438,7 @@ The following question was asked of all people aged 15 years and over completing
   - No, did not do any voluntary work
   - Yes, did voluntary work
 
-::: {style="height: 2em;"}
-:::
-
+<div style="height: 2em;"></div>
 ::::
 
 :::: {.panel-tabset}
@@ -1632,11 +1598,9 @@ table %>%
 ::::
 
 :::: {.callout-note title="Data notes" icon=false collapse=false}
-
 `r note_data_census`
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 `r note_caveat_underidentification`
 
@@ -1721,9 +1685,7 @@ The following question was asked of all people aged 15 years and over completing
   - No, did not provide unpaid care, help, or assistance
   - Yes, provided unpaid care, help, or assistance
 
-::: {style="height: 2em;"}
-:::
-
+<div style="height: 2em;"></div>
 ::::
 
 :::: {.panel-tabset}
@@ -1883,11 +1845,9 @@ table %>%
 ::::
 
 :::: {.callout-note title="Data notes" icon=false collapse=false}
-
 `r note_data_census`
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 `r note_caveat_underidentification`
 

@@ -134,9 +134,7 @@ The following question was asked of all people aged 15 years and over completing
   - Year 8 or equivalent
   - Did not go to school
 
-::: {style="height: 2em;"}
-:::
-
+<div style="height: 2em;"></div>
 ::::
 
 :::: {.panel-tabset}
@@ -311,8 +309,7 @@ table %>%
 :::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 `r note_caveat_underidentification`
 
@@ -425,9 +422,7 @@ The following question was asked of all people aged 15 years and over completing
   - Year 8 or equivalent
   - Did not go to school
 
-::: {style="height: 2em;"}
-:::
-
+<div style="height: 2em;"></div>
 ::::
 
 :::: {.panel-tabset}
@@ -589,17 +584,14 @@ table %>%
 ::::
 
 :::: {.callout-note title="Data notes" icon=false collapse=false}
-
 `r note_data_census`
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 - Data for Figure 6C-3 and Table 6C-3 were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the ABS Census for the Census years between 2001 and 2021.
   - The Closing the Gap Information Repository brings together data from a wide range of data sources to provide up to date information for each Closing the Gap target, indicator, and contextual factors.
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 `r note_caveat_underidentification`
 
@@ -742,8 +734,7 @@ The following questions were asked of all people aged 15 years and over completi
   - Year 8 or equivalent
   - Did not go to school
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 - Has the person completed any educational qualification?
   - No
@@ -751,15 +742,12 @@ The following questions were asked of all people aged 15 years and over completi
   - Yes, trade certificate/apprenticeship
   - Yes, other qualification (certificate, diploma, or degree)
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
   
 - What is the level of the highest qualification the person has completed?
   - Free text response
 
-::: {style="height: 2em;"}
-:::
-
+<div style="height: 2em;"></div>
 ::::
 
 :::: {.panel-tabset}
@@ -949,8 +937,7 @@ table %>%
 :::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 `r note_caveat_underidentification`
 
@@ -1065,8 +1052,7 @@ The following questions were asked of all people aged 15 years and over completi
   - Year 8 or equivalent
   - Did not go to school
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 - Has the person completed any educational qualification?
   - No
@@ -1074,15 +1060,12 @@ The following questions were asked of all people aged 15 years and over completi
   - Yes, trade certificate/apprenticeship
   - Yes, other qualification (certificate, diploma, or degree)
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
   
 - What is the level of the highest qualification the person has completed?
   - Free text response
 
-::: {style="height: 2em;"}
-:::
-
+<div style="height: 2em;"></div>
 ::::
 
 :::: {.panel-tabset}
@@ -1243,17 +1226,14 @@ table %>%
 ::::
 
 :::: {.callout-note title="Data notes" icon=false collapse=false}
-
 `r note_data_census`
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 - Data for Figure 6C-8 and Table 6C-8 were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the ABS Census for the Census years between 2001 and 2021.
   - The Closing the Gap Information Repository brings together data from a wide range of data sources to provide up to date information for each Closing the Gap target, indicator, and contextual factors.
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 `r note_caveat_underidentification`
 
