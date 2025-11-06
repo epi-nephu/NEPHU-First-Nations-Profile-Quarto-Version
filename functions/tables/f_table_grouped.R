@@ -17,7 +17,7 @@ f_table_grouped_sex <- function(data, n_variable, column_name, total_row = nrow(
   
   if (n_variable == "estimate") {
     
-    table_headers <- c("Estimate", "Percent", "Estimate", "Percent", "Estimate", "Estimate")
+    table_headers <- c("Estimate", "Percent", "Estimate", "Percent", "Estimate", "Percent")
   
   }
   
