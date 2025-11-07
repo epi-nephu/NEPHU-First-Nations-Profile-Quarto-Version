@@ -25,6 +25,8 @@ book:
         - chapters/06e_socioeconomic_income.qmd
         - chapters/06f_socioeconomic_housing.qmd
     - part: "7. Cultural Determinants of Health"
+      chapters: 
+        - chapters/07a_cultural_connection.qmd
     - part: "8. Other Determinants of Health"
     - part: "9. Health Promoting and Risk Behaviours"
     - part: "10. Health Consequences"
