@@ -161,6 +161,9 @@ colour_nonaboriginal <- "#5C1441"
 colour_female <- "#374091"
 colour_male   <- "#1C86EE"
 
+colour_landmass <- "#5BC788"
+colour_seaarea  <- "#374091"
+
 colour_stack1    <- "#374091"
 colour_stack2    <- "#5BC788"
 colour_stack3    <- "#D55E00"
