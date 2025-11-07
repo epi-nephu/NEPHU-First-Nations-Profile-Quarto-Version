@@ -67,6 +67,9 @@ note_caveat_iare_nephu <- glue::glue("
 note_caveat_iare_suppress <- glue::glue("
 - IAREs marked with 'Data not available' or '--' have data suppressed due to small numbers.")
 
+note_caveat_multipleresponse <- glue::glue("
+- Totals may not sum to 100% as respondents could select multiple options.")
+
 note_caveat_survey_estimate <- glue::glue("
 - Survey data do not represent exact numbers of people. As only a sample of people were surveyed, their results were converted into estimates for the entire population and/or reported as percentages.")
 
