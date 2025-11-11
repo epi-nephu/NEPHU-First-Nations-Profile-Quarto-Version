@@ -22,8 +22,7 @@ table_count   <- 0
 `r note_box_obsexp`
 :::
 
-::: {style="height: 2em;"}
-:::
+<div style="height: 2em;"></div>
 
 ::: {.key-question}
 What is the average educational attainment for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment?
@@ -123,7 +122,7 @@ school_agesex <- school_agesex %>%
 
 - Younger people were more likely to have a Year 12 or equivalent education, and females were more likely to have a Year 12 or equivalent education than males across all age groups.
 
-:::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
 The following question was asked of all people aged 15 years and over completing the ABS Census 2021.
 
 - What is the highest year of primary or secondary school the person has completed?
@@ -135,7 +134,7 @@ The following question was asked of all people aged 15 years and over completing
   - Did not go to school
 
 <div style="height: 2em;"></div>
-::::
+:::
 
 :::: {.panel-tabset}
 
@@ -205,8 +204,7 @@ table %>%
                                  " " = 1))
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
@@ -299,14 +297,13 @@ table %>%
                                  " " = 1))
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
-:::: {.callout-note title="Data notes" icon=false collapse=false}
+::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
 <div style="height: 1em;"></div>
@@ -316,7 +313,7 @@ table %>%
 `r note_caveat_unknown_agesex`
 
 - People who did not attend school are included in the *Year 8 and below* category.
-::::
+:::
 
 ::: {style="opacity: 0.8;"}
 ```{r}
@@ -333,8 +330,7 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 Target: By 2031, increase the proportion of Aboriginal and Torres Strait Islander people (aged 20-24 years) attaining Year 12 or equivalent qualification to 96%.
 :::
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -411,7 +407,7 @@ year12_sex <- year12_youth %>%
 
 - The [Victorian Aboriginal Education Association Incorporated (VAEAI)](https://www.vic.gov.au/victorian-aboriginal-education-association-inc-vaeai) and [Victorian Aboriginal Community Services Association (VASCAL)](https://www.vacsal.org.au/) were credited with significant achievements in this area by stakeholders during the development of this report. VAEAI is the peak Koorie community organization for education and training in Victoria, advising education and government on ways to improve educational outcomes for students. VASCAL also provides advice to government and is a major provider of services to the Aboriginal community including an Aboriginal Early School Leavers and Youth Employment Program.
 
-:::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
 The following question was asked of all people aged 15 years and over completing the ABS Census 2021.
 
 - What is the highest year of primary or secondary school the person has completed?
@@ -423,7 +419,7 @@ The following question was asked of all people aged 15 years and over completing
   - Did not go to school
 
 <div style="height: 2em;"></div>
-::::
+:::
 
 :::: {.panel-tabset}
 
@@ -476,8 +472,7 @@ table %>%
                              total_row   = NULL)
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
@@ -546,8 +541,7 @@ table %>%
                  header_name = " ")
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
@@ -576,14 +570,13 @@ table %>%
                  header_name = " ")
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
-:::: {.callout-note title="Data notes" icon=false collapse=false}
+::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
 <div style="height: 1em;"></div>
@@ -598,7 +591,7 @@ table %>%
 `r note_caveat_unknown_agesex`
 
 - *Year 12 or equivalent education* is defined as the completion of a Year 12 or equivalent school qualification or a Certificate III or above non-school qualification based on the [Australian Qualifications Framework](https://www.aqf.edu.au/).
-::::
+:::
 
 ::: {style="opacity: 0.8;"}
 ```{r}
@@ -723,7 +716,7 @@ qualification_agesex <- qualification_agesex %>%
 
 - Females were more likely to have a university degree (undergraduate and/or postgraduate) than males.
 
-:::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
 The following questions were asked of all people aged 15 years and over completing the ABS Census 2021.
 
 - What is the highest year of primary or secondary school the person has completed?
@@ -748,7 +741,7 @@ The following questions were asked of all people aged 15 years and over completi
   - Free text response
 
 <div style="height: 2em;"></div>
-::::
+:::
 
 :::: {.panel-tabset}
 
@@ -822,8 +815,7 @@ table %>%
                                  " " = 1))
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
@@ -927,14 +919,13 @@ table %>%
                                  " " = 1))
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
-:::: {.callout-note title="Data notes" icon=false collapse=false}
+::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
 <div style="height: 1em;"></div>
@@ -944,7 +935,7 @@ table %>%
 `r note_caveat_unknown_agesex`
 
 - People who did not attend school are included in the *High School and below* category.
-::::
+:::
 
 ::: {style="opacity: 0.8;"}
 ```{r}
@@ -961,8 +952,7 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 Target: By 2031, increase the proportion of Aboriginal and Torres Strait Islander people aged 25–34 years who have completed a tertiary qualification (Certificate III and above) to 70%.
 :::
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -1041,7 +1031,7 @@ uni_sex <- uni_youth %>%
 
 - For example, the [Victorian Aboriginal Community Services Association (VASCAL)](https://www.vacsal.org.au/), offers a Certificate IV and Diploma of Community Services. The [Victorian Aboriginal Community Controlled Health Organisation (VACCHO)](https://www.vaccho.org.au/) also offers a range of Diplomas, including a Diploma of Counselling and a Diploma of Business.
 
-:::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
 The following questions were asked of all people aged 15 years and over completing the ABS Census 2021.
 
 - What is the highest year of primary or secondary school the person has completed?
@@ -1066,7 +1056,7 @@ The following questions were asked of all people aged 15 years and over completi
   - Free text response
 
 <div style="height: 2em;"></div>
-::::
+:::
 
 :::: {.panel-tabset}
 
@@ -1118,8 +1108,7 @@ table %>%
                              total_row   = NULL)
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
@@ -1188,8 +1177,7 @@ table %>%
                  header_name = " ")
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
@@ -1218,14 +1206,13 @@ table %>%
                  header_name = " ")
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
-:::: {.callout-note title="Data notes" icon=false collapse=false}
+::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
 <div style="height: 1em;"></div>
@@ -1238,5 +1225,5 @@ table %>%
 `r note_caveat_underidentification`
 
 `r note_caveat_unknown_agesex`
-::::
+:::
 

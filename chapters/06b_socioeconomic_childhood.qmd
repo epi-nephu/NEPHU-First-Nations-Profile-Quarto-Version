@@ -18,8 +18,7 @@ table_count   <- 0
 `r note_box_underidentification`
 :::
 
-::: {style="height: 2em;"}
-:::
+<div style="height: 2em;"></div>
 
 ::: {.key-question}
 Are Aboriginal and/or Torres Strait Islander children living in the NEPHU catchment getting the best start in life?
@@ -33,8 +32,7 @@ Are Aboriginal and/or Torres Strait Islander children living in the NEPHU catchm
 Target: By 2025, increase the proportion of Aboriginal and Torres Strait Islander children enrolled in Year Before Full-Time Schooling (YBFS) early childhood education to 95%.
 :::
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -157,8 +155,7 @@ table %>%
                           width = "2in")
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
@@ -254,14 +251,13 @@ table %>%
                                  " " = 1))
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
-:::: {.callout-note title="Data notes" icon=false collapse=false}
+::: {.callout-note title="Data notes" icon=false collapse=false}
 - Data for Figure 6B-1 and Table 6B-1 were obtained from the [Victorian Child and Adolescent Monitoring System (VCAMS)](https://www.vic.gov.au/victorian-child-and-adolescent-monitoring-system-vcams).
   - VCAMS brings together data from a wide range of sources about early childhood, family functioning, and communities to monitor and report against the indicators in the VCAMS Outcomes Framework.
   - This indicator uses the “year before school” population as the denominator. This is a proportion of all 4 and 5 year old children which reflects the age composition of the cohort of children who are in the year before starting school during a single calendar year. These calculations are based on the [ABS Estimated Residential Population](https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071), which takes into account the known under-reporting of Aboriginal and/or Torres Strait Islander status in the Census.
@@ -279,7 +275,7 @@ table %>%
 `r note_caveat_underidentification`
 
 <div style="height: 2em;"></div>
-::::
+:::
 
 ::: {style="opacity: 0.8;"}
 ```{r}
@@ -296,8 +292,7 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 Target: By 2031, increase the proportion of Aboriginal and Torres Strait Islander children assessed as developmentally on track in all five domains of the Australian Early Development Census (AEDC) to 55%.
 :::
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -396,14 +391,13 @@ table %>%
                                  "Identified as Aboriginal and/or Torres Strait Islander" = 2))
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
-:::: {.callout-note title="Data notes" icon=false collapse=false}
+::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_ctg_aedc`
 
 <div style="height: 1em;"></div>
@@ -411,7 +405,7 @@ table %>%
 `r note_caveat_underidentification`
 
 <div style="height: 2em;"></div>
-::::
+:::
 
 ::: {style="opacity: 0.8;"}
 ```{r}
@@ -526,8 +520,7 @@ table %>%
                           width = "1in")
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
@@ -602,8 +595,7 @@ table %>%
                           width = "1in")
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
@@ -678,14 +670,13 @@ table %>%
                           width = "1in")
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
-:::: {.callout-note title="Data notes" icon=false collapse=false}
+::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_naplan`
 
 <div style="height: 1em;"></div>
@@ -693,5 +684,5 @@ table %>%
 `r note_caveat_underidentification`
 
 `r note_caveat_rounding`
-::::
+:::
 

@@ -22,8 +22,7 @@ table_count   <- 0
 `r note_box_obsexp`
 :::
 
-::: {style="height: 2em;"}
-:::
+<div style="height: 2em;"></div>
 
 ::: {.key-question}
 Are Aboriginal and/or Torres Strait Islanders living in the NEPHU catchment gainfully employed?
@@ -123,7 +122,7 @@ engaged_agesex <- engaged_agesex %>%
 
 - Younger people were more likely to be fully or partially engaged in employment, education, or training. Males were more likely to be fully engaged and females were more likely to be partially engaged.
 
-:::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
 The following questions were asked of all people aged 15 years and over completing the ABS Census 2021. Responses were cross tabulated to determine the type of engagement in work and/or study (fully engaged, partially engaged, at least partially engaged, not engaged) for each respondent.
 
 - Is the person attending a school or any other education institution?
@@ -161,7 +160,7 @@ The following questions were asked of all people aged 15 years and over completi
   - No, other reason
   
 <div style="height: 2em;"></div>
-::::
+:::
 
 :::: {.panel-tabset}
 
@@ -231,8 +230,7 @@ table %>%
                                  " " = 1))
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
@@ -325,14 +323,13 @@ table %>%
                                  " " = 1))
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
-:::: {.callout-note title="Data notes" icon=false collapse=false}
+::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
 <div style="height: 1em;"></div>
@@ -340,7 +337,7 @@ table %>%
 `r note_caveat_underidentification`
 
 `r note_caveat_unknown_agesex`
-::::
+:::
 
 ### Young Adults
 
@@ -350,8 +347,7 @@ table %>%
 Target: By 2031, increase the proportion of Aboriginal and Torres Strait Islander youth (aged 15-24 years) who are in employment, education, or training to 67%.
 :::
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -447,7 +443,7 @@ fully_age <- f_read_ctg_indigenous("CTG07_Employment_Education_Data_Tables.xlsx"
 
 - Given the improvement seen in youth engagement in education, employment, or training over time, it was also discussed whether the Closing the Gap target should now be higher.
 
-:::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
 The following questions were asked of all people aged 15 years and over completing the ABS Census 2021. Responses were cross tabulated to determine the type of engagement in work and/or study (fully engaged, partially engaged, at least partially engaged, not engaged) for each respondent.
 
 - Is the person attending a school or any other education institution?
@@ -485,7 +481,7 @@ The following questions were asked of all people aged 15 years and over completi
   - No, other reason
   
 <div style="height: 2em;"></div>
-::::
+:::
 
 :::: {.panel-tabset}
 
@@ -538,8 +534,7 @@ table %>%
                              total_row   = NULL)
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
@@ -608,8 +603,7 @@ table %>%
                  header_name = NULL)
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
@@ -638,8 +632,7 @@ table %>%
                  header_name = " ")
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
@@ -695,14 +688,13 @@ table %>%
                              total_row   = NULL)
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
-:::: {.callout-note title="Data notes" icon=false collapse=false}
+::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
 <div style="height: 1em;"></div>
@@ -715,7 +707,7 @@ table %>%
 `r note_caveat_underidentification`
 
 `r note_caveat_unknown_agesex`
-::::
+:::
 
 ::: {style="opacity: 0.8;"}
 ```{r}
@@ -828,7 +820,7 @@ status_agesex <- status_agesex %>%
 
 - Males were more likely to be employed full-time than females.
 
-:::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
 The following questions were asked of all people aged 15 years and over completing the ABS Census 2021. Responses were cross tabulated to determine the labour force status (employed full-time, employed part-time, employed but away from work, unemployed but looking for work, not in the labour force) for each respondent.
 
 - Last week, did the person have a job of any kind?
@@ -865,7 +857,7 @@ The following questions were asked of all people aged 15 years and over completi
   - No, other reason
 
 <div style="height: 2em;"></div>
-::::
+:::
 
 :::: {.panel-tabset}
 
@@ -939,8 +931,7 @@ table %>%
                                  " " = 1))
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
@@ -1044,14 +1035,13 @@ table %>%
                                  " " = 1))
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
-:::: {.callout-note title="Data notes" icon=false collapse=false}
+::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
 <div style="height: 1em;"></div>
@@ -1063,7 +1053,7 @@ table %>%
 - Employed people are defined as those who were employed full-time (35 hours or more per week), part-time (less than 35 hours per week), or on leave from work in the week prior to Census night.
 
 - Unemployed people are defined as people who were not currently employed and were actively looking for work (either part-time or full-time) or people who were not part of the labour force.
-::::
+:::
 
 ### Working Age Adults
 
@@ -1073,8 +1063,7 @@ table %>%
 Target: By 2031, increase the proportion of Aboriginal and Torres Strait Islander people aged 25-64 years who are employed to 62%.
 :::
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -1147,7 +1136,7 @@ status_working_sex <- status_working %>%
 
 - 66% (n = 1,661) of females living in the NEPHU catchment aged 25-64 years who identified as Aboriginal and/or Torres Strait Islander in the Census were employed (full-time, part-time, or on leave), compared to 73% (n = 1,792) of males.
 
-:::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
 The following questions were asked of all people aged 15 years and over completing the ABS Census 2021. Responses were cross tabulated to determine the labour force status (employed full-time, employed part-time, employed but away from work, unemployed but looking for work, not in the labour force) for each respondent.
 
 - Last week, did the person have a job of any kind?
@@ -1184,7 +1173,7 @@ The following questions were asked of all people aged 15 years and over completi
   - No, other reason
 
 <div style="height: 2em;"></div>
-::::
+:::
 
 :::: {.panel-tabset}
 
@@ -1237,8 +1226,7 @@ table %>%
                              total_row   = NULL)
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
@@ -1307,8 +1295,7 @@ table %>%
                  header_name = NULL)
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
@@ -1337,19 +1324,18 @@ table %>%
                  header_name = " ")
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
-:::: {.callout-note title="Data notes" icon=false collapse=false}
+::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
 <div style="height: 1em;"></div>
 
-- Data for Figure 6D-3 and Table 6D-3 were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the ABS Census for the Census years between 2001 and 2021.
+- Data for Figure 6D-9 and Table 6D-9 were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the ABS Census for the Census years between 2001 and 2021.
   - The Closing the Gap Information Repository brings together data from a wide range of data sources to provide up to date information for each Closing the Gap target, indicator, and contextual factors.
 
 <div style="height: 1em;"></div>
@@ -1361,7 +1347,7 @@ table %>%
 - Employed people are defined as those who were employed full-time (35 hours or more per week), part-time (less than 35 hours per week), or on leave from work in the week prior to Census night.
 
 - Unemployed people are defined as people who were not currently employed and were actively looking for work (either part-time or full-time) or people who were not part of the labour force.
-::::
+:::
 
 ::: {style="opacity: 0.8;"}
 ```{r}
@@ -1431,7 +1417,7 @@ volunteer_agesex <- volunteer_agesex %>%
 
 - It was discussed that many Aboriginal and/or Torres Strait Islander people do not see helping out in their community as volunteering activity, but rather something that is just done.
 
-:::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
 The following question was asked of all people aged 15 years and over completing the ABS Census 2021.
 
 - In the last 12 months did the person spend any time doing unpaid voluntary work for an organisation or group?
@@ -1439,7 +1425,7 @@ The following question was asked of all people aged 15 years and over completing
   - Yes, did voluntary work
 
 <div style="height: 2em;"></div>
-::::
+:::
 
 :::: {.panel-tabset}
 
@@ -1507,8 +1493,7 @@ table %>%
                  header_name = " ")
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
@@ -1590,14 +1575,13 @@ table %>%
                  header_name = "Male")
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
-:::: {.callout-note title="Data notes" icon=false collapse=false}
+::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
 <div style="height: 1em;"></div>
@@ -1605,7 +1589,7 @@ table %>%
 `r note_caveat_underidentification`
 
 `r note_caveat_unknown_agesex`
-::::
+:::
 
 ::: {style="opacity: 0.8;"}
 ```{r}
@@ -1678,7 +1662,7 @@ carer_agesex <- carer_agesex %>%
 
 - Individuals may not be defining themselves as ‘carers’ despite undertaking unpaid caring duties for family or other community members. This could lead to an underestimate of the number of unpaid carers.
 
-:::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
 The following question was asked of all people aged 15 years and over completing the ABS Census 2021.
 
 - In the last two weeks did the person spend time providing unpaid care, help, or assistance to family members or others because of a disability, a long-term health condition, or problems related to old age?
@@ -1686,7 +1670,7 @@ The following question was asked of all people aged 15 years and over completing
   - Yes, provided unpaid care, help, or assistance
 
 <div style="height: 2em;"></div>
-::::
+:::
 
 :::: {.panel-tabset}
 
@@ -1754,8 +1738,7 @@ table %>%
                  header_name = " ")
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
@@ -1837,14 +1820,13 @@ table %>%
                  header_name = "Male")
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
-:::: {.callout-note title="Data notes" icon=false collapse=false}
+::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
 <div style="height: 1em;"></div>
@@ -1852,5 +1834,5 @@ table %>%
 `r note_caveat_underidentification`
 
 `r note_caveat_unknown_agesex`
-::::
+:::
 

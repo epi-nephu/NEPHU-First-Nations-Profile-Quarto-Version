@@ -18,8 +18,7 @@ table_count   <- 0
 `r note_box_underidentification`
 :::
 
-::: {style="height: 2em;"}
-:::
+<div style="height: 2em;"></div>
 
 ::: {.key-question}
 What are the drivers of population growth for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment?
@@ -111,8 +110,7 @@ table %>%
                           width = "2in")
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 

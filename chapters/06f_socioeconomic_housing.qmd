@@ -24,8 +24,7 @@ figure_count <- 0
 `r note_box_obsexp`
 :::
 
-::: {style="height: 2em;"}
-:::
+<div style="height: 2em;"></div>
 
 ::: {.key-question}
 Are Aboriginal and/or Torres Strait Islander people in the NEPHU catchment living in affordable and suitable housing?
@@ -41,8 +40,7 @@ Are Aboriginal and/or Torres Strait Islander people in the NEPHU catchment livin
 Target: By 2031, increase the proportion of Aboriginal and Torres Strait Islander people living in appropriately sized (not overcrowded) housing to 88%.
 :::
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -93,7 +91,7 @@ overcrowded_lga <- overcrowded_lga %>%
 
 - It was also noted however that Aboriginal and/or Torres Strait Islander people have a strong culture of supporting each other to address housing needs. 
 
-:::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
 The following questions were asked of all people completing the ABS Census 2021. The answers to these questions were cross-tabulated for all household members to assess the number of bedrooms required for the household, based on the [Canadian National Occupancy Standard](https://meteor.aihw.gov.au/content/386254) for housing appropriateness.
 
 - Is the person male, female, and/or non-binary?
@@ -102,7 +100,7 @@ The following questions were asked of all people completing the ABS Census 2021.
 - How many bedrooms are there in this dwelling?
 
 <div style="height: 2em;"></div>
-::::
+:::
 
 :::: {.panel-tabset}
 
@@ -176,14 +174,13 @@ table %>%
                  header_name = " ")
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
-:::: {.callout-note title="Data notes" icon=false collapse=false}
+::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
 <div style="height: 1em;"></div>
@@ -193,7 +190,7 @@ table %>%
 `r note_caveat_household`
 
 - *Appropriately sized households* were defined as those where extra bedrooms were not required.
-::::
+:::
 
 ### Housing Quality
 
@@ -486,7 +483,7 @@ suitability_combined <- suitability_structural %>%
 
 - Data for this topic were obtained from the [2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release).
 
-- Overall, 83% of Aboriginal and/or Torres Strait Islander survey respondents aged 15 years and over living in Greater Melbourne reported that they were living in a dwelling of an acceptable standard. This equates to approximately 33,100 Aboriginal and/or Torres Strait Islander people.
+- Overall, 83% of Aboriginal and/or Torres Strait Islander survey respondents living in Greater Melbourne reported that they were living in a dwelling of an acceptable standard. This equates to approximately 33,100 Aboriginal and/or Torres Strait Islander people.
 
 - Females were more likely to report living in a dwelling of an acceptable standard than males (85% vs. 81%).
 
@@ -494,51 +491,41 @@ suitability_combined <- suitability_structural %>%
 
 - Males were more likely to report each type of housing quality issue than females.
 
-:::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-The following questions were asked of all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+The following questions were asked of a representative for each household completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
-- Is your household living in a house or dwelling of an acceptable standard?
-  - Household living in house/dwelling of acceptable standard
-  - Household living in house/dwelling not of an acceptable standard
-
-<div style="height: 1em;"></div>
-
-- Number of major structural problems
-  - Multiple choice (none to ten or more)
-
-<div style="height: 1em;"></div>
-
-- Does your household have working facilities for washing people?
-  - Has working facilities for washing people
-  - Does not have working facilities for washing people
+- Does this house have any of these problems that need to be fixed? (Select all that apply)
+  - Rising damp
+  - Major cracks in walls or floors
+  - Sinking or moving foundations
+  - Sagging floors
+  - Walls or windows that aren't straight
+  - Wood rot or termite damage
+  - Major electrical problems
+  - Major plumbing problems
+  - Major roof defects
+  - Other major structural problems
 
 <div style="height: 1em;"></div>
 
-- Does your household have working facilities for washing clothes or bedding?
-  - Has working facilities for washing clothes or bedding
-  - Does not have working facilities for washing clothes or bedding
-  
-<div style="height: 1em;"></div>
-
-- Does your household have working facilities for storing and preparing food?
-  - Has working facilities for storing and preparing food
-  - Does not have working facilities for storing and preparing food
-  
-<div style="height: 1em;"></div>
-
-- Does your household have working sewerage facilities?
-  - Has working sewerage facilities
-  - Does not have working sewerage facilities
+- Are there any of these facilities that this house doesn't have or that are not working? (Select all that apply)
+  - Stove, oven, or other cooking facilities
+  - Fridge
+  - Toilet
+  - Bath or shower
+  - Washing machine
+  - Kitchen sink
+  - Laundry tub
   
 <div style="height: 2em;"></div>
-::::
+:::
 
 :::: {.panel-tabset}
 
 #### Table 6F-2
 
 ::: {#tab_6F_2 .fig-tab-title}
-**Table 6F-2:** Whether they were living in a house or dwelling of acceptable standard for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**Table 6F-2:** Whether they were living in a house or dwelling of acceptable standard for people who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
@@ -570,15 +557,14 @@ table %>%
                       column_name = "House/dwelling of<br>acceptable standard")
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 #### Figure 6F-3
 
 ::: {#fig_6F_3 .fig-tab-title}
-**Figure 6F-3:** Estimated number of people and percentage of survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander reporting housing quality issues, Greater Melbourne, by sex, 2022-2023
+**Figure 6F-3:** Estimated number of people and percentage of survey respondents who identified as Aboriginal and/or Torres Strait Islander reporting housing quality issues, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
@@ -623,7 +609,7 @@ f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 #### Table 6F-3
 
 ::: {#tab_6F_3 .fig-tab-title}
-**Table 6F-3:** Housing quality issues for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**Table 6F-3:** Housing quality issues for people who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
@@ -664,14 +650,13 @@ table %>%
   kableExtra::pack_rows("Sewerage connection", 9, 10)
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
-:::: {.callout-note title="Data notes" icon=false collapse=false}
+::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
 <div style="height: 1em;"></div>
@@ -684,10 +669,12 @@ table %>%
 
 `r note_caveat_survey_estimate`
 
+`r note_caveat_multipleresponse`
+
 `r note_caveat_household`
 
 - A house or dwelling is of an acceptable standard if there are working facilities for washing people, for washing clothes or bedding, for storing and preparing food, sewerage facilities, and if there are no more than two major structural problems.
-::::
+:::
 
 ::: {style="opacity: 0.8;"}
 ```{r}
@@ -754,7 +741,7 @@ tenure_lga <- tenure_lga %>%
 
 - In Yarra (75%) and Darebin (76%) LGAs, higher proportions of households were rented, which may reflect the younger age profile of these LGAs.
 
-:::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
 The following question was asked of all people completing the ABS Census 2021.
 
 - Is this dwelling:
@@ -767,7 +754,7 @@ The following question was asked of all people completing the ABS Census 2021.
   - Other
   
 <div style="height: 2em;"></div>
-::::
+:::
 
 :::: {.panel-tabset}
 
@@ -847,14 +834,13 @@ table %>%
                                  " " = 1))
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
-:::: {.callout-note title="Data notes" icon=false collapse=false}
+::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
 <div style="height: 1em;"></div>
@@ -864,7 +850,7 @@ table %>%
 `r note_caveat_household`
 
 - *Other* includes dwellings purchased under a shared equity scheme, occupied under a life tenure scheme (e.g. retirement villages), or occupied rent-free.
-::::
+:::
 
 ### Housing Stress
 
@@ -914,7 +900,7 @@ stress_lga <- mortgage_lga %>%
 
 - The percentage of Aboriginal and/or Torres Strait Islander households in different LGAs within the NEPHU catchment that spent more than 30% of their annual household income on housing costs ranged from 14% (Whitehorse and Manningham LGAs) to 9.3% (Boroondara LGA).
 
-:::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
 The following questions were asked of all people aged 15 years and over completing the ABS Census 2021. Responses for each household member were summed to calculate the total weekly household income.
 
 - What is the total of all income the person usually receives?
@@ -937,7 +923,7 @@ The following questions were asked of all people aged 15 years and over completi
   - Free text response
   
 <div style="height: 2em;"></div>
-::::
+:::
 
 :::: {.panel-tabset}
 
@@ -1010,20 +996,14 @@ table %>%
                  header_name = NULL)
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
-:::: {.callout-note title="Data notes" icon=false collapse=false}
+::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
-
-<div style="height: 1em;"></div>
-
-- Data for Figure 6D-3 and Table 6D-3 were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the ABS Census for the Census years between 2001 and 2021.
-  - The Closing the Gap Information Repository brings together data from a wide range of data sources to provide up to date information for each Closing the Gap target, indicator, and contextual factors.
 
 <div style="height: 1em;"></div>
 
@@ -1045,7 +1025,7 @@ table %>%
 - A number of regions across the state were in various stages of lockdown on 2021 Census night. This resulted in a greater number of people being stood down from work than usual, which may have had an impact on housing affordability and housing stress.
 
 <div style="height: 2em;"></div>
-::::
+:::
 
 ### Homelessness
 
@@ -1100,14 +1080,14 @@ homeless_agesex <- homeless_agesex %>%
 
 - The gap between the observed number of Aboriginal and/or Torres Strait Islander people who were homeless or marginally housed on Census night and the number expected if the rate was the same as for non-Indigenous people was biggest for people aged less than 20 years and 40-49 years for both males and females.
 
-:::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
 The following question was asked of all people completing the ABS Census 2021.
 
 - Where does the person usually live?
   - Free text response
   
 <div style="height: 2em;"></div>
-::::
+:::
 
 :::: {.panel-tabset}
 
@@ -1179,8 +1159,7 @@ table %>%
                  header_name = NULL)
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
@@ -1266,14 +1245,13 @@ table %>%
                  header_name = "Male")
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
-:::: {.callout-note title="Data notes" icon=false collapse=false}
+::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
 <div style="height: 1em;"></div>
@@ -1287,5 +1265,5 @@ table %>%
 - *Marginally housed* is defined as people who were living in other (not severely) crowded dwellings, living in other improvised dwellings, or marginally housed in caravan parks on Census night.
 
 - A number of regions across the state were in various stages of lockdown on 2021 Census night. This resulted in a greater number of people being stood down from work than usual, which may have had an impact on housing affordability and housing stress.
-::::
+:::
 

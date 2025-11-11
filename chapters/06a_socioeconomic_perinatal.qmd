@@ -24,8 +24,7 @@ The way the indicators in this chapter are defined also impacts on the represent
 `r note_box_comparisons`
 :::
 
-::: {style="height: 2em;"}
-:::
+<div style="height: 2em;"></div>
 
 ::: {.key-question}
 Are Aboriginal and/or Torres Strait Islander children living in the NEPHU catchment getting the best start in life?
@@ -149,14 +148,13 @@ table %>%
                           width = "2in")
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
-:::: {.callout-note title="Data notes" icon=false collapse=false}
+::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_phidu_perinatal`
 
 <div style="height: 1em;"></div>
@@ -168,7 +166,7 @@ table %>%
 - Women are classified as attending antenatal care in line with recommendations if they attended within the first 10 weeks of pregnancy.
 
 - The denominator for this indicator is Aboriginal and/or Torres Strait Islander women who had at least one pregnancy between January 2019 and December 2021.
-::::
+:::
 
 ::: {style="opacity: 0.8;"}
 ```{r}
@@ -269,14 +267,13 @@ table %>%
                           width = "2in")
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
-:::: {.callout-note title="Data notes" icon=false collapse=false}
+::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_phidu_perinatal`
 
 <div style="height: 1em;"></div>
@@ -288,7 +285,7 @@ table %>%
 - Women are classified as smoking during pregnancy based on self-reporting of smoking at any time during their pregnancy.
 
 - The denominator for this indicator is Aboriginal and/or Torres Strait Islander women who had at least one pregnancy between January 2019 and December 2021.
-::::
+:::
 
 ::: {style="opacity: 0.8;"}
 ```{r}
@@ -347,8 +344,7 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 Target: By 2031, increase the proportion of Aboriginal and/or Torres Strait Islander babies with a healthy birthweight to 91%.
 :::
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -492,8 +488,7 @@ table %>%
                           width = "2in")
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
@@ -558,14 +553,13 @@ table %>%
                                  "Identified as Aboriginal and/or Torres Strait Islander" = 2))
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
-:::: {.callout-note title="Data notes" icon=false collapse=false}
+::: {.callout-note title="Data notes" icon=false collapse=false}
 - Data for Figure 6A-3 and Table 6A-3 were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [National Perinatal Data Collection (NPDC)](https://www.aihw.gov.au/about-our-data/our-data-collections/national-perinatal-data-collection).
   - The PHIDU Social Health Atlas is a compendium of demographic, social, health status, and health service utilisation indicators compiled by Torrens University Australia from a wide range of national, jurisdictional, and regional data sources.
   - Data were aggregated for a three-year period (January 2019 to December 2021).
@@ -589,7 +583,7 @@ table %>%
 `r note_caveat_iare_suppress`
 
 - *Low birthweight* is defined as a liveborn baby weighing less than 2,500g at birth.
-::::
+:::
 
 ::: {style="opacity: 0.8;"}
 ```{r}
@@ -760,8 +754,7 @@ table %>%
                              column_name = "Breastfeeding duration")
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 

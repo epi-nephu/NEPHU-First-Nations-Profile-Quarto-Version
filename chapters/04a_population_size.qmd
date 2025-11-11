@@ -18,8 +18,7 @@ table_count   <- 0
 `r note_box_underidentification`
 :::
 
-::: {style="height: 2em;"}
-:::
+<div style="height: 2em;"></div>
 
 ::: {.key-question}
 How many people who identify as Aboriginal and/or Torres Strait Islander live in the NEPHU catchment and where do they reside?
@@ -209,14 +208,13 @@ table %>%
                           width = "2.5in")
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
-:::: {.callout-note title="Data notes" icon=false collapse=false}
+::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
 <div style="height: 1em;"></div>
@@ -224,7 +222,7 @@ table %>%
 `r note_caveat_underidentification`
 
 <div style="height: 2em;"></div>
-::::
+:::
 
 ::: {style="opacity: 0.8;"}
 ```{r}
@@ -423,8 +421,7 @@ table %>%
                           width = "2.5in")
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
@@ -495,14 +492,13 @@ table %>%
                           width = "2.5in")
 ```
 
-::: {style="height: 1em;"}
-:::
+<div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
-:::: {.callout-note title="Data notes" icon=false collapse=false}
+::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
 <div style="height: 1em;"></div>
@@ -510,5 +506,5 @@ table %>%
 `r note_caveat_underidentification`
 
 <div style="height: 2em;"></div>
-::::
+:::
 
