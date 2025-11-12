@@ -116,6 +116,15 @@ f_line_grouped_indigenous <- function(data, y_variable, y_max, y_breaks, y_expan
     
   }
   
+  if (rlang::as_name(y_variable) == "rate") {
+    
+    data <- data %>% 
+      dplyr::mutate(hover_text = paste0(year, "\n",
+                                        indigenous_label, "\n",
+                                        "Rate: ", sprintf("%.1f", !!y_variable)))
+    
+  }
+  
   figure <- data %>% 
     ggplot(aes(x = year, y = !!y_variable, group = indigenous_status, col = indigenous_status, text = hover_text)) +
     #
@@ -124,13 +133,13 @@ f_line_grouped_indigenous <- function(data, y_variable, y_max, y_breaks, y_expan
   # Add the CtG target line if relevant
   if (!is.na(ctg_target)) {
     figure <- figure +
-      geom_hline(aes(yintercept = ctg_target, linetype = "CtG target (%)"),
+      geom_hline(aes(yintercept = ctg_target, linetype = "CtG target"),
                  col         = colour_ctgtarget,
                  linewidth   = 0.5,
                  show.legend = TRUE) +
       #
       scale_linetype_manual(name = NULL,
-                            values = c("CtG target (%)" = "dashed"))
+                            values = c("CtG target" = "dashed"))
     
   }
   
@@ -170,7 +179,7 @@ f_line_grouped_indigenous <- function(data, y_variable, y_max, y_breaks, y_expan
     if (!is.null(figure$x$data[[i]]$name) &&
         grepl("CtG", figure$x$data[[i]]$name, ignore.case = TRUE)) {
       
-      figure$x$data[[i]]$name <- "CtG target (%)"
+      figure$x$data[[i]]$name <- "CtG target"
       
     }
   }
