@@ -103,6 +103,16 @@ li > ul {
   text-align: center;
 }
 
+.warning-box {
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background: #FFEDED;
+  color: black;
+  border: 2px solid darkred;
+  border-radius: 10px;
+}
+
 .consultation-box {
   padding-top: 10px;
   padding-left: 10px;
