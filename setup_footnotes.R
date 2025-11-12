@@ -33,6 +33,18 @@ note_data_ctg_aedc <- glue::glue("
   - The AEDC is a population-based measure of children’s development as they enter their first year of full-time school. It measures five important domains of early childhood development: physical health and wellbeing, social competence, emotional maturity, language and cognitive skills, and communication skills and general knowledge.
   - Aboriginal and/or Torres Strait Islander children were defined as those who were identified as Aboriginal and/or Torres Strait Islander by their parent or guardian.")
 
+note_data_justice_adult <- glue::glue("
+- Data were obtained from the [ABS Prisoners in Australia Dataset](https://www.abs.gov.au/statistics/people/crime-and-justice/prisoners-australia/latest-release).
+  - The ABS Prisoners in Australia Dataset includes all persons remanded or sentenced to adult custodial corrective services agencies in each Australian state and territory.
+  - Aboriginal and/or Torres Strait Islander peoples were defined as those who identified themselves as Aboriginal and/or Torres Strait Islander at the time of their contact with a corrective service agency.
+  - Adults were defined as persons aged 18 years and over.")
+
+note_data_justice_youth <- glue::glue("
+- Data were obtained from the [AIHW Youth Justice National Minimum Dataset](https://www.aihw.gov.au/about-our-data/our-data-collections/youth-justice).
+  - The AIHW Youth Justice National Minimum Dataset includes information about young people in Australia who were under youth justice supervision in each Australian state and territory.
+  - Aboriginal and/or Torres Strait Islander peoples were defined as those who identified themselves as Aboriginal and/or Torres Strait Islander at the time of their contact with the youth justice system.
+  - Young people were defined as persons aged 10-17 years.")
+
 note_data_naplan <- glue::glue("
 - Data were obtained from the [National Assessment Program — Literacy and Numeracy (NAPLAN) program](https://www.acara.edu.au/reporting/national-report-on-schooling-in-australia/naplan-national-results), administered by the Australian Curriculum, Assessment, and Reporting Authority (ACARA).
   - NAPLAN is a national assessment that tests students’ ability in three domains of literacy (reading, writing, and language conventions) and in numeracy. Students sit NAPLAN tests in Term 1 of Years 3, 5, 7, and 9.
