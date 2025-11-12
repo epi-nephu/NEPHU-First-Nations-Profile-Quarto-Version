@@ -1,0 +1,381 @@
+---
+title: "Criminal Justice"
+---
+
+```{r}
+#
+source(here::here("setup.R"))
+source(here::here("setup_footnotes.R"))
+
+# Set up numbering for exporting tables as .csv
+table_section <- "08A"
+table_count   <- 0
+
+figure_count <- 0
+```
+
+::: {.warning-box}
+`r bsicons::bs_icon("exclamation-triangle", size = "15pt")` **Content warning** `r bsicons::bs_icon("exclamation-triangle", size = "15pt")`
+
+The following section contains information about the criminal justice system, adult incarceration rates, and youth detention rates for Aboriginal and/or Torres Strait Islander peoples. This content aligns with Closing the Gap [Target 10](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/criminal-justice/) and [Target 11](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/youth-justice/) and addresses systemic issues that may be distressing or triggering, especially for those with lived or family experiences of incarceration, over-policing, or justice system harm.
+ 
+We acknowledge the ongoing impacts of colonisation and systemic injustice on Aboriginal and/or Torres Strait Islander communities, and the strength of those who continue to advocate for truth, justice, and self-determination. 
+ 
+If you or someone you know needs support, please consider reaching out to one of the following culturally safe services.
+:::
+
+<div style="height: 2em;"></div>
+
+::: {.caveat-box}
+**A note about the impact of under-identification**
+
+`r note_box_underidentification`
+:::
+
+<div style="height: 2em;"></div>
+
+::: {.key-question}
+What external factors may influence how Aboriginal and/or Torres Strait Islander people and families in the NEPHU catchment are supported to prioritise health and wellbeing, particularly in connection to caring for children and keeping families strong?
+:::
+
+## Adult Incarceration
+
+::: {.ctg-box}
+**This topic aligns with [Closing the Gap Outcome Area 10](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/criminal-justice/): Aboriginal and Torres Strait Islander adults are not overrepresented in the criminal justice system**
+
+Target: By 2031, reduce the rate of Aboriginal and Torres Strait Islander adults (aged 18 years and over) held in incarceration by at least 15% (compared to the baseline year of 2019).
+:::
+
+<div style="height: 1em;"></div>
+
+```{r}
+# ------------------------------------------------------------------------------
+# Adult incarceration
+# Data from ABS Prisoners in Australia Dataset
+# ------------------------------------------------------------------------------
+# Read in ABS data
+incarceration_adult <- readxl::read_excel(file.path(root_folder, subfolder_corrective, "Prisoners_In_Australia_State_Data.xlsx"),
+                                          skip  = 4,
+                                          sheet = "Table_18") %>%
+  janitor::clean_names() %>%
+  #
+  dplyr::rename(year = indigenous_status_and_reference_period) %>%
+  #
+  dplyr::mutate(indigenous_status = dplyr::case_when(
+    row_number() %in% 2:12  ~ "aboriginal",
+    row_number() %in% 14:24 ~ "non_aboriginal",
+    TRUE ~ NA_character_)) %>% 
+  #
+  dplyr::filter(!is.na(indigenous_status))
+
+# Data wrangling
+incarceration_adult <- incarceration_adult %>%
+  dplyr::select(year,
+                indigenous_status,
+                rate = vic) %>% 
+  #
+  dplyr::mutate(
+    ctg_target = dplyr::case_when(
+      indigenous_status == "non_aboriginal" ~ NA_real_,
+      TRUE ~ incarceration_adult$vic[7] * 0.85),
+    #
+    ctg_change = dplyr::case_when(
+      indigenous_status == "non_aboriginal" ~ NA_character_,
+      rate >= incarceration_adult$vic[7] * 1.1 ~ "a worsening",
+      rate <  incarceration_adult$vic[7] * 0.9 ~ "an improvement",
+      TRUE ~ "no change"),
+    #
+    indigenous_label = dplyr::case_when(
+      indigenous_status == "aboriginal"     ~ "Aboriginal",
+      indigenous_status == "non_aboriginal" ~ "Non-Indigenous",
+      TRUE ~ NA_character_),
+    #
+    indigenous_status = factor(dplyr::case_when(
+      indigenous_label == "Aboriginal"     ~ "Identified as Aboriginal\nand/or Torres Strait Islander",
+      indigenous_label == "Non-Indigenous" ~ "Did not identify as Aboriginal\nand/or Torres Strait Islander",
+      TRUE ~ NA_character_),
+      levels = c("Identified as Aboriginal\nand/or Torres Strait Islander",
+                 "Did not identify as Aboriginal\nand/or Torres Strait Islander")))
+```
+
+- Data for this topic were obtained from the [ABS Prisoners in Australia Dataset](https://www.abs.gov.au/statistics/people/crime-and-justice/prisoners-australia/latest-release).
+
+- The age-standardised incarceration rate for Aboriginal and/or Torres Strait Islander adults in Victoria was 1,778 per 100,000 population in 2023. This was higher than for non-Indigenous Victorian adults (110 per 100,000 population).
+
+- The age-standardised incarceration rate for Aboriginal and/or Torres Strait Islander adults in Victoria shows an improvement compared to the 2019 Closing the Gap baseline rate, but has worsened compared to the rates for 2013-2017.
+
+**Key points from stakeholder consultation**
+
+- At stakeholder consultation during the development of this report, challenges in accessing affordable and suitable housing were cited as a possible contributor to prolonged incarceration and further harm.
+
+- First Nations people in prison may also have complex health and wellbeing needs which require culturally appropriate care.
+
+- The Torch’s [Statewide Indigenous Art in Prisons and Community Program](https://thetorch.org.au/) run in Victorian correctional facilities was discussed as an intervention which is creating positive change through art and cultural learning. The In Prison program employs Indigenous Art Officers to support incarcerated First Nation men and women to learn more about their culture and country, providing support with art skills development and the earning of income from art sales.
+
+- Further historical and ongoing target context can be found on the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/criminal-justice/).
+
+:::: {.panel-tabset}
+
+#### Figure 8A-1
+
+::: {#fig_8A_1 .fig-tab-title}
+**Figure 8A-1:** Age-standardised incarceration rate (per 100,000 population) for Victorian adults (aged 18 years and over), by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+incarceration_adult %>% 
+  dplyr::select(-ctg_target) %>% 
+  #
+  f_line_grouped_indigenous(y_variable = rate,
+                            y_max      = NA,
+                            y_breaks   = 250,
+                            y_expand   = 200,
+                            ctg_target = 1797,
+                            y_title    = "Incarceration rate (per 100,000 population)")
+```
+
+#### Table 8A-1
+
+::: {#tab_8A_1 .fig-tab-title}
+**Table 8A-1:** Age-standardised incarceration rate (per 100,000 population) for Victorian adults (aged 18 years and over), by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- incarceration_adult %>%
+  dplyr::select(-indigenous_status,
+                -ctg_target,
+                -ctg_change) %>%
+  #
+  pivot_wider(names_from  = "indigenous_label",
+              names_vary  = "slowest",
+              values_from = "rate") %>% 
+  #
+  janitor::clean_names() %>% 
+  #
+  dplyr::rename(aboriginal_rate = aboriginal,
+                non_aboriginal_rate = non_indigenous)
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>%
+  dplyr::mutate(aboriginal_rate     = format(round(aboriginal_rate, digits = 0), big.mark = ","),
+                non_aboriginal_rate = format(round(non_aboriginal_rate, digits = 0), big.mark = ",")) %>% 
+  #
+  f_table_simple(total_row     = NULL,
+                 table_headers = c("Year",
+                                   "Yes (rate)",
+                                   "No (rate)")) %>% 
+  #
+  kableExtra::column_spec(2:3,
+                          width = "1.75in") %>% 
+  #
+  kableExtra::add_header_above(c(" " = 1,
+                                 "Identified as Aboriginal and/or Torres Strait Islander" = 2))
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_justice_adult`
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+<div style="height: 1em;"></div>
+
+- The incarceration rate was calculated as the total number of incarcerations per 100,000 population as estimated by the [ABS Estimated Residential Population (ERP)](https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071) for the year.
+  - ERP calculations take into account the known under-reporting of Aboriginal and/or Torres Strait Islander status in the Census.
+  - The incarceration rate has been age-standardised to account for the differences in age structures between the Aboriginal and/or Torres Strait Islander and non-Indigenous populations.
+  
+<div style="height: 2em;"></div>
+:::
+
+::: {style="opacity: 0.8;"}
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+:::
+
+## Youth Detention
+
+::: {.ctg-box}
+**This topic aligns with [Closing the Gap Outcome Area 11](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/youth-justice/): Aboriginal and Torres Strait Islander young people are not overrepresented in the criminal justice system**
+
+Target: By 2031, reduce the rate of Aboriginal and Torres Strait Islander young people (10–⁠17 years) in detention by at least 30% (compared to the baseline year of 2018-19).
+:::
+
+<div style="height: 1em;"></div>
+
+```{r}
+# ------------------------------------------------------------------------------
+# Youth detention
+# Data from AIHW Youth Justice in Australia Dataset
+# ------------------------------------------------------------------------------
+# Read in AIHW data
+incarceration_youth <- readxl::read_excel(file.path(root_folder, subfolder_corrective, "Youth_Justice_State_Data.xlsx"),
+                                          skip  = 2,
+                                          sheet = "Table S83") %>%
+  janitor::clean_names() %>%
+  #
+  dplyr::filter(row_number() %in% 1:30) %>% 
+  dplyr::filter(indigenous_status != "Total") %>% 
+  #
+  dplyr::mutate(
+    indigenous_status = dplyr::case_when(
+      indigenous_status == "First Nations" ~ "aboriginal",
+      indigenous_status == "Non-Indigenous" ~ "non_aboriginal")) %>% 
+  #
+  tidyr::fill(year) %>% 
+  #
+  dplyr::mutate(across(nsw:australia, as.numeric))
+
+# Data wrangling
+incarceration_youth <- incarceration_youth %>%
+  dplyr::select(year,
+                indigenous_status,
+                rate = vic) %>%
+  #
+  dplyr::mutate(
+    ctg_target = dplyr::case_when(
+      indigenous_status == "non_aboriginal" ~ NA_real_,
+      TRUE ~ incarceration_youth$vic[11] * 0.7),
+    #
+    ctg_change = dplyr::case_when(
+      indigenous_status == "non_aboriginal" ~ NA_character_,
+      rate >= incarceration_youth$vic[11] * 1.1 ~ "a worsening",
+      rate <  incarceration_youth$vic[11] * 0.9 ~ "an improvement",
+      TRUE ~ "no change"),
+    #
+    indigenous_label = dplyr::case_when(
+      indigenous_status == "aboriginal"     ~ "Aboriginal",
+      indigenous_status == "non_aboriginal" ~ "Non-Indigenous",
+      TRUE ~ NA_character_),
+    #
+    indigenous_status = factor(dplyr::case_when(
+      indigenous_label == "Aboriginal"     ~ "Identified as Aboriginal\nand/or Torres Strait Islander",
+      indigenous_label == "Non-Indigenous" ~ "Did not identify as Aboriginal\nand/or Torres Strait Islander",
+      TRUE ~ NA_character_),
+      levels = c("Identified as Aboriginal\nand/or Torres Strait Islander",
+                 "Did not identify as Aboriginal\nand/or Torres Strait Islander")))
+```
+
+- Data for this topic were obtained from the [AIHW Youth Justice National Minimum Dataset](https://www.aihw.gov.au/about-our-data/our-data-collections/youth-justice).
+
+- The detention rate for Aboriginal and/or Torres Strait Islander young people in Victoria on an average day was 9.1 per 10,000 population in 2022-23. This was higher than for non-Indigenous young Victorians (1.0 per 10,000 population).
+
+- The detention rate for Aboriginal and/or Torres Strait Islander young people in Victoria shows an improvement compared to the 2018-19 Closing the Gap baseline rate.
+
+**Key points from stakeholder consultation**
+
+- At stakeholder consultation during the development of this report, it was discussed how Aboriginal and/or Torres Strait Islander young people are often over-policed and criminalised for minor offences.
+
+- The significant intergenerational impacts of colonisation and forced removal of Aboriginal and/or Torres Strait Islander children from their families were also noted in reference to this topic, with further historical and ongoing target context available on the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/youth-justice/).
+
+:::: {.panel-tabset}
+
+#### Figure 8A-2
+
+::: {#fig_8A_2 .fig-tab-title}
+**Figure 8A-2:** Detention rate (per 10,000 population) on an average day for Victorian young people (aged 10-17 years), by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+incarceration_youth %>% 
+  dplyr::select(-ctg_target) %>% 
+  #
+  f_line_grouped_indigenous(y_variable = rate,
+                            y_max      = NA,
+                            y_breaks   = 5,
+                            y_expand   = 5,
+                            ctg_target = 13,
+                            y_title    = "Detention rate (per 10,000 population)")
+```
+
+#### Table 8A-2
+
+::: {#tab_8A_2 .fig-tab-title}
+**Table 8A-2:** Detention rate (per 10,000 population) on an average day for Victorian young people (aged 10-17 years), by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- incarceration_youth %>%
+  dplyr::select(-indigenous_status,
+                -ctg_target,
+                -ctg_change) %>%
+  #
+  pivot_wider(names_from  = "indigenous_label",
+              names_vary  = "slowest",
+              values_from = "rate") %>% 
+  #
+  janitor::clean_names() %>% 
+  #
+  dplyr::rename(aboriginal_rate = aboriginal,
+                non_aboriginal_rate = non_indigenous)
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>%
+  dplyr::mutate(aboriginal_rate     = sprintf("%.1f", aboriginal_rate),
+                non_aboriginal_rate = sprintf("%.1f", non_aboriginal_rate)) %>% 
+  #
+  f_table_simple(total_row     = NULL,
+                 table_headers = c("Year",
+                                   "Yes (rate)",
+                                   "No (rate)")) %>% 
+  #
+  kableExtra::column_spec(2:3,
+                          width = "1.75in") %>% 
+  #
+  kableExtra::add_header_above(c(" " = 1,
+                                 "Identified as Aboriginal and/or Torres Strait Islander" = 2))
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_justice_youth`
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+<div style="height: 1em;"></div>
+
+- The detention rate was calculated as the total number of detentions on an average day per 10,000 population as estimated by the [ABS Estimated Residential Population (ERP)](https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071) for the year.
+  - ERP calculations take into account the known under-reporting of Aboriginal and/or Torres Strait Islander status in the Census.
+  
+<div style="height: 2em;"></div>
+:::
+
