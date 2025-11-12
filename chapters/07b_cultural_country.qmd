@@ -353,7 +353,7 @@ Target A: By 2030, a 15% increase in Australia’s land mass subject to Aborigin
 Target B: By 2030, a 15% increase in areas covered by Aboriginal and Torres Strait Islander people’s legal rights or interests in the sea.
 :::
 
-<div style="height: 2em;"></div>
+<div style="height: 1em;"></div>
 
 ```{r}
 # ------------------------------------------------------------------------------
