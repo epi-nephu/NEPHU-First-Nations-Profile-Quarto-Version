@@ -119,7 +119,7 @@ f_preptable_grouped_agesex <- function(data) {
 ################################################################################
 # Columns grouped by Indigenous status, n/%/rate in a single column ("unit")
 ################################################################################
-f_preptable_grouped_indigenous <- function(data, x_variable, y_variable = "prop") {
+f_preptable_grouped_indigenous <- function(data, x_variable, y_variable) {
   
   x_variable <- rlang::enquo(x_variable)
   
