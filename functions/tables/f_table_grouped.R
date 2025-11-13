@@ -85,6 +85,12 @@ f_table_grouped_indigenous <- function(data, n_variable, column_name, total_row 
     
   }
   
+  if (n_variable == "rate") {
+    
+    table_headers <- c("Count", "Rate", "Count", "Rate", "Total")
+    
+  }
+  
   table <- data %>% 
     knitr::kable(format      = "html",
                  format.args = list(big.mark = ","),

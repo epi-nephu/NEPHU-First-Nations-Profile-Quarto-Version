@@ -117,9 +117,9 @@ f_preptable_grouped_agesex <- function(data) {
 }
 
 ################################################################################
-# Columns grouped by Indigenous status, n/% in a single column ("unit")
+# Columns grouped by Indigenous status, n/%/rate in a single column ("unit")
 ################################################################################
-f_preptable_grouped_indigenous <- function(data, x_variable) {
+f_preptable_grouped_indigenous <- function(data, x_variable, y_variable = "prop") {
   
   x_variable <- rlang::enquo(x_variable)
   
@@ -132,16 +132,35 @@ f_preptable_grouped_indigenous <- function(data, x_variable) {
     #
     janitor::clean_names() %>%
     #
-    dplyr::mutate(total_n = aboriginal_n + non_indigenous_n) %>% 
-    #
-    dplyr::select(!!x_variable,
-                  aboriginal_n,
-                  aboriginal_prop,
-                  non_indigenous_n,
-                  non_indigenous_prop,
-                  total_n) %>% 
-    #
-    dplyr::arrange(!!x_variable)
+    dplyr::mutate(total_n = aboriginal_n + non_indigenous_n)
+  
+  if (y_variable == "prop") {
+    
+    data <- data %>%
+      dplyr::select(!!x_variable,
+                    aboriginal_n,
+                    aboriginal_prop,
+                    non_indigenous_n,
+                    non_indigenous_prop,
+                    total_n) %>% 
+      #
+      dplyr::arrange(!!x_variable)
+    
+  }
+  
+  if (y_variable == "rate") {
+    
+    data <- data %>%
+      dplyr::select(!!x_variable,
+                    aboriginal_n,
+                    aboriginal_rate,
+                    non_indigenous_n,
+                    non_indigenous_rate,
+                    total_n) %>% 
+      #
+      dplyr::arrange(!!x_variable)
+    
+  }
   
   return(data)
 
