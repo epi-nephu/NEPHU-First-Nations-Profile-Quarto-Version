@@ -32,6 +32,7 @@ book:
       chapters: 
         - chapters/08a_other_justice.qmd
         - chapters/08b_other_childprotection.qmd
+        - chapters/08c_other_familysafety.qmd
     - part: "9. Health Promoting and Risk Behaviours"
     - part: "10. Health Consequences"
     - references.qmd
