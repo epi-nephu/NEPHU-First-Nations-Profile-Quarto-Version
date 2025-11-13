@@ -35,7 +35,7 @@ If you or someone you know needs support, please consider reaching out to one of
 <div style="height: 2em;"></div>
 
 ::: {.key-question}
-What external factors may influence how Aboriginal and/or Torres Strait Islander people and families in the NEPHU catchment are supported to prioritise health and wellbeing, particularly in connection to caring for children and keeping families strong?
+What factors within community and broader systems impact the ways Aboriginal and/or Torres Strait Islander families in the NEPHU catchment are supported to maintain wellbeing, care for children, and keep families connected?
 :::
 
 ## Adult Incarceration
@@ -75,16 +75,6 @@ incarceration_adult <- incarceration_adult %>%
                 rate = vic) %>% 
   #
   dplyr::mutate(
-    ctg_target = dplyr::case_when(
-      indigenous_status == "non_aboriginal" ~ NA_real_,
-      TRUE ~ incarceration_adult$vic[7] * 0.85),
-    #
-    ctg_change = dplyr::case_when(
-      indigenous_status == "non_aboriginal" ~ NA_character_,
-      rate >= incarceration_adult$vic[7] * 1.1 ~ "a worsening",
-      rate <  incarceration_adult$vic[7] * 0.9 ~ "an improvement",
-      TRUE ~ "no change"),
-    #
     indigenous_label = dplyr::case_when(
       indigenous_status == "aboriginal"     ~ "Aboriginal",
       indigenous_status == "non_aboriginal" ~ "Non-Indigenous",
@@ -126,14 +116,14 @@ incarceration_adult <- incarceration_adult %>%
 #
 figure_count <- figure_count + 1
 
-incarceration_adult %>% 
-  dplyr::select(-ctg_target) %>% 
-  #
+ctg_target <- incarceration_adult$rate[7] * 0.85 
+
+incarceration_adult %>%
   f_line_grouped_indigenous(y_variable = rate,
                             y_max      = NA,
                             y_breaks   = 250,
                             y_expand   = 200,
-                            ctg_target = 1797,
+                            ctg_target = ctg_target,
                             y_title    = "Incarceration rate (per 100,000 population)")
 ```
 
@@ -149,9 +139,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- incarceration_adult %>%
-  dplyr::select(-indigenous_status,
-                -ctg_target,
-                -ctg_change) %>%
+  dplyr::select(-indigenous_status) %>%
   #
   pivot_wider(names_from  = "indigenous_label",
               names_vary  = "slowest",
@@ -191,7 +179,10 @@ table %>%
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
-`r note_data_justice_adult`
+- Data were obtained from the [ABS Prisoners in Australia Dataset](https://www.abs.gov.au/statistics/people/crime-and-justice/prisoners-australia/latest-release).
+  - The ABS Prisoners in Australia Dataset includes all persons remanded or sentenced to adult custodial corrective services agencies in each Australian state and territory.
+  - Aboriginal and/or Torres Strait Islander peoples were defined as those who identified themselves as Aboriginal and/or Torres Strait Islander at the time of their contact with a corrective service agency.
+  - Adults were defined as persons aged 18 years and over.
 
 <div style="height: 1em;"></div>
 
@@ -253,16 +244,6 @@ incarceration_youth <- incarceration_youth %>%
                 rate = vic) %>%
   #
   dplyr::mutate(
-    ctg_target = dplyr::case_when(
-      indigenous_status == "non_aboriginal" ~ NA_real_,
-      TRUE ~ incarceration_youth$vic[11] * 0.7),
-    #
-    ctg_change = dplyr::case_when(
-      indigenous_status == "non_aboriginal" ~ NA_character_,
-      rate >= incarceration_youth$vic[11] * 1.1 ~ "a worsening",
-      rate <  incarceration_youth$vic[11] * 0.9 ~ "an improvement",
-      TRUE ~ "no change"),
-    #
     indigenous_label = dplyr::case_when(
       indigenous_status == "aboriginal"     ~ "Aboriginal",
       indigenous_status == "non_aboriginal" ~ "Non-Indigenous",
@@ -300,14 +281,14 @@ incarceration_youth <- incarceration_youth %>%
 #
 figure_count <- figure_count + 1
 
+ctg_target <- incarceration_youth$rate[11] * 0.7
+
 incarceration_youth %>% 
-  dplyr::select(-ctg_target) %>% 
-  #
   f_line_grouped_indigenous(y_variable = rate,
                             y_max      = NA,
                             y_breaks   = 5,
                             y_expand   = 5,
-                            ctg_target = 13,
+                            ctg_target = ctg_target,
                             y_title    = "Detention rate (per 10,000 population)")
 ```
 
@@ -323,9 +304,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- incarceration_youth %>%
-  dplyr::select(-indigenous_status,
-                -ctg_target,
-                -ctg_change) %>%
+  dplyr::select(-indigenous_status) %>%
   #
   pivot_wider(names_from  = "indigenous_label",
               names_vary  = "slowest",
@@ -365,7 +344,10 @@ table %>%
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
-`r note_data_justice_youth`
+- Data were obtained from the [AIHW Youth Justice National Minimum Dataset](https://www.aihw.gov.au/about-our-data/our-data-collections/youth-justice).
+  - The AIHW Youth Justice National Minimum Dataset includes information about young people in Australia who were under youth justice supervision in each Australian state and territory.
+  - Aboriginal and/or Torres Strait Islander peoples were defined as those who identified themselves as Aboriginal and/or Torres Strait Islander at the time of their contact with the youth justice system.
+  - Young people were defined as persons aged 10-17 years.
 
 <div style="height: 1em;"></div>
 

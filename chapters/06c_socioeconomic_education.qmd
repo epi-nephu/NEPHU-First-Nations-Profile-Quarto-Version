@@ -455,7 +455,8 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- year12_trend %>%
-  f_preptable_grouped_indigenous(x_variable = year)
+  f_preptable_grouped_indigenous(x_variable = year,
+                                 y_variable = "prop")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -1091,7 +1092,8 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- uni_trend %>% 
-  f_preptable_grouped_indigenous(x_variable = year)
+  f_preptable_grouped_indigenous(x_variable = year,
+                                 y_variable = "prop")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
