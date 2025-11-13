@@ -1,0 +1,405 @@
+---
+title: "Racism and Discrimination"
+---
+
+```{r}
+#
+source(here::here("setup.R"))
+source(here::here("setup_footnotes.R"))
+
+# Set up numbering for exporting tables as .csv
+table_section <- "08D"
+table_count   <- 0
+
+figure_count <- 0
+```
+
+::: {.caveat-box}
+**A note about the impact of under-identification**
+
+`r note_box_underidentification`
+:::
+
+<div style="height: 2em;"></div>
+
+::: {.key-question}
+What factors within community and broader systems impact the ways Aboriginal and/or Torres Strait Islander families in the NEPHU catchment are supported to maintain wellbeing, care for children, and keep families connected?
+:::
+
+## Experience of Racism
+
+```{r}
+# ------------------------------------------------------------------------------
+# Experience of racial prejudice
+# Data from Australian Reconciliation Barometer
+# ------------------------------------------------------------------------------
+# Read in Australian Reconciliation Barometer data
+discrimination_prejudice <- readxl::read_excel(file.path(root_folder, subfolder_ctg, "CTG14_Wellbeing_Data_Tables.xlsx"),
+                                               skip  = 1,
+                                               sheet = "Table SE14g.1") %>%
+  janitor::clean_names() %>%
+  #
+  dplyr::rename(year = x4,
+                type = x2,
+                indigenous_status = x3) %>%
+  #
+  tidyr::fill(type, indigenous_status) %>% 
+  #
+  dplyr::filter(!is.na(vic) & type != "Total population aged 18 years or over (weighted estimate)")
+
+# Data wrangling
+discrimination_prejudice <- discrimination_prejudice %>%
+  dplyr::select(year,
+                indigenous_status,
+                unit = type,
+                vic) %>%
+  #
+  dplyr::mutate(
+    vic = as.numeric(vic),
+    #
+    indigenous_label = dplyr::case_when(
+      indigenous_status == "Aboriginal and Torres Strait Islander people" ~ "Aboriginal",
+      indigenous_status == "General community"                            ~ "Non-Indigenous",
+      TRUE ~ NA_character_),
+    #
+    indigenous_status = factor(dplyr::case_when(
+      indigenous_label == "Aboriginal"     ~ "Identified as Aboriginal\nand/or Torres Strait Islander",
+      indigenous_label == "Non-Indigenous" ~ "Did not identify as Aboriginal\nand/or Torres Strait Islander",
+      TRUE ~ NA_character_),
+      levels = c("Identified as Aboriginal\nand/or Torres Strait Islander",
+                 "Did not identify as Aboriginal\nand/or Torres Strait Islander")),
+    #
+    unit = dplyr::case_when(
+      unit == "Proportion (b)" ~ "prop",
+      unit == "Number (weighted estimate)" ~ "n",
+      TRUE ~ NA_character_))
+```
+
+- Data for this topic were obtained from the [Australian Reconciliation Barometer](https://www.reconciliation.org.au/reconciliation/australian-reconciliation-barometer/).
+
+- In 2022, 60% of Aboriginal and/or Torres Strait Islander survey respondents living in Victoria reported that they had personally experienced at least one form of racial prejudice during the previous six months. This had increased compared to 2018 (51%) but was lower than for 2020 (71%).
+
+- The percentage of people who had experienced racial prejudice was higher for Aboriginal and/or Torres Strait Islander people than for non-Indigenous people at each time point.
+
+::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+The following question was asked of all people completing the Australian Reconciliation Barometer surveys.
+
+- Have you personally experienced any of these forms of prejudice in the past six months on the basis of your race? (Select all that apply)
+  - Verbal abuse
+  - Social media abuse (e.g. Facebook)
+  - Physical violence
+  - Prevented from renting or buying a property
+  - Refused service in a shop
+  - Refused entry to a venue
+  - Other
+
+<div style="height: 2em;"></div>
+:::
+
+:::: {.panel-tabset}
+
+#### Figure 8D-1
+
+::: {#fig_8D_1 .fig-tab-title}
+**Figure 8D-1:** Percentage of people reporting that they had experienced racial prejudice in the six months prior to the survey, Victoria, by Aboriginal and/or Torres Strait Islander status and year, 2018-2022
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+discrimination_prejudice %>% 
+  dplyr::filter(unit == "prop") %>% 
+  #
+  dplyr::rename(prop = vic) %>% 
+  #
+  f_line_grouped_indigenous(y_variable = prop,
+                            y_max      = 100,
+                            y_breaks   = 10,
+                            y_expand   = 1)
+```
+
+#### Table 8D-1
+
+::: {#tab_8D_1 .fig-tab-title}
+**Table 8D-1:** Number and percentage of people reporting that they had experienced racial prejudice in the six months prior to the survey, Victoria, by Aboriginal and/or Torres Strait Islander status and year, 2018-2022
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- discrimination_prejudice %>%
+  f_preptable_grouped_indigenous(x_variable = year,
+                                 y_variable = "prop")
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>%
+  dplyr::mutate(aboriginal_prop     = sprintf("%.0f", aboriginal_prop),
+                non_indigenous_prop = sprintf("%.0f", non_indigenous_prop)) %>% 
+  #
+  f_table_grouped_indigenous(n_variable  = "count",
+                             column_name = "Year",
+                             total_row   = NULL)
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+- Data were obtained from the [Australian Reconciliation Barometer](https://www.reconciliation.org.au/reconciliation/australian-reconciliation-barometer/).
+  - The Australian Reconciliation Barometer is a national survey undertaken every two years since 2008, and aims to measure the progress of reconciliation between Aboriginal and/or Torres Strait Islander and non-Indigenous peoples.
+  - Aboriginal and/or Torres Strait Islander peoples were defined as those who self-identified as Aboriginal and/or Torres Strait Islander when completing the survey.
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+`r note_caveat_survey_estimate`
+
+`r note_caveat_survey_unknown`
+:::
+
+::: {style="opacity: 0.8;"}
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+:::
+
+## Not Being Treated with Fairness and Respect
+
+```{r}
+# ------------------------------------------------------------------------------
+# Experience of unfair treatment
+# Data from ABS National Aboriginal and Torres Strait Islander Health Survey
+# ------------------------------------------------------------------------------
+# Read in NATSIHS data
+discimination_unfair <- f_read_natsihs_sex("Indicator_Vic_Sex_Discrimination_Unfair.csv")
+
+# Data wrangling
+discimination_unfair <- discimination_unfair %>% 
+  dplyr::rowwise() %>% 
+  dplyr::mutate(answered_n = sum(across(had_unfair_treatment_n:has_not_had_unfair_treatment_n))) %>% 
+  dplyr::ungroup() %>% 
+  #
+  janitor::adorn_totals(fill = "Total") %>% 
+  #
+  dplyr::rename(unfair_n    = had_unfair_treatment_n,
+                notunfair_n = has_not_had_unfair_treatment_n) %>% 
+  #
+  dplyr::mutate(across(unfair_n:notunfair_n,
+                       ~ . / answered_n * 100,
+                       .names = "{.col}_prop"),
+                #
+                answered_prop = answered_n / answered_n * 100) %>% 
+  #
+  dplyr::rename_with(~ stringr::str_replace(., "_n_prop$", "_prop"), ends_with("_n_prop")) %>% 
+  #
+  dplyr::select(sex,
+                starts_with("unfair"),
+                starts_with("notunfair"),
+                starts_with("answered")) %>% 
+  #
+  tidyr::pivot_longer(!sex,
+                      names_to = c("answer", ".value"),
+                      names_pattern = "(.+)_(.+)") %>% 
+  #
+  dplyr::mutate(answer = factor(dplyr::recode(answer,
+                                              "unfair"    = "Yes",
+                                              "notunfair" = "No",
+                                              "answered"  = "Total"),
+                                levels = c("Yes",
+                                           "No",
+                                           "Total")))
+
+# ------------------------------------------------------------------------------
+# Avoidance of situations due to previous unfair treatment
+# Data from ABS National Aboriginal and Torres Strait Islander Health Survey
+# ------------------------------------------------------------------------------
+# Read in NATSIHS data
+discimination_avoid <- f_read_natsihs_sex("Indicator_Vic_Sex_Discrimination_Avoided.csv")
+
+# Data wrangling
+discimination_avoid <- discimination_avoid %>% 
+  dplyr::rowwise() %>% 
+  dplyr::mutate(answered_n = sum(across(avoided_situations_due_to_past_unfair_treatment_in_last_12_months_n:did_not_avoid_situations_due_to_past_unfair_treatment_in_last_12_months_n))) %>% 
+  dplyr::ungroup() %>% 
+  #
+  janitor::adorn_totals(fill = "Total") %>% 
+  #
+  dplyr::rename(avoid_n    = avoided_situations_due_to_past_unfair_treatment_in_last_12_months_n,
+                notavoid_n = did_not_avoid_situations_due_to_past_unfair_treatment_in_last_12_months_n) %>% 
+  #
+  dplyr::mutate(across(avoid_n:notavoid_n,
+                       ~ . / answered_n * 100,
+                       .names = "{.col}_prop"),
+                #
+                answered_prop = answered_n / answered_n * 100) %>% 
+  #
+  dplyr::rename_with(~ stringr::str_replace(., "_n_prop$", "_prop"), ends_with("_n_prop")) %>% 
+  #
+  dplyr::select(sex,
+                starts_with("avoid"),
+                starts_with("notavoid"),
+                starts_with("answered")) %>% 
+  #
+  tidyr::pivot_longer(!sex,
+                      names_to = c("answer", ".value"),
+                      names_pattern = "(.+)_(.+)") %>% 
+  #
+  dplyr::mutate(answer = factor(dplyr::recode(answer,
+                                              "avoid"    = "Yes",
+                                              "notavoid" = "No",
+                                              "answered" = "Total"),
+                                levels = c("Yes",
+                                           "No",
+                                           "Total")))
+```
+
+- Data for this topic were obtained from the [2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release).
+
+- Overall, 25% of Aboriginal and/or Torres Strait Islander survey respondents aged 15 years and over living in Greater Melbourne reported that they had experienced unfair treatment during the 12 months prior to the survey. This equates to approximately 6,200 Aboriginal and/or Torres Strait Islander people in Greater Melbourne.
+
+- Female survey respondents were more likely to have experienced unfair treatment than males (28% vs. 23%).
+
+- 12% of Aboriginal and/or Torres Strait Islander survey respondents aged 15 years and over living in Greater Melbourne reported that they had avoided situations due to previous experiences of unfair treatment. This equates to approximately 3,000 Aboriginal and/or Torres Strait Islander people in Greater Melbourne.
+
+- Males were more likely to have avoided situations due to previous experiences of unfair treatment than females (16% vs. 8.0%).
+
+::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+The following questions were asked of all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+
+- In the last 12 months, have you had any of the following experiences because you are Aboriginal and/or Torres Strait Islander? (Select all that apply)
+  - Called names, teased, or sworn at
+  - Heard racial comments or jokes
+  - Ignored or served last while accessing services or buying something
+  - Not trusted
+  - Unfairly arrested or charged
+  - Told are less intelligent
+  - Left out, refused entry, or told don’t belong
+  - Spat at or had something thrown at
+  - Any other experience that was unfair
+  - Have not had an unfair experience
+
+<div style="height: 1em;"></div>
+
+- In the last 12 months, did you avoid any of these situations because you feel you have been treated unfairly in the past because you are Aboriginal and/or Torres Strait Islander? (Select all that apply)
+  - Applying for work or going to a job
+  - School, university, training course, or other educational setting
+  - Doing any sport, recreational, or leisure activities
+  - The police, security people, lawyers, or in a court of law
+  - Doctors, nurses, or other staff at hospitals or doctors' surgeries
+  - Looking for property to rent or buy
+  - When accessing government services
+  - Seeking any other services
+  - Members of the public
+  - Other situations
+  - Did not avoid any situation
+
+<div style="height: 2em;"></div>
+:::
+
+:::: {.panel-tabset}
+
+#### Table 8D-2
+
+::: {#tab_8D_2 .fig-tab-title}
+**Table 8D-2:** Number and percentage of people reporting that they had experienced unfair treatment in the 12 months prior to the survey for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- discimination_unfair %>% 
+  tidyr::pivot_wider(names_from  = "sex",
+                     values_from = c("n", "prop"),
+                     names_vary  = "slowest") %>% 
+  #
+  janitor::clean_names() %>% 
+  #
+  dplyr::rename(unfair_treatment = answer)
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(prop_male   = sprintf("%.1f", prop_male),
+                prop_female = sprintf("%.1f", prop_female),
+                prop_total  = sprintf("%.1f", prop_total)) %>%
+  #
+  f_table_grouped_sex(n_variable  = "estimate",
+                      column_name = "Experienced unfair treatment")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+#### Table 8D-3
+
+::: {#tab_8D_3 .fig-tab-title}
+**Table 8D-3:** Number and percentage of people reporting that they had avoided situations in the 12 months prior to the survey due to previous unfair treatment for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- discimination_avoid %>% 
+  tidyr::pivot_wider(names_from  = "sex",
+                     values_from = c("n", "prop"),
+                     names_vary  = "slowest") %>% 
+  #
+  janitor::clean_names() %>% 
+  #
+  dplyr::rename(avoided_situation = answer)
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(prop_male   = sprintf("%.1f", prop_male),
+                prop_female = sprintf("%.1f", prop_female),
+                prop_total  = sprintf("%.1f", prop_total)) %>%
+  #
+  f_table_grouped_sex(n_variable  = "estimate",
+                      column_name = "Avoided situations")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_natsihs`
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+`r note_caveat_survey_unknown`
+
+`r note_caveat_survey_estimate`
+:::
+
