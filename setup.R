@@ -55,6 +55,7 @@ subfolder_birth       <- "Population Health Data/ABS Births and Mortality/Data/R
 subfolder_cancer      <- "Population Health Data/VIC Cancer Registry/Data"
 subfolder_coroner     <- "Population Health Data/VIC Coroners Court/Data"
 subfolder_corrective  <- "Population Health Data/Corrective Services/Data"
+subfolder_crime       <- "Population Health Data/Crime Statistics Agency/Data"
 subfolder_ctg         <- "Population Health Data/Closing the Gap/Data"
 subfolder_framework   <- "Population Health Data/AIHW Aboriginal Health Performance Framework/Data"
 subfolder_natsihs     <- "Population Health Data/ABS National Aboriginal Health Survey 2022-23/Data"
