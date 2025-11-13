@@ -1,0 +1,344 @@
+---
+title: "Child Protection"
+---
+
+```{r}
+#
+source(here::here("setup.R"))
+source(here::here("setup_footnotes.R"))
+
+# Set up numbering for exporting tables as .csv
+table_section <- "08B"
+table_count   <- 0
+
+figure_count <- 0
+```
+
+::: {.warning-box}
+`r bsicons::bs_icon("exclamation-triangle", size = "15pt")` **Content warning** `r bsicons::bs_icon("exclamation-triangle", size = "15pt")`
+
+The following section contains information about child protection involving Aboriginal and/or Torres Strait Islander children, families, and communities. This content may bring up strong emotions or memories, particularly for those who have lived experience of child removal, family separation, or the ongoing impacts of colonisation and government policies.
+
+We encourage readers to look after themselves while engaging with this material. Please take breaks if needed, and seek support from trusted family, community, or professional services if the content causes distress. 
+
+As you read, please remember to lean on your strengths, your community, and your supports. This knowledge is shared with deep respect, care, and understanding.
+
+If you or someone you know needs support, please consider reaching out to one of the following culturally safe services.
+:::
+
+<div style="height: 2em;"></div>
+
+::: {.caveat-box}
+**A note about the impact of under-identification**
+
+`r note_box_underidentification`
+:::
+
+<div style="height: 2em;"></div>
+
+::: {.key-question}
+What factors within community and broader systems impact the ways Aboriginal and/or Torres Strait Islander families in the NEPHU catchment are supported to maintain wellbeing, care for children, and keep families connected?
+:::
+
+## Out-of-Home Care
+
+::: {.ctg-box}
+**This topic aligns with [Closing the Gap Outcome Area 12](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/child-protection/): Aboriginal and Torres Strait Islander children are not overrepresented in the child protection system**
+
+Target: By 2031, reduce the rate of overrepresentation of Aboriginal and Torres Strait Islander children (aged 0–17 years) in out-of-home care by 45% (compared to the baseline year of 2019).
+:::
+
+<div style="height: 1em;"></div>
+
+```{r}
+# ------------------------------------------------------------------------------
+# Child protection: out-of-home care
+# Data from AIHW Child Protection National Minimum Dataset
+# ------------------------------------------------------------------------------
+# Read in AIHW data
+outofhome <- readxl::read_excel(file.path(root_folder, subfolder_protection, "Child_Protection_National_Minimum_Dataset.xlsx"),
+                                skip  = 2,
+                                sheet = "T3") %>%
+  janitor::clean_names() %>%
+  #
+  dplyr::mutate(
+    indigenous_status = dplyr::case_when(
+      row_number() %in% c(3:7, 58:62) ~ "aboriginal",
+      row_number() %in% c(9:13, 64:68) ~ "non_aboriginal",
+      TRUE ~ NA_character_),
+    #
+    unit = dplyr::case_when(
+      row_number() %in% c(3:7, 9:13) ~ "n",
+      row_number() %in% c(58:62, 64:68) ~ "rate",
+      TRUE ~ NA_character_)) %>% 
+  #
+  dplyr::filter(!is.na(indigenous_status))
+
+# Data wrangling
+outofhome <- outofhome %>%
+  dplyr::select(year,
+                indigenous_status,
+                unit,
+                vic) %>%
+  #
+  dplyr::mutate(
+    indigenous_label = dplyr::case_when(
+      indigenous_status == "aboriginal"     ~ "Aboriginal",
+      indigenous_status == "non_aboriginal" ~ "Non-Indigenous",
+      TRUE ~ NA_character_),
+    #
+    indigenous_status = factor(dplyr::case_when(
+      indigenous_label == "Aboriginal"     ~ "Identified as Aboriginal\nand/or Torres Strait Islander",
+      indigenous_label == "Non-Indigenous" ~ "Did not identify as Aboriginal\nand/or Torres Strait Islander",
+      TRUE ~ NA_character_),
+      levels = c("Identified as Aboriginal\nand/or Torres Strait Islander",
+                 "Did not identify as Aboriginal\nand/or Torres Strait Islander")))
+
+# ------------------------------------------------------------------------------
+# Child protection: relationship with caregiver
+# Data from AIHW Child Protection National Minimum Dataset
+# ------------------------------------------------------------------------------
+# Read in AIHW data
+relationship <- readxl::read_excel(file.path(root_folder, subfolder_ctg, "CTG12_Child_Protection_Data_Tables.xlsx"),
+                                   skip  = 1,
+                                   sheet = "Table SE12e.1") %>%
+  janitor::clean_names() %>%
+  #
+  dplyr::rename(type = x2,
+                year = x3,
+                relationship = x5) %>%
+  #
+  tidyr::fill(type, year) %>% 
+  #
+  dplyr::filter(!is.na(vic))
+
+# Data wrangling
+relationship <- relationship %>%
+  dplyr::select(type,
+                year,
+                relationship,
+                value = vic) %>%
+  #
+  dplyr::mutate(value = as.numeric(value),
+                #
+                type = dplyr::case_when(
+                  type == "Proportion of children" ~ "proportion",
+                  type == "Number of children"     ~ "number",
+                  TRUE ~ NA_character_),
+                #
+                relationship = dplyr::case_when(
+                  relationship == "Aboriginal and Torres Strait Islander relatives/kin" ~ "First Nations relatives/kin",
+                  relationship == "Other Aboriginal and Torres Strait Islander carers"  ~ "Other First Nations carers",
+                  relationship == "Non-Indigenous relatives/kin"                        ~ "Non-Indigenous relatives/kin",
+                  relationship == "Other non-Indigenous carers"                         ~ "Other care arrangements",
+                  relationship == "Residential care or family group home"               ~ "Other care arrangements",
+                  relationship == "Independent living/living arrangements unknown"      ~ "Other care arrangements",
+                  TRUE ~ NA_character_)) %>% 
+  #
+  dplyr::filter(!is.na(relationship)) %>% 
+  #
+  dplyr::group_by(type, year, relationship) %>% 
+  dplyr::summarise(value = sum(value)) %>% 
+  dplyr::ungroup()
+
+relationship <- relationship %>% 
+  tidyr::pivot_wider(names_from  = "type",
+                     values_from = "value") %>% 
+  #
+  janitor::clean_names() %>% 
+  #
+  dplyr::mutate(relationship = factor(relationship,
+                                      levels = c("First Nations relatives/kin",
+                                                 "Other First Nations carers",
+                                                 "Non-Indigenous relatives/kin",
+                                                 "Other care arrangements")))
+```
+
+- Data for this topic were obtained from the [AIHW Child Protection National Minimum Dataset](https://www.aihw.gov.au/about-our-data/our-data-collections/child-protection-national-minimum-data-set).
+
+- The out-of-home care rate for Aboriginal and/or Torres Strait Islander children in Victoria on June 30th 2023 was 103 per 1,000 population. This was higher than for non-Indigenous children in Victorian (4.6 per 1,000 population).
+
+- The out-of-home care rate for Aboriginal and/or Torres Strait Islander children in Victoria has worsened compared to the 2019 Closing the Gap baseline rate.
+
+- On June 30th 2024, 82% (n = 2,365) of Aboriginal and/or Torres Strait Islander children in Victoria who were in out-of-home care had been placed with Aboriginal and/or Torres Strait Islander relatives or kin, non-Indigenous relatives or kin, or other Aboriginal and/or Torres Strait Islander carers.
+
+**Key points from stakeholder consultation**
+
+- At stakeholder consultation during the development of this report, the continued overrepresentation of Aboriginal and/or Torres Strait Islander children in out-of-home care was discussed as a significant barrier to self-identifying at healthcare services.
+
+- Gaps in data relating to the avoidance of healthcare settings following child protection involvement was also called out.
+
+- The importance of eliminating racism and discrimination in child protection was discussed, with self-determination and service provision that is led by Aboriginal and/or Torres Strait Islander peoples being critical in addressing this issue. This includes support for pre-birth interventions.
+
+- Further historical and ongoing target context can be found on the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/child-protection/).
+
+:::: {.panel-tabset}
+
+#### Figure 8B-1
+
+::: {#fig_8B_1 .fig-tab-title}
+**Figure 8B-1:** Out-of-home care rate (per 1,000 population) on June 30th for Victorian children (aged 0-17 years), by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+ctg_target <- outofhome$vic[11] * 0.55
+
+outofhome %>% 
+  dplyr::filter(unit == "rate") %>% 
+  #
+  dplyr::rename(rate = vic) %>% 
+  #
+  f_line_grouped_indigenous(y_variable = rate,
+                            y_max      = NA,
+                            y_breaks   = 10,
+                            y_expand   = 10,
+                            ctg_target = ctg_target,
+                            y_title    = "Out-of-home care rate (per 1,000 population)")
+```
+
+#### Table 8B-1
+
+::: {#tab_8B_1 .fig-tab-title}
+**Table 8B-1:** Number of children in out-of-home care and out-of-home care rate (per 1,000 population) on June 30th for Victorian children (aged 0-17 years), by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- outofhome %>%
+  f_preptable_grouped_indigenous(x_variable = year,
+                                 y_variable = "rate")
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>%
+  dplyr::mutate(aboriginal_rate     = sprintf("%.1f", aboriginal_rate),
+                non_indigenous_rate = sprintf("%.1f", non_indigenous_rate)) %>% 
+  #
+  f_table_grouped_indigenous(n_variable  = "rate",
+                             column_name = "Year",
+                             total_row   = NULL)
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+#### Figure 8B-2
+
+::: {#fig_8B_2 .fig-tab-title}
+**Figure 8B-2:** Relationship to carer for Aboriginal and/or Torres Strait Islander children in out-of-home care, Victoria, 2019-2024
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+relationship %>% 
+  dplyr::mutate(hover_text = paste0(year, "\n",
+                                    relationship, "\n",
+                                    "Count: ", format(number, big.mark = ","))) %>%
+  #
+  f_bar_stacked(x_variable    = year,
+                y_variable    = number,
+                fill_variable = forcats::fct_rev(relationship),
+                fill_values   = c(colour_stack4, colour_stack3, colour_stack2, colour_stack1),
+                y_max         = NA,
+                y_breaks      = 500,
+                y_expand      = 200,
+                y_title       = "Number of children",
+                legend_offset = -0.2)
+```
+
+#### Table 8B-2
+
+::: {#tab_8B_2 .fig-tab-title}
+**Table 8B-2:** Relationship to carer for Aboriginal and/or Torres Strait Islander children in out-of-home care, Victoria, 2019-2024
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- relationship %>%
+  tidyr::pivot_wider(names_from  = "relationship",
+                     values_from = c("number", "proportion"),
+                     names_vary  = "slowest") %>% 
+  #
+  janitor::clean_names() %>%
+  #
+  dplyr::select(year,
+                aboriginal_kin_n = number_first_nations_relatives_kin,
+                aboriginal_kin_prop = proportion_first_nations_relatives_kin,
+                aboriginal_other_n = number_other_first_nations_carers,
+                aboriginal_other_prop = proportion_other_first_nations_carers,
+                non_aboriginal_kin_n = number_non_indigenous_relatives_kin,
+                non_aboriginal_kin_prop = proportion_non_indigenous_relatives_kin,
+                other_care_n = number_other_care_arrangements,
+                other_care_prop = proportion_other_care_arrangements) %>% 
+  #
+  dplyr::mutate(number_total = aboriginal_kin_n + aboriginal_other_n + non_aboriginal_kin_n + other_care_n)
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(aboriginal_kin_prop     = sprintf("%.1f", aboriginal_kin_prop),
+                aboriginal_other_prop   = sprintf("%.1f", aboriginal_other_prop),
+                non_aboriginal_kin_prop = sprintf("%.1f", non_aboriginal_kin_prop),
+                other_care_prop         = sprintf("%.1f", other_care_prop)) %>% 
+  #
+  f_table_simple(total_row     = NULL,
+                 table_headers = c("Year",
+                                   "Count", "Percent", "Count", "Percent", "Count", "Percent", "Count", "Percent",
+                                   "Total")) %>% 
+  #
+  kableExtra::add_header_above(c(" " = 1,
+                                 "First Nations relatives/kin"  = 2,
+                                 "Other First Nations carers"   = 2,
+                                 "Non-Indigenous relatives/kin" = 2,
+                                 "Other care arrangements"      = 2,
+                                 " " = 1))
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+- Data were obtained from the [AIHW Child Protection National Minimum Dataset](https://www.aihw.gov.au/about-our-data/our-data-collections/child-protection-national-minimum-data-set).
+  - The AIHW Child Protection National Minimum Dataset includes information about children who come into contact with State and Territory departments responsible for child protection.
+  - Aboriginal and/or Torres Strait Islander peoples were defined as those who are identified as such in the individual state and territory data collections that make up the AIHW Child Protection National Minimum Dataset.
+  - Children were defined as persons aged 0-17 years.
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+<div style="height: 1em;"></div>
+
+- The out-of-home care rate was calculated as the total number of children in out-of-home care per 1,000 population on June 30th of each year as estimated by the [ABS Estimated Residential Population (ERP)](https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071) for the year.
+  - ERP calculations take into account the known under-reporting of Aboriginal and/or Torres Strait Islander status in the Census.
+
+<div style="height: 1em;"></div>
+
+- *Other care arrangements* includes children in out-of-home care who were living with non-Indigenous carers who were not relatives/kin, living in residential care or family group homes, living independently, and where the living arrangements were not known.
+
+<div style="height: 2em;"></div>
+:::
+
