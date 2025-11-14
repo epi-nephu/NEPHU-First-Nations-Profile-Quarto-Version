@@ -218,6 +218,23 @@ f_bar_simple_iare <- function(data, y_variable, y_max, y_breaks, y_expand, y_tit
 
   }
   
+  if (rlang::as_name(y_variable) == "aboriginal_rate") {
+    
+    data <- data %>% 
+      dplyr::mutate(
+        aboriginal_plot = dplyr::case_when(
+          is.na(!!y_variable) ~ 0,
+          TRUE ~ !!y_variable),
+        #
+        hover_text = ifelse(
+          is.na(!!y_variable),
+          paste0(iare_name, " IARE", "\n",
+                 "Rate: ", "Data not available"),
+          paste0(iare_name, " IARE", "\n",
+                 "Rate: ", format(round(!!y_variable, digits = 0), big.mark = ","))))
+    
+  }
+  
   figure <- data %>% 
     ggplot(aes(x = iare_name_short, y = aboriginal_plot, text = hover_text)) +
     #
