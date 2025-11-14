@@ -34,6 +34,7 @@ book:
         - chapters/08b_other_childprotection.qmd
         - chapters/08c_other_familysafety.qmd
         - chapters/08d_other_discrimination.qmd
+        - chapters/08e_other_digitalinclusion.qmd
     - part: "9. Health Promoting and Risk Behaviours"
     - part: "10. Health Consequences"
     - references.qmd
