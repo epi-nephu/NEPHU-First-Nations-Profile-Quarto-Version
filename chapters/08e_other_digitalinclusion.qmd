@@ -1,0 +1,334 @@
+---
+title: "Connection Through Digital Technology"
+---
+
+```{r}
+#
+source(here::here("setup.R"))
+source(here::here("setup_footnotes.R"))
+
+# Set up numbering for exporting tables as .csv
+table_section <- "08E"
+table_count   <- 0
+
+figure_count <- 0
+```
+
+::: {.caveat-box}
+**A note about the impact of under-identification**
+
+`r note_box_underidentification`
+:::
+
+<div style="height: 2em;"></div>
+
+::: {.key-question}
+What factors within community and broader systems impact the ways Aboriginal and/or Torres Strait Islander families in the NEPHU catchment are supported to maintain wellbeing, care for children, and keep families connected?
+:::
+
+## Internet Use for Connection and Everyday Life
+
+::: {.ctg-box}
+**This topic aligns with [Closing the Gap Outcome Area 17](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/access-information/): Aboriginal and Torres Strait Islander people have access to information and services enabling participation in informed decision-making regarding their own lives**
+
+Target: By 2026, Aboriginal and Torres Strait Islander people have equal levels of digital inclusion.
+:::
+
+<div style="height: 1em;"></div>
+
+```{r}
+# ------------------------------------------------------------------------------
+# Personal use of the internet in previous three months
+# Data from ABS Aboriginal and Torres Strait Islander Health Survey
+# ------------------------------------------------------------------------------
+# Read in NATSIHS data
+digital_status <- f_read_natsihs_sex("Indicator_Vic_Sex_Digital_Status.csv")
+
+# Data wrangling
+digital_status <- digital_status %>% 
+  dplyr::rowwise() %>% 
+  dplyr::mutate(answered_n = sum(across(has_personally_used_the_internet_in_the_last_3_months_n:has_not_personally_used_the_internet_in_the_last_3_months_n))) %>% 
+  dplyr::ungroup() %>% 
+  #
+  janitor::adorn_totals(fill = "Total") %>% 
+  #
+  dplyr::rename(used_n    = has_personally_used_the_internet_in_the_last_3_months_n,
+                notused_n = has_not_personally_used_the_internet_in_the_last_3_months_n) %>% 
+  #
+  dplyr::mutate(across(used_n:notused_n,
+                       ~ . / answered_n * 100,
+                       .names = "{.col}_prop"),
+                #
+                answered_prop = answered_n / answered_n * 100) %>% 
+  #
+  dplyr::rename_with(~ stringr::str_replace(., "_n_prop$", "_prop"), ends_with("_n_prop")) %>% 
+  #
+  dplyr::select(sex,
+                starts_with("used"),
+                starts_with("notused"),
+                starts_with("answered")) %>% 
+  #
+  tidyr::pivot_longer(!sex,
+                      names_to = c("answer", ".value"),
+                      names_pattern = "(.+)_(.+)") %>% 
+  #
+  dplyr::mutate(answer = factor(dplyr::recode(answer,
+                                              "used"     = "Yes",
+                                              "notused"  = "No",
+                                              "answered" = "Total"),
+                                levels = c("Yes",
+                                           "No",
+                                           "Total")))
+
+# ------------------------------------------------------------------------------
+# Reasons for using the internet
+# Data from ABS Aboriginal and Torres Strait Islander Health Survey
+# ------------------------------------------------------------------------------
+# Read in NATSIHS data
+digital_reason <- f_read_natsihs_sex("Indicator_Vic_Sex_Digital_Reason.csv")
+
+# Data wrangling
+digital_reason <- digital_reason %>% 
+  dplyr::rowwise() %>% 
+  dplyr::mutate(answered_n = total_n - not_applicable_n) %>% 
+  dplyr::ungroup() %>% 
+  #
+  janitor::adorn_totals(fill = "Total") %>% 
+  #
+  dplyr::rename(social_n     = social_networking_n,
+                shopping_n   = purchasing_or_ordering_goods_or_services_online_n,
+                banking_n    = paying_bills_or_banking_online_n,
+                health_n     = health_services_n,
+                work_n       = work_purposes_n,
+                education_n  = formal_educational_activities_n,
+                government_n = accessing_government_services_or_information_about_government_services_n,
+                volunteer_n  = volunteering_or_participating_in_community_groups_n) %>% 
+  #
+  dplyr::mutate(across(social_n:other_n,
+                       ~ . / answered_n * 100,
+                       .names = "{.col}_prop"),
+                #
+                answered_prop = answered_n / answered_n * 100) %>% 
+  #
+  dplyr::rename_with(~ stringr::str_replace(., "_n_prop$", "_prop"), ends_with("_n_prop")) %>% 
+  #
+  dplyr::select(sex,
+                starts_with("social"),
+                starts_with("shopping"),
+                starts_with("banking"),
+                starts_with("entertainment"),
+                starts_with("health"),
+                starts_with("work"),
+                starts_with("education"),
+                starts_with("government"),
+                starts_with("volunteer"),
+                starts_with("other"),
+                starts_with("answered")) %>% 
+  #
+  tidyr::pivot_longer(!sex,
+                      names_to = c("answer", ".value"),
+                      names_pattern = "(.+)_(.+)") %>% 
+  #
+  dplyr::mutate(answer = factor(dplyr::recode(answer,
+                                              "social"        = "Social media",
+                                              "shopping"      = "Online shopping",
+                                              "banking"       = "Online banking",
+                                              "entertainment" = "Entertainment",
+                                              "health"        = "Health services",
+                                              "work"          = "Work",
+                                              "education"     = "Education",
+                                              "government"    = "Government services",
+                                              "volunteer"     = "Volunteering",
+                                              "other"         = "Other reasons",
+                                              "answered"      = "Total"),
+                                levels = c("Social media",
+                                           "Online shopping",
+                                           "Online banking",
+                                           "Entertainment",
+                                           "Health services",
+                                           "Work",
+                                           "Education",
+                                           "Government services",
+                                           "Volunteering",
+                                           "Other reasons",
+                                           "Total")))
+```
+
+- Data for this topic were obtained from the [2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release).
+
+- Overall, 96% of Aboriginal and/or Torres Strait Islander survey respondents living in Greater Melbourne reported that they had used the internet during the three months prior to the survey. This equates to approximately 35,800 Aboriginal and/or Torres Strait Islander people in Greater Melbourne.
+
+- Male survey respondents were more likely to have used the internet than females (98% vs. 93%).
+
+- The most common reasons for accessing the internet were entertainment (84%, approximately 28,500 people), social media (80%, approximately 27,200 people), and online shopping (67%, approximately 22,900 people).
+
+- Males were more likely to access the internet than females for social media (82% vs. 77%), health services (38% vs. 30%), and work (55% vs. 44%) while females were more likely to access the internet for education (41% vs. 31%) and volunteering (16% vs. 7.8%).
+
+- Comparable non-Indigenous data on internet usage are not available, and this is [acknowledged as a limitation](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/access-information/) of Closing the Gap Target 17.
+
+::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+The following questions were asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+
+- Have you personally used the internet in the last three months? This could have been through devices such as mobile phones, smart watches, laptops, computers, tablets, game consoles, or internet enabled televisions.
+  - Yes
+  - No
+  
+<div style="height: 1em;"></div>
+
+- In the last three months, did you use the internet for any of these reasons? (Select all that apply)
+  - Social networking (e.g. Facebook, Twitter, Skype)
+  - Purchasing or ordering goods or services online (e.g. travel, tickets, accommodation, computer software, clothes, food, movies, music, books)
+  - Paying bills or banking online
+  - Entertainment (e.g. playing or downloading games, music, movies, television)
+  - Health services (e.g. Telehealth, making medical appointments)
+  - None of the above
+
+<div style="height: 1em;"></div>
+
+- In the last three months, did you use the internet for any of these reasons? (Select all that apply)
+  - Work purposes
+  - Formal education activities
+  - Accessing government services or information about government services (e.g. tax, benefits payments, licences)
+  - Volunteering or participating in community groups
+  - None of the above
+
+<div style="height: 2em;"></div>
+:::
+
+:::: {.panel-tabset}
+
+#### Table 8E-1
+
+::: {#tab_8E-1 .fig-tab-title}
+**Table 8E-1:** Personal use of the internet during the three months prior to the survey for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- digital_status %>% 
+  tidyr::pivot_wider(names_from  = "sex",
+                     values_from = c("n", "prop"),
+                     names_vary  = "slowest") %>% 
+  #
+  janitor::clean_names() %>% 
+  #
+  dplyr::rename(internet_accessed = answer)
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(prop_male   = sprintf("%.1f", prop_male),
+                prop_female = sprintf("%.1f", prop_female),
+                prop_total  = sprintf("%.1f", prop_total)) %>%
+  #
+  f_table_grouped_sex(n_variable  = "estimate",
+                      column_name = "Used internet during<br>previous three months")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+#### Figure 8E-1
+
+::: {#fig_8E_1 .fig-tab-title}
+**Figure 8E-1:** Reasons for accessing the internet during the three months prior to the survey for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+factor_levels <- stringr::str_wrap(levels(digital_reason$answer), width = 15)
+
+figure_number <- digital_reason %>% 
+  dplyr::filter(sex != "Total" & answer != "Total") %>%
+  #
+  dplyr::mutate(answer = factor(stringr::str_wrap(answer, width = 15), levels = factor_levels)) %>% 
+  #
+  f_bar_grouped_sex(x_variable = answer,
+                    y_variable = n,
+                    y_max      = NA,
+                    y_breaks   = 2000,
+                    y_expand   = 1250,
+                    y_title    = "Estimated number of people",
+                    x_angle    = 90)
+
+figure_percent <- digital_reason %>% 
+  dplyr::filter(sex != "Total" & answer != "Total") %>%
+  #
+  dplyr::mutate(answer = factor(stringr::str_wrap(answer, width = 15), levels = factor_levels)) %>% 
+  #
+  f_bar_grouped_sex(x_variable = answer,
+                    y_variable = prop,
+                    y_max      = 100,
+                    y_breaks   = 10,
+                    y_expand   = 1,
+                    y_title    = "Percentage of survey respondents",
+                    x_angle    = 90)
+
+f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.35)
+```
+
+#### Table 8E-2
+
+::: {#tab_8E-2 .fig-tab-title}
+**Table 8E-2:** Reasons for accessing the internet during the three months prior to the survey for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- digital_reason %>% 
+  tidyr::pivot_wider(names_from  = "sex",
+                     values_from = c("n", "prop"),
+                     names_vary  = "slowest") %>% 
+  #
+  janitor::clean_names() %>% 
+  #
+  dplyr::rename(internet_reason = answer)
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(prop_male   = sprintf("%.1f", prop_male),
+                prop_female = sprintf("%.1f", prop_female),
+                prop_total  = sprintf("%.1f", prop_total)) %>%
+  #
+  f_table_grouped_sex(n_variable  = "estimate",
+                      column_name = "Reason for accessing internet")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_natsihs`
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+`r note_caveat_survey_unknown`
+
+`r note_caveat_survey_estimate`
+
+`r note_caveat_multipleresponse`
+:::
+
