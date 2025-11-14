@@ -39,9 +39,25 @@ note_data_phidu_perinatal <- glue::glue("
   - Aboriginal and/or Torres Strait Islander mothers are defined as those who identified themselves as Aboriginal and/or Torres Strait Islander at the time of childbirth.
   - Data were aggregated for a three-year period (January 2019 to December 2021).")
 
+note_data_phidu_vaed <- glue::glue("
+- Data were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
+  - The PHIDU Social Health Atlas is a compendium of demographic, social, health status, and health service utilisation indicators compiled by Torrens University Australia from a wide range of national, jurisdictional, and regional data sources.
+  - The VAED includes data from all Victorian public and private hospitals, including rehabilitation centres, extended care facilities, and day procedure centres.
+  - Aboriginal and/or Torres Strait Islander peoples were defined as those who identified themselves as Aboriginal and/or Torres Strait Islander at the time of their contact with the health service.
+  - Data were aggregated for a four-year period (July 2017 to June 2021).")
+
 # ------------------------------------------------------------------------------
 # Chart notes - caveats
 # ------------------------------------------------------------------------------
+note_caveat_admissions <- glue::glue("
+- Data were based on the number of separations, or completions of episodes of care for a patient in hospital.
+  - The completion of an episode of care can be due to discharge from hospital, death, transfer to another hospital, or change in the type of care within the same hospital (e.g. from acute care to rehabilitation).
+  - The data presented in this report relate to short-term episodes of care, and as a result the number of admissions will be similar to the number of separations in a given time period. The term 'admissions' has been used throughout this report.
+  - Repeated admissions for the same person and transfers between hospitals were counted as separate admissions.")
+
+note_caveat_dialysis_exclude <- glue::glue("
+- Same day admissions for renal dialysis were excluded.")
+
 note_caveat_household <- glue::glue("
 - Households include both family and non-family households.")
 
@@ -52,7 +68,7 @@ note_caveat_iare_suppress <- glue::glue("
 - IAREs marked with 'Data not available' or '--' have data suppressed due to small numbers.")
 
 note_caveat_multipleresponse <- glue::glue("
-- Totals may not sum to 100% as respondents could select multiple options.")
+- For survey or Census questions where respondents could select multiple options, counts or estimates may not sum to the total displayed and percentages may not sum to 100%.")
 
 note_caveat_survey_estimate <- glue::glue("
 - Survey data do not represent exact numbers of people. As only a sample of people were surveyed, their results were converted into estimates for the entire population and/or reported as percentages.")
