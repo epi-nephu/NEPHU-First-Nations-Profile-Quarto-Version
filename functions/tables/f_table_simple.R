@@ -4,7 +4,25 @@
 #
 # Table type: simple (univariate) tables
 
-f_table_simple <- function(data, total_row = nrow(table), last_column = ncol(table), table_headers, iare = "no") {
+f_table_simple <- function(data, total_row = nrow(table), last_column = ncol(table), table_headers, iare = "no", hospital = "no") {
+  
+  if (hospital == "admission") {
+    
+    table_headers <- c("IARE",
+                       "Number of<br>admissions",
+                       "Age-standardised rate<br>(per 100,000)",
+                       "Standardised<br>ratio")
+
+  }
+  
+  if (hospital == "emergency") {
+    
+    table_headers <- c("IARE",
+                       "Number of<br>presentations",
+                       "Age-standardised rate<br>(per 100,000)",
+                       "Standardised<br>ratio")
+    
+  }
   
   table <- data %>% 
     knitr::kable(format      = "html",
@@ -31,6 +49,14 @@ f_table_simple <- function(data, total_row = nrow(table), last_column = ncol(tab
     table <- table %>% 
       kableExtra::row_spec(row    = 11:12,
                            italic = TRUE)
+
+  }
+  
+  if (hospital %in% c("admission", "emergency")) {
+    
+    table <- table %>% 
+      kableExtra::column_spec(2:last_column,
+                              width = "1.5in")
 
   }
   
