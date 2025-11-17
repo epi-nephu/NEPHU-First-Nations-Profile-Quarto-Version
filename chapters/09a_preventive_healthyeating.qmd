@@ -1,0 +1,321 @@
+---
+title: "Healthy Eating"
+---
+
+```{r}
+#
+source(here::here("setup.R"))
+source(here::here("setup_footnotes.R"))
+
+# Set up numbering for exporting tables as .csv
+table_section <- "09A"
+table_count   <- 0
+
+figure_count <- 0
+```
+
+::: {.caveat-box}
+**A note about the impact of under-identification**
+
+`r note_box_underidentification`
+:::
+
+<div style="height: 2em;"></div>
+
+::: {.key-question}
+What health and wellbeing practices are Aboriginal and/or Torres Strait Islander Peoples living in the NEPHU catchment engaging in?
+:::
+
+## Fruit Consumption
+
+```{r}
+# ------------------------------------------------------------------------------
+# Fruit consumption - meeting guidelines
+# Data from ABS National Aboriginal and Torres Strait Islander Health Survey
+# ------------------------------------------------------------------------------
+# Read in NATSIHS data
+fruit_adult <- f_read_natsihs(data_sheet = "Table 36 Adults",
+                              variable   = answer,
+                              row_range  = 20:22) %>% 
+  #
+  dplyr::mutate(
+    age_group = "Adults", .before = answer,
+    #
+    answer = dplyr::case_when(
+      answer == "Met recommended fruit guideline"          ~ "Met guideline",
+      answer == "Did not meet recommended fruit guideline" ~ "Did not meet guideline",
+      stringr::str_detect(answer, "Total")                 ~ "Total",
+      TRUE ~ answer))
+
+fruit_child <- f_read_natsihs(data_sheet = "Table 37 Children",
+                              variable   = answer,
+                              row_range  = 7:9) %>% 
+  #
+  dplyr::mutate(
+    age_group = "Children", .before = answer,
+    #
+    answer = dplyr::case_when(
+      answer == "Met recommended fruit guideline"          ~ "Met guideline",
+      answer == "Did not meet recommended fruit guideline" ~ "Did not meet guideline",
+      stringr::str_detect(answer, "Total")                 ~ "Total",
+      TRUE ~ answer))
+
+# Data wrangling
+diet_fruit <- fruit_adult %>% 
+  dplyr::bind_rows(fruit_child) %>% 
+  #
+  dplyr::mutate(answer = factor(answer,
+                                levels = c("Met guideline",
+                                           "Did not meet guideline",
+                                           "Total")))
+
+# ------------------------------------------------------------------------------
+# Fruit consumption increase/decrease
+# Data from ABS National Aboriginal and Torres Strait Islander Health Survey
+# ------------------------------------------------------------------------------
+# Read in NATSIHS data
+fruit_increase <- f_read_natsihs_sex("Indicator_Vic_Sex_Fruit_Increased.csv")
+
+# Data wrangling
+fruit_increase <- fruit_increase %>% 
+  dplyr::rowwise() %>% 
+  dplyr::mutate(answered_n = sum(across(increased_n:stayed_about_the_same_n))) %>% 
+  dplyr::ungroup() %>% 
+  #
+  janitor::adorn_totals(fill = "Total") %>% 
+  #
+  dplyr::rename(similar_n = stayed_about_the_same_n) %>% 
+  #
+  dplyr::mutate(across(increased_n:similar_n,
+                       ~ . / answered_n * 100,
+                       .names = "{.col}_prop"),
+                #
+                answered_prop = answered_n / answered_n * 100) %>% 
+  #
+  dplyr::rename_with(~ stringr::str_replace(., "_n_prop$", "_prop"), ends_with("_n_prop")) %>% 
+  #
+  dplyr::select(sex,
+                starts_with("increased"),
+                starts_with("decreased"),
+                starts_with("similar"),
+                starts_with("answered")) %>% 
+  #
+  tidyr::pivot_longer(!sex,
+                      names_to = c("answer", ".value"),
+                      names_pattern = "(.+)_(.+)") %>% 
+  #
+  dplyr::mutate(answer = factor(dplyr::recode(answer,
+                                              "increased" = "Increased",
+                                              "decreased" = "Decreased",
+                                              "similar"   = "Similar",
+                                              "answered"  = "Total"),
+                                levels = c("Increased",
+                                           "Similar",
+                                           "Decreased",
+                                           "Total"))) %>% 
+  #
+  dplyr::arrange(answer)
+```
+
+- Data for this topic were obtained from the [2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release).
+
+- Overall, 26% of Aboriginal and/or Torres Strait Islander adult survey respondents (aged 18 years and over) living in Victoria met the daily fruit consumption guidelines, which [recommend a minimum number of daily serves](https://www.nhmrc.gov.au/adg) based on a person’s age and sex. This equates to approximately 12,700 Aboriginal and/or Torres Strait Islander adults in Victoria.
+
+- Overall, 58% of Aboriginal and/or Torres Strait Islander child survey respondents (aged 2 to 17 years) living in Victoria met the daily fruit consumption guidelines. This equates to approximately 16,000 Aboriginal and/or Torres Strait Islander children in Victoria.
+
+- Female survey respondents were more likely to have met the daily fruit consumption guidelines than males for both adults (29% vs. 23%) and children (63% vs. 56%).
+
+- 18% of Aboriginal and/or Torres Strait Islander survey respondents living in Greater Melbourne reported that they consumed more fruit at the time of the survey than they did at the same time in the previous year, and 65% reported that their level of fruit consumption was similar to the same time in the previous year.
+
+- Male survey respondents were more likely to have increased their fruit consumption compared to the same time in the previous year than females (22% vs. 14%).
+
+::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+The following questions were asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+
+- How many serves of fruit (including fresh, dried, frozen, and tinned) do you usually eat each day?
+  - Numeric response (1-20)
+  
+<div style="height: 1em;"></div>
+
+- Since this time last year, has the amount of fruit you usually consume increased, decreased, or stayed about the same?
+  - Increased
+  - Decreased
+  - Stayed about the same
+
+<div style="height: 2em;"></div>
+:::
+
+:::: {.panel-tabset}
+
+#### Figure 9A-1
+
+::: {#fig_9A_1 .fig-tab-title}
+**Figure 9A-1:** Estimated number of people and percentage of survey respondents who identified as Aboriginal and/or Torres Strait Islander and who met recommended daily fruit consumption guidelines, Victoria, by sex and age group, 2022-2023
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+figure_number <- diet_fruit %>% 
+  dplyr::filter(sex != "Total" & answer == "Met guideline") %>%
+  #
+  f_bar_grouped_sex(x_variable = age_group,
+                    y_variable = n,
+                    y_max      = NA,
+                    y_breaks   = 1000,
+                    y_expand   = 750)
+
+figure_percent <- diet_fruit %>% 
+  dplyr::filter(sex != "Total" & answer == "Met guideline") %>%
+  #
+  f_bar_grouped_sex(x_variable = age_group,
+                    y_variable = prop,
+                    y_max      = 100,
+                    y_breaks   = 10,
+                    y_expand   = 1)
+
+f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
+```
+
+#### Table 9A-1
+
+::: {#tab_9A_1 .fig-tab-title}
+**Table 9A-1:** Daily fruit consumption for people who identified as Aboriginal and/or Torres Strait Islander, Victoria, by sex and age group, 2022-2023
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- diet_fruit %>% 
+  tidyr::pivot_wider(names_from  = "sex",
+                     values_from = c("n", "prop"),
+                     names_vary  = "slowest") %>% 
+  #
+  janitor::clean_names() %>% 
+  #
+  dplyr::rename(fruit_consumption = answer)
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::select(-age_group) %>% 
+  #
+  dplyr::mutate(prop_male   = sprintf("%.1f", prop_male),
+                prop_female = sprintf("%.1f", prop_female),
+                prop_total  = sprintf("%.1f", prop_total)) %>%
+  #
+  f_table_grouped_sex(n_variable  = "estimate",
+                      column_name = " ",
+                      total_row   = NULL) %>% 
+  #
+  kableExtra::pack_rows("Adults", 1, 3) %>% 
+  kableExtra::pack_rows("Children", 4, 6)
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+#### Figure 9A-2
+
+::: {#fig_9A_2 .fig-tab-title}
+**Figure 9A-2:** Fruit consumption compared to the same time at the previous year for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+figure_number <- fruit_increase %>% 
+  dplyr::filter(sex != "Total" & answer != "Total") %>%
+  #
+  f_bar_grouped_sex(x_variable = answer,
+                    y_variable = n,
+                    y_max      = NA,
+                    y_breaks   = 2000,
+                    y_expand   = 750)
+
+figure_percent <- fruit_increase %>% 
+  dplyr::filter(sex != "Total" & answer != "Total") %>%
+  #
+  f_bar_grouped_sex(x_variable = answer,
+                    y_variable = prop,
+                    y_max      = 100,
+                    y_breaks   = 10,
+                    y_expand   = 1)
+
+f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
+```
+
+#### Table 9A-2
+
+::: {#tab_9A_2 .fig-tab-title}
+**Table 9A-2:** Fruit consumption compared to the same time at the previous year for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- fruit_increase %>% 
+  tidyr::pivot_wider(names_from  = "sex",
+                     values_from = c("n", "prop"),
+                     names_vary  = "slowest") %>% 
+  #
+  janitor::clean_names() %>% 
+  #
+  dplyr::rename(fruit_consumption = answer)
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(prop_male   = sprintf("%.1f", prop_male),
+                prop_female = sprintf("%.1f", prop_female),
+                prop_total  = sprintf("%.1f", prop_total)) %>%
+  #
+  f_table_grouped_sex(n_variable  = "estimate",
+                      column_name = "Fruit consumption")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_natsihs`
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+`r note_caveat_survey_unknown`
+
+`r note_caveat_survey_estimate`
+
+`r note_caveat_survey_agegroups`
+
+<div style="height: 0.1em;"></div>
+
+- Fruit consumption was assessed using the National Health and Medical Research Council’s [2013 Australian Dietary Guidelines](https://www.nhmrc.gov.au/adg).
+  - The Guidelines recommend a minimum number of daily serves based on a person’s age and sex.
+  - A serve of fruit is approximately 150 grams of fresh fruit or 30 grams of dried fruit.
+  - All drinks, beverages and juices were excluded.
+  
+<div style="height: 2em;"></div>
+:::
+
+
