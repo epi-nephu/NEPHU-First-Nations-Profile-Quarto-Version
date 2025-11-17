@@ -175,11 +175,29 @@ f_bar_simple_lga <- function(data, y_variable, y_max, y_breaks, y_expand, y_titl
 ################################################################################
 # By IARE
 ################################################################################
-f_bar_simple_iare <- function(data, y_variable, y_max, y_breaks, y_expand, y_title, ctg_target = NA) {
+f_bar_simple_iare <- function(data, y_variable, y_max, y_breaks, y_expand, y_title, ctg_target = NA, hospital = "no") {
   
   y_variable <- rlang::enquo(y_variable)
   
   ctg_target <- ctg_target
+  
+  if (hospital == "admission" & rlang::as_name(y_variable) == "aboriginal_n") {
+    
+    y_title <- "Number of admissions"
+    
+  }
+  
+  if (hospital == "emergency" & rlang::as_name(y_variable) == "aboriginal_n") {
+    
+    y_title <- "Number of presentations"
+    
+  }
+  
+  if (hospital %in% c("admission", "emergency") & rlang::as_name(y_variable) == "aboriginal_rate") {
+    
+    y_title <- "Age-standardised rate"
+    
+  }
   
   data <- data %>% 
     dplyr::filter(iare_name %in% iare_names)
