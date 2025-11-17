@@ -81,6 +81,9 @@ note_caveat_iare_suppress <- glue::glue("
 note_caveat_multipleresponse <- glue::glue("
 - For survey or Census questions where respondents could select multiple options, counts or estimates may not sum to the total displayed and percentages may not sum to 100%.")
 
+note_caveat_survey_agegroups <- glue::glue("
+- Adults were defined as persons aged 18 years and over, and children were defined as people aged 2 to 17 years.")
+
 note_caveat_survey_estimate <- glue::glue("
 - Survey data do not represent exact numbers of people. As only a sample of people were surveyed, their results were converted into estimates for the entire population and/or reported as percentages.")
 
