@@ -37,6 +37,8 @@ book:
         - chapters/08e_other_digitalinclusion.qmd
         - chapters/08f_other_healthservices.qmd
     - part: "9. Health Promoting and Risk Behaviours"
+      chapters: 
+        - chapters/09a_preventive_healthyeating.qmd
     - part: "10. Health Consequences"
     - references.qmd
 
