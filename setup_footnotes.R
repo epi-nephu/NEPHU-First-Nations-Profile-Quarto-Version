@@ -46,6 +46,17 @@ note_data_phidu_vaed <- glue::glue("
   - Aboriginal and/or Torres Strait Islander peoples were defined as those who identified themselves as Aboriginal and/or Torres Strait Islander at the time of their contact with the health service.
   - Data were aggregated for a four-year period (July 2017 to June 2021).")
 
+note_data_phidu_vemd <- glue::glue("
+- Data were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [AIHW National Non-Admitted Patient Emergency Department Care Database (NNAPEDCD)](https://www.aihw.gov.au/reports/hospitals/non-admitted-patient-emergency-dept-care-nmds/summary).
+  - The PHIDU Social Health Atlas is a compendium of demographic, social, health status, and health service utilisation indicators compiled by Torrens University Australia from a wide range of national, jurisdictional, and regional data sources.
+  - The NNAPEDCD provides information on care provided to non-admitted patients in public hospital emergency departments in each state and territory in Australia. These departments must meet the following criteria:
+    - A purposely designed and equipped area with designated assessment, treatment, and resuscitation areas,
+    - The ability to provide resuscitation, stabilisation, and initial management of all emergencies,
+    - Availability of medical staff in the hospital 24 hours a day,
+    - Designated emergency department nursing staff 24 hours per day, 7 days per week, and
+    - A designated emergency department nursing unit manager.
+  - Aboriginal and/or Torres Strait Islander peoples were defined as those who identified themselves as Aboriginal and/or Torres Strait Islander at the time of their contact with the health service.")
+
 # ------------------------------------------------------------------------------
 # Chart notes - caveats
 # ------------------------------------------------------------------------------
