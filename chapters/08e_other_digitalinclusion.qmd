@@ -199,7 +199,7 @@ The following questions were asked of all people completing the 2022-23 ABS Nati
 
 #### Table 8E-1
 
-::: {#tab_8E-1 .fig-tab-title}
+::: {#tab_8E_1 .fig-tab-title}
 **Table 8E-1:** Personal use of the internet during the three months prior to the survey for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
@@ -279,7 +279,7 @@ f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.35)
 
 #### Table 8E-2
 
-::: {#tab_8E-2 .fig-tab-title}
+::: {#tab_8E_2 .fig-tab-title}
 **Table 8E-2:** Reasons for accessing the internet during the three months prior to the survey for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 

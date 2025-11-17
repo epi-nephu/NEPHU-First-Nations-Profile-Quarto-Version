@@ -323,7 +323,7 @@ f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.3)
 
 #### Table 8F-1
 
-::: {#tab_8F-1 .fig-tab-title}
+::: {#tab_8F_1 .fig-tab-title}
 **Table 8F-1:** Usual health care provider people go to when they have a problem with their health for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
@@ -403,7 +403,7 @@ f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.3)
 
 #### Table 8F-2
 
-::: {#tab_8F-2 .fig-tab-title}
+::: {#tab_8F_2 .fig-tab-title}
 **Table 8F-2:** Types of health professionals consulted for health-related reasons in the two weeks prior to the survey for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
@@ -442,7 +442,7 @@ table %>%
 
 #### Table 8F-3
 
-::: {#tab_8F-3 .fig-tab-title}
+::: {#tab_8F_3 .fig-tab-title}
 **Table 8F-3:** Private health insurance coverage for survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
@@ -720,7 +720,7 @@ f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.3)
 
 #### Table 8F-4
 
-::: {#tab_8F-4 .fig-tab-title}
+::: {#tab_8F_4 .fig-tab-title}
 **Table 8F-4:** Time since last consultation with a general practitioner or specialist for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
@@ -794,7 +794,7 @@ f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.3)
 
 #### Table 8F-5
 
-::: {#tab_8F-5 .fig-tab-title}
+::: {#tab_8F_5 .fig-tab-title}
 **Table 8F-5:** Lifestyle issues discussed during consultation for survey respondents who saw a general practitioner or health professional during the 12 months prior to the survey and who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
@@ -1056,7 +1056,7 @@ f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.3)
 
 #### Table 8F-6
 
-::: {#tab_8F-6 .fig-tab-title}
+::: {#tab_8F_6 .fig-tab-title}
 **Table 8F-6:** Time since last consultation with a dentist or dental professional for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
@@ -1136,7 +1136,7 @@ f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.3)
 
 #### Table 8F-7
 
-::: {#tab_8F-7 .fig-tab-title}
+::: {#tab_8F_7 .fig-tab-title}
 **Table 8F-7:** Place of last consultation with a dentist or dental professional for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
@@ -1255,7 +1255,7 @@ f_bar_simple_combine(figure_number, figure_percent)
 
 #### Table 8F-8
 
-::: {#tab_8F-8 .fig-tab-title}
+::: {#tab_8F_8 .fig-tab-title}
 **Table 8F-8:** Hospital admissions for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
 :::
 
@@ -1383,7 +1383,7 @@ f_bar_simple_combine(figure_number, figure_percent)
 
 #### Table 8F-9
 
-::: {#tab_8F-9 .fig-tab-title}
+::: {#tab_8F_9 .fig-tab-title}
 **Table 8F-9:** Hospital admissions for acute potentially preventable conditions for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
 :::
 
@@ -1507,7 +1507,7 @@ f_bar_simple_combine(figure_number, figure_percent)
 
 #### Table 8F-10
 
-::: {#tab_8F-10 .fig-tab-title}
+::: {#tab_8F_10 .fig-tab-title}
 **Table 8F-10:** Hospital admissions for chronic potentially preventable conditions for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
 :::
 
@@ -1623,7 +1623,7 @@ f_bar_simple_combine(figure_number, figure_percent)
 
 #### Table 8F-11
 
-::: {#tab_8F-11 .fig-tab-title}
+::: {#tab_8F_11 .fig-tab-title}
 **Table 8F-11:** Emergency department presentations for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2019 to 30 June 2020
 :::
 
@@ -1724,7 +1724,7 @@ f_bar_simple_combine(figure_number, figure_percent)
 
 #### Table 8F-12
 
-::: {#tab_8F-12 .fig-tab-title}
+::: {#tab_8F_12 .fig-tab-title}
 **Table 8F-12:** Urgent emergency department presentations for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2019 to 30 June 2020
 :::
 
