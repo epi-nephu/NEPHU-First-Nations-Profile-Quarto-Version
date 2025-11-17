@@ -130,6 +130,8 @@ f_bar_grouped_sex <- function(data, x_variable, y_variable, y_max, y_breaks, y_e
   
   if (rlang::as_name(y_variable) == "n") {
     
+    y_title <- "Estimated number of people"
+    
     data <- data %>% 
       dplyr::mutate(hover_text = paste0(sex, "\n",
                                         answer, "\n",
@@ -138,6 +140,8 @@ f_bar_grouped_sex <- function(data, x_variable, y_variable, y_max, y_breaks, y_e
   }
   
   if (rlang::as_name(y_variable) == "prop") {
+    
+    y_title <- "Percentage of survey respondents"
     
     data <- data %>% 
       dplyr::mutate(hover_text = paste0(sex, "\n",
