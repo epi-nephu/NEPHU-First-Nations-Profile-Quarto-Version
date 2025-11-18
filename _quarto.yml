@@ -36,9 +36,10 @@ book:
         - chapters/08d_other_discrimination.qmd
         - chapters/08e_other_digitalinclusion.qmd
         - chapters/08f_other_healthservices.qmd
-    - part: "9. Health Promoting and Risk Behaviours"
+    - part: "9. Health and Wellbeing Practices"
       chapters: 
         - chapters/09a_preventive_healthyeating.qmd
+        - chapters/09b_preventive_physicalactivity.qmd
     - part: "10. Health Consequences"
     - references.qmd
 
