@@ -40,6 +40,7 @@ book:
       chapters: 
         - chapters/09a_preventive_healthyeating.qmd
         - chapters/09b_preventive_physicalactivity.qmd
+        - chapters/09c_preventive_tobacco.qmd
     - part: "10. Health Consequences"
     - references.qmd
 
