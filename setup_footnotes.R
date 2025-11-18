@@ -85,7 +85,7 @@ note_caveat_survey_agegroups <- glue::glue("
 - Adults were defined as persons aged 18 years and over, and children were defined as people aged 2 to 17 years.")
 
 note_caveat_survey_estimate <- glue::glue("
-- Survey data do not represent exact numbers of people. As only a sample of people were surveyed, their results were converted into estimates for the entire population and/or reported as percentages.")
+- Survey data do not represent exact numbers of people. As only a sample of people were surveyed, their results were converted into estimates for the entire population and/or reported as percentages. The total number of respondents may differ across different survey questions.")
 
 note_caveat_survey_unknown <- glue::glue("
 - Unknown, not applicable, and not stated survey responses have been excluded.")
