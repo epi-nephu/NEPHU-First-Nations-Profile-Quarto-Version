@@ -888,7 +888,7 @@ table %>%
                                    "Count", "Percent", "Count", "Percent", "Count", "Percent", "Count", "Percent",
                                    "Total")) %>%
   #
-  kableExtra::column_spec(2:9,
+  kableExtra::column_spec(2:ncol(table) - 1,
                           width = "0.75in") %>% 
   #
   kableExtra::add_header_above(c("Female" = 1,
@@ -909,7 +909,7 @@ table %>%
                                    "Count", "Percent", "Count", "Percent", "Count", "Percent", "Count", "Percent",
                                    "Total")) %>%
   #
-  kableExtra::column_spec(2:9,
+  kableExtra::column_spec(2:ncol(table) - 1,
                           width = "0.75in") %>% 
   #
   kableExtra::add_header_above(c("Male" = 1,
