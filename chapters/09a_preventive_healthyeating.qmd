@@ -104,8 +104,8 @@ fruit_increase <- fruit_increase %>%
   #
   dplyr::select(sex,
                 starts_with("increased"),
-                starts_with("decreased"),
                 starts_with("similar"),
+                starts_with("decreased"),
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
@@ -114,15 +114,13 @@ fruit_increase <- fruit_increase %>%
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
                                               "increased" = "Increased",
-                                              "decreased" = "Decreased",
                                               "similar"   = "Similar",
+                                              "decreased" = "Decreased",
                                               "answered"  = "Total"),
                                 levels = c("Increased",
                                            "Similar",
                                            "Decreased",
-                                           "Total"))) %>% 
-  #
-  dplyr::arrange(answer)
+                                           "Total")))
 ```
 
 - Data for this topic were obtained from the [2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release).
@@ -403,8 +401,8 @@ vege_increase <- vege_increase %>%
   #
   dplyr::select(sex,
                 starts_with("increased"),
-                starts_with("decreased"),
                 starts_with("similar"),
+                starts_with("decreased"),
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
@@ -413,15 +411,13 @@ vege_increase <- vege_increase %>%
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
                                               "increased" = "Increased",
-                                              "decreased" = "Decreased",
                                               "similar"   = "Similar",
+                                              "decreased" = "Decreased",
                                               "answered"  = "Total"),
                                 levels = c("Increased",
                                            "Similar",
                                            "Decreased",
-                                           "Total"))) %>% 
-  #
-  dplyr::arrange(answer)
+                                           "Total")))
 ```
 
 - Data for this topic were obtained from the [2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release).
