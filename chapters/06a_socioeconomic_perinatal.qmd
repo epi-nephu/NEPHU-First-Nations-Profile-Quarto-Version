@@ -415,7 +415,7 @@ childhood_birthweight_year <- childhood_birthweight_year %>%
                  "Did not identify as Aboriginal\nand/or Torres Strait Islander")))
 ```
 
-- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases) and the [AIHW Aboriginal and Torres Strait Islander Performance Framework](https://www.indigenoushpf.gov.au/).
+- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases) and the [AIHW Aboriginal and Torres Strait Islander Health Performance Framework](https://www.indigenoushpf.gov.au/).
 
 - Low birthweight is defined as a liveborn baby weighing less than 2,500g at birth.
 
@@ -566,8 +566,8 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-- Data for Figure 6A-4 and Table 6A-4 were obtained from the [AIHW Aboriginal and Torres Strait Islander Performance Framework](https://www.indigenoushpf.gov.au/) compiled from the [National Perinatal Data Collection (NPDC)](https://www.aihw.gov.au/about-our-data/our-data-collections/national-perinatal-data-collection).
-  - The AIHW Aboriginal and Torres Strait Islander Framework brings together information from a wide range of national, jurisdictional, and regional data sources to report on determinants of health, health outcomes, and health system performance for Aboriginal and/or Torres Strait Islander peoples.
+- Data for Figure 6A-4 and Table 6A-4 were obtained from the [AIHW Aboriginal and Torres Strait Islander Health Performance Framework](https://www.indigenoushpf.gov.au/) compiled from the [National Perinatal Data Collection (NPDC)](https://www.aihw.gov.au/about-our-data/our-data-collections/national-perinatal-data-collection).
+  - The AIHW Aboriginal and Torres Strait Islander Health Performance Framework brings together information from a wide range of national, jurisdictional, and regional data sources to report on determinants of health, health outcomes, and health system performance for Aboriginal and/or Torres Strait Islander peoples.
 
 <div style="height: 1em;"></div>
 
@@ -659,7 +659,7 @@ childhood_breastfed <- childhood_breastfed %>%
   dplyr::arrange(breastfed)
 ```
 
-- Data for this topic were obtained from the [AIHW Aboriginal and Torres Strait Islander Performance Framework](https://www.indigenoushpf.gov.au/).
+- Data for this topic were obtained from the [AIHW Aboriginal and Torres Strait Islander Health Performance Framework](https://www.indigenoushpf.gov.au/).
 
 - The National Health and Medical Research Council (NHMRC) [Infant Feeding Guidelines](https://www.nhmrc.gov.au/about-us/publications/infant-feeding-guidelines-information-health-workers) recommend that infants be exclusively breastfed until around six months of age when solid foods are being introduced. Continued breastfeeding to around 12 months of age is encouraged. 
 
@@ -761,8 +761,8 @@ table %>%
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
-- Data were obtained from the [AIHW Aboriginal and Torres Strait Islander Performance Framework](https://www.indigenoushpf.gov.au/), compiled from the [2018-19 ABS National Aboriginal and Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release) and the [2017-18 ABS National Health Survey](https://www.abs.gov.au/statistics/health/health-conditions-and-risks/national-health-survey/latest-release).
-  - The AIHW Aboriginal and Torres Strait Islander Performance Framework brings together information from a wide range of national, jurisdictional, and regional data sources to report on determinants of health, health outcomes, and health system performance for Aboriginal and/or Torres Strait Islander peoples.
+- Data were obtained from the [AIHW Aboriginal and Torres Strait Islander Health Performance Framework](https://www.indigenoushpf.gov.au/), compiled from the [2018-19 ABS National Aboriginal and Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release) and the [2017-18 ABS National Health Survey](https://www.abs.gov.au/statistics/health/health-conditions-and-risks/national-health-survey/latest-release).
+  - The AIHW Aboriginal and Torres Strait Islander Health Performance Framework brings together information from a wide range of national, jurisdictional, and regional data sources to report on determinants of health, health outcomes, and health system performance for Aboriginal and/or Torres Strait Islander peoples.
   - The 2018-19 ABS National Aboriginal and Torres Strait Islander Health Survey collected information from Aboriginal and/or Torres Strait Islander people of all ages in non-remote and remote areas of Australia, including discrete Aboriginal and/or Torres Strait Islander communities. 
   - The 2017-18 ABS National Health Survey collected information from Australian residents of all ages living in private dwellings in both urban and rural areas of all Australian states and territories, including very remote communities and discrete Aboriginal and/or Torres Strait Islander communities.
 
