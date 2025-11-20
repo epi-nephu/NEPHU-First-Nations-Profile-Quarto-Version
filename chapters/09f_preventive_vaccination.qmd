@@ -1,0 +1,411 @@
+---
+title: "Vaccination"
+---
+
+```{r}
+#
+source(here::here("setup.R"))
+source(here::here("setup_footnotes.R"))
+
+# Set up numbering for exporting tables as .csv
+table_section <- "09F"
+table_count   <- 0
+
+figure_count <- 0
+```
+
+::: {.caveat-box}
+**A note about the impact of under-identification**
+
+`r note_box_underidentification`
+:::
+
+<div style="height: 2em;"></div>
+
+::: {.key-question}
+What health and wellbeing practices are Aboriginal and/or Torres Strait Islander Peoples living in the NEPHU catchment engaging in?
+:::
+
+## Childhood Vaccinations
+
+```{r}
+# ---------------------------------------------------------------------------------
+# Vaccination coverage - 1 year
+# Data from AIHW Aboriginal and Torres Strait Islander Health Performance Framework
+# ---------------------------------------------------------------------------------
+# Read in AIR data
+childhood_year1 <- f_read_hpf_vaccination(data_sheet    = "D3.02.2",
+                                          column_select = c(indigenous_status = "x1",
+                                                            hepb = "hepatitis_b",
+                                                            "dtp",
+                                                            "polio",
+                                                            "hib",
+                                                            pneumo = "pneumococcal",
+                                                            fully = "fully_immunised"))
+
+# Data wrangling
+childhood_year1 <- childhood_year1 %>% 
+  f_wrangle_hpf_vaccination() %>% 
+  #
+  dplyr::mutate(vaccine = factor(dplyr::recode(vaccine,
+                                               "dtp"    = "DTP",
+                                               "hepb"   = "Hepatitis B",
+                                               "hib"    = "HiB",
+                                               "pneumo" = "Pneumococcal",
+                                               "polio"  = "Polio",
+                                               "fully"  = "Fully immunised"),
+                                levels = c("DTP",
+                                           "Hepatitis B",
+                                           "HiB",
+                                           "Pneumococcal",
+                                           "Polio",
+                                           "Fully immunised"))) %>% 
+  #
+  dplyr::arrange(vaccine)
+
+# ---------------------------------------------------------------------------------
+# Vaccination coverage - 2 years
+# Data from AIHW Aboriginal and Torres Strait Islander Health Performance Framework
+# ---------------------------------------------------------------------------------
+# Read in AIR data
+childhood_year2 <- f_read_hpf_vaccination(data_sheet    = "D3.02.3",
+                                          column_select = c(indigenous_status = "x1",
+                                                            hepb = "hepatitis_b",
+                                                            "dtp",
+                                                            "polio",
+                                                            "hib",
+                                                            pneumo = "pneumococcal",
+                                                            "mmr",
+                                                            "varicella",
+                                                            menc = "men_c",
+                                                            fully = "fully_immunised"))
+
+# Data wrangling
+childhood_year2 <- childhood_year2 %>% 
+  f_wrangle_hpf_vaccination() %>% 
+  #
+  dplyr::mutate(vaccine = factor(dplyr::recode(vaccine,
+                                               "dtp"       = "DTP",
+                                               "hepb"      = "Hepatitis B",
+                                               "hib"       = "HiB",
+                                               "menc"      = "Men C",
+                                               "mmr"       = "MMR",
+                                               "pneumo"    = "Pneumococcal",
+                                               "polio"     = "Polio",
+                                               "varicella" = "Varicella",
+                                               "fully"     = "Fully immunised"),
+                                levels = c("DTP",
+                                           "Hepatitis B",
+                                           "HiB",
+                                           "Men C",
+                                           "MMR",
+                                           "Pneumococcal",
+                                           "Polio",
+                                           "Varicella",
+                                           "Fully immunised"))) %>% 
+  #
+  dplyr::arrange(vaccine)
+
+# ---------------------------------------------------------------------------------
+# Vaccination coverage - 5 years
+# Data from AIHW Aboriginal and Torres Strait Islander Health Performance Framework
+# ---------------------------------------------------------------------------------
+# Read in AIR data
+childhood_year5 <- f_read_hpf_vaccination(data_sheet    = "D3.02.4",
+                                          column_select = c(indigenous_status = "x1",
+                                                            "dtp",
+                                                            "polio",
+                                                            fully = "fully_immunised"))
+
+# Data wrangling
+childhood_year5 <- childhood_year5 %>% 
+  f_wrangle_hpf_vaccination() %>% 
+  #
+  dplyr::mutate(vaccine = factor(dplyr::recode(vaccine,
+                                               "dtp"       = "DTP",
+                                               "polio"     = "Polio",
+                                               "fully"     = "Fully immunised"),
+                                levels = c("DTP",
+                                           "Polio",
+                                           "Fully immunised"))) %>% 
+  #
+  dplyr::arrange(vaccine)
+```
+
+- Data for this topic were obtained from the [AIHW Aboriginal and Torres Strait Islander Health Performance Framework](https://www.indigenoushpf.gov.au/).
+
+- 92% of Aboriginal and/or Torres Strait Islander children living in Victoria were fully immunised at 1 year of age, compared to 94% of non-Indigenous children.
+
+- 90% of Aboriginal and/or Torres Strait Islander children living in Victoria were fully immunised at 2 years of age, compared to 93% of non-Indigenous children.
+
+- 96% of Aboriginal and/or Torres Strait Islander children living in Victoria were fully immunised at 5 years of age, compared to 95% of non-Indigenous children.
+
+:::: {.panel-tabset}
+
+#### Figure 9F-1
+
+::: {#fig_9F_1 .fig-tab-title}
+**Figure 9F-1:** Vaccination coverage for children enrolled in Medicare at 1 year of age, Victoria, by Aboriginal and/or Torres Strait Islander status, December 2022
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+childhood_year1 %>% 
+  f_bar_grouped_indigenous(x_variable    = vaccine,
+                           y_variable    = prop,
+                           y_max         = 100,
+                           y_breaks      = 10,
+                           y_expand      = 1,
+                           y_title       = "Percentage of children",
+                           x_angle       = 0,
+                           legend_offset = -0.1)
+```
+
+#### Table 9F-1
+
+::: {#tab_9F_1 .fig-tab-title}
+**Table 9F-1:** Vaccination coverage for children enrolled in Medicare at 1 year of age, Victoria, by Aboriginal and/or Torres Strait Islander status, December 2022
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- childhood_year1 %>% 
+  dplyr::select(-indigenous_status) %>% 
+  #
+  tidyr::pivot_wider(names_from  = "indigenous_label",
+                     values_from = "prop") %>% 
+  #
+  janitor::clean_names()
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>%
+  dplyr::mutate(aboriginal     = sprintf("%.1f", aboriginal),
+                non_indigenous = sprintf("%.1f", non_indigenous),
+                #
+                vaccine = dplyr::recode(vaccine,
+                                        "Fully immunised" = "Fully immunised for vaccines<br>due at 6 months of age")) %>% 
+  #
+  f_table_simple(table_headers = c("Vaccine",
+                                   "Yes (%)",
+                                   "No (%)")) %>% 
+  #
+  kableExtra::column_spec(2:3,
+                          width = "1.75in") %>% 
+  #
+  kableExtra::row_spec(nrow(table),
+                       extra_css = "vertical-align:middle;") %>% 
+  #
+  kableExtra::add_header_above(c(" " = 1,
+                                 "Identified as Aboriginal and/or Torres Strait Islander" = 2))
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+#### Figure 9F-2
+
+::: {#fig_9F_2 .fig-tab-title}
+**Figure 9F-2:** Vaccination coverage for children enrolled in Medicare at 2 years of age, Victoria, by Aboriginal and/or Torres Strait Islander status, December 2022
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+childhood_year2 %>% 
+  f_bar_grouped_indigenous(x_variable    = vaccine,
+                           y_variable    = prop,
+                           y_max         = 100,
+                           y_breaks      = 10,
+                           y_expand      = 1,
+                           y_title       = "Percentage of children",
+                           x_angle       = 0,
+                           legend_offset = -0.1)
+```
+
+#### Table 9F-2
+
+::: {#tab_9F_2 .fig-tab-title}
+**Table 9F-2:** Vaccination coverage for children enrolled in Medicare at 2 years of age, Victoria, by Aboriginal and/or Torres Strait Islander status, December 2022
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- childhood_year2 %>% 
+  dplyr::select(-indigenous_status) %>% 
+  #
+  tidyr::pivot_wider(names_from  = "indigenous_label",
+                     values_from = "prop") %>% 
+  #
+  janitor::clean_names()
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>%
+  dplyr::mutate(aboriginal     = sprintf("%.1f", aboriginal),
+                non_indigenous = sprintf("%.1f", non_indigenous),
+                #
+                vaccine = dplyr::recode(vaccine,
+                                        "Fully immunised" = "Fully immunised for vaccines<br>due at 12 and 18 months of age")) %>% 
+  #
+  f_table_simple(table_headers = c("Vaccine",
+                                   "Yes (%)",
+                                   "No (%)")) %>% 
+  #
+  kableExtra::column_spec(2:3,
+                          width = "1.75in") %>% 
+  #
+  kableExtra::row_spec(nrow(table),
+                       extra_css = "vertical-align:middle;") %>% 
+  #
+  kableExtra::add_header_above(c(" " = 1,
+                                 "Identified as Aboriginal and/or Torres Strait Islander" = 2))
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+#### Figure 9F-3
+
+::: {#fig_9F_3 .fig-tab-title}
+**Figure 9F-3:** Vaccination coverage for children enrolled in Medicare at 5 years of age, Victoria, by Aboriginal and/or Torres Strait Islander status, December 2022
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+childhood_year5 %>% 
+  f_bar_grouped_indigenous(x_variable    = vaccine,
+                           y_variable    = prop,
+                           y_max         = 100,
+                           y_breaks      = 10,
+                           y_expand      = 1,
+                           y_title       = "Percentage of children",
+                           x_angle       = 0,
+                           legend_offset = -0.1)
+```
+
+#### Table 9F-3
+
+::: {#tab_9F_3 .fig-tab-title}
+**Table 9F-3:** Vaccination coverage for children enrolled in Medicare at 5 years of age, Victoria, by Aboriginal and/or Torres Strait Islander status, December 2022
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- childhood_year5 %>% 
+  dplyr::select(-indigenous_status) %>% 
+  #
+  tidyr::pivot_wider(names_from  = "indigenous_label",
+                     values_from = "prop") %>% 
+  #
+  janitor::clean_names()
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>%
+  dplyr::mutate(aboriginal     = sprintf("%.1f", aboriginal),
+                non_indigenous = sprintf("%.1f", non_indigenous),
+                #
+                vaccine = dplyr::recode(vaccine,
+                                        "Fully immunised" = "Fully immunised for vaccines<br>due at 48 months of age")) %>% 
+  #
+  f_table_simple(table_headers = c("Vaccine",
+                                   "Yes (%)",
+                                   "No (%)")) %>% 
+  #
+  kableExtra::column_spec(2:3,
+                          width = "1.75in") %>% 
+  #
+  kableExtra::row_spec(nrow(table),
+                       extra_css = "vertical-align:middle;") %>% 
+  #
+  kableExtra::add_header_above(c(" " = 1,
+                                 "Identified as Aboriginal and/or Torres Strait Islander" = 2))
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_framework_air`
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+- The aspirational national target for vaccination coverage is for 95% of children to be fully immunised at each age point (1 year, 2 years, and 5 years).
+  - The 1 year milestone is assessed for children aged 12-15 months at the time of reporting.
+  - The 2 year milestone is assessed for children aged 24-27 months at the time of reporting.
+  - The 5 year milestone is assessed for children aged 60-63 months at the time of reporting.
+
+<div style="height: 1em;"></div>
+
+- Children fully immunised for age at 1 year have received all of the following vaccines, due at 6 months of age:
+  - Diphtheria, tetanus, and pertussis (DTP)
+  - Hepatitis B 
+  - Haemophilus influenzae type B (HiB)
+  - Pneumococcal disease
+  - Poliomyelitis
+  
+<div style="height: 1em;"></div>
+
+- Children fully immunised for age at 2 years have received all of the following vaccines, due at 12 and 18 months of age:
+  - Diphtheria, tetanus, and pertussis (DTP)
+  - Hepatitis B
+  - Haemophilus influenzae type B (HiB)
+  - Meningococcal C (Men C)
+  - Measles, mumps, and rubella (MMR)
+  - Pneumococcal disease
+  - Poliomyelitis
+  - Varicella zoster
+
+<div style="height: 1em;"></div>
+
+- Children fully immunised for age at 5 years have received all of the following vaccines, due at 48 months of age:
+  - Diphtheria, tetanus, and pertussis (DTP)
+  - Poliomyelitis
+
+<div style="height: 2em;"></div>
+:::
+
+::: {style="opacity: 0.8;"}
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+:::
+
+
