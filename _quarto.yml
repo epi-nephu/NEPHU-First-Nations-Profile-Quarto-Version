@@ -42,6 +42,7 @@ book:
         - chapters/09b_preventive_physicalactivity.qmd
         - chapters/09c_preventive_tobacco.qmd
         - chapters/09d_preventive_alcoholdrugs.qmd
+        - chapters/09e_preventive_biomedical.qmd
     - part: "10. Health Consequences"
     - references.qmd
 
