@@ -9,7 +9,7 @@
 # ------------------------------------------------------------------------------
 # Read in HPF data - vaccination
 # ------------------------------------------------------------------------------
-f_read_hpf_vaccination <- function(data_sheet, column_select) {
+f_read_hpf_vaccination <- function(data_sheet, column_select, row_select = c(8:9)) {
   
   data <- readxl::read_excel(file.path(root_folder, subfolder_framework, "302-Immunisation.xlsx"),
                              sheet        = data_sheet,
@@ -19,7 +19,7 @@ f_read_hpf_vaccination <- function(data_sheet, column_select) {
     #
     janitor::clean_names() %>%
     #
-    dplyr::filter(row_number() %in% c(8:9)) %>% 
+    dplyr::filter(row_number() %in% row_select) %>% 
     #
     dplyr::select(!!!column_select)
 
