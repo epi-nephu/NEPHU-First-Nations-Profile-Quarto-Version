@@ -1,0 +1,922 @@
+---
+title: "Biomedical Factors"
+---
+
+```{r}
+#
+source(here::here("setup.R"))
+source(here::here("setup_footnotes.R"))
+
+# Set up numbering for exporting tables as .csv
+table_section <- "09E"
+table_count   <- 0
+
+figure_count <- 0
+```
+
+::: {.caveat-box}
+**A note about the impact of under-identification**
+
+`r note_box_underidentification`
+:::
+
+<div style="height: 2em;"></div>
+
+::: {.key-question}
+What health and wellbeing practices are Aboriginal and/or Torres Strait Islander Peoples living in the NEPHU catchment engaging in?
+:::
+
+## Hypertension
+
+```{r}
+# ------------------------------------------------------------------------------
+# Measured blood pressure
+# Data from ABS National Aboriginal and Torres Strait Islander Health Survey
+# ------------------------------------------------------------------------------
+# Read in NATSIHS data
+bp_status <- f_read_natsihs_sex("Indicator_Vic_Sex_Biomedical_BPStatus.csv")
+
+# Data wrangling
+bp_status <- bp_status %>% 
+  dplyr::rowwise() %>% 
+  dplyr::mutate(answered_n = sum(across(normal_120_80_n:severe_from_180_110_n))) %>% 
+  dplyr::ungroup() %>% 
+  #
+  janitor::adorn_totals(fill = "Total") %>% 
+  #
+  dplyr::rename(normal_n     = normal_120_80_n,
+                normalhigh_n = normal_high_from_120_80_to_140_90_n,
+                high_n       = high_from_140_90_to_160_100_n,
+                veryhigh_n   = very_high_from_160_100_to_180_110_n,
+                severe_n     = severe_from_180_110_n) %>% 
+  #
+  dplyr::mutate(across(normal_n:severe_n,
+                       ~ . / answered_n * 100,
+                       .names = "{.col}_prop"),
+                #
+                answered_prop = answered_n / answered_n * 100) %>% 
+  #
+  dplyr::rename_with(~ stringr::str_replace(., "_n_prop$", "_prop"), ends_with("_n_prop")) %>% 
+  #
+  dplyr::select(sex,
+                starts_with("normal_"),
+                starts_with("normalhigh"),
+                starts_with("high"),
+                starts_with("veryhigh"),
+                starts_with("severe"),
+                starts_with("answered")) %>% 
+  #
+  tidyr::pivot_longer(!sex,
+                      names_to = c("answer", ".value"),
+                      names_pattern = "(.+)_(.+)") %>% 
+  #
+  dplyr::mutate(answer = factor(dplyr::recode(answer,
+                                              "normal"     = "Normal",
+                                              "normalhigh" = "Normal-high",
+                                              "high"       = "High",
+                                              "veryhigh"   = "Very high",
+                                              "severe"     = "Severe",
+                                              "answered"   = "Total"),
+                                levels = c("Normal",
+                                           "Normal-high",
+                                           "High",
+                                           "Very high",
+                                           "Severe",
+                                           "Total")))
+
+# ------------------------------------------------------------------------------
+# Blood pressure checked in last 2 years
+# Data from ABS National Aboriginal and Torres Strait Islander Health Survey
+# ------------------------------------------------------------------------------
+# Read in NATSIHS data
+bp_test <- f_read_natsihs_sex("Indicator_Vic_Sex_Biomedical_BPTest.csv")
+
+# Data wrangling
+bp_test <- bp_test %>% 
+  dplyr::rowwise() %>% 
+  dplyr::mutate(answered_n = sum(across(blood_pressure_checked_in_last_2_years_n:blood_pressure_not_checked_in_last_2_years_n))) %>% 
+  dplyr::ungroup() %>% 
+  #
+  janitor::adorn_totals(fill = "Total") %>% 
+  #
+  dplyr::rename(test_n   = blood_pressure_checked_in_last_2_years_n,
+                notest_n = blood_pressure_not_checked_in_last_2_years_n) %>% 
+  #
+  dplyr::mutate(across(test_n:notest_n,
+                       ~ . / answered_n * 100,
+                       .names = "{.col}_prop"),
+                #
+                answered_prop = answered_n / answered_n * 100) %>% 
+  #
+  dplyr::rename_with(~ stringr::str_replace(., "_n_prop$", "_prop"), ends_with("_n_prop")) %>% 
+  #
+  dplyr::select(sex,
+                starts_with("test"),
+                starts_with("notest"),
+                starts_with("answered")) %>% 
+  #
+  tidyr::pivot_longer(!sex,
+                      names_to = c("answer", ".value"),
+                      names_pattern = "(.+)_(.+)") %>% 
+  #
+  dplyr::mutate(answer = factor(dplyr::recode(answer,
+                                              "test"     = "Yes",
+                                              "notest"   = "No",
+                                              "answered" = "Total"),
+                                levels = c("Yes",
+                                           "No",
+                                           "Total")))
+```
+
+- Data for this topic were obtained from the [2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release).
+
+- Overall, 30% of Aboriginal and/or Torres Strait Islander survey respondents aged 18 years and over living in Greater Melbourne reported that they had hypertension (high, very high, or severely high blood pressure). This equates to approximately 7,800 Aboriginal and/or Torres Strait Islander people.
+
+- Males were more likely to have severely high blood pressure than females (7.8% vs. 1.7%).
+
+- 83% of Aboriginal and/or Torres Strait Islander survey respondents aged 18 years and over living in Greater Melbourne had their blood pressure checked at least once during the two years prior to the survey. This equates to approximately 18,700 Aboriginal and/or Torres Strait Islander people.
+
+- Females were more likely to have had their blood pressure checked in the last two years than males (87% vs. 81%).
+
+::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+Blood pressure measurements were voluntarily provided by people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey. Measurements were not provided by respondents who advised they were pregnant.
+
+- Measured blood pressure was categorised as:
+  - Normal: <120/80
+  - Normal-high: from 120/80 to <140/90
+  - High: from 140/90 to <160/100
+  - Very high: from 160/100 to <180/110
+  - Severe: from 180/100
+  
+<div style="height: 1em;"></div>
+
+The following question was asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+
+- Have you had your blood pressure checked in the last two years?
+  - Yes
+  - No
+  - Don't know
+
+<div style="height: 2em;"></div>
+:::
+
+:::: {.panel-tabset}
+
+#### Figure 9E-1
+
+::: {#fig_9E_1 .fig-tab-title}
+**Figure 9E-1:** Measured blood pressure for people aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+figure_number <- bp_status %>% 
+  dplyr::filter(sex != "Total" & answer != "Total") %>%
+  #
+  f_bar_grouped_sex(x_variable = answer,
+                    y_variable = n,
+                    y_max      = NA,
+                    y_breaks   = 1000,
+                    y_expand   = 250,
+                    x_angle    = 90)
+
+figure_percent <- bp_status %>% 
+  dplyr::filter(sex != "Total" & answer != "Total") %>%
+  #
+  f_bar_grouped_sex(x_variable = answer,
+                    y_variable = prop,
+                    y_max      = 100,
+                    y_breaks   = 10,
+                    y_expand   = 1,
+                    x_angle    = 90)
+
+f_bar_grouped_combine(figure_number, figure_percent)
+```
+
+#### Table 9E-1
+
+::: {#tab_9E_1 .fig-tab-title}
+**Table 9E-1:** Measured blood pressure for people aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- bp_status %>% 
+  tidyr::pivot_wider(names_from  = "sex",
+                     values_from = c("n", "prop"),
+                     names_vary  = "slowest") %>% 
+  #
+  janitor::clean_names() %>% 
+  #
+  dplyr::rename(measured_bp = answer)
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(prop_male   = sprintf("%.1f", prop_male),
+                prop_female = sprintf("%.1f", prop_female),
+                prop_total  = sprintf("%.1f", prop_total)) %>%
+  #
+  f_table_grouped_sex(n_variable  = "estimate",
+                      column_name = "Blood pressure")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+#### Table 9E-2
+
+::: {#tab_9E_2 .fig-tab-title}
+**Table 9E-2:** Whether blood pressure was checked during the two years prior to the survey for people who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- bp_test %>% 
+  tidyr::pivot_wider(names_from  = "sex",
+                     values_from = c("n", "prop"),
+                     names_vary  = "slowest") %>% 
+  #
+  janitor::clean_names() %>% 
+  #
+  dplyr::rename(bp_checked = answer)
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(prop_male   = sprintf("%.1f", prop_male),
+                prop_female = sprintf("%.1f", prop_female),
+                prop_total  = sprintf("%.1f", prop_total)) %>%
+  #
+  f_table_grouped_sex(n_variable  = "estimate",
+                      column_name = "Blood pressure checked<br>in last two years")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_natsihs`
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+`r note_caveat_survey_unknown`
+
+`r note_caveat_survey_estimate`
+
+<div style="height: 0.1em;"></div>
+
+- Measured blood pressure was categorised as:
+  - Normal: <120/80
+  - Normal-high: from 120/80 to <140/90
+  - High: from 140/90 to <160/100
+  - Very high: from 160/100 to <180/110
+  - Severe: from 180/100
+
+<div style="height: 2em;"></div>
+:::
+
+::: {style="opacity: 0.8;"}
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+:::
+
+## Overweight and Obesity
+
+```{r}
+# ------------------------------------------------------------------------------
+# Measured BMI
+# Data from ABS National Aboriginal and Torres Strait Islander Health Survey
+# ------------------------------------------------------------------------------
+# Read in NATSIHS data
+obesity_bmi <- f_read_natsihs_sex("Indicator_Vic_Sex_Biomedical_BMI.csv")
+
+# Data wrangling
+obesity_bmi <- obesity_bmi %>% 
+  dplyr::rowwise() %>% 
+  dplyr::mutate(underweight_n = underweight_class_1_n + underweight_class_2_n + underweight_class_3_n,
+                answered_n    = total_n - not_applicable_n - normal_range_adult_only_n) %>% 
+  dplyr::ungroup() %>% 
+  #
+  janitor::adorn_totals(fill = "Total") %>% 
+  #
+  dplyr::select(-underweight_class_1_n,
+                -underweight_class_2_n,
+                -underweight_class_3_n,
+                -normal_range_adult_only_n) %>% 
+  #
+  dplyr::rename(normal_n     = normal_range_n,
+                overweight_n = overweight_n,
+                obese1_n     = obese_class_1_n,
+                obese2_n     = obese_class_2_adult_only_n,
+                obese3_n     = obese_class_3_adult_only_n) %>% 
+  #
+  dplyr::mutate(across(normal_n:underweight_n,
+                       ~ . / answered_n * 100,
+                       .names = "{.col}_prop"),
+                #
+                answered_prop = answered_n / answered_n * 100) %>% 
+  #
+  dplyr::rename_with(~ stringr::str_replace(., "_n_prop$", "_prop"), ends_with("_n_prop")) %>% 
+  #
+  dplyr::select(sex,
+                starts_with("underweight"),
+                starts_with("normal"),
+                starts_with("overweight"),
+                starts_with("obese1"),
+                starts_with("obese2"),
+                starts_with("obese3"),
+                starts_with("answered")) %>% 
+  #
+  tidyr::pivot_longer(!sex,
+                      names_to = c("answer", ".value"),
+                      names_pattern = "(.+)_(.+)") %>% 
+  #
+  dplyr::mutate(answer = factor(dplyr::recode(answer,
+                                              "underweight" = "Underweight",
+                                              "normal"      = "Normal weight",
+                                              "overweight"  = "Overweight",
+                                              "obese1"      = "Obese Class 1",
+                                              "obese2"      = "Obese Class 2",
+                                              "obese3"      = "Obese Class 3",
+                                              "answered"    = "Total"),
+                                levels = c("Underweight",
+                                           "Normal weight",
+                                           "Overweight",
+                                           "Obese Class 1",
+                                           "Obese Class 2",
+                                           "Obese Class 3",
+                                           "Total")))
+
+# ------------------------------------------------------------------------------
+# Measured waist circumference
+# Data from ABS National Aboriginal and Torres Strait Islander Health Survey
+# ------------------------------------------------------------------------------
+# Read in NATSIHS data
+obesity_waist <- f_read_natsihs_sex("Indicator_Vic_Sex_Biomedical_Waist.csv")
+
+# Data wrangling
+obesity_waist <- obesity_waist %>% 
+  dplyr::rowwise() %>% 
+  dplyr::mutate(answered_n = sum(across(lowered_risk_n:substantially_increased_risk_n))) %>% 
+  dplyr::ungroup() %>% 
+  #
+  janitor::adorn_totals(fill = "Total") %>% 
+  #
+  dplyr::rename(lower_n       = lowered_risk_n,
+                increased_n   = increased_risk_n,
+                substantial_n = substantially_increased_risk_n) %>% 
+  #
+  dplyr::mutate(across(lower_n:substantial_n,
+                       ~ . / answered_n * 100,
+                       .names = "{.col}_prop"),
+                #
+                answered_prop = answered_n / answered_n * 100) %>% 
+  #
+  dplyr::rename_with(~ stringr::str_replace(., "_n_prop$", "_prop"), ends_with("_n_prop")) %>% 
+  #
+  dplyr::select(sex,
+                starts_with("lower"),
+                starts_with("increased"),
+                starts_with("substantial"),
+                starts_with("answered")) %>% 
+  #
+  tidyr::pivot_longer(!sex,
+                      names_to = c("answer", ".value"),
+                      names_pattern = "(.+)_(.+)") %>% 
+  #
+  dplyr::mutate(answer = factor(dplyr::recode(answer,
+                                              "lower"       = "Lowered risk",
+                                              "increased"   = "Increased risk",
+                                              "substantial" = "Substantially increased risk",
+                                              "answered"    = "Total"),
+                                levels = c("Lowered risk",
+                                           "Increased risk",
+                                           "Substantially increased risk",
+                                           "Total")))
+```
+
+- Data for this topic were obtained from the [2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release).
+
+- Overall, 28% (approximately 8,900 people) of Aboriginal and/or Torres Strait Islander survey respondents living in Greater Melbourne were a normal weight, 33% (approximately 10,300 people) were overweight, and 41% (approximately 13,000 people) were obese.
+
+- Males were more likely to be overweight than females (36% vs. 28%), and females were more likely to be obese than males (47% vs. 37%).
+
+- Overall, 23% (approximately 5,900 people) of Aboriginal and/or Torres Strait Islander survey respondents living in Greater Melbourne were at a lowered risk of chronic disease based on their measured waist circumference, 25% (approximately 6,300 people) were at an increased risk, and 52% (approximately 13,100 people) were at a substantially increased risk.
+
+- Females were more likely to be at a substantially increased risk of developing chronic disease than males (77% vs. 32%).
+
+::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+Height and weight measurements were voluntarily provided by people aged 2 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey. Measurements were not provided by respondents who advised they were pregnant.
+
+Body mass index (BMI) was calculated from a person’s height and weight, using the formula weight (kg) divided by the square of height (m).
+
+- For adults (aged 18 years and over), BMI was categorised as:
+  - Underweight: Less than 18.50
+  - Normal: 18.50 to 24.99
+  - Overweight: 25.00 to 29.99
+  - Obese Class 1: 30.00 to 34.99
+  - Obese Class 2: 35.00 to 39.99
+  - Obese Class 3: 40.00 and above
+
+<div style="height: 1em;"></div>
+
+- For children (aged 2 to 17 years), BMI was calculated in a similar manner but also took the age and sex of the child into account.
+  - Children were categorised as underweight/normal, overweight, or obese.
+
+<div style="height: 1em;"></div>
+
+Waist circumference measurements were voluntarily provided by people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey. Measurements were not provided by respondents who advised they were pregnant.
+
+- Waist circumference was classified by the [risk of developing chronic disease](https://www.who.int/publications/i/item/9789241501491).
+  - Lowered risk: less than 94cm for males, less than 80cm for females
+  - Increased risk: 94cm to 102cm for males, 80cm to 88cm for females
+  - Substantially increased risk: 102cm or more for males, 88cm or more for females
+
+<div style="height: 2em;"></div>
+:::
+
+:::: {.panel-tabset}
+
+#### Figure 9E-2
+
+::: {#fig_9E_2 .fig-tab-title}
+**Figure 9E-2:** Measured body mass index (BMI) for people who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+figure_number <- obesity_bmi %>% 
+  dplyr::filter(sex != "Total" & answer != "Total") %>%
+  #
+  f_bar_grouped_sex(x_variable = answer,
+                    y_variable = n,
+                    y_max      = NA,
+                    y_breaks   = 1000,
+                    y_expand   = 850,
+                    x_angle    = 90)
+
+figure_percent <- obesity_bmi %>% 
+  dplyr::filter(sex != "Total" & answer != "Total") %>%
+  #
+  f_bar_grouped_sex(x_variable = answer,
+                    y_variable = prop,
+                    y_max      = 50,
+                    y_breaks   = 5,
+                    y_expand   = 0.5,
+                    x_angle    = 90)
+
+f_bar_grouped_combine(figure_number, figure_percent)
+```
+
+#### Table 9E-3
+
+::: {#tab_9E_3 .fig-tab-title}
+**Table 9E-3:** Measured body mass index (BMI) for people who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- obesity_bmi %>% 
+  tidyr::pivot_wider(names_from  = "sex",
+                     values_from = c("n", "prop"),
+                     names_vary  = "slowest") %>% 
+  #
+  janitor::clean_names() %>% 
+  #
+  dplyr::rename(measured_bmi = answer)
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(prop_male   = sprintf("%.1f", prop_male),
+                prop_female = sprintf("%.1f", prop_female),
+                prop_total  = sprintf("%.1f", prop_total)) %>%
+  #
+  f_table_grouped_sex(n_variable  = "estimate",
+                      column_name = "Body mass index")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+#### Figure 9E-3
+
+::: {#fig_9E_3 .fig-tab-title}
+**Figure 9E-3:** Risk of developing chronic disease based on measured waist circumference for people aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+factor_levels <- stringr::str_wrap(levels(obesity_waist$answer), width = 15)
+
+figure_number <- obesity_waist %>% 
+  dplyr::filter(sex != "Total" & answer != "Total") %>%
+  #
+  dplyr::mutate(answer = factor(stringr::str_wrap(answer, width = 15), levels = factor_levels)) %>%
+  #
+  f_bar_grouped_sex(x_variable = answer,
+                    y_variable = n,
+                    y_max      = NA,
+                    y_breaks   = 1000,
+                    y_expand   = 500)
+
+figure_percent <- obesity_waist %>% 
+  dplyr::filter(sex != "Total" & answer != "Total") %>%
+  #
+  dplyr::mutate(answer = factor(stringr::str_wrap(answer, width = 15), levels = factor_levels)) %>%
+  #
+  f_bar_grouped_sex(x_variable = answer,
+                    y_variable = prop,
+                    y_max      = 100,
+                    y_breaks   = 10,
+                    y_expand   = 1)
+
+f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
+```
+
+#### Table 9E-4
+
+::: {#tab_9E_4 .fig-tab-title}
+**Table 9E-4:** Risk of developing chronic disease based on measured waist circumference for people aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- obesity_waist %>% 
+  tidyr::pivot_wider(names_from  = "sex",
+                     values_from = c("n", "prop"),
+                     names_vary  = "slowest") %>% 
+  #
+  janitor::clean_names() %>% 
+  #
+  dplyr::rename(chronic_disease_risk = answer)
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(prop_male   = sprintf("%.1f", prop_male),
+                prop_female = sprintf("%.1f", prop_female),
+                prop_total  = sprintf("%.1f", prop_total)) %>%
+  #
+  f_table_grouped_sex(n_variable  = "estimate",
+                      column_name = "Risk of chronic disease")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_natsihs`
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+`r note_caveat_survey_unknown`
+
+`r note_caveat_survey_estimate`
+
+- Body mass index (BMI) was calculated from a person’s height and weight, using the formula weight (kg) divided by the square of height (m).
+
+<div style="height: 0.1em;"></div>
+
+- For adults (aged 18 years and over), BMI was categorised as:
+  - Underweight: Less than 18.50
+  - Normal: 18.50 to 24.99
+  - Overweight: 25.00 to 29.99
+  - Obese Class 1: 30.00 to 34.99
+  - Obese Class 2: 35.00 to 39.99
+  - Obese Class 3: 40.00 and above
+  
+<div style="height: 1em;"></div>
+
+- For children (aged 2 to 17 years), BMI was calculated in a similar manner but also took the age and sex of the child into account.
+  - Children were categorised as underweight/normal, overweight, or obese.
+
+<div style="height: 1em;"></div>
+
+- Waist circumference was classified by the [risk of developing chronic disease](https://www.who.int/publications/i/item/9789241501491).
+  - Lowered risk: less than 94cm for males, less than 80cm for females
+  - Increased risk: 94cm to 102cm for males, 80cm to 88cm for females
+  - Substantially increased risk: 102cm or more for males, 88cm or more for females
+
+<div style="height: 2em;"></div>
+:::
+
+::: {style="opacity: 0.8;"}
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+:::
+
+## Biochemical Markers of Disease
+
+### Blood Cholesterol
+
+```{r}
+# ------------------------------------------------------------------------------
+# Cholesterol checked in last five years
+# Data from ABS National Aboriginal and Torres Strait Islander Health Survey
+# ------------------------------------------------------------------------------
+# Read in NATSIHS data
+biochem_cholesterol <- f_read_natsihs_sex("Indicator_Vic_Sex_Biomedical_CholesterolTest.csv")
+
+# Data wrangling
+biochem_cholesterol <- biochem_cholesterol %>% 
+  dplyr::rowwise() %>% 
+  dplyr::mutate(answered_n = sum(across(has_had_cholesterol_checked_within_the_last_5_years_n:has_not_had_cholesterol_checked_within_the_last_5_years_n))) %>% 
+  dplyr::ungroup() %>% 
+  #
+  janitor::adorn_totals(fill = "Total") %>% 
+  #
+  dplyr::rename(test_n   = has_had_cholesterol_checked_within_the_last_5_years_n,
+                notest_n = has_not_had_cholesterol_checked_within_the_last_5_years_n) %>% 
+  #
+  dplyr::mutate(across(test_n:notest_n,
+                       ~ . / answered_n * 100,
+                       .names = "{.col}_prop"),
+                #
+                answered_prop = answered_n / answered_n * 100) %>% 
+  #
+  dplyr::rename_with(~ stringr::str_replace(., "_n_prop$", "_prop"), ends_with("_n_prop")) %>% 
+  #
+  dplyr::select(sex,
+                starts_with("test"),
+                starts_with("notest"),
+                starts_with("answered")) %>% 
+  #
+  tidyr::pivot_longer(!sex,
+                      names_to = c("answer", ".value"),
+                      names_pattern = "(.+)_(.+)") %>% 
+  #
+  dplyr::mutate(answer = factor(dplyr::recode(answer,
+                                              "test"     = "Yes",
+                                              "notest"   = "No",
+                                              "answered" = "Total"),
+                                levels = c("Yes",
+                                           "No",
+                                           "Total")))
+```
+
+- Data for this topic were obtained from the [2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release).
+
+- Overall, 88% of Aboriginal and/or Torres Strait Islander survey respondents living in Greater Melbourne aged 45 years and over (all adults) or aged 18 years and over (with a heart or circulatory condition) had their blood cholesterol checked at least once during the five years prior to the survey. This equates to approximately 9,100 Aboriginal and/or Torres Strait Islander people.
+
+- Males and females were equally likely to have had their cholesterol checked in the last five years (87% vs. 88%).
+
+::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+The following questions were asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+
+- Have you ever been told by a doctor or a nurse that you have any heart or blood pressure problems?
+  - Yes
+  - No
+  - Don't know
+  
+<div style="height: 1em;"></div>
+
+- Have you had your cholesterol checked in the last five years?
+  - Yes
+  - No
+  - Don't know
+  
+<div style="height: 2em;"></div>
+:::
+
+:::: {.panel-tabset}
+
+#### Table 9E-5
+
+::: {#tab_9E_5 .fig-tab-title}
+**Table 9E-5:** Whether blood cholesterol was checked during the five years prior to the survey for people aged 45 years and over or people aged 18 years and over with a heart or circulatory condition who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- biochem_cholesterol %>% 
+  tidyr::pivot_wider(names_from  = "sex",
+                     values_from = c("n", "prop"),
+                     names_vary  = "slowest") %>% 
+  #
+  janitor::clean_names() %>% 
+  #
+  dplyr::rename(cholesterol_checked = answer)
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(prop_male   = sprintf("%.1f", prop_male),
+                prop_female = sprintf("%.1f", prop_female),
+                prop_total  = sprintf("%.1f", prop_total)) %>%
+  #
+  f_table_grouped_sex(n_variable  = "estimate",
+                      column_name = "Cholesterol checked<br>in last five years")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_natsihs`
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+`r note_caveat_survey_unknown`
+
+`r note_caveat_survey_estimate`
+:::
+
+### Blood Glucose
+
+```{r}
+# ------------------------------------------------------------------------------
+# Blood glucose checked in last three years
+# Data from ABS National Aboriginal and Torres Strait Islander Health Survey
+# ------------------------------------------------------------------------------
+# Read in NATSIHS data
+biochem_glucose <- f_read_natsihs_sex("Indicator_Vic_Sex_Biomedical_GlucoseTest.csv")
+
+# Data wrangling
+biochem_glucose <- biochem_glucose %>% 
+  dplyr::rowwise() %>% 
+  dplyr::mutate(answered_n = sum(across(has_been_tested_for_diabetes_in_last_3_years_n:has_not_been_tested_for_diabetes_in_the_last_3_years_n))) %>% 
+  dplyr::ungroup() %>% 
+  #
+  janitor::adorn_totals(fill = "Total") %>% 
+  #
+  dplyr::rename(test_n   = has_been_tested_for_diabetes_in_last_3_years_n,
+                notest_n = has_not_been_tested_for_diabetes_in_the_last_3_years_n) %>% 
+  #
+  dplyr::mutate(across(test_n:notest_n,
+                       ~ . / answered_n * 100,
+                       .names = "{.col}_prop"),
+                #
+                answered_prop = answered_n / answered_n * 100) %>% 
+  #
+  dplyr::rename_with(~ stringr::str_replace(., "_n_prop$", "_prop"), ends_with("_n_prop")) %>% 
+  #
+  dplyr::select(sex,
+                starts_with("test"),
+                starts_with("notest"),
+                starts_with("answered")) %>% 
+  #
+  tidyr::pivot_longer(!sex,
+                      names_to = c("answer", ".value"),
+                      names_pattern = "(.+)_(.+)") %>% 
+  #
+  dplyr::mutate(answer = factor(dplyr::recode(answer,
+                                              "test"     = "Yes",
+                                              "notest"   = "No",
+                                              "answered" = "Total"),
+                                levels = c("Yes",
+                                           "No",
+                                           "Total")))
+```
+
+- Data for this topic were obtained from the [2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release).
+
+- Overall, 25% of Aboriginal and/or Torres Strait Islander survey respondents living in Greater Melbourne had their blood glucose checked at least once during the three years prior to the survey. This equates to approximately 8,400 Aboriginal and/or Torres Strait Islander people.
+
+- Females were more likely to have had their blood glucose checked than males (34% vs. 17%).
+
+::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+The following questions were asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+
+- Have you ever been told by a doctor or a nurse that you have diabetes?
+  - Yes
+  - No
+  - Don't know
+  
+<div style="height: 1em;"></div>
+
+- Have you ever been told by a doctor or a nurse that you have sugar problems or high sugar levels in your blood or urine?
+  - Yes
+  - No
+  - Don't know
+  
+<div style="height: 1em;"></div>
+
+- Have you been tested for diabetes or sugar problems in the last three years?
+  - Yes
+  - No
+  - Don't know
+  
+<div style="height: 2em;"></div>
+:::
+
+:::: {.panel-tabset}
+
+#### Table 9E-6
+
+::: {#tab_9E_6 .fig-tab-title}
+**Table 9E-6:** Whether blood glucose was checked during the three years prior to the survey for people who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- biochem_glucose %>% 
+  tidyr::pivot_wider(names_from  = "sex",
+                     values_from = c("n", "prop"),
+                     names_vary  = "slowest") %>% 
+  #
+  janitor::clean_names() %>% 
+  #
+  dplyr::rename(glucose_checked = answer)
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(prop_male   = sprintf("%.1f", prop_male),
+                prop_female = sprintf("%.1f", prop_female),
+                prop_total  = sprintf("%.1f", prop_total)) %>%
+  #
+  f_table_grouped_sex(n_variable  = "estimate",
+                      column_name = "Glucose checked<br>in last three years")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_natsihs`
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+`r note_caveat_survey_unknown`
+
+`r note_caveat_survey_estimate`
+
+- People who had been previously diagnosed with diabetes, high blood sugar levels, or high urine sugar levels were excluded.
+:::
+
