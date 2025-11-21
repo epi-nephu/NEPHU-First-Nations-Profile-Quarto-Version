@@ -44,6 +44,7 @@ book:
         - chapters/09d_preventive_alcoholdrugs.qmd
         - chapters/09e_preventive_biomedical.qmd
         - chapters/09f_preventive_vaccination.qmd
+        - chapters/09g_preventive_screening.qmd
     - part: "10. Health Consequences"
     - references.qmd
 
