@@ -113,6 +113,8 @@ f_bar_simple_lga <- function(data, y_variable, y_max, y_breaks, y_expand, y_titl
   
   if (rlang::as_name(y_variable) == "aboriginal_n") {
     
+    y_title <- "Number of people"
+    
     data <- data %>% 
       dplyr::mutate(hover_text = paste0(lga_name, " LGA", "\n",
                                         "Count: ", format(!!y_variable, big.mark = ",")))
@@ -120,6 +122,8 @@ f_bar_simple_lga <- function(data, y_variable, y_max, y_breaks, y_expand, y_titl
   }
   
   if (rlang::as_name(y_variable) == "aboriginal_prop") {
+    
+    y_title <- "Percentage of people"
     
     data <- data %>% 
       dplyr::mutate(hover_text = paste0(lga_name, " LGA", "\n",
