@@ -57,11 +57,13 @@ subfolder_coroner     <- "Population Health Data/VIC Coroners Court/Data"
 subfolder_corrective  <- "Population Health Data/Corrective Services/Data"
 subfolder_crime       <- "Population Health Data/Crime Statistics Agency/Data"
 subfolder_ctg         <- "Population Health Data/Closing the Gap/Data"
+subfolder_death       <- "Population Health Data/ABS Births and Mortality/Data/Raw data"
 subfolder_framework   <- "Population Health Data/AIHW Aboriginal Health Performance Framework/Data"
 subfolder_natsihs     <- "Population Health Data/ABS National Aboriginal Health Survey 2022-23/Data"
 subfolder_phidu       <- "Population Health Data/PHIDU/Data"
 subfolder_projections <- "Population Health Data/Population Projections/Data"
 subfolder_protection  <- "Population Health Data/Child Protection/Data"
+subfolder_screening   <- "Population Health Data/Cancer Screening Participation Data/Data"
 subfolder_vcams       <- "Population Health Data/VCAMS/Data"
 
 # ------------------------------------------------------------------------------
@@ -73,6 +75,7 @@ source(here::here("functions", "data prep", "f_read_framework.R"))
 source(here::here("functions", "data prep", "f_read_naplan.R"))
 source(here::here("functions", "data prep", "f_read_natsihs.R"))
 source(here::here("functions", "data prep", "f_read_phidu.R"))
+source(here::here("functions", "data prep", "f_read_vcsf.R"))
 
 source(here::here("functions", "graphs", "f_bar_grouped.R"))
 source(here::here("functions", "graphs", "f_bar_obsexp.R"))
