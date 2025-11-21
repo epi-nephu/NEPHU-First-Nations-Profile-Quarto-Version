@@ -1,0 +1,452 @@
+---
+title: "General Health"
+---
+
+```{r}
+#
+source(here::here("setup.R"))
+source(here::here("setup_footnotes.R"))
+
+# Set up numbering for exporting tables as .csv
+table_section <- "10A"
+table_count   <- 0
+
+figure_count <- 0
+```
+
+::: {.caveat-box}
+**A note about the impact of under-identification**
+
+`r note_box_underidentification`
+
+**A note about interpreting observed vs. expected figures**
+
+`r note_box_obsexp`
+:::
+
+<div style="height: 2em;"></div>
+
+::: {.key-question}
+How are Aboriginal and/or Torres Strait Islander peoples in the NEPHU catchment experiencing and supporting their health and wellbeing?
+:::
+
+## Self-Reported Health Status
+
+```{r}
+# ------------------------------------------------------------------------------
+# Self-assessed health status
+# Data from ABS National Aboriginal and Torres Strait Islander Health Survey
+# ------------------------------------------------------------------------------
+# Read in NATSIHS data
+health_status <- f_read_natsihs_sex("Indicator_Vic_Sex_Health_Status.csv")
+
+# Data wrangling
+health_status <- health_status %>% 
+  dplyr::rowwise() %>% 
+  dplyr::mutate(answered_n = sum(across(excellent_n:poor_n))) %>% 
+  dplyr::ungroup() %>% 
+  #
+  janitor::adorn_totals(fill = "Total") %>% 
+  #
+  dplyr::rename(verygood_n = very_good_n) %>% 
+  #
+  dplyr::mutate(across(excellent_n:poor_n,
+                       ~ . / answered_n * 100,
+                       .names = "{.col}_prop"),
+                #
+                answered_prop = answered_n / answered_n * 100) %>% 
+  #
+  dplyr::rename_with(~ stringr::str_replace(., "_n_prop$", "_prop"), ends_with("_n_prop")) %>% 
+  #
+  dplyr::select(sex,
+                starts_with("excellent"),
+                starts_with("verygood"),
+                starts_with("good"),
+                starts_with("fair"),
+                starts_with("poor"),
+                starts_with("answered")) %>% 
+  #
+  tidyr::pivot_longer(!sex,
+                      names_to = c("answer", ".value"),
+                      names_pattern = "(.+)_(.+)") %>% 
+  #
+  dplyr::mutate(answer = factor(dplyr::recode(answer,
+                                              "excellent" = "Excellent",
+                                              "verygood"  = "Very good",
+                                              "good"      = "Good",
+                                              "fair"      = "Fair",
+                                              "poor"      = "Poor",
+                                              "answered"  = "Total"),
+                                levels = c("Excellent",
+                                           "Very good",
+                                           "Good",
+                                           "Fair",
+                                           "Poor",
+                                           "Total")))
+```
+
+- Data for this topic were obtained from the [2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release).
+
+- Overall, 73% of Aboriginal and/or Torres Strait Islander survey respondents aged 15 years and over living in Greater Melbourne reported that they had an excellent, very good, or a good level of health. This equates to approximately 19,600 Aboriginal and/or Torres Strait Islander people in Greater Melbourne.
+
+- Males were more likely to report an excellent level of health than females (18% vs. 6%), while females were more likely to report a poor level of health than males (10% vs. 1.4%).
+
+::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+The following question was asked of all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+
+- In general, would you say that your health is excellent, very good, good, fair, or poor?
+  - Excellent
+  - Very good
+  - Good
+  - Fair
+  - Poor
+
+<div style="height: 2em;"></div>
+:::
+
+:::: {.panel-tabset}
+
+#### Figure 10A-1
+
+::: {#fig_10A_1 .fig-tab-title}
+**Figure 10A-1:** Self-reported health status for survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+figure_number <- health_status %>% 
+  dplyr::filter(sex != "Total" & answer != "Total") %>%
+  #
+  f_bar_grouped_sex(x_variable = answer,
+                    y_variable = n,
+                    y_max      = NA,
+                    y_breaks   = 1000,
+                    y_expand   = 200)
+
+figure_percent <- health_status %>% 
+  dplyr::filter(sex != "Total" & answer != "Total") %>%
+  #
+  f_bar_grouped_sex(x_variable = answer,
+                    y_variable = prop,
+                    y_max      = 100,
+                    y_breaks   = 10,
+                    y_expand   = 1)
+
+f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
+```
+
+#### Table 10A-1
+
+::: {#tab_10A_1 .fig-tab-title}
+**Table 10A-1:** Self-reported health status for survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- health_status %>% 
+  tidyr::pivot_wider(names_from  = "sex",
+                     values_from = c("n", "prop"),
+                     names_vary  = "slowest") %>% 
+  #
+  janitor::clean_names() %>% 
+  #
+  dplyr::rename(health_status = answer)
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(prop_male   = sprintf("%.1f", prop_male),
+                prop_female = sprintf("%.1f", prop_female),
+                prop_total  = sprintf("%.1f", prop_total)) %>%
+  #
+  f_table_grouped_sex(n_variable  = "estimate",
+                      column_name = "Health status")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_natsihs`
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+`r note_caveat_survey_unknown`
+
+`r note_caveat_survey_estimate`
+:::
+
+::: {style="opacity: 0.8;"}
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+:::
+
+## Any Long-Term Health Condition
+
+```{r}
+# ------------------------------------------------------------------------------
+# Any long-term health condition, by LGA
+# Data from ABS Census using TableBuilderPro
+# ------------------------------------------------------------------------------
+# Read in Census data
+condition_lga <- f_read_census_lga("Aboriginal_Health_Any_LGA.csv",
+                                   variable = "any_condition") %>% 
+  #
+  dplyr::filter(any_condition != "Not stated")
+
+# Data wrangling
+condition_lga <- condition_lga %>%
+  #
+  dplyr::mutate(any_condition = dplyr::case_when(
+    any_condition == "Has one or more long-term health condition(s)" ~ "yes",
+    TRUE ~ "no")) %>% 
+  #
+  f_wrangle_census_lga(variable = any_condition,
+                       level    = "person",
+                       dichot   = "yes")
+
+# ------------------------------------------------------------------------------
+# Any long-term health condition, by age and sex
+# Data from ABS Census using TableBuilderPro
+# ------------------------------------------------------------------------------
+# Read in Census data
+condition_agesex <- f_read_census_agesex("Aboriginal_Health_Any_AgeSex.csv",
+                                         variable = "any_condition") %>% 
+  #
+  dplyr::filter(any_condition != "Not stated")
+
+# Data wrangling
+condition_agesex <- condition_agesex %>% 
+  #
+  dplyr::mutate(any_condition = dplyr::case_when(
+    any_condition == "Has one or more long-term health condition(s)" ~ "yes",
+    TRUE ~ "no")) %>%  
+  #
+  f_wrangle_census_agesex(variable = any_condition,
+                          dichot   = "yes")
+```
+
+- Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
+
+- Overall, 43% (n = 4,850) of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census are living with one or more long-term health conditions. This is higher than for non-Indigenous people living in the NEPHU catchment (33%).
+
+- The number of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who are living with one or more long-term health conditions ranged from 850 (Whittlesea LGA) to 90 (Manningham LGA).
+
+- The gap between the proportion of Aboriginal and/or Torres Strait Islander and non-Indigenous people who are living with one or more long-term health conditions was biggest for Whittlesea and Hume LGAs.
+
+- The percentage of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who are living with one or more long-term health conditions ranged from 47% (Maroondah LGA) to 32% (Manningham LGA).
+
+- The percentage of people living in the NEPHU catchment who are living with one or more long-term health conditions increased with increasing age for both males and females.
+
+- The gap between Aboriginal and/or Torres Strait Islander and non-Indigenous people was biggest for younger people for both males and females.
+
+::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+The following question was asked of all people completing the ABS Census 2021.
+
+- Has the person been told by a doctor or nurse that they have any of these long-term health conditions? (Select all that apply)
+  - Arthritis
+  - Asthma
+  - Cancer (including remission)
+  - Dementia (including Alzheimer's)
+  - Diabetes (including gestational diabetes)
+  - Heart disease (including heart attack or angina)
+  - Kidney disease
+  - Lung condition (including COPD or emphysema)
+  - Mental health condition (including depression or anxiety)
+  - Stroke
+  - Any other long-term health condition(s)
+  - No long-term health condition
+
+<div style="height: 2em;"></div>
+:::
+
+:::: {.panel-tabset}
+
+#### Figure 10A-2
+
+::: {#fig_10A_2 .fig-tab-title}
+**Figure 10A-2:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who are living with one or more long-term health conditions, NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+figure_number <- condition_lga %>% 
+  f_bar_simple_lga(y_variable = aboriginal_n,
+                   y_max      = NA,
+                   y_breaks   = 100,
+                   y_expand   = 75)
+
+figure_percent <- condition_lga %>% 
+  f_bar_simple_lga(y_variable = aboriginal_prop,
+                   y_max      = 100,
+                   y_breaks   = 10,
+                   y_expand   = 1)
+
+f_bar_simple_combine(figure_number, figure_percent)
+```
+
+#### Figure 10A-3
+
+::: {#fig_10A_3 .fig-tab-title}
+**Figure 10A-3:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who are living with one or more long-term health conditions, NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+condition_lga %>% 
+  f_bar_obsexp_lga(y_max    = NA,
+                   y_breaks = 100,
+                   y_expand = 75)
+```
+
+#### Table 10A-2
+
+::: {#tab_10A_2 .fig-tab-title}
+**Table 10A-2:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who are living with one or more long-term health conditions, NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- condition_lga %>%
+  f_preptable_obsexp_lga()
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  f_table_obsexp(column_name = "LGA",
+                 header_name = " ")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+#### Figure 10A-4
+
+::: {#fig_10A_4 .fig-tab-title}
+**Figure 10A-4:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who are living with one or more long-term health conditions, NEPHU catchment, by age and sex, 2021
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+figure_number <- condition_agesex %>% 
+  f_bar_grouped_agesex(y_variable = aboriginal_n,
+                       y_max      = NA,
+                       y_breaks   = 50,
+                       y_expand   = 25)
+
+figure_percent <- condition_agesex %>% 
+  f_bar_grouped_agesex(y_variable = aboriginal_prop,
+                       y_max      = 100,
+                       y_breaks   = 10,
+                       y_expand   = 1)
+
+f_bar_grouped_combine(figure_number, figure_percent)
+```
+
+#### Figure 10A-5
+
+::: {#fig_10A_5 .fig-tab-title}
+**Figure 10A-5:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who are living with one or more long-term health conditions, NEPHU catchment, by age and sex, 2021
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+condition_agesex %>% 
+  f_bar_obsexp_agesex(y_max    = NA,
+                      y_breaks = 50,
+                      y_expand = 30)
+```
+
+#### Table 10A-3
+
+::: {#tab_10A_3 .fig-tab-title}
+**Table 10A-3:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who are living with one or more long-term health conditions, NEPHU catchment, by age and sex, 2021
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- condition_agesex %>%
+  f_preptable_obsexp_agesex()
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::filter(sex == "Female") %>%
+  #
+  dplyr::select(-sex) %>% 
+  #
+  f_table_obsexp(total_row   = nrow(table) / 2,
+                 column_name = "Age group",
+                 header_name = "Female")
+
+table %>% 
+  dplyr::filter(sex == "Male") %>%
+  #
+  dplyr::select(-sex) %>% 
+  #
+  f_table_obsexp(total_row   = nrow(table) / 2,
+                 column_name = "Age group",
+                 header_name = "Male")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_census`
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
+- The long-term health conditions included in this indicator were: arthritis, asthma, cancer (including remission), dementia (including Alzheimer’s), diabetes (excluding gestational diabetes), heart disease (including heart attack and angina), kidney disease, lung conditions (including chronic obstructive pulmonary disease and emphysema), mental health conditions (including depression and anxiety), and stroke.
+  - People were classified as living with a long-term health condition if they have ever been told by a doctor or nurse that they have one or more of these conditions.
+
+<div style="height: 2em;"></div>
+:::
