@@ -46,6 +46,8 @@ book:
         - chapters/09f_preventive_vaccination.qmd
         - chapters/09g_preventive_screening.qmd
     - part: "10. Health Consequences"
+      chapters: 
+        - chapters/10a_consequences_general.qmd
     - references.qmd
 
 bibliography: references.bib
