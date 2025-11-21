@@ -34,14 +34,17 @@ What health and wellbeing practices are Aboriginal and/or Torres Strait Islander
 # Data from AIHW Aboriginal and Torres Strait Islander Health Performance Framework
 # ---------------------------------------------------------------------------------
 # Read in AIR data
-childhood_year1 <- f_read_hpf_vaccination(data_sheet    = "D3.02.2",
-                                          column_select = c(indigenous_status = "x1",
-                                                            hepb = "hepatitis_b",
-                                                            "dtp",
-                                                            "polio",
-                                                            "hib",
-                                                            pneumo = "pneumococcal",
-                                                            fully = "fully_immunised"))
+childhood_year1 <- f_read_hpf("302-Immunisation.xlsx",
+                              data_sheet    = "D3.02.2",
+                              skip_rows     = 2,
+                              row_select    = c(8:9),
+                              column_select = c(indigenous_status = "x1",
+                                                hepb = "hepatitis_b",
+                                                "dtp",
+                                                "polio",
+                                                "hib",
+                                                pneumo = "pneumococcal",
+                                                fully = "fully_immunised"))
 
 # Data wrangling
 childhood_year1 <- childhood_year1 %>% 
@@ -68,17 +71,20 @@ childhood_year1 <- childhood_year1 %>%
 # Data from AIHW Aboriginal and Torres Strait Islander Health Performance Framework
 # ---------------------------------------------------------------------------------
 # Read in AIR data
-childhood_year2 <- f_read_hpf_vaccination(data_sheet    = "D3.02.3",
-                                          column_select = c(indigenous_status = "x1",
-                                                            hepb = "hepatitis_b",
-                                                            "dtp",
-                                                            "polio",
-                                                            "hib",
-                                                            pneumo = "pneumococcal",
-                                                            "mmr",
-                                                            "varicella",
-                                                            menc = "men_c",
-                                                            fully = "fully_immunised"))
+childhood_year2 <- f_read_hpf("302-Immunisation.xlsx",
+                              data_sheet    = "D3.02.3",
+                              skip_rows     = 2,
+                              row_select    = c(8:9),
+                              column_select = c(indigenous_status = "x1",
+                                                hepb = "hepatitis_b",
+                                                "dtp",
+                                                "polio",
+                                                "hib",
+                                                pneumo = "pneumococcal",
+                                                "mmr",
+                                                "varicella",
+                                                menc = "men_c",
+                                                fully = "fully_immunised"))
 
 # Data wrangling
 childhood_year2 <- childhood_year2 %>% 
@@ -111,11 +117,14 @@ childhood_year2 <- childhood_year2 %>%
 # Data from AIHW Aboriginal and Torres Strait Islander Health Performance Framework
 # ---------------------------------------------------------------------------------
 # Read in AIR data
-childhood_year5 <- f_read_hpf_vaccination(data_sheet    = "D3.02.4",
-                                          column_select = c(indigenous_status = "x1",
-                                                            "dtp",
-                                                            "polio",
-                                                            fully = "fully_immunised"))
+childhood_year5 <- f_read_hpf("302-Immunisation.xlsx",
+                              data_sheet    = "D3.02.4",
+                              skip_rows     = 2,
+                              row_select    = c(8:9),
+                              column_select = c(indigenous_status = "x1",
+                                                "dtp",
+                                                "polio",
+                                                fully = "fully_immunised"))
 
 # Data wrangling
 childhood_year5 <- childhood_year5 %>% 
@@ -416,12 +425,14 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 # Data from AIHW Aboriginal and Torres Strait Islander Health Performance Framework
 # ---------------------------------------------------------------------------------
 # Read in AIR data
-adolescent <- f_read_hpf_vaccination(data_sheet    = "D3.02.11",
-                                     row_select    = 4,
-                                     column_select = c(girls_indigenous = "girls_2",
-                                                       boys_indigenous  = "boys_3",
-                                                       girls_other      = "girls_5",
-                                                       boys_other       = "boys_6"))
+adolescent <- f_read_hpf("302-Immunisation.xlsx",
+                         data_sheet    = "D3.02.11",
+                         skip_rows     = 2,
+                         row_select    = 4,
+                         column_select = c(girls_indigenous = "girls_2",
+                                           boys_indigenous  = "boys_3",
+                                           girls_other      = "girls_5",
+                                           boys_other       = "boys_6"))
 
 # Data wrangling
 adolescent <- adolescent %>% 
