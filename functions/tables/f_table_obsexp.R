@@ -16,7 +16,7 @@ f_table_obsexp <- function(data, total_row = nrow(table), column_name, header_na
     #
     knitr::kable(format      = "html",
                  format.args = list(big.mark = ","),
-                 align       = "lrrrrrrrrrrrrrrrrrrrr",
+                 align       = "lrrrrr",
                  col.names   = c(column_name, "Count", "Percent", "Count", "Percent", " "),
                  escape      = FALSE) %>%
     #
@@ -47,7 +47,7 @@ f_table_obsexp <- function(data, total_row = nrow(table), column_name, header_na
   
   table <- table %>%
     kableExtra::add_header_above(header = header_widths,
-                                 align = "right")
+                                 align = c("l", "r", "r", "r"))
   
   return(table)
   

@@ -17,7 +17,7 @@ f_preptable_obsexp_lga <- function(data) {
                   aboriginal_prop,
                   aboriginal_exp_non,
                   non_aboriginal_prop,
-                  aboriginal_diff_label)
+                  obs_exp_difference = aboriginal_diff_label)
   
   return(data)
   
@@ -37,7 +37,7 @@ f_preptable_obsexp_agesex <- function(data) {
                   aboriginal_prop,
                   aboriginal_exp_non,
                   non_aboriginal_prop,
-                  aboriginal_diff_label)
+                  obs_exp_difference = aboriginal_diff_label)
   
   return(data)
   
@@ -54,7 +54,7 @@ f_preptable_obsexp_sex <- function(data) {
                   aboriginal_prop,
                   aboriginal_exp_non,
                   non_aboriginal_prop,
-                  aboriginal_diff_label)
+                  obs_exp_difference = aboriginal_diff_label)
   
   return(data)
   
