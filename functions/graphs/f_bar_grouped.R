@@ -65,6 +65,8 @@ f_bar_grouped_agesex <- function(data, y_variable, y_max, y_breaks, y_expand, y_
   
   if (rlang::as_name(y_variable) == "aboriginal_n") {
     
+    y_title <- "Number of people"
+    
     data <- data %>% 
       dplyr::mutate(hover_text = paste0(sex, "\n",
                                         age_group, "\n",
@@ -73,6 +75,8 @@ f_bar_grouped_agesex <- function(data, y_variable, y_max, y_breaks, y_expand, y_
   }
   
   if (rlang::as_name(y_variable) == "aboriginal_prop") {
+    
+    y_title <- "Percentage of people"
     
     data <- data %>% 
       dplyr::mutate(hover_text = paste0(sex, "\n",
