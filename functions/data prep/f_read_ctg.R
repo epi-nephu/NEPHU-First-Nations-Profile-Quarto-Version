@@ -21,6 +21,7 @@ f_read_ctg_indigenous <- function(file, data_sheet, column_select, fill_variable
     tidyr::fill(!!!fill_variables) %>% 
     #
     dplyr::filter(!is.na(vic)) %>% 
+    #
     dplyr::filter(row_number() %in% row_select) %>%
     #
     dplyr::mutate(
