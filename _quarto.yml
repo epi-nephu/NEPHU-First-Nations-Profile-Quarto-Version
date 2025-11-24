@@ -48,6 +48,7 @@ book:
     - part: "10. Health Consequences"
       chapters: 
         - chapters/10a_consequences_general.qmd
+        - chapters/10b_consequences_disability.qmd
     - references.qmd
 
 bibliography: references.bib
