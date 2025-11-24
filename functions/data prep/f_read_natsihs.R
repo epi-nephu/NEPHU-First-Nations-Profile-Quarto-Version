@@ -46,7 +46,7 @@ f_read_natsihs <- function(data_sheet, variable, row_range) {
 # ---------------------------------------------------------------------------------------
 # National Aboriginal and Torres Strait Islander Health Survey data - by sex
 # ---------------------------------------------------------------------------------------
-f_read_natsihs_sex <- function(data) {
+f_read_natsihs_sex <- function(data, iare_level = "Melbourne") {
   
   data <- read.csv(file.path(root_folder, subfolder_natsihs, data),
                    skip        = 9,
@@ -60,14 +60,31 @@ f_read_natsihs_sex <- function(data) {
     dplyr::mutate(iare_name = if_else(iare_name == "", NA_character_, iare_name),
                   sex       = if_else(sex == "", NA_character_, sex)) %>%
     #
-    tidyr::fill(iare_name, sex) %>%
-    #
-    dplyr::filter(iare_name == "Melbourne" & sex %in% c("Male", "Female")) %>%
-    #
-    dplyr::mutate(iare_name = dplyr::case_when(
-      iare_name == "Melbourne" ~ "Greater Melbourne",
-      TRUE ~ NA_character_)) %>%
-    #
+    tidyr::fill(iare_name, sex)
+  
+  if (iare_level == "Melbourne"){
+    
+    data <- data %>%
+      dplyr::filter(iare_name == "Melbourne" & sex %in% c("Male", "Female")) %>%
+      #
+      dplyr::mutate(iare_name = dplyr::case_when(
+        iare_name == "Melbourne" ~ "Greater Melbourne",
+        TRUE ~ NA_character_))
+  
+  }
+  
+  if (iare_level == "Victoria"){
+    
+    data <- data %>%
+      dplyr::filter(iare_name == "Total" & sex %in% c("Male", "Female")) %>%
+      #
+      dplyr::mutate(iare_name = dplyr::case_when(
+        iare_name == "Total" ~ "Victoria",
+        TRUE ~ NA_character_))
+
+  }
+  
+  data <- data %>% 
     dplyr::select(iare_name,
                   everything(),
                   -ends_with("_rse"),
