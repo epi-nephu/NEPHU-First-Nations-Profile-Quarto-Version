@@ -1298,6 +1298,10 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
+`r note_caveat_iare_ratio`
+
+<div style="height: 1em;"></div>
+
 `r note_caveat_admissions`
 
 <div style="height: 1em;"></div>
@@ -1426,6 +1430,10 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
+`r note_caveat_iare_ratio`
+
+<div style="height: 1em;"></div>
+
 `r note_caveat_admissions`
 
 <div style="height: 2em;"></div>
@@ -1550,6 +1558,10 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
+`r note_caveat_iare_ratio`
+
+<div style="height: 1em;"></div>
+
 `r note_caveat_admissions`
 
 <div style="height: 2em;"></div>
@@ -1663,6 +1675,12 @@ table %>%
 `r note_caveat_underidentification`
 
 `r note_caveat_iare_nephu`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_iare_ratio`
+
+<div style="height: 2em;"></div>
 :::
 
 ### Urgent Presentations
@@ -1765,6 +1783,14 @@ table %>%
 
 `r note_caveat_iare_nephu`
 
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_iare_ratio`
+
+<div style="height: 1em;"></div>
+
 - *Urgent emergency presentations* are defined as those with a triage category of urgent (requiring treatment within 30 minutes of arrival).
+
+<div style="height: 2em;"></div>
 :::
 
