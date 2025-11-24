@@ -87,6 +87,12 @@ note_caveat_household <- glue::glue("
 note_caveat_iare_nephu <- glue::glue("
 - IAREs that are partly or entirely within the NEPHU catchment include: Craigieburn/Sunbury (Craigieburn), Knox, Maroondah, Melbourne East (Melbourne (E)), Melbourne North-East (Melbourne (NE)), Melbourne/Port Phillip (Port Phillip), Moreland/Broadmeadows (Broadmeadows), Northcote/Preston/Whittlesea (Northcote), Whitehorse, and Yarra Ranges.")
 
+note_caveat_iare_ratio <- glue::glue("
+- The standardised ratio compares the age-standardised rate in each IARE (the observed value) with the age-standardised rate for Greater Melbourne (the expected value).
+  - A ratio of 100 indicates that there is no difference between the IARE and Greater Melbourne overall.
+  - A ratio above 100 indicates a higher than expected rate compared with Greater Melbourne.
+  - A ratio below 100 indicates a lower than expected rate compared with Greater Melbourne.")
+
 note_caveat_iare_suppress <- glue::glue("
 - IAREs marked with 'Data not available' or '--' have data suppressed due to small numbers.")
 
