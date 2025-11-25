@@ -51,6 +51,7 @@ book:
         - chapters/10b_consequences_disability.qmd
         - chapters/10c_consequences_arthritis.qmd
         - chapters/10d_consequences_asthma.qmd
+        - chapters/10e_consequences_cancer.qmd
     - references.qmd
 
 bibliography: references.bib
