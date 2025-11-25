@@ -52,6 +52,7 @@ book:
         - chapters/10c_consequences_arthritis.qmd
         - chapters/10d_consequences_asthma.qmd
         - chapters/10e_consequences_cancer.qmd
+        - chapters/10f_consequences_diabetes.qmd
     - references.qmd
 
 bibliography: references.bib
