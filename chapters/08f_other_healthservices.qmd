@@ -1331,7 +1331,7 @@ hospital_acute <- hospital_acute %>%
 
 - Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases).
 
-- During the four-year period 01 July 2017 to 30 June 2021 there were 2,247 hospital admissions for acute potentially preventable conditions for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne. *Acute potentially preventable conditions* includes conditions such as cellulitis, acute convulsions and epilepsy, dental conditions, ear nose and throat infections, eclampsia, gangrene, pelvic inflammatory disease, perforated/bleeding ulcers, pneumonia, and urinary tract infections.
+- During the four-year period 01 July 2017 to 30 June 2021 there were 2,247 hospital admissions for acute potentially preventable conditions for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne. Acute potentially preventable conditions includes conditions such as cellulitis, acute convulsions and epilepsy, dental conditions, ear nose and throat infections, eclampsia, gangrene, pelvic inflammatory disease, perforated/bleeding ulcers, pneumonia, and urinary tract infections.
 
 - The number of admissions for acute potentially preventable conditions for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 340 (Northcote/Preston/Whittlesea IARE) to 34 (Maroondah IARE).
 
@@ -1340,7 +1340,7 @@ hospital_acute <- hospital_acute %>%
 - 3 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for acute potentially preventable conditions for Aboriginal and/or Torres Strait Islander people above the average for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Northcote/Preston/Whittlesea, Moreland/Broadmeadows, and Whitehorse IAREs).
 
 ::: {.callout-tip title="ICD-10-AM codes and definitions for this topic" icon=false collapse=false}
-Admissions for *acute preventable conditions* are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+Admissions for acute preventable conditions are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
 
   - Cellulitis: L02, L03, L04, L08, L88, L98.0, L98.3
   - Convulsions and epilepsy: G40, G41, R56
@@ -1459,7 +1459,7 @@ hospital_chronic <- hospital_chronic %>%
 
 - Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases).
 
-- During the four-year period 01 July 2017 to 30 June 2021 there were 2,096 hospital admissions for chronic potentially preventable conditions for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne. *Chronic potentially preventable conditions* include chronic heart conditions, chronic lung conditions, diabetes, nutritional deficiencies, and hypertension.
+- During the four-year period 01 July 2017 to 30 June 2021 there were 2,096 hospital admissions for chronic potentially preventable conditions for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne. Chronic potentially preventable conditions include chronic heart conditions, chronic lung conditions, diabetes, nutritional deficiencies, and hypertension.
 
 - The number of admissions for chronic potentially preventable conditions for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 403 (Northcote/Preston/Whittlesea IARE) to 24 (Whitehorse IARE).
 
@@ -1468,7 +1468,7 @@ hospital_chronic <- hospital_chronic %>%
 - 4 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for chronic potentially preventable conditions for Aboriginal and/or Torres Strait Islander people above the average for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Maroondah, Northcote/Preston/Whittlesea, Craigieburn/Sunbury, and Moreland/Broadmeadows IAREs).
 
 ::: {.callout-tip title="ICD-10-AM codes and definitions for this topic" icon=false collapse=false}
-Admissions for *chronic preventable conditions* are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+Admissions for chronic preventable conditions are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
 
   - Angina: I20, I24.0, I24.8, I24.9
   - Asthma: J45, J46
@@ -1703,7 +1703,7 @@ emergency_urgent <- emergency_urgent %>%
 
 - Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases).
 
-- Between 01 July 2019 and 30 June 2020 there were 6,139 urgent emergency department presentations for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne. *Urgent emergency presentations* were defined as those with a triage category of urgent (requiring treatment within 30 minutes of arrival).
+- Between 01 July 2019 and 30 June 2020 there were 6,139 urgent emergency department presentations for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne. Urgent emergency presentations are defined as those with a triage category of urgent (requiring treatment within 30 minutes of arrival).
 
 - The number of urgent emergency department presentations for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 954 (Northcote/Preston/Whittlesea IARE) to 90 (Whitehorse IARE).
 

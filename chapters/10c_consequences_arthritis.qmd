@@ -617,7 +617,7 @@ hospital_musculo <- hospital_musculo %>%
 - 5 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for musculoskeletal system and connective tissue diseases above the average rate for all Australian Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Craigieburn/Sunbury, Whitehorse, Melbourne/Port Phillip, Yarra Ranges, and Maroondah IAREs).
 
 ::: {.callout-tip title="ICD-10-AM codes and definitions for this topic" icon=false collapse=false}
-Admissions for *musculoskeletal system and connective tissue diseases* are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+Admissions for musculoskeletal system and connective tissue diseases are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
 
   - M00-M25: Arthropathies
   - M30-M36: Systemic connective tissue disorders
@@ -741,7 +741,7 @@ emergency_musculo <- emergency_musculo %>%
 - 4 of the 10 IAREs in the NEPHU catchment area had an age-standardised rate of emergency department presentations for musculoskeletal system and connective tissue diseases for Aboriginal and/or Torres Strait Islander people above the average for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Maroondah,  Northcote/Preston/Whittlesea, and Melbourne North-East IAREs).
 
 ::: {.callout-tip title="ICD-10-AM codes and definitions for this topic" icon=false collapse=false}
-Emergency department presentations for *musculoskeletal system and connective tissue diseases* are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+Emergency department presentations for musculoskeletal system and connective tissue diseases are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
 
   - M00-M25: Arthropathies
   - M30-M36: Systemic connective tissue disorders
