@@ -274,7 +274,7 @@ table %>%
 
 `r note_caveat_unknown_agesex`
 
-- As the Census question did not distinguish between osteoarthritis and rheumatoid arthritis, these data include people reporting either form of arthritis.
+- Census respondents may have reported osteoarthritis and/or rheumatoid arthritis in response to this question.
 :::
 
 ::: {style="opacity: 0.8;"}
