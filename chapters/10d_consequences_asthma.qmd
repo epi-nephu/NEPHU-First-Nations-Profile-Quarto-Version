@@ -1,0 +1,547 @@
+---
+title: "Asthma and Allergies"
+---
+
+```{r}
+#
+source(here::here("setup.R"))
+source(here::here("setup_footnotes.R"))
+
+# Set up numbering for exporting tables as .csv
+table_section <- "10D"
+table_count   <- 0
+
+figure_count <- 0
+```
+
+::: {.caveat-box}
+**A note about the impact of under-identification**
+
+`r note_box_underidentification`
+
+**A note about interpreting observed vs. expected figures**
+
+`r note_box_obsexp`
+:::
+
+<div style="height: 2em;"></div>
+
+::: {.key-question}
+What chronic health conditions are experienced by Aboriginal and/or Torres Strait Islander peoples in the NEPHU catchment?
+:::
+
+## Asthma
+
+### Self-Reported Asthma
+
+```{r}
+# ------------------------------------------------------------------------------
+# Asthma, by LGA
+# Data from ABS Census using TableBuilderPro
+# ------------------------------------------------------------------------------
+# Read in Census data
+asthma_lga <- f_read_census_lga("Aboriginal_Health_Asthma_LGA.csv",
+                                variable = "asthma") %>% 
+  #
+  dplyr::filter(asthma != "Not stated")
+
+# Data wrangling
+asthma_lga <- asthma_lga %>%
+  #
+  dplyr::mutate(asthma = dplyr::case_when(
+    asthma == "Has asthma" ~ "yes",
+    TRUE ~ "no")) %>% 
+  #
+  f_wrangle_census_lga(variable = asthma,
+                       level    = "person",
+                       dichot   = "yes")
+
+# ------------------------------------------------------------------------------
+# Asthma, by age and sex
+# Data from ABS Census using TableBuilderPro
+# ------------------------------------------------------------------------------
+# Read in Census data
+asthma_agesex <- f_read_census_agesex("Aboriginal_Health_Asthma_AgeSex.csv",
+                                      variable = "asthma") %>% 
+  #
+  dplyr::filter(asthma != "Not stated")
+
+# Data wrangling
+asthma_agesex <- asthma_agesex %>% 
+  #
+  dplyr::mutate(asthma = dplyr::case_when(
+    asthma == "Has asthma" ~ "yes",
+    TRUE ~ "no")) %>%  
+  #
+  f_wrangle_census_agesex(variable = asthma,
+                          dichot   = "yes")
+```
+
+- Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
+
+- Overall, 17% (n = 1,902) of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census have been told by a doctor or nurse that they have asthma. This was higher than for non-Indigenous people living in the NEPHU catchment (8.5%).
+
+- The number of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who have been told by a doctor or nurse that they have asthma ranged from 388 (Whittlesea LGA) to 25 (Manningham LGA).
+
+- The gap between the observed number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have asthma and the number expected if the rate was the same as for non-Indigenous people was biggest for Whittlesea and Hume LGAs.
+
+- The percentage of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who have been told by a doctor or nurse that they have asthma ranged from 18% (Maroondah, Whittlesea, and Hume LGAs) to 8.8% (Manningham LGA).
+
+- The number of people who have been told by a doctor or nurse that they have asthma was highest for people aged 20-29 years for both males and females.
+
+::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+The following question was asked of all people completing the ABS Census 2021.
+
+- Has the person been told by a doctor or nurse that they have any of these long-term health conditions? (Select all that apply)
+  - Arthritis
+  - Asthma
+  - Cancer (including remission)
+  - Dementia (including Alzheimer's)
+  - Diabetes (including gestational diabetes)
+  - Heart disease (including heart attack or angina)
+  - Kidney disease
+  - Lung condition (including COPD or emphysema)
+  - Mental health condition (including depression or anxiety)
+  - Stroke
+  - Any other long-term health condition(s)
+  - No long-term health condition
+
+<div style="height: 2em;"></div>
+:::
+
+:::: {.panel-tabset}
+
+#### Figure 10D-1
+
+::: {#fig_10D_1 .fig-tab-title}
+**Figure 10D-1:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who have been told by a doctor or nurse that they have asthma, NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+figure_number <- asthma_lga %>% 
+  f_bar_simple_lga(y_variable = aboriginal_n,
+                   y_max      = NA,
+                   y_breaks   = 50,
+                   y_expand   = 25)
+
+figure_percent <- asthma_lga %>% 
+  f_bar_simple_lga(y_variable = aboriginal_prop,
+                   y_max      = 25,
+                   y_breaks   = 5,
+                   y_expand   = 0.5)
+
+f_bar_simple_combine(figure_number, figure_percent)
+```
+
+#### Figure 10D-2
+
+::: {#fig_10D_2 .fig-tab-title}
+**Figure 10D-2:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have asthma, NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+asthma_lga %>% 
+  f_bar_obsexp_lga(y_max    = NA,
+                   y_breaks = 50,
+                   y_expand = 25)
+```
+
+#### Table 10D-1
+
+::: {#tab_10D_1 .fig-tab-title}
+**Table 10D-1:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have asthma, NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- asthma_lga %>%
+  f_preptable_obsexp_lga()
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  f_table_obsexp(column_name = "LGA",
+                 header_name = " ")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+#### Figure 10D-3
+
+::: {#fig_10D_3 .fig-tab-title}
+**Figure 10D-3:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who have been told by a doctor or nurse that they have asthma, NEPHU catchment, by age and sex, 2021
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+figure_number <- asthma_agesex %>% 
+  f_bar_grouped_agesex(y_variable = aboriginal_n,
+                       y_max      = NA,
+                       y_breaks   = 25,
+                       y_expand   = 15)
+
+figure_percent <- asthma_agesex %>% 
+  f_bar_grouped_agesex(y_variable = aboriginal_prop,
+                       y_max      = 50,
+                       y_breaks   = 5,
+                       y_expand   = 0.5)
+
+f_bar_grouped_combine(figure_number, figure_percent)
+```
+
+#### Figure 10D-4
+
+::: {#fig_10D_4 .fig-tab-title}
+**Figure 10D-4:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have asthma, NEPHU catchment, by age and sex, 2021
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+asthma_agesex %>% 
+  f_bar_obsexp_agesex(y_max    = NA,
+                      y_breaks = 25,
+                      y_expand = 15)
+```
+
+#### Table 10D-2
+
+::: {#tab_10D_2 .fig-tab-title}
+**Table 10D-2:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have asthma, NEPHU catchment, by age and sex, 2021
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- asthma_agesex %>%
+  f_preptable_obsexp_agesex()
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::filter(sex == "Female") %>%
+  #
+  dplyr::select(-sex) %>% 
+  #
+  f_table_obsexp(total_row   = nrow(table) / 2,
+                 column_name = "Age group",
+                 header_name = "Female")
+
+table %>% 
+  dplyr::filter(sex == "Male") %>%
+  #
+  dplyr::select(-sex) %>% 
+  #
+  f_table_obsexp(total_row   = nrow(table) / 2,
+                 column_name = "Age group",
+                 header_name = "Male")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_census`
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+`r note_caveat_unknown_agesex`
+:::
+
+### Hospital Admissions
+
+```{r}
+# ------------------------------------------------------------------------------
+# Hospitalisations - asthma
+# Data from PHIDU Social Health Atlas
+# ------------------------------------------------------------------------------
+# Read in PHIDU data
+hospital_asthma <- f_read_phidu_iare_hospital(data_sheet    = "Admissions_principal_diag",
+                                              column_select = "admissions_for_asthma_aboriginal_people")
+
+# Data wrangling
+hospital_asthma <- hospital_asthma %>% 
+  dplyr::mutate(iare_name = factor(iare_name, levels = iare_inc_vic_lvl)) %>% 
+  #
+  dplyr::arrange(iare_name)
+```
+
+- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases).
+
+- During the four-year period 01 July 2017 to 30 June 2021 there were 292 hospital admissions for asthma for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
+
+- The number of admissions for asthma for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 51 (Northcote/Preston/Whittlesea IARE) to 6 (Melbourne East IARE).
+
+- The age-standardised rate of admissions for asthma for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 287 per 100,000 population (Northcote/Preston/Whittlesea IARE) to 93 per 100,000 population (Melbourne East IARE).
+
+- 3 of the 8 IAREs in the NEPHU catchment area with data available for reporting had an age-standardised admission rate for asthma above the average rate for all Australian Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Northcote/Preston/Whittlesea, Yarra Ranges, and Moreland/Broadmeadows IAREs).
+
+::: {.callout-tip title="ICD-10-AM codes and definitions for this topic" icon=false collapse=false}
+Admissions for asthma are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+
+  - J45.0: Predominantly allergic asthma
+  - J45.1: Non-allergic asthma
+  - J45.8: Mixed asthma
+  - J45.9: Asthma (unspecified)
+  - J46: Status asthmaticus
+
+<div style="height: 2em;"></div>
+:::
+
+:::: {.panel-tabset}
+
+#### Figure 10D-5
+
+::: {#fig_10D_5 .fig-tab-title}
+**Figure 10D-5:** Number and age-standardised rate (per 100,000 population) of hospital admissions for asthma for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+figure_number <- hospital_asthma %>% 
+  f_bar_simple_iare(y_variable = aboriginal_n,
+                    y_max      = NA,
+                    y_breaks   = 10,
+                    y_expand   = 10,
+                    hospital   = "admission")
+
+figure_percent <- hospital_asthma %>% 
+  f_bar_simple_iare(y_variable = aboriginal_rate,
+                    y_max      = NA,
+                    y_breaks   = 50,
+                    y_expand   = 20,
+                    hospital   = "admission")
+
+f_bar_simple_combine(figure_number, figure_percent)
+```
+
+#### Table 10D-3
+
+::: {#tab_10D_3 .fig-tab-title}
+**Table 10D-3:** Hospital admissions for asthma for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- hospital_asthma %>%
+  dplyr::select(-iare_name_short)
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(aboriginal_rate = round(aboriginal_rate, digits = 0),
+                hospital_ratio  = round(hospital_ratio, digits = 0)) %>%
+  #
+  f_table_simple(iare     = "yes",
+                 hospital = "admission")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_phidu_vaed`
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+`r note_caveat_iare_nephu`
+
+`r note_caveat_iare_suppress`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_iare_ratio`
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_admissions`
+
+<div style="height: 2em;"></div>
+:::
+
+::: {style="opacity: 0.8;"}
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+:::
+
+## Allergic Rhinitis
+
+```{r}
+# ------------------------------------------------------------------------------
+# Allergic rhinitis (hay fever)
+# Data from ABS National Aboriginal and Torres Strait Islander Health Survey
+# ------------------------------------------------------------------------------
+# Read in NATSIHS data
+allergy <- f_read_natsihs_sex("Indicator_Vic_Sex_Chronic_Conditions.csv")
+
+# Data wrangling
+allergy <- allergy %>% 
+  dplyr::rowwise() %>% 
+  dplyr::mutate(noallergy_n = total_n - hay_fever_and_allergic_rhinitis_n) %>% 
+  dplyr::ungroup() %>% 
+  #
+  janitor::adorn_totals(fill = "Total") %>%
+  #
+  dplyr::rename(yesallergy_n = hay_fever_and_allergic_rhinitis_n,
+                answered_n   = total_n) %>% 
+  #
+  dplyr::mutate(yesallergy_prop = yesallergy_n / answered_n * 100,
+                noallergy_prop  = noallergy_n / answered_n * 100,
+                answered_prop   = answered_n / answered_n * 100) %>% 
+  #
+  dplyr::select(sex,
+                starts_with("yesallergy"),
+                starts_with("noallergy"),
+                starts_with("answered")) %>% 
+  #
+  tidyr::pivot_longer(!sex,
+                      names_to = c("answer", ".value"),
+                      names_pattern = "(.+)_(.+)") %>% 
+  #
+  dplyr::mutate(answer = factor(dplyr::recode(answer,
+                                              "yesallergy" = "Yes",
+                                              "noallergy"  = "No",
+                                              "answered"   = "Total"),
+                                levels = c("Yes",
+                                           "No",
+                                           "Total")))
+```
+
+- Data for this topic were obtained from the [2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release).
+
+- Overall, 37% of Aboriginal and/or Torres Strait Islander survey respondents living in Greater Melbourne reported that they were living with allergic rhinitis (hay fever). This equates to approximately 14,200 Aboriginal and/or Torres Strait Islander people.
+
+- The percentage of people living with allergic rhinitis (hay fever) was similar for males and females (36% vs. 37%).
+
+::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+The following questions were asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+
+- Do you have any of the following conditions that have lasted, or are expected to last, for six months or longer? (Select all that apply)
+  - Hay fever
+  - Sinusitis or sinus allergy
+  - Food allergy
+  - Drug allergy
+  - Anaemia
+  - Bronchitis
+  - Endometriosis
+  - Polycystic ovary syndrome (PCOS)
+  - Fluid problems, fluid retention, or oedema (excluding those due to a heart or circulatory condition)
+  - Hernias
+  - Kidney stones
+  - Migraine
+  - Psoriasis
+  - Stomach ulcers or other gastrointestinal ulcers
+  - Thyroid trouble or goitre
+  - Slipped disc or other disc problems
+  - Back pain or other back problems
+  - None of the above
+  
+<div style="height: 1em;"></div>
+
+- If yes, were you told that you have this condition by a doctor or nurse?
+  - Yes
+  - No
+
+<div style="height: 2em;"></div>
+:::
+
+:::: {.panel-tabset}
+
+#### Table 10D-4
+
+::: {#tab_10D_4 .fig-tab-title}
+**Table 10D-4:** Self-reported allergic rhinitis (hay fever) for people who identified as Aboriginal and/or Torres Strait Islander, Victoria, by sex, 2022-2023
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- allergy %>% 
+  tidyr::pivot_wider(names_from  = "sex",
+                     values_from = c("n", "prop"),
+                     names_vary  = "slowest") %>% 
+  #
+  janitor::clean_names() %>% 
+  #
+  dplyr::rename(allergic_rhinitis = answer)
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(prop_male   = sprintf("%.1f", prop_male),
+                prop_female = sprintf("%.1f", prop_female),
+                prop_total  = sprintf("%.1f", prop_total)) %>%
+  #
+  f_table_grouped_sex(n_variable  = "estimate",
+                      column_name = "Allergic rhinitis<br>(hay fever)")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_natsihs`
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+`r note_caveat_survey_unknown`
+
+`r note_caveat_survey_estimate`
+:::
+
