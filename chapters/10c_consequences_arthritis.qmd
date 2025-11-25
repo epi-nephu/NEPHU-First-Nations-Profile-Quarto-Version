@@ -95,7 +95,7 @@ The following question was asked of all people completing the ABS Census 2021.
   - Asthma
   - Cancer (including remission)
   - Dementia (including Alzheimer's)
-  - Diabetes (including gestational diabetes)
+  - Diabetes (excluding gestational diabetes)
   - Heart disease (including heart attack or angina)
   - Kidney disease
   - Lung condition (including COPD or emphysema)
