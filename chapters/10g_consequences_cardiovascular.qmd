@@ -537,7 +537,7 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
 :::
 
-## Stroke
+## Self-Reported Stroke
 
 ```{r}
 # ------------------------------------------------------------------------------

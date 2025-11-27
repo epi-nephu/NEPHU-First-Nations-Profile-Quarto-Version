@@ -409,7 +409,7 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
 :::
 
-## Allergic Rhinitis
+## Self-Reported Allergic Rhinitis
 
 ```{r}
 # ------------------------------------------------------------------------------
