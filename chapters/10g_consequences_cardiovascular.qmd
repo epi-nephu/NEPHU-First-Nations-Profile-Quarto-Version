@@ -440,7 +440,7 @@ hospital_failure <- hospital_failure %>%
 ::: {.callout-tip title="ICD-10-AM codes and definitions for this topic" icon=false collapse=false}
 Admissions for heart failure are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
 
-  - I50: heart failure
+  - I50: Heart failure
 
 <div style="height: 2em;"></div>
 :::
