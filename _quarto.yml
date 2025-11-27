@@ -2,7 +2,7 @@ project:
   type: book
 
 book:
-  title: "NEPHU First Nations Population Profile"
+  title: "Gumunatj Ngarrngatj:<br>The NEPHU First Nations Population Profile"
   chapters:
     - index.qmd
     - part: "1. Introduction"
@@ -54,6 +54,7 @@ book:
         - chapters/10e_consequences_cancer.qmd
         - chapters/10f_consequences_diabetes.qmd
         - chapters/10g_consequences_cardiovascular.qmd
+        - chapters/10h_consequences_kidney.qmd
     - references.qmd
 
 bibliography: references.bib
