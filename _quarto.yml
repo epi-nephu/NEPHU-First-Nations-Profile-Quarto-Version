@@ -55,6 +55,7 @@ book:
         - chapters/10f_consequences_diabetes.qmd
         - chapters/10g_consequences_cardiovascular.qmd
         - chapters/10h_consequences_kidney.qmd
+        - chapters/10i_consequences_lung.qmd
     - references.qmd
 
 bibliography: references.bib
