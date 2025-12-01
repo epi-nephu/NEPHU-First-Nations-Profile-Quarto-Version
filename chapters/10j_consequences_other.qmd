@@ -288,8 +288,6 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 
 ## Acute Ear, Nose, and Throat Infections
 
-### Hospital Admissions
-
 ```{r}
 # ------------------------------------------------------------------------------
 # Hospitalisations - acute ear, nose, and throat infections
