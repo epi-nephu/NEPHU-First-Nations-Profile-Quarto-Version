@@ -56,6 +56,7 @@ book:
         - chapters/10g_consequences_cardiovascular.qmd
         - chapters/10h_consequences_kidney.qmd
         - chapters/10i_consequences_lung.qmd
+        - chapters/10j_consequences_other.qmd
     - references.qmd
 
 bibliography: references.bib
