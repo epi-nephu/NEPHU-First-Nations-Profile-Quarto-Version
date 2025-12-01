@@ -439,7 +439,7 @@ hospital_kidney <- hospital_kidney %>%
 
 - The age-standardised rate of admissions for chronic kidney disease for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 395 per 100,000 population (Maroondah IARE) to 58 per 100,000 population (Yarra Ranges IARE).
 
-- 6 of the 8 IAREs in the NEPHU catchment area with data available for reporting had an age-standardised admission rate for chronic kidney disease above the average rate for all Australian Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Maroondah, Northcote/Preston/Whittlesea, Melbourne East, Whitehorse, Moreland/Broadmeadows, and Melbourne/Port Phillip IAREs).
+- 6 of the 8 IAREs in the NEPHU catchment area with data available for reporting had an age-standardised admission rate for chronic kidney disease above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Maroondah, Northcote/Preston/Whittlesea, Melbourne East, Whitehorse, Moreland/Broadmeadows, and Melbourne/Port Phillip IAREs).
 
 ::: {.callout-tip title="ICD-10-AM codes and definitions for this topic" icon=false collapse=false}
 Admissions for chronic kidney disease are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
@@ -581,7 +581,7 @@ hospital_dialysis <- hospital_dialysis %>%
 
 - The age-standardised rate of same day hospital admissions for dialysis for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 13,438 per 100,000 population (Melbourne/Port Phillip IARE) to 990 per 100,000 population (Yarra Ranges IARE).
 
-- 3 of the 7 IAREs in the NEPHU catchment area with data available for reporting had an age-standardised same day admission rate for dialysis above the average rate for all Australian Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Northcote/Preston/Whittlesea, and Craigieburn/Sunbury IAREs).
+- 3 of the 7 IAREs in the NEPHU catchment area with data available for reporting had an age-standardised same day admission rate for dialysis above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Northcote/Preston/Whittlesea, and Craigieburn/Sunbury IAREs).
 
 ::: {.callout-tip title="ICD-10-AM codes and definitions for this topic" icon=false collapse=false}
 Admissions for dialysis are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):

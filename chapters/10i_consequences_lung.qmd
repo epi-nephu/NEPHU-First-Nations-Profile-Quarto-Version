@@ -303,7 +303,7 @@ hospital_lung <- hospital_lung %>%
 
 - The age-standardised rate of admissions for respiratory system diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 2,490 per 100,000 population (Maroondah IARE) to 692 per 100,000 population (Whitehorse IARE).
 
-- 5 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for respiratory system diseases above the average rate for all Australian Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Maroondah, Melbourne/Port Phillip, Northcote/Preston/Whittlesea, Craigieburn/Sunbury, and Moreland/Broadmeadows IAREs).
+- 5 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for respiratory system diseases above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Maroondah, Melbourne/Port Phillip, Northcote/Preston/Whittlesea, Craigieburn/Sunbury, and Moreland/Broadmeadows IAREs).
 
 ::: {.callout-tip title="ICD-10-AM codes and definitions for this topic" icon=false collapse=false}
 Admissions for respiratory system diseases are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
@@ -431,7 +431,7 @@ emergency_lung <- emergency_lung %>%
 
 - The age-standardised rate of emergency department presentations for respiratory system diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 4,211 per 100,000 population (Melbourne/Port Phillip IARE) to 2,211 per 100,000 population (Yarra Ranges IARE).
 
-- 4 of the 9 IAREs in the NEPHU catchment area with data available for reporting had an age-standardised rate of emergency department presentations for respiratory system diseases for Aboriginal and/or Torres Strait Islander people above the average for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Maroondah, Northcote/Preston/Whittlesea, and Melbourne North-East IAREs).
+- 4 of the 9 IAREs in the NEPHU catchment area with data available for reporting had an age-standardised rate of emergency department presentations for respiratory system diseases above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Maroondah, Northcote/Preston/Whittlesea, and Melbourne North-East IAREs).
 
 ::: {.callout-tip title="ICD-10-AM codes and definitions for this topic" icon=false collapse=false}
 Emergency department presentations for respiratory system diseases are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
@@ -647,7 +647,7 @@ The following questions were asked of all people completing the 2022-23 ABS Nati
 table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
-table <-  copd %>% 
+table <- copd %>% 
   tidyr::pivot_wider(names_from  = "sex",
                      values_from = c("n", "prop"),
                      names_vary  = "slowest") %>% 
@@ -717,10 +717,10 @@ hospital_copd <- hospital_copd %>%
 
 - The age-standardised rate of admissions for COPD for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 589 per 100,000 population (Moreland/Broadmeadows IARE) to 152 per 100,000 population (Melbourne East IARE).
 
-- 5 of the 9 IAREs in the NEPHU catchment area with data available for reporting had an age-standardised admission rate for COPD above the average rate for all Australian Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Moreland/Broadmeadows, Craigieburn/Sunbury, Maroondah, Northcote/Preston/Whittlesea, and Melbourne/Port Phillip IAREs).
+- 5 of the 9 IAREs in the NEPHU catchment area with data available for reporting had an age-standardised admission rate for COPD above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Moreland/Broadmeadows, Craigieburn/Sunbury, Maroondah, Northcote/Preston/Whittlesea, and Melbourne/Port Phillip IAREs).
 
 ::: {.callout-tip title="ICD-10-AM codes and definitions for this topic" icon=false collapse=false}
-Admissions for chronic onstructive pulmonary disease (COPD) are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+Admissions for chronic obstructive pulmonary disease (COPD) are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
 
   - J40: Bronchitis, not specified as acute or chronic
   - J41: Simple and mucopurulent chronic bronchitis

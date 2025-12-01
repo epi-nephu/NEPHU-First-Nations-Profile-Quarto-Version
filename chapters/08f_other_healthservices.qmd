@@ -1222,7 +1222,7 @@ hospital_total <- hospital_total %>%
 
 - The age-standardised rate of admissions for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 34,280 per 100,000 population (Melbourne/Port Phillip IARE) to 21,370 per 100,000 population (Knox IARE).
 
-- 5 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate above the average for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Northcote/Preston/Whittlesea, Moreland/Broadmeadows, Craigieburn/Sunbury, and Whitehorse IAREs).
+- 5 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Northcote/Preston/Whittlesea, Moreland/Broadmeadows, Craigieburn/Sunbury, and Whitehorse IAREs).
 
 :::: {.panel-tabset}
 
@@ -1274,8 +1274,8 @@ if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
 }
 
 table %>% 
-  dplyr::mutate(aboriginal_rate = format(round(aboriginal_rate, digits = 0), big.mark = ","),
-                hospital_ratio  = sprintf("%.0f", hospital_ratio)) %>% 
+  dplyr::mutate(aboriginal_rate = round(aboriginal_rate, digits = 0),
+                hospital_ratio  = round(hospital_ratio, digits = 0)) %>% 
   #
   f_table_simple(iare     = "yes",
                  hospital = "admission")
@@ -1337,7 +1337,7 @@ hospital_acute <- hospital_acute %>%
 
 - The age-standardised rate of admissions for acute potentially preventable conditions for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 1,914 per 100,000 population (Northcote/Preston/Whittlesea IARE) to 1,015 per 100,000 population (Maroondah IARE).
 
-- 3 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for acute potentially preventable conditions for Aboriginal and/or Torres Strait Islander people above the average for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Northcote/Preston/Whittlesea, Moreland/Broadmeadows, and Whitehorse IAREs).
+- 3 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for acute potentially preventable conditions above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Northcote/Preston/Whittlesea, Moreland/Broadmeadows, and Whitehorse IAREs).
 
 ::: {.callout-tip title="ICD-10-AM codes and definitions for this topic" icon=false collapse=false}
 Admissions for acute preventable conditions are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
@@ -1406,8 +1406,8 @@ if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
 }
 
 table %>% 
-  dplyr::mutate(aboriginal_rate = format(round(aboriginal_rate, digits = 0), big.mark = ","),
-                hospital_ratio  = sprintf("%.0f", hospital_ratio)) %>% 
+  dplyr::mutate(aboriginal_rate = round(aboriginal_rate, digits = 0),
+                hospital_ratio  = round(hospital_ratio, digits = 0)) %>% 
   #
   f_table_simple(iare     = "yes",
                  hospital = "admission")
@@ -1465,7 +1465,7 @@ hospital_chronic <- hospital_chronic %>%
 
 - The age-standardised rate of admissions for chronic potentially preventable conditions for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 2,682 per 100,000 population (Maroondah IARE) to 534 per 100,000 population (Melbourne East IARE).
 
-- 4 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for chronic potentially preventable conditions for Aboriginal and/or Torres Strait Islander people above the average for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Maroondah, Northcote/Preston/Whittlesea, Craigieburn/Sunbury, and Moreland/Broadmeadows IAREs).
+- 4 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Maroondah, Northcote/Preston/Whittlesea, Craigieburn/Sunbury, and Moreland/Broadmeadows IAREs).
 
 ::: {.callout-tip title="ICD-10-AM codes and definitions for this topic" icon=false collapse=false}
 Admissions for chronic preventable conditions are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
@@ -1534,8 +1534,8 @@ if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
 }
 
 table %>% 
-  dplyr::mutate(aboriginal_rate = format(round(aboriginal_rate, digits = 0), big.mark = ","),
-                hospital_ratio  = sprintf("%.0f", hospital_ratio)) %>% 
+  dplyr::mutate(aboriginal_rate = round(aboriginal_rate, digits = 0),
+                hospital_ratio  = round(hospital_ratio, digits = 0)) %>% 
   #
   f_table_simple(iare     = "yes",
                  hospital = "admission")
@@ -1602,7 +1602,7 @@ emergency_total <- emergency_total %>%
 
 - The age-standardised rate of emergency department presentations for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 57,485 per 100,000 population (Melbourne/Port Phillip IARE) to 33,003 per 100,000 population (Melbourne East IARE).
 
-- 4 of the 10 IAREs in the NEPHU catchment area had an age-standardised rate of emergency department presentations for Aboriginal and/or Torres Strait Islander people above the average for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Northcote/Preston/Whittlesea, Melbourne North-East, and Moreland/Broadmeadows IAREs).
+- 4 of the 10 IAREs in the NEPHU catchment area had an age-standardised rate of emergency department presentations above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Northcote/Preston/Whittlesea, Melbourne North-East, and Moreland/Broadmeadows IAREs).
 
 :::: {.panel-tabset}
 
@@ -1654,8 +1654,8 @@ if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
 }
 
 table %>% 
-  dplyr::mutate(aboriginal_rate = format(round(aboriginal_rate, digits = 0), big.mark = ","),
-                hospital_ratio  = sprintf("%.0f", hospital_ratio)) %>% 
+  dplyr::mutate(aboriginal_rate = round(aboriginal_rate, digits = 0),
+                hospital_ratio  = round(hospital_ratio, digits = 0)) %>% 
   #
   f_table_simple(iare     = "yes",
                  hospital = "emergency")
@@ -1709,7 +1709,7 @@ emergency_urgent <- emergency_urgent %>%
 
 - The age-standardised rate of urgent emergency department presentations for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 25,679 per 100,000 population (Melbourne/Port Phillip IARE) to 14,616 per 100,000 population (Melbourne East IARE).
 
-- 4 of the 10 IAREs in the NEPHU catchment area had an age-standardised rate of urgent emergency department presentations for Aboriginal and/or Torres Strait Islander people above the average for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Northcote/Preston/Whittlesea, Melbourne North-East, and Moreland/Broadmeadows IAREs).
+- 4 of the 10 IAREs in the NEPHU catchment area had an age-standardised rate of urgent emergency department presentations above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Northcote/Preston/Whittlesea, Melbourne North-East, and Moreland/Broadmeadows IAREs).
 
 :::: {.panel-tabset}
 
@@ -1761,8 +1761,8 @@ if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
 }
 
 table %>% 
-  dplyr::mutate(aboriginal_rate = format(round(aboriginal_rate, digits = 0), big.mark = ","),
-                hospital_ratio  = sprintf("%.0f", hospital_ratio)) %>% 
+  dplyr::mutate(aboriginal_rate = round(aboriginal_rate, digits = 0),
+                hospital_ratio  = round(hospital_ratio, digits = 0)) %>% 
   #
   f_table_simple(iare     = "yes",
                  hospital = "emergency")

@@ -303,7 +303,7 @@ hospital_asthma <- hospital_asthma %>%
 
 - The age-standardised rate of admissions for asthma for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 287 per 100,000 population (Northcote/Preston/Whittlesea IARE) to 93 per 100,000 population (Melbourne East IARE).
 
-- 3 of the 8 IAREs in the NEPHU catchment area with data available for reporting had an age-standardised admission rate for asthma above the average rate for all Australian Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Northcote/Preston/Whittlesea, Yarra Ranges, and Moreland/Broadmeadows IAREs).
+- 3 of the 8 IAREs in the NEPHU catchment area with data available for reporting had an age-standardised admission rate for asthma above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Northcote/Preston/Whittlesea, Yarra Ranges, and Moreland/Broadmeadows IAREs).
 
 ::: {.callout-tip title="ICD-10-AM codes and definitions for this topic" icon=false collapse=false}
 Admissions for asthma are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
@@ -368,7 +368,7 @@ if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
 
 table %>% 
   dplyr::mutate(aboriginal_rate = round(aboriginal_rate, digits = 0),
-                hospital_ratio  = round(hospital_ratio, digits = 0)) %>%
+                hospital_ratio  = round(hospital_ratio, digits = 0)) %>% 
   #
   f_table_simple(iare     = "yes",
                  hospital = "admission")
