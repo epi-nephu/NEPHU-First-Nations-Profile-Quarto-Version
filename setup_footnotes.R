@@ -10,6 +10,9 @@
 note_box_comparisons <- glue::glue("
 Comparisons between Aboriginal and/or Torres Strait Islanders and non-Indigenous people in this section are provided as a rough guide only and should be interpreted with caution. Where different data sources have been used to provide comparisons, data may not be directly comparable due to differences in data collection, geographical areas, definitions, and analysis methods between data sources.")
 
+note_box_notifiable <- glue::glue("
+The notifiable diseases data presented here from the Victorian Public Health Event Surveillance System (PHESS) are for notifications where Aboriginal and/or Torres Strait Islander status was known. The completeness of data on Aboriginal and/or Torres Strait Islander status varies across conditions and over time. Data broken down by Aboriginal and/or Torres Strait Islander status are publicly available for a [selection of conditions at statewide level](https://www.health.vic.gov.au/infectious-diseases/aboriginal-and-torres-strait-islander-summary-state-wide-victoria). Additional data may be made available upon request to the Victorian Department of Health.")
+
 note_box_obsexp <- glue::glue("
 The observed vs. expected charts and tables compare what we see in the data (the observed number) with what we would have seen if there was no gap or difference between Aboriginal and/or Torres Strait Islander people and non-Aboriginal and/or Torres Strait Islander people in each LGA or sex/age group (the expected number). If all things were truly equitable, then the observed and expected numbers within each LGA or within each sex/age group would be the same.")
 
@@ -37,6 +40,13 @@ note_data_natsihs <- glue::glue("
 - Data were obtained from the [2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release).
   - The 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey collected information from Aboriginal and/or Torres Strait Islander people of all ages in non-remote and remote areas of Australia, including discrete Aboriginal and/or Torres Strait Islander communities.
   - Data were collected through face-to-face interviews with survey respondents or their parent/guardian.")
+
+note_data_phess <- glue::glue("
+- Data were obtained from the [Victorian Public Health Event Surveillance System (PHESS)](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria).
+  - PHESS contains data on conditions that are legally required to be notified to the Victorian Department of Health by medical practitioners and pathology services (laboratories) under the Public Health and Wellbeing Act 2008.
+  - Aboriginal and/or Torres Strait Islander peoples were defined based on the recording of Aboriginal and/or Torres Strait Islander status at the time of notification by a pathology service or medical practitioner or as determined during case management and follow-up by Local Public Health Units or the Victorian Department of Health.
+  - Data presented here are for notifications where Aboriginal and/or Torres Strait Islander status was known. The completeness of data on Aboriginal and/or Torres Strait Islander status varies across conditions and over time, as the percentage of notifications signed out for case management and follow-up varies across conditions and has increased since the transition of case management and follow-up to Local Public Health Units during 2022-2023.
+  - Data broken down by Aboriginal and/or Torres Strait Islander status are publicly available for a [selection of conditions at statewide level](https://www.health.vic.gov.au/infectious-diseases/aboriginal-and-torres-strait-islander-summary-state-wide-victoria). Additional data may be made available upon request to the Victorian Department of Health.")
 
 note_data_phidu_perinatal <- glue::glue("
 - Data were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [National Perinatal Data Collection (NPDC)](https://www.aihw.gov.au/about-our-data/our-data-collections/national-perinatal-data-collection).
@@ -98,6 +108,12 @@ note_caveat_iare_suppress <- glue::glue("
 
 note_caveat_multipleresponse <- glue::glue("
 - For survey or Census questions where respondents could select multiple options, counts or estimates may not sum to the total displayed and percentages may not sum to 100%.")
+
+note_caveat_notification_rate <- glue::glue("
+- Notification rates were calculated as the crude rate per 100,000 population, based on population data from the ABS Census 2021.")
+
+note_caveat_pandemic_decrease <- glue::glue("
+- The public health measures implemented during the COVID-19 pandemic impacted the epidemiology of many notifiable conditions, with lower than expected numbers of notifications seen for many conditions during the pandemic.")
 
 note_caveat_survey_agegroups <- glue::glue("
 - Adults were defined as persons aged 18 years and over, and children were defined as people aged 2 to 17 years.")
