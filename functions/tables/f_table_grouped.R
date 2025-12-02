@@ -121,3 +121,38 @@ f_table_grouped_indigenous <- function(data, n_variable, column_name, total_row 
   
 }
 
+################################################################################
+# By Indigenous status (PHESS counts and rates)
+################################################################################
+f_table_grouped_phess <- function(data, total_row = nrow(table), last_column = ncol(table)) {
+  
+  table <- data %>% 
+    knitr::kable(format      = "html",
+                 format.args = list(big.mark = ","),
+                 align       = "lrrrrrrrr",
+                 col.names   = c("Year", 
+                                 "NEPHU<br>(n)", "NEPHU<br>(rate)", 
+                                 "VIC<br>(n)", "VIC<br>(rate)",
+                                 "NEPHU<br>(n)", "NEPHU<br>(rate)",
+                                 "VIC<br>(n)", "VIC<br>(rate)"),
+                 escape      = FALSE) %>%
+    #
+    kableExtra::kable_styling(bootstrap_options = c("hover", "responsive"),
+                              #
+                              full_width = FALSE,
+                              position   = "center",
+                              html_font  = "Arial",
+                              font_size  = 12) %>%
+    #
+    kableExtra::column_spec(2:ncol(table),
+                            width = "0.95in") %>% 
+    #
+    kableExtra::add_header_above(c(" " = 1,
+                                   "Identified as Aboriginal and/or Torres Strait Islander"       = 4,
+                                   "Did not identify as Aboriginal and/or Torres Strait Islander" = 4),
+                                 align = "right")
+  
+  return(table)
+  
+}
+
