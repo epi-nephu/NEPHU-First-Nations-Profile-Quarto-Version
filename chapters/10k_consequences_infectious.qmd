@@ -31,10 +31,10 @@ What infectious diseases affect Aboriginal and/or Torres Strait Islander people 
 :::
 
 ```{r}
-################################################################################
+#-------------------------------------------------------------------------------
 # Notifiable conditions
 # Data from PHESS
-################################################################################
+#-------------------------------------------------------------------------------
 # Read in PHESS data
 cases_all <- read.csv(paste0(here::here(), "/data", "/PHAR_Extract_2015_2024.csv")) 
 
@@ -87,10 +87,10 @@ cases_all <- cases_all %>%
 ### Pertussis (Whooping Cough)
 
 ```{r}
-################################################################################
+#-------------------------------------------------------------------------------
 # Notifiable conditions - pertussis
 # Data from PHESS
-################################################################################
+#-------------------------------------------------------------------------------
 pertussis <- cases_all %>% 
   f_wrangle_phess(condition_name = "Pertussis")
 ```
@@ -133,7 +133,7 @@ pertussis <- cases_all %>%
 figure_count <- figure_count + 1
 
 pertussis %>% 
-  f_bar_stacked_phess(y_max = NA,
+  f_bar_stacked_phess(y_max    = NA,
                       y_breaks = 20,
                       y_expand = 20)
 ```
@@ -157,5 +157,177 @@ pertussis %>%
                             y_expand   = 60)
 ```
 
+#### Table 10K-1
+
+::: {#tab_10K_1 .fig-tab-title}
+**Table 10K-1:** Number of pertussis notifications and notification rate, NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- pertussis %>% 
+  dplyr::select(-indigenous_status,
+                -notnephu_n) %>% 
+  #
+  tidyr::pivot_wider(names_from  = "indigenous_label",
+                     values_from = c("nephu_n", "nephu_rate", "vic_n", "vic_rate"),
+                     names_vary  = "slowest") %>%
+  #
+  janitor::clean_names()
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(nephu_rate_aboriginal     = round(nephu_rate_aboriginal, digits = 1),
+                vic_rate_aboriginal       = round(vic_rate_aboriginal, digits = 1),
+                nephu_rate_non_indigenous = round(nephu_rate_non_indigenous, digits = 1),
+                vic_rate_non_indigenous   = round(vic_rate_non_indigenous, digits = 1)) %>%
+  #
+  f_table_grouped_phess()
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_phess`
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+`r note_caveat_notification_rate`
+
+`r note_caveat_pandemic_decrease`
+:::
+
+### Invasive Meningococcal Disease (IMD)
+
+```{r}
+#-------------------------------------------------------------------------------
+# Notifiable conditions - invasive meningococcal disease
+# Data from PHESS
+#-------------------------------------------------------------------------------
+imd <- cases_all %>% 
+  f_wrangle_phess(condition_name = "IMD")
+```
+
+- Data for this topic were obtained from the [Victorian Public Health Event Surveillance System](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria).
+
+- The most recent notification of invasive meningococcal disease (IMD) for an Aboriginal and/or Torres Strait Islander resident of the NEPHU catchment was in 2018.
+
+- For Victoria overall, the number of notifications and notification rates for IMD have decreased in the years following the COVID-19 pandemic, however the rates of IMD remain higher for Aboriginal and/or Torres Strait Islander people compared to non-Indigenous people.
+
+::: {.callout-tip title="Notification and follow-up requirements" icon=false collapse=false}
+- Invasive meningococcal disease (IMD) is an urgent notifiable condition. Cases must be immediately notified upon initial diagnosis (suspected or confirmed) by medical practitioners and pathology services by telephone to the Department of Health, and pathology services must follow-up with written notification within five days of diagnosis.
+
+<div style="height: 1em;"></div>
+
+- All IMD notifications are signed out for urgent case management and follow-up by Local Public Health Units.
+
+- The management of IMD transitioned from the Victorian Department of Health to Local Public Health Units on 27/02/2023.
+
+<div style="height: 2em;"></div>
+:::
+
+:::: {.panel-tabset}
+
+#### Figure 10K-3
+
+::: {#fig_10K_3 .fig-tab-title}
+**Figure 10K-3:** Number of invasive meningococcal disease notifications for Aboriginal and/or Torres Strait Islander people, Victoria, by year
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+imd %>% 
+  f_bar_stacked_phess(y_max    = 5,
+                      y_breaks = 1,
+                      y_expand = 0.25)
+```
+
+#### Figure 10K-4
+
+::: {#fig_10K_4 .fig-tab-title}
+**Figure 10K-4:** Invasive meningococcal disease notification rate, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+imd %>%
+  dplyr::rename(rate = vic_rate) %>% 
+  #
+  f_line_grouped_indigenous(y_variable = rate,
+                            y_max      = NA,
+                            y_breaks   = 1,
+                            y_expand   = 0.65)
+```
+
+#### Table 10K-2
+
+::: {#tab_10K_2 .fig-tab-title}
+**Table 10K-2:** Number of invasive meningococcal disease notifications and notification rate, NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- imd %>% 
+  dplyr::select(-indigenous_status,
+                -notnephu_n) %>% 
+  #
+  tidyr::pivot_wider(names_from  = "indigenous_label",
+                     values_from = c("nephu_n", "nephu_rate", "vic_n", "vic_rate"),
+                     names_vary  = "slowest") %>%
+  #
+  janitor::clean_names()
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(nephu_rate_aboriginal     = round(nephu_rate_aboriginal, digits = 2),
+                vic_rate_aboriginal       = round(vic_rate_aboriginal, digits = 2),
+                nephu_rate_non_indigenous = round(nephu_rate_non_indigenous, digits = 2),
+                vic_rate_non_indigenous   = round(vic_rate_non_indigenous, digits = 2)) %>%
+  #
+  f_table_grouped_phess()
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_phess`
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+`r note_caveat_notification_rate`
+
+`r note_caveat_pandemic_decrease`
+:::
+
