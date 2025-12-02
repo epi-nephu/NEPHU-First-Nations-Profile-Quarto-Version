@@ -74,6 +74,7 @@ source(here::here("functions", "data prep", "f_read_ctg.R"))
 source(here::here("functions", "data prep", "f_read_framework.R"))
 source(here::here("functions", "data prep", "f_read_naplan.R"))
 source(here::here("functions", "data prep", "f_read_natsihs.R"))
+source(here::here("functions", "data prep", "f_read_phess.R"))
 source(here::here("functions", "data prep", "f_read_phidu.R"))
 source(here::here("functions", "data prep", "f_read_vcsf.R"))
 
@@ -141,6 +142,14 @@ iare_inc_vic_lvl <- c("Craigieburn/Sunbury", "Knox", "Maroondah", "Melbourne Eas
                       "Whitehorse", "Yarra Ranges",
                       #
                       "Greater Melbourne", "Rest of Victoria", "Victoria")
+
+# Population counts for rate calculations
+# Based on ABS Census 2021
+population_vic_aboriginal    <- 65639
+population_vic_nonaboriginal <- 6482401
+
+population_nephu_aboriginal    <- 12065
+population_nephu_nonaboriginal <- 1781207
 
 # ------------------------------------------------------------------------------
 # Colours
