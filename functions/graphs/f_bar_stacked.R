@@ -168,3 +168,67 @@ f_bar_stacked_agesex <- function(data, fill_values, y_max, y_breaks, y_expand, y
   
 }
 
+################################################################################
+# By year (PHESS counts)
+################################################################################
+f_bar_stacked_phess <- function(data, y_max, y_breaks, y_expand) {
+  
+  data <- data %>% 
+    dplyr::filter(indigenous_label == "Aboriginal") %>%
+    #
+    dplyr::select(year,
+                  nephu_n,
+                  notnephu_n) %>% 
+    #
+    tidyr::pivot_longer(cols      = ends_with("_n"),
+                        names_to  = "comparison",
+                        values_to = "aboriginal_n") %>%
+    #
+    dplyr::mutate(
+      comparison = factor(dplyr::recode(comparison,
+                                        "nephu_n"    = "NEPHU",
+                                        "notnephu_n" = "Rest of Victoria"),
+                          levels = c("NEPHU",
+                                     "Rest of Victoria")),
+      #
+      hover_text = paste0(year, "\n",
+                          comparison, "\n",
+                          "Count: ", format(aboriginal_n, big.mark = ",")))
+  
+  figure <- data %>%
+    ggplot(aes(x = year, y = aboriginal_n, fill = forcats::fct_rev(comparison), text = hover_text)) +
+    #
+    geom_col(col = colour_gray) +
+    #
+    scale_y_continuous(limits = c(0, y_max),
+                       breaks = scales::breaks_width(y_breaks),
+                       expand = expansion(add = c(0, y_expand)),
+                       labels = scales::comma_format(big.mark = ",")) +
+    #
+    scale_fill_manual(values = c(colour_pyramidnephu, colour_pyramidvic),
+                      name   = NULL) +
+    #
+    labs(x = NULL,
+         y = NULL) +
+    #
+    theme_classic()
+  
+  figure <- figure %>% 
+    plotly::ggplotly(tooltip = "text") %>%
+    #
+    plotly::layout(hovermode = "x",
+                   #
+                   yaxis = list(title = list(text     = "Number of notifications",
+                                             font     = list(size = 13, family = "Arial"),
+                                             standoff = 10)),
+                   #
+                   legend = list(x = 0.5,
+                                 #
+                                 orientation = "h",
+                                 traceorder  = "reversed",
+                                 xanchor     = "center"))
+  
+  return(figure)
+
+}
+
