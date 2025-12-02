@@ -57,6 +57,7 @@ book:
         - chapters/10h_consequences_kidney.qmd
         - chapters/10i_consequences_lung.qmd
         - chapters/10j_consequences_other.qmd
+        - chapters/10k_consequences_infectious.qmd
     - references.qmd
 
 bibliography: references.bib
