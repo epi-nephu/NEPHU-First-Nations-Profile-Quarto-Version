@@ -1,0 +1,161 @@
+---
+title: "Infectious Diseases"
+---
+
+```{r}
+#
+source(here::here("setup.R"))
+source(here::here("setup_footnotes.R"))
+
+# Set up numbering for exporting tables as .csv
+table_section <- "10K"
+table_count   <- 0
+
+figure_count <- 0
+```
+
+::: {.caveat-box}
+**A note about the impact of under-identification**
+
+`r note_box_underidentification`
+
+**A note about notifiable diseases data**
+
+`r note_box_notifiable`
+:::
+
+<div style="height: 2em;"></div>
+
+::: {.key-question}
+What infectious diseases affect Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment?
+:::
+
+```{r}
+################################################################################
+# Notifiable conditions
+# Data from PHESS
+################################################################################
+# Read in PHESS data
+cases_all <- read.csv(paste0(here::here(), "/data", "/PHAR_Extract_2015_2024.csv")) 
+
+# Data wrangling
+cases_all <- cases_all %>% 
+  dplyr::mutate(
+    event_date = lubridate::ymd(event_date),
+    year       = as.character(lubridate::year(event_date)),
+    #
+    lga = stringr::str_extract(lga, "^.*?(?=\\()"),
+    lga = stringr::str_trim(lga),
+    #
+    nephu_case = dplyr::case_when(lga %in% nephu_lga ~ "NEPHU",
+                                  TRUE ~ "Rest of Victoria"),
+    #
+    indigenous_status = dplyr::case_when(
+      indigenous_status == "Aboriginal and Torres Strait Islander origin"     ~ "aboriginal",
+      indigenous_status == "Aboriginal but not Torres Strait Islander origin" ~ "aboriginal",
+      indigenous_status == "Torres Strait Islander but not Aboriginal origin" ~ "aboriginal",
+      indigenous_status == "Not Aboriginal or Torres Strait Islander"         ~ "non_aboriginal",
+    TRUE ~ "not_stated"),
+    #
+    condition = dplyr::case_when(
+      condition == "Meningococcal infection"                  ~ "IMD",
+      condition == "Pneumococcal infection (IPD)"             ~ "IPD",
+      condition == "Varicella zoster infection (Chickenpox)"  ~ "VZV",
+      condition == "Varicella zoster infection (Shingles)"    ~ "VZV",
+      condition == "Varicella zoster infection (Unspecified)" ~ "VZV",
+      #
+      condition == "Gonococcal infection"            ~ "Gonococcal",
+      condition == "Hepatitis B - Newly acquired"    ~ "HBV",
+      condition == "Hepatitis B - Unspecified"       ~ "HBV",
+      condition == "Hepatitis C - <24 months of age" ~ "HCV",
+      condition == "Hepatitis C - Newly acquired"    ~ "HCV",
+      condition == "Hepatitis C - Unspecified"       ~ "HCV",
+      #
+      condition == "Human Immunodeficiency Virus Infection - Child aged less than 18 months"     ~ "HIV",
+      condition == "Human Immunodeficiency Virus Infection - Individual aged 18 months or older" ~ "HIV",
+      #
+      condition == "Acute Rheumatic Fever"          ~ "ARF",
+      condition == "Invasive Group A Streptococcus" ~ "iGAS",
+      condition == "Rheumatic Heart Disease"        ~ "RHD",
+      TRUE ~ condition)) %>% 
+  #
+  dplyr::filter(indigenous_status != "not_stated")
+```
+
+## Vaccine Preventable Conditions
+
+### Pertussis (Whooping Cough)
+
+```{r}
+################################################################################
+# Notifiable conditions - pertussis
+# Data from PHESS
+################################################################################
+pertussis <- cases_all %>% 
+  f_wrangle_phess(condition_name = "Pertussis")
+```
+
+- Data for this topic were obtained from the [Victorian Public Health Event Surveillance System](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria).
+
+- The number and rate of pertussis (whooping cough) notifications decreased during the COVID-19 pandemic and rebounded significantly during 2024. 
+
+- This increase in 2024 was seen for both Aboriginal and/or Torres Strait Islander people and non-Indigenous people in both the NEPHU catchment and Victoria, and similar increases were seen across all other Australian states and territories.
+
+::: {.callout-tip title="Notification and follow-up requirements" icon=false collapse=false}
+- Pertussis (whooping cough) is a routine notifiable condition. Cases must be notified by medical practitioners and pathology services in writing to the Department of Health within five days of diagnosis.
+
+<div style="height: 1em;"></div>
+
+- The following pertussis notifications are signed out for case management and follow-up by Local Public Health Units:
+  -	Children aged <12 months
+  -	Women known to be in the last month of pregnancy
+  -	Persons known to be in contact with children aged <6 months or women in the last month of pregnancy
+  -	Persons known to attend or work in settings where there is likely to be contact with children aged <6 months or women in the last month of pregnancy
+  - Depending on operational capacity, children aged <5 years and children aged <10 years should also be followed up
+
+<div style="height: 1em;"></div>
+
+- The management of pertussis transitioned from the Victorian Department of Health to Local Public Health Units on 18/07/2022.
+
+<div style="height: 2em;"></div>
+:::
+
+:::: {.panel-tabset}
+
+#### Figure 10K-1
+
+::: {#fig_10K_1 .fig-tab-title}
+**Figure 10K-1:** Number of pertussis notifications for Aboriginal and/or Torres Strait Islander people, Victoria, by year
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+pertussis %>% 
+  f_bar_stacked_phess(y_max = NA,
+                      y_breaks = 20,
+                      y_expand = 20)
+```
+
+#### Figure 10K-2
+
+::: {#fig_10K_2 .fig-tab-title}
+**Figure 10K-2:** Pertussis notification rate, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+pertussis %>%
+  dplyr::rename(rate = vic_rate) %>% 
+  #
+  f_line_grouped_indigenous(y_variable = rate,
+                            y_max      = NA,
+                            y_breaks   = 50,
+                            y_expand   = 60)
+```
+
+
+::::
