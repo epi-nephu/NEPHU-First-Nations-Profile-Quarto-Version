@@ -18,10 +18,6 @@ figure_count <- 0
 **A note about the impact of under-identification**
 
 `r note_box_underidentification`
-
-**A note about interpreting observed vs. expected figures**
-
-`r note_box_obsexp`
 :::
 
 <div style="height: 2em;"></div>
