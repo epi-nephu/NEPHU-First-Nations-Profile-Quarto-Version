@@ -205,7 +205,7 @@ f_bar_stacked_phess <- function(data, y_max, y_breaks, y_expand) {
                        expand = expansion(add = c(0, y_expand)),
                        labels = scales::comma_format(big.mark = ",")) +
     #
-    scale_fill_manual(values = c(colour_pyramidnephu, colour_pyramidvic),
+    scale_fill_manual(values = c(colour_pyramidvic, colour_pyramidnephu),
                       name   = NULL) +
     #
     labs(x = NULL,
