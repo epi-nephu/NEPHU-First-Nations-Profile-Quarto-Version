@@ -463,7 +463,7 @@ varicella <- cases_all %>%
 ::: {.callout-tip title="Notification and follow-up requirements" icon=false collapse=false}
 - Varicella Zoster is a routine notifiable condition. Cases must be notified by medical practitioners and pathology services in writing to the Department of Health within five days of diagnosis.
 
-- Notifications for Varicella Zoster include notifications for chickenpox (Varicella), shingles (Herpes Zoster), and unspecified notifications (not classified as chickenpox or shingles).
+- *Varicella Zoster* includes notifications for chickenpox (Varicella), shingles (Herpes Zoster), and unspecified notifications (not classified as chickenpox or shingles).
 
 <div style="height: 1em;"></div>
 
@@ -577,6 +577,392 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
 :::
 
+## Bloodborne Viruses
+
+### Hepatitis B
+
+```{r}
+#-------------------------------------------------------------------------------
+# Notifiable conditions - Hepatitis B
+# Data from PHESS
+#-------------------------------------------------------------------------------
+hepb <- cases_all %>% 
+  f_wrangle_phess(condition_name = "HBV")
+```
+
+- Data for this topic were obtained from the [Victorian Public Health Event Surveillance System](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria).
+
+- The number and rate of Hepatitis B notifications decreased for Aboriginal and/or Torres Strait Islander people during the COVID-19 pandemic and have not rebounded to pre-pandemic levels.
+
+- Since the COVID-19 pandemic, notification rates have been consistently lower for Aboriginal and/or Torres Strait Islander people compared to non-Indigenous people for both the NEPHU catchment and Victoria.
+
+::: {.callout-tip title="Notification and follow-up requirements" icon=false collapse=false}
+- Hepatitis B is a routine notifiable condition. Cases must be notified by medical practitioners and pathology services in writing to the Department of Health within five days of diagnosis.
+
+- *Hepatitis B* includes newly acquired and unspecified notifications.
+
+<div style="height: 1em;"></div>
+
+- The following Hepatitis B notifications are signed out for case management and follow-up by Local Public Health Units:
+  - Children aged <24 months
+  - Persons with potential newly acquired infections
+  - Persons with potential occult infections
+  - Persons with potential false positive laboratory results
+  - Persons undergoing screening for onshore visa renewal or offshore health undertaking
+  - Persons known to have high-risk exposures (e.g. medical procedures, blood transfusion, tattooing) or work in high-risk settings (e.g. healthcare workers)
+  - Women known to be pregnant or undergoing IVF
+
+<div style="height: 1em;"></div>
+
+- The management of Hepatitis B transitioned from the Victorian Department of Health to Local Public Health Units on 29/08/2022.
+
+<div style="height: 2em;"></div>
+:::
+
+:::: {.panel-tabset}
+
+#### Figure 10K-9
+
+::: {#fig_10K_9 .fig-tab-title}
+**Figure 10K-9:** Number of Hepatitis B notifications for Aboriginal and/or Torres Strait Islander people, Victoria, by year
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+hepb %>% 
+  f_bar_stacked_phess(y_max    = NA,
+                      y_breaks = 1,
+                      y_expand = 0.25)
+```
+
+#### Figure 10K-10
+
+::: {#fig_10K_10 .fig-tab-title}
+**Figure 10K-10:** Hepatitis B notification rate, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+hepb %>%
+  dplyr::rename(rate = vic_rate) %>% 
+  #
+  f_line_grouped_indigenous(y_variable = rate,
+                            y_max      = NA,
+                            y_breaks   = 5,
+                            y_expand   = 1.5)
+```
+
+#### Table 10K-5
+
+::: {#tab_10K_5 .fig-tab-title}
+**Table 10K-5:** Number of Hepatitis B notifications and notification rate, NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- hepb %>% 
+  dplyr::select(-indigenous_status,
+                -notnephu_n) %>% 
+  #
+  tidyr::pivot_wider(names_from  = "indigenous_label",
+                     values_from = c("nephu_n", "nephu_rate", "vic_n", "vic_rate"),
+                     names_vary  = "slowest") %>%
+  #
+  janitor::clean_names()
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(nephu_rate_aboriginal     = round(nephu_rate_aboriginal, digits = 1),
+                vic_rate_aboriginal       = round(vic_rate_aboriginal, digits = 1),
+                nephu_rate_non_indigenous = round(nephu_rate_non_indigenous, digits = 1),
+                vic_rate_non_indigenous   = round(vic_rate_non_indigenous, digits = 1)) %>%
+  #
+  f_table_grouped_phess()
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_phess`
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+`r note_caveat_notification_rate`
+
+`r note_caveat_pandemic_decrease`
+:::
+
+### Hepatitis C
+
+```{r}
+#-------------------------------------------------------------------------------
+# Notifiable conditions - Hepatitis C
+# Data from PHESS
+#-------------------------------------------------------------------------------
+hepc <- cases_all %>% 
+  f_wrangle_phess(condition_name = "HCV")
+```
+
+- Data for this topic were obtained from the [Victorian Public Health Event Surveillance System](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria).
+
+- The number and rate of Hepatitis C notifications decreased for Aboriginal and/or Torres Strait Islander people during the COVID-19 pandemic and have since rebounded to pre-pandemic levels.
+
+- Notification rates were consistently higher for Aboriginal and/or Torres Strait Islander people compared to non-Indigenous people for both the NEPHU catchment and Victoria.
+
+::: {.callout-tip title="Notification and follow-up requirements" icon=false collapse=false}
+- Hepatitis C is a routine notifiable condition. Cases must be notified by medical practitioners and pathology services in writing to the Department of Health within five days of diagnosis.
+
+- *Hepatitis C* includes newly acquired and unspecified notifications.
+
+<div style="height: 1em;"></div>
+
+- The following Hepatitis C notifications are signed out for case management and follow-up by Local Public Health Units:
+  - Children aged <16 years
+  - Persons with potential newly acquired infections
+  - Persons with potential occult infections
+  - Persons with potential false positive laboratory results
+  - Persons undergoing screening for onshore visa renewal or offshore health undertaking
+  - Persons known to have high-risk exposures (e.g. medical procedures, blood transfusion, tattooing) or work in high-risk settings (e.g. healthcare workers)
+  - Women known to be pregnant or undergoing IVF
+
+<div style="height: 1em;"></div>
+
+- The management of Hepatitis C transitioned from the Victorian Department of Health to Local Public Health Units on 05/09/2022.
+
+<div style="height: 2em;"></div>
+:::
+
+:::: {.panel-tabset}
+
+#### Figure 10K-11
+
+::: {#fig_10K_11 .fig-tab-title}
+**Figure 10K-11:** Number of Hepatitis C notifications for Aboriginal and/or Torres Strait Islander people, Victoria, by year
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+hepc %>% 
+  f_bar_stacked_phess(y_max    = NA,
+                      y_breaks = 20,
+                      y_expand = 22)
+```
+
+#### Figure 10K-12
+
+::: {#fig_10K_12 .fig-tab-title}
+**Figure 10K-12:** Hepatitis C notification rate, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+hepc %>%
+  dplyr::rename(rate = vic_rate) %>% 
+  #
+  f_line_grouped_indigenous(y_variable = rate,
+                            y_max      = NA,
+                            y_breaks   = 25,
+                            y_expand   = 20)
+```
+
+#### Table 10K-6
+
+::: {#tab_10K_6 .fig-tab-title}
+**Table 10K-6:** Number of Hepatitis C notifications and notification rate, NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- hepc %>% 
+  dplyr::select(-indigenous_status,
+                -notnephu_n) %>% 
+  #
+  tidyr::pivot_wider(names_from  = "indigenous_label",
+                     values_from = c("nephu_n", "nephu_rate", "vic_n", "vic_rate"),
+                     names_vary  = "slowest") %>%
+  #
+  janitor::clean_names()
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(nephu_rate_aboriginal     = round(nephu_rate_aboriginal, digits = 1),
+                vic_rate_aboriginal       = round(vic_rate_aboriginal, digits = 1),
+                nephu_rate_non_indigenous = round(nephu_rate_non_indigenous, digits = 1),
+                vic_rate_non_indigenous   = round(vic_rate_non_indigenous, digits = 1)) %>%
+  #
+  f_table_grouped_phess()
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_phess`
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+`r note_caveat_notification_rate`
+
+`r note_caveat_pandemic_decrease`
+:::
+
+### Human Immunodeficiency Virus (HIV)
+
+```{r}
+#-------------------------------------------------------------------------------
+# Notifiable conditions - HIV
+# Data from PHESS
+#-------------------------------------------------------------------------------
+hiv <- cases_all %>% 
+  f_wrangle_phess(condition_name = "HIV")
+```
+
+- Data for this topic were obtained from the [Victorian Public Health Event Surveillance System](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria).
+
+- The number and rate of Human Immunodeficiency Virus (HIV) notifications decreased for Aboriginal and/or Torres Strait Islander people during the COVID-19 pandemic and have since increased but remain lower than pre-pandemic levels.
+
+- Notification rates were consistently higher for Aboriginal and/or Torres Strait Islander people compared to non-Indigenous people for both the NEPHU catchment and Victoria.
+
+::: {.callout-tip title="Notification and follow-up requirements" icon=false collapse=false}
+- Human Immunodeficiency Virus (HIV) is a routine notifiable condition. Cases must be notified by medical practitioners and pathology services in writing to the Department of Health within five days of diagnosis.
+
+- All HIV notifications are signed out for case management and follow-up by Local Public Health Units.
+
+- The management of HIV transitioned from the Victorian Department of Health to Local Public Health Units on 09/08/2023.
+:::
+
+:::: {.panel-tabset}
+
+#### Figure 10K-13
+
+::: {#fig_10K_13 .fig-tab-title}
+**Figure 10K-13:** Number of HIV notifications for Aboriginal and/or Torres Strait Islander people, Victoria, by year
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+hiv %>% 
+  f_bar_stacked_phess(y_max    = NA,
+                      y_breaks = 1,
+                      y_expand = 0.25)
+```
+
+#### Figure 10K-14
+
+::: {#fig_10K_14 .fig-tab-title}
+**Figure 10K-14:** HIV notification rate, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+hiv %>%
+  dplyr::rename(rate = vic_rate) %>% 
+  #
+  f_line_grouped_indigenous(y_variable = rate,
+                            y_max      = NA,
+                            y_breaks   = 2,
+                            y_expand   = 2.25)
+```
+
+#### Table 10K-7
+
+::: {#tab_10K_7 .fig-tab-title}
+**Table 10K-7:** Number of HIV notifications and notification rate, NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- hiv %>% 
+  dplyr::select(-indigenous_status,
+                -notnephu_n) %>% 
+  #
+  tidyr::pivot_wider(names_from  = "indigenous_label",
+                     values_from = c("nephu_n", "nephu_rate", "vic_n", "vic_rate"),
+                     names_vary  = "slowest") %>%
+  #
+  janitor::clean_names()
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(nephu_rate_aboriginal     = round(nephu_rate_aboriginal, digits = 1),
+                vic_rate_aboriginal       = round(vic_rate_aboriginal, digits = 1),
+                nephu_rate_non_indigenous = round(nephu_rate_non_indigenous, digits = 1),
+                vic_rate_non_indigenous   = round(vic_rate_non_indigenous, digits = 1)) %>%
+  #
+  f_table_grouped_phess()
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_phess`
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+`r note_caveat_notification_rate`
+
+`r note_caveat_pandemic_decrease`
+:::
+
+::: {style="opacity: 0.8;"}
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+:::
 
 
 
