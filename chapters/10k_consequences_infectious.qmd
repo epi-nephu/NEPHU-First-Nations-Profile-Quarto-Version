@@ -327,3 +327,256 @@ table %>%
 `r note_caveat_pandemic_decrease`
 :::
 
+### Invasive Pneumococcal Disease (IPD)
+
+```{r}
+#-------------------------------------------------------------------------------
+# Notifiable conditions - invasive pneumococcal disease
+# Data from PHESS
+#-------------------------------------------------------------------------------
+ipd <- cases_all %>% 
+  f_wrangle_phess(condition_name = "IPD")
+```
+
+- Data for this topic were obtained from the [Victorian Public Health Event Surveillance System](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria).
+
+- The notification rate of IPD has increased over the past 10 years for Aboriginal and/or Torres Strait Islander people.
+
+- The notification rate of invasive pneumococcal disease (IPD) was consistently higher for the NEPHU catchment compared to Victoria overall for both Aboriginal and/or Torres Strait Islander people and non-Indigenous people.
+
+::: {.callout-tip title="Notification and follow-up requirements" icon=false collapse=false}
+- Invasive pneumococcal disease (IPD) is a routine notifiable condition. Cases must be notified by medical practitioners and pathology services in writing to the Department of Health within five days of diagnosis.
+
+- All IPD notifications are signed out for case management and follow-up by Local Public Health Units.
+
+- The management of IPD transitioned from the Victorian Department of Health to Local Public Health Units on 15/08/2022.
+:::
+
+:::: {.panel-tabset}
+
+#### Figure 10K-5
+
+::: {#fig_10K_5 .fig-tab-title}
+**Figure 10K-5:** Number of invasive pneumococcal disease notifications for Aboriginal and/or Torres Strait Islander people, Victoria, by year
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+ipd %>% 
+  f_bar_stacked_phess(y_max    = NA,
+                      y_breaks = 5,
+                      y_expand = 3)
+```
+
+#### Figure 10K-6
+
+::: {#fig_10K_6 .fig-tab-title}
+**Figure 10K-6:** Invasive pneumococcal disease notification rate, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+ipd %>%
+  dplyr::rename(rate = vic_rate) %>% 
+  #
+  f_line_grouped_indigenous(y_variable = rate,
+                            y_max      = NA,
+                            y_breaks   = 5,
+                            y_expand   = 1)
+```
+
+#### Table 10K-3
+
+::: {#tab_10K_3 .fig-tab-title}
+**Table 10K-3:** Number of invasive pneumococcal disease notifications and notification rate, NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- ipd %>% 
+  dplyr::select(-indigenous_status,
+                -notnephu_n) %>% 
+  #
+  tidyr::pivot_wider(names_from  = "indigenous_label",
+                     values_from = c("nephu_n", "nephu_rate", "vic_n", "vic_rate"),
+                     names_vary  = "slowest") %>%
+  #
+  janitor::clean_names()
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(nephu_rate_aboriginal     = round(nephu_rate_aboriginal, digits = 1),
+                vic_rate_aboriginal       = round(vic_rate_aboriginal, digits = 1),
+                nephu_rate_non_indigenous = round(nephu_rate_non_indigenous, digits = 1),
+                vic_rate_non_indigenous   = round(vic_rate_non_indigenous, digits = 1)) %>%
+  #
+  f_table_grouped_phess()
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_phess`
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+`r note_caveat_notification_rate`
+
+`r note_caveat_pandemic_decrease`
+:::
+
+### Varicella Zoster (Chickenpox and Shingles)
+
+```{r}
+#-------------------------------------------------------------------------------
+# Notifiable conditions - Varicella Zoster
+# Data from PHESS
+#-------------------------------------------------------------------------------
+varicella <- cases_all %>% 
+  f_wrangle_phess(condition_name = "VZV")
+```
+
+- Data for this topic were obtained from the [Victorian Public Health Event Surveillance System](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria).
+
+- The number and rates of Varicella Zoster (chickenpox and/or shingles) notifications in the years following the COVID-19 pandemic have remained lower than for pre-pandemic years for Aboriginal and/or Torres Strait Islander people residing in the NEPHU catchment.
+
+- The number and rates of Varicella Zoster notifications have rebounded to pre-pandemic levels for both Aboriginal and/or Torres Strait Islander people and non-Indigenous people in Victoria.
+
+::: {.callout-tip title="Notification and follow-up requirements" icon=false collapse=false}
+- Varicella Zoster is a routine notifiable condition. Cases must be notified by medical practitioners and pathology services in writing to the Department of Health within five days of diagnosis.
+
+- Notifications for Varicella Zoster include notifications for chickenpox (Varicella), shingles (Herpes Zoster), and unspecified notifications (not classified as chickenpox or shingles).
+
+<div style="height: 1em;"></div>
+
+- The following Varicella Zoster notifications are signed out for case management and follow-up by Local Public Health Units:
+  - Inpatients and staff of high-risk healthcare settings (e.g. immunosuppressive wards, neonatal wards, obstetric wards)
+  - Persons known to have exposed high-risk groups (e.g. neonates, pregnant women, immunosuppressed individuals)
+  - Persons linked to an outbreak in a high-risk setting (e.g. healthcare facilities, aged care facilities, childcare facilities, schools)
+
+<div style="height: 1em;"></div>
+
+- The management of Varicella Zoster transitioned from the Victorian Department of Health to Local Public Health Units on 15/08/2022.
+
+<div style="height: 2em;"></div>
+:::
+
+:::: {.panel-tabset}
+
+#### Figure 10K-7
+
+::: {#fig_10K_7 .fig-tab-title}
+**Figure 10K-7:** Number of Varicella Zoster notifications for Aboriginal and/or Torres Strait Islander people, Victoria, by year
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+varicella %>% 
+  f_bar_stacked_phess(y_max    = NA,
+                      y_breaks = 10,
+                      y_expand = 3)
+```
+
+#### Figure 10K-8
+
+::: {#fig_10K_8 .fig-tab-title}
+**Figure 10K-8:** Varicella Zoster notification rate, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+varicella %>%
+  dplyr::rename(rate = vic_rate) %>% 
+  #
+  f_line_grouped_indigenous(y_variable = rate,
+                            y_max      = NA,
+                            y_breaks   = 10,
+                            y_expand   = 8)
+```
+
+#### Table 10K-4
+
+::: {#tab_10K_4 .fig-tab-title}
+**Table 10K-4:** Number of Varicella Zoster notifications and notification rate, NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- varicella %>% 
+  dplyr::select(-indigenous_status,
+                -notnephu_n) %>% 
+  #
+  tidyr::pivot_wider(names_from  = "indigenous_label",
+                     values_from = c("nephu_n", "nephu_rate", "vic_n", "vic_rate"),
+                     names_vary  = "slowest") %>%
+  #
+  janitor::clean_names()
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(nephu_rate_aboriginal     = round(nephu_rate_aboriginal, digits = 1),
+                vic_rate_aboriginal       = round(vic_rate_aboriginal, digits = 1),
+                nephu_rate_non_indigenous = round(nephu_rate_non_indigenous, digits = 1),
+                vic_rate_non_indigenous   = round(vic_rate_non_indigenous, digits = 1)) %>%
+  #
+  f_table_grouped_phess()
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_phess`
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+`r note_caveat_notification_rate`
+
+`r note_caveat_pandemic_decrease`
+:::
+
+::: {style="opacity: 0.8;"}
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+:::
+
+
+
+
