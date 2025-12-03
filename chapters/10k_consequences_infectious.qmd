@@ -231,13 +231,9 @@ imd <- cases_all %>%
 ::: {.callout-tip title="Notification and follow-up requirements" icon=false collapse=false}
 - Invasive meningococcal disease (IMD) is an urgent notifiable condition. Cases must be immediately notified upon initial diagnosis (suspected or confirmed) by medical practitioners and pathology services by telephone to the Department of Health, and pathology services must follow-up with written notification within five days of diagnosis.
 
-<div style="height: 1em;"></div>
-
 - All IMD notifications are signed out for urgent case management and follow-up by Local Public Health Units.
 
 - The management of IMD transitioned from the Victorian Department of Health to Local Public Health Units on 27/02/2023.
-
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
