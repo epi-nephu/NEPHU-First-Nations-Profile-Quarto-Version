@@ -1135,7 +1135,7 @@ figure_percent <- uni_lga %>%
                    y_breaks   = 10,
                    y_expand   = 1,
                    y_title    = "Percentage of people",
-                   ctg_target = 96)
+                   ctg_target = 70)
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```
