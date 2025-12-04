@@ -102,7 +102,7 @@ f_bar_simple_flip <- function(data, x_variable, y_variable, y_max, y_breaks, y_e
 ################################################################################
 # By LGA
 ################################################################################
-f_bar_simple_lga <- function(data, y_variable, y_max, y_breaks, y_expand, y_title, ctg_target = NA) {
+f_bar_simple_lga <- function(data, y_variable, y_max, y_breaks, y_expand, n_level = "people", ctg_target = NA) {
   
   y_variable <- rlang::enquo(y_variable)
   
@@ -113,7 +113,7 @@ f_bar_simple_lga <- function(data, y_variable, y_max, y_breaks, y_expand, y_titl
   
   if (rlang::as_name(y_variable) == "aboriginal_n") {
     
-    y_title <- "Number of people"
+    y_title <- paste("Number of ", n_level)
     
     data <- data %>% 
       dplyr::mutate(hover_text = paste0(lga_name, " LGA", "\n",
@@ -123,7 +123,7 @@ f_bar_simple_lga <- function(data, y_variable, y_max, y_breaks, y_expand, y_titl
   
   if (rlang::as_name(y_variable) == "aboriginal_prop") {
     
-    y_title <- "Percentage of people"
+    y_title <- paste("Percentage of ", n_level)
     
     data <- data %>% 
       dplyr::mutate(hover_text = paste0(lga_name, " LGA", "\n",
