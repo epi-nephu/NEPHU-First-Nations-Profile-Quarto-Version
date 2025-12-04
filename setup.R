@@ -167,8 +167,8 @@ colour_maplow  <- "#FFFF99"
 colour_mapmid  <- "#41B6C4"
 colour_maphigh <- "#253494"
 
-colour_pyramidnephu <- "#41B6C4"
-colour_pyramidvic   <- "#1C86EE"
+colour_pyramidnephu <- "#5BC788"
+colour_pyramidvic   <- "#374091"
 
 colour_aboriginal    <- "#374091"
 colour_nonaboriginal <- "#5C1441"
