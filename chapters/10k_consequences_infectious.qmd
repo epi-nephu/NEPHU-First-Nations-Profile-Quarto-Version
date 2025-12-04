@@ -42,20 +42,20 @@ cases_all <- read.csv(paste0(here::here(), "/data", "/PHAR_Extract_2015_2024.csv
 cases_all <- cases_all %>% 
   dplyr::mutate(
     event_date = lubridate::ymd(event_date),
-    year       = as.character(lubridate::year(event_date)),
+    year       = factor(lubridate::year(event_date)),
     #
     lga = stringr::str_extract(lga, "^.*?(?=\\()"),
     lga = stringr::str_trim(lga),
     #
-    nephu_case = dplyr::case_when(lga %in% nephu_lga ~ "NEPHU",
-                                  TRUE ~ "Rest of Victoria"),
+    nephu_case = factor(dplyr::case_when(lga %in% nephu_lga ~ "NEPHU",
+                                         TRUE ~ "Rest of Victoria")),
     #
-    indigenous_status = dplyr::case_when(
+    indigenous_status = factor(dplyr::case_when(
       indigenous_status == "Aboriginal and Torres Strait Islander origin"     ~ "aboriginal",
       indigenous_status == "Aboriginal but not Torres Strait Islander origin" ~ "aboriginal",
       indigenous_status == "Torres Strait Islander but not Aboriginal origin" ~ "aboriginal",
       indigenous_status == "Not Aboriginal or Torres Strait Islander"         ~ "non_aboriginal",
-    TRUE ~ "not_stated"),
+    TRUE ~ NA_character_)),
     #
     condition = dplyr::case_when(
       condition == "Meningococcal infection"                  ~ "IMD",
@@ -84,7 +84,7 @@ cases_all <- cases_all %>%
 
 ## Vaccine Preventable Conditions
 
-### Pertussis (Whooping Cough)
+### Pertussis
 
 ```{r}
 #-------------------------------------------------------------------------------
@@ -153,8 +153,8 @@ pertussis %>%
   #
   f_line_grouped_indigenous(y_variable = rate,
                             y_max      = NA,
-                            y_breaks   = 50,
-                            y_expand   = 60)
+                            y_breaks   = 25,
+                            y_expand   = 5)
 ```
 
 #### Table 10K-1
@@ -211,7 +211,7 @@ table %>%
 `r note_caveat_pandemic_decrease`
 :::
 
-### Invasive Meningococcal Disease (IMD)
+### Invasive Meningococcal Disease
 
 ```{r}
 #-------------------------------------------------------------------------------
@@ -327,7 +327,7 @@ table %>%
 `r note_caveat_pandemic_decrease`
 :::
 
-### Invasive Pneumococcal Disease (IPD)
+### Invasive Pneumococcal Disease
 
 ```{r}
 #-------------------------------------------------------------------------------
@@ -443,7 +443,7 @@ table %>%
 `r note_caveat_pandemic_decrease`
 :::
 
-### Varicella Zoster (Chickenpox and Shingles)
+### Varicella Zoster
 
 ```{r}
 #-------------------------------------------------------------------------------
@@ -465,7 +465,7 @@ varicella <- cases_all %>%
 
 - *Varicella Zoster* includes notifications for chickenpox (Varicella), shingles (Herpes Zoster), and unspecified notifications (not classified as chickenpox or shingles).
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - The following Varicella Zoster notifications are signed out for case management and follow-up by Local Public Health Units:
   - Inpatients and staff of high-risk healthcare settings (e.g. immunosuppressive wards, neonatal wards, obstetric wards)
@@ -494,7 +494,7 @@ figure_count <- figure_count + 1
 varicella %>% 
   f_bar_stacked_phess(y_max    = NA,
                       y_breaks = 10,
-                      y_expand = 3)
+                      y_expand = 2)
 ```
 
 #### Figure 10K-8
@@ -601,7 +601,7 @@ hepb <- cases_all %>%
 
 - *Hepatitis B* includes newly acquired and unspecified notifications.
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - The following Hepatitis B notifications are signed out for case management and follow-up by Local Public Health Units:
   - Children aged <24 months
@@ -732,7 +732,7 @@ hepc <- cases_all %>%
 
 - *Hepatitis C* includes newly acquired and unspecified notifications.
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - The following Hepatitis C notifications are signed out for case management and follow-up by Local Public Health Units:
   - Children aged <16 years
@@ -841,7 +841,7 @@ table %>%
 `r note_caveat_pandemic_decrease`
 :::
 
-### Human Immunodeficiency Virus (HIV)
+### Human Immunodeficiency Virus
 
 ```{r}
 #-------------------------------------------------------------------------------
@@ -964,5 +964,1073 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
 :::
 
+## Sexually Transmissible Infections
 
+### Gonorrhoea
+
+```{r}
+#-------------------------------------------------------------------------------
+# Notifiable conditions - gonorrhoea
+# Data from PHESS
+#-------------------------------------------------------------------------------
+gono <- cases_all %>% 
+  f_wrangle_phess(condition_name = "Gonococcal")
+```
+
+- Data for this topic were obtained from the [Victorian Public Health Event Surveillance System](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria).
+
+- The number and rate of gonorrhoea notifications decreased for Aboriginal and/or Torres Strait Islander people during the COVID-19 pandemic and have since rebounded to higher than pre-pandemic levels.
+
+- Notification rates were consistently higher for Aboriginal and/or Torres Strait Islander people compared to non-Indigenous people for both the NEPHU catchment and Victoria.
+
+::: {.callout-tip title="Notification and follow-up requirements" icon=false collapse=false}
+- Gonorrhoea is a routine notifiable condition. Cases must be notified by medical practitioners and pathology services in writing to the Department of Health within five days of diagnosis.
+
+<div style="height: 1em;"></div>
+
+- The following gonorrhoea notifications are signed out for case management and follow-up by Local Public Health Units:
+  - Children aged <16 years
+  - Women known to be pregnant
+  - Persons with decreased susceptibility to ceftriaxone, critical antimicrobial resistant, or extensively drug resistant gonorrhoea
+
+<div style="height: 1em;"></div>
+
+- The management of gonorrhoea transitioned from the Victorian Department of Health to Local Public Health Units on 30/01/2023.
+
+<div style="height: 2em;"></div>
+:::
+
+:::: {.panel-tabset}
+
+#### Figure 10K-15
+
+::: {#fig_10K_15 .fig-tab-title}
+**Figure 10K-15:** Number of gonorrhoea notifications for Aboriginal and/or Torres Strait Islander people, Victoria, by year
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+gono %>% 
+  f_bar_stacked_phess(y_max    = NA,
+                      y_breaks = 20,
+                      y_expand = 20)
+```
+
+#### Figure 10K-16
+
+::: {#fig_10K_16 .fig-tab-title}
+**Figure 10K-16:** Gonorrhoea notification rate, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+gono %>%
+  dplyr::rename(rate = vic_rate) %>% 
+  #
+  f_line_grouped_indigenous(y_variable = rate,
+                            y_max      = NA,
+                            y_breaks   = 50,
+                            y_expand   = 60)
+```
+
+#### Table 10K-8
+
+::: {#tab_10K_8 .fig-tab-title}
+**Table 10K-8:** Number of gonorrhoea notifications and notification rate, NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- gono %>% 
+  dplyr::select(-indigenous_status,
+                -notnephu_n) %>% 
+  #
+  tidyr::pivot_wider(names_from  = "indigenous_label",
+                     values_from = c("nephu_n", "nephu_rate", "vic_n", "vic_rate"),
+                     names_vary  = "slowest") %>%
+  #
+  janitor::clean_names()
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(nephu_rate_aboriginal     = round(nephu_rate_aboriginal, digits = 1),
+                vic_rate_aboriginal       = round(vic_rate_aboriginal, digits = 1),
+                nephu_rate_non_indigenous = round(nephu_rate_non_indigenous, digits = 1),
+                vic_rate_non_indigenous   = round(vic_rate_non_indigenous, digits = 1)) %>%
+  #
+  f_table_grouped_phess()
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_phess`
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+`r note_caveat_notification_rate`
+
+`r note_caveat_pandemic_decrease`
+:::
+
+### Syphilis
+
+```{r}
+#-------------------------------------------------------------------------------
+# Notifiable conditions - syphilis
+# Data from PHESS
+#-------------------------------------------------------------------------------
+syphilis_infectious <- cases_all %>% 
+  f_wrangle_phess(condition_name = "Syphilis - Infectious")
+
+syphilis_late <- cases_all %>% 
+  f_wrangle_phess(condition_name = "Syphilis - Late")
+
+syphilis_congenital <- cases_all %>% 
+  f_wrangle_phess(condition_name = "Syphilis - Congenital")
+```
+
+- Data for this topic were obtained from the [Victorian Public Health Event Surveillance System](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria).
+
+- On 06/08/2025, Australia’s Chief Medical Officer declared syphilis a [Communicable Disease Incident of National Significance](https://www.health.gov.au/news/cmo-statement-syphilis-cdins), in response to rising cases across Australia with Aboriginal and/or Torres Strait Islander people being disproportionately affected. This rise in cases has resulted in an increased number of cases of congenital syphilis and infant deaths in Australia.
+
+- The number and rate of infectious (less than two years duration) syphilis notifications decreased for Aboriginal and/or Torres Strait Islander people during the COVID-19 pandemic and have since rebounded to higher than pre-pandemic levels. 
+
+- Notification rates for infectious syphilis were consistently higher for Aboriginal and/or Torres Strait Islander people compared to non-Indigenous people for both the NEPHU catchment and Victoria.
+
+- The number and rate of late (two years or more, or unknown duration) syphilis notifications decreased for Aboriginal and/or Torres Strait Islander people during the COVID-19 pandemic and have since rebounded to higher than pre-pandemic levels.
+
+- Notification rates for late syphilis were consistently higher for Aboriginal and/or Torres Strait Islander people compared to non-Indigenous people for both the NEPHU catchment and Victoria.
+
+- The most recent notification for congenital syphilis for an Aboriginal and/or Torres Strait Islander resident of the NEPHU catchment was in 2020.
+
+- For Victoria overall, congenital syphilis notification rates were consistently higher for Aboriginal and/or Torres Strait Islander people compared to non-Indigenous people.
+
+::: {.callout-tip title="Notification and follow-up requirements" icon=false collapse=false}
+- Syphilis is a routine notifiable condition. Cases must be notified by medical practitioners and pathology services in writing to the Department of Health within five days of diagnosis.
+
+- Syphilis is classified as infectious (infection of less than two years duration), late (infection of two years or more, or unknown duration), or congenital (infection passed from mother to baby during pregnancy or at birth).
+
+<div style="height: 0.1em;"></div>
+
+- All syphilis notifications are signed out for case management and follow-up by Local Public Health Units, with the following groups prioritised for follow-up:
+  - Women known to be pregnant
+  - Suspected, confirmed, or probable cases of congenital syphilis
+  - Children aged <16 years
+  - Women of reproductive age (aged 15-49 years)
+  - Aboriginal and/or Torres Strait Islander people
+  - Partners of cases who are known to be pregnant
+
+<div style="height: 1em;"></div>
+
+- The management of syphilis transitioned from the Victorian Department of Health to Local Public Health Units on 03/04/2023.
+
+<div style="height: 2em;"></div>
+:::
+
+:::: {.panel-tabset}
+
+#### Figure 10K-17
+
+::: {#fig_10K_17 .fig-tab-title}
+**Figure 10K-17:** Number of infectious syphilis notifications for Aboriginal and/or Torres Strait Islander people, Victoria, by year
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+syphilis_infectious %>% 
+  f_bar_stacked_phess(y_max    = NA,
+                      y_breaks = 10,
+                      y_expand = 5)
+```
+
+#### Figure 10K-18
+
+::: {#fig_10K_18 .fig-tab-title}
+**Figure 10K-18:** Infectious syphilis notification rate, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+syphilis_infectious %>%
+  dplyr::rename(rate = vic_rate) %>% 
+  #
+  f_line_grouped_indigenous(y_variable = rate,
+                            y_max      = NA,
+                            y_breaks   = 20,
+                            y_expand   = 22)
+```
+
+#### Table 10K-9
+
+::: {#tab_10K_9 .fig-tab-title}
+**Table 10K-9:** Number of infectious syphilis notifications and notification rate, NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- syphilis_infectious %>% 
+  dplyr::select(-indigenous_status,
+                -notnephu_n) %>% 
+  #
+  tidyr::pivot_wider(names_from  = "indigenous_label",
+                     values_from = c("nephu_n", "nephu_rate", "vic_n", "vic_rate"),
+                     names_vary  = "slowest") %>%
+  #
+  janitor::clean_names()
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(nephu_rate_aboriginal     = round(nephu_rate_aboriginal, digits = 1),
+                vic_rate_aboriginal       = round(vic_rate_aboriginal, digits = 1),
+                nephu_rate_non_indigenous = round(nephu_rate_non_indigenous, digits = 1),
+                vic_rate_non_indigenous   = round(vic_rate_non_indigenous, digits = 1)) %>%
+  #
+  f_table_grouped_phess()
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+#### Figure 10K-19
+
+::: {#fig_10K_19 .fig-tab-title}
+**Figure 10K-19:** Number of late syphilis notifications for Aboriginal and/or Torres Strait Islander people, Victoria, by year
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+syphilis_late %>% 
+  f_bar_stacked_phess(y_max    = NA,
+                      y_breaks = 5,
+                      y_expand = 2)
+```
+
+#### Figure 10K-20
+
+::: {#fig_10K_20 .fig-tab-title}
+**Figure 10K-20:** Late syphilis notification rate, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+syphilis_late %>%
+  dplyr::rename(rate = vic_rate) %>% 
+  #
+  f_line_grouped_indigenous(y_variable = rate,
+                            y_max      = NA,
+                            y_breaks   = 10,
+                            y_expand   = 10)
+```
+
+#### Table 10K-10
+
+::: {#tab_10K_10 .fig-tab-title}
+**Table 10K-10:** Number of late syphilis notifications and notification rate, NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- syphilis_late %>% 
+  dplyr::select(-indigenous_status,
+                -notnephu_n) %>% 
+  #
+  tidyr::pivot_wider(names_from  = "indigenous_label",
+                     values_from = c("nephu_n", "nephu_rate", "vic_n", "vic_rate"),
+                     names_vary  = "slowest") %>%
+  #
+  janitor::clean_names()
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(nephu_rate_aboriginal     = round(nephu_rate_aboriginal, digits = 1),
+                vic_rate_aboriginal       = round(vic_rate_aboriginal, digits = 1),
+                nephu_rate_non_indigenous = round(nephu_rate_non_indigenous, digits = 1),
+                vic_rate_non_indigenous   = round(vic_rate_non_indigenous, digits = 1)) %>%
+  #
+  f_table_grouped_phess()
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+#### Figure 10K-21
+
+::: {#fig_10K_21 .fig-tab-title}
+**Figure 10K-21:** Number of congenital syphilis notifications for Aboriginal and/or Torres Strait Islander people, Victoria, by year
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+syphilis_congenital %>% 
+  f_bar_stacked_phess(y_max    = 5,
+                      y_breaks = 1,
+                      y_expand = 0.25)
+```
+
+#### Figure 10K-22
+
+::: {#fig_10K_22 .fig-tab-title}
+**Figure 10K-22:** Congenital syphilis notification rate, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+syphilis_congenital %>%
+  dplyr::rename(rate = vic_rate) %>% 
+  #
+  f_line_grouped_indigenous(y_variable = rate,
+                            y_max      = 5,
+                            y_breaks   = 1,
+                            y_expand   = 0.25)
+```
+
+#### Table 10K-11
+
+::: {#tab_10K_11 .fig-tab-title}
+**Table 10K-11:** Number of congenital syphilis notifications and notification rate, NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- syphilis_congenital %>% 
+  dplyr::select(-indigenous_status,
+                -notnephu_n) %>% 
+  #
+  tidyr::pivot_wider(names_from  = "indigenous_label",
+                     values_from = c("nephu_n", "nephu_rate", "vic_n", "vic_rate"),
+                     names_vary  = "slowest") %>%
+  #
+  janitor::clean_names()
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(nephu_rate_aboriginal     = round(nephu_rate_aboriginal, digits = 2),
+                vic_rate_aboriginal       = round(vic_rate_aboriginal, digits = 2),
+                nephu_rate_non_indigenous = round(nephu_rate_non_indigenous, digits = 2),
+                vic_rate_non_indigenous   = round(vic_rate_non_indigenous, digits = 2)) %>%
+  #
+  f_table_grouped_phess()
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_phess`
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+`r note_caveat_notification_rate`
+
+`r note_caveat_pandemic_decrease`
+:::
+
+::: {style="opacity: 0.8;"}
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+:::
+
+## Other Conditions
+
+### Invasive Group A *Streptococcus*
+
+```{r}
+#-------------------------------------------------------------------------------
+# Notifiable conditions - iGAS
+# Data from PHESS
+#-------------------------------------------------------------------------------
+igas <- cases_all %>% 
+  f_wrangle_phess(condition_name = "iGAS")
+```
+
+- Data for this topic were obtained from the [Victorian Public Health Event Surveillance System](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria).
+
+- Invasive Group A *Streptococcus* (iGAS) became notifiable in Victoria in February 2022.
+
+- Notification rates were higher for Aboriginal and/or Torres Strait Islander people compared to non-Indigenous people for both the NEPHU catchment and Victoria.
+
+::: {.callout-tip title="Notification and follow-up requirements" icon=false collapse=false}
+- Invasive Group A *Streptococcus* (iGAS) is an urgent notifiable condition. Cases must be immediately notified upon initial diagnosis by medical practitioners and pathology services by telephone to the Department of Health, and pathology services must follow-up with written notification within five days of diagnosis.
+
+- All iGAS notifications are signed out for urgent case management and follow-up by Local Public Health Units.
+
+- iGAS became a notifiable condition in Victoria on 22/02/2022 and the management of notifications transitioned from the Victorian Department of Health to Local Public Health Units on 31/05/2023.
+:::
+
+:::: {.panel-tabset}
+
+#### Figure 10K-23
+
+::: {#fig_10K_23 .fig-tab-title}
+**Figure 10K-23:** Number of invasive Group A *Streptococcus* notifications for Aboriginal and/or Torres Strait Islander people, Victoria, by year
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+igas %>% 
+  f_bar_stacked_phess(y_max    = NA,
+                      y_breaks = 2,
+                      y_expand = 1.5)
+```
+
+#### Figure 10K-24
+
+::: {#fig_10K_24 .fig-tab-title}
+**Figure 10K-24:** Invasive Group A *Streptococcus* notification rate, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+igas %>%
+  dplyr::rename(rate = vic_rate) %>% 
+  #
+  f_line_grouped_indigenous(y_variable = rate,
+                            y_max      = NA,
+                            y_breaks   = 2,
+                            y_expand   = 1)
+```
+
+#### Table 10K-12
+
+::: {#tab_10K_12 .fig-tab-title}
+**Table 10K-12:** Number of invasive Group A *Streptococcus* notifications and notification rate, NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- igas %>% 
+  dplyr::select(-indigenous_status,
+                -notnephu_n) %>% 
+  #
+  tidyr::pivot_wider(names_from  = "indigenous_label",
+                     values_from = c("nephu_n", "nephu_rate", "vic_n", "vic_rate"),
+                     names_vary  = "slowest") %>%
+  #
+  janitor::clean_names()
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(nephu_rate_aboriginal     = round(nephu_rate_aboriginal, digits = 1),
+                vic_rate_aboriginal       = round(vic_rate_aboriginal, digits = 1),
+                nephu_rate_non_indigenous = round(nephu_rate_non_indigenous, digits = 1),
+                vic_rate_non_indigenous   = round(vic_rate_non_indigenous, digits = 1)) %>%
+  #
+  f_table_grouped_phess()
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_phess`
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+`r note_caveat_notification_rate`
+
+`r note_caveat_pandemic_decrease`
+:::
+
+### Acute Rheumatic Fever
+
+```{r}
+#-------------------------------------------------------------------------------
+# Notifiable conditions - acute rheumatic fever
+# Data from PHESS
+#-------------------------------------------------------------------------------
+arf <- cases_all %>% 
+  f_wrangle_phess(condition_name = "ARF")
+```
+
+- Data for this topic were obtained from the [Victorian Public Health Event Surveillance System](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria).
+
+- There have been no notifications of acute rheumatic fever for Aboriginal and/or Torres Strait Islander residents of the NEPHU catchment since it became notifiable in Victoria in July 2023.
+
+- Notification rates were higher for Aboriginal and/or Torres Strait Islander people compared to non-Indigenous people for Victoria overall.
+
+::: {.callout-tip title="Notification and follow-up requirements" icon=false collapse=false}
+- Acute rheumatic fever is a routine notifiable condition. Cases must be notified by medical practitioners in writing to the Department of Health within five days of diagnosis.
+
+- All acute rheumatic fever notifications are signed out for case management and follow-up by Local Public Health Units.
+
+- Acute rheumatic fever became a notifiable condition in Victoria on 31/07/2023 and the management of notifications transitioned from the Victorian Department of Health to Local Public Health Units on 02/08/2023.
+:::
+
+:::: {.panel-tabset}
+
+#### Figure 10K-25
+
+::: {#fig_10K_25 .fig-tab-title}
+**Figure 10K-25:** Number of acute rheumatic fever notifications for Aboriginal and/or Torres Strait Islander people, Victoria, by year
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+arf %>% 
+  f_bar_stacked_phess(y_max    = NA,
+                      y_breaks = 1,
+                      y_expand = 1.25)
+```
+
+#### Figure 10K-26
+
+::: {#fig_10K_26 .fig-tab-title}
+**Figure 10K-26:** Acute rheumatic fever notification rate, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+arf %>%
+  dplyr::rename(rate = vic_rate) %>% 
+  #
+  f_line_grouped_indigenous(y_variable = rate,
+                            y_max      = NA,
+                            y_breaks   = 1,
+                            y_expand   = 1.1)
+```
+
+#### Table 10K-13
+
+::: {#tab_10K_13 .fig-tab-title}
+**Table 10K-13:** Number of acute rheumatic fever notifications and notification rate, NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- arf %>% 
+  dplyr::select(-indigenous_status,
+                -notnephu_n) %>% 
+  #
+  tidyr::pivot_wider(names_from  = "indigenous_label",
+                     values_from = c("nephu_n", "nephu_rate", "vic_n", "vic_rate"),
+                     names_vary  = "slowest") %>%
+  #
+  janitor::clean_names()
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(nephu_rate_aboriginal     = sprintf("%.1f", nephu_rate_aboriginal),
+                vic_rate_aboriginal       = round(vic_rate_aboriginal, digits = 1),
+                nephu_rate_non_indigenous = round(nephu_rate_non_indigenous, digits = 1),
+                vic_rate_non_indigenous   = round(vic_rate_non_indigenous, digits = 1)) %>%
+  #
+  f_table_grouped_phess()
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_phess`
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+`r note_caveat_notification_rate`
+
+`r note_caveat_pandemic_decrease`
+:::
+
+### Rheumatic Heart Disease
+
+```{r}
+#-------------------------------------------------------------------------------
+# Notifiable conditions - rheumatic heart disease
+# Data from PHESS
+#-------------------------------------------------------------------------------
+rhd <- cases_all %>% 
+  f_wrangle_phess(condition_name = "RHD")
+```
+
+- Data for this topic were obtained from the [Victorian Public Health Event Surveillance System](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria).
+
+- There have been no notifications of rheumatic heart disease for Aboriginal and/or Torres Strait Islander residents of the NEPHU catchment since it became notifiable in Victoria in July 2023.
+
+- Notification rates were higher for Aboriginal and/or Torres Strait Islander people compared to non-Indigenous people for Victoria overall.
+
+::: {.callout-tip title="Notification and follow-up requirements" icon=false collapse=false}
+- Rheumatic heart disease is a routine notifiable condition. Cases must be notified by medical practitioners in writing to the Department of Health within five days of diagnosis.
+
+- All rheumatic heart disease notifications are signed out for case management and follow-up by Local Public Health Units.
+
+- Rheumatic heart disease became a notifiable condition in Victoria on 31/07/2023 and the management of notifications transitioned from the Victorian Department of Health to Local Public Health Units on 02/08/2023.
+:::
+
+:::: {.panel-tabset}
+
+#### Figure 10K-27
+
+::: {#fig_10K_27 .fig-tab-title}
+**Figure 10K-27:** Number of rheumatic heart disease notifications for Aboriginal and/or Torres Strait Islander people, Victoria, by year
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+rhd %>% 
+  f_bar_stacked_phess(y_max    = 5,
+                      y_breaks = 1,
+                      y_expand = 0.25)
+```
+
+#### Figure 10K-28
+
+::: {#fig_10K_28 .fig-tab-title}
+**Figure 10K-28:** Rheumatic heart disease notification rate, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+rhd %>%
+  dplyr::rename(rate = vic_rate) %>% 
+  #
+  f_line_grouped_indigenous(y_variable = rate,
+                            y_max      = 5,
+                            y_breaks   = 1,
+                            y_expand   = 0.25)
+```
+
+#### Table 10K-14
+
+::: {#tab_10K_14 .fig-tab-title}
+**Table 10K-14:** Number of rheumatic heart disease notifications and notification rate, NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- rhd %>% 
+  dplyr::select(-indigenous_status,
+                -notnephu_n) %>% 
+  #
+  tidyr::pivot_wider(names_from  = "indigenous_label",
+                     values_from = c("nephu_n", "nephu_rate", "vic_n", "vic_rate"),
+                     names_vary  = "slowest") %>%
+  #
+  janitor::clean_names()
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(nephu_rate_aboriginal     = sprintf("%.2f", nephu_rate_aboriginal),
+                vic_rate_aboriginal       = round(vic_rate_aboriginal, digits = 2),
+                nephu_rate_non_indigenous = round(nephu_rate_non_indigenous, digits = 2),
+                vic_rate_non_indigenous   = round(vic_rate_non_indigenous, digits = 2)) %>%
+  #
+  f_table_grouped_phess()
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_phess`
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+`r note_caveat_notification_rate`
+
+`r note_caveat_pandemic_decrease`
+:::
+
+::: {style="opacity: 0.8;"}
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+:::
+
+## Hospital Admissions
+
+```{r}
+# ------------------------------------------------------------------------------
+# Hospitalisations - infectious and parasitic diseases
+# Data from PHIDU Social Health Atlas
+# ------------------------------------------------------------------------------
+# Read in PHIDU data
+hospital_infectious <- f_read_phidu_iare_hospital(data_sheet    = "Admissions_principal_diag",
+                                                  column_select = "admissions_for_infectious_and_parasitic_diseases_aboriginal_people")
+
+# Data wrangling
+hospital_infectious <- hospital_infectious %>% 
+  dplyr::mutate(iare_name = factor(iare_name, levels = iare_inc_vic_lvl)) %>% 
+  #
+  dplyr::arrange(iare_name)
+```
+
+- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases).
+
+- During the four-year period 01 July 2017 to 30 June 2021 there were 1,090 hospital admissions for infectious and parasitic diseases for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
+
+- The number of admissions for infectious and parasitic diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 129 (Northcote/Preston/Whittlesea IARE) to 10 (Whitehorse IARE).
+
+- The age-standardised rate of admissions for infectious and parasitic diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 1,306 per 100,000 population (Melbourne/Port Phillip IARE) to 326 per 100,000 population (Melbourne East IARE).
+
+- 6 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for infectious and parasitic diseases above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Knox, Craigieburn/Sunbury, Moreland/Broadmeadows, Melbourne North-East, and Northcote/Preston/Whittlesea IAREs).
+
+::: {.callout-tip title="ICD-10-AM codes and definitions for this topic" icon=false collapse=false}
+Admissions for infectious and parasitic diseases are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+
+  - A00-A09: Intestinal infectious diseases
+  - A15-A19: Tuberculosis
+  - A20-A28: Certain zoonotic bacterial diseases
+  - A30-A49: Other bacterial diseases
+  - A50-A64: Infections with a predominantly sexual mode of transmission
+  - A65-A69: Other spirochaetal diseases
+  - A70-A74: Other diseases caused by chlamydiae
+  - A75-A79: Rickettsioses
+  - A80-A89: Viral infections of the central nervous system
+  - A92-A99: Arthropod-borne viral fevers and viral haemorrhagic fevers
+  - B00-B09: Viral infections characterized by skin and mucous membrane lesions
+  - B15-B19: Viral hepatitis
+  - B20-B24: Human immunodeficiency virus
+  - B25-B34: Other viral diseases
+  - B35-B49: Mycoses
+  - B50-B64: Protozoal diseases
+  - B65-B83: Helminthiases
+  - B85-B89: Pediculosis, acariasis, and other infestations
+  - B90-B94: Sequelae of infectious and parasitic diseases
+  - B95-B98: Bacterial, viral, and other infectious agents
+  - B99: Other and unspecified infectious diseases
+
+<div style="height: 2em;"></div>
+:::
+
+:::: {.panel-tabset}
+
+#### Figure 10K-29
+
+::: {#fig_10K_29 .fig-tab-title}
+**Figure 10K-29:** Number and age-standardised rate (per 100,000 population) of hospital admissions for infectious and parasitic diseases for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+figure_number <- hospital_infectious %>% 
+  f_bar_simple_iare(y_variable = aboriginal_n,
+                    y_max      = NA,
+                    y_breaks   = 25,
+                    y_expand   = 25,
+                    hospital   = "admission")
+
+figure_percent <- hospital_infectious %>% 
+  f_bar_simple_iare(y_variable = aboriginal_rate,
+                    y_max      = NA,
+                    y_breaks   = 250,
+                    y_expand   = 250,
+                    hospital   = "admission")
+
+f_bar_simple_combine(figure_number, figure_percent)
+```
+
+#### Table 10K-15
+
+::: {#tab_10K_15 .fig-tab-title}
+**Table 10K-15:** Hospital admissions for infectious and parasitic diseases for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- hospital_infectious %>%
+  dplyr::select(-iare_name_short)
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(aboriginal_rate = round(aboriginal_rate, digits = 0),
+                hospital_ratio  = round(hospital_ratio, digits = 0)) %>% 
+  #
+  f_table_simple(iare     = "yes",
+                 hospital = "admission")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_phidu_vaed`
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+`r note_caveat_iare_nephu`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_iare_ratio`
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_admissions`
+
+<div style="height: 2em;"></div>
+:::
+
+::: {style="opacity: 0.8;"}
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+:::
+
+## Emergency Presentations
+
+```{r}
+# ------------------------------------------------------------------------------
+# Emergency presentations - infectious and parasitic diseases
+# Data from PHIDU Social Health Atlas
+# ------------------------------------------------------------------------------
+# Read in PHIDU data
+emergency_infectious <- f_read_phidu_iare_hospital(data_sheet    = "ED_total",
+                                                   column_select = "emergency_department_presentations_total_presentations_for_certain_infectious_and_parasitic_diseases_aboriginal_people")
+
+# Data wrangling
+emergency_infectious <- emergency_infectious %>% 
+  dplyr::mutate(iare_name = factor(iare_name, levels = iare_inc_vic_lvl)) %>% 
+  #
+  dplyr::arrange(iare_name)
+```
+
+- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases).
+
+- Between 01 July 2019 and 30 June 2020 there were 812 emergency department presentations for infectious and parasitic diseases for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
+
+- The number of emergency department presentations for infectious and parasitic diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 108 (Northcote/Preston/Whittlesea IARE) to 8 (Whitehorse IARE).
+
+- The age-standardised rate of emergency department presentations for infectious and parasitic diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 3,905 per 100,000 population (Melbourne/Port Phillip IARE) to 1,708 per 100,000 population (Melbourne East IARE).
+
+- 5 of the 10 IAREs in the NEPHU catchment area had an age-standardised rate of emergency department presentations for infectious and parasitic diseases above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Melbourne North-East, Maroondah, Northcote/Preston/Whittlesea, and Moreland/Broadmeadows IAREs).
+
+::: {.callout-tip title="ICD-10-AM codes and definitions for this topic" icon=false collapse=false}
+Emergency department presentations for infectious and parasitic diseases are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+
+  - A00-A09: Intestinal infectious diseases
+  - A15-A19: Tuberculosis
+  - A20-A28: Certain zoonotic bacterial diseases
+  - A30-A49: Other bacterial diseases
+  - A50-A64: Infections with a predominantly sexual mode of transmission
+  - A65-A69: Other spirochaetal diseases
+  - A70-A74: Other diseases caused by chlamydiae
+  - A75-A79: Rickettsioses
+  - A80-A89: Viral infections of the central nervous system
+  - A92-A99: Arthropod-borne viral fevers and viral haemorrhagic fevers
+  - B00-B09: Viral infections characterized by skin and mucous membrane lesions
+  - B15-B19: Viral hepatitis
+  - B20-B24: Human immunodeficiency virus
+  - B25-B34: Other viral diseases
+  - B35-B49: Mycoses
+  - B50-B64: Protozoal diseases
+  - B65-B83: Helminthiases
+  - B85-B89: Pediculosis, acariasis, and other infestations
+  - B90-B94: Sequelae of infectious and parasitic diseases
+  - B95-B98: Bacterial, viral, and other infectious agents
+  - B99: Other and unspecified infectious diseases
+
+<div style="height: 2em;"></div>
+:::
+
+:::: {.panel-tabset}
+
+#### Figure 10K-30
+
+::: {#fig_10K_30 .fig-tab-title}
+**Figure 10K-30:** Number and age-standardised rate (per 100,000 population) of emergency department presentations for infectious and parasitic diseases for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2019 to 30 June 2020
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+figure_number <- emergency_infectious %>% 
+  f_bar_simple_iare(y_variable = aboriginal_n,
+                    y_max      = NA,
+                    y_breaks   = 20,
+                    y_expand   = 15,
+                    hospital   = "emergency")
+
+figure_percent <- emergency_infectious %>% 
+  f_bar_simple_iare(y_variable = aboriginal_rate,
+                    y_max      = NA,
+                    y_breaks   = 500,
+                    y_expand   = 250,
+                    hospital   = "emergency")
+
+f_bar_simple_combine(figure_number, figure_percent)
+```
+
+#### Table 10K-16
+
+::: {#tab_10K_16 .fig-tab-title}
+**Table 10K-16:** Emergency department presentations for infectious and parasitic diseases for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2019 to 30 June 2020
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- emergency_infectious %>%
+  dplyr::select(-iare_name_short)
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(aboriginal_rate = round(aboriginal_rate, digits = 0),
+                hospital_ratio  = round(hospital_ratio, digits = 0)) %>% 
+  #
+  f_table_simple(iare     = "yes",
+                 hospital = "emergency")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_phidu_vemd`
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+`r note_caveat_iare_nephu`
+
+`r note_caveat_iare_suppress`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_iare_ratio`
+
+<div style="height: 2em;"></div>
+:::
 
