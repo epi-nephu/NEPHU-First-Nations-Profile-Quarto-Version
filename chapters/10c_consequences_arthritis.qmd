@@ -127,9 +127,9 @@ figure_number <- arthritis_lga %>%
 
 figure_percent <- arthritis_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_prop,
-                   y_max      = 25,
-                   y_breaks   = 5,
-                   y_expand   = 0.5)
+                   y_max      = 10,
+                   y_breaks   = 1,
+                   y_expand   = 0.1)
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```

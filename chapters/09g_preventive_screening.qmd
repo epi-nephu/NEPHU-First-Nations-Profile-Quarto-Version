@@ -144,7 +144,7 @@ breast_year %>%
                            y_max         = 100,
                            y_breaks      = 10,
                            y_expand      = 1,
-                           y_title       = "Percentage of eligible women",
+                           n_level       = "eligible women",
                            x_angle       = 0,
                            legend_offset = -0.1)
 ```
@@ -224,7 +224,7 @@ breast_age %>%
                            y_max         = 100,
                            y_breaks      = 10,
                            y_expand      = 1,
-                           y_title       = "Percentage of eligible women",
+                           n_level       = "eligible women",
                            x_angle       = 0,
                            legend_offset = -0.1)
 ```
@@ -370,7 +370,7 @@ cervical_year <- cervical_year %>%
 #### Figure 9G-3
 
 ::: {#fig_9G_3 .fig-tab-title}
-**Figure 9G-3:** Cervical screening participation rate for the previous two, three, and five years, Victoria, by Aboriginal and/or Torres Strait Islander status and time period, 2017 to 2021
+**Figure 9G-3:** Cervical screening coverage for the previous two, three, and five years, Victoria, by Aboriginal and/or Torres Strait Islander status and time period, 2017 to 2021
 :::
 
 ```{r}
@@ -387,7 +387,7 @@ cervical_year %>%
                            y_max         = 100,
                            y_breaks      = 10,
                            y_expand      = 1,
-                           y_title       = "Percentage of eligible women",
+                           n_level       = "eligible women",
                            x_angle       = 0,
                            legend_offset = -0.1)
 ```
@@ -395,7 +395,7 @@ cervical_year %>%
 #### Table 9G-3
 
 ::: {#tab_9G_3 .fig-tab-title}
-**Table 9G-3:** Cervical screening participation rate for the previous two, three, and five years, Victoria, by Aboriginal and/or Torres Strait Islander status and time period, 2017 to 2021
+**Table 9G-3:** Cervical screening coverage for the previous two, three, and five years, Victoria, by Aboriginal and/or Torres Strait Islander status and time period, 2017 to 2021
 :::
 
 ```{r}
@@ -458,7 +458,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-- The participation rate is the number of eligible women (aged 25-74 years) who had at least one human papillomavirus test or cervical cytology test for any reason divided by the total number of eligible women (aged 25-74 years) for each time period.
+- Cervical screening coverage is the number of eligible women (aged 25-74 years) who had at least one human papillomavirus test or cervical cytology test for any reason divided by the total number of eligible women (aged 25-74 years) for each time period.
   - The total number of eligible women for each two year period is derived from the [ABS Estimated Resident Population](https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071), adjusted for the number of women who have had a hysterectomy (hysterectomy fraction).
   - Active participants in the [Compass trial](https://acpcc.org.au/compass/) were excluded.
 
@@ -543,7 +543,7 @@ bowel_year %>%
                            y_max         = 100,
                            y_breaks      = 10,
                            y_expand      = 1,
-                           y_title       = "Percentage of invited people",
+                           n_level       = "invited people",
                            x_angle       = 0,
                            legend_offset = -0.1)
 ```

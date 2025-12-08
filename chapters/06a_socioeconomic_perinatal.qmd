@@ -10,6 +10,8 @@ source(here::here("setup_footnotes.R"))
 # Set up numbering for exporting tables as .csv
 table_section <- "06A"
 table_count   <- 0
+
+figure_count <- 0
 ```
 
 ::: {.caveat-box}
@@ -98,19 +100,21 @@ childhood_antenatal <- childhood_iare %>%
 
 ```{r}
 #
+figure_count <- figure_count + 1
+
 figure_number <- childhood_antenatal %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
                     y_max      = NA,
                     y_breaks   = 20,
-                    y_expand   = 10,
-                    y_title    = "Number of women")
+                    y_expand   = 12,
+                    n_level    = "women")
 
 figure_percent <- childhood_antenatal %>% 
   f_bar_simple_iare(y_variable = aboriginal_prop,
                     y_max      = 100,
                     y_breaks   = 10,
                     y_expand   = 1,
-                    y_title    = "Percentage of women")
+                    n_level    = "women")
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```
@@ -217,19 +221,21 @@ childhood_smoking <- childhood_iare %>%
 
 ```{r}
 #
+figure_count <- figure_count + 1
+
 figure_number <- childhood_smoking %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
                     y_max      = NA,
                     y_breaks   = 10,
-                    y_expand   = 5,
-                    y_title    = "Number of women")
+                    y_expand   = 6,
+                    n_level    = "women")
 
 figure_percent <- childhood_smoking %>% 
   f_bar_simple_iare(y_variable = aboriginal_prop,
-                    y_max      = 100,
-                    y_breaks   = 10,
-                    y_expand   = 1,
-                    y_title    = "Percentage of women")
+                    y_max      = 50,
+                    y_breaks   = 5,
+                    y_expand   = 0.5,
+                    n_level    = "women")
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```
@@ -374,17 +380,21 @@ childhood_birthweight <- childhood_iare %>%
 # Data from AIHW Aboriginal and Torres Strait Islander Health Performance Framework
 # ---------------------------------------------------------------------------------
 # Read in AIHW data
-childhood_birthweight_year <- readxl::read_excel(file.path(root_folder, subfolder_framework, "101-Birthweight.xlsx"),
-                                                 sheet        = "D1.01.3",
-                                                 skip         = 1,
-                                                 trim_ws      = TRUE,
-                                                 .name_repair = "universal_quiet") %>%
-  janitor::clean_names() %>% 
-  #
-  dplyr::select(indigenous_status = x1,
-                x2011:x2020) %>% 
-  #
-  dplyr::filter(row_number() %in% c(8:9))
+childhood_birthweight_year <- f_read_hpf("101-Birthweight.xlsx",
+                                         data_sheet    = "D1.01.3",
+                                         skip_rows     = 1,
+                                         row_select    = c(8:9),
+                                         column_select = c(indigenous_status = "x1",
+                                                           "x2011",
+                                                           "x2012",
+                                                           "x2013",
+                                                           "x2014",
+                                                           "x2015",
+                                                           "x2016",
+                                                           "x2017",
+                                                           "x2018",
+                                                           "x2019",
+                                                           "x2020"))
 
 # Data wrangling
 childhood_birthweight_year <- childhood_birthweight_year %>% 
@@ -437,22 +447,24 @@ childhood_birthweight_year <- childhood_birthweight_year %>%
 
 ```{r}
 #
+figure_count <- figure_count + 1
+
 figure_number <- childhood_birthweight %>%
   f_bar_simple_iare(y_variable = aboriginal_n,
                     y_max      = NA,
                     y_breaks   = 50,
-                    y_expand   = 6,
-                    y_title    = "Number of live births")
+                    y_expand   = 10,
+                    n_level    = "live births")
 
 figure_percent <- childhood_birthweight %>% 
   f_bar_simple_iare(y_variable = aboriginal_prop,
                     y_max      = 100,
                     y_breaks   = 10,
                     y_expand   = 1,
-                    y_title    = "Percentage of live births",
+                    n_level    = "live births",
                     ctg_target = 91)  
 
-f_bar_simple_combine(figure_number, figure_percent)
+f_bar_simple_combine(figure_number, figure_percent, legend_offset = -0.4)
 ```
 
 #### Table 6A-3
@@ -500,12 +512,14 @@ table %>%
 
 ```{r}
 #
+figure_count <- figure_count + 1
+
 childhood_birthweight_year %>%
   f_line_grouped_indigenous(y_variable = prop,
-                            y_max      = 20,
-                            y_breaks   = 2,
-                            y_expand   = 0.25,
-                            y_title    = "Percentage of live births")
+                            y_max      = 25,
+                            y_breaks   = 5,
+                            y_expand   = 0.5,
+                            n_level    = "live births")
 ```
 
 #### Table 6A-4
@@ -600,31 +614,21 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 # Data from AIHW Aboriginal and Torres Strait Islander Health Performance Framework
 # ---------------------------------------------------------------------------------
 # Read in AIHW data
-childhood_breastfed <- readxl::read_excel(file.path(root_folder, subfolder_framework, "220-Breastfeeding-practices.xlsx"),
-                                          sheet        = "D2.20.6",
-                                          skip         = 1,
-                                          trim_ws      = TRUE,
-                                          .name_repair = "universal_quiet") %>% 
-  janitor::clean_names() %>% 
-  #
-  dplyr::select(breastfed = x1,
-                aboriginal_prop = vic,
-                non_aboriginal_prop = x5) %>% 
-  #
-  dplyr::filter(row_number() %in% c(4, 7:10, 12))
+childhood_breastfed <- f_read_hpf("220-Breastfeeding-practices.xlsx",
+                                  data_sheet    = "D2.20.6",
+                                  skip_rows     = 1,
+                                  row_select    = c(4, 7:10, 12),
+                                  column_select = c(breastfed = "x1",
+                                                    aboriginal_prop = "vic",
+                                                    non_aboriginal_prop = "x5"))
 
-childhood_breastfed_totals <- readxl::read_excel(file.path(root_folder, subfolder_framework, "220-Breastfeeding-practices.xlsx"),
-                                          sheet        = "D2.20.6",
-                                          skip         = 1,
-                                          trim_ws      = TRUE,
-                                          .name_repair = "universal_quiet") %>% 
-  janitor::clean_names() %>% 
-  #
-  dplyr::select(breastfed = x1,
-                aboriginal_prop = vic,
-                non_aboriginal_prop = x5) %>% 
-  #
-  dplyr::filter(row_number() == 14) %>% 
+childhood_breastfed_totals <- f_read_hpf("220-Breastfeeding-practices.xlsx",
+                                         data_sheet    = "D2.20.6",
+                                         skip_rows     = 1,
+                                         row_select    = c(14),
+                                         column_select = c(breastfed = "x1",
+                                                           aboriginal_prop = "vic",
+                                                           non_aboriginal_prop = "x5")) %>%
   #
   dplyr::mutate(aboriginal_prop     = as.numeric(gsub("[^0-9.]", "", aboriginal_prop)),
                 non_aboriginal_prop = as.numeric(gsub("[^0-9.]", "", non_aboriginal_prop)))
@@ -685,6 +689,8 @@ childhood_breastfed <- childhood_breastfed %>%
 
 ```{r}
 #
+figure_count <- figure_count + 1
+
 childhood_breastfed %>% 
   dplyr::select(-aboriginal_estimate,
                 -non_aboriginal_estimate) %>% 
@@ -712,7 +718,7 @@ childhood_breastfed %>%
                            y_max         = 50,
                            y_breaks      = 5,
                            y_expand      = 0.5,
-                           y_title       = "Percentage of children",
+                           n_level       = "children",
                            legend_offset = -0.4)
 ```
 

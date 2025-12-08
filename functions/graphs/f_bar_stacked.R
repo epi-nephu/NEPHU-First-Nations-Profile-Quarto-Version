@@ -8,7 +8,8 @@
 # Classic stacked bar chart
 ################################################################################
 f_bar_stacked <- function(data, x_variable, y_variable, fill_variable, fill_values,
-                          y_max, y_breaks, y_expand, y_title, legend_offset = -0.1, x_angle = 0, facet_wrap = "no") {
+                          y_max, y_breaks, y_expand, y_title, 
+                          legend_offset = -0.1, x_angle = 0, facet_wrap = "no") {
   
   x_variable    <- rlang::enquo(x_variable)
   y_variable    <- rlang::enquo(y_variable)
@@ -66,7 +67,8 @@ f_bar_stacked <- function(data, x_variable, y_variable, fill_variable, fill_valu
 ################################################################################
 # By LGA 
 ################################################################################
-f_bar_stacked_lga <- function(data, fill_values, y_max, y_breaks, y_expand, y_title = "Number of people") {
+f_bar_stacked_lga <- function(data, fill_values, y_max, y_breaks, y_expand, 
+                              y_title = "Number of people") {
   
   data <- data %>% 
     dplyr::mutate(hover_text = paste0(lga_name, " LGA", "\n",
@@ -116,7 +118,8 @@ f_bar_stacked_lga <- function(data, fill_values, y_max, y_breaks, y_expand, y_ti
 ################################################################################
 # By age and sex 
 ################################################################################
-f_bar_stacked_agesex <- function(data, fill_values, y_max, y_breaks, y_expand, y_title = "Number of people") {
+f_bar_stacked_agesex <- function(data, fill_values, y_max, y_breaks, y_expand, 
+                                 y_title = "Number of people") {
   
   data <- data %>% 
     dplyr::mutate(hover_text = paste0(sex, "\n",

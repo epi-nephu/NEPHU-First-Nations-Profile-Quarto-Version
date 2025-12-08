@@ -314,7 +314,7 @@ The following questions were asked of all people aged 15 years and over completi
 #### Table 8D-2
 
 ::: {#tab_8D_2 .fig-tab-title}
-**Table 8D-2:** Number and percentage of people reporting that they had experienced unfair treatment in the 12 months prior to the survey for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**Table 8D-2:** Experience of unfair treatment in the 12 months prior to the survey for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
@@ -353,7 +353,7 @@ table %>%
 #### Table 8D-3
 
 ::: {#tab_8D_3 .fig-tab-title}
-**Table 8D-3:** Number and percentage of people reporting that they had avoided situations in the 12 months prior to the survey due to previous unfair treatment for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**Table 8D-3:** Avoidance of situations in the 12 months prior to the survey due to previous unfair treatment for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}

@@ -8,7 +8,8 @@
 # Classic grouped bar chart
 ################################################################################
 f_bar_grouped <- function(data, x_variable, y_variable, fill_variable, fill_values,
-                          y_max, y_breaks, y_expand, y_title, x_angle = 90, legend_offset = -0.3) {
+                          y_max, y_breaks, y_expand, y_title, 
+                          x_angle = 90, legend_offset = -0.3) {
   
   x_variable    <- rlang::enquo(x_variable)
   y_variable    <- rlang::enquo(y_variable)
@@ -56,7 +57,8 @@ f_bar_grouped <- function(data, x_variable, y_variable, fill_variable, fill_valu
 ################################################################################
 # By age and sex
 ################################################################################
-f_bar_grouped_agesex <- function(data, y_variable, y_max, y_breaks, y_expand, y_title) {
+f_bar_grouped_agesex <- function(data, y_variable, y_max, y_breaks, y_expand, 
+                                 n_level = "people") {
   
   y_variable <- rlang::enquo(y_variable)
   
@@ -65,7 +67,7 @@ f_bar_grouped_agesex <- function(data, y_variable, y_max, y_breaks, y_expand, y_
   
   if (rlang::as_name(y_variable) == "aboriginal_n") {
     
-    y_title <- "Number of people"
+    y_title <- paste0("Number of ", n_level)
     
     data <- data %>% 
       dplyr::mutate(hover_text = paste0(sex, "\n",
@@ -76,7 +78,7 @@ f_bar_grouped_agesex <- function(data, y_variable, y_max, y_breaks, y_expand, y_
   
   if (rlang::as_name(y_variable) == "aboriginal_prop") {
     
-    y_title <- "Percentage of people"
+    y_title <- paste0("Percentage of ", n_level)
     
     data <- data %>% 
       dplyr::mutate(hover_text = paste0(sex, "\n",
@@ -127,7 +129,8 @@ f_bar_grouped_agesex <- function(data, y_variable, y_max, y_breaks, y_expand, y_
 ################################################################################
 # By sex
 ################################################################################
-f_bar_grouped_sex <- function(data, x_variable, y_variable, y_max, y_breaks, y_expand, y_title, x_angle = 0, legend_offset = -0.1) {
+f_bar_grouped_sex <- function(data, x_variable, y_variable, y_max, y_breaks, y_expand, y_title, 
+                              x_angle = 0, legend_offset = -0.1) {
   
   x_variable <- rlang::enquo(x_variable)
   y_variable <- rlang::enquo(y_variable)
@@ -196,12 +199,15 @@ f_bar_grouped_sex <- function(data, x_variable, y_variable, y_max, y_breaks, y_e
 ################################################################################
 # By Indigenous status
 ################################################################################
-f_bar_grouped_indigenous <- function(data, x_variable, y_variable, y_max, y_breaks, y_expand, y_title, x_angle = 90, legend_offset = -0.3) {
+f_bar_grouped_indigenous <- function(data, x_variable, y_variable, y_max, y_breaks, y_expand, 
+                                     n_level = "people", x_angle = 90, legend_offset = -0.3) {
   
   x_variable <- rlang::enquo(x_variable)
   y_variable <- rlang::enquo(y_variable)
   
   if (rlang::as_name(y_variable) == "n") {
+
+    y_title <- paste0("Number of ", n_level)
     
     data <- data %>% 
       dplyr::mutate(hover_text = paste0(!!x_variable, "\n",
@@ -211,6 +217,8 @@ f_bar_grouped_indigenous <- function(data, x_variable, y_variable, y_max, y_brea
   }
   
   if (rlang::as_name(y_variable) == "estimate") {
+
+    y_title <- "Estimated number of people"
     
     data <- data %>% 
       dplyr::mutate(hover_text = paste0(!!x_variable, "\n",
@@ -220,6 +228,8 @@ f_bar_grouped_indigenous <- function(data, x_variable, y_variable, y_max, y_brea
   }
   
   if (rlang::as_name(y_variable) == "prop") {
+
+    y_title <- paste0("Percentage of ", n_level)
     
     data <- data %>% 
       dplyr::mutate(hover_text = paste0(!!x_variable, "\n",

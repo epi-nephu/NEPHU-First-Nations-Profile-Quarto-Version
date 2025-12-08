@@ -10,6 +10,8 @@ source(here::here("setup_footnotes.R"))
 # Set up numbering for exporting tables as .csv
 table_section <- "04A"
 table_count   <- 0
+
+figure_count <- 0
 ```
 
 ::: {.caveat-box}
@@ -157,6 +159,8 @@ population_lphu <- aboriginal_lga %>%
 
 ```{r}
 #
+figure_count <- figure_count + 1
+
 population_lphu %>% 
   dplyr::filter(lphu_short != "VIC") %>% 
   #
@@ -166,9 +170,8 @@ population_lphu %>%
   f_bar_simple(x_variable = forcats::fct_reorder(lphu_short, desc(aboriginal_n)),
                y_variable = aboriginal_n,
                y_max      = NA,
-               y_breaks   = 1500,
-               y_expand   = 150,
-               y_title    = "Number of people",
+               y_breaks   = 2000,
+               y_expand   = 250,
                x_angle    = 0)
 ```
 
@@ -371,6 +374,8 @@ density_sa2 <- dplyr::left_join(nephu_sa2.sf,
 
 ```{r}
 #
+figure_count <- figure_count + 1
+
 population_lga %>% 
   dplyr::filter(lga_name != "NEPHU") %>% 
   #
@@ -380,9 +385,8 @@ population_lga %>%
   f_bar_simple(x_variable = forcats::fct_reorder(lga_name, desc(aboriginal_n)),
                y_variable = aboriginal_n,
                y_max      = NA,
-               y_breaks   = 250,
-               y_expand   = 25,
-               y_title    = "Number of people")
+               y_breaks   = 500,
+               y_expand   = 250)
 ```
 
 #### Table 4A-2
@@ -433,6 +437,8 @@ table %>%
 
 ```{r}
 #
+figure_count <- figure_count + 1
+
 density_lga %>% 
   f_map_density()
 ```
@@ -445,6 +451,8 @@ density_lga %>%
 
 ```{r}
 #
+figure_count <- figure_count + 1
+
 density_sa2 %>% 
   f_map_density()
 ```

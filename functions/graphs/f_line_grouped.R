@@ -7,7 +7,8 @@
 ################################################################################
 # Classic grouped line chart
 ################################################################################
-f_line_grouped <- function(data, y_variable, fill_variable, fill_values, y_max, y_breaks, y_expand, y_title = "Percentage of people", ctg_target = NA) {
+f_line_grouped <- function(data, y_variable, fill_variable, fill_values, y_max, y_breaks, y_expand, 
+                           y_title = "Percentage of people", ctg_target = NA) {
 
   y_variable    <- rlang::enquo(y_variable)
   fill_variable <- rlang::enquo(fill_variable)
@@ -92,7 +93,8 @@ f_line_grouped <- function(data, y_variable, fill_variable, fill_values, y_max, 
 ################################################################################
 # By indigenous status
 ################################################################################
-f_line_grouped_indigenous <- function(data, y_variable, y_max, y_breaks, y_expand, y_title, ctg_target = NA) {
+f_line_grouped_indigenous <- function(data, y_variable, y_max, y_breaks, y_expand, 
+                                      n_level = "people", ctg_target = NA) {
   
   y_variable <- rlang::enquo(y_variable)
 
@@ -100,7 +102,7 @@ f_line_grouped_indigenous <- function(data, y_variable, y_max, y_breaks, y_expan
   
   if (rlang::as_name(y_variable) == "n") {
     
-    y_title = "Number of people"
+    y_title <- paste0("Number of ", n_level)
     
     data <- data %>% 
       dplyr::mutate(hover_text = paste0(year, "\n",
@@ -111,7 +113,7 @@ f_line_grouped_indigenous <- function(data, y_variable, y_max, y_breaks, y_expan
   
   if (rlang::as_name(y_variable) == "prop") {
     
-    y_title = "Percentage of people"
+    y_title <- paste0("Percentage of ", n_level)
     
     data <- data %>% 
       dplyr::mutate(hover_text = paste0(year, "\n",
@@ -122,8 +124,8 @@ f_line_grouped_indigenous <- function(data, y_variable, y_max, y_breaks, y_expan
   
   if (rlang::as_name(y_variable) == "rate") {
     
-    y_title = "Rate (per 100,000 population)"
-    
+    y_title <- paste0("Rate (per ", n_level, " population)")
+
     data <- data %>% 
       dplyr::mutate(hover_text = paste0(year, "\n",
                                         indigenous_label, "\n",
@@ -209,7 +211,8 @@ f_line_grouped_indigenous <- function(data, y_variable, y_max, y_breaks, y_expan
 ################################################################################
 # By sex
 ################################################################################
-f_line_grouped_sex <- function(data, y_variable, y_max, y_breaks, y_expand, y_title, ctg_target = NA) {
+f_line_grouped_sex <- function(data, y_variable, y_max, y_breaks, y_expand, 
+                               n_level = "people", ctg_target = NA) {
   
   y_variable <- rlang::enquo(y_variable)
   
@@ -217,7 +220,7 @@ f_line_grouped_sex <- function(data, y_variable, y_max, y_breaks, y_expand, y_ti
   
   if (rlang::as_name(y_variable) == "n") {
     
-    y_title = "Number of people"
+    y_title <- paste0("Number of ", n_level)
     
     data <- data %>% 
       dplyr::mutate(hover_text = paste0(year, "\n",
@@ -228,7 +231,7 @@ f_line_grouped_sex <- function(data, y_variable, y_max, y_breaks, y_expand, y_ti
   
   if (rlang::as_name(y_variable) == "prop") {
     
-    y_title = "Percentage of people"
+    y_title <- paste0("Percentage of ", n_level)
     
     data <- data %>% 
       dplyr::mutate(hover_text = paste0(year, "\n",
@@ -239,7 +242,7 @@ f_line_grouped_sex <- function(data, y_variable, y_max, y_breaks, y_expand, y_ti
   
   if (rlang::as_name(y_variable) == "rate") {
     
-    y_title = "Rate (per 100,000 population)"
+    y_title <- paste0("Rate (per ", n_level, " population)")
     
     data <- data %>% 
       dplyr::mutate(hover_text = paste0(year, "\n",

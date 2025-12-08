@@ -257,12 +257,12 @@ figure_percent <- activity_type %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = prop,
-                    y_max      = 100,
-                    y_breaks   = 10,
-                    y_expand   = 1,
+                    y_max      = 50,
+                    y_breaks   = 5,
+                    y_expand   = 0.5,
                     x_angle    = 90)
 
-f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.35)
+f_bar_grouped_combine(figure_number, figure_percent)
 ```
 
 #### Table 9B-2

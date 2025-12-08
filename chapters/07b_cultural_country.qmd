@@ -245,7 +245,7 @@ The following questions were asked of all people aged 18 years and over completi
 #### Figure 7B-1
 
 ::: {#fig_7B_1 .fig-tab-title}
-**Figure 7B-1:** Estimated number of people and percentage of survey respondents aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander and frequency of visits to traditional Country, Greater Melbourne, by sex, 2022-2023
+**Figure 7B-1:** Frequency of visits to traditional Country for people aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
@@ -263,8 +263,7 @@ figure_number <- visit %>%
                     y_variable = n,
                     y_max      = NA,
                     y_breaks   = 250,
-                    y_expand   = 150,
-                    y_title    = "Estimated number of people",
+                    y_expand   = 160,
                     x_angle    = 90)
 
 figure_percent <- visit %>% 
@@ -277,10 +276,9 @@ figure_percent <- visit %>%
                     y_max      = 50,
                     y_breaks   = 5,
                     y_expand   = 0.5,
-                    y_title    = "Percentage of survey respondents",
                     x_angle    = 90)
 
-f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.3)
+f_bar_grouped_combine(figure_number, figure_percent)
 ```
 
 #### Table 7B-2

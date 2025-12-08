@@ -200,7 +200,7 @@ The following question was asked of all people aged 18 years and over completing
 #### Figure 7A-1
 
 ::: {#fig_7A_1 .fig-tab-title}
-**Figure 7A-1:** Estimated number of people and percentage of survey respondents aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander and satisfaction with cultural knowledge, Greater Melbourne, by sex, 2022-2023
+**Figure 7A-1:** Level of satisfaction with cultural knowledge for survey respondents aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
@@ -218,8 +218,7 @@ figure_number <- knowledge %>%
                     y_variable = n,
                     y_max      = NA,
                     y_breaks   = 500,
-                    y_expand   = 150,
-                    y_title    = "Estimated number of people")
+                    y_expand   = 200)
 
 figure_percent <- knowledge %>% 
   dplyr::filter(sex != "Total" & answer != "Total") %>%
@@ -230,8 +229,7 @@ figure_percent <- knowledge %>%
                     y_variable = prop,
                     y_max      = 50,
                     y_breaks   = 5,
-                    y_expand   = 0.5,
-                    y_title    = "Percentage of survey respondents")
+                    y_expand   = 0.5)
 
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 ```
@@ -239,7 +237,7 @@ f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 #### Table 7A-1
 
 ::: {#tab_7A-1 .fig-tab-title}
-**Table 7A-1:** Satisfaction with cultural knowledge for people aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**Table 7A-1:** Level of satisfaction with cultural knowledge for survey respondents aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
@@ -524,7 +522,7 @@ The following question was asked of all people aged 18 years and over completing
 #### Figure 7A-2
 
 ::: {#fig_7A_2 .fig-tab-title}
-**Figure 7A-2:** Estimated number of people and percentage of survey respondents aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander and who identify with one or more specific groups, Greater Melbourne, by sex, 2022-2023
+**Figure 7A-2:** Identification with one or more specific groups for people aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
@@ -538,8 +536,7 @@ figure_number <- identification %>%
                     y_variable = n,
                     y_max      = NA,
                     y_breaks   = 1000,
-                    y_expand   = 600,
-                    y_title    = "Estimated number of people",
+                    y_expand   = 750,
                     x_angle    = 90)
 
 figure_percent <- identification %>% 
@@ -550,10 +547,9 @@ figure_percent <- identification %>%
                     y_max      = 100,
                     y_breaks   = 10,
                     y_expand   = 1,
-                    y_title    = "Percentage of survey respondents",
                     x_angle    = 90)
 
-f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.3)
+f_bar_grouped_combine(figure_number, figure_percent)
 ```
 
 #### Table 7A-3
@@ -824,7 +820,7 @@ The following question was asked of all people aged 18 years and over completing
 #### Figure 7A-3
 
 ::: {#fig_7A_3 .fig-tab-title}
-**Figure 7A-3:** Estimated number of people and percentage of survey respondents aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander and the importance of being recognised as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**Figure 7A-3:** Importance of recognition as Aboriginal and/or Torres Strait Islander for people aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
@@ -843,7 +839,7 @@ figure_number <- recognition %>%
                     y_max      = NA,
                     y_breaks   = 500,
                     y_expand   = 500,
-                    y_title    = "Estimated number of people")
+                    x_angle    = 90)
 
 figure_percent <- recognition %>% 
   dplyr::filter(sex != "Total" & answer != "Total") %>%
@@ -855,9 +851,9 @@ figure_percent <- recognition %>%
                     y_max      = 50,
                     y_breaks   = 5,
                     y_expand   = 0.5,
-                    y_title    = "Percentage of survey respondents")
+                    x_angle    = 90)
 
-f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
+f_bar_grouped_combine(figure_number, figure_percent)
 ```
 
 #### Table 7A-5

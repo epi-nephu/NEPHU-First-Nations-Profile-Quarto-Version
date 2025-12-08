@@ -7,7 +7,8 @@
 ################################################################################
 # By LGA
 ################################################################################
-f_bar_obsexp_lga <- function(data, y_max, y_breaks, y_expand, y_title = "Number of people") {
+f_bar_obsexp_lga <- function(data, y_max, y_breaks, y_expand, 
+                             y_title = "Number of people") {
   
   data <- data %>% 
     dplyr::filter(lga_name %in% nephu_lga) %>%
@@ -75,7 +76,8 @@ f_bar_obsexp_lga <- function(data, y_max, y_breaks, y_expand, y_title = "Number 
 ################################################################################
 # By age and sex
 ################################################################################
-f_bar_obsexp_agesex <- function(data, y_max, y_breaks, y_expand, y_title = "Number of people") {
+f_bar_obsexp_agesex <- function(data, y_max, y_breaks, y_expand, 
+                                y_title = "Number of people") {
   
   data <- data %>% 
     dplyr::filter(age_group %in% age_group_lvl) %>%

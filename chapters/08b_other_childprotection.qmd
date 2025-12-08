@@ -193,10 +193,10 @@ outofhome %>%
   #
   f_line_grouped_indigenous(y_variable = rate,
                             y_max      = NA,
-                            y_breaks   = 10,
-                            y_expand   = 10,
+                            y_breaks   = 20,
+                            y_expand   = 20,
                             ctg_target = ctg_target,
-                            y_title    = "Out-of-home care rate (per 1,000 population)")
+                            n_level    = "1,000")
 ```
 
 #### Table 8B-1
@@ -255,8 +255,7 @@ relationship %>%
                 y_max         = NA,
                 y_breaks      = 500,
                 y_expand      = 200,
-                y_title       = "Number of children",
-                legend_offset = -0.2)
+                y_title       = "Number of children")
 ```
 
 #### Table 8B-2

@@ -10,6 +10,8 @@ source(here::here("setup_footnotes.R"))
 # Set up numbering for exporting tables as .csv
 table_section <- "06C"
 table_count   <- 0
+
+figure_count <- 0
 ```
 
 ::: {.caveat-box}
@@ -146,6 +148,8 @@ The following question was asked of all people aged 15 years and over completing
 
 ```{r}
 #
+figure_count <- figure_count + 1
+
 school_lga %>% 
   dplyr::filter(lga_name %in% nephu_lga) %>% 
   #
@@ -165,7 +169,7 @@ school_lga %>%
   f_bar_stacked_lga(fill_values = c(colour_stack3, colour_stack2, colour_stack1),
                     y_max       = NA,
                     y_breaks    = 200,
-                    y_expand    = 25)
+                    y_expand    = 50)
 ```
 
 #### Table 6C-1
@@ -216,6 +220,8 @@ table %>%
 
 ```{r}
 #
+figure_count <- figure_count + 1
+
 school_agesex %>% 
   dplyr::filter(age_group %in% age_group_lvl) %>% 
   #
@@ -431,6 +437,8 @@ The following question was asked of all people aged 15 years and over completing
 
 ```{r}
 #
+figure_count <- figure_count + 1
+
 year12_trend %>% 
   dplyr::filter(unit == "prop") %>% 
   #
@@ -440,6 +448,7 @@ year12_trend %>%
                             y_max      = 100,
                             y_breaks   = 10,
                             y_expand   = 1,
+                            n_level    = "people aged 20-24 yrs",
                             ctg_target = 96)
 ```
 
@@ -485,19 +494,21 @@ table %>%
 
 ```{r}
 #
+figure_count <- figure_count + 1
+
 figure_number <- year12_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_n,
                    y_max      = NA,
                    y_breaks   = 20,
                    y_expand   = 2,
-                   y_title    = "Number of people")
+                   n_level    = "people aged 20-24 yrs")
 
 figure_percent <- year12_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_prop,
                    y_max      = 100,
                    y_breaks   = 10,
                    y_expand   = 1,
-                   y_title    = "Percentage of people",
+                   n_level    = "people aged 20-24 yrs",
                    ctg_target = 96)
 
 f_bar_simple_combine(figure_number, figure_percent)
@@ -511,10 +522,13 @@ f_bar_simple_combine(figure_number, figure_percent)
 
 ```{r}
 #
+figure_count <- figure_count + 1
+
 year12_lga %>% 
   f_bar_obsexp_lga(y_max    = NA,
                    y_breaks = 20,
-                   y_expand = 20)
+                   y_expand = 20,
+                   y_title  = "Number of people aged 20-24 yrs")
 ```
 
 #### Table 6C-4
@@ -754,6 +768,8 @@ The following questions were asked of all people aged 15 years and over completi
 
 ```{r}
 #
+figure_count <- figure_count + 1
+
 qualification_lga %>% 
   dplyr::filter(lga_name %in% nephu_lga) %>%
   #
@@ -775,7 +791,7 @@ qualification_lga %>%
   f_bar_stacked_lga(fill_values = c(colour_stack4, colour_stack3, colour_stack2, colour_stack1),
                     y_max       = NA,
                     y_breaks    = 200,
-                    y_expand    = 100)
+                    y_expand    = 125)
 ```
 
 #### Table 6C-6
@@ -828,6 +844,8 @@ table %>%
 
 ```{r}
 #
+figure_count <- figure_count + 1
+
 qualification_agesex %>% 
   dplyr::filter(age_group %in% age_group_lvl) %>%
   #
@@ -849,7 +867,7 @@ qualification_agesex %>%
   f_bar_stacked_agesex(fill_values = c(colour_stack4, colour_stack3, colour_stack2, colour_stack1),
                        y_max       = NA,
                        y_breaks    = 200,
-                       y_expand    = 190)
+                       y_expand    = 200)
 ```
 
 #### Table 6C-7
@@ -1069,6 +1087,8 @@ The following questions were asked of all people aged 15 years and over completi
 
 ```{r}
 #
+figure_count <- figure_count + 1
+
 uni_trend %>% 
   dplyr::filter(unit == "prop") %>%
   dplyr::rename(prop = vic) %>% 
@@ -1077,6 +1097,7 @@ uni_trend %>%
                             y_max      = 100,
                             y_breaks   = 10,
                             y_expand   = 1,
+                            n_level    = "people aged 25-34 yrs",
                             ctg_target = 70)
 ```
 
@@ -1122,19 +1143,21 @@ table %>%
 
 ```{r}
 #
+figure_count <- figure_count + 1
+
 figure_number <- uni_lga %>%
   f_bar_simple_lga(y_variable = aboriginal_n,
                    y_max      = NA,
                    y_breaks   = 20,
-                   y_expand   = 17,
-                   y_title    = "Number of people")
+                   y_expand   = 20,
+                   n_level    = "people aged 25-34 yrs")
 
 figure_percent <- uni_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_prop,
                    y_max      = 100,
                    y_breaks   = 10,
                    y_expand   = 1,
-                   y_title    = "Percentage of people",
+                   n_level    = "people aged 25-34 yrs",
                    ctg_target = 70)
 
 f_bar_simple_combine(figure_number, figure_percent)
@@ -1148,10 +1171,13 @@ f_bar_simple_combine(figure_number, figure_percent)
 
 ```{r}
 #
+figure_count <- figure_count + 1
+
 uni_lga %>% 
   f_bar_obsexp_lga(y_max    = NA,
                    y_breaks = 25,
-                   y_expand = 10)
+                   y_expand = 15,
+                   y_title  = "Number of people aged 25-34 yrs")
 ```
 
 #### Table 6C-9

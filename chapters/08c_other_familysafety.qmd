@@ -167,8 +167,8 @@ violence_incidents %>%
   f_line_grouped_sex(y_variable = n,
                      y_max      = NA,
                      y_breaks   = 500,
-                     y_expand   = 150,
-                     y_title    = "Number of reported incidents")
+                     y_expand   = 200,
+                     n_level    = "reported incidents")
 ```
 
 #### Table 8C-1

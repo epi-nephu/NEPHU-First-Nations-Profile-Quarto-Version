@@ -302,7 +302,6 @@ figure_number <- hsu_usual %>%
                     y_max      = NA,
                     y_breaks   = 2000,
                     y_expand   = 1250,
-                    y_title    = "Estimated number of people",
                     x_angle    = 90)
 
 figure_percent <- hsu_usual %>% 
@@ -315,10 +314,9 @@ figure_percent <- hsu_usual %>%
                     y_max      = 100,
                     y_breaks   = 10,
                     y_expand   = 1,
-                    y_title    = "Percentage of survey respondents",
                     x_angle    = 90)
 
-f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.3)
+f_bar_grouped_combine(figure_number, figure_percent)
 ```
 
 #### Table 8F-1
@@ -382,7 +380,6 @@ figure_number <- hsu_actions %>%
                     y_max      = NA,
                     y_breaks   = 2000,
                     y_expand   = 1750,
-                    y_title    = "Estimated number of people",
                     x_angle    = 90)
 
 figure_percent <- hsu_actions %>% 
@@ -395,10 +392,9 @@ figure_percent <- hsu_actions %>%
                     y_max      = 100,
                     y_breaks   = 10,
                     y_expand   = 1,
-                    y_title    = "Percentage of survey respondents",
                     x_angle    = 90)
 
-f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.3)
+f_bar_grouped_combine(figure_number, figure_percent)
 ```
 
 #### Table 8F-2
@@ -698,8 +694,7 @@ figure_number <- gp_status %>%
                     y_variable = n,
                     y_max      = NA,
                     y_breaks   = 1000,
-                    y_expand   = 100,
-                    y_title    = "Estimated number of people",
+                    y_expand   = 125,
                     x_angle    = 90)
 
 figure_percent <- gp_status %>% 
@@ -712,10 +707,9 @@ figure_percent <- gp_status %>%
                     y_max      = 50,
                     y_breaks   = 5,
                     y_expand   = 0.5,
-                    y_title    = "Percentage of survey respondents",
                     x_angle    = 90)
 
-f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.3)
+f_bar_grouped_combine(figure_number, figure_percent)
 ```
 
 #### Table 8F-4
@@ -775,7 +769,6 @@ figure_number <- gp_topics %>%
                     y_max      = NA,
                     y_breaks   = 500,
                     y_expand   = 500,
-                    y_title    = "Estimated number of people",
                     x_angle    = 90)
 
 figure_percent <- gp_topics %>% 
@@ -786,10 +779,9 @@ figure_percent <- gp_topics %>%
                     y_max      = 100,
                     y_breaks   = 10,
                     y_expand   = 1,
-                    y_title    = "Percentage of survey respondents",
                     x_angle    = 90)
 
-f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.3)
+f_bar_grouped_combine(figure_number, figure_percent)
 ```
 
 #### Table 8F-5
@@ -1035,7 +1027,6 @@ figure_number <- dentist_status %>%
                     y_max      = NA,
                     y_breaks   = 1000,
                     y_expand   = 150,
-                    y_title    = "Estimated number of people",
                     x_angle    = 90)
 
 figure_percent <- dentist_status %>% 
@@ -1048,10 +1039,9 @@ figure_percent <- dentist_status %>%
                     y_max      = 50,
                     y_breaks   = 5,
                     y_expand   = 0.5,
-                    y_title    = "Percentage of survey respondents",
                     x_angle    = 90)
 
-f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.3)
+f_bar_grouped_combine(figure_number, figure_percent)
 ```
 
 #### Table 8F-6
@@ -1115,7 +1105,6 @@ figure_number <- dentist_type %>%
                     y_max      = NA,
                     y_breaks   = 1000,
                     y_expand   = 500,
-                    y_title    = "Estimated number of people",
                     x_angle    = 90)
 
 figure_percent <- dentist_type %>% 
@@ -1128,10 +1117,9 @@ figure_percent <- dentist_type %>%
                     y_max      = 100,
                     y_breaks   = 10,
                     y_expand   = 1,
-                    y_title    = "Percentage of survey respondents",
                     x_angle    = 90)
 
-f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.3)
+f_bar_grouped_combine(figure_number, figure_percent)
 ```
 
 #### Table 8F-7
@@ -1240,7 +1228,7 @@ figure_number <- hospital_total %>%
   f_bar_simple_iare(y_variable = aboriginal_n,
                     y_max      = NA,
                     y_breaks   = 1000,
-                    y_expand   = 250,
+                    y_expand   = 275,
                     hospital   = "admission")
 
 figure_percent <- hospital_total %>% 
@@ -1500,7 +1488,7 @@ figure_number <- hospital_chronic %>%
   f_bar_simple_iare(y_variable = aboriginal_n,
                     y_max      = NA,
                     y_breaks   = 50,
-                    y_expand   = 5,
+                    y_expand   = 55,
                     hospital   = "admission")
 
 figure_percent <- hospital_chronic %>% 

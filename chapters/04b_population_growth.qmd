@@ -10,6 +10,8 @@ source(here::here("setup_footnotes.R"))
 # Set up numbering for exporting tables as .csv
 table_section <- "04B"
 table_count   <- 0
+
+figure_count <- 0
 ```
 
 ::: {.caveat-box}

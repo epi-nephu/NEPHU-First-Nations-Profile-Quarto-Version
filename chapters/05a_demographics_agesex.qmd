@@ -10,6 +10,8 @@ source(here::here("setup_footnotes.R"))
 # Set up numbering for exporting tables as .csv
 table_section <- "05A"
 table_count   <- 0
+
+figure_count <- 0
 ```
 
 ::: {.caveat-box}
@@ -259,6 +261,8 @@ rm(i, results)
 
 ```{r}
 #
+figure_count <- figure_count + 1
+
 agesex_lphu %>%
   dplyr::filter(lphu_short %in% c("NEPHU", "VIC")) %>%
   #
@@ -284,6 +288,8 @@ agesex_lphu %>%
 
 ```{r}
 #
+figure_count <- figure_count + 1
+
 agesex_lphu %>% 
   dplyr::filter(lphu_short == "NEPHU") %>% 
   #
@@ -329,6 +335,8 @@ agesex_lphu %>%
 
 ```{r}
 #
+figure_count <- figure_count + 1
+
 pyramid <- list()
 
 for (i in nephu_lga) {
@@ -461,19 +469,21 @@ women_lga <- census_agesex %>%
 
 ```{r}
 #
+figure_count <- figure_count + 1
+
 figure_number <- women_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_n,
+                   n_level    = "women",
                    y_max      = NA,
                    y_breaks   = 100,
-                   y_expand   = 40,
-                   y_title    = "Number of women")
+                   y_expand   = 50)
 
 figure_percent <- women_lga %>%
   f_bar_simple_lga(y_variable = aboriginal_prop,
+                   n_level    = "women",
                    y_max      = 100,
                    y_breaks   = 10,
-                   y_expand   = 1,
-                   y_title    = "Percentage of women")
+                   y_expand   = 1)
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```

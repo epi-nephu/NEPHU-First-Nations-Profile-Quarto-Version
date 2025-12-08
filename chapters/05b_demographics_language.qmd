@@ -10,6 +10,8 @@ source(here::here("setup_footnotes.R"))
 # Set up numbering for exporting tables as .csv
 table_section <- "05B"
 table_count   <- 0
+
+figure_count <- 0
 ```
 
 ::: {.caveat-box}
@@ -155,19 +157,19 @@ The following question was asked of all people completing the ABS Census 2021.
 
 ```{r}
 #
+figure_count <- figure_count + 1
+
 figure_number <- language_any_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_n,
                    y_max      = NA,
                    y_breaks   = 10,
-                   y_expand   = 9,
-                   y_title    = "Number of people")
+                   y_expand   = 9)
 
 figure_percent <- language_any_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_prop,
                    y_max      = 10,
                    y_breaks   = 1,
-                   y_expand   = 0.1,
-                   y_title    = "Percentage of people")
+                   y_expand   = 0.1)
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```
@@ -215,19 +217,19 @@ table %>%
 
 ```{r}
 #
+figure_count <- figure_count + 1
+
 figure_number <- language_any_agesex %>% 
   f_bar_grouped_agesex(y_variable = aboriginal_n,
                        y_max      = NA,
                        y_breaks   = 5,
-                       y_expand   = 2.5,
-                       y_title    = "Number of people")
+                       y_expand   = 2.5)
 
 figure_percent <- language_any_agesex %>% 
   f_bar_grouped_agesex(y_variable = aboriginal_prop,
                        y_max      = 5,
                        y_breaks   = 0.5,
-                       y_expand   = 0.05,
-                       y_title    = "Percentage of people")
+                       y_expand   = 0.05)
 
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
@@ -272,6 +274,8 @@ table %>%
 
 ```{r}
 #
+figure_count <- figure_count + 1
+
 language_specific %>% 
   dplyr::filter(language != "Total") %>%
   #
@@ -281,9 +285,8 @@ language_specific %>%
   f_bar_simple_flip(x_variable = forcats::fct_reorder(factor(language), aboriginal_n, .desc = TRUE),
                     y_variable = aboriginal_n,
                     y_max      = NA,
-                    y_breaks   = 5,
-                    y_expand   = 2.5,
-                    x_title    = "Number of people")
+                    y_breaks   = 10,
+                    y_expand   = 9)
 ```
 
 #### Table 5B-3
@@ -415,6 +418,8 @@ The following question was asked of all people completing the ABS Census 2021.
 
 ```{r}
 #
+figure_count <- figure_count + 1
+
 language_other %>% 
   dplyr::filter(language != "Total") %>%
   #
@@ -425,8 +430,7 @@ language_other %>%
                     y_variable = aboriginal_n,
                     y_max      = NA,
                     y_breaks   = 5,
-                    y_expand   = 2.5,
-                    x_title    = "Number of people")
+                    y_expand   = 2.5)
 ```
 
 #### Table 5B-4
@@ -576,19 +580,19 @@ The following questions were asked of all people completing the ABS Census 2021.
 
 ```{r}
 #
+figure_count <- figure_count + 1
+
 figure_number <- english_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_n,
                    y_max      = NA,
                    y_breaks   = 250,
-                   y_expand   = 50,
-                   y_title    = "Number of people")
+                   y_expand   = 60)
 
 figure_percent <- english_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_prop,
                    y_max      = 100,
                    y_breaks   = 10,
-                   y_expand   = 1,
-                   y_title    = "Percentage of people")
+                   y_expand   = 1)
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```
@@ -636,19 +640,19 @@ table %>%
 
 ```{r}
 #
+figure_count <- figure_count + 1
+
 figure_number <- english_agesex %>%
   f_bar_grouped_agesex(y_variable = aboriginal_n,
                        y_max      = NA,
                        y_breaks   = 200,
-                       y_expand   = 50,
-                       y_title    = "Number of people")
+                       y_expand   = 75)
 
 figure_percent <- english_agesex %>% 
   f_bar_grouped_agesex(y_variable = aboriginal_prop,
                        y_max      = 100,
                        y_breaks   = 10,
-                       y_expand   = 1,
-                       y_title    = "Percentage of people")
+                       y_expand   = 1)
 
 f_bar_grouped_combine(figure_number, figure_percent)
 ```

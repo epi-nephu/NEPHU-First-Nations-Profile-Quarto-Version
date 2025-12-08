@@ -167,7 +167,7 @@ childhood_year1 %>%
                            y_max         = 100,
                            y_breaks      = 10,
                            y_expand      = 1,
-                           y_title       = "Percentage of children",
+                           n_level       = "children",
                            x_angle       = 0,
                            legend_offset = -0.1)
 ```
@@ -238,7 +238,7 @@ childhood_year2 %>%
                            y_max         = 100,
                            y_breaks      = 10,
                            y_expand      = 1,
-                           y_title       = "Percentage of children",
+                           n_level       = "children",
                            x_angle       = 0,
                            legend_offset = -0.1)
 ```
@@ -309,7 +309,7 @@ childhood_year5 %>%
                            y_max         = 100,
                            y_breaks      = 10,
                            y_expand      = 1,
-                           y_title       = "Percentage of children",
+                           n_level       = "children",
                            x_angle       = 0,
                            legend_offset = -0.1)
 ```
@@ -710,9 +710,9 @@ figure_percent <- adult_influenza %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = prop,
-                    y_max      = 100,
-                    y_breaks   = 10,
-                    y_expand   = 1)
+                    y_max      = 50,
+                    y_breaks   = 5,
+                    y_expand   = 0.5)
 
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 ```

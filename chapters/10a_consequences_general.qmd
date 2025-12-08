@@ -130,9 +130,9 @@ figure_percent <- health_status %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = prop,
-                    y_max      = 100,
-                    y_breaks   = 10,
-                    y_expand   = 1)
+                    y_max      = 50,
+                    y_breaks   = 5,
+                    y_expand   = 0.5)
 
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 ```
@@ -296,9 +296,9 @@ figure_number <- condition_lga %>%
 
 figure_percent <- condition_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_prop,
-                   y_max      = 100,
-                   y_breaks   = 10,
-                   y_expand   = 1)
+                   y_max      = 50,
+                   y_breaks   = 5,
+                   y_expand   = 0.5)
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```

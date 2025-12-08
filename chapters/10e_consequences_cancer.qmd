@@ -336,9 +336,9 @@ figure_number <- cancer_lga %>%
 
 figure_percent <- cancer_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_prop,
-                   y_max      = 10,
-                   y_breaks   = 1,
-                   y_expand   = 0.1)
+                   y_max      = 5,
+                   y_breaks   = 0.5,
+                   y_expand   = 0.125)
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```
@@ -406,7 +406,7 @@ figure_number <- cancer_agesex %>%
 
 figure_percent <- cancer_agesex %>% 
   f_bar_grouped_agesex(y_variable = aboriginal_prop,
-                       y_max      = 50,
+                       y_max      = 25,
                        y_breaks   = 5,
                        y_expand   = 0.5)
 

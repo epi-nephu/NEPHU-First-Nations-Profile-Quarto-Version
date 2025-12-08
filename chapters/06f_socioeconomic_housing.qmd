@@ -564,7 +564,7 @@ table %>%
 #### Figure 6F-3
 
 ::: {#fig_6F_3 .fig-tab-title}
-**Figure 6F-3:** Estimated number of people and percentage of survey respondents who identified as Aboriginal and/or Torres Strait Islander reporting housing quality issues, Greater Melbourne, by sex, 2022-2023
+**Figure 6F-3:** Housing quality issues reported by people who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
@@ -584,8 +584,7 @@ figure_number <- suitability_combined %>%
                     y_variable = n,
                     y_max      = NA,
                     y_breaks   = 500,
-                    y_expand   = 100,
-                    y_title    = "Estimated number of people")
+                    y_expand   = 80)
 
 figure_percent <- suitability_combined %>% 
   dplyr::filter(sex != "Total" & answer == "No") %>%
@@ -598,10 +597,9 @@ figure_percent <- suitability_combined %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = prop,
-                    y_max      = 50,
+                    y_max      = 25,
                     y_breaks   = 5,
-                    y_expand   = 0.5,
-                    y_title    = "Percentage of survey respondents")
+                    y_expand   = 0.5)
 
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 ```
@@ -609,7 +607,7 @@ f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 #### Table 6F-3
 
 ::: {#tab_6F_3 .fig-tab-title}
-**Table 6F-3:** Housing quality issues for people who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**Table 6F-3:** Housing quality issues reported by people who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
@@ -789,7 +787,7 @@ tenure_lga %>%
   f_bar_stacked_lga(fill_values = c(colour_stack4, colour_stack3, colour_stack2, colour_stack1),
                     y_max       = NA,
                     y_breaks    = 100,
-                    y_expand    = 10,
+                    y_expand    = 5,
                     y_title     = "Number of households")
 ```
 
@@ -940,16 +938,16 @@ figure_count <- figure_count + 1
 figure_number <- stress_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_n,
                    y_max      = NA,
-                   y_breaks   = 20,
-                   y_expand   = 1,
-                   y_title    = "Number of households")
+                   y_breaks   = 25,
+                   y_expand   = 27,
+                   n_level    = "households")
 
 figure_percent <- stress_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_prop,
-                   y_max      = 50,
+                   y_max      = 25,
                    y_breaks   = 5,
                    y_expand   = 0.5,
-                   y_title    = "Percentage of households")
+                   n_level    = "households")
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```
@@ -966,8 +964,8 @@ figure_count <- figure_count + 1
 
 stress_lga %>%
   f_bar_obsexp_lga(y_max    = NA,
-                   y_breaks = 20,
-                   y_expand = 1,
+                   y_breaks = 25,
+                   y_expand = 27,
                    y_title  = "Number of households")
 ```
 
@@ -1105,15 +1103,13 @@ figure_number <- homeless_lga %>%
   f_bar_simple_lga(y_variable = aboriginal_n,
                    y_max      = NA,
                    y_breaks   = 10,
-                   y_expand   = 7,
-                   y_title    = "Number of people")
+                   y_expand   = 8)
 
 figure_percent <- homeless_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_prop,
-                   y_max      = 10,
-                   y_breaks   = 1,
-                   y_expand   = 0.1,
-                   y_title    = "Percentage of people")
+                   y_max      = 5,
+                   y_breaks   = 0.5,
+                   y_expand   = 0.125)
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```
@@ -1131,7 +1127,7 @@ figure_count <- figure_count + 1
 homeless_lga %>%
   f_bar_obsexp_lga(y_max    = NA,
                    y_breaks = 10,
-                   y_expand = 7)
+                   y_expand = 8)
 ```
 
 #### Table 6F-6
@@ -1177,15 +1173,13 @@ figure_number <- homeless_agesex %>%
   f_bar_grouped_agesex(y_variable = aboriginal_n,
                        y_max      = NA,
                        y_breaks   = 5,
-                       y_expand   = 5,
-                       y_title    = "Number of people")
+                       y_expand   = 5)
 
 figure_percent <- homeless_agesex %>% 
   f_bar_grouped_agesex(y_variable = aboriginal_prop,
-                       y_max      = 10,
-                       y_breaks   = 1,
-                       y_expand   = 0.1,
-                       y_title    = "Percentage of people")
+                       y_max      = 5,
+                       y_breaks   = 0.5,
+                       y_expand   = 0.125)
 
 f_bar_grouped_combine(figure_number, figure_percent)
 ```

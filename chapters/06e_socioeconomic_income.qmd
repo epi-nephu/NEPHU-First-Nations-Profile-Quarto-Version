@@ -402,7 +402,7 @@ benefit_lga %>%
   f_bar_stacked_lga(fill_values = c(colour_stack6, colour_stack5, colour_stack4, colour_stack3, colour_stack2, colour_stack1),
                     y_max       = NA,
                     y_breaks    = 100,
-                    y_expand    = 25)
+                    y_expand    = 30)
 ```
 
 #### Table 6E-2
@@ -490,7 +490,7 @@ benefit_agesex %>%
   f_bar_stacked_agesex(fill_values = c(colour_stack6, colour_stack5, colour_stack4, colour_stack3, colour_stack2, colour_stack1),
                        y_max       = NA,
                        y_breaks    = 100,
-                       y_expand    = 60)
+                       y_expand    = 75)
 ```
 
 #### Table 6E-3
@@ -960,7 +960,7 @@ If at least one of these questions was answered in the affirmative (often or som
 #### Figure 6E-4
 
 ::: {#fig_6E_4 .fig-tab-title}
-**Figure 6E-4:** Estimated number of people and percentage of survey respondents who identified as Aboriginal and/or Torres Strait Islander and level of food security during the previous 12 months, Greater Melbourne, by sex, 2022-2023
+**Figure 6E-4:** Level of food security during the previous 12 months for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
@@ -974,9 +974,8 @@ figure_number <- financial_foodsecurity %>%
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = n,
                     y_max      = NA,
-                    y_breaks   = 1500,
-                    y_expand   = 1000,
-                    y_title    = "Estimated number of people")
+                    y_breaks   = 2000,
+                    y_expand   = 1500)
 
 figure_percent <- financial_foodsecurity %>% 
   dplyr::filter(sex != "Total" & answer != "Total") %>%
@@ -986,8 +985,7 @@ figure_percent <- financial_foodsecurity %>%
                     y_variable = prop,
                     y_max      = 100,
                     y_breaks   = 10,
-                    y_expand   = 1,
-                    y_title    = "Percentage of survey respondents")
+                    y_expand   = 1)
 
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 ```

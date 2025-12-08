@@ -7,13 +7,16 @@
 ################################################################################
 # Classic simple line chart
 ################################################################################
-f_line_simple <- function(data, y_variable, y_max, y_breaks, y_expand, y_title, ctg_target = NA) {
+f_line_simple <- function(data, y_variable, y_max, y_breaks, y_expand, 
+                          n_level = "people", ctg_target = NA) {
   
   y_variable <- rlang::enquo(y_variable)
   
   ctg_target <- ctg_target
   
   if (rlang::as_name(y_variable) == "aboriginal_n") {
+    
+    y_title <- paste0("Number of ", n_level)
     
     data <- data %>% 
       dplyr::mutate(hover_text = paste0(year, "\n",
@@ -22,6 +25,8 @@ f_line_simple <- function(data, y_variable, y_max, y_breaks, y_expand, y_title, 
   }
   
   if (rlang::as_name(y_variable) == "aboriginal_prop") {
+    
+    y_title <- paste0("Percentage of ", n_level)
     
     data <- data %>% 
       dplyr::mutate(hover_text = paste0(year, "\n",

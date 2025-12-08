@@ -10,6 +10,8 @@ source(here::here("setup_footnotes.R"))
 # Set up numbering for exporting tables as .csv
 table_section <- "06B"
 table_count   <- 0
+
+figure_count <- 0
 ```
 
 ::: {.caveat-box}
@@ -105,19 +107,21 @@ childhood_attendance <- f_read_ctg_indigenous("CTG03_Childhood_Education_Data_Ta
 
 ```{r}
 #
+figure_count <- figure_count + 1
+
 figure_number <- childhood_enrol %>% 
   f_line_simple(y_variable = aboriginal_n,
                 y_max      = NA,
                 y_breaks   = 200,
-                y_expand   = 75,
-                y_title    = "Number of children")
+                y_expand   = 100,
+                n_level    = "children")
 
 figure_percent <- childhood_enrol %>% 
   f_line_simple(y_variable = aboriginal_prop,
                 y_max      = 100,
                 y_breaks   = 10,
                 y_expand   = 1,
-                y_title    = "Percentage of children",
+                n_level    = "children",
                 ctg_target = 95)
 
 f_line_simple_combine(figure_number, figure_percent)
@@ -167,6 +171,8 @@ table %>%
 
 ```{r}
 #
+figure_count <- figure_count + 1
+
 childhood_attendance %>% 
   dplyr::filter(value == "Proportion") %>% 
   dplyr::filter(indigenous_label == "Aboriginal") %>% 
@@ -337,12 +343,14 @@ childhood_develop <- f_read_ctg_indigenous("CTG04_Early_Years_Data_Tables.xlsx",
 
 ```{r}
 #
+figure_count <- figure_count + 1
+
 childhood_develop %>% 
   f_line_grouped_indigenous(y_variable = prop,
                             y_max      = 100,
                             y_breaks   = 10,
                             y_expand   = 1,
-                            y_title    = "Percentage of children",
+                            n_level    = "children",
                             ctg_target = 55)
 ```
 
@@ -460,6 +468,8 @@ naplan_numeracy <- f_read_naplan(data_sheet = "Table SE5c.3")
 
 ```{r}
 #
+figure_count <- figure_count + 1
+
 naplan_reading %>%
   dplyr::filter(indigenous_status == "Aboriginal and Torres Strait Islander students") %>% 
   #
@@ -535,6 +545,8 @@ table %>%
 
 ```{r}
 #
+figure_count <- figure_count + 1
+
 naplan_writing %>%
   dplyr::filter(indigenous_status == "Aboriginal and Torres Strait Islander students") %>% 
   #
@@ -610,6 +622,8 @@ table %>%
 
 ```{r}
 #
+figure_count <- figure_count + 1
+
 naplan_numeracy %>%
   dplyr::filter(indigenous_status == "Aboriginal and Torres Strait Islander students") %>% 
   #
@@ -623,7 +637,7 @@ naplan_numeracy %>%
                 fill_values   = c(colour_stackgrey, colour_stack4, colour_stack3, colour_stack2, colour_stack1),
                 y_max         = 102,
                 y_breaks      = 10,
-                y_expand      = 1,
+                y_expand      = 0,
                 y_title       = "Percentage of children")
 ```
 

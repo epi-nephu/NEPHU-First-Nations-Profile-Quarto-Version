@@ -170,7 +170,7 @@ figure_number <- diet_fruit %>%
                     y_variable = n,
                     y_max      = NA,
                     y_breaks   = 1000,
-                    y_expand   = 750)
+                    y_expand   = 800)
 
 figure_percent <- diet_fruit %>% 
   dplyr::filter(sex != "Total" & answer == "Met guideline") %>%
@@ -246,7 +246,7 @@ figure_number <- fruit_increase %>%
                     y_variable = n,
                     y_max      = NA,
                     y_breaks   = 2000,
-                    y_expand   = 750)
+                    y_expand   = 1000)
 
 figure_percent <- fruit_increase %>% 
   dplyr::filter(sex != "Total" & answer != "Total") %>%
@@ -1000,16 +1000,16 @@ figure_number <- drink_diet %>%
                     y_variable = n,
                     y_max      = NA,
                     y_breaks   = 1000,
-                    y_expand   = 850)
+                    y_expand   = 900)
 
 figure_percent <- drink_diet %>% 
   dplyr::filter(sex != "Total" & answer == "At least once per week") %>%
   #
   f_bar_grouped_sex(x_variable = age_group,
                     y_variable = prop,
-                    y_max      = 100,
-                    y_breaks   = 10,
-                    y_expand   = 1)
+                    y_max      = 50,
+                    y_breaks   = 5,
+                    y_expand   = 0.5)
 
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 ```
