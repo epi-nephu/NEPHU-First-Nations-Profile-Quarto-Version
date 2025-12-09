@@ -192,7 +192,6 @@ outofhome %>%
   dplyr::rename(rate = vic) %>% 
   #
   f_line_grouped_indigenous(y_variable = rate,
-                            y_max      = NA,
                             y_breaks   = 20,
                             y_expand   = 20,
                             ctg_target = ctg_target,
@@ -252,7 +251,6 @@ relationship %>%
                 y_variable    = number,
                 fill_variable = forcats::fct_rev(relationship),
                 fill_values   = c(colour_stack4, colour_stack3, colour_stack2, colour_stack1),
-                y_max         = NA,
                 y_breaks      = 500,
                 y_expand      = 200,
                 y_title       = "Number of children")

@@ -7,7 +7,7 @@
 ################################################################################
 # Classic grouped line chart
 ################################################################################
-f_line_grouped <- function(data, y_variable, fill_variable, fill_values, y_max, y_breaks, y_expand, 
+f_line_grouped <- function(data, y_variable, fill_variable, fill_values, y_max = NA, y_breaks, y_expand, 
                            y_title = "Percentage of people", ctg_target = NA) {
 
   y_variable    <- rlang::enquo(y_variable)
@@ -93,7 +93,7 @@ f_line_grouped <- function(data, y_variable, fill_variable, fill_values, y_max, 
 ################################################################################
 # By indigenous status
 ################################################################################
-f_line_grouped_indigenous <- function(data, y_variable, y_max, y_breaks, y_expand, 
+f_line_grouped_indigenous <- function(data, y_variable, y_max = NA, y_breaks, y_expand, 
                                       n_level = "people", ctg_target = NA) {
   
   y_variable <- rlang::enquo(y_variable)
@@ -211,7 +211,7 @@ f_line_grouped_indigenous <- function(data, y_variable, y_max, y_breaks, y_expan
 ################################################################################
 # By sex
 ################################################################################
-f_line_grouped_sex <- function(data, y_variable, y_max, y_breaks, y_expand, 
+f_line_grouped_sex <- function(data, y_variable, y_max = NA, y_breaks, y_expand, 
                                n_level = "people", ctg_target = NA) {
   
   y_variable <- rlang::enquo(y_variable)

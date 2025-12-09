@@ -104,7 +104,6 @@ figure_count <- figure_count + 1
 
 figure_number <- childhood_antenatal %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
-                    y_max      = NA,
                     y_breaks   = 20,
                     y_expand   = 12,
                     n_level    = "women")
@@ -113,7 +112,7 @@ figure_percent <- childhood_antenatal %>%
   f_bar_simple_iare(y_variable = aboriginal_prop,
                     y_max      = 100,
                     y_breaks   = 10,
-                    y_expand   = 1,
+                    y_expand   = 2.5,
                     n_level    = "women")
 
 f_bar_simple_combine(figure_number, figure_percent)
@@ -225,7 +224,6 @@ figure_count <- figure_count + 1
 
 figure_number <- childhood_smoking %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
-                    y_max      = NA,
                     y_breaks   = 10,
                     y_expand   = 6,
                     n_level    = "women")
@@ -234,7 +232,7 @@ figure_percent <- childhood_smoking %>%
   f_bar_simple_iare(y_variable = aboriginal_prop,
                     y_max      = 50,
                     y_breaks   = 5,
-                    y_expand   = 0.5,
+                    y_expand   = 1,
                     n_level    = "women")
 
 f_bar_simple_combine(figure_number, figure_percent)
@@ -451,7 +449,6 @@ figure_count <- figure_count + 1
 
 figure_number <- childhood_birthweight %>%
   f_bar_simple_iare(y_variable = aboriginal_n,
-                    y_max      = NA,
                     y_breaks   = 50,
                     y_expand   = 10,
                     n_level    = "live births")
@@ -460,7 +457,7 @@ figure_percent <- childhood_birthweight %>%
   f_bar_simple_iare(y_variable = aboriginal_prop,
                     y_max      = 100,
                     y_breaks   = 10,
-                    y_expand   = 1,
+                    y_expand   = 2.5,
                     n_level    = "live births",
                     ctg_target = 91)  
 
@@ -717,7 +714,7 @@ childhood_breastfed %>%
                            y_variable    = prop,
                            y_max         = 50,
                            y_breaks      = 5,
-                           y_expand      = 0.5,
+                           y_expand      = 1,
                            n_level       = "children",
                            legend_offset = -0.4)
 ```

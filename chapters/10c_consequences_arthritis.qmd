@@ -121,7 +121,6 @@ figure_count <- figure_count + 1
 
 figure_number <- arthritis_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_n,
-                   y_max      = NA,
                    y_breaks   = 25,
                    y_expand   = 20)
 
@@ -129,7 +128,7 @@ figure_percent <- arthritis_lga %>%
   f_bar_simple_lga(y_variable = aboriginal_prop,
                    y_max      = 10,
                    y_breaks   = 1,
-                   y_expand   = 0.1)
+                   y_expand   = 0.25)
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```
@@ -145,8 +144,7 @@ f_bar_simple_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 arthritis_lga %>% 
-  f_bar_obsexp_lga(y_max    = NA,
-                   y_breaks = 25,
+  f_bar_obsexp_lga(y_breaks = 25,
                    y_expand = 15)
 ```
 
@@ -191,7 +189,6 @@ figure_count <- figure_count + 1
 
 figure_number <- arthritis_agesex %>% 
   f_bar_grouped_agesex(y_variable = aboriginal_n,
-                       y_max      = NA,
                        y_breaks   = 25,
                        y_expand   = 23)
 
@@ -199,7 +196,7 @@ figure_percent <- arthritis_agesex %>%
   f_bar_grouped_agesex(y_variable = aboriginal_prop,
                        y_max      = 100,
                        y_breaks   = 10,
-                       y_expand   = 1)
+                       y_expand   = 2.5)
 
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
@@ -215,9 +212,8 @@ f_bar_grouped_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 arthritis_agesex %>% 
-  f_bar_obsexp_agesex(y_max    = NA,
-                      y_breaks = 25,
-                      y_expand = 23)
+  f_bar_obsexp_agesex(y_breaks = 25,
+                      y_expand = 25)
 ```
 
 #### Table 10C-2
@@ -643,16 +639,14 @@ figure_count <- figure_count + 1
 
 figure_number <- hospital_musculo %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
-                    y_max      = NA,
                     y_breaks   = 25,
                     y_expand   = 10,
                     hospital   = "admission")
 
 figure_percent <- hospital_musculo %>% 
   f_bar_simple_iare(y_variable = aboriginal_rate,
-                    y_max      = NA,
                     y_breaks   = 200,
-                    y_expand   = 125,
+                    y_expand   = 100,
                     hospital   = "admission")
 
 f_bar_simple_combine(figure_number, figure_percent)
@@ -767,14 +761,12 @@ figure_count <- figure_count + 1
 
 figure_number <- emergency_musculo %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
-                    y_max      = NA,
                     y_breaks   = 10,
                     y_expand   = 2,
                     hospital   = "emergency")
 
 figure_percent <- emergency_musculo %>% 
   f_bar_simple_iare(y_variable = aboriginal_rate,
-                    y_max      = NA,
                     y_breaks   = 250,
                     y_expand   = 250,
                     hospital   = "emergency")

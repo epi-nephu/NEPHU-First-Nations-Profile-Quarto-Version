@@ -202,14 +202,12 @@ figure_count <- figure_count + 1
 
 figure_number <- hospital_ear %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
-                    y_max      = NA,
                     y_breaks   = 5,
                     y_expand   = 2,
                     hospital   = "admission")
 
 figure_percent <- hospital_ear %>% 
   f_bar_simple_iare(y_variable = aboriginal_rate,
-                    y_max      = NA,
                     y_breaks   = 50,
                     y_expand   = 35,
                     hospital   = "admission")
@@ -340,16 +338,14 @@ figure_count <- figure_count + 1
 
 figure_number <- hospital_ent %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
-                    y_max      = NA,
                     y_breaks   = 10,
                     y_expand   = 4,
                     hospital   = "admission")
 
 figure_percent <- hospital_ent %>% 
   f_bar_simple_iare(y_variable = aboriginal_rate,
-                    y_max      = NA,
-                    y_breaks   = 100,
-                    y_expand   = 95,
+                    y_breaks   = 50,
+                    y_expand   = 40,
                     hospital   = "admission")
 
 f_bar_simple_combine(figure_number, figure_percent)
@@ -616,14 +612,12 @@ figure_count <- figure_count + 1
 
 figure_number <- hospital_eye %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
-                    y_max      = NA,
                     y_breaks   = 10,
                     y_expand   = 4,
                     hospital   = "admission")
 
 figure_percent <- hospital_eye %>% 
   f_bar_simple_iare(y_variable = aboriginal_rate,
-                    y_max      = NA,
                     y_breaks   = 100,
                     y_expand   = 85,
                     hospital   = "admission")
@@ -879,14 +873,12 @@ figure_count <- figure_count + 1
 
 figure_number <- hospital_teeth %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
-                    y_max      = NA,
                     y_breaks   = 10,
                     y_expand   = 8,
                     hospital   = "admission")
 
 figure_percent <- hospital_teeth %>% 
   f_bar_simple_iare(y_variable = aboriginal_rate,
-                    y_max      = NA,
                     y_breaks   = 100,
                     y_expand   = 50,
                     hospital   = "admission")

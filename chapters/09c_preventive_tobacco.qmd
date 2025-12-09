@@ -197,9 +197,8 @@ figure_number <- smoking_current %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = n,
-                    y_max      = NA,
                     y_breaks   = 1000,
-                    y_expand   = 400)
+                    y_expand   = 500)
 
 figure_percent <- smoking_current %>% 
   dplyr::filter(sex != "Total" & answer != "Total") %>%
@@ -208,7 +207,7 @@ figure_percent <- smoking_current %>%
                     y_variable = prop,
                     y_max      = 50,
                     y_breaks   = 5,
-                    y_expand   = 0.5)
+                    y_expand   = 1)
 
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 ```

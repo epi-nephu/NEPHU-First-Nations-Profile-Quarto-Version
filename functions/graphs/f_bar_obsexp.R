@@ -7,7 +7,7 @@
 ################################################################################
 # By LGA
 ################################################################################
-f_bar_obsexp_lga <- function(data, y_max, y_breaks, y_expand, 
+f_bar_obsexp_lga <- function(data, y_max = NA, y_breaks, y_expand, 
                              y_title = "Number of people") {
   
   data <- data %>% 
@@ -76,7 +76,7 @@ f_bar_obsexp_lga <- function(data, y_max, y_breaks, y_expand,
 ################################################################################
 # By age and sex
 ################################################################################
-f_bar_obsexp_agesex <- function(data, y_max, y_breaks, y_expand, 
+f_bar_obsexp_agesex <- function(data, y_max = NA, y_breaks, y_expand, 
                                 y_title = "Number of people") {
   
   data <- data %>% 

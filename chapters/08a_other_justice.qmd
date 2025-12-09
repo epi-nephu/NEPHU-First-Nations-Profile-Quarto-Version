@@ -120,7 +120,6 @@ ctg_target <- incarceration_adult$rate[7] * 0.85
 
 incarceration_adult %>%
   f_line_grouped_indigenous(y_variable = rate,
-                            y_max      = NA,
                             y_breaks   = 250,
                             y_expand   = 200,
                             ctg_target = ctg_target,
@@ -285,7 +284,6 @@ ctg_target <- incarceration_youth$rate[11] * 0.7
 
 incarceration_youth %>% 
   f_line_grouped_indigenous(y_variable = rate,
-                            y_max      = NA,
                             y_breaks   = 5,
                             y_expand   = 5,
                             ctg_target = ctg_target,

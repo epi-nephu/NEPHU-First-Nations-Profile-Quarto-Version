@@ -261,7 +261,6 @@ figure_number <- visit %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = n,
-                    y_max      = NA,
                     y_breaks   = 250,
                     y_expand   = 160,
                     x_angle    = 90)
@@ -275,7 +274,7 @@ figure_percent <- visit %>%
                     y_variable = prop,
                     y_max      = 50,
                     y_breaks   = 5,
-                    y_expand   = 0.5,
+                    y_expand   = 1,
                     x_angle    = 90)
 
 f_bar_grouped_combine(figure_number, figure_percent)
@@ -488,7 +487,7 @@ figure_percent <- native_title %>%
   #
   scale_y_continuous(limits = c(0, 10),
                      breaks = scales::breaks_width(1),
-                     expand = expansion(add = c(0, 0.125)),
+                     expand = expansion(add = c(0, 0.25)),
                      labels = scales::comma_format(big.mark = ",")) +
   #
   scale_color_manual(values = c(colour_landmass, colour_seaarea),

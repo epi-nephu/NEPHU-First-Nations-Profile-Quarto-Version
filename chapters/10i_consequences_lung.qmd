@@ -123,15 +123,14 @@ figure_count <- figure_count + 1
 
 figure_number <- lung_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_n,
-                   y_max      = NA,
                    y_breaks   = 5,
                    y_expand   = 2)
 
 figure_percent <- lung_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_prop,
-                   y_max      = 10,
-                   y_breaks   = 1,
-                   y_expand   = 0.1)
+                   y_max      = 5,
+                   y_breaks   = 0.5,
+                   y_expand   = 0.125)
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```
@@ -147,8 +146,7 @@ f_bar_simple_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 lung_lga %>% 
-  f_bar_obsexp_lga(y_max    = NA,
-                   y_breaks = 5,
+  f_bar_obsexp_lga(y_breaks = 5,
                    y_expand = 2)
 ```
 
@@ -193,7 +191,6 @@ figure_count <- figure_count + 1
 
 figure_number <- lung_agesex %>% 
   f_bar_grouped_agesex(y_variable = aboriginal_n,
-                       y_max      = NA,
                        y_breaks   = 5,
                        y_expand   = 3)
 
@@ -217,9 +214,8 @@ f_bar_grouped_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 lung_agesex %>% 
-  f_bar_obsexp_agesex(y_max    = NA,
-                      y_breaks = 5,
-                      y_expand = 3)
+  f_bar_obsexp_agesex(y_breaks = 5,
+                      y_expand = 4)
 ```
 
 #### Table 10I-2
@@ -336,14 +332,12 @@ figure_count <- figure_count + 1
 
 figure_number <- hospital_lung %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
-                    y_max      = NA,
                     y_breaks   = 50,
                     y_expand   = 60,
                     hospital   = "admission")
 
 figure_percent <- hospital_lung %>% 
   f_bar_simple_iare(y_variable = aboriginal_rate,
-                    y_max      = NA,
                     y_breaks   = 500,
                     y_expand   = 75,
                     hospital   = "admission")
@@ -464,14 +458,12 @@ figure_count <- figure_count + 1
 
 figure_number <- emergency_lung %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
-                    y_max      = NA,
                     y_breaks   = 20,
-                    y_expand   = 7,
+                    y_expand   = 8,
                     hospital   = "emergency")
 
 figure_percent <- emergency_lung %>% 
   f_bar_simple_iare(y_variable = aboriginal_rate,
-                    y_max      = NA,
                     y_breaks   = 500,
                     y_expand   = 425,
                     hospital   = "emergency")
@@ -745,14 +737,12 @@ figure_count <- figure_count + 1
 
 figure_number <- hospital_copd %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
-                    y_max      = NA,
                     y_breaks   = 10,
                     y_expand   = 8,
                     hospital   = "admission")
 
 figure_percent <- hospital_copd %>% 
   f_bar_simple_iare(y_variable = aboriginal_rate,
-                    y_max      = NA,
                     y_breaks   = 100,
                     y_expand   = 25,
                     hospital   = "admission")

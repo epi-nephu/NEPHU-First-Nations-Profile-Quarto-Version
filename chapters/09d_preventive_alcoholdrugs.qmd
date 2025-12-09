@@ -228,7 +228,6 @@ figure_number <- alcohol_guidelines %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = n,
-                    y_max      = NA,
                     y_breaks   = 1000,
                     y_expand   = 900,
                     x_angle    = 90)
@@ -242,7 +241,7 @@ figure_percent <- alcohol_guidelines %>%
                     y_variable = prop,
                     y_max      = 100,
                     y_breaks   = 10,
-                    y_expand   = 1,
+                    y_expand   = 2.5,
                     x_angle    = 90)
 
 f_bar_grouped_combine(figure_number, figure_percent)
@@ -302,7 +301,6 @@ figure_number <- alcohol_increase %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = n,
-                    y_max      = NA,
                     y_breaks   = 1000,
                     y_expand   = 150)
 
@@ -313,7 +311,7 @@ figure_percent <- alcohol_increase %>%
                     y_variable = prop,
                     y_max      = 100,
                     y_breaks   = 10,
-                    y_expand   = 1)
+                    y_expand   = 2.5)
 
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 ```

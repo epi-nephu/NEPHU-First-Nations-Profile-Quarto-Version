@@ -116,7 +116,7 @@ discrimination_prejudice %>%
   f_line_grouped_indigenous(y_variable = prop,
                             y_max      = 100,
                             y_breaks   = 10,
-                            y_expand   = 1)
+                            y_expand   = 2.5)
 ```
 
 #### Table 8D-1

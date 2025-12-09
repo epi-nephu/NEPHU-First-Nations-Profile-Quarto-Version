@@ -116,7 +116,6 @@ figure_count <- figure_count + 1
 
 figure_number <- overcrowded_lga %>%
   f_bar_simple_lga(y_variable = aboriginal_n,
-                   y_max      = NA,
                    y_breaks   = 100,
                    y_expand   = 100,
                    n_level    = "households")
@@ -125,7 +124,7 @@ figure_percent <- overcrowded_lga %>%
   f_bar_simple_lga(y_variable = aboriginal_prop,
                    y_max      = 100,
                    y_breaks   = 10,
-                   y_expand   = 1,
+                   y_expand   = 2.5,
                    n_level    = "households",
                    ctg_target = 88)
 
@@ -143,8 +142,7 @@ f_bar_simple_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 overcrowded_lga %>% 
-  f_bar_obsexp_lga(y_max    = NA,
-                   y_breaks = 100,
+  f_bar_obsexp_lga(y_breaks = 100,
                    y_expand = 75,
                    y_title  = "Number of households")
 ```
@@ -582,7 +580,6 @@ figure_number <- suitability_combined %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = n,
-                    y_max      = NA,
                     y_breaks   = 500,
                     y_expand   = 80)
 
@@ -785,7 +782,6 @@ tenure_lga %>%
                "Other"))) %>% 
   
   f_bar_stacked_lga(fill_values = c(colour_stack4, colour_stack3, colour_stack2, colour_stack1),
-                    y_max       = NA,
                     y_breaks    = 100,
                     y_expand    = 5,
                     y_title     = "Number of households")
@@ -937,7 +933,6 @@ figure_count <- figure_count + 1
 
 figure_number <- stress_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_n,
-                   y_max      = NA,
                    y_breaks   = 25,
                    y_expand   = 27,
                    n_level    = "households")
@@ -963,8 +958,7 @@ f_bar_simple_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 stress_lga %>%
-  f_bar_obsexp_lga(y_max    = NA,
-                   y_breaks = 25,
+  f_bar_obsexp_lga(y_breaks = 25,
                    y_expand = 27,
                    y_title  = "Number of households")
 ```
@@ -1101,7 +1095,6 @@ figure_count <- figure_count + 1
 
 figure_number <- homeless_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_n,
-                   y_max      = NA,
                    y_breaks   = 10,
                    y_expand   = 8)
 
@@ -1125,8 +1118,7 @@ f_bar_simple_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 homeless_lga %>%
-  f_bar_obsexp_lga(y_max    = NA,
-                   y_breaks = 10,
+  f_bar_obsexp_lga(y_breaks = 10,
                    y_expand = 8)
 ```
 
@@ -1171,7 +1163,6 @@ figure_count <- figure_count + 1
 
 figure_number <- homeless_agesex %>%
   f_bar_grouped_agesex(y_variable = aboriginal_n,
-                       y_max      = NA,
                        y_breaks   = 5,
                        y_expand   = 5)
 
@@ -1195,8 +1186,7 @@ f_bar_grouped_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 homeless_agesex %>%
-  f_bar_obsexp_agesex(y_max    = NA,
-                      y_breaks = 5,
+  f_bar_obsexp_agesex(y_breaks = 5,
                       y_expand = 5)
 ```
 

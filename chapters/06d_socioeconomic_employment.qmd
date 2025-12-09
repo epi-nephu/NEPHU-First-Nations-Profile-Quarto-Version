@@ -193,7 +193,6 @@ engaged_lga %>%
                "Not engaged"))) %>% 
   
   f_bar_stacked_lga(fill_values = c(colour_stack3, colour_stack2, colour_stack1),
-                    y_max       = NA,
                     y_breaks    = 200,
                     y_expand    = 35)
 ```
@@ -265,7 +264,6 @@ engaged_agesex %>%
                "Not engaged"))) %>% 
   #
   f_bar_stacked_agesex(fill_values = c(colour_stack3, colour_stack2, colour_stack1),
-                       y_max       = NA,
                        y_breaks    = 200,
                        y_expand    = 100)
 ```
@@ -509,7 +507,7 @@ fully_trend %>%
   f_line_grouped_indigenous(y_variable = prop,
                             y_max      = 100,
                             y_breaks   = 10,
-                            y_expand   = 1,
+                            y_expand   = 2.5,
                             n_level    = "people aged 15-24 yrs",
                             ctg_target = 67)
 ```
@@ -560,16 +558,15 @@ figure_count <- figure_count + 1
 
 figure_number <- fully_youth_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_n,
-                   y_max      = NA,
                    y_breaks   = 25,
-                   y_expand   = 12,
+                   y_expand   = 15,
                    n_level    = "people aged 15-24 yrs")
 
 figure_percent <- fully_youth_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_prop,
                    y_max      = 100,
                    y_breaks   = 10,
-                   y_expand   = 1,
+                   y_expand   = 2.5,
                    n_level    = "people aged 15-24 yrs",
                    ctg_target = 67)
 
@@ -587,9 +584,8 @@ f_bar_simple_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 fully_youth_lga %>%
-  f_bar_obsexp_lga(y_max    = NA,
-                   y_breaks = 50,
-                   y_expand = 15,
+  f_bar_obsexp_lga(y_breaks = 50,
+                   y_expand = 20,
                    y_title  = "Number of people aged 15-24 yrs")
 ```
 
@@ -670,7 +666,7 @@ fully_age %>%
                            y_variable    = prop,
                            y_max         = 100,
                            y_breaks      = 10,
-                           y_expand      = 1,
+                           y_expand      = 2.5,
                            x_angle       = 0,
                            legend_offset = -0.1)
 ```
@@ -907,7 +903,6 @@ status_lga %>%
                "Unemployed"))) %>% 
   #
   f_bar_stacked_lga(fill_values = c(colour_stack4, colour_stack3, colour_stack2, colour_stack1),
-                    y_max       = NA,
                     y_breaks    = 200,
                     y_expand    = 40)
 ```
@@ -983,9 +978,8 @@ status_agesex %>%
                "Unemployed"))) %>%
   #
   f_bar_stacked_agesex(fill_values = c(colour_stack4, colour_stack3, colour_stack2, colour_stack1),
-                       y_max       = NA,
                        y_breaks    = 200,
-                       y_expand    = 150)
+                       y_expand    = 160)
 ```
 
 #### Table 6D-8
@@ -1216,7 +1210,7 @@ status_trend %>%
   f_line_grouped_indigenous(y_variable = prop,
                             y_max      = 100,
                             y_breaks   = 10,
-                            y_expand   = 1,
+                            y_expand   = 2.5,
                             n_level    = "people aged 25-64 yrs", 
                             ctg_target = 62)
 ```
@@ -1267,7 +1261,6 @@ figure_count <- figure_count + 1
 
 figure_number <- status_working_lga %>%
   f_bar_simple_lga(y_variable = aboriginal_n,
-                   y_max      = NA,
                    y_breaks   = 100,
                    y_expand   = 10,
                    n_level    = "people aged 25-64 yrs")
@@ -1276,7 +1269,7 @@ figure_percent <- status_working_lga %>%
   f_bar_simple_lga(y_variable = aboriginal_prop,
                    y_max      = 100,
                    y_breaks   = 10,
-                   y_expand   = 1,
+                   y_expand   = 2.5,
                    n_level    = "people aged 25-64 yrs",
                    ctg_target = 62)
 
@@ -1294,8 +1287,7 @@ f_bar_simple_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 status_working_lga %>%
-  f_bar_obsexp_lga(y_max    = NA,
-                   y_breaks = 100,
+  f_bar_obsexp_lga(y_breaks = 100,
                    y_expand = 60,
                    y_title  = "Number of people aged 25-64 yrs")
 ```
@@ -1471,7 +1463,6 @@ figure_count <- figure_count + 1
 
 figure_number <- volunteer_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_n,
-                   y_max      = NA,
                    y_breaks   = 25,
                    y_expand   = 13)
 
@@ -1495,8 +1486,7 @@ f_bar_simple_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 volunteer_lga %>% 
-  f_bar_obsexp_lga(y_max    = NA,
-                   y_breaks = 25,
+  f_bar_obsexp_lga(y_breaks = 25,
                    y_expand = 12)
 ```
 
@@ -1541,7 +1531,6 @@ figure_count <- figure_count + 1
 
 figure_number <- volunteer_agesex %>% 
   f_bar_grouped_agesex(y_variable = aboriginal_n,
-                       y_max      = NA,
                        y_breaks   = 25,
                        y_expand   = 25)
 
@@ -1565,9 +1554,8 @@ f_bar_grouped_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 volunteer_agesex %>% 
-  f_bar_obsexp_agesex(y_max    = NA,
-                      y_breaks = 25,
-                      y_expand = 22)
+  f_bar_obsexp_agesex(y_breaks = 25,
+                      y_expand = 24)
 ```
 
 #### Table 6D-13
@@ -1720,9 +1708,8 @@ figure_count <- figure_count + 1
 
 figure_number <- carer_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_n,
-                   y_max      = NA,
                    y_breaks   = 25,
-                   y_expand   = 22)
+                   y_expand   = 25)
 
 figure_percent <- carer_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_prop,
@@ -1744,8 +1731,7 @@ f_bar_simple_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 carer_lga %>% 
-  f_bar_obsexp_lga(y_max    = NA,
-                   y_breaks = 25,
+  f_bar_obsexp_lga(y_breaks = 25,
                    y_expand = 23)
 ```
 
@@ -1790,7 +1776,6 @@ figure_count <- figure_count + 1
 
 figure_number <- carer_agesex %>% 
   f_bar_grouped_agesex(y_variable = aboriginal_n,
-                       y_max      = NA,
                        y_breaks   = 25,
                        y_expand   = 17)
 
@@ -1798,7 +1783,7 @@ figure_percent <- carer_agesex %>%
   f_bar_grouped_agesex(y_variable = aboriginal_prop,
                        y_max      = 50,
                        y_breaks   = 5,
-                       y_expand   = 0.5)
+                       y_expand   = 1)
 
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
@@ -1814,8 +1799,7 @@ f_bar_grouped_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 carer_agesex %>% 
-  f_bar_obsexp_agesex(y_max    = NA,
-                      y_breaks = 25,
+  f_bar_obsexp_agesex(y_breaks = 25,
                       y_expand = 20)
 ```
 

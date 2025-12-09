@@ -127,15 +127,14 @@ figure_count <- figure_count + 1
 
 figure_number <- heart_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_n,
-                   y_max      = NA,
                    y_breaks   = 10,
-                   y_expand   = 3)
+                   y_expand   = 4)
 
 figure_percent <- heart_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_prop,
                    y_max      = 10,
                    y_breaks   = 1,
-                   y_expand   = 0.1)
+                   y_expand   = 0.25)
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```
@@ -151,8 +150,7 @@ f_bar_simple_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 heart_lga %>% 
-  f_bar_obsexp_lga(y_max    = NA,
-                   y_breaks = 10,
+  f_bar_obsexp_lga(y_breaks = 10,
                    y_expand = 2)
 ```
 
@@ -197,14 +195,13 @@ figure_count <- figure_count + 1
 
 figure_number <- heart_agesex %>% 
   f_bar_grouped_agesex(y_variable = aboriginal_n,
-                       y_max      = NA,
                        y_breaks   = 10,
                        y_expand   = 8)
 
 figure_percent <- heart_agesex %>% 
   f_bar_grouped_agesex(y_variable = aboriginal_prop,
-                       y_max      = 100,
-                       y_breaks   = 10,
+                       y_max      = 50,
+                       y_breaks   = 5,
                        y_expand   = 1)
 
 f_bar_grouped_combine(figure_number, figure_percent)
@@ -221,9 +218,8 @@ f_bar_grouped_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 heart_agesex %>% 
-  f_bar_obsexp_agesex(y_max    = NA,
-                      y_breaks = 10,
-                      y_expand = 8)
+  f_bar_obsexp_agesex(y_breaks = 10,
+                      y_expand = 9)
 ```
 
 #### Table 10G-2
@@ -336,14 +332,12 @@ figure_count <- figure_count + 1
 
 figure_number <- hospital_ihd %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
-                    y_max      = NA,
                     y_breaks   = 10,
                     y_expand   = 6,
                     hospital   = "admission")
 
 figure_percent <- hospital_ihd %>% 
   f_bar_simple_iare(y_variable = aboriginal_rate,
-                    y_max      = NA,
                     y_breaks   = 100,
                     y_expand   = 40,
                     hospital   = "admission")
@@ -459,14 +453,12 @@ figure_count <- figure_count + 1
 
 figure_number <- hospital_failure %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
-                    y_max      = NA,
                     y_breaks   = 5,
                     y_expand   = 5,
                     hospital   = "admission")
 
 figure_percent <- hospital_failure %>% 
   f_bar_simple_iare(y_variable = aboriginal_rate,
-                    y_max      = NA,
                     y_breaks   = 50,
                     y_expand   = 10,
                     hospital   = "admission")
@@ -632,15 +624,14 @@ figure_count <- figure_count + 1
 
 figure_number <- stroke_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_n,
-                   y_max      = NA,
                    y_breaks   = 5,
-                   y_expand   = 2.5)
+                   y_expand   = 3)
 
 figure_percent <- stroke_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_prop,
-                   y_max      = 10,
-                   y_breaks   = 1,
-                   y_expand   = 0.1)
+                   y_max      = 5,
+                   y_breaks   = 0.5,
+                   y_expand   = 0.125)
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```
@@ -656,9 +647,8 @@ f_bar_simple_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 stroke_lga %>% 
-  f_bar_obsexp_lga(y_max    = NA,
-                   y_breaks = 5,
-                   y_expand = 2.5)
+  f_bar_obsexp_lga(y_breaks = 5,
+                   y_expand = 3)
 ```
 
 #### Table 10G-5
@@ -702,7 +692,6 @@ figure_count <- figure_count + 1
 
 figure_number <- stroke_agesex %>% 
   f_bar_grouped_agesex(y_variable = aboriginal_n,
-                       y_max      = NA,
                        y_breaks   = 5,
                        y_expand   = 4)
 
@@ -710,7 +699,7 @@ figure_percent <- stroke_agesex %>%
   f_bar_grouped_agesex(y_variable = aboriginal_prop,
                        y_max      = 10,
                        y_breaks   = 1,
-                       y_expand   = 0.1)
+                       y_expand   = 0.25)
 
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
@@ -726,8 +715,7 @@ f_bar_grouped_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 stroke_agesex %>% 
-  f_bar_obsexp_agesex(y_max    = NA,
-                      y_breaks = 5,
+  f_bar_obsexp_agesex(y_breaks = 5,
                       y_expand = 4)
 ```
 
@@ -854,14 +842,12 @@ figure_count <- figure_count + 1
 
 figure_number <- hospital_circ %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
-                    y_max      = NA,
                     y_breaks   = 50,
                     y_expand   = 25,
                     hospital   = "admission")
 
 figure_percent <- hospital_circ %>% 
   f_bar_simple_iare(y_variable = aboriginal_rate,
-                    y_max      = NA,
                     y_breaks   = 200,
                     y_expand   = 100,
                     hospital   = "admission")
@@ -982,14 +968,12 @@ figure_count <- figure_count + 1
 
 figure_number <- emergency_circ %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
-                    y_max      = NA,
                     y_breaks   = 5,
                     y_expand   = 1,
                     hospital   = "emergency")
 
 figure_percent <- emergency_circ %>% 
   f_bar_simple_iare(y_variable = aboriginal_rate,
-                    y_max      = NA,
                     y_breaks   = 200,
                     y_expand   = 175,
                     hospital   = "emergency")

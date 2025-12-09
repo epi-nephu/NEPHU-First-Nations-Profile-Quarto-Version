@@ -129,7 +129,6 @@ household_lga %>%
                ">$3,000"))) %>% 
   
   f_bar_stacked_lga(fill_values = c(colour_stack4, colour_stack3, colour_stack2, colour_stack1),
-                    y_max       = NA,
                     y_breaks    = 100,
                     y_expand    = 75,
                     y_title     = "Number of households")
@@ -400,7 +399,6 @@ benefit_lga %>%
                "Other payments"))) %>% 
   #
   f_bar_stacked_lga(fill_values = c(colour_stack6, colour_stack5, colour_stack4, colour_stack3, colour_stack2, colour_stack1),
-                    y_max       = NA,
                     y_breaks    = 100,
                     y_expand    = 30)
 ```
@@ -488,7 +486,6 @@ benefit_agesex %>%
                "Other payments"))) %>% 
   #
   f_bar_stacked_agesex(fill_values = c(colour_stack6, colour_stack5, colour_stack4, colour_stack3, colour_stack2, colour_stack1),
-                       y_max       = NA,
                        y_breaks    = 100,
                        y_expand    = 75)
 ```
@@ -973,7 +970,6 @@ figure_number <- financial_foodsecurity %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = n,
-                    y_max      = NA,
                     y_breaks   = 2000,
                     y_expand   = 1500)
 
@@ -985,7 +981,7 @@ figure_percent <- financial_foodsecurity %>%
                     y_variable = prop,
                     y_max      = 100,
                     y_breaks   = 10,
-                    y_expand   = 1)
+                    y_expand   = 2.5)
 
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 ```

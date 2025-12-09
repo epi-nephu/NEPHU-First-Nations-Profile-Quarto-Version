@@ -133,15 +133,14 @@ pertussis <- cases_all %>%
 figure_count <- figure_count + 1
 
 pertussis %>% 
-  f_bar_stacked_phess(y_max    = NA,
-                      y_breaks = 20,
+  f_bar_stacked_phess(y_breaks = 20,
                       y_expand = 20)
 ```
 
 #### Figure 10K-2
 
 ::: {#fig_10K_2 .fig-tab-title}
-**Figure 10K-2:** Pertussis notification rate, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**Figure 10K-2:** Pertussis notification rate (per 100,000 population), Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -152,7 +151,7 @@ pertussis %>%
   dplyr::rename(rate = vic_rate) %>% 
   #
   f_line_grouped_indigenous(y_variable = rate,
-                            y_max      = NA,
+                            n_level    = "100,000",
                             y_breaks   = 25,
                             y_expand   = 5)
 ```
@@ -160,7 +159,7 @@ pertussis %>%
 #### Table 10K-1
 
 ::: {#tab_10K_1 .fig-tab-title}
-**Table 10K-1:** Number of pertussis notifications and notification rate, NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**Table 10K-1:** Number of pertussis notifications and notification rate (per 100,000 population), NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -251,13 +250,13 @@ figure_count <- figure_count + 1
 imd %>% 
   f_bar_stacked_phess(y_max    = 5,
                       y_breaks = 1,
-                      y_expand = 0.25)
+                      y_expand = 0.125)
 ```
 
 #### Figure 10K-4
 
 ::: {#fig_10K_4 .fig-tab-title}
-**Figure 10K-4:** Invasive meningococcal disease notification rate, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**Figure 10K-4:** Invasive meningococcal disease notification rate (per 100,000 population), Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -268,15 +267,15 @@ imd %>%
   dplyr::rename(rate = vic_rate) %>% 
   #
   f_line_grouped_indigenous(y_variable = rate,
-                            y_max      = NA,
+                            n_level    = "100,000",
                             y_breaks   = 1,
-                            y_expand   = 0.65)
+                            y_expand   = 0.6)
 ```
 
 #### Table 10K-2
 
 ::: {#tab_10K_2 .fig-tab-title}
-**Table 10K-2:** Number of invasive meningococcal disease notifications and notification rate, NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**Table 10K-2:** Number of invasive meningococcal disease notifications and notification rate (per 100,000 population), NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -365,15 +364,14 @@ ipd <- cases_all %>%
 figure_count <- figure_count + 1
 
 ipd %>% 
-  f_bar_stacked_phess(y_max    = NA,
-                      y_breaks = 5,
-                      y_expand = 3)
+  f_bar_stacked_phess(y_breaks = 5,
+                      y_expand = 2.75)
 ```
 
 #### Figure 10K-6
 
 ::: {#fig_10K_6 .fig-tab-title}
-**Figure 10K-6:** Invasive pneumococcal disease notification rate, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**Figure 10K-6:** Invasive pneumococcal disease notification rate (per 100,000 population), Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -384,7 +382,7 @@ ipd %>%
   dplyr::rename(rate = vic_rate) %>% 
   #
   f_line_grouped_indigenous(y_variable = rate,
-                            y_max      = NA,
+                            n_level    = "100,000",
                             y_breaks   = 5,
                             y_expand   = 1)
 ```
@@ -392,7 +390,7 @@ ipd %>%
 #### Table 10K-3
 
 ::: {#tab_10K_3 .fig-tab-title}
-**Table 10K-3:** Number of invasive pneumococcal disease notifications and notification rate, NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**Table 10K-3:** Number of invasive pneumococcal disease notifications and notification rate (per 100,000 population), NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -492,15 +490,14 @@ varicella <- cases_all %>%
 figure_count <- figure_count + 1
 
 varicella %>% 
-  f_bar_stacked_phess(y_max    = NA,
-                      y_breaks = 10,
+  f_bar_stacked_phess(y_breaks = 10,
                       y_expand = 2)
 ```
 
 #### Figure 10K-8
 
 ::: {#fig_10K_8 .fig-tab-title}
-**Figure 10K-8:** Varicella Zoster notification rate, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**Figure 10K-8:** Varicella Zoster notification rate (per 100,000 population), Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -511,7 +508,7 @@ varicella %>%
   dplyr::rename(rate = vic_rate) %>% 
   #
   f_line_grouped_indigenous(y_variable = rate,
-                            y_max      = NA,
+                            n_level    = "100,000",
                             y_breaks   = 10,
                             y_expand   = 8)
 ```
@@ -519,7 +516,7 @@ varicella %>%
 #### Table 10K-4
 
 ::: {#tab_10K_4 .fig-tab-title}
-**Table 10K-4:** Number of Varicella Zoster notifications and notification rate, NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**Table 10K-4:** Number of Varicella Zoster notifications and notification rate (per 100,000 population), NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -632,15 +629,14 @@ hepb <- cases_all %>%
 figure_count <- figure_count + 1
 
 hepb %>% 
-  f_bar_stacked_phess(y_max    = NA,
-                      y_breaks = 1,
+  f_bar_stacked_phess(y_breaks = 1,
                       y_expand = 0.25)
 ```
 
 #### Figure 10K-10
 
 ::: {#fig_10K_10 .fig-tab-title}
-**Figure 10K-10:** Hepatitis B notification rate, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**Figure 10K-10:** Hepatitis B notification rate (per 100,000 population), Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -651,7 +647,7 @@ hepb %>%
   dplyr::rename(rate = vic_rate) %>% 
   #
   f_line_grouped_indigenous(y_variable = rate,
-                            y_max      = NA,
+                            n_level    = "100,000",
                             y_breaks   = 5,
                             y_expand   = 1.5)
 ```
@@ -659,7 +655,7 @@ hepb %>%
 #### Table 10K-5
 
 ::: {#tab_10K_5 .fig-tab-title}
-**Table 10K-5:** Number of Hepatitis B notifications and notification rate, NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**Table 10K-5:** Number of Hepatitis B notifications and notification rate (per 100,000 population), NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -763,15 +759,14 @@ hepc <- cases_all %>%
 figure_count <- figure_count + 1
 
 hepc %>% 
-  f_bar_stacked_phess(y_max    = NA,
-                      y_breaks = 20,
-                      y_expand = 22)
+  f_bar_stacked_phess(y_breaks = 25,
+                      y_expand = 7)
 ```
 
 #### Figure 10K-12
 
 ::: {#fig_10K_12 .fig-tab-title}
-**Figure 10K-12:** Hepatitis C notification rate, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**Figure 10K-12:** Hepatitis C notification rate (per 100,000 population), Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -782,7 +777,7 @@ hepc %>%
   dplyr::rename(rate = vic_rate) %>% 
   #
   f_line_grouped_indigenous(y_variable = rate,
-                            y_max      = NA,
+                            n_level    = "100,000",
                             y_breaks   = 25,
                             y_expand   = 20)
 ```
@@ -790,7 +785,7 @@ hepc %>%
 #### Table 10K-6
 
 ::: {#tab_10K_6 .fig-tab-title}
-**Table 10K-6:** Number of Hepatitis C notifications and notification rate, NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**Table 10K-6:** Number of Hepatitis C notifications and notification rate (per 100,000 population), NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -879,7 +874,7 @@ hiv <- cases_all %>%
 figure_count <- figure_count + 1
 
 hiv %>% 
-  f_bar_stacked_phess(y_max    = NA,
+  f_bar_stacked_phess(y_max    = 10,
                       y_breaks = 1,
                       y_expand = 0.25)
 ```
@@ -887,7 +882,7 @@ hiv %>%
 #### Figure 10K-14
 
 ::: {#fig_10K_14 .fig-tab-title}
-**Figure 10K-14:** HIV notification rate, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**Figure 10K-14:** HIV notification rate (per 100,000 population), Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -898,7 +893,7 @@ hiv %>%
   dplyr::rename(rate = vic_rate) %>% 
   #
   f_line_grouped_indigenous(y_variable = rate,
-                            y_max      = NA,
+                            n_level    = "100,000",
                             y_breaks   = 2,
                             y_expand   = 2.25)
 ```
@@ -906,7 +901,7 @@ hiv %>%
 #### Table 10K-7
 
 ::: {#tab_10K_7 .fig-tab-title}
-**Table 10K-7:** Number of HIV notifications and notification rate, NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**Table 10K-7:** Number of HIV notifications and notification rate (per 100,000 population), NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -1013,15 +1008,14 @@ gono <- cases_all %>%
 figure_count <- figure_count + 1
 
 gono %>% 
-  f_bar_stacked_phess(y_max    = NA,
-                      y_breaks = 20,
+  f_bar_stacked_phess(y_breaks = 20,
                       y_expand = 20)
 ```
 
 #### Figure 10K-16
 
 ::: {#fig_10K_16 .fig-tab-title}
-**Figure 10K-16:** Gonorrhoea notification rate, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**Figure 10K-16:** Gonorrhoea notification rate (per 100,000 population), Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -1032,15 +1026,15 @@ gono %>%
   dplyr::rename(rate = vic_rate) %>% 
   #
   f_line_grouped_indigenous(y_variable = rate,
-                            y_max      = NA,
+                            n_level    = "100,000",
                             y_breaks   = 50,
-                            y_expand   = 60)
+                            y_expand   = 55)
 ```
 
 #### Table 10K-8
 
 ::: {#tab_10K_8 .fig-tab-title}
-**Table 10K-8:** Number of gonorrhoea notifications and notification rate, NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**Table 10K-8:** Number of gonorrhoea notifications and notification rate (per 100,000 population), NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -1159,15 +1153,14 @@ syphilis_congenital <- cases_all %>%
 figure_count <- figure_count + 1
 
 syphilis_infectious %>% 
-  f_bar_stacked_phess(y_max    = NA,
-                      y_breaks = 10,
+  f_bar_stacked_phess(y_breaks = 10,
                       y_expand = 5)
 ```
 
 #### Figure 10K-18
 
 ::: {#fig_10K_18 .fig-tab-title}
-**Figure 10K-18:** Infectious syphilis notification rate, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**Figure 10K-18:** Infectious syphilis notification rate (per 100,000 population), Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -1178,15 +1171,15 @@ syphilis_infectious %>%
   dplyr::rename(rate = vic_rate) %>% 
   #
   f_line_grouped_indigenous(y_variable = rate,
-                            y_max      = NA,
+                            n_level    = "100,000",
                             y_breaks   = 20,
-                            y_expand   = 22)
+                            y_expand   = 21)
 ```
 
 #### Table 10K-9
 
 ::: {#tab_10K_9 .fig-tab-title}
-**Table 10K-9:** Number of infectious syphilis notifications and notification rate, NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**Table 10K-9:** Number of infectious syphilis notifications and notification rate (per 100,000 population), NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -1234,15 +1227,14 @@ table %>%
 figure_count <- figure_count + 1
 
 syphilis_late %>% 
-  f_bar_stacked_phess(y_max    = NA,
-                      y_breaks = 5,
+  f_bar_stacked_phess(y_breaks = 5,
                       y_expand = 2)
 ```
 
 #### Figure 10K-20
 
 ::: {#fig_10K_20 .fig-tab-title}
-**Figure 10K-20:** Late syphilis notification rate, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**Figure 10K-20:** Late syphilis notification rate (per 100,000 population), Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -1253,7 +1245,7 @@ syphilis_late %>%
   dplyr::rename(rate = vic_rate) %>% 
   #
   f_line_grouped_indigenous(y_variable = rate,
-                            y_max      = NA,
+                            n_level    = "100,000",
                             y_breaks   = 10,
                             y_expand   = 10)
 ```
@@ -1261,7 +1253,7 @@ syphilis_late %>%
 #### Table 10K-10
 
 ::: {#tab_10K_10 .fig-tab-title}
-**Table 10K-10:** Number of late syphilis notifications and notification rate, NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**Table 10K-10:** Number of late syphilis notifications and notification rate (per 100,000 population), NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -1311,13 +1303,13 @@ figure_count <- figure_count + 1
 syphilis_congenital %>% 
   f_bar_stacked_phess(y_max    = 5,
                       y_breaks = 1,
-                      y_expand = 0.25)
+                      y_expand = 0.125)
 ```
 
 #### Figure 10K-22
 
 ::: {#fig_10K_22 .fig-tab-title}
-**Figure 10K-22:** Congenital syphilis notification rate, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**Figure 10K-22:** Congenital syphilis notification rate (per 100,000 population), Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -1328,15 +1320,16 @@ syphilis_congenital %>%
   dplyr::rename(rate = vic_rate) %>% 
   #
   f_line_grouped_indigenous(y_variable = rate,
+                            n_level    = "100,000",
                             y_max      = 5,
                             y_breaks   = 1,
-                            y_expand   = 0.25)
+                            y_expand   = 0.125)
 ```
 
 #### Table 10K-11
 
 ::: {#tab_10K_11 .fig-tab-title}
-**Table 10K-11:** Number of congenital syphilis notifications and notification rate, NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**Table 10K-11:** Number of congenital syphilis notifications and notification rate (per 100,000 population), NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -1434,15 +1427,14 @@ igas <- cases_all %>%
 figure_count <- figure_count + 1
 
 igas %>% 
-  f_bar_stacked_phess(y_max    = NA,
-                      y_breaks = 2,
+  f_bar_stacked_phess(y_breaks = 2,
                       y_expand = 1.5)
 ```
 
 #### Figure 10K-24
 
 ::: {#fig_10K_24 .fig-tab-title}
-**Figure 10K-24:** Invasive Group A *Streptococcus* notification rate, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**Figure 10K-24:** Invasive Group A *Streptococcus* notification rate (per 100,000 population), Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -1453,7 +1445,7 @@ igas %>%
   dplyr::rename(rate = vic_rate) %>% 
   #
   f_line_grouped_indigenous(y_variable = rate,
-                            y_max      = NA,
+                            n_level    = "100,000",
                             y_breaks   = 2,
                             y_expand   = 1)
 ```
@@ -1461,7 +1453,7 @@ igas %>%
 #### Table 10K-12
 
 ::: {#tab_10K_12 .fig-tab-title}
-**Table 10K-12:** Number of invasive Group A *Streptococcus* notifications and notification rate, NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**Table 10K-12:** Number of invasive Group A *Streptococcus* notifications and notification rate (per 100,000 population), NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -1550,15 +1542,15 @@ arf <- cases_all %>%
 figure_count <- figure_count + 1
 
 arf %>% 
-  f_bar_stacked_phess(y_max    = NA,
+  f_bar_stacked_phess(y_max    = 5,
                       y_breaks = 1,
-                      y_expand = 1.25)
+                      y_expand = 0.125)
 ```
 
 #### Figure 10K-26
 
 ::: {#fig_10K_26 .fig-tab-title}
-**Figure 10K-26:** Acute rheumatic fever notification rate, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**Figure 10K-26:** Acute rheumatic fever notification rate (per 100,000 population), Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -1569,7 +1561,7 @@ arf %>%
   dplyr::rename(rate = vic_rate) %>% 
   #
   f_line_grouped_indigenous(y_variable = rate,
-                            y_max      = NA,
+                            n_level    = "100,000",
                             y_breaks   = 1,
                             y_expand   = 1.1)
 ```
@@ -1577,7 +1569,7 @@ arf %>%
 #### Table 10K-13
 
 ::: {#tab_10K_13 .fig-tab-title}
-**Table 10K-13:** Number of acute rheumatic fever notifications and notification rate, NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**Table 10K-13:** Number of acute rheumatic fever notifications and notification rate (per 100,000 population), NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -1668,13 +1660,13 @@ figure_count <- figure_count + 1
 rhd %>% 
   f_bar_stacked_phess(y_max    = 5,
                       y_breaks = 1,
-                      y_expand = 0.25)
+                      y_expand = 0.125)
 ```
 
 #### Figure 10K-28
 
 ::: {#fig_10K_28 .fig-tab-title}
-**Figure 10K-28:** Rheumatic heart disease notification rate, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**Figure 10K-28:** Rheumatic heart disease notification rate (per 100,000 population), Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -1685,15 +1677,16 @@ rhd %>%
   dplyr::rename(rate = vic_rate) %>% 
   #
   f_line_grouped_indigenous(y_variable = rate,
+                            n_level    = "100,000",
                             y_max      = 5,
                             y_breaks   = 1,
-                            y_expand   = 0.25)
+                            y_expand   = 0.125)
 ```
 
 #### Table 10K-14
 
 ::: {#tab_10K_14 .fig-tab-title}
-**Table 10K-14:** Number of rheumatic heart disease notifications and notification rate, NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**Table 10K-14:** Number of rheumatic heart disease notifications and notification rate (per 100,000 population), NEPHU and Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -1821,16 +1814,14 @@ figure_count <- figure_count + 1
 
 figure_number <- hospital_infectious %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
-                    y_max      = NA,
                     y_breaks   = 25,
                     y_expand   = 25,
                     hospital   = "admission")
 
 figure_percent <- hospital_infectious %>% 
   f_bar_simple_iare(y_variable = aboriginal_rate,
-                    y_max      = NA,
                     y_breaks   = 250,
-                    y_expand   = 250,
+                    y_expand   = 235,
                     hospital   = "admission")
 
 f_bar_simple_combine(figure_number, figure_percent)
@@ -1967,14 +1958,12 @@ figure_count <- figure_count + 1
 
 figure_number <- emergency_infectious %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
-                    y_max      = NA,
                     y_breaks   = 20,
                     y_expand   = 15,
                     hospital   = "emergency")
 
 figure_percent <- emergency_infectious %>% 
   f_bar_simple_iare(y_variable = aboriginal_rate,
-                    y_max      = NA,
                     y_breaks   = 500,
                     y_expand   = 250,
                     hospital   = "emergency")

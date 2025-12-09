@@ -8,7 +8,7 @@
 # Classic grouped bar chart
 ################################################################################
 f_bar_grouped <- function(data, x_variable, y_variable, fill_variable, fill_values,
-                          y_max, y_breaks, y_expand, y_title, 
+                          y_max = NA, y_breaks, y_expand, y_title, 
                           x_angle = 90, legend_offset = -0.3) {
   
   x_variable    <- rlang::enquo(x_variable)
@@ -57,7 +57,7 @@ f_bar_grouped <- function(data, x_variable, y_variable, fill_variable, fill_valu
 ################################################################################
 # By age and sex
 ################################################################################
-f_bar_grouped_agesex <- function(data, y_variable, y_max, y_breaks, y_expand, 
+f_bar_grouped_agesex <- function(data, y_variable, y_max = NA, y_breaks, y_expand, 
                                  n_level = "people") {
   
   y_variable <- rlang::enquo(y_variable)
@@ -129,7 +129,7 @@ f_bar_grouped_agesex <- function(data, y_variable, y_max, y_breaks, y_expand,
 ################################################################################
 # By sex
 ################################################################################
-f_bar_grouped_sex <- function(data, x_variable, y_variable, y_max, y_breaks, y_expand, y_title, 
+f_bar_grouped_sex <- function(data, x_variable, y_variable, y_max = NA, y_breaks, y_expand, y_title, 
                               x_angle = 0, legend_offset = -0.1) {
   
   x_variable <- rlang::enquo(x_variable)
@@ -199,7 +199,7 @@ f_bar_grouped_sex <- function(data, x_variable, y_variable, y_max, y_breaks, y_e
 ################################################################################
 # By Indigenous status
 ################################################################################
-f_bar_grouped_indigenous <- function(data, x_variable, y_variable, y_max, y_breaks, y_expand, 
+f_bar_grouped_indigenous <- function(data, x_variable, y_variable, y_max = NA, y_breaks, y_expand, 
                                      n_level = "people", x_angle = 90, legend_offset = -0.3) {
   
   x_variable <- rlang::enquo(x_variable)

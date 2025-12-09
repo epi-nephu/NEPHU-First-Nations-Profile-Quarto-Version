@@ -111,7 +111,6 @@ figure_count <- figure_count + 1
 
 figure_number <- childhood_enrol %>% 
   f_line_simple(y_variable = aboriginal_n,
-                y_max      = NA,
                 y_breaks   = 200,
                 y_expand   = 100,
                 n_level    = "children")
@@ -120,7 +119,7 @@ figure_percent <- childhood_enrol %>%
   f_line_simple(y_variable = aboriginal_prop,
                 y_max      = 100,
                 y_breaks   = 10,
-                y_expand   = 1,
+                y_expand   = 2.5,
                 n_level    = "children",
                 ctg_target = 95)
 
@@ -197,7 +196,7 @@ childhood_attendance %>%
                 fill_values   = c(colour_stack4, colour_stack3, colour_stack2, colour_stack1),
                 y_max         = 100,
                 y_breaks      = 10,
-                y_expand      = 1,
+                y_expand      = 2.5,
                 y_title       = "Percentage of enrolled children")
 ```
 
@@ -349,7 +348,7 @@ childhood_develop %>%
   f_line_grouped_indigenous(y_variable = prop,
                             y_max      = 100,
                             y_breaks   = 10,
-                            y_expand   = 1,
+                            y_expand   = 2.5,
                             n_level    = "children",
                             ctg_target = 55)
 ```
@@ -483,7 +482,7 @@ naplan_reading %>%
                 fill_values   = c(colour_stackgrey, colour_stack4, colour_stack3, colour_stack2, colour_stack1),
                 y_max         = 100,
                 y_breaks      = 10,
-                y_expand      = 1,
+                y_expand      = 2.5,
                 y_title       = "Percentage of children")
 ```
 
@@ -560,7 +559,7 @@ naplan_writing %>%
                 fill_values   = c(colour_stackgrey, colour_stack4, colour_stack3, colour_stack2, colour_stack1),
                 y_max         = 100,
                 y_breaks      = 10,
-                y_expand      = 1,
+                y_expand      = 2.5,
                 y_title       = "Percentage of children")
 ```
 
@@ -637,7 +636,7 @@ naplan_numeracy %>%
                 fill_values   = c(colour_stackgrey, colour_stack4, colour_stack3, colour_stack2, colour_stack1),
                 y_max         = 102,
                 y_breaks      = 10,
-                y_expand      = 0,
+                y_expand      = 0.5,
                 y_title       = "Percentage of children")
 ```
 

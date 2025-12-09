@@ -252,15 +252,14 @@ figure_count <- figure_count + 1
 
 figure_number <- kidney_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_n,
-                   y_max      = NA,
                    y_breaks   = 5,
                    y_expand   = 5)
 
 figure_percent <- kidney_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_prop,
-                   y_max      = 10,
-                   y_breaks   = 1,
-                   y_expand   = 0.1)
+                   y_max      = 5,
+                   y_breaks   = 0.5,
+                   y_expand   = 0.125)
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```
@@ -276,8 +275,7 @@ f_bar_simple_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 kidney_lga %>% 
-  f_bar_obsexp_lga(y_max    = NA,
-                   y_breaks = 5,
+  f_bar_obsexp_lga(y_breaks = 5,
                    y_expand = 5)
 ```
 
@@ -322,7 +320,6 @@ figure_count <- figure_count + 1
 
 figure_number <- kidney_agesex %>% 
   f_bar_grouped_agesex(y_variable = aboriginal_n,
-                       y_max      = NA,
                        y_breaks   = 5,
                        y_expand   = 4.5)
 
@@ -330,7 +327,7 @@ figure_percent <- kidney_agesex %>%
   f_bar_grouped_agesex(y_variable = aboriginal_prop,
                        y_max      = 10,
                        y_breaks   = 1,
-                       y_expand   = 0.1)
+                       y_expand   = 0.25)
 
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
@@ -346,9 +343,8 @@ f_bar_grouped_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 kidney_agesex %>% 
-  f_bar_obsexp_agesex(y_max    = NA,
-                      y_breaks = 5,
-                      y_expand = 4.5)
+  f_bar_obsexp_agesex(y_breaks = 5,
+                      y_expand = 5)
 ```
 
 #### Table 10H-3
@@ -475,14 +471,12 @@ figure_count <- figure_count + 1
 
 figure_number <- hospital_kidney %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
-                    y_max      = NA,
                     y_breaks   = 10,
                     y_expand   = 7,
                     hospital   = "admission")
 
 figure_percent <- hospital_kidney %>% 
   f_bar_simple_iare(y_variable = aboriginal_rate,
-                    y_max      = NA,
                     y_breaks   = 50,
                     y_expand   = 15,
                     hospital   = "admission")
@@ -606,14 +600,12 @@ figure_count <- figure_count + 1
 
 figure_number <- hospital_dialysis %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
-                    y_max      = NA,
                     y_breaks   = 250,
                     y_expand   = 150,
                     hospital   = "admission")
 
 figure_percent <- hospital_dialysis %>% 
   f_bar_simple_iare(y_variable = aboriginal_rate,
-                    y_max      = NA,
                     y_breaks   = 2000,
                     y_expand   = 1000,
                     hospital   = "admission")

@@ -7,7 +7,7 @@
 ################################################################################
 # Classic simple line chart
 ################################################################################
-f_line_simple <- function(data, y_variable, y_max, y_breaks, y_expand, 
+f_line_simple <- function(data, y_variable, y_max = NA, y_breaks, y_expand, 
                           n_level = "people", ctg_target = NA) {
   
   y_variable <- rlang::enquo(y_variable)

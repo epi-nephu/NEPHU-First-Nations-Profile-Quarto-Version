@@ -169,7 +169,6 @@ population_lphu %>%
   #
   f_bar_simple(x_variable = forcats::fct_reorder(lphu_short, desc(aboriginal_n)),
                y_variable = aboriginal_n,
-               y_max      = NA,
                y_breaks   = 2000,
                y_expand   = 250,
                x_angle    = 0)
@@ -384,7 +383,6 @@ population_lga %>%
   #
   f_bar_simple(x_variable = forcats::fct_reorder(lga_name, desc(aboriginal_n)),
                y_variable = aboriginal_n,
-               y_max      = NA,
                y_breaks   = 500,
                y_expand   = 250)
 ```

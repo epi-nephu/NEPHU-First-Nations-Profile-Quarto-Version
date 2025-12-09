@@ -245,7 +245,6 @@ figure_number <- activity_type %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = n,
-                    y_max      = NA,
                     y_breaks   = 1000,
                     y_expand   = 850,
                     x_angle    = 90)
@@ -259,7 +258,7 @@ figure_percent <- activity_type %>%
                     y_variable = prop,
                     y_max      = 50,
                     y_breaks   = 5,
-                    y_expand   = 0.5,
+                    y_expand   = 1,
                     x_angle    = 90)
 
 f_bar_grouped_combine(figure_number, figure_percent)
@@ -489,7 +488,6 @@ transport_lga %>%
                "Active transport"))) %>% 
   #
   f_bar_stacked_lga(fill_values = c(colour_stack5, colour_stack4, colour_stack3, colour_stack2, colour_stack1),
-                    y_max       = NA,
                     y_breaks    = 100,
                     y_expand    = 90)
 ```
@@ -572,7 +570,6 @@ transport_agesex %>%
                "Active transport"))) %>% 
   #
   f_bar_stacked_agesex(fill_values = c(colour_stack5, colour_stack4, colour_stack3, colour_stack2, colour_stack1),
-                       y_max       = NA,
                        y_breaks    = 100,
                        y_expand    = 50)
 ```

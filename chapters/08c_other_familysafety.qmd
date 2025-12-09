@@ -165,7 +165,6 @@ violence_incidents %>%
   dplyr::filter(sex != "Total" & indigenous_status == "Aboriginal") %>%
   #
   f_line_grouped_sex(y_variable = n,
-                     y_max      = NA,
                      y_breaks   = 500,
                      y_expand   = 200,
                      n_level    = "reported incidents")

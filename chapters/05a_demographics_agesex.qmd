@@ -474,7 +474,6 @@ figure_count <- figure_count + 1
 figure_number <- women_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_n,
                    n_level    = "women",
-                   y_max      = NA,
                    y_breaks   = 100,
                    y_expand   = 50)
 
@@ -483,7 +482,7 @@ figure_percent <- women_lga %>%
                    n_level    = "women",
                    y_max      = 100,
                    y_breaks   = 10,
-                   y_expand   = 1)
+                   y_expand   = 2.5)
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```

@@ -7,7 +7,7 @@
 ################################################################################
 # Classic simple bar chart
 ################################################################################
-f_bar_simple <- function(data, x_variable, y_variable, y_max, y_breaks, y_expand,
+f_bar_simple <- function(data, x_variable, y_variable, y_max = NA, y_breaks, y_expand,
                          y_title = "Number of people", x_angle = 90, ctg_target = NA) {
   
   x_variable <- rlang::enquo(x_variable)
@@ -63,7 +63,7 @@ f_bar_simple <- function(data, x_variable, y_variable, y_max, y_breaks, y_expand
 ################################################################################
 # Flipped x-axis and y-axis
 ################################################################################
-f_bar_simple_flip <- function(data, x_variable, y_variable, y_max, y_breaks, y_expand, 
+f_bar_simple_flip <- function(data, x_variable, y_variable, y_max = NA, y_breaks, y_expand, 
                               x_title = "Number of people") {
   
   x_variable <- rlang::enquo(x_variable)
@@ -103,7 +103,7 @@ f_bar_simple_flip <- function(data, x_variable, y_variable, y_max, y_breaks, y_e
 ################################################################################
 # By LGA
 ################################################################################
-f_bar_simple_lga <- function(data, y_variable, y_max, y_breaks, y_expand, 
+f_bar_simple_lga <- function(data, y_variable, y_max = NA, y_breaks, y_expand, 
                              n_level = "people", ctg_target = NA) {
   
   y_variable <- rlang::enquo(y_variable)
@@ -181,7 +181,7 @@ f_bar_simple_lga <- function(data, y_variable, y_max, y_breaks, y_expand,
 ################################################################################
 # By IARE
 ################################################################################
-f_bar_simple_iare <- function(data, y_variable, y_max, y_breaks, y_expand, 
+f_bar_simple_iare <- function(data, y_variable, y_max = NA, y_breaks, y_expand, 
                               n_level = "people", ctg_target = NA, hospital = "no") {
   
   y_variable <- rlang::enquo(y_variable)
