@@ -1,0 +1,224 @@
+---
+title: "Mental Health and Wellbeing"
+---
+
+```{r}
+#
+source(here::here("setup.R"))
+source(here::here("setup_footnotes.R"))
+
+# Set up numbering for exporting tables as .csv
+table_section <- "10L"
+table_count   <- 0
+
+figure_count <- 0
+```
+
+::: {.caveat-box}
+**A note about the impact of under-identification**
+
+`r note_box_underidentification`
+
+**A note about interpreting observed vs. expected figures**
+
+`r note_box_obsexp`
+:::
+
+<div style="height: 2em;"></div>
+
+::: {.key-question}
+How do Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment experience emotional wellbeing?
+:::
+
+## Cultural Strengths and Emotional Wellbeing
+
+### Positive Wellbeing
+
+```{r}
+# ------------------------------------------------------------------------------
+# Positive wellbeing score
+# Data from ABS National Aboriginal and Torres Strait Islander Health Survey
+# ------------------------------------------------------------------------------
+# Read in NATSIHS data
+wellbeing_positive <- f_read_natsihs_sex("Indicator_Vic_Sex_Resilience_PositiveWellbeing_Score.csv")
+
+# Data wrangling
+wellbeing_positive <- wellbeing_positive %>% 
+  dplyr::rowwise() %>% 
+  dplyr::mutate(answered_n = sum(across(high_75_100_n:low_0_25_n))) %>% 
+  dplyr::ungroup() %>% 
+  #
+  janitor::adorn_totals(fill = "Total") %>% 
+  #
+  dplyr::rename(high_n   = high_75_100_n,
+                medium_n = medium_26_74_n,
+                low_n    = low_0_25_n) %>% 
+  #
+  dplyr::mutate(across(high_n:low_n,
+                       ~ . / answered_n * 100,
+                       .names = "{.col}_prop"),
+                #
+                answered_prop = answered_n / answered_n * 100) %>% 
+  #
+  dplyr::rename_with(~ stringr::str_replace(., "_n_prop$", "_prop"), ends_with("_n_prop")) %>% 
+  #
+  dplyr::select(sex,
+                starts_with("high"),
+                starts_with("medium"),
+                starts_with("low"),
+                starts_with("answered")) %>% 
+  #
+  tidyr::pivot_longer(!sex,
+                      names_to = c("answer", ".value"),
+                      names_pattern = "(.+)_(.+)") %>% 
+  #
+  dplyr::mutate(answer = factor(dplyr::recode(answer,
+                                              "high"     = "High",
+                                              "medium"   = "Medium",
+                                              "low"      = "Low",
+                                              "answered" = "Total"),
+                                levels = c("High",
+                                           "Medium",
+                                           "Low",
+                                           "Total")))
+```
+
+- Data for this topic were obtained from the [2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release).
+
+- Overall, 30% of Aboriginal and/or Torres Strait Islander survey respondents aged 15 years and over living in Greater Melbourne had a high level of positive wellbeing in the four weeks prior to the survey. This equates to approximately 7,700 Aboriginal and/or Torres Strait Islander people.
+
+- Females were more likely to have a low level of positive wellbeing than males (12% vs. 5.1%).
+
+::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+The following questions were asked of all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey. The responses to these four questions were combined and scaled to produce an overall score between 0 and 100. Overall scores were classified as Low (0 to 25), Medium (26 to 74), and High (75 to 100) positive wellbeing.
+
+- In the last 4 weeks, about how often did you feel calm and peaceful?
+  - All of the time
+  - Most of the time
+  - Some of the time
+  - A little of the time
+  - None of the time
+  - Don't know
+  - Prefer not to answer
+
+<div style="height: 1em;"></div>
+
+- In the last 4 weeks, about how often have you been a happy person?
+  - All of the time
+  - Most of the time
+  - Some of the time
+  - A little of the time
+  - None of the time
+  - Don't know
+  - Prefer not to answer
+  
+<div style="height: 1em;"></div>
+
+- In the last 4 weeks, about how often did you feel full of life?
+  - All of the time
+  - Most of the time
+  - Some of the time
+  - A little of the time
+  - None of the time
+  - Don't know
+  - Prefer not to answer
+  
+<div style="height: 1em;"></div>
+
+- In the last 4 weeks, about how often did you have a lot of energy?
+  - All of the time
+  - Most of the time
+  - Some of the time
+  - A little of the time
+  - None of the time
+  - Don't know
+  - Prefer not to answer
+
+<div style="height: 2em;"></div>
+:::
+
+:::: {.panel-tabset}
+
+#### Figure 10L-1
+
+::: {#fig_10L_1 .fig-tab-title}
+**Figure 10L-1:** Level of positive wellbeing in the four weeks prior to the survey for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+figure_number <- wellbeing_positive %>% 
+  dplyr::filter(sex != "Total" & answer != "Total") %>%
+  #
+  f_bar_grouped_sex(x_variable = answer,
+                    y_variable = n,
+                    y_breaks   = 1000,
+                    y_expand   = 400)
+
+figure_percent <- wellbeing_positive %>% 
+  dplyr::filter(sex != "Total" & answer != "Total") %>%
+  #
+  f_bar_grouped_sex(x_variable = answer,
+                    y_variable = prop,
+                    y_max      = 100,
+                    y_breaks   = 10,
+                    y_expand   = 2.5)
+
+f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
+```
+
+#### Table 10L-1
+
+::: {#tab_10L_1 .fig-tab-title}
+**Table 10L-1:** Level of positive wellbeing in the four weeks prior to the survey for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- wellbeing_positive %>% 
+  tidyr::pivot_wider(names_from  = "sex",
+                     values_from = c("n", "prop"),
+                     names_vary  = "slowest") %>% 
+  #
+  janitor::clean_names() %>% 
+  #
+  dplyr::rename(positive_wellbeing_score = answer)
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(prop_male   = sprintf("%.1f", prop_male),
+                prop_female = sprintf("%.1f", prop_female),
+                prop_total  = sprintf("%.1f", prop_total)) %>%
+  #
+  f_table_grouped_sex(n_variable  = "estimate",
+                      column_name = "Positive wellbeing")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_natsihs`
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+`r note_caveat_survey_unknown`
+
+`r note_caveat_survey_estimate`
+:::
+
