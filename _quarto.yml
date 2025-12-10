@@ -58,6 +58,7 @@ book:
         - chapters/10i_consequences_lung.qmd
         - chapters/10j_consequences_other.qmd
         - chapters/10k_consequences_infectious.qmd
+        - chapters/10l_consequences_mentalhealth.qmd
     - references.qmd
 
 bibliography: references.bib
