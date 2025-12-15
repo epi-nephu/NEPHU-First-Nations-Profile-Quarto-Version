@@ -45,7 +45,7 @@ book:
         - chapters/09e_preventive_biomedical.qmd
         - chapters/09f_preventive_vaccination.qmd
         - chapters/09g_preventive_screening.qmd
-    - part: "10. Health Consequences"
+    - part: "10. Health Outcomes"
       chapters: 
         - chapters/10a_consequences_general.qmd
         - chapters/10b_consequences_disability.qmd
