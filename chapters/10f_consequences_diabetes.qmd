@@ -30,7 +30,9 @@ figure_count <- 0
 What chronic health conditions are experienced by Aboriginal and/or Torres Strait Islander peoples in the NEPHU catchment?
 :::
 
-## Self-Reported Diabetes
+## Diabetes
+
+### Self-Reported Diabetes
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -281,14 +283,7 @@ table %>%
 - Census respondents may have reported Type 1 and/or Type 2 diabetes in response to this question.
 :::
 
-::: {style="opacity: 0.8;"}
-```{r}
-#| out-width: "100%"
-knitr::include_graphics(here::here("images", "banner_separator.png"))
-```
-:::
-
-## Hospital Admissions
+### Hospital Admissions
 
 ```{r}
 # ------------------------------------------------------------------------------

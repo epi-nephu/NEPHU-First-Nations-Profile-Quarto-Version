@@ -30,7 +30,9 @@ figure_count <- 0
 What chronic health conditions are experienced by Aboriginal and/or Torres Strait Islander peoples in the NEPHU catchment?
 :::
 
-## Self-Reported Arthritis
+## Arthritis
+
+### Self-Reported Arthritis
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -280,7 +282,9 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
 :::
 
-## Self-Reported Back Problems
+## Back Problems
+
+### Self-Reported Back Problems
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -430,7 +434,9 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
 :::
 
-## Self-Reported Osteoporosis
+## Osteoporosis
+
+### Self-Reported Osteoporosis
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -582,7 +588,7 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
 :::
 
-## Musculoskeletal Conditions
+## All Musculoskeletal Conditions
 
 ### Hospital Admissions
 

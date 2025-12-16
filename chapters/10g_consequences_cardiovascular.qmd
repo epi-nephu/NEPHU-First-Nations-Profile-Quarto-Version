@@ -529,7 +529,9 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
 :::
 
-## Self-Reported Stroke
+## Cerebrovascular Disease
+
+### Self-Reported Stroke
 
 ```{r}
 # ------------------------------------------------------------------------------

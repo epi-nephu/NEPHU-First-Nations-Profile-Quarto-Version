@@ -239,7 +239,9 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
 :::
 
-## Self-Reported Cancer
+## Cancer
+
+### Self-Reported Cancer
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -482,14 +484,7 @@ table %>%
 - Census respondents may have reported malignant and/or benign cancers in response to this question.
 :::
 
-::: {style="opacity: 0.8;"}
-```{r}
-#| out-width: "100%"
-knitr::include_graphics(here::here("images", "banner_separator.png"))
-```
-:::
-
-## Top 10 Cancer Types
+### Top 10 Cancer Types
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -655,14 +650,7 @@ table %>%
 - Benign neoplasms and recurrent cancers were excluded.
 :::
 
-::: {style="opacity: 0.8;"}
-```{r}
-#| out-width: "100%"
-knitr::include_graphics(here::here("images", "banner_separator.png"))
-```
-:::
-
-## Hospital Admissions
+### Hospital Admissions
 
 ```{r}
 # ------------------------------------------------------------------------------

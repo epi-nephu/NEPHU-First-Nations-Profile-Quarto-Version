@@ -1744,7 +1744,9 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
 :::
 
-## Hospital Admissions
+## All Infectious and Parasitic Diseases
+
+### Hospital Admissions
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -1881,14 +1883,7 @@ table %>%
 <div style="height: 2em;"></div>
 :::
 
-::: {style="opacity: 0.8;"}
-```{r}
-#| out-width: "100%"
-knitr::include_graphics(here::here("images", "banner_separator.png"))
-```
-:::
-
-## Emergency Presentations
+### Emergency Presentations
 
 ```{r}
 # ------------------------------------------------------------------------------

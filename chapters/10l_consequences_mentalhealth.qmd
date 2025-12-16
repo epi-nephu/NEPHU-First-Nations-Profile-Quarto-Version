@@ -830,7 +830,71 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
 :::
 
-## Self-Reported Mental Health Conditions
+## Dementia
+
+### Self-Reported Dementia
+
+```{r}
+# ------------------------------------------------------------------------------
+# Dementia, by LGA
+# Data from ABS Census using TableBuilderPro
+# ------------------------------------------------------------------------------
+# Read in Census data
+dementia_lga <- f_read_census_lga("Aboriginal_Health_Dementia_LGA.csv",
+                                  variable = "dementia") %>% 
+  #
+  dplyr::filter(dementia != "Not stated")
+
+# Data wrangling
+dementia_lga <- dementia_lga %>%
+  #
+  dplyr::mutate(dementia = dplyr::case_when(
+    dementia == "Has dementia (including Alzheimer's)" ~ "yes",
+    TRUE ~ "no")) %>% 
+  #
+  f_wrangle_census_lga(variable = dementia,
+                       level    = "person",
+                       dichot   = "yes")
+
+# ------------------------------------------------------------------------------
+# Dementia, by age and sex
+# Data from ABS Census using TableBuilderPro
+# ------------------------------------------------------------------------------
+# Read in Census data
+dementia_agesex <- f_read_census_agesex("Aboriginal_Health_Dementia_AgeSex.csv",
+                                        variable = "dementia") %>% 
+  #
+  dplyr::filter(dementia != "Not stated")
+
+# Data wrangling
+dementia_agesex <- dementia_agesex %>% 
+  #
+  dplyr::mutate(dementia = dplyr::case_when(
+    dementia == "Has dementia (including Alzheimer's)" ~ "yes",
+    TRUE ~ "no")) %>%  
+  #
+  f_wrangle_census_agesex(variable = dementia,
+                          dichot   = "yes")
+```
+
+- Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
+
+- Overall, 0.39% (n = 45) of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census have been told by a doctor or nurse that they have dementia. This was lower than for non-Indigenous people living in the NEPHU catchment (0.76%).
+
+- All of the people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census with age and sex information available who have been told by a doctor or nurse that they have dementia were aged between 50-89 years. There were similar numbers of males (n = 8) and females (n = 10).
+
+- It is not reliable to report on this topic broken down further by LGA or by age and sex due to small numbers.
+
+::: {style="opacity: 0.8;"}
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+:::
+
+## All Mental Health Conditions
+
+### Self-Reported Mental Health Conditions
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -1071,74 +1135,7 @@ table %>%
 `r note_caveat_unknown_agesex`
 :::
 
-::: {style="opacity: 0.8;"}
-```{r}
-#| out-width: "100%"
-knitr::include_graphics(here::here("images", "banner_separator.png"))
-```
-:::
-
-## Self-Reported Dementia
-
-```{r}
-# ------------------------------------------------------------------------------
-# Dementia, by LGA
-# Data from ABS Census using TableBuilderPro
-# ------------------------------------------------------------------------------
-# Read in Census data
-dementia_lga <- f_read_census_lga("Aboriginal_Health_Dementia_LGA.csv",
-                                  variable = "dementia") %>% 
-  #
-  dplyr::filter(dementia != "Not stated")
-
-# Data wrangling
-dementia_lga <- dementia_lga %>%
-  #
-  dplyr::mutate(dementia = dplyr::case_when(
-    dementia == "Has dementia (including Alzheimer's)" ~ "yes",
-    TRUE ~ "no")) %>% 
-  #
-  f_wrangle_census_lga(variable = dementia,
-                       level    = "person",
-                       dichot   = "yes")
-
-# ------------------------------------------------------------------------------
-# Dementia, by age and sex
-# Data from ABS Census using TableBuilderPro
-# ------------------------------------------------------------------------------
-# Read in Census data
-dementia_agesex <- f_read_census_agesex("Aboriginal_Health_Dementia_AgeSex.csv",
-                                        variable = "dementia") %>% 
-  #
-  dplyr::filter(dementia != "Not stated")
-
-# Data wrangling
-dementia_agesex <- dementia_agesex %>% 
-  #
-  dplyr::mutate(dementia = dplyr::case_when(
-    dementia == "Has dementia (including Alzheimer's)" ~ "yes",
-    TRUE ~ "no")) %>%  
-  #
-  f_wrangle_census_agesex(variable = dementia,
-                          dichot   = "yes")
-```
-
-- Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
-
-- Overall, 0.39% (n = 45) of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census have been told by a doctor or nurse that they have dementia. This was lower than for non-Indigenous people living in the NEPHU catchment (0.76%).
-
-- All of the people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census with age and sex information available who have been told by a doctor or nurse that they have dementia were aged between 50-89 years. There were similar numbers of males (n = 8) and females (n = 10).
-
-- It is not reliable to report on this topic broken down further by LGA or by age and sex due to small numbers.
-
-::: {style="opacity: 0.8;"}
-```{r}
-#| out-width: "100%"
-knitr::include_graphics(here::here("images", "banner_separator.png"))
-```
-:::
-
-## Type of Mental Health Condition
+### Type of Mental Health Condition
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -1321,14 +1318,7 @@ table %>%
 `r note_caveat_multipleresponse`
 :::
 
-::: {style="opacity: 0.8;"}
-```{r}
-#| out-width: "100%"
-knitr::include_graphics(here::here("images", "banner_separator.png"))
-```
-:::
-
-## Use of Mental Health Services
+### Use of Mental Health Services
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -1607,16 +1597,7 @@ table %>%
 - For Figure 10L-8 and Table 10L-9, *Other services* includes mental health nurses, traditional healers, and other health professionals.
 :::
 
-::: {style="opacity: 0.8;"}
-```{r}
-#| out-width: "100%"
-knitr::include_graphics(here::here("images", "banner_separator.png"))
-```
-:::
-
-## Hospital Admissions
-
-### Mental and Behavioural Disorders
+### Hospital Admissions for Mental and Behavioural Disorders
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -1743,7 +1724,7 @@ table %>%
 <div style="height: 2em;"></div>
 :::
 
-### Mood (Affective) Disorders
+### Hospital Admissions for Mood (Affective) Disorders
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -1866,14 +1847,7 @@ table %>%
 <div style="height: 2em;"></div>
 :::
 
-::: {style="opacity: 0.8;"}
-```{r}
-#| out-width: "100%"
-knitr::include_graphics(here::here("images", "banner_separator.png"))
-```
-:::
-
-## Emergency Presentations
+### Emergency Presentations
 
 ```{r}
 # ------------------------------------------------------------------------------
