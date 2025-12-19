@@ -91,6 +91,12 @@ f_table_grouped_indigenous <- function(data, n_variable, column_name, total_row 
     
   }
   
+  if (n_variable == "mortality") {
+    
+    table_headers <- c("Median age", "Rate", "Median age", "Rate", "Rate ratio")
+    
+  }
+  
   table <- data %>% 
     knitr::kable(format      = "html",
                  format.args = list(big.mark = ","),
