@@ -60,6 +60,7 @@ book:
         - chapters/10k_consequences_infectious.qmd
         - chapters/10l_consequences_mentalhealth.qmd
         - chapters/10m_consequences_injury.qmd
+        - chapters/10n_consequences_mortality.qmd
     - references.qmd
 
 bibliography: references.bib
