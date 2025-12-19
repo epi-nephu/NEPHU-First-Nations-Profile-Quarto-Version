@@ -1,0 +1,639 @@
+---
+title: "Mortality"
+---
+
+```{r}
+#
+source(here::here("setup.R"))
+source(here::here("setup_footnotes.R"))
+
+# Set up numbering for exporting tables as .csv
+table_section <- "10N"
+table_count   <- 0
+
+figure_count <- 0
+```
+
+::: {.warning-box}
+`r bsicons::bs_icon("exclamation-triangle", size = "15pt")` **Content warning** `r bsicons::bs_icon("exclamation-triangle", size = "15pt")`
+
+Some sections in this chapter include references to suicide. This content may bring up strong feelings or memories for readers, particularly Aboriginal and/or Torres Strait Islander peoples living in metropolitan Melbourne.
+
+Take the time you need and connect with trusted supports, Elders, or loved ones. Your wellbeing matters.
+
+If you or someone you know needs support, please consider reaching out to one of the following culturally safe services.
+:::
+
+<div style="height: 2em;"></div>
+
+::: {.caveat-box}
+**Understanding mortality in context**
+
+The information in this chapter acknowledges the ongoing impacts of colonisation, intergenerational trauma, and systemic inequities on the health and wellbeing of Aboriginal and/or Torres Strait Islander peoples. While these data speaks to loss, it is shared with deep respect for the lives, families, and communities behind each number.
+
+The intent of this chapter is not only to describe mortality data, but to strengthen collective understanding and inform healing-based public health actions that honour the resilience and strength of our peoples. Behind every statistic are loved ones, family members, Elders, and community members who have contributed to the strength of our people. These data are shared to honour them, to guide health planning that is culturally safe and community-driven, and to support pathways that enable healing, hope, and self-determination for future generations.
+:::
+
+<div style="height: 2em;"></div>
+
+::: {.caveat-box}
+**A note about the impact of under-identification**
+
+`r note_box_underidentification`
+:::
+
+<div style="height: 2em;"></div>
+
+::: {.key-question}
+What are the most common causes of death for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment?
+:::
+
+## Mortality
+
+```{r}
+# ------------------------------------------------------------------------------
+# Number of deaths - Victoria
+# Data from ABS Technical Report
+# ------------------------------------------------------------------------------
+# Read in ABS data
+mortality_number <- f_read_mortality("ABS_Tech_Report_Aboriginal_Deaths_Ascertainment_Number.xlsx",
+                                     column_select = c("indigenous_status",
+                                                       notenhanced_2022 = "x2022",
+                                                       notenhanced_2023 = "x2023_no_cod_sources_b",
+                                                       enhanced_2023    = "x2023_incl_cod_sources_c")) %>% 
+  #
+  dplyr::filter(!is.na(enhanced_2023))
+
+# ------------------------------------------------------------------------------
+# Age-standardised death rate - Victoria
+# Data from ABS Technical Report
+# ------------------------------------------------------------------------------
+# Read in ABS data
+mortality_rate <- f_read_mortality("ABS_Tech_Report_Aboriginal_Deaths_Ascertainment_Rate.xlsx",
+                                   column_select = c(sex       = "indigenous_status_by_sex",
+                                                     rate_2023 = "x2023_incl_cod_sources_g_4")) %>% 
+  #
+  dplyr::filter(!is.na(rate_2023))
+
+# Data wrangling
+mortality_rate <- mortality_rate %>% 
+  dplyr::mutate(indigenous_status = dplyr::case_when(
+    row_number() %in% 1:3 ~ "rate_aboriginal",
+    row_number() %in% 4:6 ~ "rate_non_aboriginal",
+    TRUE ~ NA_character_)) %>% 
+  #
+  tidyr::pivot_wider(names_from  = "indigenous_status",
+                     values_from = "rate_2023")
+
+# ------------------------------------------------------------------------------
+# Median age at death - Victoria
+# Data from ABS Technical Report
+# ------------------------------------------------------------------------------
+# Read in ABS data
+mortality_age_aboriginal <- f_read_mortality("ABS_Tech_Report_Aboriginal_Deaths_Ascertainment_Age.xlsx",
+                                             column_select = c("sex",
+                                                               median_aboriginal = "x2023_incl_cod_sources_d")) %>% 
+  #
+  dplyr::filter(!is.na(median_aboriginal))
+
+mortality_age_non_aboriginal <- f_read_mortality("ABS_Median_Age_Death_2013_2023.xlsx",
+                                                 skip_rows     = 6,
+                                                 data_sheet    = "Table 1",
+                                                 column_select = c(year = "males",
+                                                                   median_non_aboriginal = "x3")) %>% 
+  #
+  dplyr::filter(year == "2023") %>% 
+  #
+  dplyr::mutate(sex = dplyr::case_when(
+    row_number() == 1 ~ "Males",
+    row_number() == 2 ~ "Females",
+    row_number() == 3 ~ "Persons",
+    TRUE ~ NA_character_))
+  
+# Data wrangling
+mortality_age <- mortality_age_aboriginal %>% 
+  dplyr::left_join(mortality_age_non_aboriginal, by = "sex") %>% 
+  #
+  dplyr::select(sex,
+                median_aboriginal,
+                median_non_aboriginal)
+```
+
+- Data for this topic were obtained from the ABS Technical Note [The impact of using multiple sources for deriving the Indigenous status of deaths in 2023](https://www.abs.gov.au/articles/technical-note-impact-using-multiple-sources-deriving-indigenous-status-deaths-2023-changes-victoria-and-coroner-referred-deaths). Due to changes introduced in the derivation of Aboriginal and/or Torres Strait Islander status for deaths registered from 2023 onwards, data for 2023 cannot be reliably compared to previous years.
+
+- There were 412 deaths registered in 2023 for Aboriginal and/or Torres Strait Islander people in Victoria.
+
+- The median age at death for Aboriginal and/or Torres Strait Islander people in Victoria during 2023 was 64.2 years, compared to 82.7 years for non-Indigenous people.
+
+- Females had an older median age at death than males (66.3 years vs. 63.1 years).
+
+- The age-standardised death rate for Aboriginal and/or Torres Strait Islander people in Victoria during 2023 was 9.5 deaths per 1,000 people, compared to 5.2 deaths per 1,000 people for non-Indigenous people.
+
+- Males had a higher age-standardised death rate than females (10.3 per 1,000 people vs. 8.6 per 1,000 people).
+
+:::: {.panel-tabset}
+
+#### Table 10N-1
+
+::: {#tab_10N_1 .fig-tab-title}
+**Table 10N-1:** Median age at death and age-standardised death rate (per 1,000 population), Victoria, by Aboriginal and/or Torres Strait Islander status and sex, 2023
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- mortality_age %>% 
+  dplyr::left_join(mortality_rate, by = "sex") %>%
+  #
+  dplyr::select(sex,
+                median_aboriginal,
+                rate_aboriginal,
+                median_non_aboriginal,
+                rate_non_aboriginal) %>% 
+  #
+  dplyr::mutate(rate_ratio = round(rate_aboriginal / rate_non_aboriginal, digits = 1))
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  f_table_grouped_indigenous(n_variable  = "mortality",
+                             column_name = "Sex")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_mortality`
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+:::
+
+::: {style="opacity: 0.8;"}
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+:::
+
+## Leading Causes of Death
+
+```{r}
+# ------------------------------------------------------------------------------
+# Leading causes of death - Victoria
+# Data from ABS Technical Report
+# ------------------------------------------------------------------------------
+# Read in ABS data
+mortality_cause <- f_read_mortality("ABS_Tech_Report_Aboriginal_Deaths_Ascertainment_Cause.xlsx",
+                                    skip_rows = 3,
+                                    column_select = c(rank     = "males_7",
+                                                      cause    = "x8",
+                                                      n_deaths = "x9")) %>% 
+  #
+  dplyr::mutate(sex = dplyr::case_when(
+    row_number() %in% 1:12  ~ "Males",
+    row_number() %in% 14:25 ~ "Females",
+    row_number() %in% 27:38 ~ "Persons",
+    TRUE ~ NA_character_)) %>%
+  #
+  dplyr::filter(!is.na(sex))
+
+# Data wrangling
+mortality_cause <- mortality_cause %>% 
+  dplyr::mutate(cause = dplyr::case_when(
+    stringr::str_detect(cause, "(C18-C21, C26.0)")     ~ "Colorectal cancer",
+    stringr::str_detect(cause, "(C22)")                ~ "Liver cancer",
+    stringr::str_detect(cause, "(C25)")                ~ "Pancreatic cancer",
+    stringr::str_detect(cause, "(C50)")                ~ "Breast cancer",
+    stringr::str_detect(cause, "(C33-C34)")            ~ "Lung cancer",
+    stringr::str_detect(cause, "(C33, C34)")           ~ "Lung cancer",
+    stringr::str_detect(cause, "(E10-E14)")            ~ "Diabetes",
+    stringr::str_detect(cause, "(F01, F03, G30)")      ~ "Dementia",
+    stringr::str_detect(cause, "(I20-I25)")            ~ "Ischaemic heart disease",
+    stringr::str_detect(cause, "(I50-I51)")            ~ "Heart failure",
+    stringr::str_detect(cause, "(I60-I69)")            ~ "Cerebrovascular disease",
+    stringr::str_detect(cause, "(J40-J47)")            ~ "Lower respiratory disease",
+    stringr::str_detect(cause, "(K70-K76)")            ~ "Cirrhosis",
+    stringr::str_detect(cause, "(N00-N39)")            ~ "Urinary system disease",
+    stringr::str_detect(cause, "(R00-R99)")            ~ "Ill-defined conditions",
+    stringr::str_detect(cause, "(U07.1-U07.2, U10.9)") ~ "COVID-19",
+    stringr::str_detect(cause, "(X40-X49)")            ~ "Accidental poisoning",
+    stringr::str_detect(cause, "(X60-X84, Y870)")      ~ "Suicide",
+    TRUE ~ NA_character_))
+```
+
+- Data for this topic were obtained from the ABS Technical Note [The impact of using multiple sources for deriving the Indigenous status of deaths in 2023](https://www.abs.gov.au/articles/technical-note-impact-using-multiple-sources-deriving-indigenous-status-deaths-2023-changes-victoria-and-coroner-referred-deaths). Due to changes introduced in the derivation of Aboriginal and/or Torres Strait Islander status for deaths registered from 2023 onwards, data for 2023 cannot be reliably compared to previous years.
+
+- Cause of death data for 2023 are preliminary and are subject to change as additional data become available. The process of coding cause of death data can take up to 2.5 years due to the requirement to wait for coroner cases to be closed and for information from autopsies and toxicology testing to become available for inclusion when death data are coded by the ABS. The next revision of 2023 death data is due to occur in April 2026.
+
+- The top five leading causes of death for Aboriginal and/or Torres Strait Islander people in Victoria during 2023 were ischaemic heart disease (50 deaths), lower respiratory disease (32 deaths), lung cancer (27 deaths), suicide (26 deaths), diabetes (18 deaths), and accidental poisoning (18 deaths).
+
+- The top five leading causes of death for Aboriginal and/or Torres Strait Islander males in Victoria during 2023 were ischaemic heart disease (33 deaths), lung cancer (19 deaths), suicide (18 deaths), lower respiratory disease (17 deaths), and accidental poisoning (10 deaths).
+
+- The top five leading causes of death for Aboriginal and/or Torres Strait Islander females in Victoria during 2023 were ischaemic heart disease (17 deaths), lower respiratory disease (15 deaths), breast cancer (10 deaths), diabetes (10 deaths), and cirrhosis (9 deaths).
+
+::: {.callout-tip title="ICD-10-AM codes and definitions for this topic" icon=false collapse=false}
+[International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs) codes were assigned to all conditions listed on a Medical Certificate of Cause of Death and the National Coronial Information System and rules applied to select an underlying cause of death for each death. The underlying cause of death is defined as the disease or injury that initiated the train of morbid events leading directly to death.
+
+- Deaths due to accidental poisoning are defined as deaths with an underlying cause of death in the following list:
+  - X40: Accidental poisoning by and exposure to nonopioid analgesics, antipyretics, and antirheumatics
+  - X41: Accidental poisoning by and exposure to antiepileptic, sedative-hypnotic, antiparkinsonism, and psychotropic drugs, not elsewhere classified
+  - X42: Accidental poisoning by and exposure to narcotics and psychodysleptics (hallucinogens), not elsewhere classified
+  - X43: Accidental poisoning by and exposure to other drugs acting on the autonomic nervous system
+  - X44: Accidental poisoning by and exposure to other and unspecified drugs, medicaments, and biological substances
+  - X45: Accidental poisoning by and exposure to alcohol
+  - X46: Accidental poisoning by and exposure to organic solvents and halogenated hydrocarbons and their vapours
+  - X47: Accidental poisoning by and exposure to carbon monoxide and other gases and vapours
+  - X48: Accidental poisoning by and exposure to pesticides
+  - X49: Accidental poisoning by and exposure to other and unspecified chemicals and noxious substances
+
+<div style="height: 1em;"></div>
+
+- Deaths due to breast cancer are defined as deaths with an underlying cause of death in the following list:
+  - C50: Malignant neoplasm of breast
+
+<div style="height: 1em;"></div>
+
+- Deaths due to cerebrovascular disease are defined as deaths with an underlying cause of death in the following list:
+  - I60: Subarachnoid haemorrhage
+  - I61: Intracerebral haemorrhage
+  - I62: Other nontraumatic intracranial haemorrhage
+  - I63: Cerebral infarction
+  - I64: Stroke, not specified as haemorrhage or infarction
+  - I65: Occlusion and stenosis of precerebral arteries, not resulting in cerebral infarction
+  - I66: Occlusion and stenosis of cerebral arteries, not resulting in cerebral infarction
+  - I67: Other cerebrovascular diseases
+  - I68: Cerebrovascular disorders in diseases classified elsewhere
+  - I69: Sequelae of cerebrovascular disease
+  
+<div style="height: 1em;"></div>
+ 
+- Deaths due to cirrhosis are defined as deaths with an underlying cause of death in the following list:
+  - K70: Alcoholic liver disease
+  - K71: Toxic liver disease
+  - K72: Hepatic failure, not elsewhere classified
+  - K73: Chronic hepatitis, not elsewhere classified
+  - K74: Fibrosis and cirrhosis of liver
+  - K75: Other inflammatory liver diseases
+  - K76: Other diseases of liver
+
+<div style="height: 1em;"></div>
+
+- Deaths due to colorectal cancer are defined as deaths with an underlying cause of death in the following list:
+  - C18: Malignant neoplasm of colon
+  - C19: Malignant neoplasm of rectosigmoid junction
+  - C20: Malignant neoplasm of rectum
+  - C21: Malignant neoplasm of anus and anal canal
+  - C26.0: Malignant neoplasm of intestinal tract, part unspecified
+  
+<div style="height: 1em;"></div>
+
+- Deaths due to COVID-19 are defined as deaths with an underlying cause of death in the following list:
+  - U07.1: COVID-19, virus identified
+  - U07.2: COVID-19, virus not identified
+  - U10.9: Multisystem inflammatory syndrome associated with COVID-19, unspecified
+
+<div style="height: 1em;"></div>
+
+- Deaths due to dementia are defined as deaths with an underlying cause of death in the following list:
+  - F01: Vascular dementia
+  - F03: Unspecified dementia
+  - G30: Alzheimer disease
+
+<div style="height: 1em;"></div>
+
+- Deaths due to diabetes are defined as deaths with an underlying cause of death in the following list:
+  - E10: Type 1 diabetes mellitus
+  - E11: Type 2 diabetes mellitus
+  - E12: Malnutrition-related diabetes mellitus
+  - E13: Other specified diabetes mellitus
+  - E14: Unspecified diabetes mellitus
+
+<div style="height: 1em;"></div>
+
+- Deaths due to heart failure are defined as deaths with an underlying cause of death in the following list:
+  - I50: Heart failure
+  - I51: Complications and ill-defined descriptions of heart disease
+  
+<div style="height: 1em;"></div>
+
+- Deaths due to ill-defined conditions are defined as deaths with an underlying cause of death in the following list:
+  - R00-R09: Symptoms and signs involving the circulatory and respiratory systems
+  - R10-R19: Symptoms and signs involving the digestive system and abdomen
+  - R20-R23: Symptoms and signs involving the skin and subcutaneous tissue
+  - R24-R29: Symptoms and signs involving the nervous and musculoskeletal systems
+  - R30-R39: Symptoms and signs involving the urinary system
+  - R40-R46: Symptoms and signs involving cognition, perception, emotional state, and behaviour
+  - R47-R49: Symptoms and signs involving speech and voice
+  - R50-R69: General symptoms and signs
+  - R70-R79: Abnormal findings on examination of blood, without diagnosis
+  - R80-R82: Abnormal findings on examination of urine, without diagnosis
+  - R83-R89: Abnormal findings on examination of other body fluids, substances and tissues, without diagnosis
+  - R90-R94: Abnormal findings on diagnostic imaging and in function studies, without diagnosis
+  - R95-R99: Ill-defined and unknown causes of mortality
+
+<div style="height: 1em;"></div>
+
+- Deaths due to ischaemic heart disease are defined as deaths with an underlying cause of death in the following list:
+  - I20: Angina pectoris
+  - I21: Acute myocardial infarction
+  - I22: Subsequent myocardial infarction
+  - I23: Certain current complications following acute myocardial infarction
+  - I24: Other acute ischaemic heart diseases
+  - I25: Chronic ischaemic heart disease
+  
+<div style="height: 1em;"></div>
+
+- Deaths due to liver cancer are defined as deaths with an underlying cause of death in the following list:
+  - C22: Malignant neoplasm of liver and intrahepatic bile ducts
+
+<div style="height: 1em;"></div>
+
+- Deaths due to lower respiratory disease are defined as deaths with an underlying cause of death in the following list:
+  - J40: Bronchitis, not specified as acute or chronic
+  - J41: Simple and mucopurulent chronic bronchitis
+  - J42: Unspecified chronic bronchitis
+  - J43: Emphysema
+  - J44: Other chronic obstructive pulmonary disease
+  - J45: Asthma
+  - J46: Status asthmaticus
+  - J47: Bronchiectasis
+
+<div style="height: 1em;"></div>
+
+- Deaths due to lung cancer are defined as deaths with an underlying cause of death in the following list:
+  - C33: Malignant neoplasm of trachea
+  - C34: Malignant neoplasm of bronchus and lung
+
+<div style="height: 1em;"></div>
+
+- Deaths due to pancreatic cancer are defined as deaths with an underlying cause of death in the following list:
+  - C25: Malignant neoplasm of pancreas
+
+<div style="height: 1em;"></div>
+
+- Deaths due to suicide are defined as deaths with an underlying cause of death in the following list:
+  - X60: Intentional self-poisoning by and exposure to nonopioid analgesics, antipyretics, and antirheumatics
+  - X61: Intentional self-poisoning by and exposure to antiepileptic, sedative-hypnotic, antiparkinsonism, and psychotropic drugs, not elsewhere classified
+  - X62: Intentional self-poisoning by and exposure to narcotics and psychodysleptics (hallucinogens), not elsewhere classified
+  - X63: Intentional self-poisoning by and exposure to other drugs acting on the autonomic nervous system
+  - X64: Intentional self-poisoning by and exposure to other and unspecified drugs, medicaments, and biological substances
+  - X65: Intentional self-poisoning by and exposure to alcohol
+  - X66: Intentional self-poisoning by and exposure to organic solvents and halogenated hydrocarbons and their vapours
+  - X67: Intentional self-poisoning by and exposure to carbon monoxide and other gases and vapours
+  - X68: Intentional self-poisoning by and exposure to pesticides
+  - X69: Intentional self-poisoning by and exposure to other and unspecified chemicals and noxious substances
+  - X70: Intentional self-harm by hanging, strangulation, and suffocation
+  - X71: Intentional self-harm by drowning and submersion
+  - X72: Intentional self-harm by handgun discharge
+  - X73: Intentional self-harm by rifle, shotgun, and larger firearm discharge
+  - X74: Intentional self-harm by other and unspecified firearm discharge
+  - X75: Intentional self-harm by explosive material
+  - X76: Intentional self-harm by smoke, fire, and flames
+  - X77: Intentional self-harm by steam, hot vapours, and hot objects
+  - X78: Intentional self-harm by sharp object
+  - X79: Intentional self-harm by blunt object
+  - X80: Intentional self-harm by jumping from a high place
+  - X81: Intentional self-harm by jumping or lying before moving object
+  - X82: Intentional self-harm by crashing of motor vehicle
+  - X83: Intentional self-harm by other specified means
+  - X84: Intentional self-harm by unspecified means
+  - Y87.0: Sequelae of intentional self-harm
+
+<div style="height: 1em;"></div>
+
+- Deaths due to urinary system disease are defined as deaths with an underlying cause of death in the following list:
+  - N00-N08: Glomerular diseases
+  - N10-N16: Renal tubulo-interstitial diseases
+  - N17-N19: Renal failure
+  - N20-N23: Urolithiasis
+  - N25-N29: Other disorders of kidney and ureter
+  - N30-N39: Other diseases of urinary system
+
+<div style="height: 2em;"></div>
+:::
+
+:::: {.panel-tabset}
+
+#### Figure 10N-1
+
+::: {#fig_10N_1 .fig-tab-title}
+**Figure 10N-1:** Leading causes of death for Aboriginal and/or Torres Strait Islander people, Victoria, 2023
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+mortality_cause %>% 
+  dplyr::filter(sex == "Persons") %>%
+  #
+  dplyr::mutate(hover_text = paste0(cause, "\n",
+                                    "Count: ", format(n_deaths, big.mark = ","))) %>%
+  #
+  f_bar_simple_flip(x_variable = forcats::fct_reorder(cause, desc(n_deaths)),
+                    y_variable = n_deaths,
+                    y_breaks   = 5,
+                    y_expand   = 1)
+```
+
+#### Table 10N-2
+
+::: {#tab_10N_2 .fig-tab-title}
+**Table 10N-2:** Leading causes of death for Aboriginal and/or Torres Strait Islander people, Victoria, 2023
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- mortality_cause %>%
+  dplyr::filter(sex == "Persons") %>% 
+  #
+  dplyr::select(-sex)
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  f_table_simple(total_row     = NULL,
+                 table_headers = c("Rank",
+                                   "Cause of death",
+                                   "Deaths (n)")) %>% 
+  #
+  kableExtra::column_spec(1,
+                          width = "1in") %>% 
+  #
+  kableExtra::column_spec(2,
+                          width         = "1.75in",
+                          include_thead = TRUE,
+                          extra_css     = "text-align: left")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+#### Figure 10N-2
+
+::: {#fig_10N_2 .fig-tab-title}
+**Figure 10N-2:** Leading causes of death for Aboriginal and/or Torres Strait Islander males, Victoria, 2023
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+mortality_cause %>% 
+  dplyr::filter(sex == "Males") %>%
+  #
+  dplyr::mutate(hover_text = paste0(cause, "\n",
+                                    "Count: ", format(n_deaths, big.mark = ","))) %>%
+  #
+  f_bar_simple_flip(x_variable = forcats::fct_reorder(cause, desc(n_deaths)),
+                    y_variable = n_deaths,
+                    y_max      = 35,
+                    y_breaks   = 5,
+                    y_expand   = 1)
+```
+
+#### Table 10N-3
+
+::: {#tab_10N_3 .fig-tab-title}
+**Table 10N-3:** Leading causes of death for Aboriginal and/or Torres Strait Islander males, Victoria, 2023
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- mortality_cause %>%
+  dplyr::filter(sex == "Males") %>% 
+  #
+  dplyr::select(-sex)
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  f_table_simple(total_row     = NULL,
+                 table_headers = c("Rank",
+                                   "Cause of death",
+                                   "Deaths (n)")) %>% 
+  #
+  kableExtra::column_spec(1,
+                          width = "1in") %>% 
+  #
+  kableExtra::column_spec(2,
+                          width         = "1.75in",
+                          include_thead = TRUE,
+                          extra_css     = "text-align: left")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+#### Figure 10N-3
+
+::: {#fig_10N_3 .fig-tab-title}
+**Figure 10N-3:** Leading causes of death for Aboriginal and/or Torres Strait Islander females, Victoria, 2023
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+mortality_cause %>% 
+  dplyr::filter(sex == "Females") %>%
+  #
+  dplyr::mutate(hover_text = paste0(cause, "\n",
+                                    "Count: ", format(n_deaths, big.mark = ","))) %>%
+  #
+  f_bar_simple_flip(x_variable = forcats::fct_reorder(cause, desc(n_deaths)),
+                    y_variable = n_deaths,
+                    y_max      = 35,
+                    y_breaks   = 5,
+                    y_expand   = 1)
+```
+
+#### Table 10N-4
+
+::: {#tab_10N_4 .fig-tab-title}
+**Table 10N-4:** Leading causes of death for Aboriginal and/or Torres Strait Islander females, Victoria, 2023
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- mortality_cause %>%
+  dplyr::filter(sex == "Females") %>% 
+  #
+  dplyr::select(-sex)
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  f_table_simple(total_row     = NULL,
+                 table_headers = c("Rank",
+                                   "Cause of death",
+                                   "Deaths (n)")) %>% 
+  #
+  kableExtra::column_spec(1,
+                          width = "1in") %>% 
+  #
+  kableExtra::column_spec(2,
+                          width         = "1.75in",
+                          include_thead = TRUE,
+                          extra_css     = "text-align: left")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_mortality`
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+<div style="height: 1em;"></div>
+
+- Cause of death data for 2023 are preliminary and are subject to change as additional data become available.
+  - The process of coding cause of death data can take up to 2.5 years due to the requirement to wait for coroner cases to be closed and for information from autopsies and toxicology testing to become available for inclusion when death data are coded by the ABS. The next revision of 2023 death data is due to occur in April 2026.
+  - [ICD-10-AM codes](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs) were assigned to all conditions listed on a Medical Certificate of Cause of Death and the National Coronial Information System and rules applied to select an underlying cause of death for each death.
+  - The underlying cause of death is defined as the disease or injury that initiated the train of morbid events leading directly to death.
+  - Detailed information about the methodology used for cause of death coding in Australia can be found on the [ABS website](https://www.abs.gov.au/methodologies/causes-death-australia-methodology).
+
+<div style="height: 2em;"></div>
+:::
+
