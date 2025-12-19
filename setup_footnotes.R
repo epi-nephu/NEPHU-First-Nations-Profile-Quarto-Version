@@ -39,6 +39,13 @@ note_data_framework_air <- glue::glue("
   - The AIR records all vaccines given to people in Australia and includes vaccines given under the National Immunisation Program, through school programs, and privately (e.g. travel-related vaccines).
   - Aboriginal and/or Torres Strait Islander peoples were defined as those recorded as Aboriginal and/or Torres Strait Islander in the AIR based on their Medicare records or as recorded by an immunisation provider.")
 
+note_data_mortality <- glue::glue("
+- Data were obtained from the ABS Technical Note [The impact of using multiple sources for deriving the Indigenous status of deaths in 2023](https://www.abs.gov.au/articles/technical-note-impact-using-multiple-sources-deriving-indigenous-status-deaths-2023-changes-victoria-and-coroner-referred-deaths).
+  - The ABS has implemented an enhanced process for ascertaining Aboriginal and/or Torres Strait Islander status for deaths registered from 2023 onwards in Victoria.
+  - This enhanced process assigns Aboriginal and/or Torres Strait Islander status based on data from three sources: the Death Registration Statement (completed by the person who notified the death, usually the funeral director or a family member), the Medical Certificate Cause of Death (for deaths that were certified by a doctor), and the National Coronial Information System (for deaths that were referred to the coroner).
+  - If these data sources do not agree, identification on any source is usually given preference over recording the deceased as non-Indigenous.
+  - Prior to 2023, Aboriginal and/or Torres Strait Islander status was assigned based on the Death Registration Statement only in Victoria. Data for 2023 onwards cannot be reliably compared to data from previous years.")
+
 note_data_natsihs <- glue::glue("
 - Data were obtained from the [2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release).
   - The 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey collected information from Aboriginal and/or Torres Strait Islander people of all ages in non-remote and remote areas of Australia, including discrete Aboriginal and/or Torres Strait Islander communities.
