@@ -637,3 +637,371 @@ table %>%
 <div style="height: 2em;"></div>
 :::
 
+::: {style="opacity: 0.8;"}
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+:::
+
+## Suicide
+
+::: {.ctg-box}
+**This topic aligns with [Closing the Gap Outcome Area 14](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/social-and-emotional-wellbeing/): Aboriginal and Torres Strait Islander people enjoy high levels of social and emotional wellbeing**
+
+Target: Significant and sustained reduction in suicide of Aboriginal and Torres Strait Islander people towards zero.
+:::
+
+<div style="height: 1em;"></div>
+
+```{r}
+# ------------------------------------------------------------------------------
+# Suicide rate - Australia, by indigenous status
+# Data from ABS Cause of Death data via CtG Information Repository
+# ------------------------------------------------------------------------------
+# Read in ABS data
+suicide_australia <- f_read_ctg_indigenous("CTG14_Wellbeing_Data_Tables.xlsx",
+                                           data_sheet     = "Table CtG14A.1",
+                                           skip_rows      = 0,
+                                           column_select  = c(indigenous_status = "x4",
+                                                              year = "x5",
+                                                              unit = "x13",
+                                                              vic  = "x14"),
+                                           fill_variables = vars(indigenous_status, year, unit, vic),
+                                           row_select     = c(6:11, 13:18, 21:26, 28:33))
+
+# Data wrangling
+suicide_australia <- suicide_australia %>% 
+  tidyr::pivot_wider(names_from  = "unit",
+                     values_from = "vic") %>%
+  #
+  janitor::clean_names() %>% 
+  #
+  dplyr::mutate(n    = as.numeric(n),
+                rate = as.numeric(rate))
+
+# ------------------------------------------------------------------------------
+# Suicide - Victoria, by indigenous status
+# Data from Coroners Court of Victoria Suicide Report
+# ------------------------------------------------------------------------------
+# Read in Coroners Court data
+suicide_vic <- readxl::read_excel(file.path(root_folder, subfolder_coroner, "vic_coroner_aboriginal.xlsx"),
+                                  sheet = "Comparison counts") %>%
+  janitor::clean_names()
+
+# ------------------------------------------------------------------------------
+# Suicide - Victoria, by age and sex
+# Data from Coroners Court of Victoria Suicide Report
+# ------------------------------------------------------------------------------
+# Read in Coroners Court data
+suicide_agesex <- readxl::read_excel(file.path(root_folder, subfolder_coroner, "vic_coroner_aboriginal.xlsx"),
+                                     sheet = "Annual counts") %>% 
+  janitor::clean_names()
+```
+
+- Data for this topic were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/) and the Coroners Court of Victoria [Suicides of Aboriginal and Torres Strait Islander People Report (2018-2023)](https://www.coronerscourt.vic.gov.au/suicides-aboriginal-and-torres-strait-islander-people-victoria-2018-2023).
+
+- The age-standardised suicide rate for Aboriginal and/or Torres Strait Islander people in Australia has increased over time, from 24 per 100,000 people in 2018 to 31 per 100,000 people in 2023. The suicide rate was consistently higher than for non-Indigenous people.
+
+- Between January 2018 and December 2023 there were 134 deaths due to suicide among Aboriginal and/or Torres Strait Islander people in Victoria.
+
+- There was a larger number of suicides each year for Aboriginal and/or Torres Strait Islander males compared to females in Victoria, and the number of suicides per year has increased over time for males.
+
+- 45% of suicides for males and 76% of suicides for females among Aboriginal and/or Torres Strait Islander people in Victoria were among people aged less than 34 years.
+
+- Despite comprising 1.0% of the Victorian population, 3.1% of deaths due to suicide during 2018-2023 in Victoria were among Aboriginal and/or Torres Strait Islander people.
+
+**Key points from stakeholder consultation**
+
+- At stakeholder consultations during the development of this report, the importance of having Victorian specific data for this topic was emphasised, with data broken down by age and sex to make the issue visible.
+
+- High rates of suicide in community were supported by the anecdotal experience of the group.
+
+- It was noted that the suicide rate, particularly for Aboriginal and/or Torres Strait Islander males, was increasing over time rather than decreasing despite the target.
+
+:::: {.panel-tabset}
+
+#### Figure 10N-4
+
+::: {#fig_10N_4 .fig-tab-title}
+**Figure 10N-4:** Age-standardised suicide rate (per 100,000 population), Australia, by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+suicide_australia %>% 
+  f_line_grouped_indigenous(y_variable = rate,
+                            y_max      = NA,
+                            y_breaks   = 5,
+                            y_expand   = 5,
+                            n_level    = "100,000")
+```
+
+#### Table 10N-5
+
+::: {#tab_10N_5 .fig-tab-title}
+**Table 10N-5:** Number of suicides and age-standardised suicide rate (per 100,000 population), Australia, by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- suicide_australia %>%
+  dplyr::select(-indigenous_status) %>% 
+  #
+  tidyr::pivot_wider(names_from  = "indigenous_label",
+                     names_vary  = "slowest",
+                     values_from = c("n", "rate")) %>% 
+  #
+  janitor::clean_names() %>%
+  #
+  dplyr::mutate(n_total = n_aboriginal + n_non_indigenous) %>% 
+  #
+  dplyr::arrange(year)
+ 
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  f_table_grouped_indigenous(n_variable  = "rate",
+                             column_name = "Year",
+                             total_row   = NULL)
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+#### Figure 10N-5
+
+::: {#fig_10N_5 .fig-tab-title}
+**Figure 10N-5:** Number of deaths due to suicide for Aboriginal and/or Torres Strait Islander people, Victoria, by sex and year
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+suicide_agesex %>% 
+  dplyr::filter(sex != "Total" & age_group == "Total") %>%
+  #
+  dplyr::select(-age_group,
+                -total) %>%
+  #
+  tidyr::pivot_longer(!sex,
+                      names_to  = "year",
+                      values_to = "n") %>% 
+  #
+  dplyr::mutate(year = stringr::str_remove(year, "x")) %>% 
+  #
+  f_line_grouped_sex(y_variable = n,
+                     y_breaks   = 5,
+                     y_expand   = 1,
+                     n_level    = "deaths")
+```
+
+#### Figure 10N-6
+
+::: {#fig_10N_6 .fig-tab-title}
+**Figure 10N-6:** Number of deaths due to suicide for Aboriginal and/or Torres Strait Islander people, Victoria, by age and sex, 2018-2023
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+suicide_agesex %>% 
+  dplyr::filter(sex != "Total" & age_group != "Total") %>%
+  #
+  dplyr::mutate(hover_text = paste0(sex, "\n",
+                                    age_group, "\n",
+                                    "Count: ", format(total, big.mark = ","))) %>%
+  #
+  f_bar_grouped_sex(x_variable    = age_group,
+                    y_variable    = total,
+                    y_breaks      = 5,
+                    y_expand      = 3,
+                    y_title       = "Number of deaths",
+                    x_angle       = 90,
+                    legend_offset = -0.3)
+```
+
+#### Table 10N-6
+
+::: {#tab_10N_6 .fig-tab-title}
+**Table 10N-6:** Number of deaths due to suicide for Aboriginal and/or Torres Strait Islander people, Victoria, by age and sex, 2018-2023
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- suicide_agesex %>% 
+  dplyr::filter(sex != "Total") %>% 
+  #
+  tidyr::pivot_longer(!c(sex, age_group),
+                      names_to = c("year")) %>%
+  #
+  tidyr::pivot_wider(names_from   = "age_group",
+                     names_prefix = "n_",
+                     values_from  = "value") %>% 
+  #
+  janitor::clean_names() %>% 
+  #
+  dplyr::mutate(year = stringr::str_remove(year, "x"),
+                year = stringr::str_to_title(year))
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::filter(sex == "Female") %>% 
+  #
+  dplyr::select(-sex) %>%
+  #
+  f_table_simple(total_row     = nrow(table) / 2,
+                 last_column   = ncol(table) - 1,
+                 table_headers = c("Year",
+                                   "<18 yrs", "18-24 yrs", "25-34 yrs", "35-44 yrs", 
+                                   "45-54 yrs", "55-64 yrs", "65+ yrs", "Total")) %>% 
+  #
+  kableExtra::add_header_above(c("Female" = 9),
+                               align = "left")
+
+table %>% 
+  dplyr::filter(sex == "Male") %>% 
+  #
+  dplyr::select(-sex) %>%
+  #
+  f_table_simple(total_row     = nrow(table) / 2,
+                 last_column   = ncol(table) - 1,
+                 table_headers = c("Year",
+                                   "<18 yrs", "18-24 yrs", "25-34 yrs", "35-44 yrs", 
+                                   "45-54 yrs", "55-64 yrs", "65+ yrs", "Total")) %>% 
+  #
+  kableExtra::add_header_above(c("Male" = 9),
+                               align = "left")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+- Data for Figure 10N-4 and Table 10N-5 were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/) compiled from the [ABS Causes of Death data](https://www.abs.gov.au/statistics/health/causes-death).
+  - The Closing the Gap Information Repository brings together data from a wide range of data sources to provide up to date information for each Closing the Gap target, indicator, and contextual factors.
+  - The ABS processes information about all deaths that are registered in Australia and applies coding rules to determine the underlying and contributing causes of death for each death.
+  - *Australia* includes NSW, Victoria, Queensland, Western Australia, South Australia, and the Northern Territory.
+
+<div style="height: 1em;"></div>
+
+- Data for Figure 10N-5, Figure 10N-6, and Table 10N-6 were obtained from the Coroners Court of Victoria [Suicides of Aboriginal and Torres Strait Islander People Report (2018-2023)](https://www.coronerscourt.vic.gov.au/suicides-aboriginal-and-torres-strait-islander-people-victoria-2018-2023).
+  - This report is updated annually and provides an overview of suicides during the preceding five-year period, compiled from information recorded in the [Victorian Suicide Register](https://findanexpert.unimelb.edu.au/project/18927-the-victorian-suicide-register).
+  - The Victorian Suicide Register contains detailed information on suicides in Victoria, including information on demographics and potential contributing factors and stressors.
+
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+<div style="height: 2em;"></div>
+:::
+
+::: {style="opacity: 0.8;"}
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+:::
+
+## Life Expectancy
+
+::: {.ctg-box}
+**This topic aligns with [Closing the Gap Outcome Area 1](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/long-and-healthy-lives/): Aboriginal and Torres Strait Islander people enjoy long and healthy lives**
+
+Target: Close the Gap in life expectancy within a generation, by 2031.
+:::
+
+<div style="height: 1em;"></div>
+
+```{r}
+# ------------------------------------------------------------------------------
+# Life expectancy at birth - Australia
+# Data from ABS Life Tables via CtG Information Repository
+# ------------------------------------------------------------------------------
+# Read in ABS data
+mortality_life <- f_read_ctg_indigenous("CTG01_Healthy_Lives_Data_Tables.xlsx",
+                                        data_sheet     = "Table CtG1A.1",
+                                        column_select  = c(indigenous_status = "x1",
+                                                           year = "x3",
+                                                           sex = "x4",
+                                                           "unit",
+                                                           vic = "aust_b"),
+                                        fill_variables = vars(indigenous_status, year),
+                                        row_select     = 1:32) %>% 
+  dplyr::filter(!is.na(sex))
+
+# Data wrangling
+mortality_diff <- mortality_life %>%
+  dplyr::select(-indigenous_status,
+                -unit) %>% 
+  tidyr::pivot_wider(names_from  = "indigenous_label",
+                     values_from = "vic") %>% 
+  #
+  janitor::clean_names() %>% 
+  #
+  dplyr::mutate(difference = non_indigenous - aboriginal)
+```
+
+- Data for this topic were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/).
+
+- Life expectancy data were only publicly available at an aggregate level for Australia. Data on life expectancy were not reported separately for Victoria, but Victorian data were included in the Australian data.
+
+- Life expectancy at birth has increased over time for Aboriginal and/or Torres Strait Islander people in Australia, for both males (from 68 years in 2005-07 to 72 years in 2020-22) and females (from 73 years in 2005-07 to 76 years in 2020-22).
+
+- Life expectancy at birth for babies born in 2020-22 was higher for Aboriginal and/or Torres Strait Islander females (76 years) than males (72 years).
+
+- The gap in life expectancy at birth between Aboriginal and/or Torres Strait Islander and non-Indigenous people has improved, but remains at 8.7 years for males and 8.2 years for females.
+
+**Key points from stakeholder consultation**
+
+- At stakeholder consultations during the development of this report, stakeholders highlighted the absence of Victorian specific life expectancy data as a significant gap.
+
+- It was noted that this makes it difficult to compare outcomes across jurisdictions and to make informed decisions for program and service planning.
+
+- The ABS have introduced changes in the methods used to [ascertain Aboriginal and/or Torres Strait Islander status](https://www.abs.gov.au/articles/technical-note-impact-using-multiple-sources-deriving-indigenous-status-deaths-2023-changes-victoria-and-coroner-referred-deaths) for deaths registered in Victoria from 2023 onwards, which may increase data quality and allow for the calculation of life tables and life expectancy estimates for Victoria in future years.
+
+:::: {.panel-tabset}
+
+#### Figure 10N-7
+
+::: {#fig_10N_7 .fig-tab-title}
+**Figure 10N-7:** Life expectancy at birth, Australia, by Aboriginal and/or Torres Strait Islander status, sex, and year of birth, 2005-2007 to 2020-2022
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+mortality_life %>% 
+  f_line_grouped_indigenous(y_variable = vic,
+                            y_max      = NA,
+                            y_breaks   = 10,
+                            y_expand   = 5,
+                            n_level    = "children")
+```
+
+
+::::
