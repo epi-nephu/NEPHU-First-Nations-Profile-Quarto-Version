@@ -22,11 +22,7 @@ Some sections in this chapter include references to suicide. This content may br
 Take the time you need and connect with trusted supports, Elders, or loved ones. Your wellbeing matters.
 
 If you or someone you know needs support, please consider reaching out to one of the following culturally safe services.
-:::
 
-<div style="height: 2em;"></div>
-
-::: {.caveat-box}
 **Understanding mortality in context**
 
 The information in this chapter acknowledges the ongoing impacts of colonisation, intergenerational trauma, and systemic inequities on the health and wellbeing of Aboriginal and/or Torres Strait Islander peoples. While these data speaks to loss, it is shared with deep respect for the lives, families, and communities behind each number.
@@ -178,6 +174,8 @@ table %>%
 <div style="height: 1em;"></div>
 
 `r note_caveat_underidentification`
+
+<div style="height: 2em;"></div>
 :::
 
 ::: {style="opacity: 0.8;"}
@@ -828,9 +826,7 @@ suicide_agesex %>%
                     y_variable    = total,
                     y_breaks      = 5,
                     y_expand      = 3,
-                    y_title       = "Number of deaths",
-                    x_angle       = 90,
-                    legend_offset = -0.3)
+                    y_title       = "Number of deaths")
 ```
 
 #### Table 10N-6
@@ -951,14 +947,19 @@ mortality_life <- f_read_ctg_indigenous("CTG01_Healthy_Lives_Data_Tables.xlsx",
                                                            vic = "aust_b"),
                                         fill_variables = vars(indigenous_status, year),
                                         row_select     = 1:32) %>% 
-  dplyr::filter(!is.na(sex))
+  dplyr::filter(!is.na(sex)) %>% 
+  #
+  dplyr::rename(life_expectancy = vic) %>% 
+  #
+  dplyr::mutate(sex = stringr::str_sub(sex, end = -2))
 
 # Data wrangling
 mortality_diff <- mortality_life %>%
   dplyr::select(-indigenous_status,
                 -unit) %>% 
+  #
   tidyr::pivot_wider(names_from  = "indigenous_label",
-                     values_from = "vic") %>% 
+                     values_from = "life_expectancy") %>% 
   #
   janitor::clean_names() %>% 
   #
@@ -988,20 +989,162 @@ mortality_diff <- mortality_life %>%
 #### Figure 10N-7
 
 ::: {#fig_10N_7 .fig-tab-title}
-**Figure 10N-7:** Life expectancy at birth, Australia, by Aboriginal and/or Torres Strait Islander status, sex, and year of birth, 2005-2007 to 2020-2022
+**Figure 10N-7:** Life expectancy at birth (years), Australia, by Aboriginal and/or Torres Strait Islander status, sex, and year of birth
 :::
 
 ```{r}
 #
 figure_count <- figure_count + 1
 
-mortality_life %>% 
-  f_line_grouped_indigenous(y_variable = vic,
-                            y_max      = NA,
-                            y_breaks   = 10,
-                            y_expand   = 5,
-                            n_level    = "children")
+figure_life <- mortality_life %>% 
+  dplyr::mutate(hover_text = paste0(year, "\n",
+                                    sex, "\n",
+                                    indigenous_label, "\n",
+                                    "Life expectancy (years): ", sprintf("%.1f", life_expectancy))) %>%
+  #
+  ggplot(aes(x = year, y = life_expectancy, col = fct_rev(indigenous_status), group = fct_rev(indigenous_status), text = hover_text)) +
+  #
+  geom_line(linewidth = 1.5) +
+  #
+  scale_y_continuous(limits = c(0, NA),
+                     breaks = scales::breaks_width(10),
+                     expand = expansion(add = c(0, 10)),
+                     labels = scales::comma_format(big.mark = ",")) +
+  #
+  scale_color_manual(values = c(colour_nonaboriginal, colour_aboriginal),
+                     name   = NULL) +
+  #
+  labs(x = NULL,
+       y = NULL) +
+  #
+  theme_classic() +
+  #
+  facet_wrap(.~ sex,
+             scale          = "free_x",
+             strip.position = "bottom")
+
+figure_life %>% 
+  plotly::ggplotly(tooltip = "text") %>%
+  #
+  plotly::layout(hovermode = "x",
+                 #
+                 yaxis = list(title = list(text     = "Life expectancy at birth (years)",
+                                           font     = list(size = 13, family = "Arial"),
+                                           standoff = 10)),
+                 #
+                 legend = list(x = 0.5,
+                               y = -0.1,
+                               #
+                               orientation = "h",
+                               traceorder  = "reversed",
+                               xanchor     = "center"))
 ```
 
+#### Figure 10N-8
+
+::: {#fig_10N_8 .fig-tab-title}
+**Figure 10N-8:** Difference in life expectancy at birth for Aboriginal and/or Torres Strait Islander children and non-Indigenous children, Australia, by sex and year of birth
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+mortality_diff %>% 
+  f_line_grouped_sex(y_variable = difference,
+                     y_breaks   = 2,
+                     y_expand   = 1,
+                     n_level    = "life expectancy at birth (years)")
+```
+
+#### Table 10N-7
+
+::: {#tab_10N_7 .fig-tab-title}
+**Table 10N-7:** Life expectancy at birth (years), Australia, by Aboriginal and/or Torres Strait Islander status, sex, and year of birth
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- mortality_diff %>% 
+  tidyr::pivot_wider(names_from  = "sex",
+                     names_vary  = "slowest",
+                     values_from = c("aboriginal", "non_indigenous", "difference")) %>%
+  #
+  janitor::clean_names() %>% 
+  #
+  dplyr::arrange(year)
+  
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>%
+  dplyr::select(year,
+                ends_with("_female")) %>% 
+  #
+  f_table_simple(total_row     = NULL,
+                 last_column   = ncol(table) - 3,
+                 table_headers = c("Year",
+                                   "Identified as Aboriginal\nand/or Torres Strait Islander", 
+                                   "Did not identify as Aboriginal\nand/or Torres Strait Islander",
+                                   "Difference in life expectancy")) %>% 
+  #
+  kableExtra::column_spec(2:(ncol(table) - 4),
+                          width = "1.65in") %>%
+  #
+  kableExtra::column_spec((ncol(table) - 3),
+                          width = "1.3in") %>% 
+  #
+  kableExtra::add_header_above(c("Female" = 4),
+                               align = "left")
+
+table %>%
+  dplyr::select(year,
+                ends_with("_male")) %>% 
+  #
+  f_table_simple(total_row     = NULL,
+                 last_column   = ncol(table) - 3,
+                 table_headers = c("Year",
+                                   "Identified as Aboriginal\nand/or Torres Strait Islander", 
+                                   "Did not identify as Aboriginal\nand/or Torres Strait Islander",
+                                   "Difference in life expectancy")) %>% 
+  #
+  kableExtra::column_spec(2:(ncol(table) - 4),
+                          width = "1.65in") %>%
+  #
+  kableExtra::column_spec((ncol(table) - 3),
+                          width = "1.3in") %>% 
+  #
+  kableExtra::add_header_above(c("Male" = 4),
+                               align = "left")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+- Data were obtained from the [ABS Aboriginal and Torres Strait Islander Life Expectancy Report](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/aboriginal-and-torres-strait-islander-life-expectancy/2020-2022).
+  - Life expectancy estimates for Aboriginal and/or Torres Strait Islander people in Australia includes data from all states and territories.
+  - Aboriginal and/or Torres Strait Islander peoples were defined based on the recording of Aboriginal and/or Torres Strait Islander status in state and territory death registers.
+  - Life expectancy estimates were calculated taking age-specific identification rates into account.
+
+<div style="height: 1em;"></div>
+
+- Life expectancy estimates for Aboriginal and/or Torres Strait Islander people are currently only available at a statewide level for New South Wales, Queensland, Western Australia, and the Northern Territory. These four jurisdictions have acceptable data quality for Aboriginal and/or Torres Strait Islander status in death data to allow for the construction of state-specific reliable life expectancy estimates.
+  - The ABS have introduced changes in the methods used to [ascertain Aboriginal and/or Torres Strait Islander status](https://www.abs.gov.au/articles/technical-note-impact-using-multiple-sources-deriving-indigenous-status-deaths-2023-changes-victoria-and-coroner-referred-deaths) for deaths registered in Victoria from 2023 onwards, which may increase data quality and allow for the calculation of life tables and life expectancy estimates for Victoria in future years.
+  
+<div style="height: 1em;"></div>
+
+`r note_caveat_underidentification`
+
+<div style="height: 2em;"></div>
+:::
+
