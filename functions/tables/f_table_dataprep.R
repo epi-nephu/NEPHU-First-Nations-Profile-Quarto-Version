@@ -117,24 +117,24 @@ f_preptable_grouped_agesex <- function(data) {
 }
 
 ################################################################################
-# Columns grouped by Indigenous status, n/%/rate in a single column ("unit")
+# Columns grouped by Indigenous status
 ################################################################################
-f_preptable_grouped_indigenous <- function(data, x_variable, y_variable) {
+f_preptable_grouped_indigenous <- function(data, x_variable, n_variable) {
   
   x_variable <- rlang::enquo(x_variable)
   
-  data <- data %>% 
-    dplyr::select(-indigenous_status) %>% 
-    #
-    pivot_wider(names_from  = c("indigenous_label", "unit"),
-                names_vary  = "slowest",
-                values_from = "vic") %>% 
-    #
-    janitor::clean_names() %>%
-    #
-    dplyr::mutate(total_n = aboriginal_n + non_indigenous_n)
-  
-  if (y_variable == "prop") {
+  if (n_variable == "n and prop") {
+    
+    data <- data %>% 
+      dplyr::select(-indigenous_status) %>% 
+      #
+      pivot_wider(names_from  = c("indigenous_label", "unit"),
+                  names_vary  = "slowest",
+                  values_from = "vic") %>% 
+      #
+      janitor::clean_names() %>%
+      #
+      dplyr::mutate(total_n = aboriginal_n + non_indigenous_n)
     
     data <- data %>%
       dplyr::select(!!x_variable,
@@ -148,7 +148,34 @@ f_preptable_grouped_indigenous <- function(data, x_variable, y_variable) {
     
   }
   
-  if (y_variable == "rate") {
+  if (n_variable == "prop only") {
+    
+    data <- data %>% 
+      dplyr::select(-indigenous_status) %>% 
+      #
+      pivot_wider(names_from  = "indigenous_label",
+                  names_vary  = "slowest",
+                  values_from = "prop") %>% 
+      #
+      janitor::clean_names() %>% 
+      #
+      dplyr::rename(aboriginal_prop = aboriginal,
+                    non_aboriginal_prop = non_indigenous)
+    
+  }
+  
+  if (n_variable == "n and rate") {
+    
+    data <- data %>% 
+      dplyr::select(-indigenous_status) %>% 
+      #
+      pivot_wider(names_from  = c("indigenous_label", "unit"),
+                  names_vary  = "slowest",
+                  values_from = "vic") %>% 
+      #
+      janitor::clean_names() %>%
+      #
+      dplyr::mutate(total_n = aboriginal_n + non_indigenous_n)
     
     data <- data %>%
       dplyr::select(!!x_variable,
@@ -159,6 +186,22 @@ f_preptable_grouped_indigenous <- function(data, x_variable, y_variable) {
                     total_n) %>% 
       #
       dplyr::arrange(!!x_variable)
+    
+  }
+  
+  if (n_variable == "rate only") {
+    
+    data <- data %>% 
+      dplyr::select(-indigenous_status) %>% 
+      #
+      pivot_wider(names_from  = "indigenous_label",
+                  names_vary  = "slowest",
+                  values_from = "rate") %>% 
+      #
+      janitor::clean_names() %>% 
+      #
+      dplyr::rename(aboriginal_rate = aboriginal,
+                    non_aboriginal_rate = non_indigenous)
     
   }
   

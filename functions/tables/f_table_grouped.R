@@ -97,6 +97,18 @@ f_table_grouped_indigenous <- function(data, n_variable, column_name, total_row 
     
   }
   
+  if (n_variable == "prop only") {
+    
+    table_headers <- c("Yes (%)", "No (%)")
+    
+  }
+  
+  if (n_variable == "rate only") {
+    
+    table_headers <- c("Yes (rate)", "No (rate)")
+    
+  }
+  
   table <- data %>% 
     knitr::kable(format      = "html",
                  format.args = list(big.mark = ","),
@@ -115,13 +127,27 @@ f_table_grouped_indigenous <- function(data, n_variable, column_name, total_row 
                          bold = TRUE) %>%
     #
     kableExtra::column_spec(2:last_column,
-                            width = "1.25in") %>% 
-    #
-    kableExtra::add_header_above(c(" " = 1,
-                                   "Identified as Aboriginal\nand/or Torres Strait Islander"       = 2,
-                                   "Did not identify as Aboriginal\nand/or Torres Strait Islander" = 2,
-                                   " " = 1),
-                                 align = "right")
+                            width = "1.25in")
+  
+  if (n_variable %in% c("count", "estimate", "rate", "mortality")){
+    
+    table <- table %>% 
+      kableExtra::add_header_above(c(" " = 1,
+                                     "Identified as Aboriginal\nand/or Torres Strait Islander"       = 2,
+                                     "Did not identify as Aboriginal\nand/or Torres Strait Islander" = 2,
+                                     " " = 1),
+                                   align = "right")
+    
+  }
+  
+  if (n_variable %in% c("prop only", "rate only")){
+    
+    table <- table %>% 
+      kableExtra::add_header_above(c(" " = 1,
+                                     "Identified as Aboriginal\nand/or Torres Strait Islander" = 2),
+                                   align = "right")
+    
+  }  
   
   return(table)
   
