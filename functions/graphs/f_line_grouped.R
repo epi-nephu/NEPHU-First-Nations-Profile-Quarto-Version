@@ -251,6 +251,17 @@ f_line_grouped_sex <- function(data, y_variable, y_max = NA, y_breaks, y_expand,
     
   }
   
+  if (rlang::as_name(y_variable) == "difference") {
+    
+    y_title <- paste0("Difference in ", n_level)
+    
+    data <- data %>% 
+      dplyr::mutate(hover_text = paste0(year, "\n",
+                                        sex, "\n",
+                                        "Difference: ", sprintf("%.1f", difference)))
+    
+  }
+  
   figure <- data %>% 
     ggplot(aes(x = year, y = !!y_variable, group = sex, col = sex, text = hover_text)) +
     #

@@ -9,10 +9,10 @@
 # ------------------------------------------------------------------------------
 # Read in CtG data - by indigenous status
 # ------------------------------------------------------------------------------
-f_read_ctg_indigenous <- function(file, data_sheet, column_select, fill_variables, row_select) {
+f_read_ctg_indigenous <- function(file, data_sheet, skip_rows = 1, column_select, fill_variables, row_select) {
   
   data <- readxl::read_excel(file.path(root_folder, subfolder_ctg, file),
-                             skip  = 1,
+                             skip  = skip_rows,
                              sheet = data_sheet) %>% 
     janitor::clean_names() %>% 
     #
@@ -28,8 +28,10 @@ f_read_ctg_indigenous <- function(file, data_sheet, column_select, fill_variable
       vic = as.numeric(vic),
       #
       unit = dplyr::case_when(
-        unit == "no." ~ "n",
-        unit == "%"   ~ "prop",
+        unit == "no."       ~ "n",
+        unit == "%"         ~ "prop",
+        unit == "rate (AS)" ~ "rate",
+        unit == "years"     ~ "n",
         TRUE ~ NA_character_),
       #
       indigenous_label = dplyr::case_when(
