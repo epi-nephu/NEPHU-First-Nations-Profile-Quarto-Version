@@ -1,6 +1,8 @@
 ---
-title: "Population Size and Distribution"
+title-block: false
 ---
+
+# Population Size and Distribution
 
 ```{r}
 #
@@ -13,6 +15,14 @@ table_count   <- 0
 
 figure_count <- 0
 ```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Population Size and Distribution {.unnumbered}
 
 ::: {.caveat-box}
 **A note about the impact of under-identification**
@@ -226,12 +236,10 @@ table %>%
 <div style="height: 2em;"></div>
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Population Distribution and Density
 
@@ -513,4 +521,11 @@ table %>%
 
 <div style="height: 2em;"></div>
 :::
+
+<div style="height: 2em;"></div>
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
 
