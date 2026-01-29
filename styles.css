@@ -6,29 +6,15 @@
 
 nav[aria-label="breadcrumb"] {
   display: none !important;
-  margin: 0px !important;
-  padding: 0px !important;
-}
-
-main.content {
-  min-height: auto !important;
-  padding: 0px !important;
-}
-
-body {
-  padding-bottom: 0px !important;
-  margin-bottom: 0px !important;
 }
 
 .page-navigation {
-  flex: 0 0 auto;
-  position: relative !important;
-  border: 0px;
-  margin-top: -190px;
-  margin-bottom: 0px !important;
-  padding-top: 0px !important;
-  padding-bottom: 0px !important;
-  height: 200px;
+  background-image: url('images/banner_footer.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 160px;
+  background-position: top;
 }
 
 .nav-page-text {
@@ -47,10 +33,6 @@ body {
   font-family: Arial;
   font-weight: bold;
   color: #253494;
-}
-
-.tocify-extend-page {
-  display: none !important;
 }
 
 h1 {
@@ -129,25 +111,6 @@ li > ul {
   color: black;
   border: 2px solid darkred;
   border-radius: 10px;
-}
-
-.consultation-box {
-  padding-top: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
-  background: white;
-  color: black;
-  border: 2px solid #253494;
-  border-radius: 10px;
-}
-
-.consultation-box ul {
-  margin-top: 0pt !important;
-  margin-bottom: 0pt !important;
-}
-
-.consultation-box ul li {
-  margin-bottom: 0pt !important;
 }
 
 .fig-tab-title {
