@@ -1,2 +1,12 @@
-# Title Page Placeholder {.unnumbered}
+---
+page-navigation: false
+---
+
+# Cover Page {.unnumbered}
+
+```{r}
+#| column: screen-inset-right
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "cover_page.png"))
+```
 
