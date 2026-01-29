@@ -522,10 +522,3 @@ table %>%
 <div style="height: 2em;"></div>
 :::
 
-<div style="height: 2em;"></div>
-
-```{r}
-#| out-width: "100%"
-knitr::include_graphics(here::here("images", "banner_separator.png"))
-```
-
