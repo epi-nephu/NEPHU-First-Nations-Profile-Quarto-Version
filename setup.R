@@ -153,6 +153,10 @@ population_vic_nonaboriginal <- 6482401
 population_nephu_aboriginal    <- 12065
 population_nephu_nonaboriginal <- 1781207
 
+# Maximum x-axis values for population pyramids
+padding_female <- -26
+padding_male   <- 26
+
 # ------------------------------------------------------------------------------
 # Colours
 # ------------------------------------------------------------------------------
@@ -169,8 +173,8 @@ colour_maplow  <- "#FFFF99"
 colour_mapmid  <- "#41B6C4"
 colour_maphigh <- "#253494"
 
-colour_pyramidnephu <- "#D5E1BC"
-colour_pyramidvic   <- "#3856A7"
+colour_pyramidnephu <- "#B56734"
+colour_pyramidvic   <- "#FDF3A8"
 
 colour_aboriginal    <- "#3856A7"
 colour_nonaboriginal <- "#CF998D"
