@@ -162,7 +162,7 @@ padding_male   <- 26
 # ------------------------------------------------------------------------------
 colour_white <- "white"
 colour_black <- "black"
-colour_gray  <- "#AFAFAF"
+colour_gray  <- "#E0E0E0"
 
 colour_simplebar  <- "#3856A7"
 colour_simpleline <- "#3856A7"
@@ -173,16 +173,16 @@ colour_maplow  <- "#FFFF99"
 colour_mapmid  <- "#41B6C4"
 colour_maphigh <- "#253494"
 
-colour_pyramidnephu <- "#B56734"
-colour_pyramidvic   <- "#FDF3A8"
+colour_pyramidnephu <- "#21372A"
+colour_pyramidvic   <- "#426D6A"
 
 colour_aboriginal    <- "#3856A7"
 colour_nonaboriginal <- "#CF998D"
 
-colour_female <- "#3856A7"
-colour_male   <- "#1C86EE"
+colour_female <- "#B56734"
+colour_male   <- "#426D6A"
 
-colour_landmass <- "#D5E1BC"
+colour_landmass <- "#426D6A"
 colour_seaarea  <- "#3856A7"
 
 colour_stack1    <- "#3856A7"
@@ -191,5 +191,5 @@ colour_stack3    <- "#B56734"
 colour_stack4    <- "#FDF3A8"
 colour_stack5    <- "#CF998D"
 colour_stack6    <- "#2E258D"
-colour_stackgrey <- "#AFAFAF"
+colour_stackgrey <- "#E0E0E0"
 
