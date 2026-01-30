@@ -17,8 +17,8 @@ f_pyramid <- function(data, prop_variable, fill_variable, fill_values, chart_tit
     #
     dplyr::mutate(
       padding = dplyr::case_when(
-        sex == "Female" ~ -26, # manually set for consistency across all agesex pyramids
-        sex == "Male"   ~ 26), # manually set for consistency across all agesex pyramids
+        sex == "Female" ~ padding_female,
+        sex == "Male"   ~ padding_male),
       #
       age_group        = "50+ years",
       !!fill_variable := "ZZZ_dummy",
@@ -27,8 +27,7 @@ f_pyramid <- function(data, prop_variable, fill_variable, fill_values, chart_tit
   figure <- ggplot(data,
                    aes(x = age_group, y = !!prop_variable, fill = !!fill_variable, text = hover_text)) +
     #
-    geom_col(col       = colour_black,
-             linewidth = 0.25,
+    geom_col(linewidth = 0.25,
              position  = "dodge") +
     #
     geom_blank(data = padding_data,
@@ -47,9 +46,9 @@ f_pyramid <- function(data, prop_variable, fill_variable, fill_values, chart_tit
                strip.position = "bottom") +
     #
     labs(title = chart_title,
-         x    = NULL,
-         y    = "Percentage of total population",
-         fill = NULL) +
+         x     = NULL,
+         y     = "Percentage of total population",
+         fill  = NULL) +
     #
     coord_flip() +
     #

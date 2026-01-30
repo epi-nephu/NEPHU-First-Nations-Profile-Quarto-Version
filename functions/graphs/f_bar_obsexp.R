@@ -7,8 +7,7 @@
 ################################################################################
 # By LGA
 ################################################################################
-f_bar_obsexp_lga <- function(data, y_max = NA, y_breaks, y_expand, 
-                             y_title = "Number of people") {
+f_bar_obsexp_lga <- function(data, y_max = NA, y_breaks, y_expand, y_title = "Number of people") {
   
   data <- data %>% 
     dplyr::filter(lga_name %in% nephu_lga) %>%
@@ -37,8 +36,7 @@ f_bar_obsexp_lga <- function(data, y_max = NA, y_breaks, y_expand,
   figure <- data %>% 
     ggplot(aes(x = lga_name, y = n, group = comparison, fill = comparison, text = hover_text)) +
     #
-    geom_col(position = "dodge",
-             col      = colour_gray) +
+    geom_col(position = "dodge") +
     #
     scale_y_continuous(limits = c(0, y_max),
                        breaks = scales::breaks_width(y_breaks),
@@ -76,8 +74,7 @@ f_bar_obsexp_lga <- function(data, y_max = NA, y_breaks, y_expand,
 ################################################################################
 # By age and sex
 ################################################################################
-f_bar_obsexp_agesex <- function(data, y_max = NA, y_breaks, y_expand, 
-                                y_title = "Number of people") {
+f_bar_obsexp_agesex <- function(data, y_max = NA, y_breaks, y_expand, y_title = "Number of people") {
   
   data <- data %>% 
     dplyr::filter(age_group %in% age_group_lvl) %>%
@@ -107,8 +104,7 @@ f_bar_obsexp_agesex <- function(data, y_max = NA, y_breaks, y_expand,
   figure <- data %>% 
     ggplot(aes(x = age_group, y = n, group = comparison, fill = comparison, text = hover_text)) +
     #
-    geom_col(position = "dodge",
-             col      = colour_gray) +
+    geom_col(position = "dodge") +
     #
     scale_y_continuous(limits = c(0, y_max),
                        breaks = scales::breaks_width(y_breaks),

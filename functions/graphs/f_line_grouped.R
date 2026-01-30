@@ -7,8 +7,8 @@
 ################################################################################
 # Classic grouped line chart
 ################################################################################
-f_line_grouped <- function(data, y_variable, fill_variable, fill_values, y_max = NA, y_breaks, y_expand, 
-                           y_title = "Percentage of people", ctg_target = NA) {
+f_line_grouped <- function(data, y_variable, fill_variable, fill_values, y_max = NA, 
+                           y_breaks, y_expand, y_title = "Percentage of people", ctg_target = NA) {
 
   y_variable    <- rlang::enquo(y_variable)
   fill_variable <- rlang::enquo(fill_variable)
@@ -28,7 +28,7 @@ f_line_grouped <- function(data, y_variable, fill_variable, fill_values, y_max =
                  linewidth   = 0.5,
                  show.legend = TRUE) +
       #
-      scale_linetype_manual(name = NULL,
+      scale_linetype_manual(name   = NULL,
                             values = c("CtG target (%)" = "dashed"))
     
   }
@@ -93,8 +93,7 @@ f_line_grouped <- function(data, y_variable, fill_variable, fill_values, y_max =
 ################################################################################
 # By indigenous status
 ################################################################################
-f_line_grouped_indigenous <- function(data, y_variable, y_max = NA, y_breaks, y_expand, 
-                                      n_level = "people", ctg_target = NA) {
+f_line_grouped_indigenous <- function(data, y_variable, y_max = NA, y_breaks, y_expand, n_level = "people", ctg_target = NA) {
   
   y_variable <- rlang::enquo(y_variable)
 
@@ -146,7 +145,7 @@ f_line_grouped_indigenous <- function(data, y_variable, y_max = NA, y_breaks, y_
                  linewidth   = 0.5,
                  show.legend = TRUE) +
       #
-      scale_linetype_manual(name = NULL,
+      scale_linetype_manual(name   = NULL,
                             values = c("CtG target" = "dashed"))
     
   }
@@ -211,8 +210,7 @@ f_line_grouped_indigenous <- function(data, y_variable, y_max = NA, y_breaks, y_
 ################################################################################
 # By sex
 ################################################################################
-f_line_grouped_sex <- function(data, y_variable, y_max = NA, y_breaks, y_expand, 
-                               n_level = "people", ctg_target = NA) {
+f_line_grouped_sex <- function(data, y_variable, y_max = NA, y_breaks, y_expand, n_level = "people", ctg_target = NA) {
   
   y_variable <- rlang::enquo(y_variable)
   
@@ -275,7 +273,7 @@ f_line_grouped_sex <- function(data, y_variable, y_max = NA, y_breaks, y_expand,
                  linewidth   = 0.5,
                  show.legend = TRUE) +
       #
-      scale_linetype_manual(name = NULL,
+      scale_linetype_manual(name   = NULL,
                             values = c("CtG target" = "dashed"))
     
   }

@@ -7,9 +7,8 @@
 ################################################################################
 # Classic grouped bar chart
 ################################################################################
-f_bar_grouped <- function(data, x_variable, y_variable, fill_variable, fill_values,
-                          y_max = NA, y_breaks, y_expand, y_title, 
-                          x_angle = 90, legend_offset = -0.3) {
+f_bar_grouped <- function(data, x_variable, y_variable, fill_variable, fill_values, y_max = NA, 
+                          y_breaks, y_expand, y_title, x_angle = 90, legend_offset = -0.3) {
   
   x_variable    <- rlang::enquo(x_variable)
   y_variable    <- rlang::enquo(y_variable)
@@ -18,8 +17,7 @@ f_bar_grouped <- function(data, x_variable, y_variable, fill_variable, fill_valu
   figure <- data %>% 
     ggplot(aes(x = !!x_variable, y = !!y_variable, group = !!fill_variable, fill = !!fill_variable, text = hover_text)) +
     #
-    geom_col(position = "dodge",
-             col      = colour_gray) +
+    geom_col(position = "dodge") +
     #
     scale_y_continuous(limits = c(0, y_max),
                        breaks = scales::breaks_width(y_breaks),
@@ -34,7 +32,7 @@ f_bar_grouped <- function(data, x_variable, y_variable, fill_variable, fill_valu
     #
     theme_classic() +
     #
-    theme(axis.text.x  = element_text(angle = x_angle))
+    theme(axis.text.x = element_text(angle = x_angle))
   
   figure <- figure %>% 
     plotly::ggplotly(tooltip = "text") %>%
@@ -57,8 +55,7 @@ f_bar_grouped <- function(data, x_variable, y_variable, fill_variable, fill_valu
 ################################################################################
 # By age and sex
 ################################################################################
-f_bar_grouped_agesex <- function(data, y_variable, y_max = NA, y_breaks, y_expand, 
-                                 n_level = "people") {
+f_bar_grouped_agesex <- function(data, y_variable, y_max = NA, y_breaks, y_expand, n_level = "people") {
   
   y_variable <- rlang::enquo(y_variable)
   
@@ -90,8 +87,7 @@ f_bar_grouped_agesex <- function(data, y_variable, y_max = NA, y_breaks, y_expan
   figure <- data %>% 
     ggplot(aes(x = age_group, y = !!y_variable, group = sex, fill = sex, text = hover_text)) +
     #
-    geom_col(position = "dodge",
-             col      = colour_gray) +
+    geom_col(position = "dodge") +
     #
     scale_y_continuous(limits = c(0, y_max),
                        breaks = scales::breaks_width(y_breaks),
@@ -106,7 +102,7 @@ f_bar_grouped_agesex <- function(data, y_variable, y_max = NA, y_breaks, y_expan
     #
     theme_classic() +
     #
-    theme(axis.text.x  = element_text(angle = 90))
+    theme(axis.text.x = element_text(angle = 90))
   
   figure <- figure %>% 
     plotly::ggplotly(tooltip = "text") %>%
@@ -129,8 +125,7 @@ f_bar_grouped_agesex <- function(data, y_variable, y_max = NA, y_breaks, y_expan
 ################################################################################
 # By sex
 ################################################################################
-f_bar_grouped_sex <- function(data, x_variable, y_variable, y_max = NA, y_breaks, y_expand, y_title, 
-                              x_angle = 0, legend_offset = -0.1) {
+f_bar_grouped_sex <- function(data, x_variable, y_variable, y_max = NA, y_breaks, y_expand, y_title, x_angle = 0, legend_offset = -0.1) {
   
   x_variable <- rlang::enquo(x_variable)
   y_variable <- rlang::enquo(y_variable)
@@ -160,8 +155,7 @@ f_bar_grouped_sex <- function(data, x_variable, y_variable, y_max = NA, y_breaks
   figure <- data %>% 
     ggplot(aes(x = !!x_variable, y = !!y_variable, group = sex, fill = sex, text = hover_text)) +
     #
-    geom_col(position = "dodge",
-             col      = colour_gray) +
+    geom_col(position = "dodge") +
     #
     scale_y_continuous(limits = c(0, y_max),
                        breaks = scales::breaks_width(y_breaks),
@@ -241,8 +235,7 @@ f_bar_grouped_indigenous <- function(data, x_variable, y_variable, y_max = NA, y
   figure <- data %>% 
     ggplot(aes(x = !!x_variable, y = !!y_variable, group = indigenous_status, fill = indigenous_status, text = hover_text)) +
     #
-    geom_col(position = "dodge",
-             col      = colour_gray) +
+    geom_col(position = "dodge") +
     #
     scale_y_continuous(limits = c(0, y_max),
                        breaks = scales::breaks_width(y_breaks),
@@ -257,7 +250,7 @@ f_bar_grouped_indigenous <- function(data, x_variable, y_variable, y_max = NA, y
     #
     theme_classic() +
     #
-    theme(axis.text.x  = element_text(angle = x_angle))
+    theme(axis.text.x = element_text(angle = x_angle))
   
   figure <- figure %>% 
     plotly::ggplotly(tooltip = "text") %>%

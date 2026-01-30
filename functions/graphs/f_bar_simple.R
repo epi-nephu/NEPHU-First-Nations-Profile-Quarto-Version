@@ -7,7 +7,7 @@
 ################################################################################
 # Classic simple bar chart
 ################################################################################
-f_bar_simple <- function(data, x_variable, y_variable, y_max = NA, y_breaks, y_expand,
+f_bar_simple <- function(data, x_variable, y_variable, y_max = NA, y_breaks, y_expand, 
                          y_title = "Number of people", x_angle = 90, ctg_target = NA) {
   
   x_variable <- rlang::enquo(x_variable)
@@ -18,8 +18,7 @@ f_bar_simple <- function(data, x_variable, y_variable, y_max = NA, y_breaks, y_e
   figure <- data %>% 
     ggplot(aes(x = !!x_variable, y = !!y_variable, text = hover_text)) +
     #
-    geom_col(col  = colour_black,
-             fill = colour_simplebar)
+    geom_col(fill = colour_simplebar)
   
   if (!is.na(ctg_target)) {
     
@@ -29,7 +28,7 @@ f_bar_simple <- function(data, x_variable, y_variable, y_max = NA, y_breaks, y_e
                  linewidth   = 0.5,
                  show.legend = TRUE) +
       #
-      scale_linetype_manual(name = NULL,
+      scale_linetype_manual(name   = NULL,
                             values = c("CtG target (%)" = "dashed"))
     
   }
@@ -45,7 +44,7 @@ f_bar_simple <- function(data, x_variable, y_variable, y_max = NA, y_breaks, y_e
     #
     theme_classic() +
     #
-    theme(axis.text.x  = element_text(angle = x_angle))
+    theme(axis.text.x = element_text(angle = x_angle))
   
   figure <- figure %>% 
     plotly::ggplotly(tooltip = "text") %>%
@@ -63,8 +62,7 @@ f_bar_simple <- function(data, x_variable, y_variable, y_max = NA, y_breaks, y_e
 ################################################################################
 # Flipped x-axis and y-axis
 ################################################################################
-f_bar_simple_flip <- function(data, x_variable, y_variable, y_max = NA, y_breaks, y_expand, 
-                              x_title = "Number of people") {
+f_bar_simple_flip <- function(data, x_variable, y_variable, y_max = NA, y_breaks, y_expand, x_title = "Number of people") {
   
   x_variable <- rlang::enquo(x_variable)
   y_variable <- rlang::enquo(y_variable)
@@ -72,8 +70,7 @@ f_bar_simple_flip <- function(data, x_variable, y_variable, y_max = NA, y_breaks
   figure <- data %>% 
     ggplot(aes(x = !!x_variable, y = !!y_variable, text = hover_text)) +
     #
-    geom_col(col  = colour_black,
-             fill = colour_simplebar) +
+    geom_col(fill = colour_simplebar) +
     #
     scale_y_continuous(limits = c(0, y_max),
                        breaks = scales::breaks_width(y_breaks),
@@ -103,8 +100,7 @@ f_bar_simple_flip <- function(data, x_variable, y_variable, y_max = NA, y_breaks
 ################################################################################
 # By LGA
 ################################################################################
-f_bar_simple_lga <- function(data, y_variable, y_max = NA, y_breaks, y_expand, 
-                             n_level = "people", ctg_target = NA) {
+f_bar_simple_lga <- function(data, y_variable, y_max = NA, y_breaks, y_expand, n_level = "people", ctg_target = NA) {
   
   y_variable <- rlang::enquo(y_variable)
   
@@ -136,8 +132,7 @@ f_bar_simple_lga <- function(data, y_variable, y_max = NA, y_breaks, y_expand,
   figure <- data %>% 
     ggplot(aes(x = lga_name, y = !!y_variable, text = hover_text)) +
     #
-    geom_col(col  = colour_black,
-             fill = colour_simplebar)
+    geom_col(fill = colour_simplebar)
   
   if (!is.na(ctg_target)) {
     
@@ -147,7 +142,7 @@ f_bar_simple_lga <- function(data, y_variable, y_max = NA, y_breaks, y_expand,
                  linewidth   = 0.5,
                  show.legend = TRUE) +
       #
-      scale_linetype_manual(name = NULL,
+      scale_linetype_manual(name   = NULL,
                             values = c("CtG target (%)" = "dashed"))
     
   }
@@ -163,7 +158,7 @@ f_bar_simple_lga <- function(data, y_variable, y_max = NA, y_breaks, y_expand,
     #
     theme_classic() +
     #
-    theme(axis.text.x  = element_text(angle = 90))
+    theme(axis.text.x = element_text(angle = 90))
   
   figure <- figure %>% 
     plotly::ggplotly(tooltip = "text") %>%
@@ -181,8 +176,7 @@ f_bar_simple_lga <- function(data, y_variable, y_max = NA, y_breaks, y_expand,
 ################################################################################
 # By IARE
 ################################################################################
-f_bar_simple_iare <- function(data, y_variable, y_max = NA, y_breaks, y_expand, 
-                              n_level = "people", ctg_target = NA, hospital = "no") {
+f_bar_simple_iare <- function(data, y_variable, y_max = NA, y_breaks, y_expand, n_level = "people", ctg_target = NA, hospital = "no") {
   
   y_variable <- rlang::enquo(y_variable)
   
@@ -275,8 +269,7 @@ f_bar_simple_iare <- function(data, y_variable, y_max = NA, y_breaks, y_expand,
   figure <- data %>% 
     ggplot(aes(x = iare_name_short, y = aboriginal_plot, text = hover_text)) +
     #
-    geom_col(col  = colour_black,
-             fill = colour_simplebar)
+    geom_col(fill = colour_simplebar)
   
   if (!is.na(ctg_target)) {
     
@@ -286,7 +279,7 @@ f_bar_simple_iare <- function(data, y_variable, y_max = NA, y_breaks, y_expand,
                  linewidth   = 0.5,
                  show.legend = TRUE) +
       #
-      scale_linetype_manual(name = NULL,
+      scale_linetype_manual(name   = NULL,
                             values = c("CtG target (%)" = "dashed"))
     
   }
@@ -302,7 +295,7 @@ f_bar_simple_iare <- function(data, y_variable, y_max = NA, y_breaks, y_expand,
     #
     theme_classic() +
     #
-    theme(axis.text.x  = element_text(angle = 90))
+    theme(axis.text.x = element_text(angle = 90))
   
   figure <- figure %>% 
     plotly::ggplotly(tooltip = "text") %>%

@@ -7,9 +7,8 @@
 ################################################################################
 # Classic stacked bar chart
 ################################################################################
-f_bar_stacked <- function(data, x_variable, y_variable, fill_variable, fill_values,
-                          y_max = NA, y_breaks, y_expand, y_title, 
-                          legend_offset = -0.1, x_angle = 0, facet_wrap = "no") {
+f_bar_stacked <- function(data, x_variable, y_variable, fill_variable, fill_values, y_max = NA, y_breaks, 
+                          y_expand, y_title, legend_offset = -0.1, x_angle = 0, facet_wrap = "no") {
   
   x_variable    <- rlang::enquo(x_variable)
   y_variable    <- rlang::enquo(y_variable)
@@ -18,7 +17,7 @@ f_bar_stacked <- function(data, x_variable, y_variable, fill_variable, fill_valu
   figure <- data %>% 
     ggplot(aes(x = !!x_variable, y = !!y_variable, fill = !!fill_variable, text = hover_text)) +
     #
-    geom_col(col = colour_gray) +
+    geom_col() +
     #
     scale_y_continuous(limits = c(0, y_max),
                        breaks = scales::breaks_width(y_breaks),
@@ -33,7 +32,7 @@ f_bar_stacked <- function(data, x_variable, y_variable, fill_variable, fill_valu
     #
     theme_classic() +
     #
-    theme(axis.text.x  = element_text(angle = x_angle))
+    theme(axis.text.x = element_text(angle = x_angle))
   
   if (facet_wrap == "yes") {
       
@@ -67,8 +66,7 @@ f_bar_stacked <- function(data, x_variable, y_variable, fill_variable, fill_valu
 ################################################################################
 # By LGA 
 ################################################################################
-f_bar_stacked_lga <- function(data, fill_values, y_max = NA, y_breaks, y_expand, 
-                              y_title = "Number of people") {
+f_bar_stacked_lga <- function(data, fill_values, y_max = NA, y_breaks, y_expand, y_title = "Number of people") {
   
   data <- data %>% 
     dplyr::mutate(hover_text = paste0(lga_name, " LGA", "\n",
@@ -78,7 +76,7 @@ f_bar_stacked_lga <- function(data, fill_values, y_max = NA, y_breaks, y_expand,
   figure <- data %>% 
     ggplot(aes(x = lga_name, y = aboriginal_n, fill = forcats::fct_rev(comparison), text = hover_text)) +
     #
-    geom_col(col = colour_gray) +
+    geom_col() +
     #
     scale_y_continuous(limits = c(0, y_max),
                        breaks = scales::breaks_width(y_breaks),
@@ -93,7 +91,7 @@ f_bar_stacked_lga <- function(data, fill_values, y_max = NA, y_breaks, y_expand,
     #
     theme_classic() +
     #
-    theme(axis.text.x  = element_text(angle = 90))
+    theme(axis.text.x = element_text(angle = 90))
   
   figure <- figure %>% 
     plotly::ggplotly(tooltip = "text") %>%
@@ -118,8 +116,7 @@ f_bar_stacked_lga <- function(data, fill_values, y_max = NA, y_breaks, y_expand,
 ################################################################################
 # By age and sex 
 ################################################################################
-f_bar_stacked_agesex <- function(data, fill_values, y_max = NA, y_breaks, y_expand, 
-                                 y_title = "Number of people") {
+f_bar_stacked_agesex <- function(data, fill_values, y_max = NA, y_breaks, y_expand, y_title = "Number of people") {
   
   data <- data %>% 
     dplyr::mutate(hover_text = paste0(sex, "\n",
@@ -130,7 +127,7 @@ f_bar_stacked_agesex <- function(data, fill_values, y_max = NA, y_breaks, y_expa
   figure <- data %>% 
     ggplot(aes(x = age_group, y = aboriginal_n, fill = forcats::fct_rev(comparison), text = hover_text)) +
     #
-    geom_col(col = colour_gray) +
+    geom_col() +
     #
     scale_y_continuous(limits = c(0, y_max),
                        breaks = scales::breaks_width(y_breaks),
@@ -145,7 +142,7 @@ f_bar_stacked_agesex <- function(data, fill_values, y_max = NA, y_breaks, y_expa
     #
     theme_classic() +
     #
-    theme(axis.text.x  = element_text(angle = 90)) +
+    theme(axis.text.x = element_text(angle = 90)) +
     #
     facet_wrap(.~ sex,
                scale          = "free_x",
@@ -201,7 +198,7 @@ f_bar_stacked_phess <- function(data, y_max = NA, y_breaks, y_expand) {
   figure <- data %>%
     ggplot(aes(x = year, y = aboriginal_n, fill = forcats::fct_rev(comparison), text = hover_text)) +
     #
-    geom_col(col = colour_gray) +
+    geom_col() +
     #
     scale_y_continuous(limits = c(0, y_max),
                        breaks = scales::breaks_width(y_breaks),
