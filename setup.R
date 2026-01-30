@@ -33,6 +33,7 @@ pacman::p_load(here,
                leaflet)
 
 options(knitr.kable.NA = '--')
+
 # ------------------------------------------------------------------------------
 # Data folders
 # ------------------------------------------------------------------------------
@@ -157,10 +158,10 @@ population_nephu_nonaboriginal <- 1781207
 # ------------------------------------------------------------------------------
 colour_white <- "white"
 colour_black <- "black"
-colour_gray  <- "gray30"
+colour_gray  <- "#AFAFAF"
 
-colour_simplebar  <- "#374091"
-colour_simpleline <- "#374091"
+colour_simplebar  <- "#3856A7"
+colour_simpleline <- "#3856A7"
 
 colour_ctgtarget <- "#41B6C4"
 
@@ -168,23 +169,23 @@ colour_maplow  <- "#FFFF99"
 colour_mapmid  <- "#41B6C4"
 colour_maphigh <- "#253494"
 
-colour_pyramidnephu <- "#5BC788"
-colour_pyramidvic   <- "#374091"
+colour_pyramidnephu <- "#D5E1BC"
+colour_pyramidvic   <- "#3856A7"
 
-colour_aboriginal    <- "#374091"
-colour_nonaboriginal <- "#5C1441"
+colour_aboriginal    <- "#3856A7"
+colour_nonaboriginal <- "#CF998D"
 
-colour_female <- "#374091"
+colour_female <- "#3856A7"
 colour_male   <- "#1C86EE"
 
-colour_landmass <- "#5BC788"
-colour_seaarea  <- "#374091"
+colour_landmass <- "#D5E1BC"
+colour_seaarea  <- "#3856A7"
 
-colour_stack1    <- "#374091"
-colour_stack2    <- "#5BC788"
-colour_stack3    <- "#D55E00"
-colour_stack4    <- "#F0E442"
-colour_stack5    <- "#5C1441"
-colour_stack6    <- "#1C86EE"
-colour_stackgrey <- "gray30"
+colour_stack1    <- "#3856A7"
+colour_stack2    <- "#D5E1BC"
+colour_stack3    <- "#B56734"
+colour_stack4    <- "#FDF3A8"
+colour_stack5    <- "#CF998D"
+colour_stack6    <- "#2E258D"
+colour_stackgrey <- "#AFAFAF"
 
