@@ -1,6 +1,8 @@
 ---
-title: "Perinatal Factors"
+title-block: false
 ---
+
+# Perinatal Factors
 
 ```{r}
 #
@@ -13,6 +15,14 @@ table_count   <- 0
 
 figure_count <- 0
 ```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Perinatal Factors {.unnumbered}
 
 ::: {.caveat-box}
 **A note about identification of Aboriginal and/or Torres Strait Islander status**
@@ -76,7 +86,7 @@ childhood_antenatal <- childhood_iare %>%
   dplyr::arrange(iare_name)
 ```
 
-- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases).
+- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [National Perinatal Data Collection (NPDC)](https://www.aihw.gov.au/about-our-data/our-data-collections/national-perinatal-data-collection).
 
 - The [Australian Pregnancy Care Guidelines](https://app.magicapp.org/?language=th#/guidelines) recommend that a woman has their first antenatal visit within the first 10 weeks of pregnancy.
 
@@ -89,6 +99,18 @@ childhood_antenatal <- childhood_iare %>%
 - Stakeholder consultations undertaken during the development of this report identified [some of the reasons](https://pubmed.ncbi.nlm.nih.gov/32920171/) that Aboriginal and/or Torres Strait Islander women may not attend antenatal care, which include lack of transport and accessible services and/or that available maternity services are culturally unsafe.
 
 - These factors may also contribute to late recognition of pregnancy, which was identified as another contributing factor to not attending or late attendance for antenatal care.
+
+::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
+`r note_aboriginality_perinatal`
+
+<div style="height: 1em;"></div>
+
+- Women were classified as attending antenatal care in line with recommendations if they attended within the first 10 weeks of pregnancy. 
+
+<div style="height: 1em;"></div>
+
+- The denominator for this indicator is Aboriginal and/or Torres Strait Islander women who had at least one pregnancy between January 2019 and December 2021.
+:::
 
 :::: {.panel-tabset}
 
@@ -142,13 +164,11 @@ table %>%
   dplyr::mutate(aboriginal_prop = sprintf("%.1f", aboriginal_prop)) %>% 
   #
   f_table_simple(iare          = "yes",
+                 column_width  = "2in",
                  table_headers = c("IARE",
                                    "Did not attend antenatal care",
                                    "Total pregnant women",
-                                   "Percent of pregnant women")) %>% 
-  #
-  kableExtra::column_spec(2:4,
-                          width = "2in")
+                                   "Percent of pregnant women"))
 ```
 
 <div style="height: 1em;"></div>
@@ -164,19 +184,15 @@ table %>%
 
 `r note_caveat_underidentification`
 
+<div style="height: 1em;"></div>
+
 `r note_caveat_iare_nephu`
-
-- Women are classified as attending antenatal care in line with recommendations if they attended within the first 10 weeks of pregnancy.
-
-- The denominator for this indicator is Aboriginal and/or Torres Strait Islander women who had at least one pregnancy between January 2019 and December 2021.
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Smoking During Pregnancy
 

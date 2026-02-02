@@ -1,6 +1,8 @@
 ---
-title: "Population Growth"
+title-block: false
 ---
+
+# Population Growth
 
 ```{r}
 #
@@ -13,6 +15,14 @@ table_count   <- 0
 
 figure_count <- 0
 ```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Population Growth {.unnumbered}
 
 ::: {.caveat-box}
 **A note about the impact of under-identification**
@@ -62,20 +72,17 @@ aboriginal_projections_iare <- aboriginal_projections_iare %>%
       iare_name == "Australia(c)"            ~ "Australia",
       #
       TRUE ~ as.character(iare_name)))
-
-# Projections based on medium assumptions
-projections_medium <- aboriginal_projections_iare %>% 
-  dplyr::select(iare_name,
-                erp_2021_number,
-                medium_2031_number,
-                medium_2031_rate)
 ```
 
 - Data for this topic were obtained from [customised projections prepared by the ABS](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/estimates-and-projections-australian-aboriginal-and-torres-strait-islander-population/latest-release).
 
 - The Aboriginal and/or Torres Strait Islander population in the Greater Melbourne area is expected to grow from 2021-2031 at a rate of 1.9% per year, increasing from an estimated population of 38,217 in 2021 to 46,017 in 2031. 
 
-- This projected growth rate is slightly lower than the projected growth rate for Aboriginal and/or Torres Strait Islander people living in the rest of Victoria (2.3% per year) and Victoria overall (2.1% per year), but slightly higher than the projected growth rate for Aboriginal and/or Torres Strait Islander people living in Australia (1.8% per year). 
+- This projected growth rate is slightly lower than the projected growth rate for Aboriginal and/or Torres Strait Islander people living in the rest of Victoria (2.3% per year) and Victoria overall (2.1% per year), but slightly higher than the projected growth rate for Aboriginal and/or Torres Strait Islander people living in Australia (1.8% per year).
+
+::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
+`r note_aboriginality_census`
+:::
 
 :::: {.panel-tabset}
 
@@ -103,13 +110,11 @@ if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
 }
 
 table %>%
-  f_table_simple(table_headers = c("IARE",
+  f_table_simple(column_width  = "2in",
+                 table_headers = c("IARE",
                                    "2021 population",
                                    "2031 population",
-                                   "Percent growth per year")) %>% 
-  #
-  kableExtra::column_spec(2:4,
-                          width = "2in")
+                                   "Percent growth per year"))
 ```
 
 <div style="height: 1em;"></div>
@@ -121,15 +126,15 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 - These data are based on customised projections prepared for the Australian Government Department of Health by the ABS at the IARE level, and originally [published by the ABS](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/estimates-and-projections-australian-aboriginal-and-torres-strait-islander-population/latest-release).
 
+<div style="height: 1em;"></div>
+
 - The baseline 2021 counts for comparison are based on [ABS Estimated Residential Population](https://www.abs.gov.au/statistics/people/population) calculations, which take into account the known under-reporting of Aboriginal and/or Torres Strait Islander status in the Census.
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Birth Rate
 

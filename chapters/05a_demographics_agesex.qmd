@@ -1,6 +1,8 @@
 ---
-title: "Age and Sex Distribution"
+title-block: false
 ---
+
+# Age and Sex
 
 ```{r}
 #
@@ -13,6 +15,14 @@ table_count   <- 0
 
 figure_count <- 0
 ```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Age and Sex {.unnumbered}
 
 ::: {.caveat-box}
 **A note about the impact of under-identification**
@@ -251,6 +261,10 @@ rm(i, results)
 
 - The age and sex distribution for people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander varied across LGAs, but in each LGA residents who identified as Aboriginal and/or Torres Strait Islander tended to be younger than those who did not identify as Aboriginal and/or Torres Strait Islander.
 
+::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
+`r note_aboriginality_census`
+:::
+
 :::: {.panel-tabset}
 
 #### Figure 5A-1
@@ -415,15 +429,15 @@ pyramid[["Yarra Ranges"]]
 
 `r note_caveat_underidentification`
 
+<div style="height: 1em;"></div>
+
 `r note_caveat_unknown_agesex`
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Women of Reproductive Age
 
@@ -458,6 +472,14 @@ women_lga <- census_agesex %>%
 - 51% of women living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander were of reproductive age (15 to 49 years), compared to 47% of women living in the NEPHU catchment who did not identify as Aboriginal and/or Torres Strait Islander. 
 
 - The LGAs in the NEPHU catchment with the largest number of women who identify as Aboriginal and/or Torres Strait Islander who were of reproductive age were Whittlesea (n = 565), Hume (n = 453), and Darebin (n = 419).
+
+::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
+`r note_aboriginality_census`
+
+<div style="height: 1em;"></div>
+
+- Women of reproductive age were defined as women aged between 15 and 49 years.
+:::
 
 :::: {.panel-tabset}
 
@@ -510,12 +532,10 @@ if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
 table %>% 
   dplyr::mutate(aboriginal_prop = sprintf("%.1f", aboriginal_prop)) %>% 
   #
-  f_table_simple(table_headers = c("LGA",
+  f_table_simple(column_width  = "2.5in",
+                 table_headers = c("LGA",
                                    "Number of Aboriginal and/or Torres Strait Islander women",
-                                   "Percent of Aboriginal and/or Torres Strait Islander women")) %>% 
-  #
-  kableExtra::column_spec(2:3,
-                          width = "2.5in")
+                                   "Percent of Aboriginal and/or Torres Strait Islander women"))
 ```
 
 <div style="height: 1em;"></div>
@@ -531,8 +551,8 @@ table %>%
 
 `r note_caveat_underidentification`
 
-`r note_caveat_unknown_agesex`
+<div style="height: 1em;"></div>
 
-- *Women of reproductive age* was defined as women aged between 15 and 49 years.
+`r note_caveat_unknown_agesex`
 :::
 

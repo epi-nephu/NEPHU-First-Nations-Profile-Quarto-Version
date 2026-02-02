@@ -157,7 +157,11 @@ population_lphu <- aboriginal_lga %>%
 
 - 19% of Victorians who identified as Aboriginal and/or Torres Strait Islander reside in the NEPHU catchment. 
 
-- The proportion of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander was lower than for Victoria overall (n = 65,639, 1.0% of the state population). 
+- The proportion of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander was lower than the proportion of people living in Victoria who identified as Aboriginal and/or Torres Strait Islander (n = 65,639, 1.0% of the state population). 
+
+::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
+`r note_aboriginality_census`
+:::
 
 :::: {.panel-tabset}
 
@@ -211,13 +215,11 @@ table %>%
   dplyr::mutate(aboriginal_prop          = sprintf("%.1f", aboriginal_prop),
                 aboriginal_prop_per_lphu = sprintf("%.1f", aboriginal_prop_per_lphu)) %>% 
   #
-  f_table_simple(table_headers = c("LPHU",
+  f_table_simple(column_width  = "2.5in",
+                 table_headers = c("LPHU",
                                    "Number of Aboriginal and/or Torres Strait Islander people",
                                    "Percent of total LPHU population",
-                                   "Percent of Victorian Aboriginal and/or Torre Strait Islander population")) %>% 
-  #
-  kableExtra::column_spec(2:4,
-                          width = "2.5in")
+                                   "Percent of Victorian Aboriginal and/or Torre Strait Islander population"))
 ```
 
 <div style="height: 1em;"></div>
@@ -232,8 +234,6 @@ table %>%
 <div style="height: 1em;"></div>
 
 `r note_caveat_underidentification`
-
-<div style="height: 2em;"></div>
 :::
 
 ```{r}
@@ -371,6 +371,10 @@ density_sa2 <- dplyr::left_join(nephu_sa2.sf,
 
 - Despite having a smaller number of residents who identified as Aboriginal and/or Torres Strait Islander, these residents were concentrated in the SA2s of Collingwood (55 people per square km), Reservoir - North East (52 people per square km), Reservoir - South East (44 people per square km), and Fitzroy (41 people per square km).
 
+::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
+`r note_aboriginality_census`
+:::
+
 :::: {.panel-tabset}
 
 #### Figure 4A-2
@@ -392,7 +396,7 @@ population_lga %>%
   f_bar_simple(x_variable = forcats::fct_reorder(lga_name, desc(aboriginal_n)),
                y_variable = aboriginal_n,
                y_breaks   = 500,
-               y_expand   = 250)
+               y_expand   = 275)
 ```
 
 #### Table 4A-2
@@ -422,13 +426,11 @@ table %>%
   dplyr::mutate(aboriginal_prop         = sprintf("%.1f", aboriginal_prop),
                 aboriginal_prop_per_lga = sprintf("%.1f", aboriginal_prop_per_lga)) %>% 
   #
-  f_table_simple(table_headers = c("LGA",
+  f_table_simple(column_width  = "2.5in",
+                 table_headers = c("LGA",
                                    "Number of Aboriginal and/or Torres Strait Islander people",
                                    "Percent of total LGA population",
-                                   "Percent of NEPHU Aboriginal and/or Torres Strait Islander population")) %>% 
-  #
-  kableExtra::column_spec(2:4,
-                          width = "2.5in")
+                                   "Percent of NEPHU Aboriginal and/or Torres Strait Islander population"))
 ```
 
 <div style="height: 1em;"></div>
@@ -497,13 +499,11 @@ table %>%
   dplyr::arrange(desc(aboriginal_n)) %>% 
   #
   f_table_simple(total_row     = NULL,
+                 column_width  = "2.5in",
                  table_headers = c("SA2",
                                    "Number of Aboriginal and/or Torres Strait Islander people",
                                    "Percent of total SA2 population",
-                                   "Percent of NEPHU Aboriginal and/or Torres Strait Islander population")) %>% 
-  #
-  kableExtra::column_spec(2:4,
-                          width = "2.5in")
+                                   "Percent of NEPHU Aboriginal and/or Torres Strait Islander population"))
 ```
 
 <div style="height: 1em;"></div>
@@ -518,7 +518,5 @@ table %>%
 <div style="height: 1em;"></div>
 
 `r note_caveat_underidentification`
-
-<div style="height: 2em;"></div>
 :::
 

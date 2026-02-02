@@ -1,6 +1,8 @@
 ---
-title: "Language"
+title-block: false
 ---
+
+# Language
 
 ```{r}
 #
@@ -13,6 +15,14 @@ table_count   <- 0
 
 figure_count <- 0
 ```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Language {.unnumbered}
 
 ::: {.caveat-box}
 **A note about the impact of under-identification**
@@ -110,7 +120,7 @@ language_specific <- language_specific %>%
   #
   janitor::adorn_totals() %>% 
   #
-  dplyr::mutate(aboriginal_prop = aboriginal_n / 12065 * 100) # Manually set the total number of Aboriginal people (n = 12065)
+  dplyr::mutate(aboriginal_prop = aboriginal_n / population_nephu_aboriginal * 100)
 ```
 
 - Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
@@ -125,13 +135,15 @@ language_specific <- language_specific %>%
 
 - Data on which languages were spoken were available for 181 people. The most common languages spoken at home by people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander were Australian Indigenous Languages (including those not further described or not elsewhere classified) (n = 73), Yorta Yorta (n = 27), Nyungar (n = 15), and Aboriginal English (n = 11).
 
+- Further historical and ongoing target context can be found on the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/culture-and-languages/).
+
 **Key points from stakeholder consultation**
 
 - As discussed in stakeholder consultations during the development of this report, these data may not be a true indicator of Closing the Gap Target 16, as there may be an increase in people who are learning and speaking Aboriginal and/or Torres Strait Islander languages but not necessarily speaking their language at home. 
 
 - It was also discussed that higher engagement amongst young people and children may be partly due to the success of community-driven language teaching efforts. The [Victorian Aboriginal Corporation for Languages (VACL)](https://vacl.org.au/) assists local communities with language revitalisation plans by running language camps, school programs, and events. For example, they have [partnered with Thornbury Primary School since 2012](https://www.vaeai.org.au/6895/), where students from Prep to Grade 6 have been learning Woiwurrung, the language of the Wurundjeri People.
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
 The following question was asked of all people completing the ABS Census 2021.
 
 - Does the person use a language other than English at home?
@@ -144,7 +156,15 @@ The following question was asked of all people completing the ABS Census 2021.
   - Yes, Greek
   - Yes, other language (please specify)
 
-<div style="height: 2em;"></div>
+<div style="height: 1em;"></div>
+
+Definitions and notes:
+
+`r note_aboriginality_census`
+
+<div style="height: 1em;"></div>
+
+- When a person listed more than one language, responses were accepted in the order they appeared on the Census form. The first response was included in the data and any extra responses were rejected. 
 :::
 
 :::: {.panel-tabset}
@@ -196,12 +216,10 @@ if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
 table %>% 
   dplyr::mutate(aboriginal_prop = sprintf("%.1f", aboriginal_prop)) %>% 
   #
-  f_table_simple(table_headers = c("LGA",
+  f_table_simple(column_width  = "2in",
+                 table_headers = c("LGA",
                                    "Number speaking language",
-                                   "Percent speaking language")) %>% 
-  #
-  kableExtra::column_spec(2:3,
-                          width = "2in")
+                                   "Percent speaking language"))
 ```
 
 <div style="height: 1em;"></div>
@@ -256,7 +274,7 @@ table %>%
   dplyr::mutate(aboriginal_prop_female = sprintf("%.1f", aboriginal_prop_female),
                 aboriginal_prop_male   = sprintf("%.1f", aboriginal_prop_male)) %>% 
   #
-  f_table_grouped_sex(n_variable = "count",
+  f_table_grouped_sex(n_variable  = "count",
                       column_name = "Age group")
 ```
 
@@ -308,12 +326,10 @@ if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
 table %>% 
   dplyr::mutate(aboriginal_prop = sprintf("%.2f", aboriginal_prop)) %>% 
   #
-  f_table_simple(table_headers = c("Language",
+  f_table_simple(column_width  = "2in",
+                 table_headers = c("Language",
                                    "Number of people",
-                                   "Percent of people")) %>% 
-  #
-  kableExtra::column_spec(2:3,
-                          width = "2in")
+                                   "Percent of people"))
 ```
 
 <div style="height: 1em;"></div>
@@ -329,21 +345,22 @@ table %>%
 
 `r note_caveat_underidentification`
 
+<div style="height: 1em;"></div>
+
 `r note_caveat_unknown_agesex`
 
-- When a person listed more than one language, responses were accepted in the order they appeared on the Census form. The first response was included in the data and any extra responses were rejected.
+<div style="height: 1em;"></div>
 
-- Woiwurrung is included under Australian Indigenous Languages.
-
-- *Australian Indigenous Languages* includes languages not further described and languages not elsewhere classified.
+- For Figure 5B-3 and Table 5B-3, *Australian Indigenous Languages* includes: 
+  - Woiwurrung
+  - Languages not further described 
+  - Languages not elsewhere classified
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Languages Other Than English
 
@@ -378,7 +395,7 @@ language_other <- language_other %>%
   #
   janitor::adorn_totals() %>% 
   #
-  dplyr::mutate(aboriginal_prop = aboriginal_n / 12065 * 100) # Manually set the total number of Aboriginal people (n = 12065)
+  dplyr::mutate(aboriginal_prop = aboriginal_n / population_nephu_aboriginal * 100)
 ```
 
 - Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
@@ -389,7 +406,7 @@ language_other <- language_other %>%
 
 - 27 people reporting using Auslan at home.
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Census questions and definitions for this topic " icon=false collapse=false}
 The following question was asked of all people completing the ABS Census 2021.
 
 - Does the person use a language other than English at home?
@@ -401,8 +418,16 @@ The following question was asked of all people completing the ABS Census 2021.
   - Yes, Italian
   - Yes, Greek
   - Yes, other language (please specify)
-  
-<div style="height: 2em;"></div>
+
+<div style="height: 1em;"></div>
+
+Definitions and notes:
+
+`r note_aboriginality_census`
+
+<div style="height: 1em;"></div>
+
+- When a person listed more than one language, responses were accepted in the order they appeared on the Census form. The first response was included in the data and any extra responses were rejected.
 :::
 
 :::: {.panel-tabset}
@@ -451,12 +476,10 @@ if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
 table %>% 
   dplyr::mutate(aboriginal_prop = sprintf("%.2f", aboriginal_prop)) %>% 
   #
-  f_table_simple(table_headers = c("Language",
+  f_table_simple(column_width  = "2in",
+                 table_headers = c("Language",
                                    "Number of people",
-                                   "Percent of people")) %>% 
-  #
-  kableExtra::column_spec(2:3,
-                          width = "2in")
+                                   "Percent of people"))
 ```
 
 <div style="height: 1em;"></div>
@@ -472,17 +495,15 @@ table %>%
 
 `r note_caveat_underidentification`
 
-`r note_caveat_unknown_agesex`
+<div style="height: 1em;"></div>
 
-- When a person listed more than one language, responses were accepted in the order they appeared on the Census form. The first response was included in the data and any extra responses were rejected.
+`r note_caveat_unknown_agesex`
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## English Proficiency
 
@@ -542,7 +563,7 @@ english_agesex <- english_agesex %>%
 
 - This pattern was seen across all LGAs, for both males and females, and across all age groups.
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
 The following questions were asked of all people completing the ABS Census 2021.
 
 - Does the person use a language other than English at home?
@@ -563,7 +584,15 @@ The following questions were asked of all people completing the ABS Census 2021.
   - Not well
   - Not at all
 
-<div style="height: 2em;"></div>
+<div style="height: 1em;"></div>
+
+Definitions and notes:
+
+`r note_aboriginality_census`
+
+<div style="height: 1em;"></div>
+
+- When a person listed more than one language, responses were accepted in the order they appeared on the Census form. The first response was included in the data and any extra responses were rejected.
 :::
 
 :::: {.panel-tabset}
@@ -615,12 +644,10 @@ if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
 table %>% 
   dplyr::mutate(aboriginal_prop = sprintf("%.1f", aboriginal_prop)) %>% 
   #
-  f_table_simple(table_headers = c("LGA",
+  f_table_simple(column_width  = "2in",
+                 table_headers = c("LGA",
                                    "Number of people",
-                                   "Percent of people")) %>% 
-  #
-  kableExtra::column_spec(2:3,
-                          width = "2in")
+                                   "Percent of people"))
 ```
 
 <div style="height: 1em;"></div>
@@ -675,7 +702,7 @@ table %>%
   dplyr::mutate(aboriginal_prop_female = sprintf("%.1f", aboriginal_prop_female),
                 aboriginal_prop_male   = sprintf("%.1f", aboriginal_prop_male)) %>% 
   #
-  f_table_grouped_sex(n_variable = "count",
+  f_table_grouped_sex(n_variable  = "count",
                       column_name = "Age group")
 ```
 
@@ -691,6 +718,8 @@ table %>%
 <div style="height: 1em;"></div>
 
 `r note_caveat_underidentification`
+
+<div style="height: 1em;"></div>
 
 `r note_caveat_unknown_agesex`
 :::
