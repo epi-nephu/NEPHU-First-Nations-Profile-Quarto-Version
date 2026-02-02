@@ -51,6 +51,8 @@ f_bar_simple <- function(data, x_variable, y_variable, y_max = NA, y_breaks, y_e
     #
     plotly::layout(hovermode = "x",
                    #
+                   modebar = list(orientation = 'v'),
+                   #
                    yaxis = list(title = list(text     = y_title,
                                              font     = list(size = 13, family = "Arial"),
                                              standoff = 10)))
@@ -88,6 +90,8 @@ f_bar_simple_flip <- function(data, x_variable, y_variable, y_max = NA, y_breaks
     plotly::ggplotly(tooltip = "text") %>%
     #
     plotly::layout(hovermode = "y",
+                   #
+                   modebar = list(orientation = 'v'),
                    #
                    xaxis = list(title = list(text     = x_title,
                                              font     = list(size = 13, family = "Arial"),
@@ -164,6 +168,8 @@ f_bar_simple_lga <- function(data, y_variable, y_max = NA, y_breaks, y_expand, n
     plotly::ggplotly(tooltip = "text") %>%
     #
     plotly::layout(hovermode = "x",
+                   #
+                   modebar = list(orientation = 'v'),
                    #
                    yaxis = list(title = list(text     = y_title,
                                              font     = list(size = 13, family = "Arial"),
@@ -301,6 +307,8 @@ f_bar_simple_iare <- function(data, y_variable, y_max = NA, y_breaks, y_expand, 
     plotly::ggplotly(tooltip = "text") %>%
     #
     plotly::layout(hovermode = "x",
+                   #
+                   modebar = list(orientation = 'v'),
                    #
                    yaxis = list(title = list(text     = y_title,
                                              font     = list(size = 13, family = "Arial"),

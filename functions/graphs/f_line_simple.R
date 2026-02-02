@@ -68,6 +68,8 @@ f_line_simple <- function(data, y_variable, y_max = NA, y_breaks, y_expand, n_le
     #
     plotly::layout(hovermode = "x",
                    #
+                   modebar = list(orientation = 'v'),
+                   #
                    yaxis = list(title = list(text     = y_title,
                                              font     = list(size = 13, family = "Arial"),
                                              standoff = 10)))

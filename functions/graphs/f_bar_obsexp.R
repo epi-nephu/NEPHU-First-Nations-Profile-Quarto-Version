@@ -58,9 +58,12 @@ f_bar_obsexp_lga <- function(data, y_max = NA, y_breaks, y_expand, y_title = "Nu
     #
     plotly::layout(hovermode = "x",
                    #
+                   modebar = list(orientation = 'v'),
+                   #
                    yaxis = list(title = list(text     = y_title,
                                              font     = list(size = 13, family = "Arial"),
                                              standoff = 10)),
+                   #
                    legend = list(x = 0.5,
                                  y = -0.3,
                                  #
@@ -130,9 +133,12 @@ f_bar_obsexp_agesex <- function(data, y_max = NA, y_breaks, y_expand, y_title = 
     #
     plotly::layout(hovermode = "x",
                    #
+                   modebar = list(orientation = 'v'),
+                   #
                    yaxis = list(title = list(text     = y_title,
                                              font     = list(size = 13, family = "Arial"),
                                              standoff = 10)),
+                   #
                    legend = list(x = 0.5,
                                  y = -0.3,
                                  #

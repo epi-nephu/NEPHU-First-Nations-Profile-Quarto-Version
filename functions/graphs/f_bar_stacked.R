@@ -48,6 +48,8 @@ f_bar_stacked <- function(data, x_variable, y_variable, fill_variable, fill_valu
     #
     plotly::layout(hovermode = "x",
                    #
+                   modebar = list(orientation = 'v'),
+                   #
                    yaxis = list(title = list(text     = y_title,
                                              font     = list(size = 13, family = "Arial"),
                                              standoff = 10)),
@@ -97,6 +99,8 @@ f_bar_stacked_lga <- function(data, fill_values, y_max = NA, y_breaks, y_expand,
     plotly::ggplotly(tooltip = "text") %>%
     #
     plotly::layout(hovermode = "x",
+                   #
+                   modebar = list(orientation = 'v'),
                    #
                    yaxis = list(title = list(text     = y_title,
                                              font     = list(size = 13, family = "Arial"),
@@ -152,6 +156,8 @@ f_bar_stacked_agesex <- function(data, fill_values, y_max = NA, y_breaks, y_expa
     plotly::ggplotly(tooltip = "text") %>%
     #
     plotly::layout(hovermode = "x",
+                   #
+                   modebar = list(orientation = 'v'),
                    #
                    yaxis = list(title = list(text     = y_title,
                                              font     = list(size = 13, family = "Arial"),
@@ -217,6 +223,8 @@ f_bar_stacked_phess <- function(data, y_max = NA, y_breaks, y_expand) {
     plotly::ggplotly(tooltip = "text") %>%
     #
     plotly::layout(hovermode = "x",
+                   #
+                   modebar = list(orientation = 'v'),
                    #
                    yaxis = list(title = list(text     = "Number of notifications",
                                              font     = list(size = 13, family = "Arial"),

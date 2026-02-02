@@ -77,6 +77,8 @@ f_line_grouped <- function(data, y_variable, fill_variable, fill_values, y_max =
   figure <- figure %>% 
     plotly::layout(hovermode = "x",
                    #
+                   modebar = list(orientation = 'v'),
+                   #
                    yaxis = list(title = list(text     = y_title,
                                              font     = list(size = 13, family = "Arial"),
                                              standoff = 10)),
@@ -193,6 +195,8 @@ f_line_grouped_indigenous <- function(data, y_variable, y_max = NA, y_breaks, y_
   
   figure <- figure %>% 
     plotly::layout(hovermode = "x",
+                   #
+                   modebar = list(orientation = 'v'),
                    #
                    yaxis = list(title = list(text     = y_title,
                                              font     = list(size = 13, family = "Arial"),
@@ -321,6 +325,8 @@ f_line_grouped_sex <- function(data, y_variable, y_max = NA, y_breaks, y_expand,
   
   figure <- figure %>% 
     plotly::layout(hovermode = "x",
+                   #
+                   modebar = list(orientation = 'v'),
                    #
                    yaxis = list(title = list(text     = y_title,
                                              font     = list(size = 13, family = "Arial"),

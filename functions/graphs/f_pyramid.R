@@ -60,7 +60,9 @@ f_pyramid <- function(data, prop_variable, fill_variable, fill_values, chart_tit
   figure <- figure %>%
     plotly::ggplotly(tooltip = "text") %>%
     #
-    plotly::layout(legend = list(x = 0.5,
+    plotly::layout(modebar = list(orientation = 'v'),
+                   #                   
+                   legend = list(x = 0.5,
                                  y = -0.15,
                                  #
                                  orientation = "h",

@@ -39,9 +39,12 @@ f_bar_grouped <- function(data, x_variable, y_variable, fill_variable, fill_valu
     #
     plotly::layout(hovermode = "x",
                    #
+                   modebar = list(orientation = 'v'),
+                   #
                    yaxis = list(title = list(text     = y_title,
                                              font     = list(size = 13, family = "Arial"),
                                              standoff = 10)),
+                   #
                    legend = list(x = 0.5,
                                  y = legend_offset,
                                  #
@@ -109,9 +112,12 @@ f_bar_grouped_agesex <- function(data, y_variable, y_max = NA, y_breaks, y_expan
     #
     plotly::layout(hovermode = "x",
                    #
+                   modebar = list(orientation = 'v'),
+                   #
                    yaxis = list(title = list(text     = y_title,
                                              font     = list(size = 13, family = "Arial"),
                                              standoff = 10)),
+                   #
                    legend = list(x = 0.5,
                                  y = -0.3,
                                  #
@@ -177,9 +183,12 @@ f_bar_grouped_sex <- function(data, x_variable, y_variable, y_max = NA, y_breaks
     #
     plotly::layout(hovermode = "x",
                    #
+                   modebar = list(orientation = 'v'),
+                   #
                    yaxis = list(title = list(text     = y_title,
                                              font     = list(size = 13, family = "Arial"),
                                              standoff = 10)),
+                   #
                    legend = list(x = 0.5,
                                  y = legend_offset,
                                  #
@@ -257,9 +266,12 @@ f_bar_grouped_indigenous <- function(data, x_variable, y_variable, y_max = NA, y
     #
     plotly::layout(hovermode = "x",
                    #
+                   modebar = list(orientation = 'v'),
+                   #
                    yaxis = list(title = list(text     = y_title,
                                              font     = list(size = 13, family = "Arial"),
                                              standoff = 10)),
+                   #
                    legend = list(x = 0.5,
                                  y = legend_offset,
                                  #
