@@ -132,6 +132,7 @@ li > ul {
 .callout-body {
   font-family: Arial;
   font-size: 10pt !important;
+  margin-bottom: 0pt !important;
 }
 
 .callout-body ul {
@@ -142,6 +143,10 @@ li > ul {
 .callout-body ul li {
   margin-top: 0pt !important;
   margin-bottom: 0pt !important;
+}
+
+.callout-body li p {
+  margin-bottom: 0 !important;
 }
 
 .fig-tab-title {
