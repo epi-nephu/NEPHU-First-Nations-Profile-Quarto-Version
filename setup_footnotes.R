@@ -26,12 +26,21 @@ note_box_underidentification <- glue::glue("
 When considering the total number of people who identify as Aboriginal and/or Torres Strait Islander, under-identification is a key consideration. The impact of this is that population numbers are likely to be underestimated, and the true population number is likely to be higher than what is reported here. This needs to be considered not only within this section but throughout this report, and has implications not only for population size, but also for any inferences about service requirements.")
 
 # ------------------------------------------------------------------------------
+# Definitions
+# ------------------------------------------------------------------------------
+note_aboriginality_census <- glue::glue("
+- Aboriginal and/or Torres Strait Islander peoples were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander in the Census.")
+
+note_aboriginality_perinatal <- glue::glue("
+- Aboriginal and/or Torres Strait Islander mothers were defined in the National Perinatal Data Collection as those who had identified themselves as Aboriginal and/or Torres Strait Islander at the time of childbirth.")
+
+# ------------------------------------------------------------------------------
 # Chart notes - data sources
 # ------------------------------------------------------------------------------
 note_data_census <- glue::glue("
 - Data were obtained from the [ABS Census 2021](https://www.abs.gov.au/census) and are publicly available at Local Government Area (LGA), ABS Statistical Area Level 2 (SA2), and Indigenous Area of Residence (IARE) level.
   - The 2021 Census was held on the evening of August 10th 2021.
-  - Aboriginal and/or Torres Strait Islander peoples were defined as those who identified themselves as Aboriginal and/or Torres Strait Islander in the Census.")
+  - Aboriginal and/or Torres Strait Islander peoples were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander in the Census.")
 
 note_data_framework_air <- glue::glue("
 - Data were obtained from the [AIHW Aboriginal and Torres Strait Islander Health Performance Framework](https://www.indigenoushpf.gov.au/), compiled from the [Australian Immunisation Register (AIR)](https://www.servicesaustralia.gov.au/australian-immunisation-register).
