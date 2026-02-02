@@ -4,7 +4,8 @@
 #
 # Table type: simple (univariate) tables
 
-f_table_simple <- function(data, total_row = nrow(table), last_column = ncol(table), table_headers, iare = "no", hospital = "no") {
+f_table_simple <- function(data, total_row = nrow(table), last_column = ncol(table), 
+                           table_headers, iare = "no", hospital = "no", column_width = "1in") {
   
   if (hospital == "admission") {
     
@@ -42,7 +43,7 @@ f_table_simple <- function(data, total_row = nrow(table), last_column = ncol(tab
                          bold = TRUE) %>% 
     #
     kableExtra::column_spec(2:last_column,
-                            width = "1in")
+                            width = column_width)
   
   if (iare == "yes") {
     
