@@ -157,6 +157,81 @@ population_nephu_nonaboriginal <- 1781207
 padding_female <- -26
 padding_male   <- 26
 
+# y-axis upper limits for counts
+y_upper_n <- function(y_max){
+  #
+  dplyr::case_when(y_max <= 5     ~ 5.125,
+                   y_max <= 10    ~ (ceiling(y_max / 1) * 1) + (y_max * 0.025),
+                   y_max <= 50    ~ (ceiling(y_max / 5) * 5) + (y_max * 0.025),
+                   y_max <= 100   ~ (ceiling(y_max / 10) * 10) + (y_max * 0.025),
+                   y_max <= 200   ~ (ceiling(y_max / 20) * 20) + (y_max * 0.025),
+                   y_max <= 250   ~ (ceiling(y_max / 25) * 25) + (y_max * 0.025),
+                   y_max <= 500   ~ (ceiling(y_max / 50) * 50) + (y_max * 0.025),
+                   y_max <= 1000  ~ (ceiling(y_max / 100) * 100) + (y_max * 0.025),
+                   y_max <= 2500  ~ (ceiling(y_max / 250) * 250) + (y_max * 0.025),
+                   y_max <= 5000  ~ (ceiling(y_max / 500) * 500) + (y_max * 0.025),
+                   y_max <= 10000 ~ (ceiling(y_max / 1000) * 1000) + (y_max * 0.025),
+                   y_max <= 20000 ~ (ceiling(y_max / 2000) * 2000) + (y_max * 0.025),
+                   y_max <= 50000 ~ (ceiling(y_max / 5000) * 5000) + (y_max * 0.025),
+                   TRUE ~ NA)
+
+}
+
+# y-axis upper limits for percentages
+y_upper_prop <- function(y_max) {
+  #
+  dplyr::case_when(y_max <= 1   ~ 1.0025,
+                   y_max <= 10  ~ (ceiling(y_max / 1) * 1) + (y_max * 0.025),
+                   y_max <= 20  ~ (ceiling(y_max / 2) * 2) + (y_max * 0.025),
+                   y_max <= 50  ~ (ceiling(y_max / 5) * 5) + (y_max * 0.025),
+                   y_max <= 100 ~ (ceiling(y_max / 10) * 10) + (y_max * 0.025),
+                   y_max > 100  ~ 102.5,
+                   TRUE ~ NA)
+
+}
+
+# y-axis upper limits for rates
+y_upper_rate <- function(y_max) {
+  #
+  dplyr::case_when(y_max <= 1     ~ 1.0025,
+                   y_max <= 10    ~ (ceiling(y_max / 1) * 1) + (y_max * 0.025),
+                   y_max <= 50    ~ (ceiling(y_max / 5) * 5) + (y_max * 0.025),
+                   y_max <= 100   ~ (ceiling(y_max / 10) * 10) + (y_max * 0.025),
+                   y_max <= 200   ~ (ceiling(y_max / 20) * 20) + (y_max * 0.025),
+                   y_max <= 250   ~ (ceiling(y_max / 25) * 25) + (y_max * 0.025),
+                   y_max <= 500   ~ (ceiling(y_max / 50) * 50) + (y_max * 0.025),
+                   y_max <= 1000  ~ (ceiling(y_max / 100) * 100) + (y_max * 0.025),
+                   y_max <= 2500  ~ (ceiling(y_max / 250) * 250) + (y_max * 0.025),
+                   y_max <= 5000  ~ (ceiling(y_max / 500) * 500) + (y_max * 0.025),
+                   y_max <= 10000 ~ (ceiling(y_max / 1000) * 1000) + (y_max * 0.025),
+                   y_max <= 20000 ~ (ceiling(y_max / 2000) * 2000) + (y_max * 0.025),
+                   y_max <= 50000 ~ (ceiling(y_max / 5000) * 5000) + (y_max * 0.025),
+                   TRUE ~ NA)
+
+}
+
+# y-axis breaks
+y_breaks <- function(y_max) {
+  #
+  dplyr::case_when(y_max <= 1     ~ 0.25,
+                   y_max <= 2.5   ~ 0.5,
+                   y_max <= 10    ~ 1,
+                   y_max <= 20    ~ 2,
+                   y_max <= 50    ~ 5,
+                   y_max <= 100   ~ 10,
+                   y_max <= 200   ~ 20,
+                   y_max <= 250   ~ 25,
+                   y_max <= 500   ~ 50,
+                   y_max <= 1000  ~ 100,
+                   y_max <= 2500  ~ 250,
+                   y_max <= 5000  ~ 500,
+                   y_max <= 10000 ~ 1000,
+                   y_max <= 20000 ~ 2000,
+                   y_max <= 50000 ~ 5000,
+                   TRUE ~ NA)
+
+}
+
 # ------------------------------------------------------------------------------
 # Colours
 # ------------------------------------------------------------------------------

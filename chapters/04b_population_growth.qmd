@@ -126,8 +126,6 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 - These data are based on customised projections prepared for the Australian Government Department of Health by the ABS at the IARE level, and originally [published by the ABS](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/estimates-and-projections-australian-aboriginal-and-torres-strait-islander-population/latest-release).
 
-<div style="height: 1em;"></div>
-
 - The baseline 2021 counts for comparison are based on [ABS Estimated Residential Population](https://www.abs.gov.au/statistics/people/population) calculations, which take into account the known under-reporting of Aboriginal and/or Torres Strait Islander status in the Census.
 :::
 

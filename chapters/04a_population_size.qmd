@@ -183,8 +183,6 @@ population_lphu %>%
   #
   f_bar_simple(x_variable = forcats::fct_reorder(lphu_short, desc(aboriginal_n)),
                y_variable = aboriginal_n,
-               y_breaks   = 2000,
-               y_expand   = 250,
                x_angle    = 0)
 ```
 
@@ -230,8 +228,6 @@ table %>%
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
-
-<div style="height: 1em;"></div>
 
 `r note_caveat_underidentification`
 :::
@@ -365,11 +361,11 @@ density_sa2 <- dplyr::left_join(nephu_sa2.sf,
 
 - The majority of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander reside in the Whittlesea (n = 2,270), Hume (n = 1,870), Yarra Ranges (n = 1,713), Darebin (n = 1,441), and Knox (n = 1,022) LGAs. 
 
-- Despite having a smaller number of residents who identified as Aboriginal and/or Torres Strait Islander, these residents were concentrated in Darebin (27 people per square km) and Yarra (26 people per square km) LGAs. 
+- Despite having a smaller number of residents who identified as Aboriginal and/or Torres Strait Islander, these residents were concentrated in Darebin (27 people per km^2^) and Yarra (26 people per km^2^) LGAs. 
 
 - The NEPHU catchment SA2s with the largest number of residents identifying as Aboriginal and/or Torres Strait Islander were Healesville - Yarra Glen (n = 373), Lilydale - Coldstream (n = 260), and Reservoir - North East (n = 248). 
 
-- Despite having a smaller number of residents who identified as Aboriginal and/or Torres Strait Islander, these residents were concentrated in the SA2s of Collingwood (55 people per square km), Reservoir - North East (52 people per square km), Reservoir - South East (44 people per square km), and Fitzroy (41 people per square km).
+- Despite having a smaller number of residents who identified as Aboriginal and/or Torres Strait Islander, these residents were concentrated in the SA2s of Collingwood (55 people per km^2^), Reservoir - North East (52 people per km^2^), Reservoir - South East (44 people per km^2^), and Fitzroy (41 people per km^2^).
 
 ::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
 `r note_aboriginality_census`
@@ -394,9 +390,7 @@ population_lga %>%
                                     "Count: ", format(aboriginal_n, big.mark = ","))) %>% 
   #
   f_bar_simple(x_variable = forcats::fct_reorder(lga_name, desc(aboriginal_n)),
-               y_variable = aboriginal_n,
-               y_breaks   = 500,
-               y_expand   = 275)
+               y_variable = aboriginal_n)
 ```
 
 #### Table 4A-2
@@ -440,7 +434,7 @@ table %>%
 #### Figure 4A-3
 
 ::: {#fig_4A_3 .fig-tab-title}
-**Figure 4A-3:** Population density (number of people per square km) for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+**Figure 4A-3:** Population density (number of people per km^2^) for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
@@ -454,7 +448,7 @@ density_lga %>%
 #### Figure 4A-4
 
 ::: {#fig_4A_4 .fig-tab-title}
-**Figure 4A-4:** Population density (number of people per square km) for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by SA2, 2021
+**Figure 4A-4:** Population density (number of people per km^2^) for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by SA2, 2021
 :::
 
 ```{r}
@@ -514,8 +508,6 @@ table %>%
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
-
-<div style="height: 1em;"></div>
 
 `r note_caveat_underidentification`
 :::

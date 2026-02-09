@@ -58,7 +58,7 @@ f_bar_grouped <- function(data, x_variable, y_variable, fill_variable, fill_valu
 ################################################################################
 # By age and sex
 ################################################################################
-f_bar_grouped_agesex <- function(data, y_variable, y_max = NA, y_breaks, y_expand, n_level = "people") {
+f_bar_grouped_agesex <- function(data, y_variable, n_level = "people") {
   
   y_variable <- rlang::enquo(y_variable)
   
@@ -68,6 +68,10 @@ f_bar_grouped_agesex <- function(data, y_variable, y_max = NA, y_breaks, y_expan
   if (rlang::as_name(y_variable) == "aboriginal_n") {
     
     y_title <- paste0("Number of ", n_level)
+    
+    y_max    <- max(data$aboriginal_n, na.rm = TRUE)
+    y_upper  <- y_upper_n(y_max)
+    y_breaks <- y_breaks(y_max)
     
     data <- data %>% 
       dplyr::mutate(hover_text = paste0(sex, "\n",
@@ -79,6 +83,10 @@ f_bar_grouped_agesex <- function(data, y_variable, y_max = NA, y_breaks, y_expan
   if (rlang::as_name(y_variable) == "aboriginal_prop") {
     
     y_title <- paste0("Percentage of ", n_level)
+    
+    y_max    <- max(data$aboriginal_prop, na.rm = TRUE)
+    y_upper  <- y_upper_prop(y_max)
+    y_breaks <- y_breaks(y_max)
     
     data <- data %>% 
       dplyr::mutate(hover_text = paste0(sex, "\n",
@@ -92,9 +100,9 @@ f_bar_grouped_agesex <- function(data, y_variable, y_max = NA, y_breaks, y_expan
     #
     geom_col(position = "dodge") +
     #
-    scale_y_continuous(limits = c(0, y_max),
+    scale_y_continuous(limits = c(0, y_upper),
                        breaks = scales::breaks_width(y_breaks),
-                       expand = expansion(add = c(0, y_expand)),
+                       expand = expansion(add = c(0, 0)),
                        labels = scales::comma_format(big.mark = ",")) +
     #
     scale_fill_manual(values = c(colour_female, colour_male),
@@ -202,8 +210,7 @@ f_bar_grouped_sex <- function(data, x_variable, y_variable, y_max = NA, y_breaks
 ################################################################################
 # By Indigenous status
 ################################################################################
-f_bar_grouped_indigenous <- function(data, x_variable, y_variable, y_max = NA, y_breaks, y_expand, 
-                                     n_level = "people", x_angle = 90, legend_offset = -0.3) {
+f_bar_grouped_indigenous <- function(data, x_variable, y_variable, n_level = "people", x_angle = 90, legend_offset = -0.3) {
   
   x_variable <- rlang::enquo(x_variable)
   y_variable <- rlang::enquo(y_variable)
@@ -211,6 +218,10 @@ f_bar_grouped_indigenous <- function(data, x_variable, y_variable, y_max = NA, y
   if (rlang::as_name(y_variable) == "n") {
 
     y_title <- paste0("Number of ", n_level)
+    
+    y_max    <- max(data$n, na.rm = TRUE)
+    y_upper  <- y_upper_n(y_max)
+    y_breaks <- y_breaks(y_max)
     
     data <- data %>% 
       dplyr::mutate(hover_text = paste0(!!x_variable, "\n",
@@ -223,6 +234,10 @@ f_bar_grouped_indigenous <- function(data, x_variable, y_variable, y_max = NA, y
 
     y_title <- "Estimated number of people"
     
+    y_max    <- max(data$estimate, na.rm = TRUE)
+    y_upper  <- y_upper_n(y_max)
+    y_breaks <- y_breaks(y_max)
+    
     data <- data %>% 
       dplyr::mutate(hover_text = paste0(!!x_variable, "\n",
                                         indigenous_label, "\n",
@@ -233,6 +248,10 @@ f_bar_grouped_indigenous <- function(data, x_variable, y_variable, y_max = NA, y
   if (rlang::as_name(y_variable) == "prop") {
 
     y_title <- paste0("Percentage of ", n_level)
+    
+    y_max    <- max(data$prop, na.rm = TRUE)
+    y_upper  <- y_upper_prop(y_max)
+    y_breaks <- y_breaks(y_max)
     
     data <- data %>% 
       dplyr::mutate(hover_text = paste0(!!x_variable, "\n",
@@ -246,9 +265,9 @@ f_bar_grouped_indigenous <- function(data, x_variable, y_variable, y_max = NA, y
     #
     geom_col(position = "dodge") +
     #
-    scale_y_continuous(limits = c(0, y_max),
+    scale_y_continuous(limits = c(0, y_upper),
                        breaks = scales::breaks_width(y_breaks),
-                       expand = expansion(add = c(0, y_expand)),
+                       expand = expansion(add = c(0, 0)),
                        labels = scales::comma_format(big.mark = ",")) +
     #
     scale_fill_manual(values = c(colour_aboriginal, colour_nonaboriginal),

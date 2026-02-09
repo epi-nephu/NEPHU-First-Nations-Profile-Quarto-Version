@@ -71,7 +71,7 @@ f_table_grouped_sex <- function(data, n_variable, column_name, total_row = nrow(
 ################################################################################
 # By Indigenous status
 ################################################################################
-f_table_grouped_indigenous <- function(data, n_variable, column_name, total_row = nrow(table), last_column = ncol(table)) {
+f_table_grouped_indigenous <- function(data, n_variable, column_name, total_row = nrow(table)) {
 
   if (n_variable == "count") {
     
@@ -124,14 +124,14 @@ f_table_grouped_indigenous <- function(data, n_variable, column_name, total_row 
                               font_size  = 12) %>%
     #
     kableExtra::row_spec(row  = c(0, total_row),
-                         bold = TRUE) %>%
-    #
-    kableExtra::column_spec(2:last_column,
-                            width = "1.25in")
+                         bold = TRUE)
   
   if (n_variable %in% c("count", "estimate", "rate", "mortality")){
     
-    table <- table %>% 
+    table <- table %>%
+      kableExtra::column_spec(2:6,
+                              width = "1.25in") %>% 
+      #
       kableExtra::add_header_above(c(" " = 1,
                                      "Identified as Aboriginal\nand/or Torres Strait Islander"       = 2,
                                      "Did not identify as Aboriginal\nand/or Torres Strait Islander" = 2,
@@ -142,9 +142,12 @@ f_table_grouped_indigenous <- function(data, n_variable, column_name, total_row 
   
   if (n_variable %in% c("prop only", "rate only")){
     
-    table <- table %>% 
+    table <- table %>%
+      kableExtra::column_spec(2:3,
+                              width = "1.75in") %>% 
+      #
       kableExtra::add_header_above(c(" " = 1,
-                                     "Identified as Aboriginal\nand/or Torres Strait Islander" = 2),
+                                     "Identified as Aboriginal and/or Torres Strait Islander" = 2),
                                    align = "right")
     
   }  
