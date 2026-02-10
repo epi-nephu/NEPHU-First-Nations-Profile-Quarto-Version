@@ -70,7 +70,8 @@ body {
 }
 
 li > ul {
-  margin-bottom: 5pt;
+  margin-top: 0pt;
+  margin-bottom: 0pt;
 }
 
 .key-question {
@@ -133,20 +134,6 @@ li > ul {
   font-family: Arial;
   font-size: 10pt !important;
   margin-bottom: 0pt !important;
-}
-
-.callout-body ul {
-  margin-top: 0pt !important;
-  margin-bottom: 0pt !important;
-}
-
-.callout-body ul li {
-  margin-top: 0pt !important;
-  margin-bottom: 0pt !important;
-}
-
-.callout-body li p {
-  margin-bottom: 0 !important;
 }
 
 .fig-tab-title {

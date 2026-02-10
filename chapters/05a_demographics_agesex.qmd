@@ -425,7 +425,11 @@ pyramid[["Yarra Ranges"]]
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_unknown_agesex`
 :::
@@ -471,6 +475,8 @@ women_lga <- census_agesex %>%
 
 ::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
 `r note_aboriginality_census`
+
+<div style="height: 0.1em;"></div>
 
 - Women of reproductive age were defined as women aged between 15 and 49 years.
 :::
@@ -536,7 +542,11 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_unknown_agesex`
 :::

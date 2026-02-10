@@ -1,6 +1,8 @@
 ---
-title: "Early Childhood"
+title-block: false
 ---
+
+# Early Childhood
 
 ```{r}
 #
@@ -13,6 +15,14 @@ table_count   <- 0
 
 figure_count <- 0
 ```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Early Childhood {.unnumbered}
 
 ::: {.caveat-box}
 **A note about the impact of under-identification**
@@ -85,11 +95,13 @@ childhood_attendance <- f_read_ctg_indigenous("CTG03_Childhood_Education_Data_Ta
                "15+ hours")))
 ```
 
-- Data for this topic were obtained from the [Victorian Child and Adolescent Monitoring System (VCAMS)](https://www.vic.gov.au/victorian-child-and-adolescent-monitoring-system-vcams) and the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/).
+- Data for this topic were obtained from the [Victorian Child and Adolescent Monitoring System (VCAMS)](https://www.vic.gov.au/victorian-child-and-adolescent-monitoring-system-vcams) and from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the [National Early Childhood Education and Care Collection (NECECC)](https://www.abs.gov.au/statistics/people/education/preschool-education/latest-release).
 
 - In 2022, 100% of Aboriginal and/or Torres Strait Islander children in Victoria who were in the year before full-time schooling age cohort attended a funded kindergarten/preschool program. This is above the Closing the Gap target of 95%.
 
 - The percentage of enrolled children who attended for 15 or more hours in a week increased from 64% in 2016 to 75% in 2023.
+
+- Further historical and ongoing target context can be found on the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/early-childhood-education/).
 
 **Key points from stakeholder consultation**
 
@@ -97,12 +109,20 @@ childhood_attendance <- f_read_ctg_indigenous("CTG03_Childhood_Education_Data_Ta
 
 - The importance of and impact of improvements in cultural safety by educators was also discussed as a potential contributing factor to this increase.
 
+::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
+`r note_aboriginality_vcams`
+
+<div style="height: 0.1em;"></div>
+
+`r note_aboriginality_nececc`
+:::
+
 :::: {.panel-tabset}
 
 #### Figure 6B-1
 
 ::: {#fig_6B_1 .fig-tab-title}
-**Figure 6B-1:** Number and percentage of Aboriginal and/or Torres Strait Islander children enrolled in a preschool program, Victoria, 2018-2022
+**Figure 6B-1:** Number and percentage of Aboriginal and/or Torres Strait Islander children enrolled in a preschool program, Victoria, by year
 :::
 
 ```{r}
@@ -111,15 +131,10 @@ figure_count <- figure_count + 1
 
 figure_number <- childhood_enrol %>% 
   f_line_simple(y_variable = aboriginal_n,
-                y_breaks   = 200,
-                y_expand   = 100,
                 n_level    = "children")
 
 figure_percent <- childhood_enrol %>% 
   f_line_simple(y_variable = aboriginal_prop,
-                y_max      = 100,
-                y_breaks   = 10,
-                y_expand   = 2.5,
                 n_level    = "children",
                 ctg_target = 95)
 
@@ -129,7 +144,7 @@ f_line_simple_combine(figure_number, figure_percent)
 #### Table 6B-1
 
 ::: {#tab_6B-1 .fig-tab-title}
-**Table 6B-1:** Number and percentage of Aboriginal and/or Torres Strait Islander children enrolled in a preschool program, Victoria, 2018-2022
+**Table 6B-1:** Number and percentage of Aboriginal and/or Torres Strait Islander children enrolled in a preschool program, Victoria, by year
 :::
 
 ```{r}
@@ -150,12 +165,10 @@ table %>%
                 aboriginal_prop = sprintf("%.1f", aboriginal_prop)) %>% 
   #
   f_table_simple(total_row     = NULL,
+                 column_width  = "2in",
                  table_headers = c("Year",
                                    "Number of children",
-                                   "Percent of children")) %>% 
-  #
-  kableExtra::column_spec(2:3,
-                          width = "2in")
+                                   "Percent of children"))
 ```
 
 <div style="height: 1em;"></div>
@@ -165,19 +178,27 @@ table %>%
 #### Figure 6B-2
 
 ::: {#fig_6B_2 .fig-tab-title}
-**Figure 6B-2:** Preschool attendance during the one week reference period for Aboriginal and/or Torres Strait Islander children enrolled in a preschool program, Victoria, 2016-2023
+**Figure 6B-2:** Preschool attendance during the one week reference period for Aboriginal and/or Torres Strait Islander children enrolled in a preschool program, Victoria, by year
 :::
 
 ```{r}
 #
 figure_count <- figure_count + 1
 
+stacked_total <- childhood_attendance %>% 
+  dplyr::filter(value == "Proportion") %>% 
+  dplyr::filter(indigenous_label == "Aboriginal") %>%
+  #
+  dplyr::group_by(year) %>% 
+  dplyr::summarise(total = sum(vic)) %>% 
+  dplyr::ungroup()
+  
 childhood_attendance %>% 
   dplyr::filter(value == "Proportion") %>% 
   dplyr::filter(indigenous_label == "Aboriginal") %>% 
   #
   dplyr::mutate(
-    vic_plot = dplyr::case_when(
+    aboriginal_prop = dplyr::case_when(
       is.na(vic) ~ 0,
       TRUE ~ vic),
     #
@@ -188,22 +209,19 @@ childhood_attendance %>%
              "Percentage: ", "Data not available"),
       paste0(year, "\n",
              attendance, "\n",
-             "Percentage: ", sprintf("%.1f", vic)))) %>%
+             "Percentage: ", sprintf("%.1f", aboriginal_prop)))) %>%
   #
   f_bar_stacked(x_variable    = year,
-                y_variable    = vic_plot,
+                y_variable    = aboriginal_prop,
+                n_level       = "enrolled children",
                 fill_variable = attendance,
-                fill_values   = c(colour_stack4, colour_stack3, colour_stack2, colour_stack1),
-                y_max         = 100,
-                y_breaks      = 10,
-                y_expand      = 2.5,
-                y_title       = "Percentage of enrolled children")
+                fill_values   = c(colour_stack4, colour_stack3, colour_stack2, colour_stack1))
 ```
 
 #### Table 6B-2
 
 ::: {#tab_6B-2 .fig-tab-title}
-**Table 6B-2:** Preschool attendance during the one week reference period for Aboriginal and/or Torres Strait Islander children enrolled in a preschool program, Victoria, 2016-2023
+**Table 6B-2:** Preschool attendance during the one week reference period for Aboriginal and/or Torres Strait Islander children enrolled in a preschool program, Victoria, by year
 :::
 
 ```{r}
@@ -267,7 +285,7 @@ table %>%
   - VCAMS brings together data from a wide range of sources about early childhood, family functioning, and communities to monitor and report against the indicators in the VCAMS Outcomes Framework.
   - This indicator uses the “year before school” population as the denominator. This is a proportion of all 4 and 5 year old children which reflects the age composition of the cohort of children who are in the year before starting school during a single calendar year. These calculations are based on the [ABS Estimated Residential Population](https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071), which takes into account the known under-reporting of Aboriginal and/or Torres Strait Islander status in the Census.
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - Data for Figure 6B-2 and Table 6B-2 were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/) compiled from the [National Early Childhood Education and Care Collection (NECECC)](https://www.abs.gov.au/statistics/people/education/preschool-education/latest-release).
   - The Closing the Gap Information Repository brings together data from a wide range of data sources to provide up to date information for each Closing the Gap target, indicator, and contextual factors.
@@ -275,19 +293,15 @@ table %>%
   - Aboriginal and/or Torres Strait Islander children are defined as those who were identified as Aboriginal and/or Torres Strait Islander by a parent or guardian.
   - Data were not available for 2020 and 2021 due to the impact of COVID restrictions on preschool program delivery in Victoria.
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
-
-<div style="height: 2em;"></div>
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Early Childhood Development
 

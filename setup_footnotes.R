@@ -29,17 +29,22 @@ When considering the total number of people who identify as Aboriginal and/or To
 # Definitions
 # ------------------------------------------------------------------------------
 note_aboriginality_census <- glue::glue("
-- Aboriginal and/or Torres Strait Islander peoples were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander in the Census.")
+- In the ABS Census, Aboriginal and/or Torres Strait Islander peoples were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander when they completed the Census.")
 
 note_aboriginality_natsihs <- glue::glue("
-- Aboriginal and/or Torres Strait Islander peoples were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander when they completed the survey.")
+- In the National Aboriginal and Torres Strait Islander Health Survey, Aboriginal and/or Torres Strait Islander peoples were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander when they completed the survey.")
+
+note_aboriginality_nececc <- glue::glue("
+- In the National Early Childhood Education and Care Collection (NECECC), Aboriginal and/or Torres Strait Islander children were defined as those who had been identified as Aboriginal and/or Torres Strait Islander by their parent or guardian.")
 
 note_aboriginality_nhs <- glue::glue("
-- Aboriginal and/or Torres Strait Islander peoples were defined in the National Health Survey as those who had identified themselves as Aboriginal and/or Torres Strait Islander when they completed the survey.")
+- In the National Health Survey, Aboriginal and/or Torres Strait Islander peoples were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander when they completed the survey.")
 
 note_aboriginality_perinatal <- glue::glue("
-- Aboriginal and/or Torres Strait Islander mothers were defined in the National Perinatal Data Collection as those who had identified themselves as Aboriginal and/or Torres Strait Islander at the time of childbirth.")
+- In the National Perinatal Data Collection, Aboriginal and/or Torres Strait Islander mothers were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander at the time of childbirth.")
 
+note_aboriginality_vcams <- glue::glue("
+- In the Victorian Adolescent and Child Monitoring System (VCAMS), Aboriginal and/or Torres Strait Islander children were defined as those who were recorded as Aboriginal and/or Torres Strait Islander in the datasets that comprise VCAMS. For preschool enrolments, these data were sourced from the [Kindergarten Information Management System](https://www.vic.gov.au/kims).")
 # ------------------------------------------------------------------------------
 # Chart notes - data sources
 # ------------------------------------------------------------------------------

@@ -7,7 +7,7 @@
 ################################################################################
 # Classic simple line chart
 ################################################################################
-f_line_simple <- function(data, y_variable, y_max = NA, y_breaks, y_expand, n_level = "people", ctg_target = NA) {
+f_line_simple <- function(data, y_variable, n_level = "people", ctg_target = NA) {
   
   y_variable <- rlang::enquo(y_variable)
   
@@ -16,6 +16,10 @@ f_line_simple <- function(data, y_variable, y_max = NA, y_breaks, y_expand, n_le
   if (rlang::as_name(y_variable) == "aboriginal_n") {
     
     y_title <- paste0("Number of ", n_level)
+    
+    y_max    <- max(data$aboriginal_n, na.rm = TRUE)
+    y_upper  <- y_upper_n(y_max)
+    y_breaks <- y_breaks(y_max)
     
     data <- data %>% 
       dplyr::mutate(hover_text = paste0(year, "\n",
@@ -26,6 +30,10 @@ f_line_simple <- function(data, y_variable, y_max = NA, y_breaks, y_expand, n_le
   if (rlang::as_name(y_variable) == "aboriginal_prop") {
     
     y_title <- paste0("Percentage of ", n_level)
+    
+    y_max    <- max(data$aboriginal_prop, na.rm = TRUE)
+    y_upper  <- y_upper_prop(y_max)
+    y_breaks <- y_breaks(y_max)
     
     data <- data %>% 
       dplyr::mutate(hover_text = paste0(year, "\n",
@@ -53,9 +61,9 @@ f_line_simple <- function(data, y_variable, y_max = NA, y_breaks, y_expand, n_le
   }
   
   figure <- figure +
-    scale_y_continuous(limits = c(0, y_max),
+    scale_y_continuous(limits = c(0, y_upper),
                        breaks = scales::breaks_width(y_breaks),
-                       expand = expansion(add = c(0, y_expand)),
+                       expand = expansion(add = c(0, 0)),
                        labels = scales::comma_format(big.mark = ",")) +
     #
     labs(x = NULL,

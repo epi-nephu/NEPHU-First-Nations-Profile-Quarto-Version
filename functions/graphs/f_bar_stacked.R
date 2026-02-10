@@ -7,21 +7,40 @@
 ################################################################################
 # Classic stacked bar chart
 ################################################################################
-f_bar_stacked <- function(data, x_variable, y_variable, fill_variable, fill_values, y_max = NA, y_breaks, 
-                          y_expand, y_title, legend_offset = -0.1, x_angle = 0, facet_wrap = "no") {
+f_bar_stacked <- function(data, total_data = stacked_total, x_variable, y_variable, fill_variable, fill_values, n_level, legend_offset = -0.1, x_angle = 0, facet_wrap = "no") {
   
   x_variable    <- rlang::enquo(x_variable)
   y_variable    <- rlang::enquo(y_variable)
   fill_variable <- rlang::enquo(fill_variable)
+  
+  if (rlang::as_name(y_variable) == "aboriginal_n") {
+    
+    y_title <- paste0("Number of ", n_level)
+    
+    y_max    <- max(total_data$total, na.rm = TRUE)
+    y_upper  <- y_upper_n(y_max)
+    y_breaks <- y_breaks(y_max)
+    
+  }
+  
+  if (rlang::as_name(y_variable) == "aboriginal_prop") {
+    
+    y_title <- paste0("Percentage of ", n_level)
+    
+    y_max    <- max(total_data$total, na.rm = TRUE)
+    y_upper  <- y_upper_prop(y_max)
+    y_breaks <- y_breaks(y_max)
+    
+  }
   
   figure <- data %>% 
     ggplot(aes(x = !!x_variable, y = !!y_variable, fill = !!fill_variable, text = hover_text)) +
     #
     geom_col() +
     #
-    scale_y_continuous(limits = c(0, y_max),
+    scale_y_continuous(limits = c(0, y_upper),
                        breaks = scales::breaks_width(y_breaks),
-                       expand = expansion(add = c(0, y_expand)),
+                       expand = expansion(add = c(0, 0)),
                        labels = scales::comma_format(big.mark = ",")) +
     #
     scale_fill_manual(values = fill_values,

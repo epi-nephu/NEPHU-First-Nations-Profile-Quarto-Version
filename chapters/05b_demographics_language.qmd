@@ -160,6 +160,8 @@ Definitions and notes:
 
 `r note_aboriginality_census`
 
+<div style="height: 0.1em;"></div>
+
 - When a person listed more than one language, responses were accepted in the order they appeared on the Census form. The first response was included in the data and any extra responses were rejected. 
 :::
 
@@ -325,9 +327,15 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
 
 - For Figure 5B-3 and Table 5B-3, *Australian Indigenous Languages* includes: 
   - Woiwurrung
@@ -385,7 +393,7 @@ language_other <- language_other %>%
 - 27 people reporting using Auslan at home.
 
 ::: {.callout-tip title="Census questions and definitions for this topic " icon=false collapse=false}
-The following question was asked of all people completing the ABS Census 2021.
+The following question was asked of all people completing the ABS Census 2021.<br>
 
 - Does the person use a language other than English at home?
   - No, English only
@@ -397,9 +405,11 @@ The following question was asked of all people completing the ABS Census 2021.
   - Yes, Greek
   - Yes, other language (please specify)
 
-Definitions and notes:
+Definitions and notes:<br>
 
 `r note_aboriginality_census`
+
+<div style="height: 0.1em;"></div>
 
 - When a person listed more than one language, responses were accepted in the order they appeared on the Census form. The first response was included in the data and any extra responses were rejected.
 :::
@@ -463,7 +473,11 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_unknown_agesex`
 :::
@@ -532,7 +546,7 @@ english_agesex <- english_agesex %>%
 - This pattern was seen across all LGAs, for both males and females, and across all age groups.
 
 ::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
-The following questions were asked of all people completing the ABS Census 2021.
+The following questions were asked of all people completing the ABS Census 2021.<br>
 
 - Does the person use a language other than English at home?
   - No, English only
@@ -544,15 +558,19 @@ The following questions were asked of all people completing the ABS Census 2021.
   - Yes, Greek
   - Yes, other language (please specify)
 
+<div style="height: 0.1em;"></div>
+
 - How well does the person speak English?
   - Very well
   - Well
   - Not well
   - Not at all
 
-Definitions and notes:
+Definitions and notes:<br>
 
 `r note_aboriginality_census`
+
+<div style="height: 0.1em;"></div>
 
 - When a person listed more than one language, responses were accepted in the order they appeared on the Census form. The first response was included in the data and any extra responses were rejected.
 :::
@@ -667,7 +685,11 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_unknown_agesex`
 :::
