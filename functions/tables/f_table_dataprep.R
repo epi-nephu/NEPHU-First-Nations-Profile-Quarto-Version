@@ -209,3 +209,25 @@ f_preptable_grouped_indigenous <- function(data, x_variable, n_variable) {
 
 } 
 
+################################################################################
+# NAPLAN data
+################################################################################
+f_preptable_naplan <- function(data) {
+  
+  data <- data %>% 
+    dplyr::filter(indigenous_status == "Aboriginal and Torres Strait Islander students") %>%
+    #
+    dplyr::select(-indigenous_status,
+                  -year) %>% 
+    #
+    tidyr::pivot_wider(names_from  = "grade",
+                       values_from = "vic") %>% 
+    #
+    janitor::clean_names() %>% 
+    #
+    janitor::adorn_totals()
+  
+  return(data)
+
+}
+
