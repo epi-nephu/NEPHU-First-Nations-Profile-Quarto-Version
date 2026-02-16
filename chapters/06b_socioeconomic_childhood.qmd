@@ -334,11 +334,13 @@ childhood_develop <- f_read_ctg_indigenous("CTG04_Early_Years_Data_Tables.xlsx",
   dplyr::rename(prop = vic)
 ```
 
-- Data for this topic were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/).
+- Data for this topic were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the [Australian Early Development Census (AEDC)](https://www.aedc.gov.au/).
 
 - In 2021, 36% of Aboriginal and/or Torres Strait Islander children in Victoria who were assessed during their first year of school were developmentally on track for all five AEDC domains, compared to 32% in 2009.   
 
 - This is below the Closing the Gap target of 55%, and is lower than for non-Indigenous children in 2021 (58%).
+
+- Further historical and ongoing target context can be found on the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/children-thriving/).
 
 **Key points from stakeholder consultation**
 
@@ -346,12 +348,16 @@ childhood_develop <- f_read_ctg_indigenous("CTG04_Early_Years_Data_Tables.xlsx",
 
 - For example, whilst a very high proportion of Aboriginal and/or Torres Strait Islander babies have their hearing screened at birth, middle ear infections and associated hearing problems are a common childhood issue for First Nations children.
 
+::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
+`r note_aboriginality_aedc`
+:::
+
 :::: {.panel-tabset}
 
 #### Figure 6B-3
 
 ::: {#fig_6B_3 .fig-tab-title}
-**Figure 6B-3:** Percentage of children assessed as developmentally on track for all five AEDC domains, Victoria, by Aboriginal and/or Torres Strait Islander status, 2009-2021
+**Figure 6B-3:** Percentage of children assessed as developmentally on track for all five AEDC domains, Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -360,9 +366,6 @@ figure_count <- figure_count + 1
 
 childhood_develop %>% 
   f_line_grouped_indigenous(y_variable = prop,
-                            y_max      = 100,
-                            y_breaks   = 10,
-                            y_expand   = 2.5,
                             n_level    = "children",
                             ctg_target = 55)
 ```
@@ -370,7 +373,7 @@ childhood_develop %>%
 #### Table 6B-3
 
 ::: {#tab_6B-3 .fig-tab-title}
-**Table 6B-3:** Percentage of children assessed as developmentally on track for all five AEDC domains, Victoria, by Aboriginal and/or Torres Strait Islander status, 2009-2021
+**Table 6B-3:** Percentage of children assessed as developmentally on track for all five AEDC domains, Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -379,14 +382,10 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- childhood_develop %>%
-  dplyr::select(-indigenous_status,
-                -unit) %>% 
+  f_preptable_grouped_indigenous(x_variable = "year",
+                                 n_variable = "prop only") %>% 
   #
-  pivot_wider(names_from  = "indigenous_label",
-              names_vary  = "slowest",
-              values_from = "prop") %>% 
-  #
-  janitor::clean_names() %>%
+  dplyr::select(-unit) %>%
   #
   dplyr::arrange(year)
 
@@ -397,19 +396,12 @@ if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
 }
 
 table %>%
-  dplyr::mutate(aboriginal     = sprintf("%.1f", aboriginal),
-                non_indigenous = sprintf("%.1f", non_indigenous)) %>% 
+  dplyr::mutate(aboriginal_prop     = sprintf("%.1f", aboriginal_prop),
+                non_aboriginal_prop = sprintf("%.1f", non_aboriginal_prop)) %>% 
   #
-  f_table_simple(total_row     = NULL,
-                 table_headers = c("Year",
-                                   "Yes (%)",
-                                   "No (%)")) %>% 
-  #
-  kableExtra::column_spec(2:3,
-                          width = "1.75in") %>% 
-  #
-  kableExtra::add_header_above(c(" " = 1,
-                                 "Identified as Aboriginal and/or Torres Strait Islander" = 2))
+  f_table_grouped_indigenous(n_variable  = "prop only",
+                             column_name = "Year",
+                             total_row   = NULL)
 ```
 
 <div style="height: 1em;"></div>
@@ -419,24 +411,17 @@ table %>%
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
-- Data were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the [Australian Early Development Census (AEDC)](https://www.aedc.gov.au/).
-  - The Closing the Gap Information Repository brings together data from a wide range of data sources to provide up to date information for each Closing the Gap target, indicator, and contextual factors.
-  - The AEDC is a population-based measure of children’s development as they enter their first year of full-time school. It measures five important domains of early childhood development: physical health and wellbeing, social competence, emotional maturity, language and cognitive skills, and communication skills and general knowledge.
-  - Aboriginal and/or Torres Strait Islander children were defined as those who were identified as Aboriginal and/or Torres Strait Islander by their parent or guardian.
+`r note_data_aedc`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
-
-<div style="height: 2em;"></div>
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Childhood Numeracy and Literacy
 
@@ -471,6 +456,18 @@ naplan_numeracy <- f_read_naplan(data_sheet = "Table SE5c.3")
 
 - In 2024, 75% of Victorian Aboriginal and/or Torres Strait Islander children in Year 3, 75% of children in Year 5, 72% of children in Year 7, and 69% of children in Year 9 were at or above the NAPLAN numeracy minimum standard (exceeding, strong, or developing). This was lower than for non-Indigenous children at each year level (Year 3 = 91%, Year 5 = 92%, Year 7 = 91%, Year 9 = 90%).
 
+::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
+`r note_aboriginality_naplan`
+
+<div style="height: 0.1em;"></div>
+
+- The NAPLAN proficiencies include four levels for each assessment area at each year level:
+  - Exceeding: the student’s result exceeds expectations at the time of testing.
+  - Strong: the student’s result meets challenging but reasonable expectations at the time of testing.
+  - Developing: the student’s result indicates that they are working towards expectations at the time of testing.
+  - Needs additional support: the student’s result indicates that they are not achieving the learning outcomes expected at the time of testing. They are likely to need additional support to progress satisfactorily.
+:::
+
 :::: {.panel-tabset}
 
 #### Figure 6B-4
@@ -483,21 +480,27 @@ naplan_numeracy <- f_read_naplan(data_sheet = "Table SE5c.3")
 #
 figure_count <- figure_count + 1
 
+stacked_total <- naplan_reading %>% 
+  dplyr::filter(indigenous_status == "Aboriginal and Torres Strait Islander students") %>%
+  #
+  dplyr::group_by(grade) %>% 
+  dplyr::summarise(total = sum(vic)) %>% 
+  dplyr::ungroup()
+
 naplan_reading %>%
   dplyr::filter(indigenous_status == "Aboriginal and Torres Strait Islander students") %>% 
   #
   dplyr::mutate(hover_text = paste0(grade, "\n",
                                     achievement, "\n",
-                                    "Percentage: ", sprintf("%.1f", vic))) %>%
+                                    "Percentage: ", sprintf("%.1f", vic)),
+                #
+                aboriginal_prop = vic) %>%
   #
   f_bar_stacked(x_variable    = grade,
-                y_variable    = vic,
+                y_variable    = aboriginal_prop,
                 fill_variable = forcats::fct_rev(achievement),
                 fill_values   = c(colour_stackgrey, colour_stack4, colour_stack3, colour_stack2, colour_stack1),
-                y_max         = 100,
-                y_breaks      = 10,
-                y_expand      = 2.5,
-                y_title       = "Percentage of children")
+                n_level       = "children")
 ```
 
 #### Table 6B-4
@@ -511,18 +514,8 @@ naplan_reading %>%
 table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
-table <- naplan_reading %>% 
-  dplyr::filter(indigenous_status == "Aboriginal and Torres Strait Islander students") %>%
-  #
-  dplyr::select(-indigenous_status,
-                -year) %>% 
-  #
-  tidyr::pivot_wider(names_from  = "grade",
-                     values_from = "vic") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  janitor::adorn_totals()
+table <- naplan_reading %>%
+  f_preptable_naplan()
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -540,10 +533,7 @@ table %>%
                                    "Year 3",
                                    "Year 5",
                                    "Year 7",
-                                   "Year 9")) %>% 
-  #
-  kableExtra::column_spec(2:5,
-                          width = "1in")
+                                   "Year 9"))
 ```
 
 <div style="height: 1em;"></div>
@@ -560,21 +550,27 @@ table %>%
 #
 figure_count <- figure_count + 1
 
+stacked_total <- naplan_writing %>% 
+  dplyr::filter(indigenous_status == "Aboriginal and Torres Strait Islander students") %>%
+  #
+  dplyr::group_by(grade) %>% 
+  dplyr::summarise(total = sum(vic)) %>% 
+  dplyr::ungroup()
+
 naplan_writing %>%
   dplyr::filter(indigenous_status == "Aboriginal and Torres Strait Islander students") %>% 
   #
   dplyr::mutate(hover_text = paste0(grade, "\n",
                                     achievement, "\n",
-                                    "Percentage: ", sprintf("%.1f", vic))) %>%
+                                    "Percentage: ", sprintf("%.1f", vic)),
+                #
+                aboriginal_prop = vic) %>%
   #
   f_bar_stacked(x_variable    = grade,
-                y_variable    = vic,
+                y_variable    = aboriginal_prop,
                 fill_variable = forcats::fct_rev(achievement),
                 fill_values   = c(colour_stackgrey, colour_stack4, colour_stack3, colour_stack2, colour_stack1),
-                y_max         = 100,
-                y_breaks      = 10,
-                y_expand      = 2.5,
-                y_title       = "Percentage of children")
+                n_level       = "children")
 ```
 
 #### Table 6B-5
@@ -589,17 +585,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- naplan_writing %>% 
-  dplyr::filter(indigenous_status == "Aboriginal and Torres Strait Islander students") %>%
-  #
-  dplyr::select(-indigenous_status,
-                -year) %>% 
-  #
-  tidyr::pivot_wider(names_from  = "grade",
-                     values_from = "vic") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  janitor::adorn_totals()
+  f_preptable_naplan()
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -617,10 +603,7 @@ table %>%
                                    "Year 3",
                                    "Year 5",
                                    "Year 7",
-                                   "Year 9")) %>% 
-  #
-  kableExtra::column_spec(2:5,
-                          width = "1in")
+                                   "Year 9"))
 ```
 
 <div style="height: 1em;"></div>
@@ -637,21 +620,29 @@ table %>%
 #
 figure_count <- figure_count + 1
 
+stacked_total <- naplan_numeracy %>% 
+  dplyr::filter(indigenous_status == "Aboriginal and Torres Strait Islander students") %>%
+  #
+  dplyr::group_by(grade) %>% 
+  dplyr::summarise(total = sum(vic)) %>% 
+  dplyr::ungroup() %>% 
+  #
+  dplyr::mutate(total = round(total, digits = 0))
+
 naplan_numeracy %>%
   dplyr::filter(indigenous_status == "Aboriginal and Torres Strait Islander students") %>% 
   #
   dplyr::mutate(hover_text = paste0(grade, "\n",
                                     achievement, "\n",
-                                    "Percentage: ", sprintf("%.1f", vic))) %>%
+                                    "Percentage: ", sprintf("%.1f", vic)),
+                #
+                aboriginal_prop = vic) %>%
   #
   f_bar_stacked(x_variable    = grade,
-                y_variable    = vic,
+                y_variable    = aboriginal_prop,
                 fill_variable = forcats::fct_rev(achievement),
                 fill_values   = c(colour_stackgrey, colour_stack4, colour_stack3, colour_stack2, colour_stack1),
-                y_max         = 102,
-                y_breaks      = 10,
-                y_expand      = 0.5,
-                y_title       = "Percentage of children")
+                n_level       = "children")
 ```
 
 #### Table 6B-6
@@ -666,17 +657,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- naplan_numeracy %>% 
-  dplyr::filter(indigenous_status == "Aboriginal and Torres Strait Islander students") %>%
-  #
-  dplyr::select(-indigenous_status,
-                -year) %>% 
-  #
-  tidyr::pivot_wider(names_from  = "grade",
-                     values_from = "vic") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  janitor::adorn_totals()
+  f_preptable_naplan()
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -694,10 +675,7 @@ table %>%
                                    "Year 3",
                                    "Year 5",
                                    "Year 7",
-                                   "Year 9")) %>% 
-  #
-  kableExtra::column_spec(2:5,
-                          width = "1in")
+                                   "Year 9"))
 ```
 
 <div style="height: 1em;"></div>
@@ -707,18 +685,13 @@ table %>%
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
-- Data were obtained from the [National Assessment Program — Literacy and Numeracy (NAPLAN) program](https://www.acara.edu.au/reporting/national-report-on-schooling-in-australia/naplan-national-results), administered by the Australian Curriculum, Assessment, and Reporting Authority (ACARA).
-  - NAPLAN is a national assessment that tests students’ ability in three domains of literacy (reading, writing, and language conventions) and in numeracy. Students sit NAPLAN tests in Term 1 of Years 3, 5, 7, and 9.
-  - Students with a language background other than English, who arrived from overseas less than a year before the tests, and those with significant disabilities may be exempted from NAPLAN testing.
-  - The NAPLAN proficiencies include four levels for each assessment area at each year level:
-    - Exceeding: the student’s result exceeds expectations at the time of testing.
-    - Strong: the student’s result meets challenging but reasonable expectations at the time of testing.
-    - Developing: the student’s result indicates that they are working towards expectations at the time of testing.
-    - Needs additional support: the student’s result indicates that they are not achieving the learning outcomes expected at the time of testing. They are likely to need additional support to progress satisfactorily.
+`r note_data_naplan`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_rounding`
 :::
