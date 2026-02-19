@@ -1,6 +1,8 @@
 ---
-title: "Education"
+title-block: false
 ---
+
+# Education
 
 ```{r}
 #
@@ -13,6 +15,14 @@ table_count   <- 0
 
 figure_count <- 0
 ```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Education {.unnumbered}
 
 ::: {.caveat-box}
 **A note about the impact of under-identification**
@@ -124,7 +134,7 @@ school_agesex <- school_agesex %>%
 
 - Younger people were more likely to have a Year 12 or equivalent education, and females were more likely to have a Year 12 or equivalent education than males across all age groups.
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
 The following question was asked of all people aged 15 years and over completing the ABS Census 2021.
 
 - What is the highest year of primary or secondary school the person has completed?
@@ -135,7 +145,9 @@ The following question was asked of all people aged 15 years and over completing
   - Year 8 or equivalent
   - Did not go to school
 
-<div style="height: 2em;"></div>
+Definitions and notes:
+
+`r note_aboriginality_census`
 :::
 
 :::: {.panel-tabset}
@@ -167,8 +179,7 @@ school_lga %>%
                "Year 8 and below"))) %>% 
   #
   f_bar_stacked_lga(fill_values = c(colour_stack3, colour_stack2, colour_stack1),
-                    y_breaks    = 200,
-                    y_expand    = 50)
+                    n_level     = "people")
 ```
 
 #### Table 6C-1
@@ -238,8 +249,7 @@ school_agesex %>%
                "Year 8 and below"))) %>% 
   #
   f_bar_stacked_agesex(fill_values = c(colour_stack3, colour_stack2, colour_stack1),
-                       y_breaks    = 200,
-                       y_expand    = 125)
+                       n_level     = "people")
 ```
 
 #### Table 6C-2
@@ -310,21 +320,23 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
 
 - People who did not attend school are included in the *Year 8 and below* category.
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Year 12 Completion
 
@@ -395,13 +407,15 @@ year12_sex <- year12_youth %>%
 
 - The number of people aged 20-24 years living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who had a Year 12 or equivalent education ranged from 141 (Whittlesea LGA) to 21 (Manningham LGA). 
 
-- The gap between the observed number of Aboriginal and/or Torres Strait Islander people aged 20-24 years with a Year 12 or equivalent education and the number expected if the rate was the same as for non-Indigenous people was biggest for Hume and Knox LGAs. 
+- The gap between the observed number of Aboriginal and/or Torres Strait Islander people aged 20-24 years with a Year 12 or equivalent education and the expected number if the proportion was the same as non-Indigenous people was biggest for Hume and Knox LGAs. 
 
 - The percentage of people aged 20-24 years living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who had a Year 12 or equivalent education ranged from 90% (Yarra LGA) to 65% (Knox LGA). 
 
 - All 12 NEPHU LGAs were below the Closing the Gap target of 96% of Aboriginal and/or Torres Strait Islander people aged 20-24 years attaining Year 12 or an equivalent qualification. 
 
 - 79% (n = 436) of females living in the NEPHU catchment aged 20-24 years who identified as Aboriginal and/or Torres Strait Islander in the Census had a Year 12 or equivalent education, compared to 71% (n = 417) of males.
+
+- Further historical and ongoing target context can be found on the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/student-learning-potential/).
 
 **Key points from stakeholder consultation**
 
@@ -411,7 +425,7 @@ year12_sex <- year12_youth %>%
 
 - The [Victorian Aboriginal Education Association Incorporated (VAEAI)](https://www.vic.gov.au/victorian-aboriginal-education-association-inc-vaeai) and [Victorian Aboriginal Community Services Association (VASCAL)](https://www.vacsal.org.au/) were credited with significant achievements in this area by stakeholders during the development of this report. VAEAI is the peak Koorie community organization for education and training in Victoria, advising education and government on ways to improve educational outcomes for students. VASCAL also provides advice to government and is a major provider of services to the Aboriginal community including an Aboriginal Early School Leavers and Youth Employment Program.
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
 The following question was asked of all people aged 15 years and over completing the ABS Census 2021.
 
 - What is the highest year of primary or secondary school the person has completed?
@@ -422,7 +436,13 @@ The following question was asked of all people aged 15 years and over completing
   - Year 8 or equivalent
   - Did not go to school
 
-<div style="height: 2em;"></div>
+Definitions and notes:
+
+`r note_aboriginality_census`
+
+<div style="height: 0.1em;"></div>
+
+- *Year 12 or equivalent* was defined as the completion of a Year 12 or equivalent school qualification or a Certificate III or above non-school qualification based on the Australian Qualifications Framework.
 :::
 
 :::: {.panel-tabset}
@@ -430,7 +450,7 @@ The following question was asked of all people aged 15 years and over completing
 #### Figure 6C-3
 
 ::: {#fig_6C_3 .fig-tab-title}
-**Figure 6C-3:** Percentage of people aged 20-24 years who identified as Aboriginal and/or Torres Strait Islander and who have completed Year 12 or equivalent, Victoria, by Aboriginal and/or Torres Strait Islander status, 2001-2021
+**Figure 6C-3:** Percentage of people aged 20-24 years who identified as Aboriginal and/or Torres Strait Islander and who have completed Year 12 or equivalent, Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -443,9 +463,6 @@ year12_trend %>%
   dplyr::rename(prop = vic) %>% 
   #
   f_line_grouped_indigenous(y_variable = prop,
-                            y_max      = 100,
-                            y_breaks   = 10,
-                            y_expand   = 2.5,
                             n_level    = "people aged 20-24 yrs",
                             ctg_target = 96)
 ```
@@ -453,7 +470,7 @@ year12_trend %>%
 #### Table 6C-3
 
 ::: {#tab_6C_3 .fig-tab-title}
-**Table 6C-3:** Number and percentage of people aged 20-24 years who identified as Aboriginal and/or Torres Strait Islander and who have completed Year 12 or equivalent, Victoria, by Aboriginal and/or Torres Strait Islander status, 2001-2021
+**Table 6C-3:** Number and percentage of people aged 20-24 years who identified as Aboriginal and/or Torres Strait Islander and who have completed Year 12 or equivalent, Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -463,7 +480,7 @@ table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_coun
 
 table <- year12_trend %>%
   f_preptable_grouped_indigenous(x_variable = year,
-                                 y_variable = "prop")
+                                 n_variable = "n and prop")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -496,15 +513,10 @@ figure_count <- figure_count + 1
 
 figure_number <- year12_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_n,
-                   y_breaks   = 20,
-                   y_expand   = 2,
                    n_level    = "people aged 20-24 yrs")
 
 figure_percent <- year12_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_prop,
-                   y_max      = 100,
-                   y_breaks   = 10,
-                   y_expand   = 2.5,
                    n_level    = "people aged 20-24 yrs",
                    ctg_target = 96)
 

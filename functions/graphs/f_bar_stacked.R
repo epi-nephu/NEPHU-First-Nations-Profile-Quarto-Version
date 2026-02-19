@@ -87,21 +87,27 @@ f_bar_stacked <- function(data, total_data = stacked_total, x_variable, y_variab
 ################################################################################
 # By LGA 
 ################################################################################
-f_bar_stacked_lga <- function(data, fill_values, y_max = NA, y_breaks, y_expand, y_title = "Number of people") {
+f_bar_stacked_lga <- function(data, fill_values, n_level) {
   
   data <- data %>% 
     dplyr::mutate(hover_text = paste0(lga_name, " LGA", "\n",
                                       comparison, "\n",
                                       "Count: ", format(aboriginal_n, big.mark = ",")))
   
+  y_title <- paste0("Number of ", n_level)
+  
+  y_max    <- max(data$aboriginal_total, na.rm = TRUE)
+  y_upper  <- y_upper_n(y_max)
+  y_breaks <- y_breaks(y_max)
+  
   figure <- data %>% 
     ggplot(aes(x = lga_name, y = aboriginal_n, fill = forcats::fct_rev(comparison), text = hover_text)) +
     #
     geom_col() +
     #
-    scale_y_continuous(limits = c(0, y_max),
+    scale_y_continuous(limits = c(0, y_upper),
                        breaks = scales::breaks_width(y_breaks),
-                       expand = expansion(add = c(0, y_expand)),
+                       expand = expansion(add = c(0, 0)),
                        labels = scales::comma_format(big.mark = ",")) +
     #
     scale_fill_manual(values = fill_values,
@@ -139,7 +145,7 @@ f_bar_stacked_lga <- function(data, fill_values, y_max = NA, y_breaks, y_expand,
 ################################################################################
 # By age and sex 
 ################################################################################
-f_bar_stacked_agesex <- function(data, fill_values, y_max = NA, y_breaks, y_expand, y_title = "Number of people") {
+f_bar_stacked_agesex <- function(data, fill_values, n_level) {
   
   data <- data %>% 
     dplyr::mutate(hover_text = paste0(sex, "\n",
@@ -147,14 +153,20 @@ f_bar_stacked_agesex <- function(data, fill_values, y_max = NA, y_breaks, y_expa
                                       comparison, "\n",
                                       "Count: ", format(aboriginal_n, big.mark = ",")))
   
+  y_title <- paste0("Number of ", n_level)
+  
+  y_max    <- max(data$aboriginal_total, na.rm = TRUE)
+  y_upper  <- y_upper_n(y_max)
+  y_breaks <- y_breaks(y_max)
+  
   figure <- data %>% 
     ggplot(aes(x = age_group, y = aboriginal_n, fill = forcats::fct_rev(comparison), text = hover_text)) +
     #
     geom_col() +
     #
-    scale_y_continuous(limits = c(0, y_max),
+    scale_y_continuous(limits = c(0, y_upper),
                        breaks = scales::breaks_width(y_breaks),
-                       expand = expansion(add = c(0, y_expand)),
+                       expand = expansion(add = c(0, 0)),
                        labels = scales::comma_format(big.mark = ",")) +
     #
     scale_fill_manual(values = fill_values,
