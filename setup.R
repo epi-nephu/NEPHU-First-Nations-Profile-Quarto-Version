@@ -168,6 +168,7 @@ y_upper_n <- function(y_max){
                    y_max <= 250   ~ (ceiling(y_max / 25) * 25) + (y_max * 0.025),
                    y_max <= 500   ~ (ceiling(y_max / 50) * 50) + (y_max * 0.025),
                    y_max <= 1000  ~ (ceiling(y_max / 100) * 100) + (y_max * 0.025),
+                   y_max <= 2000  ~ (ceiling(y_max / 200) * 200) + (y_max * 0.025),
                    y_max <= 2500  ~ (ceiling(y_max / 250) * 250) + (y_max * 0.025),
                    y_max <= 5000  ~ (ceiling(y_max / 500) * 500) + (y_max * 0.025),
                    y_max <= 10000 ~ (ceiling(y_max / 1000) * 1000) + (y_max * 0.025),
@@ -201,6 +202,7 @@ y_upper_rate <- function(y_max) {
                    y_max <= 250   ~ (ceiling(y_max / 25) * 25) + (y_max * 0.025),
                    y_max <= 500   ~ (ceiling(y_max / 50) * 50) + (y_max * 0.025),
                    y_max <= 1000  ~ (ceiling(y_max / 100) * 100) + (y_max * 0.025),
+                   y_max <= 2000  ~ (ceiling(y_max / 200) * 200) + (y_max * 0.025),
                    y_max <= 2500  ~ (ceiling(y_max / 250) * 250) + (y_max * 0.025),
                    y_max <= 5000  ~ (ceiling(y_max / 500) * 500) + (y_max * 0.025),
                    y_max <= 10000 ~ (ceiling(y_max / 1000) * 1000) + (y_max * 0.025),
@@ -223,6 +225,7 @@ y_breaks <- function(y_max) {
                    y_max <= 250   ~ 25,
                    y_max <= 500   ~ 50,
                    y_max <= 1000  ~ 100,
+                   y_max <= 2000  ~ 200,
                    y_max <= 2500  ~ 250,
                    y_max <= 5000  ~ 500,
                    y_max <= 10000 ~ 1000,
@@ -242,7 +245,7 @@ colour_gray  <- "#E0E0E0"
 colour_simplebar  <- "#3856A7"
 colour_simpleline <- "#3856A7"
 
-colour_ctgtarget <- "#41B6C4"
+colour_ctgtarget <- "#57173F"
 
 colour_maplow  <- "#FFFF99"
 colour_mapmid  <- "#41B6C4"

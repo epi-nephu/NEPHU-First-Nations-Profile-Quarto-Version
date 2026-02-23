@@ -1,6 +1,8 @@
 ---
-title: "Strength and Belonging"
+title-false: false
 ---
+
+# Strength and Belonging
 
 ```{r}
 #
@@ -12,6 +14,19 @@ table_section <- "07A"
 table_count   <- 0
 
 figure_count <- 0
+```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Strength and Belonging {.unnumbered}
+
+```{r}
+#
+knitr::knit_exit()
 ```
 
 ::: {.caveat-box}

@@ -7,11 +7,19 @@
 ################################################################################
 # By LGA
 ################################################################################
-f_bar_obsexp_lga <- function(data, y_max = NA, y_breaks, y_expand, y_title = "Number of people") {
+f_bar_obsexp_lga <- function(data, n_level = "people") {
   
   data <- data %>% 
-    dplyr::filter(lga_name %in% nephu_lga) %>%
-    #
+    dplyr::filter(lga_name %in% nephu_lga)
+  
+  max_obs <- max(data$aboriginal_n, na.rm = TRUE)
+  max_exp <- max(data$aboriginal_exp_non, na.rm = TRUE)
+  
+  y_max    <- max(max_obs, max_exp)
+  y_upper  <- y_upper_n(y_max)
+  y_breaks <- y_breaks(y_max)
+  
+  data <- data %>% 
     tidyr::pivot_longer(c(aboriginal_n, aboriginal_exp_non),
                         names_to  = "comparison",
                         values_to = "n") %>%
@@ -38,9 +46,9 @@ f_bar_obsexp_lga <- function(data, y_max = NA, y_breaks, y_expand, y_title = "Nu
     #
     geom_col(position = "dodge") +
     #
-    scale_y_continuous(limits = c(0, y_max),
+    scale_y_continuous(limits = c(0, y_upper),
                        breaks = scales::breaks_width(y_breaks),
-                       expand = expansion(add = c(0, y_expand)),
+                       expand = expansion(add = c(0, 0)),
                        labels = scales::comma_format(big.mark = ",")) +
     #
     scale_fill_manual(values = c(colour_aboriginal, colour_nonaboriginal),
@@ -60,7 +68,7 @@ f_bar_obsexp_lga <- function(data, y_max = NA, y_breaks, y_expand, y_title = "Nu
                    #
                    modebar = list(orientation = 'v'),
                    #
-                   yaxis = list(title = list(text     = y_title,
+                   yaxis = list(title = list(text     = paste0("Number of ", n_level),
                                              font     = list(size = 13, family = "Arial"),
                                              standoff = 10)),
                    #
@@ -77,11 +85,19 @@ f_bar_obsexp_lga <- function(data, y_max = NA, y_breaks, y_expand, y_title = "Nu
 ################################################################################
 # By age and sex
 ################################################################################
-f_bar_obsexp_agesex <- function(data, y_max = NA, y_breaks, y_expand, y_title = "Number of people") {
+f_bar_obsexp_agesex <- function(data, n_level = "people") {
   
   data <- data %>% 
-    dplyr::filter(age_group %in% age_group_lvl) %>%
-    #
+    dplyr::filter(age_group %in% age_group_lvl)
+
+  max_obs <- max(data$aboriginal_n, na.rm = TRUE)
+  max_exp <- max(data$aboriginal_exp_non, na.rm = TRUE)
+  
+  y_max    <- max(max_obs, max_exp)
+  y_upper  <- y_upper_n(y_max)
+  y_breaks <- y_breaks(y_max)
+  
+  data <- data %>%
     tidyr::pivot_longer(c(aboriginal_n, aboriginal_exp_non),
                         names_to  = "comparison",
                         values_to = "n") %>%
@@ -103,15 +119,22 @@ f_bar_obsexp_agesex <- function(data, y_max = NA, y_breaks, y_expand, y_title = 
                                       age_group, "\n",
                                       comparison_label, "\n",
                                       "Count: ", format(n, big.mark = ",")))
+
+  max_obs <- max(data$aboriginal_n, na.rm = TRUE)
+  max_exp <- max(data$aboriginal_exp_non, na.rm = TRUE)
+  
+  y_max    <- max(max_obs, max_exp)
+  y_upper  <- y_upper_n(y_max)
+  y_breaks <- y_breaks(y_max)
   
   figure <- data %>% 
     ggplot(aes(x = age_group, y = n, group = comparison, fill = comparison, text = hover_text)) +
     #
     geom_col(position = "dodge") +
     #
-    scale_y_continuous(limits = c(0, y_max),
+    scale_y_continuous(limits = c(0, y_upper),
                        breaks = scales::breaks_width(y_breaks),
-                       expand = expansion(add = c(0, y_expand)),
+                       expand = expansion(add = c(0, 0)),
                        labels = scales::comma_format(big.mark = ",")) +
     #
     scale_fill_manual(values = c(colour_aboriginal, colour_nonaboriginal),
@@ -135,7 +158,7 @@ f_bar_obsexp_agesex <- function(data, y_max = NA, y_breaks, y_expand, y_title = 
                    #
                    modebar = list(orientation = 'v'),
                    #
-                   yaxis = list(title = list(text     = y_title,
+                   yaxis = list(title = list(text     = paste0("Number of ", n_level),
                                              font     = list(size = 13, family = "Arial"),
                                              standoff = 10)),
                    #

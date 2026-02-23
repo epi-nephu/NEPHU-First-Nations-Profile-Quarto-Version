@@ -1,6 +1,8 @@
 ---
-title: "Mental Health and Wellbeing"
+title-block: false
 ---
+
+# Mental Health and Wellbeing
 
 ```{r}
 #
@@ -12,6 +14,19 @@ table_section <- "10L"
 table_count   <- 0
 
 figure_count <- 0
+```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Mental Health and Wellbeing {.unnumbered}
+
+```{r}
+#
+knitr::knit_exit()
 ```
 
 ::: {.caveat-box}

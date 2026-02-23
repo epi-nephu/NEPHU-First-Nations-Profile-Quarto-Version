@@ -1,6 +1,8 @@
 ---
-title: "Vaccination"
+title-block: false
 ---
+
+# Vaccination
 
 ```{r}
 #
@@ -12,6 +14,19 @@ table_section <- "09F"
 table_count   <- 0
 
 figure_count <- 0
+```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Vaccination {.unnumbered}
+
+```{r}
+#
+knitr::knit_exit()
 ```
 
 ::: {.caveat-box}

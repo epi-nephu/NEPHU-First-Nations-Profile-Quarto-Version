@@ -407,7 +407,7 @@ year12_sex <- year12_youth %>%
 
 - The number of people aged 20-24 years living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who had a Year 12 or equivalent education ranged from 141 (Whittlesea LGA) to 21 (Manningham LGA). 
 
-- The gap between the observed number of Aboriginal and/or Torres Strait Islander people aged 20-24 years with a Year 12 or equivalent education and the expected number if the proportion was the same as non-Indigenous people was biggest for Hume and Knox LGAs. 
+- The gap between the observed number of Aboriginal and/or Torres Strait Islander people aged 20-24 years with a Year 12 or equivalent education and the expected number if the proportion was the same as for non-Indigenous people was biggest for Hume and Knox LGAs. 
 
 - The percentage of people aged 20-24 years living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who had a Year 12 or equivalent education ranged from 90% (Yarra LGA) to 65% (Knox LGA). 
 
@@ -534,9 +534,7 @@ f_bar_simple_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 year12_lga %>% 
-  f_bar_obsexp_lga(y_breaks = 25,
-                   y_expand = 20,
-                   y_title  = "Number of people aged 20-24 yrs")
+  f_bar_obsexp_lga(n_level = "people aged 20-24 yrs")
 ```
 
 #### Table 6C-4
@@ -602,26 +600,24 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - Data for Figure 6C-3 and Table 6C-3 were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the ABS Census for the Census years between 2001 and 2021.
   - The Closing the Gap Information Repository brings together data from a wide range of data sources to provide up to date information for each Closing the Gap target, indicator, and contextual factors.
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
-`r note_caveat_unknown_agesex`
+<div style="height: 0.1em;"></div>
 
-- *Year 12 or equivalent education* is defined as the completion of a Year 12 or equivalent school qualification or a Certificate III or above non-school qualification based on the [Australian Qualifications Framework](https://www.aqf.edu.au/).
+`r note_caveat_unknown_agesex`
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Highest Level of Education
 
@@ -739,7 +735,7 @@ qualification_agesex <- qualification_agesex %>%
 
 - Females were more likely to have a university degree (undergraduate and/or postgraduate) than males.
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
 The following questions were asked of all people aged 15 years and over completing the ABS Census 2021.
 
 - What is the highest year of primary or secondary school the person has completed?
@@ -750,7 +746,7 @@ The following questions were asked of all people aged 15 years and over completi
   - Year 8 or equivalent
   - Did not go to school
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - Has the person completed any educational qualification?
   - No
@@ -758,12 +754,14 @@ The following questions were asked of all people aged 15 years and over completi
   - Yes, trade certificate/apprenticeship
   - Yes, other qualification (certificate, diploma, or degree)
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
   
 - What is the level of the highest qualification the person has completed?
   - Free text response
 
-<div style="height: 2em;"></div>
+Definitions and notes:
+
+`r note_aboriginality_census`
 :::
 
 :::: {.panel-tabset}
@@ -797,8 +795,7 @@ qualification_lga %>%
                "High School and below"))) %>% 
   #
   f_bar_stacked_lga(fill_values = c(colour_stack4, colour_stack3, colour_stack2, colour_stack1),
-                    y_breaks    = 200,
-                    y_expand    = 125)
+                    n_level     = "people")
 ```
 
 #### Table 6C-6
@@ -829,7 +826,8 @@ table %>%
   #
   f_table_simple(table_headers = c("LGA", 
                                    "Count", "Percent", "Count", "Percent", "Count", "Percent", "Count", "Percent",
-                                   "Total")) %>%
+                                   "Total"),
+                 column_width  = "0.75in") %>%
   #
   kableExtra::add_header_above(c(" " = 1,
                                  "Postgraduate"            = 2,
@@ -872,8 +870,7 @@ qualification_agesex %>%
                "High School and below"))) %>% 
   #
   f_bar_stacked_agesex(fill_values = c(colour_stack4, colour_stack3, colour_stack2, colour_stack1),
-                       y_breaks    = 150,
-                       y_expand    = 50)
+                       n_level     = "people")
 ```
 
 #### Table 6C-7
@@ -912,8 +909,11 @@ table %>%
                                    "Count", "Percent", "Count", "Percent", "Count", "Percent", "Count", "Percent",
                                    "Total")) %>%
   #
-  kableExtra::column_spec(2:ncol(table) - 1,
-                          width = "0.75in") %>% 
+  kableExtra::column_spec(1,
+                          width = "1in") %>%
+  #
+  kableExtra::column_spec(2:10,
+                          width = "0.75in") %>%
   #
   kableExtra::add_header_above(c("Female" = 1,
                                  "Postgraduate"            = 2,
@@ -933,8 +933,11 @@ table %>%
                                    "Count", "Percent", "Count", "Percent", "Count", "Percent", "Count", "Percent",
                                    "Total")) %>%
   #
-  kableExtra::column_spec(2:ncol(table) - 1,
-                          width = "0.75in") %>% 
+  kableExtra::column_spec(1,
+                          width = "1in") %>%
+  #
+  kableExtra::column_spec(2:10,
+                          width = "0.75in") %>%
   #
   kableExtra::add_header_above(c("Male" = 1,
                                  "Postgraduate"            = 2,
@@ -953,21 +956,23 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
 
 - People who did not attend school are included in the *High School and below* category.
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Tertiary Qualifications
 
@@ -1042,11 +1047,13 @@ uni_sex <- uni_youth %>%
 
 - The number of people aged 25-34 years living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who had a tertiary qualification (Certificate III and above) ranged from 186 (Darebin LGA) to 15 (Manningham LGA). 
 
-- The gap between the observed number of Aboriginal and/or Torres Strait Islander people aged 25-34 years who had a tertiary qualification (Certificate III and above) and the expected number if the proportion was the same as for non-Indigenous people was biggest for Darebin LGA and Hume LGAs. 
+- The gap between the observed number of Aboriginal and/or Torres Strait Islander people aged 25-34 years who had a tertiary qualification (Certificate III and above) and the expected number if the proportion was the same as for non-Indigenous people was biggest for Darebin and Hume LGAs. 
 
 - The percentage of people aged 25-34 years living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who had a tertiary qualification (Certificate III and above) ranged from 91% (Nillumbik LGA) to 56% (Knox LGA). 
 
 - 71% (n = 632) of females living in the NEPHU catchment aged 25-34 years who identified as Aboriginal and/or Torres Strait Islander in the Census had a tertiary qualification, compared to 59% (n = 523) of males.
+
+- Further historical and ongoing target context can be found on the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/further-education-pathways/).
 
 **Key points from stakeholder consultation**
 
@@ -1056,7 +1063,7 @@ uni_sex <- uni_youth %>%
 
 - For example, the [Victorian Aboriginal Community Services Association (VASCAL)](https://www.vacsal.org.au/), offers a Certificate IV and Diploma of Community Services. The [Victorian Aboriginal Community Controlled Health Organisation (VACCHO)](https://www.vaccho.org.au/) also offers a range of Diplomas, including a Diploma of Counselling and a Diploma of Business.
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
 The following questions were asked of all people aged 15 years and over completing the ABS Census 2021.
 
 - What is the highest year of primary or secondary school the person has completed?
@@ -1067,7 +1074,7 @@ The following questions were asked of all people aged 15 years and over completi
   - Year 8 or equivalent
   - Did not go to school
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - Has the person completed any educational qualification?
   - No
@@ -1075,12 +1082,14 @@ The following questions were asked of all people aged 15 years and over completi
   - Yes, trade certificate/apprenticeship
   - Yes, other qualification (certificate, diploma, or degree)
 
-<div style="height: 1em;"></div>
-  
+<div style="height: 0.1em;"></div>
+
 - What is the level of the highest qualification the person has completed?
   - Free text response
 
-<div style="height: 2em;"></div>
+Definitions and notes:
+
+`r note_aboriginality_census`
 :::
 
 :::: {.panel-tabset}
@@ -1088,7 +1097,7 @@ The following questions were asked of all people aged 15 years and over completi
 #### Figure 6C-8
 
 ::: {#fig_6C_8 .fig-tab-title}
-**Figure 6C-8:** Percentage of people aged 25-34 years who identified as Aboriginal and/or Torres Strait Islander and who have completed a tertiary qualification (Certificate III and above), Victoria, by Aboriginal and/or Torres Strait Islander status, 2001-2021
+**Figure 6C-8:** Percentage of people aged 25-34 years who identified as Aboriginal and/or Torres Strait Islander and who have completed a tertiary qualification (Certificate III and above), Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -1100,9 +1109,6 @@ uni_trend %>%
   dplyr::rename(prop = vic) %>% 
   #
   f_line_grouped_indigenous(y_variable = prop,
-                            y_max      = 100,
-                            y_breaks   = 10,
-                            y_expand   = 2.5,
                             n_level    = "people aged 25-34 yrs",
                             ctg_target = 70)
 ```
@@ -1110,7 +1116,7 @@ uni_trend %>%
 #### Table 6C-8
 
 ::: {#tab_6C_8 .fig-tab-title}
-**Table 6C-8:** Number and percentage of people aged 25-34 years who identified as Aboriginal and/or Torres Strait Islander and who have completed a tertiary qualification (Certificate III and above), Victoria, by Aboriginal and/or Torres Strait Islander status, 2001-2021
+**Table 6C-8:** Number and percentage of people aged 25-34 years who identified as Aboriginal and/or Torres Strait Islander and who have completed a tertiary qualification (Certificate III and above), Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -1120,7 +1126,7 @@ table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_coun
 
 table <- uni_trend %>% 
   f_preptable_grouped_indigenous(x_variable = year,
-                                 y_variable = "prop")
+                                 n_variable = "n and prop")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -1153,15 +1159,10 @@ figure_count <- figure_count + 1
 
 figure_number <- uni_lga %>%
   f_bar_simple_lga(y_variable = aboriginal_n,
-                   y_breaks   = 20,
-                   y_expand   = 20,
                    n_level    = "people aged 25-34 yrs")
 
 figure_percent <- uni_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_prop,
-                   y_max      = 100,
-                   y_breaks   = 10,
-                   y_expand   = 2.5,
                    n_level    = "people aged 25-34 yrs",
                    ctg_target = 70)
 
@@ -1179,9 +1180,7 @@ f_bar_simple_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 uni_lga %>% 
-  f_bar_obsexp_lga(y_breaks = 25,
-                   y_expand = 15,
-                   y_title  = "Number of people aged 25-34 yrs")
+  f_bar_obsexp_lga(n_level = "people aged 25-34 yrs")
 ```
 
 #### Table 6C-9
@@ -1247,14 +1246,16 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - Data for Figure 6C-8 and Table 6C-8 were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the ABS Census for the Census years between 2001 and 2021.
   - The Closing the Gap Information Repository brings together data from a wide range of data sources to provide up to date information for each Closing the Gap target, indicator, and contextual factors.
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_unknown_agesex`
 :::

@@ -1,6 +1,8 @@
 ---
-title: "Other Conditions"
+title-block: false
 ---
+
+# Other Conditions
 
 ```{r}
 #
@@ -12,6 +14,19 @@ table_section <- "10J"
 table_count   <- 0
 
 figure_count <- 0
+```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Other Conditions {.unnumbered}
+
+```{r}
+#
+knitr::knit_exit()
 ```
 
 ::: {.caveat-box}

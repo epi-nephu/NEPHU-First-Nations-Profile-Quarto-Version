@@ -1,6 +1,8 @@
 ---
-title: "Living with Disability"
+title-block: false
 ---
+
+# Living with Disability
 
 ```{r}
 #
@@ -12,6 +14,19 @@ table_section <- "10B"
 table_count   <- 0
 
 figure_count <- 0
+```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Living with Disability {.unnumbered}
+
+```{r}
+#
+knitr::knit_exit()
 ```
 
 ::: {.caveat-box}

@@ -1,6 +1,8 @@
 ---
-title: "Connection to Country"
+title-block: false
 ---
+
+# Connection to Country
 
 ```{r}
 #
@@ -12,6 +14,19 @@ table_section <- "07B"
 table_count   <- 0
 
 figure_count <- 0
+```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Connection to Country {.unnumbered}
+
+```{r}
+#
+knitr::knit_exit()
 ```
 
 ::: {.caveat-box}

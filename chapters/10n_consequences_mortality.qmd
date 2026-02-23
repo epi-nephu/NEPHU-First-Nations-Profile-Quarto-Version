@@ -1,5 +1,5 @@
 ---
-title: "Mortality"
+title-block: false
 ---
 
 ```{r}
@@ -12,6 +12,19 @@ table_section <- "10N"
 table_count   <- 0
 
 figure_count <- 0
+```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Mortality {.unnumbered}
+
+```{r}
+#
+knitr::knit_exit()
 ```
 
 ::: {.warning-box}

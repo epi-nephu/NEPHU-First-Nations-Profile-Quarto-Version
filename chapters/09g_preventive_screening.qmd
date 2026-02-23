@@ -1,6 +1,8 @@
 ---
-title: "Cancer Screening"
+title-block: false
 ---
+
+# Cancer Screening
 
 ```{r}
 #
@@ -12,6 +14,19 @@ table_section <- "09G"
 table_count   <- 0
 
 figure_count <- 0
+```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Cancer Screening {.unnumbered}
+
+```{r}
+#
+knitr::knit_exit()
 ```
 
 ::: {.caveat-box}

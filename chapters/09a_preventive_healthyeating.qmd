@@ -1,6 +1,8 @@
 ---
-title: "Healthy Eating"
+title-block: false
 ---
+
+# Healthy Eating
 
 ```{r}
 #
@@ -12,6 +14,19 @@ table_section <- "09A"
 table_count   <- 0
 
 figure_count <- 0
+```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Healthy Eating {.unnumbered}
+
+```{r}
+#
+knitr::knit_exit()
 ```
 
 ::: {.caveat-box}

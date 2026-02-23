@@ -1,6 +1,8 @@
 ---
-title: "Tobacco and Vaping"
+title-block: false
 ---
+
+# Tobacco and Vaping
 
 ```{r}
 #
@@ -12,6 +14,19 @@ table_section <- "09C"
 table_count   <- 0
 
 figure_count <- 0
+```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Tobacco and Vaping {.unnumbered}
+
+```{r}
+#
+knitr::knit_exit()
 ```
 
 ::: {.caveat-box}

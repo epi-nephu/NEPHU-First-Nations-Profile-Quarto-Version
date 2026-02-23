@@ -1,6 +1,8 @@
 ---
-title: "Employment"
+title-block: false
 ---
+
+# Employment
 
 ```{r}
 #
@@ -13,6 +15,14 @@ table_count   <- 0
 
 figure_count <- 0
 ```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Education {.unnumbered}
 
 ::: {.caveat-box}
 **A note about the impact of under-identification**
@@ -124,7 +134,7 @@ engaged_agesex <- engaged_agesex %>%
 
 - Younger people were more likely to be fully or partially engaged in employment, education, or training. Males were more likely to be fully engaged and females were more likely to be partially engaged.
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
 The following questions were asked of all people aged 15 years and over completing the ABS Census 2021. Responses were cross tabulated to determine the type of engagement in work and/or study (fully engaged, partially engaged, at least partially engaged, not engaged) for each respondent.
 
 - Is the person attending a school or any other education institution?
@@ -132,7 +142,7 @@ The following questions were asked of all people aged 15 years and over completi
   - Yes, full-time student
   - Yes, part-time student
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - Last week, did the person have a job of any kind?
   - Yes, worked for payment or profit
@@ -141,19 +151,19 @@ The following questions were asked of all people aged 15 years and over completi
   - Yes, other unpaid work
   - No, did not have a job
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - Last week, how many hours did the person work in all jobs?
   - Free text response
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - Did the person actively look for work at any time in the last four weeks?
   - No, did not look for work
   - Yes, looked for full-time work
   - Yes, looked for part-time work
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - If the person had found a job, could they have started work last week?
   - Yes, could have started work last week
@@ -161,7 +171,9 @@ The following questions were asked of all people aged 15 years and over completi
   - No, temporarily ill or injured
   - No, other reason
   
-<div style="height: 2em;"></div>
+Definitions and notes:
+
+`r note_aboriginality_census`
 :::
 
 :::: {.panel-tabset}
@@ -193,8 +205,7 @@ engaged_lga %>%
                "Not engaged"))) %>% 
   
   f_bar_stacked_lga(fill_values = c(colour_stack3, colour_stack2, colour_stack1),
-                    y_breaks    = 200,
-                    y_expand    = 35)
+                    n_level     = "people")
 ```
 
 #### Table 6D-1
@@ -264,8 +275,7 @@ engaged_agesex %>%
                "Not engaged"))) %>% 
   #
   f_bar_stacked_agesex(fill_values = c(colour_stack3, colour_stack2, colour_stack1),
-                       y_breaks    = 200,
-                       y_expand    = 100)
+                       n_level     = "people")
 ```
 
 #### Table 6D-2
@@ -336,9 +346,11 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_unknown_agesex`
 :::
@@ -431,23 +443,25 @@ fully_age <- f_read_ctg_indigenous("CTG07_Employment_Education_Data_Tables.xlsx"
 
 - The number of people aged 15-24 years living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who were fully engaged in education, employment, or training ranged from 243 (Whittlesea LGA) to 36 (Manningham LGA).
 
-- The gap between Aboriginal and/or Torres Strait Islander and non-Indigenous people was biggest for Whittlesea and Hume LGAs.
+- The gap between the observed number of Aboriginal and/or Torres Strait Islander people aged 15-24 years who were fully engaged in education, employment, or training and the expected number if the proportion was the same as for non-Indigenous people was biggest for Whittlesea and Hume LGAs.
 
 - The percentage of people aged 15-24 years living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who were fully engaged in education, employment, or training ranged from 100% (Nillumbik LGA) to 63% (Hume LGA).
 
-- 9 of the 12 LGAs in the NEPHU catchment were on or above the Closing the Gap target of 67%.
+- The Closing the Gap target (67%) has been met in 9 out of 12 LGAs in the NEPHU catchment. However, except for Yarra Ranges, these LGAs contained a small number of Aboriginal and/or Torres Strait Islander people, with more populous LGAs such as Darebin, Hume, and Whittlesea not quite meeting the target.
 
 - 72% (n = 819) of males aged 15-24 years living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census were fully engaged in education, employment, or training, compared to 68% (n = 736) of females.
 
-- The percentage of people fully engaged in education, employment, or training decreased with increasing age between the ages of 15 and 24 years for both Aboriginal and/or Torres Strait Islander and non-Indigenous people.
+- For people in the 15-24 year age group, the percentage of people fully engaged in education, employment, or training decreased with increasing age for both Aboriginal and/or Torres Strait Islander and non-Indigenous people.
+
+- Further historical and ongoing target context can be found on the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/youth-engagement/).
 
 **Key points from stakeholder consultation**
 
-- At stakeholder consultations during the development of this report these data were discussed as being good evidence against stigma surrounding Aboriginal youth employment and youth justice.
+- At stakeholder consultation for this report, these data were discussed as being good evidence that counters stereotypes and stigma regarding Aboriginal youth employment.
 
 - Given the improvement seen in youth engagement in education, employment, or training over time, it was also discussed whether the Closing the Gap target should now be higher.
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
 The following questions were asked of all people aged 15 years and over completing the ABS Census 2021. Responses were cross tabulated to determine the type of engagement in work and/or study (fully engaged, partially engaged, at least partially engaged, not engaged) for each respondent.
 
 - Is the person attending a school or any other education institution?
@@ -455,7 +469,7 @@ The following questions were asked of all people aged 15 years and over completi
   - Yes, full-time student
   - Yes, part-time student
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - Last week, did the person have a job of any kind?
   - Yes, worked for payment or profit
@@ -464,19 +478,19 @@ The following questions were asked of all people aged 15 years and over completi
   - Yes, other unpaid work
   - No, did not have a job
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - Last week, how many hours did the person work in all jobs?
   - Free text response
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - Did the person actively look for work at any time in the last four weeks?
   - No, did not look for work
   - Yes, looked for full-time work
   - Yes, looked for part-time work
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - If the person had found a job, could they have started work last week?
   - Yes, could have started work last week
@@ -484,7 +498,9 @@ The following questions were asked of all people aged 15 years and over completi
   - No, temporarily ill or injured
   - No, other reason
   
-<div style="height: 2em;"></div>
+Definitions and notes:
+
+`r note_aboriginality_census`
 :::
 
 :::: {.panel-tabset}
@@ -492,7 +508,7 @@ The following questions were asked of all people aged 15 years and over completi
 #### Figure 6D-3
 
 ::: {#fig_6D_3 .fig-tab-title}
-**Figure 6D-3:** Percentage of people aged 15-24 years who identified as Aboriginal and/or Torres Strait Islander and who were fully engaged in education, employment, or training, Victoria, by Aboriginal and/or Torres Strait Islander status, 2001-2021
+**Figure 6D-3:** Percentage of people aged 15-24 years who identified as Aboriginal and/or Torres Strait Islander and who were fully engaged in education, employment, or training, Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -505,9 +521,6 @@ fully_trend %>%
   dplyr::rename(prop = vic) %>% 
   #
   f_line_grouped_indigenous(y_variable = prop,
-                            y_max      = 100,
-                            y_breaks   = 10,
-                            y_expand   = 2.5,
                             n_level    = "people aged 15-24 yrs",
                             ctg_target = 67)
 ```
@@ -515,7 +528,7 @@ fully_trend %>%
 #### Table 6D-3
 
 ::: {#tab_6D_3 .fig-tab-title}
-**Table 6D-3:** Number and percentage of people aged 15-24 years who identified as Aboriginal and/or Torres Strait Islander and who were fully engaged in education, employment, or training, Victoria, by Aboriginal and/or Torres Strait Islander status, 2001-2021
+**Table 6D-3:** Number and percentage of people aged 15-24 years who identified as Aboriginal and/or Torres Strait Islander and who were fully engaged in education, employment, or training, Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -525,7 +538,7 @@ table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_coun
 
 table <- fully_trend %>% 
   f_preptable_grouped_indigenous(x_variable = year,
-                                 y_variable = "prop")
+                                 n_variable = "n and prop")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -558,15 +571,10 @@ figure_count <- figure_count + 1
 
 figure_number <- fully_youth_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_n,
-                   y_breaks   = 25,
-                   y_expand   = 15,
                    n_level    = "people aged 15-24 yrs")
 
 figure_percent <- fully_youth_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_prop,
-                   y_max      = 100,
-                   y_breaks   = 10,
-                   y_expand   = 2.5,
                    n_level    = "people aged 15-24 yrs",
                    ctg_target = 67)
 
@@ -584,9 +592,7 @@ f_bar_simple_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 fully_youth_lga %>%
-  f_bar_obsexp_lga(y_breaks = 50,
-                   y_expand = 20,
-                   y_title  = "Number of people aged 15-24 yrs")
+  f_bar_obsexp_lga(n_level = "people aged 15-24 yrs")
 ```
 
 #### Table 6D-4
@@ -664,9 +670,6 @@ fully_age %>%
   #
   f_bar_grouped_indigenous(x_variable    = age,
                            y_variable    = prop,
-                           y_max         = 100,
-                           y_breaks      = 10,
-                           y_expand      = 2.5,
                            x_angle       = 0,
                            legend_offset = -0.1)
 ```
@@ -684,7 +687,7 @@ table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_coun
 
 table <- fully_age %>% 
   f_preptable_grouped_indigenous(x_variable = age,
-                                 y_variable = "prop")
+                                 n_variable = "n and prop")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -710,24 +713,24 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - Data for Figure 6D-3 and Table 6D-3 were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the ABS Census for the Census years between 2001 and 2021.
   - The Closing the Gap Information Repository brings together data from a wide range of data sources to provide up to date information for each Closing the Gap target, indicator, and contextual factors.
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_unknown_agesex`
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Employment
 

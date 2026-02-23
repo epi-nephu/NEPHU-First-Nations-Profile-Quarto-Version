@@ -1,6 +1,8 @@
 ---
-title: "Cancer"
+title-block: false
 ---
+
+# Cancer
 
 ```{r}
 #
@@ -12,6 +14,19 @@ table_section <- "10E"
 table_count   <- 0
 
 figure_count <- 0
+```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Cancer {.unnumbered}
+
+```{r}
+#
+knitr::knit_exit()
 ```
 
 ::: {.caveat-box}
