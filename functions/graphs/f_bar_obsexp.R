@@ -119,13 +119,6 @@ f_bar_obsexp_agesex <- function(data, n_level = "people") {
                                       age_group, "\n",
                                       comparison_label, "\n",
                                       "Count: ", format(n, big.mark = ",")))
-
-  max_obs <- max(data$aboriginal_n, na.rm = TRUE)
-  max_exp <- max(data$aboriginal_exp_non, na.rm = TRUE)
-  
-  y_max    <- max(max_obs, max_exp)
-  y_upper  <- y_upper_n(y_max)
-  y_breaks <- y_breaks(y_max)
   
   figure <- data %>% 
     ggplot(aes(x = age_group, y = n, group = comparison, fill = comparison, text = hover_text)) +

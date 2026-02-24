@@ -22,7 +22,7 @@ figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Education {.unnumbered}
+## Employment {.unnumbered}
 
 ::: {.caveat-box}
 **A note about the impact of under-identification**
@@ -836,7 +836,7 @@ status_agesex <- status_agesex %>%
 
 - Males were more likely to be employed full-time than females.
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
 The following questions were asked of all people aged 15 years and over completing the ABS Census 2021. Responses were cross tabulated to determine the labour force status (employed full-time, employed part-time, employed but away from work, unemployed but looking for work, not in the labour force) for each respondent.
 
 - Last week, did the person have a job of any kind?
@@ -846,25 +846,25 @@ The following questions were asked of all people aged 15 years and over completi
   - Yes, other unpaid work
   - No, did not have a job
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - In the main job held last week, was the person:
   - Working for an employer
   - Working in own business
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - Last week, how many hours did the person work in all jobs?
   - Free text response
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - Did the person actively look for work at any time in the last four weeks?
   - No, did not look for work
   - Yes, looked for full-time work
   - Yes, looked for part-time work
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - If the person had found a job, could they have started work last week?
   - Yes, could have started work last week
@@ -872,7 +872,17 @@ The following questions were asked of all people aged 15 years and over completi
   - No, temporarily ill or injured
   - No, other reason
 
-<div style="height: 2em;"></div>
+Definitions and notes:
+
+`r note_aboriginality_census`
+
+<div style="height: 0.1em;"></div>
+
+- Employed people were defined as those who were employed full-time (35 hours or more per week), part-time (less than 35 hours per week), or on leave from work in the week prior to Census night.
+
+<div style="height: 0.1em;"></div>
+
+- Unemployed people were defined as people who were not currently employed and were actively looking for work (either part-time or full-time) or people who were not part of the labour force.
 :::
 
 :::: {.panel-tabset}
@@ -906,8 +916,7 @@ status_lga %>%
                "Unemployed"))) %>% 
   #
   f_bar_stacked_lga(fill_values = c(colour_stack4, colour_stack3, colour_stack2, colour_stack1),
-                    y_breaks    = 200,
-                    y_expand    = 40)
+                    n_level     = "people")
 ```
 
 #### Table 6D-7
@@ -938,13 +947,14 @@ table %>%
   #
   f_table_simple(table_headers = c("LGA",
                                    "Count", "Percent", "Count", "Percent", "Count", "Percent", "Count", "Percent",
-                                   "Total")) %>%
+                                   "Total"),
+                 column_width  = "0.75in") %>%
   #
   kableExtra::add_header_above(c(" " = 1,
                                  "Employed (full-time)" = 2,
                                  "Employed (part-time)" = 2,
                                  "Employed (on leave)"  = 2,
-                                 "Unemployed"            = 2,
+                                 "Unemployed"           = 2,
                                  " " = 1))
 ```
 
@@ -981,8 +991,7 @@ status_agesex %>%
                "Unemployed"))) %>%
   #
   f_bar_stacked_agesex(fill_values = c(colour_stack4, colour_stack3, colour_stack2, colour_stack1),
-                       y_breaks    = 200,
-                       y_expand    = 160)
+                       n_level     = "people")
 ```
 
 #### Table 6D-8
@@ -1021,6 +1030,9 @@ table %>%
                                    "Count", "Percent", "Count", "Percent", "Count", "Percent", "Count", "Percent",
                                    "Total")) %>%
   #
+  kableExtra::column_spec(1,
+                          width = "1in") %>%
+  #
   kableExtra::column_spec(2:10,
                           width = "0.75in") %>%
   #
@@ -1042,6 +1054,9 @@ table %>%
                                    "Count", "Percent", "Count", "Percent", "Count", "Percent", "Count", "Percent",
                                    "Total")) %>%
   #
+  kableExtra::column_spec(1,
+                          width = "1in") %>%
+  #
   kableExtra::column_spec(2:10,
                           width = "0.75in") %>%
   #
@@ -1062,15 +1077,13 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_unknown_agesex`
-
-- Employed people are defined as those who were employed full-time (35 hours or more per week), part-time (less than 35 hours per week), or on leave from work in the week prior to Census night.
-
-- Unemployed people are defined as people who were not currently employed and were actively looking for work (either part-time or full-time) or people who were not part of the labour force.
 :::
 
 ### Working Age Adults
@@ -1146,7 +1159,7 @@ status_working_sex <- status_working %>%
 
 - The number of people aged 25-64 years who identified as Aboriginal and/or Torres Strait Islander in the Census living in different LGAs within the NEPHU catchment who were employed (full-time, part-time, or on leave) ranged from 604 (Whittlesea LGA) to 66 (Manningham LGA).
 
-- The gap between Aboriginal and/or Torres Strait Islander and non-Indigenous people was biggest for Darebin and Yarra Ranges LGAs.
+- The gap between the observed number of Aboriginal and/or Torres Strait Islander people aged 25-64 years who were employed (full-time, part-time, or on leave) and the expected number if the proportion was the same as for non-Indigenous people was biggest for Darebin and Yarra Ranges LGAs.
 
 - The percentage of people aged 25-64 years who identified as Aboriginal and/or Torres Strait Islander in the Census living in different LGAs within the NEPHU catchment who were employed (full-time, part-time, or on leave) ranged from 82% (Boroondara LGA) to 65% (Maroondah LGA).
 
@@ -1154,7 +1167,9 @@ status_working_sex <- status_working %>%
 
 - 66% (n = 1,661) of females living in the NEPHU catchment aged 25-64 years who identified as Aboriginal and/or Torres Strait Islander in the Census were employed (full-time, part-time, or on leave), compared to 73% (n = 1,792) of males.
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+- Further historical and ongoing target context can be found on the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/economic-participation/).
+
+::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
 The following questions were asked of all people aged 15 years and over completing the ABS Census 2021. Responses were cross tabulated to determine the labour force status (employed full-time, employed part-time, employed but away from work, unemployed but looking for work, not in the labour force) for each respondent.
 
 - Last week, did the person have a job of any kind?
@@ -1164,25 +1179,25 @@ The following questions were asked of all people aged 15 years and over completi
   - Yes, other unpaid work
   - No, did not have a job
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - In the main job held last week, was the person:
   - Working for an employer
   - Working in own business
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - Last week, how many hours did the person work in all jobs?
   - Free text response
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - Did the person actively look for work at any time in the last four weeks?
   - No, did not look for work
   - Yes, looked for full-time work
   - Yes, looked for part-time work
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - If the person had found a job, could they have started work last week?
   - Yes, could have started work last week
@@ -1190,7 +1205,17 @@ The following questions were asked of all people aged 15 years and over completi
   - No, temporarily ill or injured
   - No, other reason
 
-<div style="height: 2em;"></div>
+Definitions and notes:
+
+`r note_aboriginality_census`
+
+<div style="height: 0.1em;"></div>
+
+- Employed people were defined as those who were employed full-time (35 hours or more per week), part-time (less than 35 hours per week), or on leave from work in the week prior to Census night.
+
+<div style="height: 0.1em;"></div>
+
+- Unemployed people were defined as people who were not currently employed and were actively looking for work (either part-time or full-time) or people who were not part of the labour force.
 :::
 
 :::: {.panel-tabset}
@@ -1198,7 +1223,7 @@ The following questions were asked of all people aged 15 years and over completi
 #### Figure 6D-9
 
 ::: {#fig_6D_9 .fig-tab-title}
-**Figure 6D-9:** Percentage of people aged 25-64 years who were employed (full-time, part-time, or on leave), Victoria, by Aboriginal and/or Torres Strait Islander status, 1991-2021
+**Figure 6D-9:** Percentage of people aged 25-64 years who were employed (full-time, part-time, or on leave), Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -1211,9 +1236,6 @@ status_trend %>%
   dplyr::rename(prop = vic) %>% 
   #
   f_line_grouped_indigenous(y_variable = prop,
-                            y_max      = 100,
-                            y_breaks   = 10,
-                            y_expand   = 2.5,
                             n_level    = "people aged 25-64 yrs", 
                             ctg_target = 62)
 ```
@@ -1221,7 +1243,7 @@ status_trend %>%
 #### Table 6D-9
 
 ::: {#tab_6D_9 .fig-tab-title}
-**Table 6D-9:** Number and percentage of people aged 25-64 years who were employed (full-time, part-time, or on leave), Victoria, by Aboriginal and/or Torres Strait Islander status, 1991-2021
+**Table 6D-9:** Number and percentage of people aged 25-64 years who were employed (full-time, part-time, or on leave), Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -1231,7 +1253,7 @@ table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_coun
 
 table <- status_trend %>% 
   f_preptable_grouped_indigenous(x_variable = year,
-                                 y_variable = "prop")
+                                 n_variable = "n and prop")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -1264,15 +1286,10 @@ figure_count <- figure_count + 1
 
 figure_number <- status_working_lga %>%
   f_bar_simple_lga(y_variable = aboriginal_n,
-                   y_breaks   = 100,
-                   y_expand   = 10,
                    n_level    = "people aged 25-64 yrs")
 
 figure_percent <- status_working_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_prop,
-                   y_max      = 100,
-                   y_breaks   = 10,
-                   y_expand   = 2.5,
                    n_level    = "people aged 25-64 yrs",
                    ctg_target = 62)
 
@@ -1290,9 +1307,7 @@ f_bar_simple_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 status_working_lga %>%
-  f_bar_obsexp_lga(y_breaks = 100,
-                   y_expand = 60,
-                   y_title  = "Number of people aged 25-64 yrs")
+  f_bar_obsexp_lga(n_level = "people aged 25-64 yrs")
 ```
 
 #### Table 6D-10
@@ -1358,28 +1373,24 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - Data for Figure 6D-9 and Table 6D-9 were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the ABS Census for the Census years between 2001 and 2021.
   - The Closing the Gap Information Repository brings together data from a wide range of data sources to provide up to date information for each Closing the Gap target, indicator, and contextual factors.
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_unknown_agesex`
-
-- Employed people are defined as those who were employed full-time (35 hours or more per week), part-time (less than 35 hours per week), or on leave from work in the week prior to Census night.
-
-- Unemployed people are defined as people who were not currently employed and were actively looking for work (either part-time or full-time) or people who were not part of the labour force.
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Volunteer Work
 
@@ -1432,24 +1443,24 @@ volunteer_agesex <- volunteer_agesex %>%
 
 - The number of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who did volunteer work for an organisation or group ranged from 193 (Yarra Ranges LGA) to 34 (Nillumbik LGA).
 
-- The gap between Aboriginal and/or Torres Strait Islander and non-Indigenous people was biggest for Whittlesea and Hume LGAs.
+- The gap between the observed number of Aboriginal and/or Torres Strait Islander people and the expected number if the proportion was the same as for non-Indigenous people was biggest for Whittlesea and Hume LGAs.
 
 - The percentage of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who did volunteer work for an organisation or group ranged from 22% (Yarra LGA) to 9.3% (Hume LGA).
 
 **Key points from stakeholder consultation**
 
-- Consultation feedback during the development of this report emphasised that these data are unlikely to be an underestimate.
+- Consultations with stakeholders regarding this indicator noted that these data are likely to be an underestimate, as many in Aboriginal and/or Torres Strait Islander people do not see helping out in their community as a volunteering activity, but rather as something that is just done.
 
-- It was discussed that many Aboriginal and/or Torres Strait Islander people do not see helping out in their community as volunteering activity, but rather something that is just done.
-
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
 The following question was asked of all people aged 15 years and over completing the ABS Census 2021.
 
 - In the last 12 months did the person spend any time doing unpaid voluntary work for an organisation or group?
   - No, did not do any voluntary work
   - Yes, did voluntary work
 
-<div style="height: 2em;"></div>
+Definitions and notes:
+
+`r note_aboriginality_census`
 :::
 
 :::: {.panel-tabset}
@@ -1465,15 +1476,10 @@ The following question was asked of all people aged 15 years and over completing
 figure_count <- figure_count + 1
 
 figure_number <- volunteer_lga %>% 
-  f_bar_simple_lga(y_variable = aboriginal_n,
-                   y_breaks   = 25,
-                   y_expand   = 13)
+  f_bar_simple_lga(y_variable = aboriginal_n)
 
 figure_percent <- volunteer_lga %>% 
-  f_bar_simple_lga(y_variable = aboriginal_prop,
-                   y_max      = 25,
-                   y_breaks   = 5,
-                   y_expand   = 0.5)
+  f_bar_simple_lga(y_variable = aboriginal_prop)
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```
@@ -1489,8 +1495,7 @@ f_bar_simple_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 volunteer_lga %>% 
-  f_bar_obsexp_lga(y_breaks = 25,
-                   y_expand = 12)
+  f_bar_obsexp_lga()
 ```
 
 #### Table 6D-12
@@ -1533,15 +1538,10 @@ table %>%
 figure_count <- figure_count + 1
 
 figure_number <- volunteer_agesex %>% 
-  f_bar_grouped_agesex(y_variable = aboriginal_n,
-                       y_breaks   = 25,
-                       y_expand   = 25)
+  f_bar_grouped_agesex(y_variable = aboriginal_n)
 
 figure_percent <- volunteer_agesex %>% 
-  f_bar_grouped_agesex(y_variable = aboriginal_prop,
-                       y_max      = 25,
-                       y_breaks   = 5,
-                       y_expand   = 0.5)
+  f_bar_grouped_agesex(y_variable = aboriginal_prop)
 
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
@@ -1556,9 +1556,8 @@ f_bar_grouped_combine(figure_number, figure_percent)
 #
 figure_count <- figure_count + 1
 
-volunteer_agesex %>% 
-  f_bar_obsexp_agesex(y_breaks = 25,
-                      y_expand = 24)
+volunteer_agesex %>%
+  f_bar_obsexp_agesex()
 ```
 
 #### Table 6D-13
@@ -1609,19 +1608,19 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_unknown_agesex`
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Unpaid Carers
 
@@ -1675,7 +1674,7 @@ carer_agesex <- carer_agesex %>%
 
 - The number of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who undertook unpaid caring duties ranged from 233 (Hume LGA) to 35 (Manningham LGA).
 
-- The gap between Aboriginal and/or Torres Strait Islander and non-Indigenous people was biggest for Hume, Knox, and Whittlesea LGAs.
+- The gap between the observed number of Aboriginal and/or Torres Strait Islander people and the expected number if the proportion was the same as for non-Indigenous people was biggest for Hume, Knox, and Whittlesea LGAs.
 
 - The percentage of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who undertook unpaid caring duties ranged from 22% (Whitehorse LGA) to 13% (Yarra LGA).
 
@@ -1687,14 +1686,16 @@ carer_agesex <- carer_agesex %>%
 
 - Individuals may not be defining themselves as ‘carers’ despite undertaking unpaid caring duties for family or other community members. This could lead to an underestimate of the number of unpaid carers.
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
 The following question was asked of all people aged 15 years and over completing the ABS Census 2021.
 
 - In the last two weeks did the person spend time providing unpaid care, help, or assistance to family members or others because of a disability, a long-term health condition, or problems related to old age?
   - No, did not provide unpaid care, help, or assistance
   - Yes, provided unpaid care, help, or assistance
 
-<div style="height: 2em;"></div>
+Definitions and notes:
+
+`r note_aboriginality_census`
 :::
 
 :::: {.panel-tabset}
@@ -1710,15 +1711,10 @@ The following question was asked of all people aged 15 years and over completing
 figure_count <- figure_count + 1
 
 figure_number <- carer_lga %>% 
-  f_bar_simple_lga(y_variable = aboriginal_n,
-                   y_breaks   = 25,
-                   y_expand   = 25)
+  f_bar_simple_lga(y_variable = aboriginal_n)
 
 figure_percent <- carer_lga %>% 
-  f_bar_simple_lga(y_variable = aboriginal_prop,
-                   y_max      = 25,
-                   y_breaks   = 5,
-                   y_expand   = 0.5)
+  f_bar_simple_lga(y_variable = aboriginal_prop)
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```
@@ -1734,8 +1730,7 @@ f_bar_simple_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 carer_lga %>% 
-  f_bar_obsexp_lga(y_breaks = 25,
-                   y_expand = 23)
+  f_bar_obsexp_lga()
 ```
 
 #### Table 6D-14
@@ -1778,15 +1773,10 @@ table %>%
 figure_count <- figure_count + 1
 
 figure_number <- carer_agesex %>% 
-  f_bar_grouped_agesex(y_variable = aboriginal_n,
-                       y_breaks   = 25,
-                       y_expand   = 17)
+  f_bar_grouped_agesex(y_variable = aboriginal_n)
 
 figure_percent <- carer_agesex %>% 
-  f_bar_grouped_agesex(y_variable = aboriginal_prop,
-                       y_max      = 50,
-                       y_breaks   = 5,
-                       y_expand   = 1)
+  f_bar_grouped_agesex(y_variable = aboriginal_prop)
 
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
@@ -1802,8 +1792,7 @@ f_bar_grouped_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 carer_agesex %>% 
-  f_bar_obsexp_agesex(y_breaks = 25,
-                      y_expand = 20)
+  f_bar_obsexp_agesex()
 ```
 
 #### Table 6D-15
@@ -1854,9 +1843,11 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_unknown_agesex`
 :::
