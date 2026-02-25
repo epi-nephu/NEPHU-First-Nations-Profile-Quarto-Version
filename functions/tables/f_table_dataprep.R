@@ -94,7 +94,7 @@ f_preptable_simple_agesex <- function(data) {
 }
 
 ################################################################################
-# Columns grouped by sex
+# Columns grouped by age and sex
 ################################################################################
 f_preptable_grouped_agesex <- function(data) {
   
@@ -114,6 +114,24 @@ f_preptable_grouped_agesex <- function(data) {
   
   return(data)
 
+}
+
+################################################################################
+# Columns grouped by sex
+################################################################################
+f_preptable_grouped_sex <- function(data, variable_name) {
+  
+  data <- data %>% 
+    tidyr::pivot_wider(names_from  = "sex",
+                       values_from = c("n", "prop"),
+                       names_vary  = "slowest") %>% 
+    #
+    janitor::clean_names() %>% 
+    #
+    dplyr::rename(!!variable_name := answer)
+  
+  return(data)
+  
 }
 
 ################################################################################

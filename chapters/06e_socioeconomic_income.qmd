@@ -24,11 +24,6 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Income {.unnumbered}
 
-```{r}
-#
-knitr::knit_exit()
-```
-
 ::: {.caveat-box}
 **A note about the impact of under-identification**
 
@@ -104,13 +99,19 @@ household_lga <- household %>%
 
 - The percentage of households in different LGAs within the NEPHU catchment with at least one member who identified as Aboriginal and/or Torres Strait Islander with a weekly income of less than \$500 ranged from 26% (Darebin LGA) to 10% (Boroondara and Nillumbik LGAs).
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
 The following question was asked of all people aged 15 years and over completing the ABS Census 2021. Responses for each household member were summed to calculate the total weekly household income.
 
 - What is the total of all income the person usually receives?
   - Free text response
 
-<div style="height: 2em;"></div>
+Definitions and notes:
+
+`r note_aboriginality_census`
+
+<div style="height: 0.1em;"></div>
+
+- Income can come from a range of sources, including employment, investments, businesses, government benefits, and government allowances.
 :::
 
 :::: {.panel-tabset}
@@ -144,9 +145,7 @@ household_lga %>%
                ">$3,000"))) %>% 
   
   f_bar_stacked_lga(fill_values = c(colour_stack4, colour_stack3, colour_stack2, colour_stack1),
-                    y_breaks    = 100,
-                    y_expand    = 75,
-                    y_title     = "Number of households")
+                    n_level     = "households")
 ```
 
 #### Table 6E-1
@@ -177,11 +176,9 @@ table %>%
   #
   f_table_simple(table_headers = c("LGA", 
                                    "Count", "Percent", "Count", "Percent", "Count", "Percent", "Count", "Percent",
-                                   "Total")) %>% 
+                                   "Total"),
+                 column_width  = "0.75in") %>% 
   #
-  kableExtra::column_spec(2:10,
-                          width = "0.75in") %>% 
-  
   kableExtra::add_header_above(c(" " = 1,
                                  "More than <span>$</span>3,000"           = 2,
                                  "<span>$</span>1,500–<span>$</span>2,999" = 2,
@@ -200,21 +197,15 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
-
-`r note_caveat_household`
-
-- Income can come from a range of sources, including employment, investments, businesses, government benefits, and government allowances.
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Income Support Payments
 
@@ -361,7 +352,7 @@ benefit_agesex <- benefit_agesex %>%
 
 - Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census) linked to data from the Australian Taxation Office and Department of Social Services held in the [Person Level Integrated Data Asset (PLIDA)](https://www.abs.gov.au/about/data-services/data-integration/integrated-data/person-level-integrated-data-asset-plida).
 
-- The most common main types of income support payment received by people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census were work and study (48%, n = 1,814), family and parenting (20%, n = 741), and disability support (16%, n = 611).
+- Of people who identified as Aboriginal and/or Torres Strait Islander in the Census living in the NEPHU catchment and who received an income support payment, the most common types of income support payment received were work and study (48%, n = 1,814), family and parenting (20%, n = 741), and disability support (16%, n = 611).
 
 - The number of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census and who were receiving a work and study support payment ranged from 308 (Darebin and Whittlesea LGAs) to 30 (Manningham LGA).
 
@@ -378,6 +369,24 @@ benefit_agesex <- benefit_agesex %>%
 **Key points from stakeholder consultation**
 
 - At stakeholder consultations during the development of this report it was mentioned that people often encounter barriers when trying to access income support payments.
+
+::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
+`r note_aboriginality_census`
+
+<div style="height: 0.1em;"></div>
+
+- This indicator measures the main type of income support payment received. People may have received more than one type of income support payment.
+
+<div style="height: 0.1em;"></div>
+
+- The types of income support payments were classified as:
+  - Carer support (Carer Allowance, Carer Payment)
+  - Disability support (Disability Support Pension, Mobility Allowance)
+  - Family and parenting (Dad and Partner Pay, Family Tax Benefits, Paid Parental Leave Payment, Parenting Payment)
+  - Older Australians (Age Pension, Widow Allowance)
+  - Work and study (Austudy/Abstudy, Newstart Allowance and Jobseeker, Youth Allowance)
+  - Other payments (Future Flexible Support Payment, Special Benefit, other government pensions and allowances)
+:::
 
 :::: {.panel-tabset}
 
@@ -414,8 +423,7 @@ benefit_lga %>%
                "Other payments"))) %>% 
   #
   f_bar_stacked_lga(fill_values = c(colour_stack6, colour_stack5, colour_stack4, colour_stack3, colour_stack2, colour_stack1),
-                    y_breaks    = 100,
-                    y_expand    = 30)
+                    n_level     = "people")
 ```
 
 #### Table 6E-2
@@ -449,10 +457,8 @@ table %>%
   f_table_simple(table_headers = c("LGA",
                                    "Count", "Percent", "Count", "Percent", "Count", "Percent",
                                    "Count", "Percent", "Count", "Percent", "Count", "Percent",
-                                   "Total")) %>%
-  #
-  kableExtra::column_spec(2:14,
-                          width = "0.5in") %>% 
+                                   "Total"),
+                 column_width  = "0.5in") %>%
   #
   kableExtra::add_header_above(c(" " = 1,
                                  "Carer support"      = 2,
@@ -501,8 +507,7 @@ benefit_agesex %>%
                "Other payments"))) %>% 
   #
   f_bar_stacked_agesex(fill_values = c(colour_stack6, colour_stack5, colour_stack4, colour_stack3, colour_stack2, colour_stack1),
-                       y_breaks    = 100,
-                       y_expand    = 75)
+                       n_level     = "people")
 ```
 
 #### Table 6E-3
@@ -544,8 +549,11 @@ table %>%
                                    "Count", "Percent", "Count", "Percent", "Count", "Percent",
                                    "Total")) %>%
   #
-  kableExtra::column_spec(2:ncol(table) - 1,
-                          width = "0.5in") %>% 
+  kableExtra::column_spec(1,
+                          width = "1in") %>%
+  #
+  kableExtra::column_spec(2:14,
+                          width = "0.5in") %>%
   #
   kableExtra::add_header_above(c("Female" = 1,
                                  "Carer support"      = 2,
@@ -568,7 +576,10 @@ table %>%
                                    "Count", "Percent", "Count", "Percent", "Count", "Percent",
                                    "Total")) %>% 
   #
-  kableExtra::column_spec(2:ncol(table) - 1,
+  kableExtra::column_spec(1,
+                          width = "1in") %>%
+  #
+  kableExtra::column_spec(2:14,
                           width = "0.5in") %>% 
   #
   kableExtra::add_header_above(c("Male" = 1,
@@ -588,40 +599,25 @@ table %>%
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
-- Data were obtained from the [ABS Census 2021](https://www.abs.gov.au/census) linked to data from the Australian Taxation Office and Department of Social Services held in the [Person Level Integrated Data Asset (PLIDA)](https://www.abs.gov.au/about/data-services/data-integration/integrated-data/person-level-integrated-data-asset-plida). Data are publicly available at Local Government Area (LGA), ABS Statistical Area Level 2 (SA2), and Indigenous Area of Residence (IARE) level.
-  - PLIDA is a secure linked data asset maintained by the ABS that brings together information on health, education, government payments, income and taxation, employment, and population demographics.
-  - The 2021 Census was held on the evening of August 10th 2021.
-  - Aboriginal and/or Torres Strait Islander peoples were defined as those who identified themselves as Aboriginal and/or Torres Strait Islander in the Census.
+`r note_data_tax`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_unknown_agesex`
 
 <div style="height: 0.1em;"></div>
 
-- The types of income support payments were classified as:
-  - Carer support (Carer Allowance, Carer Payment)
-  - Disability support (Disability Support Pension, Mobility Allowance)
-  - Family and parenting (Dad and Partner Pay, Family Tax Benefits, Paid Parental Leave Payment, Parenting Payment)
-  - Older Australians (Age Pension, Widow Allowance)
-  - Work and study (Austudy/Abstudy, Newstart Allowance and Jobseeker, Youth Allowance)
-  - Other payments (Future Flexible Support Payment, Special Benefit, other government pensions and allowances)
-
-<div style="height: 1em;"></div>
-
-- This indicator measures the main type of income support payment received. People may have received more than one type of income support payment.
-
 - A number of regions across the state were in various stages of lockdown during the 2020/2021 financial year. This resulted in a greater number of people being stood down from work than usual, which may have had an impact on the receipt of income support payments.
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Financial Security
 
@@ -678,14 +674,16 @@ financial_expenses <- financial_expenses %>%
 
 - Females were more likely to report having at least one day where they did not have money for basic living expenses (clothing or bills) than males (49% vs. 38%).
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
 The following question was asked of a representative for each household completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
 - In the last 12 months were there any days when you or other people in your household ran out of money for clothing or bills?
   - Yes
   - No
 
-<div style="height: 2em;"></div>
+Definitions and notes:
+
+`r note_aboriginality_natsihs`
 :::
 
 :::: {.panel-tabset}
@@ -702,13 +700,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- financial_expenses %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(days_without_money = answer)
+  f_preptable_grouped_sex(variable_name = "days_without_money")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -734,13 +726,19 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_unknown_agesex`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_estimate`
 :::
@@ -798,7 +796,7 @@ financial_emergency <- financial_emergency %>%
 
 - Females were more likely to report that their household would be able to raise emergency funds than males (64% vs. 58%).
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
 The following question was asked of a representative for each household completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
 - We know that \$2,000 is a lot of money, but if all of a sudden you or the people who live in this household had to get \$2,000 for something important, could you or they get it within a week?
@@ -806,7 +804,9 @@ The following question was asked of a representative for each household completi
   - No
   - Don't know
 
-<div style="height: 2em;"></div>
+Definitions and notes:
+
+`r note_aboriginality_natsihs`
 :::
 
 :::: {.panel-tabset}
@@ -823,13 +823,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- financial_emergency %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(emergency_funds = answer)
+  f_preptable_grouped_sex(variable_name = "emergency_funds")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -855,13 +849,19 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_unknown_agesex`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_estimate`
 :::
@@ -927,7 +927,7 @@ financial_foodsecurity <- financial_foodsecurity %>%
 
 - Males were more likely to report being food secure than females (62% vs. 55%).
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
 The following questions were asked of a representative for each household completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
 - In the last 12 months, how often did you or other people in your household worry about whether food would run out before you got money to buy more?
@@ -936,7 +936,7 @@ The following questions were asked of a representative for each household comple
   - Never
   - Don't know
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - In the last 12 months, how often was the food that you bought not enough for everyone in the household and you didn't have money to buy more??
   - Often
@@ -944,7 +944,7 @@ The following questions were asked of a representative for each household comple
   - Never
   - Don't know
   
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - In the last 12 months, how often were you or other people in your household not able to afford to eat healthy or nutritious meals?
   - Often
@@ -952,7 +952,7 @@ The following questions were asked of a representative for each household comple
   - Never
   - Don't know
   
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 If at least one of these questions was answered in the affirmative (often or sometimes), additional questions were asked to determine the level of food insecurity (marginal, moderate, or severe).
 
@@ -964,7 +964,16 @@ If at least one of these questions was answered in the affirmative (often or som
 - In the last 12 months, did you or other adults in your household not eat for a whole day because there wasn't enough money for food?
 - If yes, how often did this happen?
 
-<div style="height: 2em;"></div>
+Definitions and notes:
+
+`r note_aboriginality_natsihs`
+
+<div style="height: 0.1em;"></div>
+
+- Food security is generally characterised as having enough food and/or money to buy food needed for an active, healthy life at all times during the previous 12 months.
+  - Marginal food insecurity is generally characterised by worrying about running out of food or experiencing a lack of selection of food due to a lack of money for food.
+  - Moderate food insecurity is generally characterised by compromising on the quality and/or quantity of food due to a lack of money for food.
+  - Severe food insecurity is generally characterised by missing meals or reducing food intake due to a lack of money for food.
 :::
 
 :::: {.panel-tabset}
@@ -984,21 +993,16 @@ figure_number <- financial_foodsecurity %>%
   dplyr::mutate(answer = stringr::str_wrap(answer, width = 10)) %>% 
   #
   f_bar_grouped_sex(x_variable = answer,
-                    y_variable = n,
-                    y_breaks   = 2000,
-                    y_expand   = 1500)
+                    y_variable = n)
 
 figure_percent <- financial_foodsecurity %>% 
   dplyr::filter(sex != "Total" & answer != "Total") %>%
   dplyr::mutate(answer = stringr::str_wrap(answer, width = 10)) %>% 
   #
   f_bar_grouped_sex(x_variable = answer,
-                    y_variable = prop,
-                    y_max      = 100,
-                    y_breaks   = 10,
-                    y_expand   = 2.5)
+                    y_variable = prop)
 
-f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
+f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.15)
 ```
 
 #### Table 6E-6
@@ -1013,13 +1017,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- financial_foodsecurity %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(food_security = answer)
+  f_preptable_grouped_sex(variable_name = "food_security")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -1045,23 +1043,20 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_unknown_agesex`
-
-`r note_caveat_survey_unknown`
-
-`r note_caveat_survey_estimate`
 
 <div style="height: 0.1em;"></div>
 
-- Food security is defined as having enough food and/or money to buy food needed for an active, healthy life at all times during the previous 12 months.
-  - Marginal food insecurity is generally characterised by worrying about running out of food or experiencing a lack of selection of food due to a lack of money for food.
-  - Moderate food insecurity is generally characterised by compromising on the quality and/or quantity of food due to a lack of money for food.
-  - Severe food insecurity is generally characterised by missing meals or reducing food intake due to a lack of money for food.
-  
-<div style="height: 2em;"></div>
+`r note_caveat_survey_unknown`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_survey_estimate`
 :::
 

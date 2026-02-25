@@ -195,7 +195,7 @@ f_bar_stacked_agesex <- function(data, fill_values, n_level) {
                                              standoff = 10)),
                    #
                    legend = list(x = 0.5,
-                                 y = -0.3,
+                                 y = -0.35,
                                  #
                                  orientation = "h",
                                  traceorder  = "reversed",

@@ -139,7 +139,7 @@ f_bar_grouped_agesex <- function(data, y_variable, n_level = "people") {
 ################################################################################
 # By sex
 ################################################################################
-f_bar_grouped_sex <- function(data, x_variable, y_variable, y_max = NA, y_breaks, y_expand, y_title, x_angle = 0, legend_offset = -0.1) {
+f_bar_grouped_sex <- function(data, x_variable, y_variable, y_title, x_angle = 0, legend_offset = -0.1) {
   
   x_variable <- rlang::enquo(x_variable)
   y_variable <- rlang::enquo(y_variable)
@@ -147,6 +147,10 @@ f_bar_grouped_sex <- function(data, x_variable, y_variable, y_max = NA, y_breaks
   if (rlang::as_name(y_variable) == "n") {
     
     y_title <- "Estimated number of people"
+    
+    y_max    <- max(data$n, na.rm = TRUE)
+    y_upper  <- y_upper_n(y_max)
+    y_breaks <- y_breaks(y_max)
     
     data <- data %>% 
       dplyr::mutate(hover_text = paste0(sex, "\n",
@@ -158,6 +162,10 @@ f_bar_grouped_sex <- function(data, x_variable, y_variable, y_max = NA, y_breaks
   if (rlang::as_name(y_variable) == "prop") {
     
     y_title <- "Percentage of survey respondents"
+    
+    y_max    <- max(data$prop, na.rm = TRUE)
+    y_upper  <- y_upper_prop(y_max)
+    y_breaks <- y_breaks(y_max)
     
     data <- data %>% 
       dplyr::mutate(hover_text = paste0(sex, "\n",
@@ -171,9 +179,9 @@ f_bar_grouped_sex <- function(data, x_variable, y_variable, y_max = NA, y_breaks
     #
     geom_col(position = "dodge") +
     #
-    scale_y_continuous(limits = c(0, y_max),
+    scale_y_continuous(limits = c(0, y_upper),
                        breaks = scales::breaks_width(y_breaks),
-                       expand = expansion(add = c(0, y_expand)),
+                       expand = expansion(add = c(0, 0)),
                        labels = scales::comma_format(big.mark = ",")) +
     #
     scale_fill_manual(values = c(colour_female, colour_male),
