@@ -150,9 +150,6 @@ note_caveat_admissions <- glue::glue("
 note_caveat_dialysis_exclude <- glue::glue("
 - Same day admissions for renal dialysis were excluded.")
 
-note_caveat_household <- glue::glue("
-- Households include both family and non-family households.")
-
 note_caveat_iare_nephu <- glue::glue("
 - IAREs that are partly or entirely within the NEPHU catchment include: Craigieburn/Sunbury (Craigieburn), Knox, Maroondah, Melbourne East (Melbourne (E)), Melbourne North-East (Melbourne (NE)), Melbourne/Port Phillip (Port Phillip), Moreland/Broadmeadows (Broadmeadows), Northcote/Preston/Whittlesea (Northcote), Whitehorse, and Yarra Ranges.")
 

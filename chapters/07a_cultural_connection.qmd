@@ -24,11 +24,6 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Strength and Belonging {.unnumbered}
 
-```{r}
-#
-knitr::knit_exit()
-```
-
 ::: {.caveat-box}
 **A note about the impact of under-identification**
 
@@ -197,7 +192,7 @@ knowledge_2018 <- knowledge_2018 %>%
 
 - It was also noted that how questions about cultural knowledge are asked and how the terms ‘culture’ and ‘community’ are interpreted can impact on how it is answered, including how individuals interact with community groups and how active they are within the community in which they live. Interpretation can also be influenced by age and stage of life, and trends over time could provide useful insights.
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
 The following question was asked of all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
 - How satisfied are you with your knowledge of your culture?
@@ -207,7 +202,9 @@ The following question was asked of all people aged 18 years and over completing
   - Not very satisfied
   - Not at all satisfied
   
-<div style="height: 2em;"></div>
+Definitions and notes:
+
+`r note_aboriginality_natsihs`
 :::
 
 :::: {.panel-tabset}
@@ -230,9 +227,7 @@ figure_number <- knowledge %>%
   dplyr::mutate(answer = factor(stringr::str_wrap(answer, width = 10), levels = factor_levels)) %>% 
   #
   f_bar_grouped_sex(x_variable = answer,
-                    y_variable = n,
-                    y_breaks   = 500,
-                    y_expand   = 250)
+                    y_variable = n)
 
 figure_percent <- knowledge %>% 
   dplyr::filter(sex != "Total" & answer != "Total") %>%
@@ -240,10 +235,7 @@ figure_percent <- knowledge %>%
   dplyr::mutate(answer = factor(stringr::str_wrap(answer, width = 10), levels = factor_levels)) %>% 
   #
   f_bar_grouped_sex(x_variable = answer,
-                    y_variable = prop,
-                    y_max      = 50,
-                    y_breaks   = 5,
-                    y_expand   = 1)
+                    y_variable = prop)
 
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 ```
@@ -260,11 +252,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- knowledge %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names()
+  f_preptable_grouped_sex(variable_name = "satisfaction_knowledge")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -290,21 +278,23 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_estimate`
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Strength, Identity, and Belonging in Culture
 
@@ -367,14 +357,16 @@ pride <- pride %>%
 
 - It was also noted that pride in culture does not necessarily correlate with connection to culture, and this relationship has more complexity than what may be displayed in these data. It is important to consider how these questions have been asked, how the survey was conducted, and how representative these data are as a result.
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
 The following question was asked of all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
 - Are you proud of being Aboriginal and/or Torres Strait Islander?
   - Yes
   - No
   
-<div style="height: 2em;"></div>
+Definitions and notes:
+
+`r note_aboriginality_natsihs`
 :::
 
 :::: {.panel-tabset}
@@ -390,14 +382,8 @@ The following question was asked of all people aged 18 years and over completing
 table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
-table <- pride %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(proud_culture = answer)
+table <- pride %>%
+  f_preptable_grouped_sex(variable_name = "proud_culture")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -423,21 +409,23 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_estimate`
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Connection and Belonging to Nation, Language Group, or Clan
 
@@ -516,7 +504,7 @@ identification <- identification %>%
 
 - Possible reasons for this lack of representativeness were: the purpose of this question may not have been clear to survey respondents, the wording of the question was not considered to culturally safe, and the mandatory nature of the survey would impact on the responses provided. Furthermore, these data would be heavily influenced by the ongoing impacts of the stolen generations.
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
 The following question was asked of all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
 - Do you identify with any of these? (Select all that apply)
@@ -528,7 +516,9 @@ The following question was asked of all people aged 18 years and over completing
   - None of the above
   - Don't know
   
-<div style="height: 2em;"></div>
+Definitions and notes:
+
+`r note_aboriginality_natsihs`
 :::
 
 :::: {.panel-tabset}
@@ -548,8 +538,6 @@ figure_number <- identification %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = n,
-                    y_breaks   = 1000,
-                    y_expand   = 750,
                     x_angle    = 90)
 
 figure_percent <- identification %>% 
@@ -557,9 +545,6 @@ figure_percent <- identification %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = prop,
-                    y_max      = 100,
-                    y_breaks   = 10,
-                    y_expand   = 2.5,
                     x_angle    = 90)
 
 f_bar_grouped_combine(figure_number, figure_percent)
@@ -577,13 +562,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- identification %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(identifies_with = answer)
+  f_preptable_grouped_sex(variable_name = "identifies_with")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -609,23 +588,27 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_estimate`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_multipleresponse`
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Being Recognised and Valued by Community
 
@@ -680,14 +663,16 @@ acceptance <- acceptance %>%
 
 - Males were more likely to report that they felt accepted by other members of the Aboriginal and/or Torres Strait Islander Community than females (82% vs. 65%).
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
 The following question was asked of all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
 - Do you feel accepted by other Aboriginal and/or Torres Strait Islander people?
   - Yes
   - No
   
-<div style="height: 2em;"></div>
+Definitions and notes:
+
+`r note_aboriginality_natsihs`
 :::
 
 :::: {.panel-tabset}
@@ -703,14 +688,8 @@ The following question was asked of all people aged 18 years and over completing
 table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
-table <- acceptance %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(accepted_community = answer)
+table <- acceptance %>%
+  f_preptable_grouped_sex(variable_name = "accepted_community")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -736,21 +715,23 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_estimate`
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Importance of Respect and Acknowledgement
 
@@ -815,7 +796,7 @@ recognition <- recognition %>%
 
 - Females were more likely to report that it was not at all important that they were recognised as Aboriginal and/or Torres Strait Islander than males (10%% vs. 4.6%).
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
 The following question was asked of all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
 - How important is it to you to be recognised as an Aboriginal and/or Torres Strait Islander person?
@@ -825,7 +806,9 @@ The following question was asked of all people aged 18 years and over completing
   - Not very important
   - Not at all important
   
-<div style="height: 2em;"></div>
+Definitions and notes:
+
+`r note_aboriginality_natsihs`
 :::
 
 :::: {.panel-tabset}
@@ -849,8 +832,6 @@ figure_number <- recognition %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = n,
-                    y_breaks   = 500,
-                    y_expand   = 500,
                     x_angle    = 90)
 
 figure_percent <- recognition %>% 
@@ -860,9 +841,6 @@ figure_percent <- recognition %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = prop,
-                    y_max      = 50,
-                    y_breaks   = 5,
-                    y_expand   = 1,
                     x_angle    = 90)
 
 f_bar_grouped_combine(figure_number, figure_percent)
@@ -880,13 +858,8 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- recognition %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(importance_recognition = answer)
+  f_preptable_grouped_sex(variable_name = "importance_recognition")
+
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -912,11 +885,15 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_estimate`
 :::

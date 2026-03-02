@@ -24,11 +24,6 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Housing {.unnumbered}
 
-```{r}
-#
-knitr::knit_exit()
-```
-
 ::: {.caveat-box}
 **A note about the impact of under-identification**
 
@@ -94,27 +89,35 @@ overcrowded_lga <- overcrowded_lga %>%
 
 - The number of Aboriginal and/or Torres Strait Islander households in different LGAs within the NEPHU catchment with an adequate number of bedrooms ranged from 917 (Whittlesea LGA) to 155 (Manningham LGA).
 
-- The gap between the observed number of Aboriginal and/or Torres Strait Islander appropriately sized households and the number expected if the rate was the same as for non-Indigenous households was biggest for Yarra Ranges and Darebin LGAs.
+- The gap between the observed number of Aboriginal and/or Torres Strait Islander appropriately sized households and the expected number if the proportion was the same as for non-Indigenous households was biggest for Yarra Ranges and Darebin LGAs.
 
 - The percentage of Aboriginal and/or Torres Strait Islander households in different LGAs within the NEPHU catchment with an adequate number of bedrooms (not overcrowded) ranged from 98% (Boroondara LGA) to 91% (Hume LGA).
 
-**Key points from stakeholder consultation**
-
 - All 12 LGAs in the NEPHU catchment were above the Closing the Gap target of 88%.
+
+- Further historical and ongoing target context can be found on the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/housing/).
+
+**Key points from stakeholder consultation**
 
 - At stakeholder consultation during the development of this report, it was discussed that these data were thought to be an underestimate of overcrowding. Reasons for possible underreporting of overcrowding included fears of losing social housing or child protection involvement.
 
 - It was also noted however that Aboriginal and/or Torres Strait Islander people have a strong culture of supporting each other to address housing needs. 
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
 The following questions were asked of all people completing the ABS Census 2021. The answers to these questions were cross-tabulated for all household members to assess the number of bedrooms required for the household, based on the [Canadian National Occupancy Standard](https://meteor.aihw.gov.au/content/386254) for housing appropriateness.
 
 - Is the person male, female, and/or non-binary?
 - What is the person's date of birth and age?
-- What is the person's relationship to Person 1 (the person completing the Census form for the household)?
+- What is the person's relationship to the person completing the Census form for the household?
 - How many bedrooms are there in this dwelling?
 
-<div style="height: 2em;"></div>
+Definitions and notes:
+
+`r note_aboriginality_census`
+
+<div style="height: 0.1em;"></div>
+
+- Appropriately sized households were defined as those where extra bedrooms were not required.
 :::
 
 :::: {.panel-tabset}
@@ -131,15 +134,10 @@ figure_count <- figure_count + 1
 
 figure_number <- overcrowded_lga %>%
   f_bar_simple_lga(y_variable = aboriginal_n,
-                   y_breaks   = 100,
-                   y_expand   = 100,
                    n_level    = "households")
 
 figure_percent <- overcrowded_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_prop,
-                   y_max      = 100,
-                   y_breaks   = 10,
-                   y_expand   = 2.5,
                    n_level    = "households",
                    ctg_target = 88)
 
@@ -157,9 +155,7 @@ f_bar_simple_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 overcrowded_lga %>% 
-  f_bar_obsexp_lga(y_breaks = 100,
-                   y_expand = 75,
-                   y_title  = "Number of households")
+  f_bar_obsexp_lga(n_level = "households")
 ```
 
 #### Table 6F-1
@@ -196,13 +192,9 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
-
-`r note_caveat_household`
-
-- *Appropriately sized households* were defined as those where extra bedrooms were not required.
 :::
 
 ### Housing Quality
@@ -504,7 +496,7 @@ suitability_combined <- suitability_structural %>%
 
 - Males were more likely to report each type of housing quality issue than females.
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
 The following questions were asked of a representative for each household completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
 - Does this house have any of these problems that need to be fixed? (Select all that apply)
@@ -519,7 +511,7 @@ The following questions were asked of a representative for each household comple
   - Major roof defects
   - Other major structural problems
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - Are there any of these facilities that this house doesn't have or that are not working? (Select all that apply)
   - Stove, oven, or other cooking facilities
@@ -530,7 +522,13 @@ The following questions were asked of a representative for each household comple
   - Kitchen sink
   - Laundry tub
   
-<div style="height: 2em;"></div>
+Definitions and notes:
+
+`r note_aboriginality_natsihs`
+
+<div style="height: 0.1em;"></div>
+
+- A house or dwelling was of an acceptable standard if there were working facilities for washing people, for washing clothes or bedding, for storing and preparing food, sewerage facilities, and if there were no more than two major structural problems.
 :::
 
 :::: {.panel-tabset}
@@ -547,13 +545,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- suitability_acceptable %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(acceptable_standard = answer)
+  f_preptable_grouped_sex(variable_name = "acceptable_standard")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -594,9 +586,7 @@ figure_number <- suitability_combined %>%
                                        "Sewerage connection"             = "Sewerage")) %>% 
   #
   f_bar_grouped_sex(x_variable = answer,
-                    y_variable = n,
-                    y_breaks   = 500,
-                    y_expand   = 80)
+                    y_variable = n)
 
 figure_percent <- suitability_combined %>% 
   dplyr::filter(sex != "Total" & answer == "No") %>%
@@ -608,10 +598,7 @@ figure_percent <- suitability_combined %>%
                                        "Sewerage connection"             = "Sewerage")) %>%  
   #
   f_bar_grouped_sex(x_variable = answer,
-                    y_variable = prop,
-                    y_max      = 25,
-                    y_breaks   = 5,
-                    y_expand   = 0.5)
+                    y_variable = prop)
 
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 ```
@@ -669,29 +656,31 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_unknown`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_estimate`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_multipleresponse`
-
-`r note_caveat_household`
-
-- A house or dwelling is of an acceptable standard if there are working facilities for washing people, for washing clothes or bedding, for storing and preparing food, sewerage facilities, and if there are no more than two major structural problems.
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Housing Affordability
 
@@ -751,7 +740,7 @@ tenure_lga <- tenure_lga %>%
 
 - In Yarra (75%) and Darebin (76%) LGAs, higher proportions of households were rented, which may reflect the younger age profile of these LGAs.
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
 The following question was asked of all people completing the ABS Census 2021.
 
 - Is this dwelling:
@@ -763,7 +752,9 @@ The following question was asked of all people completing the ABS Census 2021.
   - Occupied under a life tenure scheme
   - Other
   
-<div style="height: 2em;"></div>
+Definitions and notes:
+
+`r note_aboriginality_census`
 :::
 
 :::: {.panel-tabset}
@@ -797,9 +788,7 @@ tenure_lga %>%
                "Other"))) %>% 
   
   f_bar_stacked_lga(fill_values = c(colour_stack4, colour_stack3, colour_stack2, colour_stack1),
-                    y_breaks    = 100,
-                    y_expand    = 5,
-                    y_title     = "Number of households")
+                    n_level     = "households")
 ```
 
 #### Table 6F-4
@@ -830,11 +819,9 @@ table %>%
   #
   f_table_simple(table_headers = c("LGA", 
                                    "Count", "Percent", "Count", "Percent", "Count", "Percent", "Count", "Percent",
-                                   "Total")) %>% 
+                                   "Total"),
+                 column_width  = "0.75in") %>%
   #
-  kableExtra::column_spec(2:10,
-                          width = "0.75in") %>% 
-  
   kableExtra::add_header_above(c(" " = 1,
                                  "Owned (outright)" = 2,
                                  "Owned (mortgage)" = 2,
@@ -852,11 +839,11 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
-`r note_caveat_household`
+<div style="height: 0.1em;"></div>
 
 - *Other* includes dwellings purchased under a shared equity scheme, occupied under a life tenure scheme (e.g. retirement villages), or occupied rent-free.
 :::
@@ -905,17 +892,17 @@ stress_lga <- mortgage_lga %>%
 
 - The number of Aboriginal and/or Torres Strait Islander households in different LGAs within the NEPHU catchment that spent more than 30% of their annual household income on housing costs ranged from 203 (Whittlesea LGA) to 28 (Nillumbik LGA).
 
-- The gap between the observed number of Aboriginal and/or Torres Strait Islander households that spent more than 30% of their annual household income on housing costs and the number expected if the rate was the same as for non-Indigenous households was biggest for Darebin and Yarra Ranges LGAs.
+- The gap between the observed number of Aboriginal and/or Torres Strait Islander households that spent more than 30% of their annual household income on housing costs and the expected number if the proportion was the same as for non-Indigenous households was biggest for Darebin and Yarra Ranges LGAs.
 
 - The percentage of Aboriginal and/or Torres Strait Islander households in different LGAs within the NEPHU catchment that spent more than 30% of their annual household income on housing costs ranged from 14% (Whitehorse and Manningham LGAs) to 9.3% (Boroondara LGA).
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
 The following questions were asked of all people aged 15 years and over completing the ABS Census 2021. Responses for each household member were summed to calculate the total weekly household income.
 
 - What is the total of all income the person usually receives?
   - Free text response
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - Is this dwelling:
   - Owned outright
@@ -926,12 +913,25 @@ The following questions were asked of all people aged 15 years and over completi
   - Occupied under a life tenure scheme
   - Other
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - How much does your household pay for this dwelling?
   - Free text response
   
-<div style="height: 2em;"></div>
+Definitions and notes:
+
+`r note_aboriginality_census`
+
+<div style="height: 0.1em;"></div>
+
+- This indicator includes dwellings owned with a mortgage, purchased under a shared equity scheme, or rented.
+
+<div style="height: 0.1em;"></div>
+
+- Mortgage or rental payments greater than 30% of household income may not indicate a household is in financial distress. 
+  - Households may choose to live in an area with higher costs due to proximity to work, schooling, or other lifestyle factors. 
+  - Higher income households may be able to spend more of their income on housing without this affecting their ability to pay for other costs of living. 
+  - Some households may choose to pay more than the minimum required payment in order to pay off a mortgage faster.
 :::
 
 :::: {.panel-tabset}
@@ -948,15 +948,10 @@ figure_count <- figure_count + 1
 
 figure_number <- stress_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_n,
-                   y_breaks   = 25,
-                   y_expand   = 27,
                    n_level    = "households")
 
 figure_percent <- stress_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_prop,
-                   y_max      = 25,
-                   y_breaks   = 5,
-                   y_expand   = 0.5,
                    n_level    = "households")
 
 f_bar_simple_combine(figure_number, figure_percent)
@@ -973,9 +968,7 @@ f_bar_simple_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 stress_lga %>%
-  f_bar_obsexp_lga(y_breaks = 25,
-                   y_expand = 27,
-                   y_title  = "Number of households")
+  f_bar_obsexp_lga(n_level = "households")
 ```
 
 #### Table 6F-5
@@ -1012,26 +1005,13 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
-`r note_caveat_household`
-
-- This indicator includes dwellings owned with a mortgage, purchased under a shared equity scheme, or rented.
-
 <div style="height: 0.1em;"></div>
 
-- Mortgage or rental payments greater than 30% of household income may not indicate a household is in financial distress.
-  - Households may choose to live in an area with higher costs due to proximity to work, schooling, or other lifestyle factors.
-  - Higher income households may be able to spend more of their income on housing without this affecting their ability to pay for other costs of living.
-  - Some households may choose to pay more than the minimum required payment in order to pay off a mortgage faster.
-
-<div style="height: 1em;"></div>
-
 - A number of regions across the state were in various stages of lockdown on 2021 Census night. This resulted in a greater number of people being stood down from work than usual, which may have had an impact on housing affordability and housing stress.
-
-<div style="height: 2em;"></div>
 :::
 
 ### Homelessness
@@ -1079,21 +1059,31 @@ homeless_agesex <- homeless_agesex %>%
 
 - The number of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who were homeless or marginally housed on Census night ranged from 64 (Darebin LGA) to 0 (Nillumbik LGA).
 
-- The gap between the observed number of Aboriginal and/or Torres Strait Islander people who were homeless or marginally housed on Census night and the number expected if the rate was the same as for non-Indigenous people was biggest for Darebin, Yarra Ranges, and Whittlesea LGAs.
+- The gap between the observed number of Aboriginal and/or Torres Strait Islander people who were homeless or marginally housed on Census night and the expected number if the proportion was the same as for non-Indigenous people was biggest for Darebin, Yarra Ranges, and Whittlesea LGAs.
 
 - The percentage of people who identified as Aboriginal and/or Torres Strait Islander in the Census living in different LGAs within the NEPHU catchment who were homeless or marginally housed on Census night ranged from 4.5% (Whitehorse LGA) to 0.0% (Nillumbik LGA).
 
 - There were a higher number of homeless or marginally housed females compared to males, particularly in the 40-49 year age group.
 
-- The gap between the observed number of Aboriginal and/or Torres Strait Islander people who were homeless or marginally housed on Census night and the number expected if the rate was the same as for non-Indigenous people was biggest for people aged less than 20 years and 40-49 years for both males and females.
+- The gap between the observed number of Aboriginal and/or Torres Strait Islander people who were homeless or marginally housed on Census night and the expected number if the proportion was the same as for non-Indigenous people was biggest for people aged less than 20 years and people aged 40-49 years for both males and females.
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
+::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
 The following question was asked of all people completing the ABS Census 2021.
 
 - Where does the person usually live?
   - Free text response
   
-<div style="height: 2em;"></div>
+Definitions and notes:
+
+`r note_aboriginality_census`
+
+<div style="height: 0.1em;"></div>
+
+- *Homeless* was defined as people who were living in improvised dwellings, tents, or sleeping out; living in supported accommodation for the homeless; staying temporarily with other households; living in boarding houses; living in severely crowded dwellings; or living in other temporary lodgings on Census night.
+
+<div style="height: 0.1em;"></div>
+
+- *Marginally housed* was defined as people who were living in other (not severely) crowded dwellings, living in other improvised dwellings, or marginally housed in caravan parks on Census night.
 :::
 
 :::: {.panel-tabset}
@@ -1109,15 +1099,10 @@ The following question was asked of all people completing the ABS Census 2021.
 figure_count <- figure_count + 1
 
 figure_number <- homeless_lga %>% 
-  f_bar_simple_lga(y_variable = aboriginal_n,
-                   y_breaks   = 10,
-                   y_expand   = 8)
+  f_bar_simple_lga(y_variable = aboriginal_n)
 
 figure_percent <- homeless_lga %>% 
-  f_bar_simple_lga(y_variable = aboriginal_prop,
-                   y_max      = 5,
-                   y_breaks   = 0.5,
-                   y_expand   = 0.125)
+  f_bar_simple_lga(y_variable = aboriginal_prop)
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```
@@ -1133,8 +1118,7 @@ f_bar_simple_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 homeless_lga %>%
-  f_bar_obsexp_lga(y_breaks = 10,
-                   y_expand = 8)
+  f_bar_obsexp_lga()
 ```
 
 #### Table 6F-6
@@ -1177,15 +1161,10 @@ table %>%
 figure_count <- figure_count + 1
 
 figure_number <- homeless_agesex %>%
-  f_bar_grouped_agesex(y_variable = aboriginal_n,
-                       y_breaks   = 5,
-                       y_expand   = 5)
+  f_bar_grouped_agesex(y_variable = aboriginal_n)
 
 figure_percent <- homeless_agesex %>% 
-  f_bar_grouped_agesex(y_variable = aboriginal_prop,
-                       y_max      = 5,
-                       y_breaks   = 0.5,
-                       y_expand   = 0.125)
+  f_bar_grouped_agesex(y_variable = aboriginal_prop)
 
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
@@ -1201,8 +1180,7 @@ f_bar_grouped_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 homeless_agesex %>%
-  f_bar_obsexp_agesex(y_breaks = 5,
-                      y_expand = 5)
+  f_bar_obsexp_agesex()
 ```
 
 #### Table 6F-7
@@ -1253,15 +1231,15 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_unknown_agesex`
 
-- *Homeless* is defined as people who were living in improvised dwellings, tents, or sleeping out; living in supported accommodation for the homeless; staying temporarily with other households; living in boarding houses; living in severely crowded dwellings; or living in other temporary lodgings on Census night.
-
-- *Marginally housed* is defined as people who were living in other (not severely) crowded dwellings, living in other improvised dwellings, or marginally housed in caravan parks on Census night.
+<div style="height: 0.1em;"></div>
 
 - A number of regions across the state were in various stages of lockdown on 2021 Census night. This resulted in a greater number of people being stood down from work than usual, which may have had an impact on housing affordability and housing stress.
 :::
