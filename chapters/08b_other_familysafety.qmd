@@ -1,0 +1,577 @@
+---
+title-block: false
+---
+
+# Family Safety and Wellbeing
+
+```{r}
+#
+source(here::here("setup.R"))
+source(here::here("setup_footnotes.R"))
+
+# Set up numbering for exporting tables as .csv
+table_section <- "08B"
+table_count   <- 0
+
+figure_count <- 0
+```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Family Safety and Wellbeing {.unnumbered}
+
+::: {.warning-box}
+`r bsicons::bs_icon("exclamation-triangle", size = "15pt")` **Content warning** `r bsicons::bs_icon("exclamation-triangle", size = "15pt")`
+
+The following section contains information about family safety and wellbeing involving Aboriginal and/or Torres Strait Islander children, families, and communities. This content may bring up strong emotions or memories, particularly for those who have lived experience of child removal, family separation, or the ongoing impacts of colonisation and government policies.
+
+We encourage readers to look after themselves while engaging with this material. Please take breaks if needed, and seek support from trusted family, community, or professional services if the content causes distress. 
+
+As you read, please remember to lean on your strengths, your community, and your supports. This knowledge is shared with deep respect, care, and understanding.
+
+If you or someone you know needs support, please consider reaching out to one of the following culturally safe services.
+:::
+
+<div style="height: 2em;"></div>
+
+::: {.caveat-box}
+**A note about the impact of under-identification**
+
+`r note_box_underidentification`
+:::
+
+<div style="height: 2em;"></div>
+
+::: {.key-question}
+What factors within community and broader systems impact the ways Aboriginal and/or Torres Strait Islander families in the NEPHU catchment are supported to maintain wellbeing, care for children, and keep families connected?
+:::
+
+## Out-of-Home Care
+
+::: {.ctg-box}
+**This topic aligns with [Closing the Gap Outcome Area 12](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/child-protection/): Aboriginal and Torres Strait Islander children are not overrepresented in the child protection system**
+
+Target: By 2031, reduce the rate of overrepresentation of Aboriginal and Torres Strait Islander children (aged 0–17 years) in out-of-home care by 45% (compared to the baseline year of 2019).
+:::
+
+<div style="height: 1em;"></div>
+
+```{r}
+# ------------------------------------------------------------------------------
+# Child protection: out-of-home care
+# Data from AIHW Child Protection National Minimum Dataset
+# ------------------------------------------------------------------------------
+# Read in AIHW data
+outofhome <- readxl::read_excel(file.path(root_folder, subfolder_protection, "Child_Protection_National_Minimum_Dataset.xlsx"),
+                                skip  = 2,
+                                sheet = "T3") %>%
+  janitor::clean_names() %>%
+  #
+  dplyr::mutate(
+    indigenous_status = dplyr::case_when(
+      row_number() %in% c(3:7, 58:62) ~ "aboriginal",
+      row_number() %in% c(9:13, 64:68) ~ "non_aboriginal",
+      TRUE ~ NA_character_),
+    #
+    unit = dplyr::case_when(
+      row_number() %in% c(3:7, 9:13) ~ "n",
+      row_number() %in% c(58:62, 64:68) ~ "rate",
+      TRUE ~ NA_character_)) %>% 
+  #
+  dplyr::filter(!is.na(indigenous_status))
+
+# Data wrangling
+outofhome <- outofhome %>%
+  dplyr::select(year,
+                indigenous_status,
+                unit,
+                vic) %>%
+  #
+  dplyr::mutate(
+    indigenous_label = dplyr::case_when(
+      indigenous_status == "aboriginal"     ~ "Aboriginal",
+      indigenous_status == "non_aboriginal" ~ "Non-Indigenous",
+      TRUE ~ NA_character_),
+    #
+    indigenous_status = factor(dplyr::case_when(
+      indigenous_label == "Aboriginal"     ~ "Identified as Aboriginal\nand/or Torres Strait Islander",
+      indigenous_label == "Non-Indigenous" ~ "Did not identify as Aboriginal\nand/or Torres Strait Islander",
+      TRUE ~ NA_character_),
+      levels = c("Identified as Aboriginal\nand/or Torres Strait Islander",
+                 "Did not identify as Aboriginal\nand/or Torres Strait Islander")))
+
+# ------------------------------------------------------------------------------
+# Child protection: relationship with caregiver
+# Data from AIHW Child Protection National Minimum Dataset
+# ------------------------------------------------------------------------------
+# Read in AIHW data
+relationship <- readxl::read_excel(file.path(root_folder, subfolder_ctg, "CTG12_Child_Protection_Data_Tables.xlsx"),
+                                   skip  = 1,
+                                   sheet = "Table SE12e.1") %>%
+  janitor::clean_names() %>%
+  #
+  dplyr::rename(type = x2,
+                year = x3,
+                relationship = x5) %>%
+  #
+  tidyr::fill(type, year) %>% 
+  #
+  dplyr::filter(!is.na(vic))
+
+# Data wrangling
+relationship <- relationship %>%
+  dplyr::select(type,
+                year,
+                relationship,
+                value = vic) %>%
+  #
+  dplyr::mutate(value = as.numeric(value),
+                #
+                type = dplyr::case_when(
+                  type == "Proportion of children" ~ "aboriginal_prop",
+                  type == "Number of children"     ~ "aboriginal_n",
+                  TRUE ~ NA_character_),
+                #
+                relationship = dplyr::case_when(
+                  relationship == "Aboriginal and Torres Strait Islander relatives/kin" ~ "First Nations relatives/kin",
+                  relationship == "Other Aboriginal and Torres Strait Islander carers"  ~ "Other First Nations carers",
+                  relationship == "Non-Indigenous relatives/kin"                        ~ "Non-Indigenous relatives/kin",
+                  relationship == "Other non-Indigenous carers"                         ~ "Other care arrangements",
+                  relationship == "Residential care or family group home"               ~ "Other care arrangements",
+                  relationship == "Independent living/living arrangements unknown"      ~ "Other care arrangements",
+                  TRUE ~ NA_character_)) %>% 
+  #
+  dplyr::filter(!is.na(relationship)) %>% 
+  #
+  dplyr::group_by(type, year, relationship) %>% 
+  dplyr::summarise(value = sum(value)) %>% 
+  dplyr::ungroup()
+
+relationship <- relationship %>% 
+  tidyr::pivot_wider(names_from  = "type",
+                     values_from = "value") %>% 
+  #
+  janitor::clean_names() %>% 
+  #
+  dplyr::mutate(relationship = factor(relationship,
+                                      levels = c("First Nations relatives/kin",
+                                                 "Other First Nations carers",
+                                                 "Non-Indigenous relatives/kin",
+                                                 "Other care arrangements")))
+```
+
+- Data for this topic were obtained from the [AIHW Child Protection National Minimum Dataset](https://www.aihw.gov.au/about-our-data/our-data-collections/child-protection-national-minimum-data-set).
+
+- The out-of-home care rate for Aboriginal and/or Torres Strait Islander children in Victoria on June 30th 2023 was 103 per 1,000 population. This was higher than for non-Indigenous children in Victorian (4.6 per 1,000 population).
+
+- The out-of-home care rate for Aboriginal and/or Torres Strait Islander children in Victoria has worsened compared to the 2019 Closing the Gap baseline rate.
+
+- On June 30th 2024, 82% (n = 2,365) of Aboriginal and/or Torres Strait Islander children in Victoria who were in out-of-home care had been placed with Aboriginal and/or Torres Strait Islander relatives or kin, non-Indigenous relatives or kin, or other Aboriginal and/or Torres Strait Islander carers.
+
+- Further historical and ongoing target context can be found on the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/child-protection/).
+
+**Key points from stakeholder consultation**
+
+- At stakeholder consultation during the development of this report, the continued over-representation of Aboriginal and/or Torres Strait Islander children in out-of-home care was discussed as a significant barrier to self-identifying at healthcare services.
+
+- Gaps in data relating to the avoidance of healthcare settings following child protection involvement was also called out.
+
+- The importance of eliminating racism and discrimination in child protection was discussed, with self-determination and service provision that is led by Aboriginal and/or Torres Strait Islander peoples being critical in addressing this issue. This includes support for pre-birth interventions.
+
+::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
+- `r note_aboriginality_childprotection`
+
+<div style="height: 0.1em;"></div> 
+
+- Children were defined as persons aged 0-17 years.
+
+<div style="height: 0.1em;"></div> 
+
+- The out-of-home care rate was calculated as the total number of children in out-of-home care per 1,000 population on June 30th of each year as estimated by the [ABS Estimated Residential Population (ERP)](https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071) for the year.
+  - ERP calculations take into account the known under-reporting of Aboriginal and/or Torres Strait Islander status in the Census.
+
+:::
+
+:::: {.panel-tabset}
+
+#### Figure 8B-1
+
+::: {#fig_8B_1 .fig-tab-title}
+**Figure 8B-1:** Out-of-home care rate (per 1,000 population) on June 30th for Victorian children, by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+ctg_target <- outofhome$vic[11] * 0.55
+
+outofhome %>% 
+  dplyr::filter(unit == "rate") %>% 
+  #
+  dplyr::rename(rate = vic) %>% 
+  #
+  f_line_grouped_indigenous(y_variable = rate,
+                            ctg_target = ctg_target,
+                            n_level    = "1,000")
+```
+
+#### Table 8B-1
+
+::: {#tab_8B_1 .fig-tab-title}
+**Table 8B-1:** Number of children in out-of-home care and out-of-home care rate (per 1,000 population) on June 30th for Victorian children, by Aboriginal and/or Torres Strait Islander status and year
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- outofhome %>%
+  f_preptable_grouped_indigenous(x_variable = year,
+                                 n_variable = "n and rate")
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>%
+  dplyr::mutate(aboriginal_rate     = sprintf("%.1f", aboriginal_rate),
+                non_indigenous_rate = sprintf("%.1f", non_indigenous_rate)) %>% 
+  #
+  f_table_grouped_indigenous(n_variable  = "rate",
+                             column_name = "Year",
+                             total_row   = NULL)
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+#### Figure 8B-2
+
+::: {#fig_8B_2 .fig-tab-title}
+**Figure 8B-2:** Relationship to carer for Aboriginal and/or Torres Strait Islander children in out-of-home care, Victoria, by year
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+stacked_total <- relationship %>% 
+  dplyr::group_by(year) %>% 
+  dplyr::summarise(total = sum(aboriginal_n)) %>% 
+  dplyr::ungroup()
+
+relationship %>% 
+  dplyr::mutate(hover_text = paste0(year, "\n",
+                                    relationship, "\n",
+                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>%
+  #
+  f_bar_stacked(x_variable    = year,
+                y_variable    = aboriginal_n,
+                fill_variable = forcats::fct_rev(relationship),
+                fill_values   = c(colour_stack4, colour_stack3, colour_stack2, colour_stack1),
+                n_level       = "children",
+                legend_offset = -0.2)
+```
+
+#### Table 8B-2
+
+::: {#tab_8B_2 .fig-tab-title}
+**Table 8B-2:** Relationship to carer for Aboriginal and/or Torres Strait Islander children in out-of-home care, Victoria, by year
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- relationship %>%
+  tidyr::pivot_wider(names_from  = "relationship",
+                     values_from = c("aboriginal_n", "aboriginal_prop"),
+                     names_vary  = "slowest") %>% 
+  #
+  janitor::clean_names() %>%
+  #
+  dplyr::select(year,
+                aboriginal_kin_n = aboriginal_n_first_nations_relatives_kin,
+                aboriginal_kin_prop = aboriginal_prop_first_nations_relatives_kin,
+                aboriginal_other_n = aboriginal_n_other_first_nations_carers,
+                aboriginal_other_prop = aboriginal_prop_other_first_nations_carers,
+                non_aboriginal_kin_n = aboriginal_n_non_indigenous_relatives_kin,
+                non_aboriginal_kin_prop = aboriginal_prop_non_indigenous_relatives_kin,
+                other_care_n = aboriginal_n_other_care_arrangements,
+                other_care_prop = aboriginal_prop_other_care_arrangements) %>% 
+  #
+  dplyr::mutate(number_total = aboriginal_kin_n + aboriginal_other_n + non_aboriginal_kin_n + other_care_n)
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(aboriginal_kin_prop     = sprintf("%.1f", aboriginal_kin_prop),
+                aboriginal_other_prop   = sprintf("%.1f", aboriginal_other_prop),
+                non_aboriginal_kin_prop = sprintf("%.1f", non_aboriginal_kin_prop),
+                other_care_prop         = sprintf("%.1f", other_care_prop)) %>% 
+  #
+  f_table_simple(total_row     = NULL,
+                 table_headers = c("Year",
+                                   "Count", "Percent", "Count", "Percent", "Count", "Percent", "Count", "Percent",
+                                   "Total")) %>% 
+  #
+  kableExtra::add_header_above(c(" " = 1,
+                                 "First Nations relatives/kin"  = 2,
+                                 "Other First Nations carers"   = 2,
+                                 "Non-Indigenous relatives/kin" = 2,
+                                 "Other care arrangements"      = 2,
+                                 " " = 1))
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_childprotection`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+- For Figure 8B-2 and Table 8B-2, *Other care arrangements* includes children in out-of-home care who were living with non-Indigenous carers who were not relatives/kin, living in residential care or family group homes, living independently, and where the living arrangements were not known.
+:::
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+
+## Women Impacted by Violence and Threats to Safety
+
+::: {.ctg-box}
+**This topic aligns with [Closing the Gap Outcome Area 13](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/family-safety/): Aboriginal and Torres Strait Islander families and households are safe**
+
+Target: By 2031, the rate of all forms of family violence and abuse against Aboriginal and Torres Strait Islander women and children is reduced at least by 50% (compared to the baseline year of 2018-19), as progress towards zero.
+:::
+
+<div style="height: 1em;"></div>
+
+```{r}
+# ------------------------------------------------------------------------------
+# Family violence: women experiencing domestic physical or threatened harm
+# Data from ABS Aboriginal and Torres Strait Islander Health Survey (2018-29)
+# ------------------------------------------------------------------------------
+# Read in ABS data
+violence_women <- readxl::read_excel(file.path(root_folder, subfolder_ctg, "CTG13_Family_Safety_Data_Tables.xlsx"),
+                                     skip  = 1,
+                                     sheet = "Table CtG13A.1") %>%
+  janitor::clean_names() %>%
+  #
+  dplyr::rename(violence = x6) %>%
+  #
+  dplyr::filter(!is.na(vic) & vic != "..")
+
+# Data wrangling
+violence_women <- violence_women %>%
+  dplyr::select(violence,
+                value = vic,
+                unit) %>%
+  #
+  dplyr::mutate(value = as.numeric(value),
+                #
+                violence = dplyr::case_when(
+                  violence == "Experienced domestic physical or face-to-face threatened physical harm (b)"        ~ "Yes",
+                  violence == "Did not experience domestic physical or face-to-face threatened physical harm (b)" ~ "No",
+                  #
+                  violence == "Total (c)" ~ "Total",
+                  TRUE ~ NA_character_))
+```
+
+- Data for this topic were obtained from the [2018-19 ABS National Aboriginal and Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release).
+
+- During 2018-2019, 7.5% of Aboriginal and/or Torres Strait Islander female survey respondents aged 15 years or over living in Victoria reported that they had experienced domestic physical or face-to-face threatened physical harm during the 12 months prior to the survey.
+
+- More recent data are not available, as this question was not included in the [2022-2023 National Aboriginal and/or Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release).
+
+- Further historical and ongoing target context can be found on the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/family-safety/).
+
+**Key points from stakeholder consultation**
+
+- At stakeholder consultation during the development of this report, these data were thought to be an underestimate and not a true reflection of the safety of households.
+
+- Concerns of child removal were thought to be a possible contributor to underreporting. 
+
+::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
+- The following questions were asked of all people aged 15 years and over completing the 2018-19 ABS National Aboriginal and Torres Strait Islander Health Survey:
+  - In the last 12 months, has anyone, including people you know well, physically hurt or harmed you on purpose? Please include physical fights.
+    - Yes
+    - No
+  - In the last 12 months, has anyone, including people you know well, threatened to physically hurt or harm you?
+    - Yes, face-to-face
+    - Yes, non face-to-face (e.g. phone, text message, Facebook, Twitter)
+    - Yes, both face-to-face and non face-to-face
+    - No
+
+<div style="height: 0.1em;"></div>
+
+- Definitions and notes:
+  - `r note_aboriginality_natsihs`
+
+:::
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+
+## Reports of Family Safety Concerns
+
+```{r}
+# ------------------------------------------------------------------------------
+# Family violence: reported incidents
+# Data from Crime Statistics Agency
+# ------------------------------------------------------------------------------
+# Read in Crime Statistics Agency data
+violence_incidents <- readxl::read_excel(file.path(root_folder, subfolder_crime, "Indigenous_Data_Tables_Family_Incidents_Visualisation_Year_Ending_December_2023.xlsx"),
+                                         sheet = "Table 01") %>%
+  janitor::clean_names()
+
+# Data wrangling
+violence_incidents <- violence_incidents %>%
+  dplyr::filter(afm_age_group == "Total",
+                afm_indigenous_status != "Total People") %>% 
+  #
+  dplyr::select(year,
+                sex = afm_sex,
+                indigenous_status = afm_indigenous_status,
+                n = afm_counter) %>%
+  #
+  dplyr::mutate(
+    n = as.numeric(n),
+    #
+    sex = dplyr::case_when(
+      sex == "Males"   ~ "Male",
+      sex == "Females" ~ "Female",
+      sex == "People"  ~ "Total",
+      TRUE ~ NA_character_),
+    #
+    indigenous_status = dplyr::case_when(
+      indigenous_status == "Aboriginal and/or Torres Strait Islander" ~ "Aboriginal",
+      indigenous_status == "Non-Indigenous"                           ~ "Non-Indigenous",
+      TRUE ~ NA_character_))
+```
+
+- Data for this topic were obtained from the [Victorian Crime Statistics Agency](https://www.crimestatistics.vic.gov.au/crime-statistics/latest-aboriginal-crime-data/family-incidents-by-aboriginal-and-torres-strait).
+
+- The number of family violence incidents reported by affected Aboriginal and/or Torres Strait Islander family members living in Victoria increased from 4,696 in 2019 to 5,687 in 2023.
+
+- Family violence incidents were more commonly reported by females than by males.
+
+- The number of family violence incidents reported increased each year for both males and females.
+
+::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
+- `r note_aboriginality_crime`
+
+<div style="height: 0.1em;"></div> 
+
+- Family violence is not limited to physical violence and definitions can be found on the [Victorian government website](https://www.vic.gov.au/what-family-violence).
+  - Family violence incidents were defined as those where a Victoria Police Risk Assessment and Risk Management Report (also known as an L17 form) was completed and recorded on LEAP.
+
+<div style="height: 0.1em;"></div> 
+
+- An affected family member is the individual who is deemed to be affected by events occurring during a family incident.
+  - The other individual involved in a family incident is referred to as the ‘other party’.
+  - The other party could be a current partner, former partner, or a family member.
+
+:::
+
+:::: {.panel-tabset}
+
+#### Figure 8B-3
+
+::: {#fig_8B_3 .fig-tab-title}
+**Figure 8B-3:** Number of family violence incidents reported by affected Aboriginal and/or Torres Strait Islander family members, Victoria, by sex and year
+:::
+
+```{r}
+#
+figure_count <- figure_count + 1
+
+violence_incidents %>% 
+  dplyr::filter(sex != "Total" & indigenous_status == "Aboriginal") %>%
+  #
+  f_line_grouped_sex(y_variable = n,
+                     n_level    = "reported incidents")
+```
+
+#### Table 8B-3
+
+::: {#tab_8B_3 .fig-tab-title}
+**Table 8B-3:** Number of family violence incidents reported by affected Aboriginal and/or Torres Strait Islander family members, Victoria, by sex and year
+:::
+
+```{r}
+#
+table_count  <- table_count + 1
+table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+
+table <- violence_incidents %>%
+  tidyr::pivot_wider(names_from = "sex",
+                     values_from = "n") %>% 
+  #
+  janitor::clean_names() %>% 
+  #
+  dplyr::filter(indigenous_status == "Aboriginal") %>% 
+  #
+  dplyr::select(year,
+                female_n = female,
+                male_n = male,
+                total_n = total) %>% 
+  #
+  dplyr::arrange(year)
+
+if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>%
+  dplyr::mutate(year = as.character(year)) %>% 
+  #
+  f_table_simple(total_row     = NULL,
+                 column_width  = "1.75in",
+                 table_headers = c("Year",
+                                   "Female (n)",
+                                   "Male (n)",
+                                   "Total"))
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_crime`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_underidentification`
+:::
+

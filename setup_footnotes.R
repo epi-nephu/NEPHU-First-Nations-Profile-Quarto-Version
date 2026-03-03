@@ -34,6 +34,12 @@ In the Australian Early Development Census, Aboriginal and/or Torres Strait Isla
 note_aboriginality_census <- glue::glue("
 In the ABS Census, Aboriginal and/or Torres Strait Islander peoples were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander when they completed the Census.")
 
+note_aboriginality_childprotection <- glue::glue("
+Aboriginal and/or Torres Strait Islander peoples were defined as those who were identified as such in the individual state and territory data collections that make up the AIHW Child Protection National Minimum Dataset.")
+
+note_aboriginality_crime <- glue::glue("
+Aboriginal and/or Torres Strait Islander status for affected family members and other parties was based on the most frequent recording of the Indigenous status for each person in the Law Enforcement Assistance Program (LEAP) database. If a person appeared in the database multiple times, the most frequently recorded response was taken as being correct.")
+
 note_aboriginality_naplan <- glue::glue("
 In NAPLAN, a student was classified as being of Aboriginal and/or Torres Strait Islander origin, based on information provided by the student, or their parent or guardian, on the school enrolment form.")
 
@@ -49,8 +55,15 @@ In the National Health Survey, Aboriginal and/or Torres Strait Islander peoples 
 note_aboriginality_perinatal <- glue::glue("
 In the National Perinatal Data Collection, Aboriginal and/or Torres Strait Islander mothers were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander at the time of childbirth.")
 
+note_aboriginality_prisoners <- glue::glue("
+In the ABS Prisoners in Australia Dataset, Aboriginal and/or Torres Strait Islander peoples were defined as those who identified themselves as Aboriginal and/or Torres Strait Islander at the time of their contact with a corrective service agency.")
+
 note_aboriginality_vcams <- glue::glue("
 In the Victorian Adolescent and Child Monitoring System (VCAMS), Aboriginal and/or Torres Strait Islander children were defined as those who were recorded as Aboriginal and/or Torres Strait Islander in the datasets that comprise VCAMS. For preschool enrolments, these data were sourced from the [Kindergarten Information Management System](https://www.vic.gov.au/kims).")
+
+note_aboriginality_youthjustice <- glue::glue("
+In the AIHW Youth Justice National Minimum Dataset, Aboriginal and/or Torres Strait Islander peoples were defined as those who identified themselves as Aboriginal and/or Torres Strait Islander at the time of their contact with the youth justice system.")
+
 # ------------------------------------------------------------------------------
 # Chart notes - data sources
 # ------------------------------------------------------------------------------
@@ -64,6 +77,17 @@ note_data_census <- glue::glue("
 - Data were obtained from the [ABS Census 2021](https://www.abs.gov.au/census) and are publicly available at Local Government Area (LGA), ABS Statistical Area Level 2 (SA2), and Indigenous Area of Residence (IARE) level.
   - The 2021 Census was held on the evening of August 10th 2021.
   - Aboriginal and/or Torres Strait Islander peoples were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander in the Census.")
+
+note_data_childprotection <- glue::glue("
+- Data were obtained from the [AIHW Child Protection National Minimum Dataset](https://www.aihw.gov.au/about-our-data/our-data-collections/child-protection-national-minimum-data-set).
+  - The AIHW Child Protection National Minimum Dataset includes information about children who come into contact with State and Territory departments responsible for child protection.
+  - Aboriginal and/or Torres Strait Islander peoples were defined as those who are identified as such in the individual state and territory data collections that make up the AIHW Child Protection National Minimum Dataset.
+  - Children were defined as persons aged 0-17 years.")
+
+note_data_crime <- glue::glue("
+- Data were obtained from the [Victorian Crime Statistics Agency](https://www.crimestatistics.vic.gov.au/crime-statistics/latest-aboriginal-crime-data/family-incidents-by-aboriginal-and-torres-strait).
+  - The Victorian Crime Statistics Agency collates information about crimes reported to Victoria Police and recorded in the Law Enforcement Assistance Program (LEAP) database.
+  - Aboriginal and/or Torres Strait Islander status for affected family members and other parties is based on the most frequent recording of the Indigenous status for each person in the LEAP database. If a person appears in the database multiple times, the most frequently recorded response is taken as being correct.")
 
 note_data_ctg_nativetitle <- glue::glue("
 - Data were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the [National Native Title Tribunal Geospatial Data Model](https://www.nntt.gov.au/assistance/Geospatial/Pages/Spatial-aata.aspx).
@@ -81,6 +105,18 @@ note_data_framework_breastfed <- glue::glue("
   - The AIHW Aboriginal and Torres Strait Islander Health Performance Framework brings together information from a wide range of national, jurisdictional, and regional data sources to report on determinants of health, health outcomes, and health system performance for Aboriginal and/or Torres Strait Islander peoples.
   - The 2018-19 ABS National Aboriginal and Torres Strait Islander Health Survey collected information from Aboriginal and/or Torres Strait Islander people of all ages in non-remote and remote areas of Australia, including discrete Aboriginal and/or Torres Strait Islander communities. 
   - The 2017-18 ABS National Health Survey collected information from Australian residents of all ages living in private dwellings in both urban and rural areas of all Australian states and territories, including very remote communities and discrete Aboriginal and/or Torres Strait Islander communities.")
+
+note_data_justice_adult <- glue::glue("
+- Data were obtained from the [ABS Prisoners in Australia Dataset](https://www.abs.gov.au/statistics/people/crime-and-justice/prisoners-australia/latest-release).
+  - The ABS Prisoners in Australia Dataset includes all persons remanded or sentenced to adult custodial corrective services agencies in each Australian state and territory.
+  - Aboriginal and/or Torres Strait Islander peoples were defined as those who identified themselves as Aboriginal and/or Torres Strait Islander at the time of their contact with a corrective service agency.
+  - Adults were defined as persons aged 18 years and over.")
+
+note_data_justice_youth <- glue::glue("
+- Data were obtained from the [AIHW Youth Justice National Minimum Dataset](https://www.aihw.gov.au/about-our-data/our-data-collections/youth-justice).
+  - The AIHW Youth Justice National Minimum Dataset includes information about young people in Australia who were under youth justice supervision in each Australian state and territory.
+  - Aboriginal and/or Torres Strait Islander peoples were defined as those who identified themselves as Aboriginal and/or Torres Strait Islander at the time of their contact with the youth justice system.
+  - Young people were defined as persons aged 10-17 years.")
 
 note_data_mortality <- glue::glue("
 - Data were obtained from the ABS Technical Note [The impact of using multiple sources for deriving the Indigenous status of deaths in 2023](https://www.abs.gov.au/articles/technical-note-impact-using-multiple-sources-deriving-indigenous-status-deaths-2023-changes-victoria-and-coroner-referred-deaths).
