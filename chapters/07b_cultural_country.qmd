@@ -24,11 +24,6 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Connection to Country {.unnumbered}
 
-```{r}
-#
-knitr::knit_exit()
-```
-
 ::: {.caveat-box}
 **A note about the impact of under-identification**
 
@@ -94,14 +89,16 @@ homeland <- homeland %>%
 
 - Males and females were equally likely to recognise an area as their traditional Country (68% vs. 68%).
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-The following question was asked of all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
+- The following question was asked of all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
+  - Do you recognise an area as your homeland or traditional Country?
+    - Yes
+    - No
+    
+<div style="height: 0.1em;"></div>
 
-- Do you recognise an area as your homeland or traditional Country?
-  - Yes
-  - No
-
-<div style="height: 2em;"></div>
+- Definitions and notes:
+  - `r note_aboriginality_natsihs`
 :::
 
 :::: {.panel-tabset}
@@ -118,13 +115,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- homeland %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(recognise_country = answer)
+  f_preptable_grouped_sex(variable_name = "recognise_country")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -150,21 +141,23 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_estimate`
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Connection Through Returning to Country
 
@@ -228,31 +221,27 @@ visit <- visit %>%
 
 - Females were more likely to visit their traditional Country several times per year than males (18% vs. 9.3%).
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-The following questions were asked of all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
+- The following questions were asked of all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
+  - Do you recognise an area as your homeland or traditional Country?
+    - Yes
+    - No
+  - If yes, do you currently live there?
+    - Yes
+    - No
+  - If you do not currently live there, how often do you visit?
+    - At least once a week
+    - At least once a fortnight
+    - At least once a month
+    - Several times per year
+    - Once per year
+    - Less frequently than once per year
+    - Never
 
-- Do you recognise an area as your homeland or traditional Country?
-  - Yes
-  - No
+<div style="height: 0.1em;"></div>
 
-<div style="height: 1em;"></div>
-
-- If yes, do you currently live there?
-  - Yes
-  - No
-
-<div style="height: 1em;"></div>
-
-- If you do not currently live there, how often do you visit?
-  - At least once a week
-  - At least once a fortnight
-  - At least once a month
-  - Several times per year
-  - Once per year
-  - Less frequently than once per year
-  - Never
-
-<div style="height: 2em;"></div>
+- Definitions and notes:
+  - `r note_aboriginality_natsihs`
 :::
 
 :::: {.panel-tabset}
@@ -276,8 +265,6 @@ figure_number <- visit %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = n,
-                    y_breaks   = 250,
-                    y_expand   = 160,
                     x_angle    = 90)
 
 figure_percent <- visit %>% 
@@ -287,9 +274,6 @@ figure_percent <- visit %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = prop,
-                    y_max      = 50,
-                    y_breaks   = 5,
-                    y_expand   = 1,
                     x_angle    = 90)
 
 f_bar_grouped_combine(figure_number, figure_percent)
@@ -307,13 +291,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- visit %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(visit_country = answer)
+  f_preptable_grouped_sex(variable_name = "visit_country")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -339,21 +317,23 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_estimate`
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## First Nations Rights and Responsibilities for Lands and Waters
 
@@ -456,6 +436,16 @@ native_title <- nativetitle_land %>%
 
 - Detailed maps of areas covered by native title claimant applications, native title determinations, and Indigenous Land Use Agreements can be found on the [National Native Title Tribunal website](https://www.nntt.gov.au/assistance/Geospatial/Pages/Maps.aspx).
 
+- Further historical and ongoing target context can be found on the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/land-and-waters/).
+
+::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
+- Definitions and notes:
+  - Total land mass, total sea area, and the percentage subject to Aboriginal and/or Torres Strait Islander people’s legal rights or interests are calculated based on jurisdictional boundaries sourced from Geoscience Australia.
+  - Land mass subject to Aboriginal and/or Torres Strait Islander people’s legal rights or interests includes:
+    - Determinations of native title (land subject to a determination that native title exists exclusive or non-exclusive)
+    - Indigenous estates (land grants under various land rights regimes of the states and territories and the Commonwealth)
+:::
+
 :::: {.panel-tabset}
 
 #### Figure 7B-2
@@ -500,9 +490,9 @@ figure_percent <- native_title %>%
              linetype  = "dashed",
              linewidth = 1) +
   #
-  scale_y_continuous(limits = c(0, 10),
+  scale_y_continuous(limits = c(0, NA),
                      breaks = scales::breaks_width(1),
-                     expand = expansion(add = c(0, 0.25)),
+                     expand = expansion(add = c(0, 0.75)),
                      labels = scales::comma_format(big.mark = ",")) +
   #
   scale_color_manual(values = c(colour_landmass, colour_seaarea),
@@ -575,24 +565,10 @@ table %>%
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
-- Data were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the [National Native Title Tribunal Geospatial Data Model](https://www.nntt.gov.au/assistance/Geospatial/Pages/Spatial-aata.aspx).
-  - The Closing the Gap Information Repository brings together data from a wide range of data sources to provide up to date information for each Closing the Gap target, indicator, and contextual factors.
-  - The National Native Title Tribunal Geospatial Data Model brings together information about native title claimant applications, native title determinations, Indigenous estates, registered and notified Indigenous Land Use Agreements, and registered native title bodies corporate.
+`r note_data_ctg_nativetitle`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
-- Total land mass, total sea area, and the percentage subject to Aboriginal and/or Torres Strait Islander people’s legal rights or interests are calculated based on jurisdictional boundaries sourced from [Geoscience Australia](https://www.ga.gov.au/scientific-topics/national-location-information/dimensions/area-of-australia-states-and-territories).
-
-<div style="height: 1em;"></div>
-
-- Land mass subject to Aboriginal and/or Torres Strait Islander people’s legal rights or interests includes:
-  - Determinations of native title (land subject to a determination that native title exists exclusive or non-exclusive)
-  - Indigenous estates (land grants under various land rights regimes of the states and territories and the Commonwealth)
-
-<div style="height: 1em;"></div>
-
-- The Closing the Gap targets are marked with a dashed green line (land mass) and a dashed blue line (sea area) in Figure 7A-5.
-
-<div style="height: 2em;"></div>
+- The Closing the Gap targets are marked with a dashed green line (land mass) and a dashed blue line (sea area) in Figure 7B-2.
 :::
 
