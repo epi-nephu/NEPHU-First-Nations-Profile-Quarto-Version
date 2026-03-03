@@ -135,45 +135,35 @@ engaged_agesex <- engaged_agesex %>%
 - Younger people were more likely to be fully or partially engaged in employment, education, or training. Males were more likely to be fully engaged and females were more likely to be partially engaged.
 
 ::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
-The following questions were asked of all people aged 15 years and over completing the ABS Census 2021. Responses were cross tabulated to determine the type of engagement in work and/or study (fully engaged, partially engaged, at least partially engaged, not engaged) for each respondent.
-
-- Is the person attending a school or any other education institution?
-  - No
-  - Yes, full-time student
-  - Yes, part-time student
-
-<div style="height: 0.1em;"></div>
-
-- Last week, did the person have a job of any kind?
-  - Yes, worked for payment or profit
-  - Yes, but absent on holidays, on paid leave, on strike, or temporarily stood down
-  - Yes, unpaid work in a family business
-  - Yes, other unpaid work
-  - No, did not have a job
-
-<div style="height: 0.1em;"></div>
-
-- Last week, how many hours did the person work in all jobs?
-  - Free text response
-
-<div style="height: 0.1em;"></div>
-
-- Did the person actively look for work at any time in the last four weeks?
-  - No, did not look for work
-  - Yes, looked for full-time work
-  - Yes, looked for part-time work
+- The following questions were asked of all people aged 15 years and over completing the ABS Census 2021: 
+  - Is the person attending a school or any other education institution?
+    - No
+    - Yes, full-time student
+    - Yes, part-time student
+  - Last week, did the person have a job of any kind?
+    - Yes, worked for payment or profit
+    - Yes, but absent on holidays, on paid leave, on strike, or temporarily stood down
+    - Yes, unpaid work in a family business
+    - Yes, other unpaid work
+    - No, did not have a job
+  - Last week, how many hours did the person work in all jobs?
+    - Free text response
+  - Did the person actively look for work at any time in the last four weeks?
+    - No, did not look for work
+    - Yes, looked for full-time work
+    - Yes, looked for part-time work
+  - If the person had found a job, could they have started work last week?
+    - Yes, could have started work last week
+    - No, already had a job to go to
+    - No, temporarily ill or injured
+    - No, other reason
 
 <div style="height: 0.1em;"></div>
-
-- If the person had found a job, could they have started work last week?
-  - Yes, could have started work last week
-  - No, already had a job to go to
-  - No, temporarily ill or injured
-  - No, other reason
   
-Definitions and notes:
+- Definitions and notes:
+  - `r note_aboriginality_census`
+  - Responses were cross tabulated to determine the type of engagement in work and/or study (fully engaged, partially engaged, at least partially engaged, not engaged) for each respondent.
 
-`r note_aboriginality_census`
 :::
 
 :::: {.panel-tabset}
@@ -462,45 +452,35 @@ fully_age <- f_read_ctg_indigenous("CTG07_Employment_Education_Data_Tables.xlsx"
 - Given the improvement seen in youth engagement in education, employment, or training over time, it was also discussed whether the Closing the Gap target should now be higher.
 
 ::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
-The following questions were asked of all people aged 15 years and over completing the ABS Census 2021. Responses were cross tabulated to determine the type of engagement in work and/or study (fully engaged, partially engaged, at least partially engaged, not engaged) for each respondent.
-
-- Is the person attending a school or any other education institution?
-  - No
-  - Yes, full-time student
-  - Yes, part-time student
-
-<div style="height: 0.1em;"></div>
-
-- Last week, did the person have a job of any kind?
-  - Yes, worked for payment or profit
-  - Yes, but absent on holidays, on paid leave, on strike, or temporarily stood down
-  - Yes, unpaid work in a family business
-  - Yes, other unpaid work
-  - No, did not have a job
-
-<div style="height: 0.1em;"></div>
-
-- Last week, how many hours did the person work in all jobs?
-  - Free text response
-
-<div style="height: 0.1em;"></div>
-
-- Did the person actively look for work at any time in the last four weeks?
-  - No, did not look for work
-  - Yes, looked for full-time work
-  - Yes, looked for part-time work
+- The following questions were asked of all people aged 15 years and over completing the ABS Census 2021: 
+  - Is the person attending a school or any other education institution?
+    - No
+    - Yes, full-time student
+    - Yes, part-time student
+  - Last week, did the person have a job of any kind?
+    - Yes, worked for payment or profit
+    - Yes, but absent on holidays, on paid leave, on strike, or temporarily stood down
+    - Yes, unpaid work in a family business
+    - Yes, other unpaid work
+    - No, did not have a job
+  - Last week, how many hours did the person work in all jobs?
+    - Free text response
+  - Did the person actively look for work at any time in the last four weeks?
+    - No, did not look for work
+    - Yes, looked for full-time work
+    - Yes, looked for part-time work
+  - If the person had found a job, could they have started work last week?
+    - Yes, could have started work last week
+    - No, already had a job to go to
+    - No, temporarily ill or injured
+    - No, other reason
 
 <div style="height: 0.1em;"></div>
 
-- If the person had found a job, could they have started work last week?
-  - Yes, could have started work last week
-  - No, already had a job to go to
-  - No, temporarily ill or injured
-  - No, other reason
-  
-Definitions and notes:
+- Definitions and notes:
+  - `r note_aboriginality_census`
+  - Responses were cross tabulated to determine the type of engagement in work and/or study (fully engaged, partially engaged, at least partially engaged, not engaged) for each respondent.
 
-`r note_aboriginality_census`
 :::
 
 :::: {.panel-tabset}
@@ -837,52 +817,36 @@ status_agesex <- status_agesex %>%
 - Males were more likely to be employed full-time than females.
 
 ::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
-The following questions were asked of all people aged 15 years and over completing the ABS Census 2021. Responses were cross tabulated to determine the labour force status (employed full-time, employed part-time, employed but away from work, unemployed but looking for work, not in the labour force) for each respondent.
-
-- Last week, did the person have a job of any kind?
-  - Yes, worked for payment or profit
-  - Yes, but absent on holidays, on paid leave, on strike, or temporarily stood down
-  - Yes, unpaid work in a family business
-  - Yes, other unpaid work
-  - No, did not have a job
-
-<div style="height: 0.1em;"></div>
-
-- In the main job held last week, was the person:
-  - Working for an employer
-  - Working in own business
-
-<div style="height: 0.1em;"></div>
-
-- Last week, how many hours did the person work in all jobs?
-  - Free text response
-
-<div style="height: 0.1em;"></div>
-
-- Did the person actively look for work at any time in the last four weeks?
-  - No, did not look for work
-  - Yes, looked for full-time work
-  - Yes, looked for part-time work
+- The following questions were asked of all people aged 15 years and over completing the ABS Census 2021:
+  - Last week, did the person have a job of any kind?
+    - Yes, worked for payment or profit
+    - Yes, but absent on holidays, on paid leave, on strike, or temporarily stood down
+    - Yes, unpaid work in a family business
+    - Yes, other unpaid work
+    - No, did not have a job
+  - In the main job held last week, was the person:
+    - Working for an employer
+    - Working in own business
+  - Last week, how many hours did the person work in all jobs?
+    - Free text response
+  - Did the person actively look for work at any time in the last four weeks?
+    - No, did not look for work
+    - Yes, looked for full-time work
+    - Yes, looked for part-time work
+  - If the person had found a job, could they have started work last week?
+    - Yes, could have started work last week
+    - No, already had a job to go to
+    - No, temporarily ill or injured
+    - No, other reason
 
 <div style="height: 0.1em;"></div>
 
-- If the person had found a job, could they have started work last week?
-  - Yes, could have started work last week
-  - No, already had a job to go to
-  - No, temporarily ill or injured
-  - No, other reason
+- Definitions and notes:
+  - `r note_aboriginality_census`
+  - Responses were cross tabulated to determine the labour force status (employed full-time, employed part-time, employed but away from work, unemployed but looking for work, not in the labour force) for each respondent.
+  - Employed people were defined as those who were employed full-time (35 hours or more per week), part-time (less than 35 hours per week), or on leave from work in the week prior to Census night.
+  - Unemployed people were defined as people who were not currently employed and were actively looking for work (either part-time or full-time) or people who were not part of the labour force.
 
-Definitions and notes:
-
-`r note_aboriginality_census`
-
-<div style="height: 0.1em;"></div>
-
-- Employed people were defined as those who were employed full-time (35 hours or more per week), part-time (less than 35 hours per week), or on leave from work in the week prior to Census night.
-
-<div style="height: 0.1em;"></div>
-
-- Unemployed people were defined as people who were not currently employed and were actively looking for work (either part-time or full-time) or people who were not part of the labour force.
 :::
 
 :::: {.panel-tabset}
@@ -1170,52 +1134,36 @@ status_working_sex <- status_working %>%
 - Further historical and ongoing target context can be found on the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/economic-participation/).
 
 ::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
-The following questions were asked of all people aged 15 years and over completing the ABS Census 2021. Responses were cross tabulated to determine the labour force status (employed full-time, employed part-time, employed but away from work, unemployed but looking for work, not in the labour force) for each respondent.
-
-- Last week, did the person have a job of any kind?
-  - Yes, worked for payment or profit
-  - Yes, but absent on holidays, on paid leave, on strike, or temporarily stood down
-  - Yes, unpaid work in a family business
-  - Yes, other unpaid work
-  - No, did not have a job
-
-<div style="height: 0.1em;"></div>
-
-- In the main job held last week, was the person:
-  - Working for an employer
-  - Working in own business
-
-<div style="height: 0.1em;"></div>
-
-- Last week, how many hours did the person work in all jobs?
-  - Free text response
-
-<div style="height: 0.1em;"></div>
-
-- Did the person actively look for work at any time in the last four weeks?
-  - No, did not look for work
-  - Yes, looked for full-time work
-  - Yes, looked for part-time work
+- The following questions were asked of all people aged 15 years and over completing the ABS Census 2021:
+  - Last week, did the person have a job of any kind?
+    - Yes, worked for payment or profit
+    - Yes, but absent on holidays, on paid leave, on strike, or temporarily stood down
+    - Yes, unpaid work in a family business
+    - Yes, other unpaid work
+    - No, did not have a job
+  - In the main job held last week, was the person:
+    - Working for an employer
+    - Working in own business
+  - Last week, how many hours did the person work in all jobs?
+    - Free text response
+  - Did the person actively look for work at any time in the last four weeks?
+    - No, did not look for work
+    - Yes, looked for full-time work
+    - Yes, looked for part-time work
+  - If the person had found a job, could they have started work last week?
+    - Yes, could have started work last week
+    - No, already had a job to go to
+    - No, temporarily ill or injured
+    - No, other reason
 
 <div style="height: 0.1em;"></div>
 
-- If the person had found a job, could they have started work last week?
-  - Yes, could have started work last week
-  - No, already had a job to go to
-  - No, temporarily ill or injured
-  - No, other reason
+- Definitions and notes:
+  - `r note_aboriginality_census`
+  - Responses were cross tabulated to determine the labour force status (employed full-time, employed part-time, employed but away from work, unemployed but looking for work, not in the labour force) for each respondent.
+  - Employed people were defined as those who were employed full-time (35 hours or more per week), part-time (less than 35 hours per week), or on leave from work in the week prior to Census night.
+  - Unemployed people were defined as people who were not currently employed and were actively looking for work (either part-time or full-time) or people who were not part of the labour force.
 
-Definitions and notes:
-
-`r note_aboriginality_census`
-
-<div style="height: 0.1em;"></div>
-
-- Employed people were defined as those who were employed full-time (35 hours or more per week), part-time (less than 35 hours per week), or on leave from work in the week prior to Census night.
-
-<div style="height: 0.1em;"></div>
-
-- Unemployed people were defined as people who were not currently employed and were actively looking for work (either part-time or full-time) or people who were not part of the labour force.
 :::
 
 :::: {.panel-tabset}
@@ -1452,15 +1400,16 @@ volunteer_agesex <- volunteer_agesex %>%
 - Consultations with stakeholders regarding this indicator noted that these data are likely to be an underestimate, as many in Aboriginal and/or Torres Strait Islander people do not see helping out in their community as a volunteering activity, but rather as something that is just done.
 
 ::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
-The following question was asked of all people aged 15 years and over completing the ABS Census 2021.
+- The following question was asked of all people aged 15 years and over completing the ABS Census 2021:
+  - In the last 12 months did the person spend any time doing unpaid voluntary work for an organisation or group?
+    - No, did not do any voluntary work
+    - Yes, did voluntary work
 
-- In the last 12 months did the person spend any time doing unpaid voluntary work for an organisation or group?
-  - No, did not do any voluntary work
-  - Yes, did voluntary work
+<div style="height: 0.1em;"></div>
 
-Definitions and notes:
+- Definitions and notes:
+  - `r note_aboriginality_census`
 
-`r note_aboriginality_census`
 :::
 
 :::: {.panel-tabset}
@@ -1687,15 +1636,16 @@ carer_agesex <- carer_agesex %>%
 - Individuals may not be defining themselves as ‘carers’ despite undertaking unpaid caring duties for family or other community members. This could lead to an underestimate of the number of unpaid carers.
 
 ::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
-The following question was asked of all people aged 15 years and over completing the ABS Census 2021.
+- The following question was asked of all people aged 15 years and over completing the ABS Census 2021:
+  - In the last two weeks did the person spend time providing unpaid care, help, or assistance to family members or others because of a disability, a long-term health condition, or problems related to old age?
+    - No, did not provide unpaid care, help, or assistance
+    - Yes, provided unpaid care, help, or assistance
 
-- In the last two weeks did the person spend time providing unpaid care, help, or assistance to family members or others because of a disability, a long-term health condition, or problems related to old age?
-  - No, did not provide unpaid care, help, or assistance
-  - Yes, provided unpaid care, help, or assistance
+<div style="height: 0.1em;"></div>
 
-Definitions and notes:
+- Definitions and notes:
+  - `r note_aboriginality_census`
 
-`r note_aboriginality_census`
 :::
 
 :::: {.panel-tabset}

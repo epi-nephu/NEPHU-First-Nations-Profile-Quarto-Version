@@ -144,25 +144,23 @@ language_specific <- language_specific %>%
 - It was also discussed that higher engagement amongst young people and children may be partly due to the success of community-driven language teaching efforts. The [Victorian Aboriginal Corporation for Languages (VACL)](https://vacl.org.au/) assists local communities with language revitalisation plans by running language camps, school programs, and events. For example, they have [partnered with Thornbury Primary School since 2012](https://www.vaeai.org.au/6895/), where students from Prep to Grade 6 have been learning Woiwurrung, the language of the Wurundjeri People.
 
 ::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
-The following question was asked of all people completing the ABS Census 2021.
-
-- Does the person use a language other than English at home?
-  - No, English only
-  - Yes, Mandarin
-  - Yes, Arabic
-  - Yes, Cantonese
-  - Yes, Vietnamese
-  - Yes, Italian
-  - Yes, Greek
-  - Yes, other language (please specify)
-
-Definitions and notes:
-
-`r note_aboriginality_census`
+- The following question was asked of all people completing the ABS Census 2021:
+  - Does the person use a language other than English at home?
+    - No, English only
+    - Yes, Mandarin
+    - Yes, Arabic
+    - Yes, Cantonese
+    - Yes, Vietnamese
+    - Yes, Italian
+    - Yes, Greek
+    - Yes, other language (please specify)
 
 <div style="height: 0.1em;"></div>
 
-- When a person listed more than one language, responses were accepted in the order they appeared on the Census form. The first response was included in the data and any extra responses were rejected. 
+- Definitions and notes:
+  - `r note_aboriginality_census`
+  - When a person listed more than one language, responses were accepted in the order they appeared on the Census form. The first response was included in the data and any extra responses were rejected. 
+
 :::
 
 :::: {.panel-tabset}
@@ -393,25 +391,23 @@ language_other <- language_other %>%
 - 27 people reporting using Auslan at home.
 
 ::: {.callout-tip title="Census questions and definitions for this topic " icon=false collapse=false}
-The following question was asked of all people completing the ABS Census 2021.<br>
-
-- Does the person use a language other than English at home?
-  - No, English only
-  - Yes, Mandarin
-  - Yes, Arabic
-  - Yes, Cantonese
-  - Yes, Vietnamese
-  - Yes, Italian
-  - Yes, Greek
-  - Yes, other language (please specify)
-
-Definitions and notes:<br>
-
-`r note_aboriginality_census`
+- The following question was asked of all people completing the ABS Census 2021:
+  - Does the person use a language other than English at home?
+    - No, English only
+    - Yes, Mandarin
+    - Yes, Arabic
+    - Yes, Cantonese
+    - Yes, Vietnamese
+    - Yes, Italian
+    - Yes, Greek
+    - Yes, other language (please specify)
 
 <div style="height: 0.1em;"></div>
 
-- When a person listed more than one language, responses were accepted in the order they appeared on the Census form. The first response was included in the data and any extra responses were rejected.
+- Definitions and notes:
+  - `r note_aboriginality_census`
+  - When a person listed more than one language, responses were accepted in the order they appeared on the Census form. The first response was included in the data and any extra responses were rejected.
+
 :::
 
 :::: {.panel-tabset}
@@ -546,33 +542,28 @@ english_agesex <- english_agesex %>%
 - This pattern was seen across all LGAs, for both males and females, and across all age groups.
 
 ::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
-The following questions were asked of all people completing the ABS Census 2021.<br>
-
-- Does the person use a language other than English at home?
-  - No, English only
-  - Yes, Mandarin
-  - Yes, Arabic
-  - Yes, Cantonese
-  - Yes, Vietnamese
-  - Yes, Italian
-  - Yes, Greek
-  - Yes, other language (please specify)
-
-<div style="height: 0.1em;"></div>
-
-- How well does the person speak English?
-  - Very well
-  - Well
-  - Not well
-  - Not at all
-
-Definitions and notes:<br>
-
-`r note_aboriginality_census`
+- The following questions were asked of all people completing the ABS Census 2021:
+  - Does the person use a language other than English at home?
+    - No, English only
+    - Yes, Mandarin
+    - Yes, Arabic
+    - Yes, Cantonese
+    - Yes, Vietnamese
+    - Yes, Italian
+    - Yes, Greek
+    - Yes, other language (please specify)
+  - How well does the person speak English?
+    - Very well
+    - Well
+    - Not well
+    - Not at all
 
 <div style="height: 0.1em;"></div>
 
-- When a person listed more than one language, responses were accepted in the order they appeared on the Census form. The first response was included in the data and any extra responses were rejected.
+- Definitions and notes:
+  - `r note_aboriginality_census`
+  - When a person listed more than one language, responses were accepted in the order they appeared on the Census form. The first response was included in the data and any extra responses were rejected.
+
 :::
 
 :::: {.panel-tabset}

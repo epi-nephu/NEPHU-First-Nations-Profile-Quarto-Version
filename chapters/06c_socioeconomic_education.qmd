@@ -135,19 +135,20 @@ school_agesex <- school_agesex %>%
 - Younger people were more likely to have a Year 12 or equivalent education, and females were more likely to have a Year 12 or equivalent education than males across all age groups.
 
 ::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
-The following question was asked of all people aged 15 years and over completing the ABS Census 2021.
+- The following question was asked of all people aged 15 years and over completing the ABS Census 2021:
+  - What is the highest year of primary or secondary school the person has completed?
+    - Year 12 or equivalent
+    - Year 11 or equivalent
+    - Year 10 or equivalent
+    - Year 9 or equivalent
+    - Year 8 or equivalent
+    - Did not go to school
 
-- What is the highest year of primary or secondary school the person has completed?
-  - Year 12 or equivalent
-  - Year 11 or equivalent
-  - Year 10 or equivalent
-  - Year 9 or equivalent
-  - Year 8 or equivalent
-  - Did not go to school
+<div style="height: 0.1em;"></div>
 
-Definitions and notes:
+- Definitions and notes:
+  - `r note_aboriginality_census`
 
-`r note_aboriginality_census`
 :::
 
 :::: {.panel-tabset}
@@ -426,23 +427,21 @@ year12_sex <- year12_youth %>%
 - The [Victorian Aboriginal Education Association Incorporated (VAEAI)](https://www.vic.gov.au/victorian-aboriginal-education-association-inc-vaeai) and [Victorian Aboriginal Community Services Association (VASCAL)](https://www.vacsal.org.au/) were credited with significant achievements in this area by stakeholders during the development of this report. VAEAI is the peak Koorie community organization for education and training in Victoria, advising education and government on ways to improve educational outcomes for students. VASCAL also provides advice to government and is a major provider of services to the Aboriginal community including an Aboriginal Early School Leavers and Youth Employment Program.
 
 ::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
-The following question was asked of all people aged 15 years and over completing the ABS Census 2021.
-
-- What is the highest year of primary or secondary school the person has completed?
-  - Year 12 or equivalent
-  - Year 11 or equivalent
-  - Year 10 or equivalent
-  - Year 9 or equivalent
-  - Year 8 or equivalent
-  - Did not go to school
-
-Definitions and notes:
-
-`r note_aboriginality_census`
+- The following question was asked of all people aged 15 years and over completing the ABS Census 2021:
+  - What is the highest year of primary or secondary school the person has completed?
+    - Year 12 or equivalent
+    - Year 11 or equivalent
+    - Year 10 or equivalent
+    - Year 9 or equivalent
+    - Year 8 or equivalent
+    - Did not go to school
 
 <div style="height: 0.1em;"></div>
 
-- *Year 12 or equivalent* was defined as the completion of a Year 12 or equivalent school qualification or a Certificate III or above non-school qualification based on the Australian Qualifications Framework.
+- Definitions and notes:
+  - `r note_aboriginality_census`
+  - *Year 12 or equivalent* was defined as the completion of a Year 12 or equivalent school qualification or a Certificate III or above non-school qualification based on the Australian Qualifications Framework.
+
 :::
 
 :::: {.panel-tabset}
@@ -736,32 +735,27 @@ qualification_agesex <- qualification_agesex %>%
 - Females were more likely to have a university degree (undergraduate and/or postgraduate) than males.
 
 ::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
-The following questions were asked of all people aged 15 years and over completing the ABS Census 2021.
-
-- What is the highest year of primary or secondary school the person has completed?
-  - Year 12 or equivalent
-  - Year 11 or equivalent
-  - Year 10 or equivalent
-  - Year 9 or equivalent
-  - Year 8 or equivalent
-  - Did not go to school
-
-<div style="height: 0.1em;"></div>
-
-- Has the person completed any educational qualification?
-  - No
-  - No, still studying for first qualification
-  - Yes, trade certificate/apprenticeship
-  - Yes, other qualification (certificate, diploma, or degree)
+- The following questions were asked of all people aged 15 years and over completing the ABS Census 2021:
+  - What is the highest year of primary or secondary school the person has completed?
+    - Year 12 or equivalent
+    - Year 11 or equivalent
+    - Year 10 or equivalent
+    - Year 9 or equivalent
+    - Year 8 or equivalent
+    - Did not go to school
+  - Has the person completed any educational qualification?
+    - No
+    - No, still studying for first qualification
+    - Yes, trade certificate/apprenticeship
+    - Yes, other qualification (certificate, diploma, or degree)
+  - What is the level of the highest qualification the person has completed?
+    - Free text response
 
 <div style="height: 0.1em;"></div>
-  
-- What is the level of the highest qualification the person has completed?
-  - Free text response
 
-Definitions and notes:
+- Definitions and notes:
+  - `r note_aboriginality_census`
 
-`r note_aboriginality_census`
 :::
 
 :::: {.panel-tabset}
@@ -1064,32 +1058,27 @@ uni_sex <- uni_youth %>%
 - For example, the [Victorian Aboriginal Community Services Association (VASCAL)](https://www.vacsal.org.au/), offers a Certificate IV and Diploma of Community Services. The [Victorian Aboriginal Community Controlled Health Organisation (VACCHO)](https://www.vaccho.org.au/) also offers a range of Diplomas, including a Diploma of Counselling and a Diploma of Business.
 
 ::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
-The following questions were asked of all people aged 15 years and over completing the ABS Census 2021.
-
-- What is the highest year of primary or secondary school the person has completed?
-  - Year 12 or equivalent
-  - Year 11 or equivalent
-  - Year 10 or equivalent
-  - Year 9 or equivalent
-  - Year 8 or equivalent
-  - Did not go to school
-
-<div style="height: 0.1em;"></div>
-
-- Has the person completed any educational qualification?
-  - No
-  - No, still studying for first qualification
-  - Yes, trade certificate/apprenticeship
-  - Yes, other qualification (certificate, diploma, or degree)
+- The following questions were asked of all people aged 15 years and over completing the ABS Census 2021:
+  - What is the highest year of primary or secondary school the person has completed?
+    - Year 12 or equivalent
+    - Year 11 or equivalent
+    - Year 10 or equivalent
+    - Year 9 or equivalent
+    - Year 8 or equivalent
+    - Did not go to school
+  - Has the person completed any educational qualification?
+    - No
+    - No, still studying for first qualification
+    - Yes, trade certificate/apprenticeship
+    - Yes, other qualification (certificate, diploma, or degree)
+  - What is the level of the highest qualification the person has completed?
+    - Free text response
 
 <div style="height: 0.1em;"></div>
 
-- What is the level of the highest qualification the person has completed?
-  - Free text response
+- Definitions and notes:
+  - `r note_aboriginality_census`
 
-Definitions and notes:
-
-`r note_aboriginality_census`
 :::
 
 :::: {.panel-tabset}

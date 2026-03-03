@@ -104,20 +104,19 @@ overcrowded_lga <- overcrowded_lga %>%
 - It was also noted however that Aboriginal and/or Torres Strait Islander people have a strong culture of supporting each other to address housing needs. 
 
 ::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
-The following questions were asked of all people completing the ABS Census 2021. The answers to these questions were cross-tabulated for all household members to assess the number of bedrooms required for the household, based on the [Canadian National Occupancy Standard](https://meteor.aihw.gov.au/content/386254) for housing appropriateness.
-
-- Is the person male, female, and/or non-binary?
-- What is the person's date of birth and age?
-- What is the person's relationship to the person completing the Census form for the household?
-- How many bedrooms are there in this dwelling?
-
-Definitions and notes:
-
-`r note_aboriginality_census`
+- The following questions were asked of all people completing the ABS Census 2021:
+  - Is the person male, female, and/or non-binary?
+  - What is the person's date of birth and age?
+  - What is the person's relationship to the person completing the Census form for the household?
+  - How many bedrooms are there in this dwelling?
 
 <div style="height: 0.1em;"></div>
 
-- Appropriately sized households were defined as those where extra bedrooms were not required.
+- Definitions and notes:
+  - `r note_aboriginality_census`
+  - Responses were cross-tabulated for all household members to assess the number of bedrooms required for the household, based on the [Canadian National Occupancy Standard](https://meteor.aihw.gov.au/content/386254) for housing appropriateness.
+  - Appropriately sized households were defined as those where extra bedrooms were not required.
+
 :::
 
 :::: {.panel-tabset}
@@ -497,38 +496,33 @@ suitability_combined <- suitability_structural %>%
 - Males were more likely to report each type of housing quality issue than females.
 
 ::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
-The following questions were asked of a representative for each household completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
-
-- Does this house have any of these problems that need to be fixed? (Select all that apply)
-  - Rising damp
-  - Major cracks in walls or floors
-  - Sinking or moving foundations
-  - Sagging floors
-  - Walls or windows that aren't straight
-  - Wood rot or termite damage
-  - Major electrical problems
-  - Major plumbing problems
-  - Major roof defects
-  - Other major structural problems
-
-<div style="height: 0.1em;"></div>
-
-- Are there any of these facilities that this house doesn't have or that are not working? (Select all that apply)
-  - Stove, oven, or other cooking facilities
-  - Fridge
-  - Toilet
-  - Bath or shower
-  - Washing machine
-  - Kitchen sink
-  - Laundry tub
-  
-Definitions and notes:
-
-`r note_aboriginality_natsihs`
+- The following questions were asked of a representative for each household completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
+  - Does this house have any of these problems that need to be fixed? (Select all that apply)
+    - Rising damp
+    - Major cracks in walls or floors
+    - Sinking or moving foundations
+    - Sagging floors
+    - Walls or windows that aren't straight
+    - Wood rot or termite damage
+    - Major electrical problems
+    - Major plumbing problems
+    - Major roof defects
+    - Other major structural problems
+  - Are there any of these facilities that this house doesn't have or that are not working? (Select all that apply)
+    - Stove, oven, or other cooking facilities
+    - Fridge
+    - Toilet
+    - Bath or shower
+    - Washing machine
+    - Kitchen sink
+    - Laundry tub
 
 <div style="height: 0.1em;"></div>
 
-- A house or dwelling was of an acceptable standard if there were working facilities for washing people, for washing clothes or bedding, for storing and preparing food, sewerage facilities, and if there were no more than two major structural problems.
+- Definitions and notes:
+  - `r note_aboriginality_natsihs`
+  - A house or dwelling was of an acceptable standard if there were working facilities for washing people, for washing clothes or bedding, for storing and preparing food, sewerage facilities, and if there were no more than two major structural problems.
+
 :::
 
 :::: {.panel-tabset}
@@ -741,20 +735,21 @@ tenure_lga <- tenure_lga %>%
 - In Yarra (75%) and Darebin (76%) LGAs, higher proportions of households were rented, which may reflect the younger age profile of these LGAs.
 
 ::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
-The following question was asked of all people completing the ABS Census 2021.
+- The following question was asked of all people completing the ABS Census 2021:
+  - Is this dwelling:
+    - Owned outright
+    - Owned with a mortgage
+    - Purchased under a shared equity scheme
+    - Rented
+    - Occupied rent free
+    - Occupied under a life tenure scheme
+    - Other
 
-- Is this dwelling:
-  - Owned outright
-  - Owned with a mortgage
-  - Purchased under a shared equity scheme
-  - Rented
-  - Occupied rent free
-  - Occupied under a life tenure scheme
-  - Other
-  
-Definitions and notes:
+<div style="height: 0.1em;"></div>
 
-`r note_aboriginality_census`
+- Definitions and notes:
+  - `r note_aboriginality_census`
+
 :::
 
 :::: {.panel-tabset}
@@ -897,41 +892,31 @@ stress_lga <- mortgage_lga %>%
 - The percentage of Aboriginal and/or Torres Strait Islander households in different LGAs within the NEPHU catchment that spent more than 30% of their annual household income on housing costs ranged from 14% (Whitehorse and Manningham LGAs) to 9.3% (Boroondara LGA).
 
 ::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
-The following questions were asked of all people aged 15 years and over completing the ABS Census 2021. Responses for each household member were summed to calculate the total weekly household income.
-
-- What is the total of all income the person usually receives?
-  - Free text response
-
-<div style="height: 0.1em;"></div>
-
-- Is this dwelling:
-  - Owned outright
-  - Owned with a mortgage
-  - Purchased under a shared equity scheme
-  - Rented
-  - Occupied rent free
-  - Occupied under a life tenure scheme
-  - Other
+- The following questions were asked of all people aged 15 years and over completing the ABS Census 2021:
+  - What is the total of all income the person usually receives?
+    - Free text response
+  - Is this dwelling:
+    - Owned outright
+    - Owned with a mortgage
+    - Purchased under a shared equity scheme
+    - Rented
+    - Occupied rent free
+    - Occupied under a life tenure scheme
+    - Other
+  - How much does your household pay for this dwelling?
+    - Free text response
 
 <div style="height: 0.1em;"></div>
 
-- How much does your household pay for this dwelling?
-  - Free text response
-  
-Definitions and notes:
+- Definitions and notes:
+  - `r note_aboriginality_census`
+  - Responses for each household member were summed to calculate the total weekly household income.
+  - This topic includes dwellings owned with a mortgage, purchased under a shared equity scheme, or rented.
+  - Mortgage or rental payments greater than 30% of household income may not indicate a household is in financial distress. 
+    - Households may choose to live in an area with higher costs due to proximity to work, schooling, or other lifestyle factors. 
+    - Higher income households may be able to spend more of their income on housing without this affecting their ability to pay for other costs of living. 
+    - Some households may choose to pay more than the minimum required payment in order to pay off a mortgage faster.
 
-`r note_aboriginality_census`
-
-<div style="height: 0.1em;"></div>
-
-- This indicator includes dwellings owned with a mortgage, purchased under a shared equity scheme, or rented.
-
-<div style="height: 0.1em;"></div>
-
-- Mortgage or rental payments greater than 30% of household income may not indicate a household is in financial distress. 
-  - Households may choose to live in an area with higher costs due to proximity to work, schooling, or other lifestyle factors. 
-  - Higher income households may be able to spend more of their income on housing without this affecting their ability to pay for other costs of living. 
-  - Some households may choose to pay more than the minimum required payment in order to pay off a mortgage faster.
 :::
 
 :::: {.panel-tabset}
@@ -1068,22 +1053,17 @@ homeless_agesex <- homeless_agesex %>%
 - The gap between the observed number of Aboriginal and/or Torres Strait Islander people who were homeless or marginally housed on Census night and the expected number if the proportion was the same as for non-Indigenous people was biggest for people aged less than 20 years and people aged 40-49 years for both males and females.
 
 ::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
-The following question was asked of all people completing the ABS Census 2021.
-
-- Where does the person usually live?
-  - Free text response
-  
-Definitions and notes:
-
-`r note_aboriginality_census`
+- The following question was asked of all people completing the ABS Census 2021:
+  - Where does the person usually live?
+    - Free text response
 
 <div style="height: 0.1em;"></div>
 
-- *Homeless* was defined as people who were living in improvised dwellings, tents, or sleeping out; living in supported accommodation for the homeless; staying temporarily with other households; living in boarding houses; living in severely crowded dwellings; or living in other temporary lodgings on Census night.
+- Definitions and notes:
+  - `r note_aboriginality_census`
+  - *Homeless* was defined as people who were living in improvised dwellings, tents, or sleeping out; living in supported accommodation for the homeless; staying temporarily with other households; living in boarding houses; living in severely crowded dwellings; or living in other temporary lodgings on Census night.
+  - *Marginally housed* was defined as people who were living in other (not severely) crowded dwellings, living in other improvised dwellings, or marginally housed in caravan parks on Census night.
 
-<div style="height: 0.1em;"></div>
-
-- *Marginally housed* was defined as people who were living in other (not severely) crowded dwellings, living in other improvised dwellings, or marginally housed in caravan parks on Census night.
 :::
 
 :::: {.panel-tabset}

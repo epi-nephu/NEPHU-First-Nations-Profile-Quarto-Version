@@ -99,6 +99,7 @@ homeland <- homeland %>%
 
 - Definitions and notes:
   - `r note_aboriginality_natsihs`
+
 :::
 
 :::: {.panel-tabset}
@@ -242,6 +243,7 @@ visit <- visit %>%
 
 - Definitions and notes:
   - `r note_aboriginality_natsihs`
+
 :::
 
 :::: {.panel-tabset}
@@ -439,11 +441,11 @@ native_title <- nativetitle_land %>%
 - Further historical and ongoing target context can be found on the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/land-and-waters/).
 
 ::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-- Definitions and notes:
-  - Total land mass, total sea area, and the percentage subject to Aboriginal and/or Torres Strait Islander people’s legal rights or interests are calculated based on jurisdictional boundaries sourced from Geoscience Australia.
-  - Land mass subject to Aboriginal and/or Torres Strait Islander people’s legal rights or interests includes:
-    - Determinations of native title (land subject to a determination that native title exists exclusive or non-exclusive)
-    - Indigenous estates (land grants under various land rights regimes of the states and territories and the Commonwealth)
+- Total land mass, total sea area, and the percentage subject to Aboriginal and/or Torres Strait Islander people’s legal rights or interests are calculated based on jurisdictional boundaries sourced from Geoscience Australia.
+- Land mass subject to Aboriginal and/or Torres Strait Islander people’s legal rights or interests includes:
+  - Determinations of native title (land subject to a determination that native title exists exclusive or non-exclusive)
+  - Indigenous estates (land grants under various land rights regimes of the states and territories and the Commonwealth)
+
 :::
 
 :::: {.panel-tabset}

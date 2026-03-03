@@ -70,8 +70,8 @@ body {
 }
 
 li > ul {
-  margin-top: 0pt;
-  margin-bottom: 0pt;
+  margin-top: 2pt;
+  margin-bottom: 5pt;
 }
 
 .key-question {

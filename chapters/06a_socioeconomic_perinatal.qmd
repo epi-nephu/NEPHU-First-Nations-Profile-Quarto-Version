@@ -101,11 +101,11 @@ childhood_antenatal <- childhood_iare %>%
 - These factors may also contribute to late recognition of pregnancy, which was identified as another contributing factor to not attending or late attendance for antenatal care.
 
 ::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-`r note_aboriginality_perinatal`
+- `r note_aboriginality_perinatal`
 
 <div style="height: 0.1em;"></div>
 
-- Women were classified as attending antenatal care in line with recommendations if they attended within the first 10 weeks of pregnancy. 
+- Women were classified as attending antenatal care in line with recommendations if they attended within the first 10 weeks of pregnancy.
 
 <div style="height: 0.1em;"></div>
 
@@ -222,11 +222,11 @@ childhood_smoking <- childhood_iare %>%
 - Vaping was also discussed as being an increasing issue amongst communities, and was not captured in these data.
 
 ::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-`r note_aboriginality_perinatal`
+- `r note_aboriginality_perinatal`
 
 <div style="height: 0.1em;"></div>
 
-- Women were classified as smoking during pregnancy based on self-reporting of smoking at any time during their pregnancy. 
+- Women were classified as smoking during pregnancy based on self-reporting of smoking at any time during their pregnancy.
 
 <div style="height: 0.1em;"></div>
 
@@ -446,11 +446,11 @@ childhood_birthweight_year <- childhood_birthweight_year %>%
 - Further historical and ongoing target context can be found on the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/born-healthy-and-strong/).
 
 ::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-`r note_aboriginality_perinatal`
+- `r note_aboriginality_perinatal`
 
 <div style="height: 0.1em;"></div>
 
-- Low birthweight was defined as a liveborn baby weighing less than 2,500g at birth. 
+- Low birthweight was defined as a liveborn baby weighing less than 2,500g at birth.
 :::
 
 :::: {.panel-tabset}
@@ -666,11 +666,11 @@ childhood_breastfed <- childhood_breastfed %>%
 - Other barriers to breastfeeding discussed at stakeholder consultation included substance use and the need to return to work. Overall, however, breastfeeding rates were anecdotally reported to be improving over time.
 
 ::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-`r note_aboriginality_natsihs`
+- `r note_aboriginality_natsihs`
 
 <div style="height: 0.1em;"></div>
 
-`r note_aboriginality_nhs`
+- `r note_aboriginality_nhs`
 :::
 
 :::: {.panel-tabset}

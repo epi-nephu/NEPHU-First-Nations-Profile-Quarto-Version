@@ -29,28 +29,28 @@ When considering the total number of people who identify as Aboriginal and/or To
 # Definitions
 # ------------------------------------------------------------------------------
 note_aboriginality_aedc <- glue::glue("
-- In the Australian Early Development Census, Aboriginal and/or Torres Strait Islander children were defined as those who had been identified as Aboriginal and/or Torres Strait Islander by their parent or guardian.")
+In the Australian Early Development Census, Aboriginal and/or Torres Strait Islander children were defined as those who had been identified as Aboriginal and/or Torres Strait Islander by their parent or guardian.")
 
 note_aboriginality_census <- glue::glue("
-- In the ABS Census, Aboriginal and/or Torres Strait Islander peoples were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander when they completed the Census.")
+In the ABS Census, Aboriginal and/or Torres Strait Islander peoples were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander when they completed the Census.")
 
 note_aboriginality_naplan <- glue::glue("
-- In NAPLAN, a student was classified as being of Aboriginal and/or Torres Strait Islander origin, based on information provided by the student, or their parent or guardian, on the school enrolment form.")
+In NAPLAN, a student was classified as being of Aboriginal and/or Torres Strait Islander origin, based on information provided by the student, or their parent or guardian, on the school enrolment form.")
 
 note_aboriginality_natsihs <- glue::glue("
-- In the National Aboriginal and Torres Strait Islander Health Survey, Aboriginal and/or Torres Strait Islander peoples were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander when they completed the survey.")
+In the National Aboriginal and Torres Strait Islander Health Survey, Aboriginal and/or Torres Strait Islander peoples were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander when they completed the survey.")
 
 note_aboriginality_nececc <- glue::glue("
-- In the National Early Childhood Education and Care Collection (NECECC), Aboriginal and/or Torres Strait Islander children were defined as those who had been identified as Aboriginal and/or Torres Strait Islander by their parent or guardian.")
+In the National Early Childhood Education and Care Collection (NECECC), Aboriginal and/or Torres Strait Islander children were defined as those who had been identified as Aboriginal and/or Torres Strait Islander by their parent or guardian.")
 
 note_aboriginality_nhs <- glue::glue("
-- In the National Health Survey, Aboriginal and/or Torres Strait Islander peoples were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander when they completed the survey.")
+In the National Health Survey, Aboriginal and/or Torres Strait Islander peoples were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander when they completed the survey.")
 
 note_aboriginality_perinatal <- glue::glue("
-- In the National Perinatal Data Collection, Aboriginal and/or Torres Strait Islander mothers were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander at the time of childbirth.")
+In the National Perinatal Data Collection, Aboriginal and/or Torres Strait Islander mothers were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander at the time of childbirth.")
 
 note_aboriginality_vcams <- glue::glue("
-- In the Victorian Adolescent and Child Monitoring System (VCAMS), Aboriginal and/or Torres Strait Islander children were defined as those who were recorded as Aboriginal and/or Torres Strait Islander in the datasets that comprise VCAMS. For preschool enrolments, these data were sourced from the [Kindergarten Information Management System](https://www.vic.gov.au/kims).")
+In the Victorian Adolescent and Child Monitoring System (VCAMS), Aboriginal and/or Torres Strait Islander children were defined as those who were recorded as Aboriginal and/or Torres Strait Islander in the datasets that comprise VCAMS. For preschool enrolments, these data were sourced from the [Kindergarten Information Management System](https://www.vic.gov.au/kims).")
 # ------------------------------------------------------------------------------
 # Chart notes - data sources
 # ------------------------------------------------------------------------------
@@ -64,6 +64,11 @@ note_data_census <- glue::glue("
 - Data were obtained from the [ABS Census 2021](https://www.abs.gov.au/census) and are publicly available at Local Government Area (LGA), ABS Statistical Area Level 2 (SA2), and Indigenous Area of Residence (IARE) level.
   - The 2021 Census was held on the evening of August 10th 2021.
   - Aboriginal and/or Torres Strait Islander peoples were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander in the Census.")
+
+note_data_ctg_nativetitle <- glue::glue("
+- Data were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the [National Native Title Tribunal Geospatial Data Model](https://www.nntt.gov.au/assistance/Geospatial/Pages/Spatial-aata.aspx).
+  - The Closing the Gap Information Repository brings together data from a wide range of data sources to provide up to date information for each Closing the Gap target, indicator, and contextual factors.
+  - The National Native Title Tribunal Geospatial Data Model brings together information about native title claimant applications, native title determinations, Indigenous estates, registered and notified Indigenous Land Use Agreements, and registered native title bodies corporate.")
 
 note_data_framework_air <- glue::glue("
 - Data were obtained from the [AIHW Aboriginal and Torres Strait Islander Health Performance Framework](https://www.indigenoushpf.gov.au/), compiled from the [Australian Immunisation Register (AIR)](https://www.servicesaustralia.gov.au/australian-immunisation-register).

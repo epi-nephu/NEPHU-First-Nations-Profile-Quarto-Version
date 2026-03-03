@@ -81,7 +81,7 @@ aboriginal_projections_iare <- aboriginal_projections_iare %>%
 - This projected growth rate is slightly lower than the projected growth rate for Aboriginal and/or Torres Strait Islander people living in the rest of Victoria (2.3% per year) and Victoria overall (2.1% per year), but slightly higher than the projected growth rate for Aboriginal and/or Torres Strait Islander people living in Australia (1.8% per year).
 
 ::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-`r note_aboriginality_census`
+- `r note_aboriginality_census`
 :::
 
 :::: {.panel-tabset}

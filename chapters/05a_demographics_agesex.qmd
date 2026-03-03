@@ -262,7 +262,7 @@ rm(i, results)
 - The age and sex distribution for people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander varied across LGAs, but in each LGA residents who identified as Aboriginal and/or Torres Strait Islander tended to be younger than those who did not identify as Aboriginal and/or Torres Strait Islander.
 
 ::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-`r note_aboriginality_census`
+- `r note_aboriginality_census`
 :::
 
 :::: {.panel-tabset}
@@ -474,7 +474,7 @@ women_lga <- census_agesex %>%
 - The LGAs in the NEPHU catchment with the largest number of women who identify as Aboriginal and/or Torres Strait Islander who were of reproductive age were Whittlesea (n = 565), Hume (n = 453), and Darebin (n = 419).
 
 ::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-`r note_aboriginality_census`
+- `r note_aboriginality_census`
 
 <div style="height: 0.1em;"></div>
 

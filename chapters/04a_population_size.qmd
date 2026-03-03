@@ -160,7 +160,7 @@ population_lphu <- aboriginal_lga %>%
 - The proportion of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander was lower than the proportion of people living in Victoria who identified as Aboriginal and/or Torres Strait Islander (n = 65,639, 1.0% of the state population). 
 
 ::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-`r note_aboriginality_census`
+- `r note_aboriginality_census`
 :::
 
 :::: {.panel-tabset}
@@ -370,7 +370,7 @@ density_sa2 <- dplyr::left_join(nephu_sa2.sf,
 - Despite having a smaller number of residents who identified as Aboriginal and/or Torres Strait Islander, these residents were concentrated in the SA2s of Collingwood (55 people per km^2^), Reservoir - North East (52 people per km^2^), Reservoir - South East (44 people per km^2^), and Fitzroy (41 people per km^2^).
 
 ::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-`r note_aboriginality_census`
+- `r note_aboriginality_census`
 :::
 
 :::: {.panel-tabset}

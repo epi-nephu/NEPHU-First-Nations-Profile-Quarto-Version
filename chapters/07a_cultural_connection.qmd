@@ -193,18 +193,19 @@ knowledge_2018 <- knowledge_2018 %>%
 - It was also noted that how questions about cultural knowledge are asked and how the terms ‘culture’ and ‘community’ are interpreted can impact on how it is answered, including how individuals interact with community groups and how active they are within the community in which they live. Interpretation can also be influenced by age and stage of life, and trends over time could provide useful insights.
 
 ::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
-The following question was asked of all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+- The following question was asked of all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
+  - How satisfied are you with your knowledge of your culture?
+    - Very satisfied
+    - Satisfied
+    - Neutral
+    - Not very satisfied
+    - Not at all satisfied
 
-- How satisfied are you with your knowledge of your culture?
-  - Very satisfied
-  - Satisfied
-  - Neutral
-  - Not very satisfied
-  - Not at all satisfied
-  
-Definitions and notes:
+<div style="height: 0.1em;"></div>
 
-`r note_aboriginality_natsihs`
+- Definitions and notes:
+  - `r note_aboriginality_natsihs`
+
 :::
 
 :::: {.panel-tabset}
@@ -358,15 +359,16 @@ pride <- pride %>%
 - It was also noted that pride in culture does not necessarily correlate with connection to culture, and this relationship has more complexity than what may be displayed in these data. It is important to consider how these questions have been asked, how the survey was conducted, and how representative these data are as a result.
 
 ::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
-The following question was asked of all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+- The following question was asked of all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
+  - Are you proud of being Aboriginal and/or Torres Strait Islander?
+    - Yes
+    - No
 
-- Are you proud of being Aboriginal and/or Torres Strait Islander?
-  - Yes
-  - No
-  
-Definitions and notes:
+<div style="height: 0.1em;"></div>
 
-`r note_aboriginality_natsihs`
+- Definitions and notes:
+  - `r note_aboriginality_natsihs`
+
 :::
 
 :::: {.panel-tabset}
@@ -505,20 +507,21 @@ identification <- identification %>%
 - Possible reasons for this lack of representativeness were: the purpose of this question may not have been clear to survey respondents, the wording of the question was not considered to culturally safe, and the mandatory nature of the survey would impact on the responses provided. Furthermore, these data would be heavily influenced by the ongoing impacts of the stolen generations.
 
 ::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
-The following question was asked of all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+- The following question was asked of all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
+  - Do you identify with any of these? (Select all that apply)
+    - A tribal group
+    - A language group
+    - A clan
+    - A mission
+    - An Aboriginal and/or Torres Strait Islander regional group
+    - None of the above
+    - Don't know
 
-- Do you identify with any of these? (Select all that apply)
-  - A tribal group
-  - A language group
-  - A clan
-  - A mission
-  - An Aboriginal and/or Torres Strait Islander regional group
-  - None of the above
-  - Don't know
-  
-Definitions and notes:
+<div style="height: 0.1em;"></div>
 
-`r note_aboriginality_natsihs`
+- Definitions and notes:
+  - `r note_aboriginality_natsihs`
+
 :::
 
 :::: {.panel-tabset}
@@ -664,15 +667,16 @@ acceptance <- acceptance %>%
 - Males were more likely to report that they felt accepted by other members of the Aboriginal and/or Torres Strait Islander Community than females (82% vs. 65%).
 
 ::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
-The following question was asked of all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+- The following question was asked of all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
+  - Do you feel accepted by other Aboriginal and/or Torres Strait Islander people?
+    - Yes
+    - No
 
-- Do you feel accepted by other Aboriginal and/or Torres Strait Islander people?
-  - Yes
-  - No
-  
-Definitions and notes:
+<div style="height: 0.1em;"></div>
 
-`r note_aboriginality_natsihs`
+- Definitions and notes:
+  - `r note_aboriginality_natsihs`
+
 :::
 
 :::: {.panel-tabset}
@@ -797,18 +801,19 @@ recognition <- recognition %>%
 - Females were more likely to report that it was not at all important that they were recognised as Aboriginal and/or Torres Strait Islander than males (10%% vs. 4.6%).
 
 ::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
-The following question was asked of all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+- The following question was asked of all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
+  - How important is it to you to be recognised as an Aboriginal and/or Torres Strait Islander person?
+    - Very important
+    - Important
+    - Neutral
+    - Not very important
+    - Not at all important
 
-- How important is it to you to be recognised as an Aboriginal and/or Torres Strait Islander person?
-  - Very important
-  - Important
-  - Neutral
-  - Not very important
-  - Not at all important
-  
-Definitions and notes:
+<div style="height: 0.1em;"></div>
 
-`r note_aboriginality_natsihs`
+- Definitions and notes:
+  - `r note_aboriginality_natsihs`
+
 :::
 
 :::: {.panel-tabset}

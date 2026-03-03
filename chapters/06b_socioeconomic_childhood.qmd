@@ -110,11 +110,11 @@ childhood_attendance <- f_read_ctg_indigenous("CTG03_Childhood_Education_Data_Ta
 - The importance of and impact of improvements in cultural safety by educators was also discussed as a potential contributing factor to this increase.
 
 ::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-`r note_aboriginality_vcams`
+- `r note_aboriginality_vcams`
 
 <div style="height: 0.1em;"></div>
 
-`r note_aboriginality_nececc`
+- `r note_aboriginality_nececc`
 :::
 
 :::: {.panel-tabset}
@@ -349,7 +349,7 @@ childhood_develop <- f_read_ctg_indigenous("CTG04_Early_Years_Data_Tables.xlsx",
 - For example, whilst a very high proportion of Aboriginal and/or Torres Strait Islander babies have their hearing screened at birth, middle ear infections and associated hearing problems are a common childhood issue for First Nations children.
 
 ::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-`r note_aboriginality_aedc`
+- `r note_aboriginality_aedc`
 :::
 
 :::: {.panel-tabset}
@@ -457,15 +457,13 @@ naplan_numeracy <- f_read_naplan(data_sheet = "Table SE5c.3")
 - In 2024, 75% of Victorian Aboriginal and/or Torres Strait Islander children in Year 3, 75% of children in Year 5, 72% of children in Year 7, and 69% of children in Year 9 were at or above the NAPLAN numeracy minimum standard (exceeding, strong, or developing). This was lower than for non-Indigenous children at each year level (Year 3 = 91%, Year 5 = 92%, Year 7 = 91%, Year 9 = 90%).
 
 ::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-`r note_aboriginality_naplan`
-
-<div style="height: 0.1em;"></div>
-
+- `r note_aboriginality_naplan`
 - The NAPLAN proficiencies include four levels for each assessment area at each year level:
   - Exceeding: the student’s result exceeds expectations at the time of testing.
   - Strong: the student’s result meets challenging but reasonable expectations at the time of testing.
   - Developing: the student’s result indicates that they are working towards expectations at the time of testing.
   - Needs additional support: the student’s result indicates that they are not achieving the learning outcomes expected at the time of testing. They are likely to need additional support to progress satisfactorily.
+
 :::
 
 :::: {.panel-tabset}
