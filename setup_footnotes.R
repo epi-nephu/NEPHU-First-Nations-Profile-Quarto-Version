@@ -58,6 +58,12 @@ In the National Perinatal Data Collection, Aboriginal and/or Torres Strait Islan
 note_aboriginality_prisoners <- glue::glue("
 In the ABS Prisoners in Australia Dataset, Aboriginal and/or Torres Strait Islander peoples were defined as those who identified themselves as Aboriginal and/or Torres Strait Islander at the time of their contact with a corrective service agency.")
 
+note_aboriginality_reconciliation <- glue::glue("
+In the Australian Reconciliation Barometer, Aboriginal and/or Torres Strait Islander peoples were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander when they completed the survey.")
+
+note_aboriginality_vaed <- glue::glue("
+In the Victorian Admitted Episodes Dataset, Aboriginal and/or Torres Strait Islander peoples were defined as those who identified themselves as Aboriginal and/or Torres Strait Islander at the time of their contact with the health service.")
+
 note_aboriginality_vcams <- glue::glue("
 In the Victorian Adolescent and Child Monitoring System (VCAMS), Aboriginal and/or Torres Strait Islander children were defined as those who were recorded as Aboriginal and/or Torres Strait Islander in the datasets that comprise VCAMS. For preschool enrolments, these data were sourced from the [Kindergarten Information Management System](https://www.vic.gov.au/kims).")
 
@@ -166,6 +172,11 @@ note_data_phidu_vemd <- glue::glue("
     - Designated emergency department nursing staff 24 hours per day, 7 days per week, and
     - A designated emergency department nursing unit manager.
   - Aboriginal and/or Torres Strait Islander peoples were defined as those who identified themselves as Aboriginal and/or Torres Strait Islander at the time of their contact with the health service.")
+
+note_data_reconciliation <- glue::glue("
+- Data were obtained from the [Australian Reconciliation Barometer](https://www.reconciliation.org.au/reconciliation/australian-reconciliation-barometer/).
+  - The Australian Reconciliation Barometer is a national survey undertaken every two years since 2008, and aims to measure the progress of reconciliation between Aboriginal and/or Torres Strait Islander and non-Indigenous peoples.
+  - Aboriginal and/or Torres Strait Islander peoples were defined as those who self-identified as Aboriginal and/or Torres Strait Islander when completing the survey.")
 
 note_data_tax <- glue::glue("
 - Data were obtained from the [ABS Census 2021](https://www.abs.gov.au/census) linked to data from the Australian Taxation Office and Department of Social Services held in the [Person Level Integrated Data Asset (PLIDA)](https://www.abs.gov.au/about/data-services/data-integration/integrated-data/person-level-integrated-data-asset-plida). Data are publicly available at Local Government Area (LGA), ABS Statistical Area Level 2 (SA2), and Indigenous Area of Residence (IARE) level.

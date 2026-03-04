@@ -10,7 +10,7 @@ source(here::here("setup.R"))
 source(here::here("setup_footnotes.R"))
 
 # Set up numbering for exporting tables as .csv
-table_section <- "08E"
+table_section <- "08D"
 table_count   <- 0
 
 figure_count <- 0
@@ -23,11 +23,6 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
 ## Connection Through Digital Technology {.unnumbered}
-
-```{r}
-#
-knitr::knit_exit()
-```
 
 ::: {.caveat-box}
 **A note about the impact of under-identification**
@@ -181,41 +176,40 @@ digital_reason <- digital_reason %>%
 
 - Comparable non-Indigenous data on internet usage are not available, and this is [acknowledged as a limitation](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/access-information/) of Closing the Gap Target 17.
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-The following questions were asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+- Further historical and ongoing target context can be found on the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/access-information/).
 
-- Have you personally used the internet in the last three months? This could have been through devices such as mobile phones, smart watches, laptops, computers, tablets, game consoles, or internet enabled televisions.
-  - Yes
-  - No
-  
-<div style="height: 1em;"></div>
+::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
+- The following questions were asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+  - Have you personally used the internet in the last three months? This could have been through devices such as mobile phones, smart watches, laptops, computers, tablets, game consoles, or internet enabled televisions.
+    - Yes
+    - No
+  - In the last three months, did you use the internet for any of these reasons? (Select all that apply)
+    - Social networking (e.g. Facebook, Twitter, Skype)
+    - Purchasing or ordering goods or services online (e.g. travel, tickets, accommodation, computer software, clothes, food, movies, music, books)
+    - Paying bills or banking online
+    - Entertainment (e.g. playing or downloading games, music, movies, television)
+    - Health services (e.g. Telehealth, making medical appointments)
+    - None of the above
+  - In the last three months, did you use the internet for any of these reasons? (Select all that apply)
+    - Work purposes
+    - Formal education activities
+    - Accessing government services or information about government services (e.g. tax, benefits payments, licences)
+    - Volunteering or participating in community groups
+    - None of the above
 
-- In the last three months, did you use the internet for any of these reasons? (Select all that apply)
-  - Social networking (e.g. Facebook, Twitter, Skype)
-  - Purchasing or ordering goods or services online (e.g. travel, tickets, accommodation, computer software, clothes, food, movies, music, books)
-  - Paying bills or banking online
-  - Entertainment (e.g. playing or downloading games, music, movies, television)
-  - Health services (e.g. Telehealth, making medical appointments)
-  - None of the above
+<div style="height: 0.1em;"></div>
 
-<div style="height: 1em;"></div>
+- Definitions and notes:
+  - `r note_aboriginality_natsihs`
 
-- In the last three months, did you use the internet for any of these reasons? (Select all that apply)
-  - Work purposes
-  - Formal education activities
-  - Accessing government services or information about government services (e.g. tax, benefits payments, licences)
-  - Volunteering or participating in community groups
-  - None of the above
-
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
 
-#### Table 8E-1
+#### Table 8D-1
 
-::: {#tab_8E_1 .fig-tab-title}
-**Table 8E-1:** Personal use of the internet during the three months prior to the survey for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+::: {#tab_8D_1 .fig-tab-title}
+**Table 8D-1:** Personal use of the internet during the three months prior to the survey for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
@@ -224,13 +218,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- digital_status %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(internet_accessed = answer)
+  f_preptable_grouped_sex(variable_name = "internet_accessed")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -251,10 +239,10 @@ table %>%
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Figure 8E-1
+#### Figure 8D-1
 
-::: {#fig_8E_1 .fig-tab-title}
-**Figure 8E-1:** Reasons for accessing the internet during the three months prior to the survey for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+::: {#fig_8D_1 .fig-tab-title}
+**Figure 8D-1:** Reasons for accessing the internet during the three months prior to the survey for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
@@ -270,8 +258,6 @@ figure_number <- digital_reason %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = n,
-                    y_breaks   = 2000,
-                    y_expand   = 1250,
                     x_angle    = 90)
 
 figure_percent <- digital_reason %>% 
@@ -281,18 +267,15 @@ figure_percent <- digital_reason %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = prop,
-                    y_max      = 100,
-                    y_breaks   = 10,
-                    y_expand   = 2.5,
                     x_angle    = 90)
 
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.35)
 ```
 
-#### Table 8E-2
+#### Table 8D-2
 
-::: {#tab_8E_2 .fig-tab-title}
-**Table 8E-2:** Reasons for accessing the internet during the three months prior to the survey for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+::: {#tab_8D_2 .fig-tab-title}
+**Table 8D-2:** Reasons for accessing the internet during the three months prior to the survey for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
@@ -301,13 +284,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- digital_reason %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(internet_reason = answer)
+  f_preptable_grouped_sex(variable_name = "internet_reason")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -333,13 +310,19 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_estimate`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_multipleresponse`
 :::

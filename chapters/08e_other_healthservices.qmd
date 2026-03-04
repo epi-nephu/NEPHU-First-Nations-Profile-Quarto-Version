@@ -10,7 +10,7 @@ source(here::here("setup.R"))
 source(here::here("setup_footnotes.R"))
 
 # Set up numbering for exporting tables as .csv
-table_section <- "08F"
+table_section <- "08E"
 table_count   <- 0
 
 figure_count <- 0
@@ -23,11 +23,6 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
 ## Health Service Utilisation {.unnumbered}
-
-```{r}
-#
-knitr::knit_exit()
-```
 
 ::: {.caveat-box}
 **A note about the impact of under-identification**
@@ -42,6 +37,8 @@ What factors within community and broader systems impact the ways Aboriginal and
 :::
 
 ## Primary Health Services
+
+### Usual Health Care Provider
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -210,95 +207,65 @@ hsu_insurance <- hsu_insurance %>%
 
 - Females were more likely to be covered by private health insurance than males (46% vs. 12%).
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-The following questions were asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
+- The following questions were asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
+  - Is there a place or person where you usually go when you are sick or need advice about your health?
+    - Yes
+    - No
+  - If yes, what kind of place or person is it?
+    - Aboriginal Medical Service or Community Clinic
+    - Hospital
+    - Doctor or general practitioner (other than from Aboriginal Medical Service or hospital)
+    - Traditional healer
+    - Maternal and child health centre
+    - Chemist
+    - Relative or other community person
+    - Other
+  - In the last two weeks, have you been to the outpatients section of a hospital for your own health?
+    - Yes
+    - No
+  - Were you discharged from hospital in the last two weeks?
+    - Yes
+    - No
+  - Excluding times resulting in you being admitted to hospital, in the last two weeks have you been to a casualty or emergency ward for your own health?
+    - Yes
+    - No
+  - Apart from your visits to outpatients and casualty or emergency, in the last two weeks have you been to a day clinic for minor surgery or diagnostic tests (other than x-rays) for your own health?
+    - Yes
+    - No
+  - In the last two weeks, have you seen a nurse, sister, or Aboriginal Health Worker for your own health?
+    - Yes
+    - No
+  - In the last two weeks, have you seen a general practitioner for your own health?
+    - Yes
+    - No
+  - In the last two weeks, have you seen a specialist for your own health?
+    - Yes
+    - No
+  - In the last two weeks, have you been to the dentist, doctor, or nurse about your teeth, gums, or false teeth?
+    - Yes
+    - No
+  - In the last two weeks, have you seen any other health workers about your own health?
+    - Yes (please specify)
+    - No
+  - Apart from Medicare, do you have private health insurance?
+    - Yes
+    - No
+    - Don't know
 
-- Is there a place or person where you usually go when you are sick or need advice about your health?
-  - Yes
-  - No
-  
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
-- If yes, what kind of place or person is it?
-  - Aboriginal Medical Service or Community Clinic
-  - Hospital
-  - Doctor or general practitioner (other than from Aboriginal Medical Service or hospital)
-  - Traditional healer
-  - Maternal and child health centre
-  - Chemist
-  - Relative or other community person
-  - Other
+- Definitions and notes:
+  - `r note_aboriginality_natsihs`
 
-<div style="height: 1em;"></div>
-
-- In the last two weeks, have you been to the outpatients section of a hospital for your own health?
-  - Yes
-  - No
-
-<div style="height: 1em;"></div>
-
-- Were you discharged from hospital in the last two weeks?
-  - Yes
-  - No
-
-<div style="height: 1em;"></div>
-
-- Excluding times resulting in you being admitted to hospital, in the last two weeks have you been to a casualty or emergency ward for your own health?
-  - Yes
-  - No
-
-<div style="height: 1em;"></div>
-
-- Apart from your visits to outpatients and casualty or emergency, in the last two weeks have you been to a day clinic for minor surgery or diagnostic tests (other than x-rays) for your own health?
-  - Yes
-  - No
-
-<div style="height: 1em;"></div>
-
-- In the last two weeks, have you seen a nurse, sister, or Aboriginal Health Worker for your own health?
-  - Yes
-  - No
-  
-<div style="height: 1em;"></div>
-
-- In the last two weeks, have you seen a general practitioner for your own health?
-  - Yes
-  - No
-
-<div style="height: 1em;"></div>
-
-- In the last two weeks, have you seen a specialist for your own health?
-  - Yes
-  - No
-
-<div style="height: 1em;"></div>
-
-- In the last two weeks, have you been to the dentist, doctor, or nurse about your teeth, gums, or false teeth?
-  - Yes
-  - No
-  
-<div style="height: 1em;"></div>
-
-- In the last two weeks, have you seen any other health workers about your own health?
-  - Yes (please specify)
-  - No
-  
-<div style="height: 1em;"></div>
-
-- Apart from Medicare, do you have private health insurance?
-  - Yes
-  - No
-  - Don't know
-
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 8F-1
+#### Figure 8E-1
 
-::: {#fig_8F_1 .fig-tab-title}
-**Figure 8F-1:** Usual health care provider people go to when they have a problem with their health for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+::: {#fig_8E_1 .fig-tab-title}
+**Figure 8E-1:** Usual health care provider people go to when they have a problem with their health for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
@@ -314,8 +281,6 @@ figure_number <- hsu_usual %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = n,
-                    y_breaks   = 2000,
-                    y_expand   = 1250,
                     x_angle    = 90)
 
 figure_percent <- hsu_usual %>% 
@@ -325,18 +290,15 @@ figure_percent <- hsu_usual %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = prop,
-                    y_max      = 100,
-                    y_breaks   = 10,
-                    y_expand   = 2.5,
                     x_angle    = 90)
 
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
 
-#### Table 8F-1
+#### Table 8E-1
 
-::: {#tab_8F_1 .fig-tab-title}
-**Table 8F-1:** Usual health care provider people go to when they have a problem with their health for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+::: {#tab_8E_1 .fig-tab-title}
+**Table 8E-1:** Usual health care provider people go to when they have a problem with their health for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
@@ -345,13 +307,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- hsu_usual %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(health_service = answer)
+  f_preptable_grouped_sex(variable_name = "health_service")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -372,10 +328,10 @@ table %>%
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Figure 8F-2
+#### Figure 8E-2
 
-::: {#fig_8F_2 .fig-tab-title}
-**Figure 8F-2:** Types of health professionals consulted for health-related reasons in the two weeks prior to the survey for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+::: {#fig_8E_2 .fig-tab-title}
+**Figure 8E-2:** Types of health professionals consulted for health-related reasons in the two weeks prior to the survey for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
@@ -391,8 +347,6 @@ figure_number <- hsu_actions %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = n,
-                    y_breaks   = 2000,
-                    y_expand   = 1750,
                     x_angle    = 90)
 
 figure_percent <- hsu_actions %>% 
@@ -402,18 +356,15 @@ figure_percent <- hsu_actions %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = prop,
-                    y_max      = 100,
-                    y_breaks   = 10,
-                    y_expand   = 2.5,
                     x_angle    = 90)
 
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
 
-#### Table 8F-2
+#### Table 8E-2
 
-::: {#tab_8F_2 .fig-tab-title}
-**Table 8F-2:** Types of health professionals consulted for health-related reasons in the two weeks prior to the survey for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+::: {#tab_8E_2 .fig-tab-title}
+**Table 8E-2:** Types of health professionals consulted for health-related reasons in the two weeks prior to the survey for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
@@ -422,13 +373,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- hsu_actions %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(health_professional = answer)
+  f_preptable_grouped_sex(variable_name = "health_professional")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -449,10 +394,10 @@ table %>%
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Table 8F-3
+#### Table 8E-3
 
-::: {#tab_8F_3 .fig-tab-title}
-**Table 8F-3:** Private health insurance coverage for survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+::: {#tab_8E_3 .fig-tab-title}
+**Table 8E-3:** Private health insurance coverage for survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
@@ -461,13 +406,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- hsu_insurance %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(health_insurance = answer)
+  f_preptable_grouped_sex(variable_name = "health_insurance")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -493,19 +432,29 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_estimate`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_multipleresponse`
 
 - For Figure 8F-1 and Table 8F-1, *Other* includes hospitals, traditional healers, and other health service providers.
 
+<div style="height: 0.1em;"></div>
+
 - For Figure 8F-2 and Table 8F-2, *Hospital* includes hospital admissions, emergency department presentations, outpatient clinic visits, and day clinic visits.
+
+<div style="height: 0.1em;"></div>
 
 - For Figure 8F-2 and Table 8F-2, *Other* includes consultations with nurses, alcohol and drug workers, social workers, welfare officers, traditional healers, and other health professionals.
 :::
@@ -645,51 +594,45 @@ gp_topics <- gp_topics %>%
 
 - Males were more likely than females to have discussed reducing or quitting smoking (38% vs. 21%), drinking alcohol in moderation (40% vs. 13%), or substance use (37% vs. 21%), while females were more likely to have discussed reaching a healthy weight (55% vs.46%), healthy eating (53% vs. 24%), or sexual health (including family planning) (45% vs. 9.5%).
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-The following questions were asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
+- The following questions were asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
+  - In the last two weeks, have you seen a general practitioner for your own health?
+    - Yes
+    - No
+  - When was the last time you saw a general practitioner about your own health?
+    - Less than three months ago
+    - Three months to less than six months age
+    - Six months to less than 12 months ago
+    - More than 12 months ago
+    - Never consulted a general practitioner
+    - Don't know
+  - Have you discussed any lifestyle issues with a general practitioner, nurse, or Aboriginal Health Worker in the last 12 months?
+    - Yes
+    - No
+  - If yes, which lifestyle issues did you discuss? (Select all that apply)
+    - Reducing or quitting smoking
+    - Drinking alcohol in moderation
+    - Drug use
+    - Reaching a healthy weight
+    - Increasing physical activity
+    - Eating healthy food or improving diet
+    - Family planning
+    - Safe sexual practices
+    - Other
 
-- In the last two weeks, have you seen a general practitioner for your own health?
-  - Yes
-  - No
-  
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
-- When was the last time you saw a general practitioner about your own health?
-  - Less than three months ago
-  - Three months to less than six months age
-  - Six months to less than 12 months ago
-  - More than 12 months ago
-  - Never consulted a general practitioner
-  - Don't know
-  
-<div style="height: 1em;"></div>
+- Definitions and notes:
+  - `r note_aboriginality_natsihs`
 
-- Have you discussed any lifestyle issues with a general practitioner, nurse, or Aboriginal Health Worker in the last 12 months?
-  - Yes
-  - No
-
-<div style="height: 1em;"></div>
-
-- If yes, which lifestyle issues did you discuss? (Select all that apply)
-  - Reducing or quitting smoking
-  - Drinking alcohol in moderation
-  - Drug use
-  - Reaching a healthy weight
-  - Increasing physical activity
-  - Eating healthy food or improving diet
-  - Family planning
-  - Safe sexual practices
-  - Other
-
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 8F-3
+#### Figure 8E-3
 
-::: {#fig_8F_3 .fig-tab-title}
-**Figure 8F-3:** Time since last consultation with a general practitioner or specialist for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+::: {#fig_8E_3 .fig-tab-title}
+**Figure 8E-3:** Time since last consultation with a general practitioner or specialist for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
@@ -705,8 +648,6 @@ figure_number <- gp_status %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = n,
-                    y_breaks   = 1000,
-                    y_expand   = 125,
                     x_angle    = 90)
 
 figure_percent <- gp_status %>% 
@@ -716,18 +657,15 @@ figure_percent <- gp_status %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = prop,
-                    y_max      = 50,
-                    y_breaks   = 5,
-                    y_expand   = 1,
                     x_angle    = 90)
 
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
 
-#### Table 8F-4
+#### Table 8E-4
 
-::: {#tab_8F_4 .fig-tab-title}
-**Table 8F-4:** Time since last consultation with a general practitioner or specialist for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+::: {#tab_8E_4 .fig-tab-title}
+**Table 8E-4:** Time since last consultation with a general practitioner or specialist for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
@@ -736,13 +674,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- gp_status %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(last_consultation = answer)
+  f_preptable_grouped_sex(variable_name = "last_consultation")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -763,10 +695,10 @@ table %>%
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Figure 8F-4
+#### Figure 8E-4
 
-::: {#fig_8F_4 .fig-tab-title}
-**Figure 8F-4:** Lifestyle issues discussed during consultation for survey respondents who saw a general practitioner or health professional during the 12 months prior to the survey and who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+::: {#fig_8E_4 .fig-tab-title}
+**Figure 8E-4:** Lifestyle issues discussed during consultation for survey respondents who saw a general practitioner or health professional during the 12 months prior to the survey and who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
@@ -778,8 +710,6 @@ figure_number <- gp_topics %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = n,
-                    y_breaks   = 500,
-                    y_expand   = 500,
                     x_angle    = 90)
 
 figure_percent <- gp_topics %>% 
@@ -787,18 +717,15 @@ figure_percent <- gp_topics %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = prop,
-                    y_max      = 100,
-                    y_breaks   = 10,
-                    y_expand   = 2.5,
                     x_angle    = 90)
 
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
 
-#### Table 8F-5
+#### Table 8E-5
 
-::: {#tab_8F_5 .fig-tab-title}
-**Table 8F-5:** Lifestyle issues discussed during consultation for survey respondents who saw a general practitioner or health professional during the 12 months prior to the survey and who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+::: {#tab_8E_5 .fig-tab-title}
+**Table 8E-5:** Lifestyle issues discussed during consultation for survey respondents who saw a general practitioner or health professional during the 12 months prior to the survey and who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
@@ -807,13 +734,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- gp_topics %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(lifestyle_issue = answer)
+  f_preptable_grouped_sex(variable_name = "lifestyle_issue")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -839,15 +760,23 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_estimate`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_multipleresponse`
+
+<div style="height: 0.1em;"></div>
 
 - For Figure 8F-4 and Table 8F-5, *Sexual health* includes discussion of safe sexual practices and family planning.
 :::
@@ -983,43 +912,40 @@ dentist_type <- dentist_type %>%
 
 - Males were more likely than females to have attended an Aboriginal Medical Service (AMS) or Community Clinic for their most recent dental consultation (13% vs. 7.7%).
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-The following questions were asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
+- The following questions were asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
+  - In the last two weeks, have you been to the dentist, doctor, or nurse about your teeth, gums, or false teeth?
+    - Yes
+    - No
+  - When was the last time you went to the dentist?
+    - Less than three months ago
+    - Three months to less than six months age
+    - Six months to less than 12 months ago
+    - 12 months to less than 2 years ago
+    - 2 years ago or more
+    - Never seen health professional about teeth
+    - Don't know
+  - Where did you last go to see the dentist?
+    - Private dental clinic (including specialist)
+    - Government dental clinic (including dental hospital)
+    - School dental clinic
+    - Aboriginal Medical Service or Community Clinic
+    - Other
+    - Don't know
 
-- In the last two weeks, have you been to the dentist, doctor, or nurse about your teeth, gums, or false teeth?
-  - Yes
-  - No
-  
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
-- When was the last time you went to the dentist?
-  - Less than three months ago
-  - Three months to less than six months age
-  - Six months to less than 12 months ago
-  - 12 months to less than 2 years ago
-  - 2 years ago or more
-  - Never seen health professional about teeth
-  - Don't know
-  
-<div style="height: 1em;"></div>
+- Definitions and notes:
+  - `r note_aboriginality_natsihs`
 
-- Where did you last go to see the dentist?
-  - Private dental clinic (including specialist)
-  - Government dental clinic (including dental hospital)
-  - School dental clinic
-  - Aboriginal Medical Service or Community Clinic
-  - Other
-  - Don't know
-
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 8F-5
+#### Figure 8E-5
 
-::: {#fig_8F_5 .fig-tab-title}
-**Figure 8F-5:** Time since last consultation with a dentist or dental professional for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+::: {#fig_8E_5 .fig-tab-title}
+**Figure 8E-5:** Time since last consultation with a dentist or dental professional for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
@@ -1035,8 +961,6 @@ figure_number <- dentist_status %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = n,
-                    y_breaks   = 1000,
-                    y_expand   = 150,
                     x_angle    = 90)
 
 figure_percent <- dentist_status %>% 
@@ -1046,18 +970,15 @@ figure_percent <- dentist_status %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = prop,
-                    y_max      = 50,
-                    y_breaks   = 5,
-                    y_expand   = 1,
                     x_angle    = 90)
 
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
 
-#### Table 8F-6
+#### Table 8E-6
 
-::: {#tab_8F_6 .fig-tab-title}
-**Table 8F-6:** Time since last consultation with a dentist or dental professional for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+::: {#tab_8E_6 .fig-tab-title}
+**Table 8E-6:** Time since last consultation with a dentist or dental professional for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
@@ -1066,13 +987,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- dentist_status %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(last_consultation = answer)
+  f_preptable_grouped_sex(variable_name = "last_consultation")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -1093,10 +1008,10 @@ table %>%
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Figure 8F-6
+#### Figure 8E-6
 
-::: {#fig_8F_6 .fig-tab-title}
-**Figure 8F-6:** Place of last consultation with a dentist or dental professional for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+::: {#fig_8E_6 .fig-tab-title}
+**Figure 8E-6:** Place of last consultation with a dentist or dental professional for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
@@ -1112,8 +1027,6 @@ figure_number <- dentist_type %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = n,
-                    y_breaks   = 1000,
-                    y_expand   = 500,
                     x_angle    = 90)
 
 figure_percent <- dentist_type %>% 
@@ -1123,18 +1036,15 @@ figure_percent <- dentist_type %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = prop,
-                    y_max      = 100,
-                    y_breaks   = 10,
-                    y_expand   = 2.5,
                     x_angle    = 90)
 
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
 
-#### Table 8F-7
+#### Table 8E-7
 
-::: {#tab_8F_7 .fig-tab-title}
-**Table 8F-7:** Place of last consultation with a dentist or dental professional for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+::: {#tab_8E_7 .fig-tab-title}
+**Table 8E-7:** Place of last consultation with a dentist or dental professional for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
@@ -1143,13 +1053,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- dentist_type %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(place_consultation = answer)
+  f_preptable_grouped_sex(variable_name = "place_consultation")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -1175,21 +1079,23 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_estimate`
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Hospital Admissions
 
@@ -1211,7 +1117,7 @@ hospital_total <- hospital_total %>%
   dplyr::arrange(iare_name)
 ```
 
-- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases).
+- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
 
 - During the four-year period 01 July 2017 to 30 June 2021 there were 44,104 hospital admissions for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
@@ -1221,12 +1127,24 @@ hospital_total <- hospital_total %>%
 
 - 5 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Northcote/Preston/Whittlesea, Moreland/Broadmeadows, Craigieburn/Sunbury, and Whitehorse IAREs).
 
+::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
+- `r note_aboriginality_vaed`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_admissions`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_dialysis_exclude`
+:::
+
 :::: {.panel-tabset}
 
-#### Figure 8F-7
+#### Figure 8E-7
 
-::: {#fig_8F_7 .fig-tab-title}
-**Figure 8F-7:** Number and age-standardised rate (per 100,000 population) of hospital admissions for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
+::: {#fig_8E_7 .fig-tab-title}
+**Figure 8E-7:** Number and age-standardised rate (per 100,000 population) of hospital admissions for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
 :::
 
 ```{r}
@@ -1235,23 +1153,19 @@ figure_count <- figure_count + 1
 
 figure_number <- hospital_total %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
-                    y_breaks   = 1000,
-                    y_expand   = 275,
                     hospital   = "admission")
 
 figure_percent <- hospital_total %>% 
   f_bar_simple_iare(y_variable = aboriginal_rate,
-                    y_breaks   = 5000,
-                    y_expand   = 1500,
                     hospital   = "admission")
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-#### Table 8F-8
+#### Table 8E-8
 
-::: {#tab_8F_8 .fig-tab-title}
-**Table 8F-8:** Hospital admissions for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
+::: {#tab_8E_8 .fig-tab-title}
+**Table 8E-8:** Hospital admissions for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
 :::
 
 ```{r}
@@ -1285,25 +1199,17 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_phidu_vaed`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_iare_nephu`
 
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_iare_ratio`
-
-<div style="height: 1em;"></div>
-
-`r note_caveat_admissions`
-
-<div style="height: 1em;"></div>
-
-`r note_caveat_dialysis_exclude`
-
-<div style="height: 2em;"></div>
 :::
 
 ### Acute Potentially Preventable Conditions
@@ -1324,7 +1230,7 @@ hospital_acute <- hospital_acute %>%
   dplyr::arrange(iare_name)
 ```
 
-- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases).
+- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
 
 - During the four-year period 01 July 2017 to 30 June 2021 there were 2,247 hospital admissions for acute potentially preventable conditions for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne. Acute potentially preventable conditions includes conditions such as cellulitis, acute convulsions and epilepsy, dental conditions, ear nose and throat infections, eclampsia, gangrene, pelvic inflammatory disease, perforated/bleeding ulcers, pneumonia, and urinary tract infections.
 
@@ -1335,8 +1241,7 @@ hospital_acute <- hospital_acute %>%
 - 3 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for acute potentially preventable conditions above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Northcote/Preston/Whittlesea, Moreland/Broadmeadows, and Whitehorse IAREs).
 
 ::: {.callout-tip title="ICD-10-AM codes and definitions for this topic" icon=false collapse=false}
-Admissions for acute preventable conditions are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
-
+- Admissions for acute preventable conditions are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
   - Cellulitis: L02, L03, L04, L08, L88, L98.0, L98.3
   - Convulsions and epilepsy: G40, G41, R56
   - Dental conditions: K02, K03, K04, K05, K06, K08, K09.8, K09.9, K12, K13, K14.0
@@ -1348,15 +1253,20 @@ Admissions for acute preventable conditions are defined as those with a principa
   - Pneumonia (not vaccine-preventable): J15.3, J15.4, J15.7, J16.0
   - Urinary tract infections (including pyelonephritis): N10, N11, N12, N13.6, N15.1, N15.9, N28.9, N39.0, N39.9
 
-<div style="height: 2em;"></div>
+<div style="height: 0.1em;"></div>
+
+- Definitions and notes:
+  - `r note_aboriginality_vaed`
+  `r note_caveat_admissions`
+
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 8F-8
+#### Figure 8E-8
 
-::: {#fig_8F_8 .fig-tab-title}
-**Figure 8F-8:** Number and age-standardised rate (per 100,000 population) of hospital admissions for acute potentially preventable conditions for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
+::: {#fig_8E_8 .fig-tab-title}
+**Figure 8E-8:** Number and age-standardised rate (per 100,000 population) of hospital admissions for acute potentially preventable conditions for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
 :::
 
 ```{r}
@@ -1365,23 +1275,19 @@ figure_count <- figure_count + 1
 
 figure_number <- hospital_acute %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
-                    y_breaks   = 50,
-                    y_expand   = 20,
                     hospital   = "admission")
 
 figure_percent <- hospital_acute %>% 
   f_bar_simple_iare(y_variable = aboriginal_rate,
-                    y_breaks   = 250,
-                    y_expand   = 125,
                     hospital   = "admission")
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-#### Table 8F-9
+#### Table 8E-9
 
-::: {#tab_8F_9 .fig-tab-title}
-**Table 8F-9:** Hospital admissions for acute potentially preventable conditions for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
+::: {#tab_8E_9 .fig-tab-title}
+**Table 8E-9:** Hospital admissions for acute potentially preventable conditions for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
 :::
 
 ```{r}
@@ -1415,21 +1321,17 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_phidu_vaed`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_iare_nephu`
 
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_iare_ratio`
-
-<div style="height: 1em;"></div>
-
-`r note_caveat_admissions`
-
-<div style="height: 2em;"></div>
 :::
 
 ### Chronic Potentially Preventable Conditions
@@ -1450,7 +1352,7 @@ hospital_chronic <- hospital_chronic %>%
   dplyr::arrange(iare_name)
 ```
 
-- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases).
+- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
 
 - During the four-year period 01 July 2017 to 30 June 2021 there were 2,096 hospital admissions for chronic potentially preventable conditions for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne. Chronic potentially preventable conditions include chronic heart conditions, chronic lung conditions, diabetes, nutritional deficiencies, and hypertension.
 
@@ -1461,8 +1363,7 @@ hospital_chronic <- hospital_chronic %>%
 - 4 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Maroondah, Northcote/Preston/Whittlesea, Craigieburn/Sunbury, and Moreland/Broadmeadows IAREs).
 
 ::: {.callout-tip title="ICD-10-AM codes and definitions for this topic" icon=false collapse=false}
-Admissions for chronic preventable conditions are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
-
+- Admissions for chronic preventable conditions are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
   - Angina: I20, I24.0, I24.8, I24.9
   - Asthma: J45, J46
   - Bronchiectasis: J20, J47
@@ -1474,15 +1375,20 @@ Admissions for chronic preventable conditions are defined as those with a princi
   - Nutritional deficiencies: E40, E41, E42, E43, E55.0, E64.3
   - Rheumatic heart disease: I00, I01, I02, I05, I06, I07, I08, I09
 
-<div style="height: 2em;"></div>
+<div style="height: 0.1em;"></div>
+
+- Definitions and notes:
+  - `r note_aboriginality_vaed`
+  `r note_caveat_admissions`
+
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 8F-9
+#### Figure 8E-9
 
-::: {#fig_8F_9 .fig-tab-title}
-**Figure 8F-9:** Number and age-standardised rate (per 100,000 population) of hospital admissions for chronic potentially preventable conditions for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
+::: {#fig_8E_9 .fig-tab-title}
+**Figure 8E-9:** Number and age-standardised rate (per 100,000 population) of hospital admissions for chronic potentially preventable conditions for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
 :::
 
 ```{r}
@@ -1491,23 +1397,19 @@ figure_count <- figure_count + 1
 
 figure_number <- hospital_chronic %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
-                    y_breaks   = 50,
-                    y_expand   = 55,
                     hospital   = "admission")
 
 figure_percent <- hospital_chronic %>% 
   f_bar_simple_iare(y_variable = aboriginal_rate,
-                    y_breaks   = 500,
-                    y_expand   = 400,
                     hospital   = "admission")
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-#### Table 8F-10
+#### Table 8E-10
 
-::: {#tab_8F_10 .fig-tab-title}
-**Table 8F-10:** Hospital admissions for chronic potentially preventable conditions for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
+::: {#tab_8E_10 .fig-tab-title}
+**Table 8E-10:** Hospital admissions for chronic potentially preventable conditions for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
 :::
 
 ```{r}
@@ -1541,29 +1443,23 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_phidu_vaed`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_iare_nephu`
 
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_iare_ratio`
-
-<div style="height: 1em;"></div>
-
-`r note_caveat_admissions`
-
-<div style="height: 2em;"></div>
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Emergency Presentations
 

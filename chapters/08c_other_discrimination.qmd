@@ -10,7 +10,7 @@ source(here::here("setup.R"))
 source(here::here("setup_footnotes.R"))
 
 # Set up numbering for exporting tables as .csv
-table_section <- "08D"
+table_section <- "08C"
 table_count   <- 0
 
 figure_count <- 0
@@ -23,11 +23,6 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
 ## Racism and Discrimination {.unnumbered}
-
-```{r}
-#
-knitr::knit_exit()
-```
 
 ::: {.caveat-box}
 **A note about the impact of under-identification**
@@ -96,27 +91,30 @@ discrimination_prejudice <- discrimination_prejudice %>%
 
 - The percentage of people who had experienced racial prejudice was higher for Aboriginal and/or Torres Strait Islander people than for non-Indigenous people at each time point.
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-The following question was asked of all people completing the Australian Reconciliation Barometer surveys.
+::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
+- The following question was asked of all people completing the Australian Reconciliation Barometer surveys:
+  - Have you personally experienced any of these forms of prejudice in the past six months on the basis of your race? (Select all that apply)
+    - Verbal abuse
+    - Social media abuse (e.g. Facebook)
+    - Physical violence
+    - Prevented from renting or buying a property
+    - Refused service in a shop
+    - Refused entry to a venue
+    - Other
 
-- Have you personally experienced any of these forms of prejudice in the past six months on the basis of your race? (Select all that apply)
-  - Verbal abuse
-  - Social media abuse (e.g. Facebook)
-  - Physical violence
-  - Prevented from renting or buying a property
-  - Refused service in a shop
-  - Refused entry to a venue
-  - Other
+<div style="height: 0.1em;"></div>
 
-<div style="height: 2em;"></div>
+- Definitions and notes:
+  - `r note_aboriginality_reconciliation`
+
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 8D-1
+#### Figure 8C-1
 
-::: {#fig_8D_1 .fig-tab-title}
-**Figure 8D-1:** Percentage of people reporting that they had experienced racial prejudice in the six months prior to the survey, Victoria, by Aboriginal and/or Torres Strait Islander status and year, 2018-2022
+::: {#fig_8C_1 .fig-tab-title}
+**Figure 8C-1:** Percentage of people reporting that they had experienced racial prejudice in the six months prior to the survey, Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -128,16 +126,13 @@ discrimination_prejudice %>%
   #
   dplyr::rename(prop = vic) %>% 
   #
-  f_line_grouped_indigenous(y_variable = prop,
-                            y_max      = 100,
-                            y_breaks   = 10,
-                            y_expand   = 2.5)
+  f_line_grouped_indigenous(y_variable = prop)
 ```
 
-#### Table 8D-1
+#### Table 8C-1
 
-::: {#tab_8D_1 .fig-tab-title}
-**Table 8D-1:** Number and percentage of people reporting that they had experienced racial prejudice in the six months prior to the survey, Victoria, by Aboriginal and/or Torres Strait Islander status and year, 2018-2022
+::: {#tab_8C_1 .fig-tab-title}
+**Table 8C-1:** Number and percentage of people reporting that they had experienced racial prejudice in the six months prior to the survey, Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
@@ -147,7 +142,7 @@ table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_coun
 
 table <- discrimination_prejudice %>%
   f_preptable_grouped_indigenous(x_variable = year,
-                                 y_variable = "prop")
+                                 n_variable = "n and prop")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -171,25 +166,25 @@ table %>%
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
-- Data were obtained from the [Australian Reconciliation Barometer](https://www.reconciliation.org.au/reconciliation/australian-reconciliation-barometer/).
-  - The Australian Reconciliation Barometer is a national survey undertaken every two years since 2008, and aims to measure the progress of reconciliation between Aboriginal and/or Torres Strait Islander and non-Indigenous peoples.
-  - Aboriginal and/or Torres Strait Islander peoples were defined as those who self-identified as Aboriginal and/or Torres Strait Islander when completing the survey.
+`r note_data_reconciliation`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_estimate`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_unknown`
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Not Being Treated with Fairness and Respect
 
@@ -291,45 +286,45 @@ discimination_avoid <- discimination_avoid %>%
 
 - Males were more likely to have avoided situations due to previous experiences of unfair treatment than females (16% vs. 8.0%).
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-The following questions were asked of all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
+- The following questions were asked of all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
+  - In the last 12 months, have you had any of the following experiences because you are Aboriginal and/or Torres Strait Islander? (Select all that apply)
+    - Called names, teased, or sworn at
+    - Heard racial comments or jokes
+    - Ignored or served last while accessing services or buying something
+    - Not trusted
+    - Unfairly arrested or charged
+    - Told are less intelligent
+    - Left out, refused entry, or told don’t belong
+    - Spat at or had something thrown at
+    - Any other experience that was unfair
+    - Have not had an unfair experience
+  - In the last 12 months, did you avoid any of these situations because you feel you have been treated unfairly in the past because you are Aboriginal and/or Torres Strait Islander? (Select all that apply)
+    - Applying for work or going to a job
+    - School, university, training course, or other educational setting
+    - Doing any sport, recreational, or leisure activities
+    - The police, security people, lawyers, or in a court of law
+    - Doctors, nurses, or other staff at hospitals or doctors' surgeries
+    - Looking for property to rent or buy
+    - When accessing government services
+    - Seeking any other services
+    - Members of the public
+    - Other situations
+    - Did not avoid any situation
 
-- In the last 12 months, have you had any of the following experiences because you are Aboriginal and/or Torres Strait Islander? (Select all that apply)
-  - Called names, teased, or sworn at
-  - Heard racial comments or jokes
-  - Ignored or served last while accessing services or buying something
-  - Not trusted
-  - Unfairly arrested or charged
-  - Told are less intelligent
-  - Left out, refused entry, or told don’t belong
-  - Spat at or had something thrown at
-  - Any other experience that was unfair
-  - Have not had an unfair experience
+<div style="height: 0.1em;"></div>
 
-<div style="height: 1em;"></div>
+- Definitions and notes:
+  - `r note_aboriginality_natsihs`
 
-- In the last 12 months, did you avoid any of these situations because you feel you have been treated unfairly in the past because you are Aboriginal and/or Torres Strait Islander? (Select all that apply)
-  - Applying for work or going to a job
-  - School, university, training course, or other educational setting
-  - Doing any sport, recreational, or leisure activities
-  - The police, security people, lawyers, or in a court of law
-  - Doctors, nurses, or other staff at hospitals or doctors' surgeries
-  - Looking for property to rent or buy
-  - When accessing government services
-  - Seeking any other services
-  - Members of the public
-  - Other situations
-  - Did not avoid any situation
-
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
 
-#### Table 8D-2
+#### Table 8C-2
 
-::: {#tab_8D_2 .fig-tab-title}
-**Table 8D-2:** Experience of unfair treatment in the 12 months prior to the survey for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+::: {#tab_8C_2 .fig-tab-title}
+**Table 8C-2:** Experience of unfair treatment in the 12 months prior to the survey for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
@@ -338,13 +333,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- discimination_unfair %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(unfair_treatment = answer)
+  f_preptable_grouped_sex(variable_name = "unfair_treatment")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -365,10 +354,10 @@ table %>%
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Table 8D-3
+#### Table 8C-3
 
-::: {#tab_8D_3 .fig-tab-title}
-**Table 8D-3:** Avoidance of situations in the 12 months prior to the survey due to previous unfair treatment for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+::: {#tab_8C_3 .fig-tab-title}
+**Table 8C-3:** Avoidance of situations in the 12 months prior to the survey due to previous unfair treatment for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
@@ -377,13 +366,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- discimination_avoid %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(avoided_situation = answer)
+  f_preptable_grouped_sex(variable_name = "avoided_situation")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -409,11 +392,15 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_estimate`
 :::

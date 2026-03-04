@@ -31,36 +31,9 @@ book:
     - part: "8. Other Determinants of Health"
       chapters: 
         - chapters/08a_other_justice.qmd
-        - chapters/08b_other_childprotection.qmd
-        - chapters/08c_other_familysafety.qmd
-        - chapters/08d_other_discrimination.qmd
-        - chapters/08e_other_digitalinclusion.qmd
-        - chapters/08f_other_healthservices.qmd
-    - part: "9. Health and Wellbeing Practices"
-      chapters: 
-        - chapters/09a_preventive_healthyeating.qmd
-        - chapters/09b_preventive_physicalactivity.qmd
-        - chapters/09c_preventive_tobacco.qmd
-        - chapters/09d_preventive_alcoholdrugs.qmd
-        - chapters/09e_preventive_biomedical.qmd
-        - chapters/09f_preventive_vaccination.qmd
-        - chapters/09g_preventive_screening.qmd
-    - part: "10. Health Outcomes"
-      chapters: 
-        - chapters/10a_consequences_general.qmd
-        - chapters/10b_consequences_disability.qmd
-        - chapters/10c_consequences_arthritis.qmd
-        - chapters/10d_consequences_asthma.qmd
-        - chapters/10e_consequences_cancer.qmd
-        - chapters/10f_consequences_diabetes.qmd
-        - chapters/10g_consequences_cardiovascular.qmd
-        - chapters/10h_consequences_kidney.qmd
-        - chapters/10i_consequences_lung.qmd
-        - chapters/10j_consequences_other.qmd
-        - chapters/10k_consequences_infectious.qmd
-        - chapters/10l_consequences_mentalhealth.qmd
-        - chapters/10m_consequences_injury.qmd
-        - chapters/10n_consequences_mortality.qmd
+        - chapters/08b_other_familysafety.qmd
+        - chapters/08c_other_discrimination.qmd
+        - chapters/08d_other_digitalinclusion.qmd
     - references.qmd
 
 bibliography: references.bib
