@@ -24,11 +24,6 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Tobacco and Vaping {.unnumbered}
 
-```{r}
-#
-knitr::knit_exit()
-```
-
 ::: {.caveat-box}
 **A note about the impact of under-identification**
 
@@ -145,54 +140,45 @@ smoking_quit <- smoking_quit %>%
 
 - Males were more likely to have attempted to quit smoking in the previous 12 months than females (60% vs. 48%).
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-The following questions were asked of all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
+- The following questions were asked of all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
+  - Do you currently smoke?
+    - Yes
+    - No
+  - Have you ever smoked regularly, that is, at least once a day?
+    - Yes
+    - No
+  - Have you ever: (Select all that apply)
+    - Chewed tobacco
+    - Smoked pipes
+    - Smoked cigars
+    - Smoked other tobacco products (excluding cigarettes)
+    - None of the above
+  - Have you smoked at least 100 cigarettes in your entire life?
+    - Yes
+    - No
+  - Have you smoked pipes, cigars, or other tobacco products (excluding cigarettes) at least 20 times in your entire life?
+    - Yes
+    - No
+  - Did you stop smoking regularly, that is, at least once a day, within the last 12 months?
+    - Yes
+    - No
+  - In the last 12 months did you attempt to quit smoking?
+    - Yes
+    - No
+    - Don't know
 
-- Do you currently smoke?
-  - Yes
-  - No
-  
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
-- Have you ever smoked regularly, that is, at least once a day?
-  - Yes
-  - No
-  
-<div style="height: 1em;"></div>
+- Definitions and notes:
+  - `r note_aboriginality_natsihs`
+  - *Smoking* includes the use of manufactured (packet) cigarettes, roll-your-own cigarettes, pipes, cigars, and other smoked tobacco products.
+  - Chewing tobacco and smoking of non-tobacco products (e.g. marijuana) were excluded.
+  - Smoking status was classified as:
+    - Current smoker: a person who reported they currently smoked cigarettes, pipes, cigars or other tobacco products.
+    - Former smoker: a person who reported they did not currently smoke but had either previously regularly smoked daily, smoked at least 100 cigarettes in their lifetime, or smoked pipes, cigars or other tobacco products at least 20 times in their lifetime.
+    - Non smoker: a person who reported they had never regularly smoked daily, smoked less than 100 cigarettes in their lifetime, and smoked pipes, cigars or other tobacco products less than 20 times in their lifetime. 
 
-- Have you ever: (Select all that apply)
-  - Chewed tobacco
-  - Smoked pipes
-  - Smoked cigars
-  - Smoked other tobacco products (excluding cigarettes)
-  - None of the above
-  
-<div style="height: 1em;"></div>
-
-- Have you smoked at least 100 cigarettes in your entire life?
-  - Yes
-  - No
-
-<div style="height: 1em;"></div>
-
-- Have you smoked pipes, cigars, or other tobacco products (excluding cigarettes) at least 20 times in your entire life?
-  - Yes
-  - No
-  
-<div style="height: 1em;"></div>
-
-- Did you stop smoking regularly, that is, at least once a day, within the last 12 months?
-  - Yes
-  - No
-
-<div style="height: 1em;"></div>
-
-- In the last 12 months did you attempt to quit smoking?
-  - Yes
-  - No
-  - Don't know
-
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
@@ -211,18 +197,13 @@ figure_number <- smoking_current %>%
   dplyr::filter(sex != "Total" & answer != "Total") %>%
   #
   f_bar_grouped_sex(x_variable = answer,
-                    y_variable = n,
-                    y_breaks   = 1000,
-                    y_expand   = 500)
+                    y_variable = n)
 
 figure_percent <- smoking_current %>% 
   dplyr::filter(sex != "Total" & answer != "Total") %>%
   #
   f_bar_grouped_sex(x_variable = answer,
-                    y_variable = prop,
-                    y_max      = 50,
-                    y_breaks   = 5,
-                    y_expand   = 1)
+                    y_variable = prop)
 
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 ```
@@ -239,13 +220,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- smoking_current %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(smoking_status = answer)
+  f_preptable_grouped_sex(variable_name = "smoking_status")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -278,13 +253,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- smoking_quit %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(quit_attempt = answer)
+  f_preptable_grouped_sex(variable_name = "quit_attempt")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -310,34 +279,23 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
-
-`r note_caveat_survey_estimate`
-
-- *Smoking* includes the use of manufactured (packet) cigarettes, roll-your-own cigarettes, pipes, cigars, and other smoked tobacco products.
-
-- Chewing tobacco and smoking of non-tobacco products (e.g. marijuana) are excluded.
 
 <div style="height: 0.1em;"></div>
 
-- Smoking status was classified as:
-  - Current smoker: a person who reported they currently smoked cigarettes, pipes, cigars or other tobacco products.
-  - Former smoker: a person who reported they did not currently smoke but had either previously regularly smoked daily, smoked at least 100 cigarettes in their lifetime, or smoked pipes, cigars or other tobacco products at least 20 times in their lifetime.
-  - Non smoker: a person who reported they had never regularly smoked daily, smoked less than 100 cigarettes in their lifetime, and smoked pipes, cigars or other tobacco products less than 20 times in their lifetime.
-  
-<div style="height: 2em;"></div>
+`r note_caveat_survey_estimate`
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Vaping
 
@@ -445,20 +403,22 @@ vaping_current <- vaping_current %>%
 
 - It was also discussed how the prevalence of vaping may have in turn increased smoking as well. Although limited publicly available data are available, concerns were raised regarding high vaping rates among young people.
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-The following questions were asked of all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
-
-- Have you ever used a vape or e-cigarette?
-  - Yes
-  - No
+::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
+- The following questions were asked of all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
+  - Have you ever used a vape or e-cigarette?
+    - Yes
+    - No
+  - Do you currently vape or use an e-cigarette?
+    - Yes
+    - No
   
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
-- Do you currently vape or use an e-cigarette?
-  - Yes
-  - No
-  
-<div style="height: 2em;"></div>
+- Definitions and notes:
+  - `r note_aboriginality_natsihs`
+  - *Vaping* includes the use of either e-cigarettes or vaping devices containing nicotine, cannabis, cannabis/tobacco combinations, or non-nicotine products (e.g. menthol, other flavoured products).
+  - Devices that contain other illicit substances were excluded. 
+
 :::
 
 :::: {.panel-tabset}
@@ -475,13 +435,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- vaping_lifetime %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(vaping_status = answer)
+  f_preptable_grouped_sex(variable_name = "vaping_status")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -514,13 +468,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- vaping_current %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(vaping_status = answer)
+  f_preptable_grouped_sex(variable_name = "vaping_status")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -546,19 +494,16 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
-`r note_caveat_survey_unknown`
+<div style="height: 0.1em;"></div>
 
-`r note_caveat_survey_estimate`
+`r note_caveat_survey_unknown`
 
 <div style="height: 0.1em;"></div>
 
-- *Vaping* includes the use of either e-cigarettes or vaping devices containing nicotine, cannabis, cannabis/tobacco combinations, or non-nicotine products (e.g. menthol, other flavoured products).
-  - Devices that contain other illicit substances were excluded.
-  
-<div style="height: 2em;"></div>
+`r note_caveat_survey_estimate`
 :::
 

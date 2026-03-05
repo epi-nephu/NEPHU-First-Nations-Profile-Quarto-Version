@@ -1129,14 +1129,6 @@ hospital_total <- hospital_total %>%
 
 ::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
 - `r note_aboriginality_vaed`
-
-<div style="height: 0.1em;"></div>
-
-`r note_caveat_admissions`
-
-<div style="height: 0.1em;"></div>
-
-`r note_caveat_dialysis_exclude`
 :::
 
 :::: {.panel-tabset}
@@ -1201,6 +1193,14 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
+`r note_caveat_admissions`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_dialysis_exclude`
+
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_underidentification`
 
 <div style="height: 0.1em;"></div>
@@ -1257,7 +1257,6 @@ hospital_acute <- hospital_acute %>%
 
 - Definitions and notes:
   - `r note_aboriginality_vaed`
-  `r note_caveat_admissions`
 
 :::
 
@@ -1323,6 +1322,10 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
+`r note_caveat_admissions`
+
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_underidentification`
 
 <div style="height: 0.1em;"></div>
@@ -1379,7 +1382,6 @@ hospital_chronic <- hospital_chronic %>%
 
 - Definitions and notes:
   - `r note_aboriginality_vaed`
-  `r note_caveat_admissions`
 
 :::
 
@@ -1445,6 +1447,10 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
+`r note_caveat_admissions`
+
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_underidentification`
 
 <div style="height: 0.1em;"></div>
@@ -1461,7 +1467,7 @@ table %>%
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
 
-## Emergency Presentations
+## Emergency Department Presentations
 
 ### All Presentations
 
@@ -1481,7 +1487,7 @@ emergency_total <- emergency_total %>%
   dplyr::arrange(iare_name)
 ```
 
-- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases).
+- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [AIHW National Non-Admitted Patient Emergency Department Care Database (NNAPEDCD)](https://www.aihw.gov.au/reports/hospitals/non-admitted-patient-emergency-dept-care-nmds/summary).
 
 - Between 01 July 2019 and 30 June 2020 there were 14,308 emergency department presentations for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
@@ -1491,12 +1497,16 @@ emergency_total <- emergency_total %>%
 
 - 4 of the 10 IAREs in the NEPHU catchment area had an age-standardised rate of emergency department presentations above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Northcote/Preston/Whittlesea, Melbourne North-East, and Moreland/Broadmeadows IAREs).
 
+::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
+- `r note_aboriginality_vemd`
+:::
+
 :::: {.panel-tabset}
 
-#### Figure 8F-10
+#### Figure 8E-10
 
-::: {#fig_8F_10 .fig-tab-title}
-**Figure 8F-10:** Number and age-standardised rate (per 100,000 population) of emergency department presentations for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2019 to 30 June 2020
+::: {#fig_8E_10 .fig-tab-title}
+**Figure 8E-10:** Number and age-standardised rate (per 100,000 population) of emergency department presentations for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2019 to 30 June 2020
 :::
 
 ```{r}
@@ -1505,23 +1515,19 @@ figure_count <- figure_count + 1
 
 figure_number <- emergency_total %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
-                    y_breaks   = 250,
-                    y_expand   = 200,
                     hospital   = "emergency")
 
 figure_percent <- emergency_total %>% 
   f_bar_simple_iare(y_variable = aboriginal_rate,
-                    y_breaks   = 10000,
-                    y_expand   = 4000,
                     hospital   = "emergency")
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-#### Table 8F-11
+#### Table 8E-11
 
-::: {#tab_8F_11 .fig-tab-title}
-**Table 8F-11:** Emergency department presentations for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2019 to 30 June 2020
+::: {#tab_8E_11 .fig-tab-title}
+**Table 8E-11:** Emergency department presentations for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2019 to 30 June 2020
 :::
 
 ```{r}
@@ -1555,17 +1561,17 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_phidu_vemd`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_iare_nephu`
 
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_iare_ratio`
-
-<div style="height: 2em;"></div>
 :::
 
 ### Urgent Presentations
@@ -1586,7 +1592,7 @@ emergency_urgent <- emergency_urgent %>%
   dplyr::arrange(iare_name)
 ```
 
-- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases).
+- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [AIHW National Non-Admitted Patient Emergency Department Care Database (NNAPEDCD)](https://www.aihw.gov.au/reports/hospitals/non-admitted-patient-emergency-dept-care-nmds/summary).
 
 - Between 01 July 2019 and 30 June 2020 there were 6,139 urgent emergency department presentations for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne. Urgent emergency presentations are defined as those with a triage category of urgent (requiring treatment within 30 minutes of arrival).
 
@@ -1596,12 +1602,20 @@ emergency_urgent <- emergency_urgent %>%
 
 - 4 of the 10 IAREs in the NEPHU catchment area had an age-standardised rate of urgent emergency department presentations above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Northcote/Preston/Whittlesea, Melbourne North-East, and Moreland/Broadmeadows IAREs).
 
+::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
+- `r note_aboriginality_vemd`
+
+<div style="height: 0.1em;"></div> 
+
+- *Urgent emergency presentations* were defined as those with a triage category of urgent (requiring treatment within 30 minutes of arrival). 
+:::
+
 :::: {.panel-tabset}
 
-#### Figure 8F-11
+#### Figure 8E-11
 
-::: {#fig_8F_11 .fig-tab-title}
-**Figure 8F-11:** Number and age-standardised rate (per 100,000 population) of urgent emergency department presentations for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2019 to 30 June 2020
+::: {#fig_8E_11 .fig-tab-title}
+**Figure 8E-11:** Number and age-standardised rate (per 100,000 population) of urgent emergency department presentations for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2019 to 30 June 2020
 :::
 
 ```{r}
@@ -1610,23 +1624,19 @@ figure_count <- figure_count + 1
 
 figure_number <- emergency_urgent %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
-                    y_breaks   = 100,
-                    y_expand   = 75,
                     hospital   = "emergency")
 
 figure_percent <- emergency_urgent %>% 
   f_bar_simple_iare(y_variable = aboriginal_rate,
-                    y_breaks   = 5000,
-                    y_expand   = 250,
                     hospital   = "emergency")
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-#### Table 8F-12
+#### Table 8E-12
 
-::: {#tab_8F_12 .fig-tab-title}
-**Table 8F-12:** Urgent emergency department presentations for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2019 to 30 June 2020
+::: {#tab_8E_12 .fig-tab-title}
+**Table 8E-12:** Urgent emergency department presentations for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2019 to 30 June 2020
 :::
 
 ```{r}
@@ -1660,20 +1670,16 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_phidu_vemd`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_iare_nephu`
 
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_iare_ratio`
-
-<div style="height: 1em;"></div>
-
-- *Urgent emergency presentations* are defined as those with a triage category of urgent (requiring treatment within 30 minutes of arrival).
-
-<div style="height: 2em;"></div>
 :::
 

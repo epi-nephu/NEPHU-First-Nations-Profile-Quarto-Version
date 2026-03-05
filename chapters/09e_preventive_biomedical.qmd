@@ -24,11 +24,6 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Biomedical Factors {.unnumbered}
 
-```{r}
-#
-knitr::knit_exit()
-```
-
 ::: {.caveat-box}
 **A note about the impact of under-identification**
 
@@ -41,7 +36,7 @@ knitr::knit_exit()
 What health and wellbeing practices are Aboriginal and/or Torres Strait Islander Peoples living in the NEPHU catchment engaging in?
 :::
 
-## Hypertension
+## Blood Pressure
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -153,26 +148,24 @@ bp_test <- bp_test %>%
 
 - Females were more likely to have had their blood pressure checked in the last two years than males (87% vs. 81%).
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-Blood pressure measurements were voluntarily provided by people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey. Measurements were not provided by respondents who advised they were pregnant.
+::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
+- The following question was asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
+  - Have you had your blood pressure checked in the last two years?
+    - Yes
+    - No
+    - Don't know
+    
+<div style="height: 0.1em;"></div>
 
-- Measured blood pressure was categorised as:
-  - Normal: <120/80
-  - Normal-high: from 120/80 to <140/90
-  - High: from 140/90 to <160/100
-  - Very high: from 160/100 to <180/110
-  - Severe: from 180/100
-  
-<div style="height: 1em;"></div>
+- Definitions and notes:
+  - Blood pressure measurements were voluntarily provided by people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey. Measurements were not provided by respondents who advised they were pregnant.
+  - Measured blood pressure was categorised as:
+    - Normal: <120/80
+    - Normal-high: from 120/80 to <140/90
+    - High: from 140/90 to <160/100
+    - Very high: from 160/100 to <180/110
+    - Severe: from 180/100
 
-The following question was asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
-
-- Have you had your blood pressure checked in the last two years?
-  - Yes
-  - No
-  - Don't know
-
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
@@ -192,8 +185,6 @@ figure_number <- bp_status %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = n,
-                    y_breaks   = 1000,
-                    y_expand   = 250,
                     x_angle    = 90)
 
 figure_percent <- bp_status %>% 
@@ -201,9 +192,6 @@ figure_percent <- bp_status %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = prop,
-                    y_max      = 100,
-                    y_breaks   = 10,
-                    y_expand   = 2.5,
                     x_angle    = 90)
 
 f_bar_grouped_combine(figure_number, figure_percent)
@@ -221,13 +209,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- bp_status %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(measured_bp = answer)
+  f_preptable_grouped_sex(variable_name = "measured_bp")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -260,13 +242,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- bp_test %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(bp_checked = answer)
+  f_preptable_grouped_sex(variable_name = "bp_checked")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -292,32 +268,23 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
-`r note_caveat_survey_unknown`
+<div style="height: 0.1em;"></div>
 
-`r note_caveat_survey_estimate`
+`r note_caveat_survey_unknown`
 
 <div style="height: 0.1em;"></div>
 
-- Measured blood pressure was categorised as:
-  - Normal: <120/80
-  - Normal-high: from 120/80 to <140/90
-  - High: from 140/90 to <160/100
-  - Very high: from 160/100 to <180/110
-  - Severe: from 180/100
-
-<div style="height: 2em;"></div>
+`r note_caveat_survey_estimate`
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Overweight and Obesity
 
@@ -444,34 +411,31 @@ obesity_waist <- obesity_waist %>%
 
 - Females were more likely to be at a substantially increased risk of developing chronic disease than males (77% vs. 32%).
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-Height and weight measurements were voluntarily provided by people aged 2 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey. Measurements were not provided by respondents who advised they were pregnant.
+::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
+`r note_aboriginality_natsihs`
 
-Body mass index (BMI) was calculated from a person’s height and weight, using the formula weight (kg) divided by the square of height (m).
+<div style="height: 0.1em;"></div>
 
-- For adults (aged 18 years and over), BMI was categorised as:
-  - Underweight: Less than 18.50
-  - Normal: 18.50 to 24.99
-  - Overweight: 25.00 to 29.99
-  - Obese Class 1: 30.00 to 34.99
-  - Obese Class 2: 35.00 to 39.99
-  - Obese Class 3: 40.00 and above
+- Height and weight measurements were voluntarily provided by people aged 2 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey. Measurements were not provided by respondents who advised they were pregnant.
+- Body mass index (BMI) was calculated from a person’s height and weight, using the formula weight (measured in kilograms) divided by the square of height (measured in metres).
+  - For adults (aged 18 years and over), BMI was categorised as:
+    - Underweight: Less than 18.50
+    - Normal: 18.50 to 24.99
+    - Overweight: 25.00 to 29.99
+    - Obese Class 1: 30.00 to 34.99
+    - Obese Class 2: 35.00 to 39.99
+    - Obese Class 3: 40.00 and above
+  - For children (aged 2 to 17 years), BMI was calculated in a similar manner but also took the age and sex of the child into account.
+    - Children were categorised as underweight/normal, overweight, or obese.
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
-- For children (aged 2 to 17 years), BMI was calculated in a similar manner but also took the age and sex of the child into account.
-  - Children were categorised as underweight/normal, overweight, or obese.
-
-<div style="height: 1em;"></div>
-
-Waist circumference measurements were voluntarily provided by people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey. Measurements were not provided by respondents who advised they were pregnant.
-
+- Waist circumference measurements were voluntarily provided by people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey. Measurements were not provided by respondents who advised they were pregnant.
 - Waist circumference was classified by the [risk of developing chronic disease](https://www.who.int/publications/i/item/9789241501491).
   - Lowered risk: less than 94cm for males, less than 80cm for females
   - Increased risk: 94cm to 102cm for males, 80cm to 88cm for females
   - Substantially increased risk: 102cm or more for males, 88cm or more for females
 
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
@@ -491,8 +455,6 @@ figure_number <- obesity_bmi %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = n,
-                    y_breaks   = 1000,
-                    y_expand   = 850,
                     x_angle    = 90)
 
 figure_percent <- obesity_bmi %>% 
@@ -500,9 +462,6 @@ figure_percent <- obesity_bmi %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = prop,
-                    y_max      = 50,
-                    y_breaks   = 5,
-                    y_expand   = 1,
                     x_angle    = 90)
 
 f_bar_grouped_combine(figure_number, figure_percent)
@@ -519,14 +478,8 @@ f_bar_grouped_combine(figure_number, figure_percent)
 table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
-table <- obesity_bmi %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(measured_bmi = answer)
+table <- obesity_bmi %>%
+  f_preptable_grouped_sex(variable_name = "measured_bmi")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -565,9 +518,7 @@ figure_number <- obesity_waist %>%
   dplyr::mutate(answer = factor(stringr::str_wrap(answer, width = 15), levels = factor_levels)) %>%
   #
   f_bar_grouped_sex(x_variable = answer,
-                    y_variable = n,
-                    y_breaks   = 1000,
-                    y_expand   = 500)
+                    y_variable = n)
 
 figure_percent <- obesity_waist %>% 
   dplyr::filter(sex != "Total" & answer != "Total") %>%
@@ -575,10 +526,7 @@ figure_percent <- obesity_waist %>%
   dplyr::mutate(answer = factor(stringr::str_wrap(answer, width = 15), levels = factor_levels)) %>%
   #
   f_bar_grouped_sex(x_variable = answer,
-                    y_variable = prop,
-                    y_max      = 100,
-                    y_breaks   = 10,
-                    y_expand   = 2.5)
+                    y_variable = prop)
 
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 ```
@@ -595,13 +543,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- obesity_waist %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(chronic_disease_risk = answer)
+  f_preptable_grouped_sex(variable_name = "chronic_disease_risk")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -627,47 +569,23 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
-
-`r note_caveat_survey_estimate`
-
-- Body mass index (BMI) was calculated from a person’s height and weight, using the formula weight (kg) divided by the square of height (m).
 
 <div style="height: 0.1em;"></div>
 
-- For adults (aged 18 years and over), BMI was categorised as:
-  - Underweight: Less than 18.50
-  - Normal: 18.50 to 24.99
-  - Overweight: 25.00 to 29.99
-  - Obese Class 1: 30.00 to 34.99
-  - Obese Class 2: 35.00 to 39.99
-  - Obese Class 3: 40.00 and above
-  
-<div style="height: 1em;"></div>
-
-- For children (aged 2 to 17 years), BMI was calculated in a similar manner but also took the age and sex of the child into account.
-  - Children were categorised as underweight/normal, overweight, or obese.
-
-<div style="height: 1em;"></div>
-
-- Waist circumference was classified by the [risk of developing chronic disease](https://www.who.int/publications/i/item/9789241501491).
-  - Lowered risk: less than 94cm for males, less than 80cm for females
-  - Increased risk: 94cm to 102cm for males, 80cm to 88cm for females
-  - Substantially increased risk: 102cm or more for males, 88cm or more for females
-
-<div style="height: 2em;"></div>
+`r note_caveat_survey_estimate`
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Biochemical Markers of Disease
 
@@ -724,22 +642,22 @@ biochem_cholesterol <- biochem_cholesterol %>%
 
 - Males and females were equally likely to have had their cholesterol checked in the last five years (87% vs. 88%).
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-The following questions were asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
-
-- Have you ever been told by a doctor or a nurse that you have any heart or blood pressure problems?
-  - Yes
-  - No
-  - Don't know
+::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
+- The following questions were asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
+  - Have you ever been told by a doctor or a nurse that you have any heart or blood pressure problems?
+    - Yes
+    - No
+    - Don't know
+  - Have you had your cholesterol checked in the last five years?
+    - Yes
+    - No
+    - Don't know
   
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
-- Have you had your cholesterol checked in the last five years?
-  - Yes
-  - No
-  - Don't know
-  
-<div style="height: 2em;"></div>
+- Definitions and notes:
+  - `r note_aboriginality_natsihs`
+
 :::
 
 :::: {.panel-tabset}
@@ -755,14 +673,8 @@ The following questions were asked of all people completing the 2022-23 ABS Nati
 table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
-table <- biochem_cholesterol %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(cholesterol_checked = answer)
+table <- biochem_cholesterol %>%
+  f_preptable_grouped_sex(variable_name = "cholesterol_checked")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -788,11 +700,15 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_estimate`
 :::
@@ -850,29 +766,27 @@ biochem_glucose <- biochem_glucose %>%
 
 - Females were more likely to have had their blood glucose checked than males (34% vs. 17%).
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-The following questions were asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
-
-- Have you ever been told by a doctor or a nurse that you have diabetes?
-  - Yes
-  - No
-  - Don't know
+::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
+- The following questions were asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
+  - Have you ever been told by a doctor or a nurse that you have diabetes?
+    - Yes
+    - No
+    - Don't know
+  - Have you ever been told by a doctor or a nurse that you have sugar problems or high sugar levels in your blood or urine?
+    - Yes
+    - No
+    - Don't know
+  - Have you been tested for diabetes or sugar problems in the last three years?
+    - Yes
+    - No
+    - Don't know
   
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
-- Have you ever been told by a doctor or a nurse that you have sugar problems or high sugar levels in your blood or urine?
-  - Yes
-  - No
-  - Don't know
-  
-<div style="height: 1em;"></div>
+- Definitions and notes:
+  - `r note_aboriginality_natsihs`
+  - People who had been previously diagnosed with diabetes, high blood sugar levels, or high urine sugar levels were excluded.
 
-- Have you been tested for diabetes or sugar problems in the last three years?
-  - Yes
-  - No
-  - Don't know
-  
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
@@ -888,14 +802,8 @@ The following questions were asked of all people completing the 2022-23 ABS Nati
 table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
-table <- biochem_glucose %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(glucose_checked = answer)
+table <- biochem_glucose %>%
+  f_preptable_grouped_sex(variable_name = "glucose_checked")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -921,14 +829,16 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
 
-`r note_caveat_survey_estimate`
+<div style="height: 0.1em;"></div>
 
-- People who had been previously diagnosed with diabetes, high blood sugar levels, or high urine sugar levels were excluded.
+`r note_caveat_survey_estimate`
 :::
 

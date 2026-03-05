@@ -62,13 +62,19 @@ note_aboriginality_reconciliation <- glue::glue("
 In the Australian Reconciliation Barometer, Aboriginal and/or Torres Strait Islander peoples were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander when they completed the survey.")
 
 note_aboriginality_vaed <- glue::glue("
-In the Victorian Admitted Episodes Dataset, Aboriginal and/or Torres Strait Islander peoples were defined as those who identified themselves as Aboriginal and/or Torres Strait Islander at the time of their contact with the health service.")
+In the Victorian Admitted Episodes Dataset, Aboriginal and/or Torres Strait Islander peoples were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander at the time of their contact with the health service.")
 
 note_aboriginality_vcams <- glue::glue("
 In the Victorian Adolescent and Child Monitoring System (VCAMS), Aboriginal and/or Torres Strait Islander children were defined as those who were recorded as Aboriginal and/or Torres Strait Islander in the datasets that comprise VCAMS. For preschool enrolments, these data were sourced from the [Kindergarten Information Management System](https://www.vic.gov.au/kims).")
 
+note_aboriginality_vemd <- glue::glue("
+In the AIHW National Non-Admitted Patient Emergency Department Care Database, Aboriginal and/or Torres Strait Islander peoples were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander at the time of their contact with the health service.")
+
 note_aboriginality_youthjustice <- glue::glue("
 In the AIHW Youth Justice National Minimum Dataset, Aboriginal and/or Torres Strait Islander peoples were defined as those who identified themselves as Aboriginal and/or Torres Strait Islander at the time of their contact with the youth justice system.")
+
+note_definition_survey_agegroups <- glue::glue("
+Adults were defined as persons aged 18 years and over, and children were defined as people aged 2 to 17 years.")
 
 # ------------------------------------------------------------------------------
 # Chart notes - data sources
@@ -222,9 +228,6 @@ note_caveat_notification_rate <- glue::glue("
 
 note_caveat_pandemic_decrease <- glue::glue("
 - The public health measures implemented during the COVID-19 pandemic impacted the epidemiology of many notifiable conditions, with lower than expected numbers of notifications seen for many conditions during the pandemic.")
-
-note_caveat_survey_agegroups <- glue::glue("
-- Adults were defined as persons aged 18 years and over, and children were defined as people aged 2 to 17 years.")
 
 note_caveat_survey_estimate <- glue::glue("
 - Survey data do not represent exact numbers of people. As only a sample of people were surveyed, their results were converted into estimates for the entire population and/or reported as percentages. The total number of respondents may differ across different survey questions.")

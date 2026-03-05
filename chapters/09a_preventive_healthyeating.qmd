@@ -24,11 +24,6 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Healthy Eating {.unnumbered}
 
-```{r}
-#
-knitr::knit_exit()
-```
-
 ::: {.caveat-box}
 **A note about the impact of under-identification**
 
@@ -150,20 +145,25 @@ fruit_increase <- fruit_increase %>%
 
 - Male survey respondents were more likely to have increased their fruit consumption compared to the same time in the previous year than females (22% vs. 14%).
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-The following questions were asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
+- The following questions were asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
+  - How many serves of fruit (including fresh, dried, frozen, and tinned) do you usually eat each day?
+    - Numeric response (1-20)
+  - Since this time last year, has the amount of fruit you usually consume increased, decreased, or stayed about the same?
+    - Increased
+    - Decreased
+    - Stayed about the same
 
-- How many serves of fruit (including fresh, dried, frozen, and tinned) do you usually eat each day?
-  - Numeric response (1-20)
-  
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
-- Since this time last year, has the amount of fruit you usually consume increased, decreased, or stayed about the same?
-  - Increased
-  - Decreased
-  - Stayed about the same
+- Definitions and notes:
+  - `r note_aboriginality_natsihs`
+  - `r note_definition_survey_agegroups`
+  - Fruit consumption was assessed using the National Health and Medical Research Council’s [2013 Australian Dietary Guidelines](https://www.nhmrc.gov.au/adg).
+    - The Guidelines recommend a minimum number of daily serves based on a person’s age and sex.
+    - A serve of fruit is approximately 150 grams of fresh fruit or 30 grams of dried fruit.
+    - All drinks, beverages and juices were excluded.
 
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
@@ -182,18 +182,13 @@ figure_number <- diet_fruit %>%
   dplyr::filter(sex != "Total" & answer == "Met guideline") %>%
   #
   f_bar_grouped_sex(x_variable = age_group,
-                    y_variable = n,
-                    y_breaks   = 1000,
-                    y_expand   = 800)
+                    y_variable = n)
 
 figure_percent <- diet_fruit %>% 
   dplyr::filter(sex != "Total" & answer == "Met guideline") %>%
   #
   f_bar_grouped_sex(x_variable = age_group,
-                    y_variable = prop,
-                    y_max      = 100,
-                    y_breaks   = 10,
-                    y_expand   = 2.5)
+                    y_variable = prop)
 
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 ```
@@ -210,13 +205,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- diet_fruit %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(fruit_consumption = answer)
+  f_preptable_grouped_sex(variable_name = "fruit_consumption")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -257,18 +246,13 @@ figure_number <- fruit_increase %>%
   dplyr::filter(sex != "Total" & answer != "Total") %>%
   #
   f_bar_grouped_sex(x_variable = answer,
-                    y_variable = n,
-                    y_breaks   = 2000,
-                    y_expand   = 1000)
+                    y_variable = n)
 
 figure_percent <- fruit_increase %>% 
   dplyr::filter(sex != "Total" & answer != "Total") %>%
   #
   f_bar_grouped_sex(x_variable = answer,
-                    y_variable = prop,
-                    y_max      = 100,
-                    y_breaks   = 10,
-                    y_expand   = 2.5)
+                    y_variable = prop)
 
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 ```
@@ -284,14 +268,8 @@ f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
-table <- fruit_increase %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(fruit_consumption = answer)
+table <- fruit_increase %>%
+  f_preptable_grouped_sex(variable_name = "fruit_consumption")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -317,32 +295,23 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
-
-`r note_caveat_survey_estimate`
-
-`r note_caveat_survey_agegroups`
 
 <div style="height: 0.1em;"></div>
 
-- Fruit consumption was assessed using the National Health and Medical Research Council’s [2013 Australian Dietary Guidelines](https://www.nhmrc.gov.au/adg).
-  - The Guidelines recommend a minimum number of daily serves based on a person’s age and sex.
-  - A serve of fruit is approximately 150 grams of fresh fruit or 30 grams of dried fruit.
-  - All drinks, beverages and juices were excluded.
-  
-<div style="height: 2em;"></div>
+`r note_caveat_survey_estimate`
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Vegetable Consumption
 
@@ -435,28 +404,38 @@ vege_increase <- vege_increase %>%
 
 - Data for this topic were obtained from the [2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release).
 
-- Overall, 4.5% of Aboriginal and/or Torres Strait Islander adult survey respondents (aged 18 years and over) living in Victoria met the daily vegetable consumption guidelines which [recommend a minimum number of daily serves](https://www.nhmrc.gov.au/adg) based on a person’s age and sex. This equates to approximately 2,200 Aboriginal and/or Torres Strait Islander adults in Victoria. Males were more likely to have met the guidelines than females (5.0% vs. 3.7%).
+- Overall, 4.5% of Aboriginal and/or Torres Strait Islander adult survey respondents (aged 18 years) and over living in Victoria met the daily vegetable consumption guidelines which [recommend a minimum number of daily serves](https://www.nhmrc.gov.au/adg) based on a person's age and sex. This equates to approximately 2,200 Aboriginal and/or Torres Strait Islander adults in Victoria.
 
-- Overall, 5.8% of Aboriginal and/or Torres Strait Islander child survey respondents (aged 2 to 17 years) living in Victoria met the daily vegetable consumption guidelines. This equates to approximately 1,600 Aboriginal and/or Torres Strait Islander children in Victoria. Females were more likely to have met the guidelines than males (4.5 % vs. 2.9%).
+- Male adults were more likely to have met the guidelines than female adults (5.0% vs. 3.7%).
+
+- Overall, 5.8% of Aboriginal and/or Torres Strait Islander child survey respondents (aged 2 to 17 years) living in Victoria met the daily vegetable consumption guidelines. This equates to approximately 1,600 Aboriginal and/or Torres Strait Islander children in Victoria.
 
 - 15% of Aboriginal and/or Torres Strait Islander survey respondents living in Greater Melbourne reported that they consumed more vegetables at the time of the survey than they did at the same time in the previous year, and 73% reported that their level of vegetable consumption was similar to the same time in the previous year.
 
+- Female children were more likely to have met the guidelines than male children (4.5 % vs. 2.9%).
+
 - Male survey respondents were more likely to have increased their vegetable consumption compared to the same time in the previous year than females (18% vs. 10%).
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-The following questions were asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
+- The following questions were asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
+  - How many serves of vegetables (including fresh, frozen, and tinned) do you usually eat each day?
+    - Numeric response (1-20)
+  - Since this time last year, has the amount of vegetables you usually consume increased, decreased, or stayed about the same?
+    - Increased
+    - Decreased
+    - Stayed about the same
 
-- How many serves of vegetables (including fresh, frozen, and tinned) do you usually eat each day?
-  - Numeric response (1-20)
-  
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
-- Since this time last year, has the amount of vegetables you usually consume increased, decreased, or stayed about the same?
-  - Increased
-  - Decreased
-  - Stayed about the same
+- Definitions and notes:
+  - `r note_aboriginality_natsihs`
+  - `r note_definition_survey_agegroups`
+  - Vegetable consumption was assessed using the National Health and Medical Research Council’s [2013 Australian Dietary Guidelines](https://www.nhmrc.gov.au/adg).
+    - The Guidelines recommend a minimum number of daily serves based on a person’s age and sex.
+    - A serve of vegetables is approximately half a cup of cooked vegetables (including legumes) or one cup of salad vegetables (equivalent to approximately 75 grams).
+    - Cooked vegetables, salad vegetables, tomatoes, and legumes were included.
+    - All drinks, beverages and juices were excluded.
 
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
@@ -475,18 +454,13 @@ figure_number <- diet_vege %>%
   dplyr::filter(sex != "Total" & answer == "Met guideline") %>%
   #
   f_bar_grouped_sex(x_variable = age_group,
-                    y_variable = n,
-                    y_breaks   = 200,
-                    y_expand   = 25)
+                    y_variable = n)
 
 figure_percent <- diet_vege %>% 
   dplyr::filter(sex != "Total" & answer == "Met guideline") %>%
   #
   f_bar_grouped_sex(x_variable = age_group,
-                    y_variable = prop,
-                    y_max      = 10,
-                    y_breaks   = 1,
-                    y_expand   = 0.25)
+                    y_variable = prop)
 
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 ```
@@ -503,13 +477,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- diet_vege %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(vegetable_consumption = answer)
+  f_preptable_grouped_sex(variable_name = "vegetable_consumption")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -550,18 +518,13 @@ figure_number <- vege_increase %>%
   dplyr::filter(sex != "Total" & answer != "Total") %>%
   #
   f_bar_grouped_sex(x_variable = answer,
-                    y_variable = n,
-                    y_breaks   = 2000,
-                    y_expand   = 1000)
+                    y_variable = n)
 
 figure_percent <- vege_increase %>% 
   dplyr::filter(sex != "Total" & answer != "Total") %>%
   #
   f_bar_grouped_sex(x_variable = answer,
-                    y_variable = prop,
-                    y_max      = 100,
-                    y_breaks   = 10,
-                    y_expand   = 2.5)
+                    y_variable = prop)
 
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 ```
@@ -578,13 +541,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- vege_increase %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(vegetable_consumption = answer)
+  f_preptable_grouped_sex(variable_name = "vegetable_consumption")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -610,33 +567,23 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
-
-`r note_caveat_survey_estimate`
-
-`r note_caveat_survey_agegroups`
 
 <div style="height: 0.1em;"></div>
 
-- Vegetable consumption was assessed using the National Health and Medical Research Council’s [2013 Australian Dietary Guidelines](https://www.nhmrc.gov.au/adg).
-  - The Guidelines recommend a minimum number of daily serves based on a person’s age and sex.
-  - A serve of vegetables is approximately half a cup of cooked vegetables (including legumes) or one cup of salad vegetables (equivalent to approximately 75 grams).
-  - Cooked vegetables, salad vegetables, tomatoes, and legumes were included.
-  - All drinks, beverages and juices were excluded.
-  
-<div style="height: 2em;"></div>
+`r note_caveat_survey_estimate`
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Sugar Sweetened Drinks Consumption
 
@@ -735,13 +682,18 @@ sugar_daily <- sugar_daily %>%
 
 - Male survey respondents were more likely to consume sugar sweetened drinks daily than females (30% vs. 13%).
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-The following question was asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
+- The following question was asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
+  - On average, on how many days per week do you usually drink soft drink, cordials, sports drinks, or caffeinated energy drinks?
+    - Numeric response (0-7)
 
-- On average, on how many days per week do you usually drink soft drink, cordials, sports drinks, or caffeinated energy drinks?
-  - Numeric response (0-7)
+<div style="height: 0.1em;"></div>
 
-<div style="height: 2em;"></div>
+- Definitions and notes:
+  - `r note_aboriginality_natsihs`
+  - `r note_definition_survey_agegroups`
+  - Alcoholic drinks, fruit juices, vegetable juices, flavoured milks, tea, and coffee were excluded.
+
 :::
 
 :::: {.panel-tabset}
@@ -760,18 +712,13 @@ figure_number <- drink_sugar %>%
   dplyr::filter(sex != "Total" & answer == "At least once per week") %>%
   #
   f_bar_grouped_sex(x_variable = age_group,
-                    y_variable = n,
-                    y_breaks   = 2000,
-                    y_expand   = 1500)
+                    y_variable = n)
 
 figure_percent <- drink_sugar %>% 
   dplyr::filter(sex != "Total" & answer == "At least once per week") %>%
   #
   f_bar_grouped_sex(x_variable = age_group,
-                    y_variable = prop,
-                    y_max      = 100,
-                    y_breaks   = 10,
-                    y_expand   = 2.5)
+                    y_variable = prop)
 
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 ```
@@ -788,13 +735,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- drink_sugar %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(sugar_drink_consumption = answer)
+  f_preptable_grouped_sex(variable_name = "sugar_drink_consumption")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -833,13 +774,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- sugar_daily %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(sugar_drink_consumption = answer)
+  f_preptable_grouped_sex(variable_name = "sugar_drink_consumption")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -865,25 +800,23 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_estimate`
-
-`r note_caveat_survey_agegroups`
-
-- Alcoholic drinks, fruit juices, vegetable juices, flavoured milks, tea, and coffee were excluded.
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Artifically Sweetened Drinks Consumption
 
@@ -982,13 +915,18 @@ diet_daily <- diet_daily %>%
 
 - Female survey respondents were more likely to consume artificially sweetened drinks daily than males (11% vs. 4.9%).
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-The following question was asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
+- The following question was asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
+  - On average, on how many days per week do you usually drink diet soft drink, cordials, sports drinks, or caffeinated energy drinks? These are drinks that have artificial sweeteners (e.g. saccharin, aspartame, sucralose) added to them rather than sugar.
+    - Numeric response (0-7)
 
-- On average, on how many days per week do you usually drink diet soft drink, cordials, sports drinks, or caffeinated energy drinks? These are drinks that have artificial sweeteners (e.g. saccharin, aspartame, sucralose) added to them rather than sugar.
-  - Numeric response (0-7)
+<div style="height: 0.1em;"></div>
 
-<div style="height: 2em;"></div>
+- Definitions and notes:
+  - `r note_aboriginality_natsihs`
+  - `r note_definition_survey_agegroups`
+  - Fruit juices, vegetable juices, flavoured milks, tea, and coffee were excluded.
+
 :::
 
 :::: {.panel-tabset}
@@ -1007,18 +945,13 @@ figure_number <- drink_diet %>%
   dplyr::filter(sex != "Total" & answer == "At least once per week") %>%
   #
   f_bar_grouped_sex(x_variable = age_group,
-                    y_variable = n,
-                    y_breaks   = 1000,
-                    y_expand   = 900)
+                    y_variable = n)
 
 figure_percent <- drink_diet %>% 
   dplyr::filter(sex != "Total" & answer == "At least once per week") %>%
   #
   f_bar_grouped_sex(x_variable = age_group,
-                    y_variable = prop,
-                    y_max      = 50,
-                    y_breaks   = 5,
-                    y_expand   = 1)
+                    y_variable = prop)
 
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 ```
@@ -1035,13 +968,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- drink_diet %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(diet_drink_consumption = answer)
+  f_preptable_grouped_sex(variable_name = "diet_drink_consumption")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -1080,13 +1007,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- diet_daily %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(diet_drink_consumption = answer)
+  f_preptable_grouped_sex(variable_name = "diet_drink_consumption")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -1112,16 +1033,16 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_estimate`
-
-`r note_caveat_survey_agegroups`
-
-- Fruit juices, vegetable juices, flavoured milks, tea, and coffee were excluded.
 :::
 

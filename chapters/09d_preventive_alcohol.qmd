@@ -24,11 +24,6 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Alcohol and Other Drugs {.unnumbered}
 
-```{r}
-#
-knitr::knit_exit()
-```
-
 ::: {.caveat-box}
 **A note about the impact of under-identification**
 
@@ -153,73 +148,67 @@ alcohol_increase <- alcohol_increase %>%
 
 - Males were more likely to have decreased their alcohol consumption compared to the same time in the previous year than females (38% vs. 24%).
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-The following questions were asked of all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
+- The following questions were asked of all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
+  - How long ago did you last drink alcohol?
+    - 7 days or less
+    - More than 7 days to less than 2 weeks
+    - 2 weeks to less than 1 month
+    - 1 month to less than 3 months
+    - 3 months to less than 12 months
+    - 12 months
+    - More than 12 months
+    - Never consumed alcohol
+    - Don't remember
+  - On which days in the past week did you drink alcohol? (Select all that apply)
+    - Monday
+    - Tuesday
+    - Wednesday
+    - Thursday
+    - Friday
+    - Saturday
+    - Sunday
+    - None
+  - For each day in the past week when you drank alcohol, how many standard drinks of each of the following types of alcohol did you consume?
+    - Beer (cider, light beer, mid strength beer, full strength beer, unknown strength beer)
+    - Wine (white wine, red wine, low alcohol wine, champagne, sparkling wine)
+    - Pre-mixed or ready to drink cans or bottles
+    - Liqueurs, spirits, or fortified wines
+    - Cocktails
+    - Other alcoholic drinks
+  - How often did you drink any alcohol in the last 12 months?
+    - Every day
+    - 5 to 6 days a week
+    - 3 to 4 days a week
+    - 1 to 2 days a week
+    - 2 to 3 days a month
+    - About 1 day a month
+    - Less often than one day a month
+    - Never
+    - Don't know
+  - How often in the last 12 months have you had five or more standard alcoholic drinks in a day?
+    - Daily
+    - Numeric response (1-6) days per week
+    - Numeric response (1-30) days per month
+    - Numeric response (1-365) days per year
+    - Never
+    - Don't know
+  - Has the amount of alcohol that you usually drink increased, decreased, or stayed about the same since this time last year?
+    - Increased
+    - Decreased
+    - Stayed about the same
 
-- How long ago did you last drink alcohol?
-  - 7 days or less
-  - More than 7 days to less than 2 weeks
-  - 2 weeks to less than 1 month
-  - 1 month to less than 3 months
-  - 3 months to less than 12 months
-  - 12 months
-  - More than 12 months
-  - Never consumed alcohol
-  - Don't remember
-  
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
-- One which days in the past week did you drink alcohol? (Select all that apply)
-  - Monday
-  - Tuesday
-  - Wednesday
-  - Thursday
-  - Friday
-  - Saturday
-  - Sunday
-  - None
+- Definitions and notes:
+  - `r note_aboriginality_natsihs`
+  - Alcohol consumption was assessed using the [Australian Alcohol Guidelines 2020](https://www.health.gov.au/news/australian-alcohol-guidelines-revised).
+    - The Guidelines provide advice about the health risks of drinking alcohol to allow people to make informed decisions about alcohol consumption.
+    - The Guidelines recommend that people aged 18 years and under should not drink alcohol. In the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey, people aged 15 to 17 years were assessed against the Adult Guidelines to provide an estimate of the level of risk for this age group.
+  - People were considered to have exceeded the Guidelines if they had consumed:
+    - More than 10 standard drinks during the week prior to the survey and/or
+    - Five or more standard drinks on at least 12 days during the 12 months prior to the survey.
 
-<div style="height: 1em;"></div>
-
-- For each day in the past week when you drank alcohol, how many standard drinks of each of the following types of alcohol did you consume?
-  - Beer (cider, light beer, mid strength beer, full strength beer, unknown strength beer)
-  - Wine (white wine, red wine, low alcohol wine, champagne, sparkling wine)
-  - Pre-mixed or ready to drink cans or bottles
-  - Liqueurs, spirits, or fortified wines
-  - Cocktails
-  - Other alcoholic drinks
-
-<div style="height: 1em;"></div>
-
-- How often did you drink any alcohol in the last 12 months?
-  - Every day
-  - 5 to 6 days a week
-  - 3 to 4 days a week
-  - 1 to 2 days a week
-  - 2 to 3 days a month
-  - About 1 day a month
-  - Less often than one day a month
-  - Never
-  - Don't know
-  
-<div style="height: 1em;"></div>
-
-- How often in the last 12 months have you had five or more standard alcoholic drinks in a day?
-  - Daily
-  - Numeric response (1-6) days per week
-  - Numeric response (1-30) days per month
-  - Numeric response (1-365) days per year
-  - Never
-  - Don't know
-
-<div style="height: 1em;"></div>
-
-- Has the amount of alcohol that you usually drink increased, decreased, or stayed about the same since this time last year?
-  - Increased
-  - Decreased
-  - Stayed about the same
-
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
@@ -243,8 +232,6 @@ figure_number <- alcohol_guidelines %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = n,
-                    y_breaks   = 1000,
-                    y_expand   = 900,
                     x_angle    = 90)
 
 figure_percent <- alcohol_guidelines %>% 
@@ -254,9 +241,6 @@ figure_percent <- alcohol_guidelines %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = prop,
-                    y_max      = 100,
-                    y_breaks   = 10,
-                    y_expand   = 2.5,
                     x_angle    = 90)
 
 f_bar_grouped_combine(figure_number, figure_percent)
@@ -273,14 +257,8 @@ f_bar_grouped_combine(figure_number, figure_percent)
 table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
-table <- alcohol_guidelines %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(alcohol_consumption = answer)
+table <- alcohol_guidelines %>%
+  f_preptable_grouped_sex(variable_name = "alcohol_consumption")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -315,18 +293,13 @@ figure_number <- alcohol_increase %>%
   dplyr::filter(sex != "Total" & answer != "Total") %>%
   #
   f_bar_grouped_sex(x_variable = answer,
-                    y_variable = n,
-                    y_breaks   = 1000,
-                    y_expand   = 150)
+                    y_variable = n)
 
 figure_percent <- alcohol_increase %>% 
   dplyr::filter(sex != "Total" & answer != "Total") %>%
   #
   f_bar_grouped_sex(x_variable = answer,
-                    y_variable = prop,
-                    y_max      = 100,
-                    y_breaks   = 10,
-                    y_expand   = 2.5)
+                    y_variable = prop)
 
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 ```
@@ -342,14 +315,8 @@ f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
-table <- alcohol_increase %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(alcohol_consumption = answer)
+table <- alcohol_increase %>%
+  f_preptable_grouped_sex(variable_name = "alcohol_consumption")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -375,35 +342,23 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
-`r note_caveat_survey_unknown`
+<div style="height: 0.1em;"></div>
 
-`r note_caveat_survey_estimate`
+`r note_caveat_survey_unknown`
 
 <div style="height: 0.1em;"></div>
 
-- Alcohol consumption was assessed using the [Australian Alcohol Guidelines 2020](https://www.health.gov.au/news/australian-alcohol-guidelines-revised).
-  - The Guidelines provide advice about the health risks of drinking alcohol to allow people to make informed decisions about alcohol consumption.
-  - The Guidelines recommend that people aged 18 years and under should not drink alcohol. In the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey, people aged 15 to 17 years were assessed against the Adult Guidelines to provide an estimate of the level of risk for this age group.
-
-<div style="height: 1em;"></div>
-
-- People were considered to have exceeded the Guidelines if they had consumed:
-  - More than 10 standard drinks during the week prior to the survey and/or
-  - Five or more standard drinks on at least 12 days during the 12 months prior to the survey.
-
-<div style="height: 2em;"></div>
+`r note_caveat_survey_estimate`
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Illicit and Other Substance Use
 
@@ -458,70 +413,52 @@ illicit_status <- illicit_status %>%
 
 - Males were more likely to have used substances for non-medical purposes than females (34% vs. 14%).
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-The following questions were asked of all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
+- The following questions were asked of all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
+  - Have you used pain killers or analgesics when you were not sick or for non-medical purposes in the last 12 months?
+    - Yes
+    - No
+    - Prefer not to answer
+  - Have you used tranquilisers or sleeping pills when you were not sick or for non-medical purposes in the last 12 months?
+    - Yes
+    - No
+    - Prefer not to answer
+  - Have you used marijuana, hashish, or cannabis resin in the last 12 months?
+    - Yes
+    - No
+    - Prefer not to answer
+  - Have you used methadone when you were not sick or for non-medical purposes in the last 12 months?
+    - Yes
+    - No
+    - Prefer not to answer
+  - Have you sniffed petrol in the last 12 months?
+    - Yes
+    - No
+    - Prefer not to answer
+  - Have you sniffed glue, solvents, paint thinners, aerosols, or anything else in the last 12 months?
+    - Yes
+    - No
+    - Prefer not to answer
+  - Have you used kava in the last 12 months?
+    - Yes
+    - No
+    - Prefer not to answer
+  - Have you used any of these in the last 12 months? (Select all that apply)
+    - Amphetamines, ice, or speed
+    - Heroin
+    - Cocaine
+    - LSD or synthetic hallucinogens
+    - Naturally occurring hallucinogens
+    - Ecstasy or designer drugs
+    - Other (please specify)
+    - None used in the last 12 months
+    - Prefer not to answer
 
-- Have you used pain killers or analgesics when you were not sick or for non-medical purposes in the last 12 months?
-  - Yes
-  - No
-  - Prefer not to answer
-  
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
-- Have you used tranquilisers or sleeping pills when you were not sick or for non-medical purposes in the last 12 months?
-  - Yes
-  - No
-  - Prefer not to answer
-  
-<div style="height: 1em;"></div>
+- Definitions and notes:
+  - `r note_aboriginality_natsihs`
 
-- Have you used marijuana, hashish, or cannabis resin in the last 12 months?
-  - Yes
-  - No
-  - Prefer not to answer
-  
-<div style="height: 1em;"></div>
-
-- Have you used methadone when you were not sick or for non-medical purposes in the last 12 months?
-  - Yes
-  - No
-  - Prefer not to answer
-
-<div style="height: 1em;"></div>
-
-- Have you sniffed petrol in the last 12 months?
-  - Yes
-  - No
-  - Prefer not to answer
-
-<div style="height: 1em;"></div>
-
-- Have you sniffed glue, solvents, paint thinners, aerosols, or anything else in the last 12 months?
-  - Yes
-  - No
-  - Prefer not to answer
-
-<div style="height: 1em;"></div>
-
-- Have you used kava in the last 12 months?
-  - Yes
-  - No
-  - Prefer not to answer
-
-<div style="height: 1em;"></div>
-
-- Have you used any of these in the last 12 months? (Select all that apply)
-  - Amphetamines, ice, or speed
-  - Heroin
-  - Cocaine
-  - LSD or synthetic hallucinogens
-  - Naturally occurring hallucinogens
-  - Ecstasy or designer drugs
-  - Other (please specify)
-  - None used in the last 12 months
-  - Prefer not to answer
-
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
@@ -537,14 +474,8 @@ The following questions were asked of all people aged 15 years and over completi
 table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
-table <- illicit_status %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(substance_use = answer)
+table <- illicit_status %>%
+  f_preptable_grouped_sex(variable_name = "substance_use")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -570,14 +501,16 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
 
-`r note_caveat_survey_estimate`
+<div style="height: 0.1em;"></div>
 
-- *Substances* includes illicit substances, petrol and other inhalants, analgesics/pain killers used for non-medical purposes, and tranquilisers/sleeping pills used for non-medical purposes.
+`r note_caveat_survey_estimate`
 :::
 

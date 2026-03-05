@@ -34,6 +34,14 @@ book:
         - chapters/08b_other_familysafety.qmd
         - chapters/08c_other_discrimination.qmd
         - chapters/08d_other_digitalinclusion.qmd
+        - chapters/08e_other_healthservices.qmd
+    - part: "9. Health and Wellbeing"
+      chapters: 
+        - chapters/09a_preventive_healthyeating.qmd
+        - chapters/09b_preventive_physicalactivity.qmd
+        - chapters/09c_preventive_tobacco.qmd
+        - chapters/09d_preventive_alcohol.qmd
+        - chapters/09e_preventive_biomedical.qmd
     - references.qmd
 
 bibliography: references.bib

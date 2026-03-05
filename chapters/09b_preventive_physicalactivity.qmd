@@ -24,11 +24,6 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Physical Activity {.unnumbered}
 
-```{r}
-#
-knitr::knit_exit()
-```
-
 ::: {.caveat-box}
 **A note about the impact of under-identification**
 
@@ -172,32 +167,32 @@ activity_type <- activity_type %>%
 
 - Competing priorities such as carer responsibilities were discussed as a contributing factor for people who were not engaging in physical activity.
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-The following questions were asked of all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
+- The following questions were asked of all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
+  - What types of physical activity did you do last week?
+    - Walking continuously for ten minutes or more
+    - Moderate activity
+    - Vigorous activity
+    - None of the above
+  - What types of walking, moderate, or vigorous activity did you do continuously for ten minutes or more last week? (select all that apply)
+    - Walking for exercise, recreation, or sport
+    - Walking to get to places
+    - Moderate activity for exercise
+    - Moderate activity while working
+    - Vigorous activity for exercise
+    - Vigorous activity while working
+  - Did you do any strength and toning activities last week?
+    - Yes
+    - No
 
-- What types of physical activity did you do last week?
-  - Walking continuously for ten minutes or more
-  - Moderate activity
-  - Vigorous activity
-  - None of the above
-  
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
-- What types of walking, moderate, or vigorous activity did you do continuously for ten minutes or more last week? (select all that apply)
-  - Walking for exercise, recreation, or sport
-  - Walking to get to places
-  - Moderate activity for exercise
-  - Moderate activity while working
-  - Vigorous activity for exercise
-  - Vigorous activity while working
-  
-<div style="height: 1em;"></div>
+- Definitions and notes:
+  - `r note_aboriginality_natsihs`
+  - Physical activity was assessed using the [2014 Australian Physical Activity and Sedentary Behaviour Guidelines](https://www.health.gov.au/topics/physical-activity-and-exercise/physical-activity-and-exercise-guidelines-for-all-australians).
+    - The Guidelines recommend a minimum level of physical activity during the week based on age and the types of activity undertaken. 
+    - The moderate and vigorous intensity categories include physical activity undertaken both at work and outside of work.
 
-- Did you do any strength and toning activities last week?
-  - Yes
-  - No
-
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
@@ -214,13 +209,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- activity_guidelines %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(physical_activity = answer)
+  f_preptable_grouped_sex(variable_name = "physical_activity")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -260,8 +249,6 @@ figure_number <- activity_type %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = n,
-                    y_breaks   = 1000,
-                    y_expand   = 850,
                     x_angle    = 90)
 
 figure_percent <- activity_type %>% 
@@ -271,9 +258,6 @@ figure_percent <- activity_type %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = prop,
-                    y_max      = 50,
-                    y_breaks   = 5,
-                    y_expand   = 1,
                     x_angle    = 90)
 
 f_bar_grouped_combine(figure_number, figure_percent)
@@ -291,13 +275,7 @@ table_count  <- table_count + 1
 table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
 
 table <- activity_type %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(activity_type = answer)
+  f_preptable_grouped_sex(variable_name = "activity_type")
 
 if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
   
@@ -323,31 +301,27 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
-
-`r note_caveat_survey_estimate`
-
-`r note_caveat_multipleresponse`
 
 <div style="height: 0.1em;"></div>
 
-- Physical activity was assessed using the [2014 Australian Physical Activity and Sedentary Behaviour Guidelines](https://www.health.gov.au/topics/physical-activity-and-exercise/physical-activity-and-exercise-guidelines-for-all-australians).
-  - The Guidelines recommend a minimum level of physical activity during the week based on age and the types of activity undertaken.
-  - The moderate and vigorous intensity categories include physical activity undertaken both at work and outside of work.
-  
-<div style="height: 2em;"></div>
+`r note_caveat_survey_estimate`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_multipleresponse`
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Mode of Transport to Work
 
@@ -448,26 +422,30 @@ transport_agesex <- transport_agesex %>%
 
 - Younger people were more likely to use an active mode of transport or public transport.
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-The following question was asked of all people aged 15 years and over completing the ABS Census 2021.
+::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
+- The following question was asked of all people aged 15 years and over completing the ABS Census 2021:
+  - How did the person get to work on Tuesday 10 August 2021? (Select all that apply)
+    - Train
+    - Bus
+    - Ferry
+    - Tram (including light rail)
+    - Taxi or ride share service
+    - Car (as a driver)
+    - Car (as a passenger)
+    - Truck
+    - Motorbike or motor scooter
+    - Bicycle
+    - Walked only
+    - Other (please specify)
+    - Worked at home
+    - Did not go to work
+  - In cases where the combination of responses contained ‘Did not go to work’, ‘Worked at home’, or ‘Walked only’, then these unique responses override any others.
 
-- How did the person get to work on Tuesday 10 August 2021? (Select all that apply)
-  - Train
-  - Bus
-  - Ferry
-  - Tram (including light rail)
-  - Taxi or ride share service
-  - Car (as a driver)
-  - Car (as a passenger)
-  - Truck
-  - Motorbike or motor scooter
-  - Bicycle
-  - Walked only
-  - Other (please specify)
-  - Worked at home
-  - Did not go to work
+<div style="height: 0.1em;"></div>
 
-<div style="height: 2em;"></div>
+- Definitions and notes:
+  - `r note_aboriginality_census`
+
 :::
 
 :::: {.panel-tabset}
@@ -503,8 +481,7 @@ transport_lga %>%
                "Active transport"))) %>% 
   #
   f_bar_stacked_lga(fill_values = c(colour_stack5, colour_stack4, colour_stack3, colour_stack2, colour_stack1),
-                    y_breaks    = 100,
-                    y_expand    = 90)
+                    n_level     = "people")
 ```
 
 #### Table 9B-3
@@ -536,10 +513,8 @@ table %>%
   #
   f_table_simple(table_headers = c("LGA", 
                                    "Count", "Percent", "Count", "Percent", "Count", "Percent", "Count", "Percent", "Count", "Percent",
-                                   "Total")) %>%
-  #
-  kableExtra::column_spec(2:ncol(table),
-                          width = "0.75in") %>%
+                                   "Total"),
+                 column_width  = "0.75in") %>%
   #
   kableExtra::add_header_above(c(" " = 1,
                                  "Active transport" = 2,
@@ -585,8 +560,7 @@ transport_agesex %>%
                "Active transport"))) %>% 
   #
   f_bar_stacked_agesex(fill_values = c(colour_stack5, colour_stack4, colour_stack3, colour_stack2, colour_stack1),
-                       y_breaks    = 100,
-                       y_expand    = 50)
+                       n_level     = "people")
 ```
 
 #### Table 9B-4
@@ -627,8 +601,11 @@ table %>%
                                    "Count", "Percent", "Count", "Percent",
                                    "Total")) %>%
   #
-  kableExtra::column_spec(2:ncol(table) - 1,
-                          width = "0.75in") %>%
+  kableExtra::column_spec(1,
+                          width = "1in") %>%
+  #
+  kableExtra::column_spec(2:12,
+                          width = "0.5in") %>%
   #
   kableExtra::add_header_above(c("Female" = 1,
                                  "Active transport" = 2,
@@ -650,8 +627,11 @@ table %>%
                                    "Count", "Percent", "Count", "Percent",
                                    "Total")) %>%
   #
-  kableExtra::column_spec(2:ncol(table) - 1,
-                          width = "0.75in") %>%
+  kableExtra::column_spec(1,
+                          width = "1in") %>%
+  #
+  kableExtra::column_spec(2:12,
+                          width = "0.5in") %>%
   #
   kableExtra::add_header_above(c("Male" = 1,
                                  "Active transport" = 2,
@@ -671,15 +651,19 @@ table %>%
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_multipleresponse`
 
-- In cases where the combination of responses contained 'Did not go to work', 'Worked at home', or 'Walked only', then these unique responses override any others.
+<div style="height: 0.1em;"></div>
 
 - A number of regions across the state were in various stages of lockdown on 2021 Census night and during the week preceding it, resulting in a greater number of people working from home during this time. Working from home was included in the ‘Did not travel’ category.
 :::
