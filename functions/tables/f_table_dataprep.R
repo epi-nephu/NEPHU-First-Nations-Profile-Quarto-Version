@@ -228,6 +228,28 @@ f_preptable_grouped_indigenous <- function(data, x_variable, n_variable) {
 } 
 
 ################################################################################
+# Cancer screening data
+################################################################################
+f_preptable_screening <- function(data) {
+  
+  data <- data %>% 
+    dplyr::select(period,
+                  indigenous_label,
+                  screened,
+                  eligible,
+                  prop) %>% 
+    #
+    tidyr::pivot_wider(names_from  = "indigenous_label",
+                       values_from = c("screened", "eligible", "prop"),
+                       names_vary  = "slowest") %>% 
+    #
+    janitor::clean_names()
+  
+  return(data)
+
+}
+
+################################################################################
 # NAPLAN data
 ################################################################################
 f_preptable_naplan <- function(data) {

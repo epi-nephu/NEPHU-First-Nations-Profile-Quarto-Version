@@ -173,6 +173,21 @@ f_bar_grouped_sex <- function(data, x_variable, y_variable, y_title, x_angle = 0
                                         "Percentage: ", sprintf("%.1f", !!y_variable)))
     
   }
+
+  if (rlang::as_name(y_variable) == "total") {
+    
+    y_title <- "Number of deaths"
+    
+    y_max    <- max(data$total, na.rm = TRUE)
+    y_upper  <- y_upper_n(y_max)
+    y_breaks <- y_breaks(y_max)
+    
+    data <- data %>% 
+      dplyr::mutate(hover_text = paste0(sex, "\n",
+                                        age_group, "\n",
+                                        "Deaths: ", format(!!y_variable, big.mark = ",")))
+    
+  }
   
   figure <- data %>% 
     ggplot(aes(x = !!x_variable, y = !!y_variable, group = sex, fill = sex, text = hover_text)) +

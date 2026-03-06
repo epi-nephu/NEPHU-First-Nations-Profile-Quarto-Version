@@ -31,8 +31,20 @@ When considering the total number of people who identify as Aboriginal and/or To
 note_aboriginality_aedc <- glue::glue("
 In the Australian Early Development Census, Aboriginal and/or Torres Strait Islander children were defined as those who had been identified as Aboriginal and/or Torres Strait Islander by their parent or guardian.")
 
+note_aboriginality_air <- glue::glue("
+In the Australian Immunisation Register, Aboriginal and/or Torres Strait Islander peoples were defined as those recorded as Aboriginal and/or Torres Strait Islander based on their Medicare records or as recorded by an immunisation provider.")
+
+note_aboriginality_bowel <- glue::glue("
+In the National Cancer Screening Register, Aboriginal and/or Torres Strait Islander peoples were defined based on the recording of Aboriginal and/or Torres Strait Islander status in the National Bowel Cancer Screening Program data.")
+
+note_aboriginality_breast <- glue::glue("
+In the BreastScreen Australia dataset, Aboriginal and/or Torres Strait Islander women were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander at the time of their breast screening appointment.")
+
 note_aboriginality_census <- glue::glue("
 In the ABS Census, Aboriginal and/or Torres Strait Islander peoples were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander when they completed the Census.")
+
+note_aboriginality_cervical <- glue::glue("
+In the National Cancer Screening Register, Aboriginal and/or Torres Strait Islander peoples were defined based on the recording of Aboriginal and/or Torres Strait Islander status in Medicare, pathology, or colposcopy records.")
 
 note_aboriginality_childprotection <- glue::glue("
 Aboriginal and/or Torres Strait Islander peoples were defined as those who were identified as such in the individual state and territory data collections that make up the AIHW Child Protection National Minimum Dataset.")
@@ -56,7 +68,7 @@ note_aboriginality_perinatal <- glue::glue("
 In the National Perinatal Data Collection, Aboriginal and/or Torres Strait Islander mothers were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander at the time of childbirth.")
 
 note_aboriginality_prisoners <- glue::glue("
-In the ABS Prisoners in Australia Dataset, Aboriginal and/or Torres Strait Islander peoples were defined as those who identified themselves as Aboriginal and/or Torres Strait Islander at the time of their contact with a corrective service agency.")
+In the ABS Prisoners in Australia Dataset, Aboriginal and/or Torres Strait Islander peoples were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander at the time of their contact with a corrective service agency.")
 
 note_aboriginality_reconciliation <- glue::glue("
 In the Australian Reconciliation Barometer, Aboriginal and/or Torres Strait Islander peoples were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander when they completed the survey.")
@@ -71,7 +83,7 @@ note_aboriginality_vemd <- glue::glue("
 In the AIHW National Non-Admitted Patient Emergency Department Care Database, Aboriginal and/or Torres Strait Islander peoples were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander at the time of their contact with the health service.")
 
 note_aboriginality_youthjustice <- glue::glue("
-In the AIHW Youth Justice National Minimum Dataset, Aboriginal and/or Torres Strait Islander peoples were defined as those who identified themselves as Aboriginal and/or Torres Strait Islander at the time of their contact with the youth justice system.")
+In the AIHW Youth Justice National Minimum Dataset, Aboriginal and/or Torres Strait Islander peoples were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander at the time of their contact with the youth justice system.")
 
 note_definition_survey_agegroups <- glue::glue("
 Adults were defined as persons aged 18 years and over, and children were defined as people aged 2 to 17 years.")
@@ -229,6 +241,9 @@ note_caveat_notification_rate <- glue::glue("
 note_caveat_pandemic_decrease <- glue::glue("
 - The public health measures implemented during the COVID-19 pandemic impacted the epidemiology of many notifiable conditions, with lower than expected numbers of notifications seen for many conditions during the pandemic.")
 
+note_caveat_pandemic_screening <- glue::glue("
+- The COVID-19 pandemic affected the availability of screening services and health seeking behaviours, which may have had an impact on screening participation.")
+
 note_caveat_survey_estimate <- glue::glue("
 - Survey data do not represent exact numbers of people. As only a sample of people were surveyed, their results were converted into estimates for the entire population and/or reported as percentages. The total number of respondents may differ across different survey questions.")
 
@@ -239,7 +254,8 @@ note_caveat_rounding <- glue::glue("
 - Counts may not sum to the total and percentages may not sum to 100 due to small cell suppression, data masking, and rounding.")
 
 note_caveat_underidentification <- glue::glue("
-- Reported counts and percentages are a likely underestimate due to under-identification.")
+- Reported counts and percentages are a likely underestimate of the true population value due to variable reporting of Aboriginal and/or Torres Strait Islander status and the likely under-identification of Aboriginal and/or Torres Strait Islander people in the data source for this indicator.")
 
 note_caveat_unknown_agesex <- glue::glue("
-- People with an unknown or not stated age or sex have been excluded from age/sex breakdowns.")
+- People with an unknown or not stated age and/or sex have been excluded from age/sex breakdowns.")
+

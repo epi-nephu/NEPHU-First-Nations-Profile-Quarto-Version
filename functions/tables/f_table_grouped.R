@@ -109,10 +109,15 @@ f_table_grouped_indigenous <- function(data, n_variable, column_name, total_row 
     
   }
   
+  if (n_variable == "screening") {
+    
+    table_headers <- c("Screened (n)", "Eligible (n)", "Screened (%)", "Screened (n)", "Eligible (n)", "Screened (%)")
+  }
+  
   table <- data %>% 
     knitr::kable(format      = "html",
                  format.args = list(big.mark = ","),
-                 align       = "lrrrrr",
+                 align       = "lrrrrrr",
                  col.names   = c(column_name, table_headers),
                  escape      = FALSE) %>%
     #
@@ -150,7 +155,20 @@ f_table_grouped_indigenous <- function(data, n_variable, column_name, total_row 
                                      "Identified as Aboriginal and/or Torres Strait Islander" = 2),
                                    align = "right")
     
-  }  
+  }
+  
+  if (n_variable == "screening"){
+    
+    table <- table %>%
+      kableExtra::column_spec(2:7,
+                              width = "1.25in") %>% 
+      #
+      kableExtra::add_header_above(c(" " = 1,
+                                     "Identified as Aboriginal and/or Torres Strait Islander"       = 3,
+                                     "Did not identify as Aboriginal and/or Torres Strait Islander" = 3),
+                                   align = "right")
+    
+  }
   
   return(table)
   

@@ -24,11 +24,6 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## General Health {.unnumbered}
 
-```{r}
-#
-knitr::knit_exit()
-```
-
 ::: {.caveat-box}
 **A note about the impact of under-identification**
 
@@ -135,18 +130,13 @@ figure_number <- health_status %>%
   dplyr::filter(sex != "Total" & answer != "Total") %>%
   #
   f_bar_grouped_sex(x_variable = answer,
-                    y_variable = n,
-                    y_breaks   = 1000,
-                    y_expand   = 200)
+                    y_variable = n)
 
 figure_percent <- health_status %>% 
   dplyr::filter(sex != "Total" & answer != "Total") %>%
   #
   f_bar_grouped_sex(x_variable = answer,
-                    y_variable = prop,
-                    y_max      = 50,
-                    y_breaks   = 5,
-                    y_expand   = 1)
+                    y_variable = prop)
 
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 ```
@@ -204,12 +194,10 @@ table %>%
 `r note_caveat_survey_estimate`
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Any Long-Term Health Condition
 
@@ -303,15 +291,10 @@ The following question was asked of all people completing the ABS Census 2021.
 figure_count <- figure_count + 1
 
 figure_number <- condition_lga %>% 
-  f_bar_simple_lga(y_variable = aboriginal_n,
-                   y_breaks   = 100,
-                   y_expand   = 75)
+  f_bar_simple_lga(y_variable = aboriginal_n)
 
 figure_percent <- condition_lga %>% 
-  f_bar_simple_lga(y_variable = aboriginal_prop,
-                   y_max      = 50,
-                   y_breaks   = 5,
-                   y_expand   = 1)
+  f_bar_simple_lga(y_variable = aboriginal_prop)
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```
@@ -327,8 +310,7 @@ f_bar_simple_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 condition_lga %>% 
-  f_bar_obsexp_lga(y_breaks = 100,
-                   y_expand = 75)
+  f_bar_obsexp_lga()
 ```
 
 #### Table 10A-2
@@ -371,15 +353,10 @@ table %>%
 figure_count <- figure_count + 1
 
 figure_number <- condition_agesex %>% 
-  f_bar_grouped_agesex(y_variable = aboriginal_n,
-                       y_breaks   = 50,
-                       y_expand   = 25)
+  f_bar_grouped_agesex(y_variable = aboriginal_n)
 
 figure_percent <- condition_agesex %>% 
-  f_bar_grouped_agesex(y_variable = aboriginal_prop,
-                       y_max      = 100,
-                       y_breaks   = 10,
-                       y_expand   = 2.5)
+  f_bar_grouped_agesex(y_variable = aboriginal_prop)
 
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
@@ -395,8 +372,7 @@ f_bar_grouped_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 condition_agesex %>% 
-  f_bar_obsexp_agesex(y_breaks = 50,
-                      y_expand = 30)
+  f_bar_obsexp_agesex()
 ```
 
 #### Table 10A-3

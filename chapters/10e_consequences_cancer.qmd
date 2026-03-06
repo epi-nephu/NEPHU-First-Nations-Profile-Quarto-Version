@@ -24,11 +24,6 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Cancer {.unnumbered}
 
-```{r}
-#
-knitr::knit_exit()
-```
-
 ::: {.caveat-box}
 **A note about the impact of under-identification**
 
@@ -247,12 +242,10 @@ table %>%
 `r note_caveat_multipleresponse`
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Cancer
 
@@ -346,15 +339,10 @@ The following question was asked of all people completing the ABS Census 2021.
 figure_count <- figure_count + 1
 
 figure_number <- cancer_lga %>% 
-  f_bar_simple_lga(y_variable = aboriginal_n,
-                   y_breaks   = 5,
-                   y_expand   = 5)
+  f_bar_simple_lga(y_variable = aboriginal_n)
 
 figure_percent <- cancer_lga %>% 
-  f_bar_simple_lga(y_variable = aboriginal_prop,
-                   y_max      = 5,
-                   y_breaks   = 0.5,
-                   y_expand   = 0.125)
+  f_bar_simple_lga(y_variable = aboriginal_prop)
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```
@@ -370,8 +358,7 @@ f_bar_simple_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 cancer_lga %>% 
-  f_bar_obsexp_lga(y_breaks = 10,
-                   y_expand = 7)
+  f_bar_obsexp_lga()
 ```
 
 #### Table 10E-2
@@ -414,15 +401,10 @@ table %>%
 figure_count <- figure_count + 1
 
 figure_number <- cancer_agesex %>% 
-  f_bar_grouped_agesex(y_variable = aboriginal_n,
-                       y_breaks   = 5,
-                       y_expand   = 1)
+  f_bar_grouped_agesex(y_variable = aboriginal_n)
 
 figure_percent <- cancer_agesex %>% 
-  f_bar_grouped_agesex(y_variable = aboriginal_prop,
-                       y_max      = 25,
-                       y_breaks   = 5,
-                       y_expand   = 0.5)
+  f_bar_grouped_agesex(y_variable = aboriginal_prop)
 
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
@@ -438,8 +420,7 @@ f_bar_grouped_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 cancer_agesex %>% 
-  f_bar_obsexp_agesex(y_breaks = 5,
-                      y_expand = 1.5)
+  f_bar_obsexp_agesex()
 ```
 
 #### Table 10E-3
@@ -510,7 +491,9 @@ table %>%
 cancer_type <- readxl::read_excel(file.path(root_folder, subfolder_cancer, "Vic_Top10_Incidence_Deaths_Sex.xlsx"),
                                   skip  = 4,
                                   sheet = "VictoriaTop10Cases") %>%
-  janitor::clean_names()
+  janitor::clean_names() %>% 
+  #
+  dplyr::rename(aboriginal_n = n)
 ```
 
 - Data for this indicator were obtained from the [Victorian Cancer Registry](https://www.cancervic.org.au/about-cancer/types/statistics).
@@ -556,12 +539,10 @@ cancer_type %>%
   dplyr::filter(cancer_type != "All Top 10" & sex == "Total") %>% 
   #
   dplyr::mutate(hover_text = paste0(cancer_type, "\n",
-                                    "Count: ", format(n, big.mark = ","))) %>% 
+                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>% 
   #
-  f_bar_simple(x_variable = forcats::fct_reorder(cancer_type, desc(n)),
-               y_variable = n,
-               y_breaks   = 50,
-               y_expand   = 45,
+  f_bar_simple(x_variable = forcats::fct_reorder(cancer_type, desc(aboriginal_n)),
+               y_variable = aboriginal_n,
                y_title    = "Number of diagnoses")
 ```
 
@@ -576,16 +557,13 @@ cancer_type %>%
 figure_count <- figure_count + 1
 
 cancer_type %>% 
-  dplyr::filter(cancer_type != "All Top 10" & sex == "Female" & !is.na(n)) %>%
+  dplyr::filter(cancer_type != "All Top 10" & sex == "Female" & !is.na(aboriginal_n)) %>%
   #
   dplyr::mutate(hover_text = paste0(cancer_type, "\n",
-                                    "Count: ", format(n, big.mark = ","))) %>% 
+                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>% 
   #
-  f_bar_simple(x_variable = forcats::fct_reorder(cancer_type, desc(n)),
-               y_variable = n,
-               y_max      = 175,
-               y_breaks   = 25,
-               y_expand   = 5,
+  f_bar_simple(x_variable = forcats::fct_reorder(cancer_type, desc(aboriginal_n)),
+               y_variable = aboriginal_n,
                y_title    = "Number of diagnoses")
 ```
 
@@ -600,16 +578,13 @@ cancer_type %>%
 figure_count <- figure_count + 1
 
 cancer_type %>% 
-  dplyr::filter(cancer_type != "All Top 10" & sex == "Male" & !is.na(n)) %>%
+  dplyr::filter(cancer_type != "All Top 10" & sex == "Male" & !is.na(aboriginal_n)) %>%
   #
   dplyr::mutate(hover_text = paste0(cancer_type, "\n",
-                                    "Count: ", format(n, big.mark = ","))) %>% 
+                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>% 
   #
-  f_bar_simple(x_variable = forcats::fct_reorder(cancer_type, desc(n)),
-               y_variable = n,
-               y_max      = 175,
-               y_breaks   = 25,
-               y_expand   = 5,
+  f_bar_simple(x_variable = forcats::fct_reorder(cancer_type, desc(aboriginal_n)),
+               y_variable = aboriginal_n,
                y_title    = "Number of diagnoses")
 ```
 
@@ -626,7 +601,7 @@ table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_coun
 
 table <- cancer_type %>%
   tidyr::pivot_wider(names_from  = "sex",
-                     values_from = "n",
+                     values_from = "aboriginal_n",
                      names_vary  = "slowest") %>% 
   #
   janitor::clean_names()
@@ -718,14 +693,10 @@ figure_count <- figure_count + 1
 
 figure_number <- hospital_cancer %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
-                    y_breaks   = 25,
-                    y_expand   = 25,
                     hospital   = "admission")
 
 figure_percent <- hospital_cancer %>% 
   f_bar_simple_iare(y_variable = aboriginal_rate,
-                    y_breaks   = 200,
-                    y_expand   = 25,
                     hospital   = "admission")
 
 f_bar_simple_combine(figure_number, figure_percent)

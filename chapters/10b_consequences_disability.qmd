@@ -24,11 +24,6 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Living with Disability {.unnumbered}
 
-```{r}
-#
-knitr::knit_exit()
-```
-
 ::: {.caveat-box}
 **A note about the impact of under-identification**
 
@@ -278,8 +273,6 @@ figure_number <- disability_status %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = n,
-                    y_breaks   = 500,
-                    y_expand   = 350,
                     x_angle    = 90)
 
 figure_percent <- disability_status %>% 
@@ -289,9 +282,6 @@ figure_percent <- disability_status %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = prop,
-                    y_max      = 25,
-                    y_breaks   = 5,
-                    y_expand   = 0.5,
                     x_angle    = 90)
 
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.35)
@@ -355,8 +345,6 @@ figure_number <- disability_type %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = n,
-                    y_breaks   = 1000,
-                    y_expand   = 250,
                     x_angle    = 90)
 
 figure_percent <- disability_type %>% 
@@ -366,9 +354,6 @@ figure_percent <- disability_type %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = prop,
-                    y_max      = 100,
-                    y_breaks   = 10,
-                    y_expand   = 2.5,
                     x_angle    = 90)
 
 f_bar_grouped_combine(figure_number, figure_percent)
@@ -444,12 +429,10 @@ table %>%
 <div style="height: 2em;"></div>
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Assistance with Core Activities
 
@@ -561,15 +544,10 @@ The following questions were asked of all people completing the ABS Census 2021.
 figure_count <- figure_count + 1
 
 figure_number <- assist_lga %>% 
-  f_bar_simple_lga(y_variable = aboriginal_n,
-                   y_breaks   = 25,
-                   y_expand   = 20)
+  f_bar_simple_lga(y_variable = aboriginal_n)
 
 figure_percent <- assist_lga %>% 
-  f_bar_simple_lga(y_variable = aboriginal_prop,
-                   y_max      = 25,
-                   y_breaks   = 5,
-                   y_expand   = 0.5)
+  f_bar_simple_lga(y_variable = aboriginal_prop)
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```
@@ -585,8 +563,7 @@ f_bar_simple_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 assist_lga %>% 
-  f_bar_obsexp_lga(y_breaks = 25,
-                   y_expand = 20)
+  f_bar_obsexp_lga()
 ```
 
 #### Table 10B-3
@@ -629,15 +606,10 @@ table %>%
 figure_count <- figure_count + 1
 
 figure_number <- assist_agesex %>% 
-  f_bar_grouped_agesex(y_variable = aboriginal_n,
-                       y_breaks   = 25,
-                       y_expand   = 5)
+  f_bar_grouped_agesex(y_variable = aboriginal_n)
 
 figure_percent <- assist_agesex %>% 
-  f_bar_grouped_agesex(y_variable = aboriginal_prop,
-                       y_max      = 50,
-                       y_breaks   = 5,
-                       y_expand   = 1)
+  f_bar_grouped_agesex(y_variable = aboriginal_prop)
 
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
@@ -653,8 +625,7 @@ f_bar_grouped_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 assist_agesex %>% 
-  f_bar_obsexp_agesex(y_breaks = 25,
-                      y_expand = 7)
+  f_bar_obsexp_agesex()
 ```
 
 #### Table 10B-4

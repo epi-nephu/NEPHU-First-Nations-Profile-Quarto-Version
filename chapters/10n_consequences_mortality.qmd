@@ -2,6 +2,8 @@
 title-block: false
 ---
 
+# Mortality
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -21,11 +23,6 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
 ## Mortality {.unnumbered}
-
-```{r}
-#
-knitr::knit_exit()
-```
 
 ::: {.warning-box}
 `r bsicons::bs_icon("exclamation-triangle", size = "15pt")` **Content warning** `r bsicons::bs_icon("exclamation-triangle", size = "15pt")`
@@ -191,12 +188,10 @@ table %>%
 <div style="height: 2em;"></div>
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Leading Causes of Death
 
@@ -450,13 +445,13 @@ figure_count <- figure_count + 1
 mortality_cause %>% 
   dplyr::filter(sex == "Persons") %>%
   #
-  dplyr::mutate(hover_text = paste0(cause, "\n",
-                                    "Count: ", format(n_deaths, big.mark = ","))) %>%
+  dplyr::rename(aboriginal_n = n_deaths) %>% 
   #
-  f_bar_simple_flip(x_variable = forcats::fct_reorder(cause, desc(n_deaths)),
-                    y_variable = n_deaths,
-                    y_breaks   = 5,
-                    y_expand   = 1)
+  dplyr::mutate(hover_text = paste0(cause, "\n",
+                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>%
+  #
+  f_bar_simple_flip(x_variable = forcats::fct_reorder(cause, desc(aboriginal_n)),
+                    y_variable = aboriginal_n)
 ```
 
 #### Table 10N-2
@@ -513,14 +508,13 @@ figure_count <- figure_count + 1
 mortality_cause %>% 
   dplyr::filter(sex == "Males") %>%
   #
-  dplyr::mutate(hover_text = paste0(cause, "\n",
-                                    "Count: ", format(n_deaths, big.mark = ","))) %>%
+  dplyr::rename(aboriginal_n = n_deaths) %>% 
   #
-  f_bar_simple_flip(x_variable = forcats::fct_reorder(cause, desc(n_deaths)),
-                    y_variable = n_deaths,
-                    y_max      = 35,
-                    y_breaks   = 5,
-                    y_expand   = 1)
+  dplyr::mutate(hover_text = paste0(cause, "\n",
+                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>%
+  #
+  f_bar_simple_flip(x_variable = forcats::fct_reorder(cause, desc(aboriginal_n)),
+                    y_variable = aboriginal_n)
 ```
 
 #### Table 10N-3
@@ -577,14 +571,13 @@ figure_count <- figure_count + 1
 mortality_cause %>% 
   dplyr::filter(sex == "Females") %>%
   #
-  dplyr::mutate(hover_text = paste0(cause, "\n",
-                                    "Count: ", format(n_deaths, big.mark = ","))) %>%
+  dplyr::rename(aboriginal_n = n_deaths) %>% 
   #
-  f_bar_simple_flip(x_variable = forcats::fct_reorder(cause, desc(n_deaths)),
-                    y_variable = n_deaths,
-                    y_max      = 35,
-                    y_breaks   = 5,
-                    y_expand   = 1)
+  dplyr::mutate(hover_text = paste0(cause, "\n",
+                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>%
+  #
+  f_bar_simple_flip(x_variable = forcats::fct_reorder(cause, desc(aboriginal_n)),
+                    y_variable = aboriginal_n)
 ```
 
 #### Table 10N-4
@@ -648,12 +641,10 @@ table %>%
 <div style="height: 2em;"></div>
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Suicide
 
@@ -744,9 +735,6 @@ figure_count <- figure_count + 1
 
 suicide_australia %>% 
   f_line_grouped_indigenous(y_variable = rate,
-                            y_max      = NA,
-                            y_breaks   = 5,
-                            y_expand   = 5,
                             n_level    = "100,000")
 ```
 
@@ -813,8 +801,6 @@ suicide_agesex %>%
   dplyr::mutate(year = stringr::str_remove(year, "x")) %>% 
   #
   f_line_grouped_sex(y_variable = n,
-                     y_breaks   = 5,
-                     y_expand   = 1,
                      n_level    = "deaths")
 ```
 
@@ -831,15 +817,8 @@ figure_count <- figure_count + 1
 suicide_agesex %>% 
   dplyr::filter(sex != "Total" & age_group != "Total") %>%
   #
-  dplyr::mutate(hover_text = paste0(sex, "\n",
-                                    age_group, "\n",
-                                    "Count: ", format(total, big.mark = ","))) %>%
-  #
-  f_bar_grouped_sex(x_variable    = age_group,
-                    y_variable    = total,
-                    y_breaks      = 5,
-                    y_expand      = 3,
-                    y_title       = "Number of deaths")
+  f_bar_grouped_sex(x_variable = age_group,
+                    y_variable = total)
 ```
 
 #### Table 10N-6
@@ -928,12 +907,10 @@ table %>%
 <div style="height: 2em;"></div>
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Life Expectancy
 
@@ -1065,8 +1042,6 @@ figure_count <- figure_count + 1
 
 mortality_diff %>% 
   f_line_grouped_sex(y_variable = difference,
-                     y_breaks   = 2,
-                     y_expand   = 1,
                      n_level    = "life expectancy at birth (years)")
 ```
 

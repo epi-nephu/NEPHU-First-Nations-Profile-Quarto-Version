@@ -24,11 +24,6 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Mental Health and Wellbeing {.unnumbered}
 
-```{r}
-#
-knitr::knit_exit()
-```
-
 ::: {.caveat-box}
 **A note about the impact of under-identification**
 
@@ -184,18 +179,13 @@ figure_number <- wellbeing_positive %>%
   dplyr::filter(sex != "Total" & answer != "Total") %>%
   #
   f_bar_grouped_sex(x_variable = answer,
-                    y_variable = n,
-                    y_breaks   = 1000,
-                    y_expand   = 400)
+                    y_variable = n)
 
 figure_percent <- wellbeing_positive %>% 
   dplyr::filter(sex != "Total" & answer != "Total") %>%
   #
   f_bar_grouped_sex(x_variable = answer,
-                    y_variable = prop,
-                    y_max      = 100,
-                    y_breaks   = 10,
-                    y_expand   = 2.5)
+                    y_variable = prop)
 
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 ```
@@ -767,9 +757,7 @@ figure_number <- wellbeing_mspss %>%
   dplyr::mutate(answer = factor(stringr::str_wrap(answer, width = 15), levels = factor_levels)) %>%
   #
   f_bar_grouped_sex(x_variable = answer,
-                    y_variable = n,
-                    y_breaks   = 1000,
-                    y_expand   = 1000)
+                    y_variable = n)
 
 figure_percent <- wellbeing_mspss %>% 
   dplyr::filter(sex != "Total" & answer != "Total") %>%
@@ -777,10 +765,7 @@ figure_percent <- wellbeing_mspss %>%
   dplyr::mutate(answer = factor(stringr::str_wrap(answer, width = 15), levels = factor_levels)) %>%
   #
   f_bar_grouped_sex(x_variable = answer,
-                    y_variable = prop,
-                    y_max      = 100,
-                    y_breaks   = 10,
-                    y_expand   = 2.5)
+                    y_variable = prop)
 
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 ```
@@ -838,12 +823,10 @@ table %>%
 `r note_caveat_survey_estimate`
 :::
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## Dementia
 
@@ -900,12 +883,10 @@ dementia_agesex <- dementia_agesex %>%
 
 - It is not reliable to report on this topic broken down further by LGA or by age and sex due to small numbers.
 
-::: {style="opacity: 0.8;"}
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
-:::
 
 ## All Mental Health Conditions
 
@@ -999,15 +980,10 @@ The following question was asked of all people completing the ABS Census 2021.
 figure_count <- figure_count + 1
 
 figure_number <- mental_lga %>% 
-  f_bar_simple_lga(y_variable = aboriginal_n,
-                   y_breaks   = 50,
-                   y_expand   = 45)
+  f_bar_simple_lga(y_variable = aboriginal_n)
 
 figure_percent <- mental_lga %>% 
-  f_bar_simple_lga(y_variable = aboriginal_prop,
-                   y_max      = 25,
-                   y_breaks   = 5,
-                   y_expand   = 0.5)
+  f_bar_simple_lga(y_variable = aboriginal_prop)
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```
@@ -1023,8 +999,7 @@ f_bar_simple_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 mental_lga %>% 
-  f_bar_obsexp_lga(y_breaks = 50,
-                   y_expand = 45)
+  f_bar_obsexp_lga()
 ```
 
 #### Table 10L-5
@@ -1067,15 +1042,10 @@ table %>%
 figure_count <- figure_count + 1
 
 figure_number <- mental_agesex %>% 
-  f_bar_grouped_agesex(y_variable = aboriginal_n,
-                       y_breaks   = 50,
-                       y_expand   = 15)
+  f_bar_grouped_agesex(y_variable = aboriginal_n)
 
 figure_percent <- mental_agesex %>% 
-  f_bar_grouped_agesex(y_variable = aboriginal_prop,
-                       y_max      = 50,
-                       y_breaks   = 5,
-                       y_expand   = 1)
+  f_bar_grouped_agesex(y_variable = aboriginal_prop)
 
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
@@ -1091,8 +1061,7 @@ f_bar_grouped_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 mental_agesex %>% 
-  f_bar_obsexp_agesex(y_breaks = 50,
-                      y_expand = 15)
+  f_bar_obsexp_agesex()
 ```
 
 #### Table 10L-6
@@ -1259,8 +1228,6 @@ figure_number <- mental_type %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = n,
-                    y_breaks   = 1000,
-                    y_expand   = 1000,
                     x_angle    = 90)
 
 figure_percent <- mental_type %>% 
@@ -1270,9 +1237,6 @@ figure_percent <- mental_type %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = prop,
-                    y_max      = 100,
-                    y_breaks   = 10,
-                    y_expand   = 2.5,
                     x_angle    = 90)
 
 f_bar_grouped_combine(figure_number, figure_percent)
@@ -1536,8 +1500,6 @@ figure_number <- mental_service %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = n,
-                    y_breaks   = 500,
-                    y_expand   = 500,
                     x_angle    = 90)
 
 figure_percent <- mental_service %>% 
@@ -1547,9 +1509,6 @@ figure_percent <- mental_service %>%
   #
   f_bar_grouped_sex(x_variable = answer,
                     y_variable = prop,
-                    y_max      = 100,
-                    y_breaks   = 10,
-                    y_expand   = 2.5,
                     x_angle    = 90)
 
 f_bar_grouped_combine(figure_number, figure_percent)
@@ -1672,14 +1631,10 @@ figure_count <- figure_count + 1
 
 figure_number <- hospital_mental %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
-                    y_breaks   = 100,
-                    y_expand   = 35,
                     hospital   = "admission")
 
 figure_percent <- hospital_mental %>% 
   f_bar_simple_iare(y_variable = aboriginal_rate,
-                    y_breaks   = 1000,
-                    y_expand   = 500,
                     hospital   = "admission")
 
 f_bar_simple_combine(figure_number, figure_percent)
@@ -1795,14 +1750,10 @@ figure_count <- figure_count + 1
 
 figure_number <- hospital_mood %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
-                    y_breaks   = 10,
-                    y_expand   = 2.5,
                     hospital   = "admission")
 
 figure_percent <- hospital_mood %>% 
   f_bar_simple_iare(y_variable = aboriginal_rate,
-                    y_breaks   = 250,
-                    y_expand   = 150,
                     hospital   = "admission")
 
 f_bar_simple_combine(figure_number, figure_percent)
@@ -1922,14 +1873,10 @@ figure_count <- figure_count + 1
 
 figure_number <- emergency_mental %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
-                    y_breaks   = 25,
-                    y_expand   = 25,
                     hospital   = "emergency")
 
 figure_percent <- emergency_mental %>% 
   f_bar_simple_iare(y_variable = aboriginal_rate,
-                    y_breaks   = 1000,
-                    y_expand   = 1100,
                     hospital   = "emergency")
 
 f_bar_simple_combine(figure_number, figure_percent)

@@ -2,7 +2,7 @@ project:
   type: book
 
 book:
-  title: "Gumunatj Ngarrngatj:<br>The NEPHU First Nations Population Profile"
+  title: "The NEPHU First Nations Population Profile"
   chapters:
     - index.qmd
     - part: "1. Introduction"
@@ -42,6 +42,24 @@ book:
         - chapters/09c_preventive_tobacco.qmd
         - chapters/09d_preventive_alcohol.qmd
         - chapters/09e_preventive_biomedical.qmd
+        - chapters/09f_preventive_vaccination.qmd
+        - chapters/09g_preventive_screening.qmd
+    - part: "10. Health Outcomes"
+      chapters:
+        - chapters/10a_consequences_general.qmd
+        - chapters/10b_consequences_disability.qmd
+        - chapters/10c_consequences_arthritis.qmd
+        - chapters/10d_consequences_asthma.qmd
+        - chapters/10e_consequences_cancer.qmd
+        - chapters/10f_consequences_diabetes.qmd
+        - chapters/10g_consequences_cardiovascular.qmd
+        - chapters/10h_consequences_kidney.qmd
+        - chapters/10i_consequences_lung.qmd
+        - chapters/10j_consequences_other.qmd
+        - chapters/10k_consequences_infectious.qmd
+        - chapters/10l_consequences_mentalhealth.qmd
+        - chapters/10m_consequences_injury.qmd
+        - chapters/10n_consequences_mortality.qmd
     - references.qmd
 
 bibliography: references.bib

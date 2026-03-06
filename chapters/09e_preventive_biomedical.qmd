@@ -412,11 +412,14 @@ obesity_waist <- obesity_waist %>%
 - Females were more likely to be at a substantially increased risk of developing chronic disease than males (77% vs. 32%).
 
 ::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
-`r note_aboriginality_natsihs`
+- `r note_aboriginality_natsihs`
 
 <div style="height: 0.1em;"></div>
 
 - Height and weight measurements were voluntarily provided by people aged 2 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey. Measurements were not provided by respondents who advised they were pregnant.
+
+<div style="height: 0.1em;"></div>
+
 - Body mass index (BMI) was calculated from a person’s height and weight, using the formula weight (measured in kilograms) divided by the square of height (measured in metres).
   - For adults (aged 18 years and over), BMI was categorised as:
     - Underweight: Less than 18.50
@@ -431,6 +434,9 @@ obesity_waist <- obesity_waist %>%
 <div style="height: 0.1em;"></div>
 
 - Waist circumference measurements were voluntarily provided by people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey. Measurements were not provided by respondents who advised they were pregnant.
+
+<div style="height: 0.1em;"></div>
+
 - Waist circumference was classified by the [risk of developing chronic disease](https://www.who.int/publications/i/item/9789241501491).
   - Lowered risk: less than 94cm for males, less than 80cm for females
   - Increased risk: 94cm to 102cm for males, 80cm to 88cm for females

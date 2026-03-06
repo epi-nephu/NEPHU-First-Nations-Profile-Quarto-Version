@@ -208,9 +208,15 @@ f_bar_stacked_agesex <- function(data, fill_values, n_level) {
 ################################################################################
 # By year (PHESS counts)
 ################################################################################
-f_bar_stacked_phess <- function(data, y_max = NA, y_breaks, y_expand) {
+f_bar_stacked_phess <- function(data) {
   
-  data <- data %>% 
+  total_data <- data %>% 
+    dplyr::filter(indigenous_label == "Aboriginal") %>%
+    #
+    dplyr::select(year,
+                  vic_n)
+  
+  data <- data %>%
     dplyr::filter(indigenous_label == "Aboriginal") %>%
     #
     dplyr::select(year,
@@ -232,14 +238,18 @@ f_bar_stacked_phess <- function(data, y_max = NA, y_breaks, y_expand) {
                           comparison, "\n",
                           "Count: ", format(aboriginal_n, big.mark = ",")))
   
+  y_max    <- max(total_data$vic_n, na.rm = TRUE)
+  y_upper  <- y_upper_n(y_max)
+  y_breaks <- y_breaks(y_max) 
+  
   figure <- data %>%
     ggplot(aes(x = year, y = aboriginal_n, fill = forcats::fct_rev(comparison), text = hover_text)) +
     #
     geom_col() +
     #
-    scale_y_continuous(limits = c(0, y_max),
+    scale_y_continuous(limits = c(0, y_upper),
                        breaks = scales::breaks_width(y_breaks),
-                       expand = expansion(add = c(0, y_expand)),
+                       expand = expansion(add = c(0, 0)),
                        labels = scales::comma_format(big.mark = ",")) +
     #
     scale_fill_manual(values = c(colour_pyramidvic, colour_pyramidnephu),

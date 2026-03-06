@@ -24,11 +24,6 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Diabetes {.unnumbered}
 
-```{r}
-#
-knitr::knit_exit()
-```
-
 ::: {.caveat-box}
 **A note about the impact of under-identification**
 
@@ -145,15 +140,10 @@ The following question was asked of all people completing the ABS Census 2021.
 figure_count <- figure_count + 1
 
 figure_number <- diabetes_lga %>% 
-  f_bar_simple_lga(y_variable = aboriginal_n,
-                   y_breaks   = 10,
-                   y_expand   = 5)
+  f_bar_simple_lga(y_variable = aboriginal_n)
 
 figure_percent <- diabetes_lga %>% 
-  f_bar_simple_lga(y_variable = aboriginal_prop,
-                   y_max      = 10,
-                   y_breaks   = 1,
-                   y_expand   = 0.25)
+  f_bar_simple_lga(y_variable = aboriginal_prop)
 
 f_bar_simple_combine(figure_number, figure_percent)
 ```
@@ -169,8 +159,7 @@ f_bar_simple_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 diabetes_lga %>% 
-  f_bar_obsexp_lga(y_breaks = 25,
-                   y_expand = 8)
+  f_bar_obsexp_lga()
 ```
 
 #### Table 10F-1
@@ -213,15 +202,10 @@ table %>%
 figure_count <- figure_count + 1
 
 figure_number <- diabetes_agesex %>% 
-  f_bar_grouped_agesex(y_variable = aboriginal_n,
-                       y_breaks   = 10,
-                       y_expand   = 7)
+  f_bar_grouped_agesex(y_variable = aboriginal_n)
 
 figure_percent <- diabetes_agesex %>% 
-  f_bar_grouped_agesex(y_variable = aboriginal_prop,
-                       y_max      = 50,
-                       y_breaks   = 5,
-                       y_expand   = 1)
+  f_bar_grouped_agesex(y_variable = aboriginal_prop)
 
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
@@ -237,8 +221,7 @@ f_bar_grouped_combine(figure_number, figure_percent)
 figure_count <- figure_count + 1
 
 diabetes_agesex %>% 
-  f_bar_obsexp_agesex(y_breaks = 10,
-                      y_expand = 8)
+  f_bar_obsexp_agesex()
 ```
 
 #### Table 10F-2
@@ -352,14 +335,10 @@ figure_count <- figure_count + 1
 
 figure_number <- hospital_diabetes %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
-                    y_breaks   = 20,
-                    y_expand   = 5,
                     hospital   = "admission")
 
 figure_percent <- hospital_diabetes %>% 
   f_bar_simple_iare(y_variable = aboriginal_rate,
-                    y_breaks   = 200,
-                    y_expand   = 200,
                     hospital   = "admission")
 
 f_bar_simple_combine(figure_number, figure_percent)
