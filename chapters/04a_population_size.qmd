@@ -9,10 +9,11 @@ title-block: false
 source(here::here("setup.R"))
 source(here::here("setup_footnotes.R"))
 
-# Set up numbering for exporting tables as .csv
-table_section <- "04A"
-table_count   <- 0
+# Set up numbering for figures and tables
+report_section <- "4A"
+csv_section    <- "04A"
 
+table_count  <- 0
 figure_count <- 0
 ```
 
@@ -24,13 +25,13 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Population Size and Distribution {.unnumbered}
 
-::: {.caveat-box}
-**A note about the impact of under-identification**
-
+::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
 `r note_box_underidentification`
-:::
 
-<div style="height: 2em;"></div>
+<div style="height: 0.1em;"></div>
+
+`r note_box_masking`
+:::
 
 ::: {.key-question}
 How many people who identify as Aboriginal and/or Torres Strait Islander live in the NEPHU catchment and where do they reside?
@@ -67,7 +68,6 @@ for (i in lphu_names_short) {
     dplyr::mutate(
       lga_id = dplyr::case_when(
         lga_code_2021 == i ~ i,
-        #
         TRUE ~ as.character(lga_id)))
   
   }
@@ -88,7 +88,6 @@ aboriginal_lga <- results[["NEPHU"]] %>%
                      #
                      dplyr::mutate(lga_id = dplyr::case_when(
                        lga_code_2021 == "VIC" ~ "VIC",
-                       #
                        TRUE ~ as.character(lga_id))) %>% 
                      #
                      dplyr::filter(lga_code_2021 == "VIC"))
@@ -160,21 +159,31 @@ population_lphu <- aboriginal_lga %>%
 - The proportion of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander was lower than the proportion of people living in Victoria who identified as Aboriginal and/or Torres Strait Islander (n = 65,639, 1.0% of the state population). 
 
 ::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
+- Figure 4A-1 and Table 4A-1:
+  - Numerator: Number of people with a residential address in the geographical area (e.g. LPHU catchment, Victoria) who identified as Aboriginal and/or Torres Strait Islander in the 2021 Census.
+  - Denominator: Total number of people with a residential address in the geographical area (e.g. LPHU catchment, Victoria) in the 2021 Census.
+
+<div style="height: 0.1em;"></div>
+
 - `r note_aboriginality_census`
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 4A-1
+```{r}
+#
+figure_count <- figure_count + 1
+figure_title <- paste0("Figure", " ", report_section, "-", figure_count)
+```
 
-::: {#fig_4A_1 .fig-tab-title}
-**Figure 4A-1:** Number of people who identified as Aboriginal and/or Torres Strait Islander, Victoria, by LPHU, 2021
+#### `r figure_title`
+
+::: {.fig-tab-title}
+**`r figure_title`:** Number of people who identified as Aboriginal and/or Torres Strait Islander, Victoria, by LPHU, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 population_lphu %>% 
   dplyr::filter(lphu_short != "VIC") %>% 
   #
@@ -186,17 +195,22 @@ population_lphu %>%
                x_angle    = 0)
 ```
 
-#### Table 4A-1
-
-::: {#tab_4A_1 .fig-tab-title}
-**Table 4A-1:** Number and percentage of LPHU catchment population who identified as Aboriginal and/or Torres Strait Islander, Victoria, by LPHU, 2021
-:::
 
 ```{r}
 #
 table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+table_title  <- paste0("Table", " ", report_section, "-", table_count)
+table_number <- paste0("Table_", csv_section, "_", sprintf("%.02d", table_count))
+```
 
+#### `r table_title`
+
+::: {.fig-tab-title}
+**`r table_title`:** Number and percentage of LPHU catchment population who identified as Aboriginal and/or Torres Strait Islander, Victoria, by LPHU, 2021
+:::
+
+```{r}
+#
 table <- population_lphu %>%
   dplyr::select(lphu_long,
                 aboriginal_n,
@@ -217,7 +231,7 @@ table %>%
                  table_headers = c("LPHU",
                                    "Number of Aboriginal and/or Torres Strait Islander people",
                                    "Percent of total LPHU population",
-                                   "Percent of Victorian Aboriginal and/or Torre Strait Islander population"))
+                                   "Percent of Victorian Aboriginal and/or Torres Strait Islander population"))
 ```
 
 <div style="height: 1em;"></div>
@@ -370,21 +384,37 @@ density_sa2 <- dplyr::left_join(nephu_sa2.sf,
 - Despite having a smaller number of residents who identified as Aboriginal and/or Torres Strait Islander, these residents were concentrated in the SA2s of Collingwood (55 people per km^2^), Reservoir - North East (52 people per km^2^), Reservoir - South East (44 people per km^2^), and Fitzroy (41 people per km^2^).
 
 ::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
+- Figure 4A-2, Table 4A-2, and Table 4A-3:
+  - Numerator: Number of people with a residential address in the geographical area (e.g. LGA, SA2, Victoria) who identified as Aboriginal and/or Torres Strait Islander in the 2021 Census.
+  - Denominator: Total number of people with a residential address in the geographical area (e.g. LGA, SA2, Victoria) in the 2021 Census.
+  
+<div style="height: 0.1em;"></div>
+  
+- Figure 4A-3 and Figure 4A-4:
+  - Numerator: Number of people with a residential address in the geographical area (e.g. LGA, SA2) who identified as Aboriginal and/or Torres Strait Islander in the 2021 Census.
+  - Denominator: Total size of the geographical area (e.g. LGA, SA2) measured in square kilometres (km^2^).
+
+<div style="height: 0.1em;"></div>
+
 - `r note_aboriginality_census`
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 4A-2
+```{r}
+#
+figure_count <- figure_count + 1
+figure_title <- paste0("Figure", " ", report_section, "-", figure_count)
+```
 
-::: {#fig_4A_2 .fig-tab-title}
-**Figure 4A-2:** Number of people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+#### `r figure_title`
+
+::: {.fig-tab-title}
+**`r figure_title`:** Number of people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 population_lga %>% 
   dplyr::filter(lga_name != "NEPHU") %>% 
   #
@@ -395,17 +425,22 @@ population_lga %>%
                y_variable = aboriginal_n)
 ```
 
-#### Table 4A-2
-
-::: {#tab_4A_2 .fig-tab-title}
-**Table 4A-2:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
-:::
 
 ```{r}
 #
 table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+table_title  <- paste0("Table", " ", report_section, "-", table_count)
+table_number <- paste0("Table_", csv_section, "_", sprintf("%.02d", table_count))
+```
 
+#### `r table_title`
+
+::: {.fig-tab-title}
+**`r table_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
 table <- population_lga %>%
   dplyr::select(lga_name,
                 aboriginal_n,
@@ -433,45 +468,21 @@ table %>%
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Figure 4A-3
-
-::: {#fig_4A_3 .fig-tab-title}
-**Figure 4A-3:** Population density (number of people per km^2^) for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
-:::
-
-```{r}
-#
-figure_count <- figure_count + 1
-
-density_lga %>% 
-  f_map_density()
-```
-
-#### Figure 4A-4
-
-::: {#fig_4A_4 .fig-tab-title}
-**Figure 4A-4:** Population density (number of people per km^2^) for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by SA2, 2021
-:::
-
-```{r}
-#
-figure_count <- figure_count + 1
-
-density_sa2 %>% 
-  f_map_density()
-```
-
-#### Table 4A-3
-
-::: {#tab_4A_3 .fig-tab-title}
-**Table 4A-3:** SA2s with at least 200 residents who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, 2021
-:::
-
 ```{r}
 #
 table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+table_title  <- paste0("Table", " ", report_section, "-", table_count)
+table_number <- paste0("Table_", csv_section, "_", sprintf("%.02d", table_count))
+```
 
+#### `r table_title`
+
+::: {.fig-tab-title}
+**`r table_title`:** SA2s with at least 200 residents who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, 2021
+:::
+
+```{r}
+#
 table <- population_sa2 %>%
   dplyr::arrange(aboriginal_n) %>% 
   #
@@ -505,6 +516,43 @@ table %>%
 <div style="height: 1em;"></div>
 
 <a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+```{r}
+#
+figure_count <- figure_count + 1
+figure_title <- paste0("Figure", " ", report_section, "-", figure_count)
+```
+
+#### `r figure_title`
+
+::: {.fig-tab-title}
+**`r figure_title`:** Population density (number of people per km^2^) for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+:::
+
+```{r}
+#
+density_lga %>% 
+  f_map_density()
+```
+
+
+```{r}
+#
+figure_count <- figure_count + 1
+figure_title <- paste0("Figure", " ", report_section, "-", figure_count)
+```
+
+#### `r figure_title`
+
+::: {.fig-tab-title}
+**`r figure_title`:** Population density (number of people per km^2^) for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by SA2, 2021
+:::
+
+```{r}
+#
+density_sa2 %>% 
+  f_map_density()
+```
 
 ::::
 
