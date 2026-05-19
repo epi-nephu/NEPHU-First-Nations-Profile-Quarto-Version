@@ -7,14 +7,13 @@ title-block: false
 ```{r}
 #
 source(here::here("setup.R"))
-source(here::here("setup_footnotes.R"))
 
 # Set up numbering for figures and tables
-report_section <- "4A"
-csv_section    <- "04A"
+figtab_report_section <- "4A"
+figtab_csv_section    <- "04A"
 
-table_count  <- 0
-figure_count <- 0
+figtab_table_count  <- 0
+figtab_figure_count <- 0
 ```
 
 
@@ -26,11 +25,11 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 ## Population Size and Distribution {.unnumbered}
 
 ::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
-`r note_box_underidentification`
+`r note_chapter_underidentification`
 
 <div style="height: 0.1em;"></div>
 
-`r note_box_masking`
+`r note_chapter_masking`
 :::
 
 ::: {.key-question}
@@ -159,9 +158,9 @@ population_lphu <- aboriginal_lga %>%
 - The proportion of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander was lower than the proportion of people living in Victoria who identified as Aboriginal and/or Torres Strait Islander (n = 65,639, 1.0% of the state population). 
 
 ::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-- Figure 4A-1 and Table 4A-1:
-  - Numerator: Number of people with a residential address in the geographical area (e.g. LPHU catchment, Victoria) who identified as Aboriginal and/or Torres Strait Islander in the 2021 Census.
-  - Denominator: Total number of people with a residential address in the geographical area (e.g. LPHU catchment, Victoria) in the 2021 Census.
+- Figure 4A-1 and Table 4A-1
+  - Numerator: `r note_numerator_census_population`
+  - Denominator: `r note_denominator_census_lga`
 
 <div style="height: 0.1em;"></div>
 
@@ -172,14 +171,14 @@ population_lphu <- aboriginal_lga %>%
 
 ```{r}
 #
-figure_count <- figure_count + 1
-figure_title <- paste0("Figure", " ", report_section, "-", figure_count)
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
 ```
 
-#### `r figure_title`
+#### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figure_title`:** Number of people who identified as Aboriginal and/or Torres Strait Islander, Victoria, by LPHU, 2021
+**`r figtab_figure_title`:** Number of people who identified as Aboriginal and/or Torres Strait Islander, Victoria, by LPHU, 2021
 :::
 
 ```{r}
@@ -198,15 +197,15 @@ population_lphu %>%
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_title  <- paste0("Table", " ", report_section, "-", table_count)
-table_number <- paste0("Table_", csv_section, "_", sprintf("%.02d", table_count))
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
 ```
 
-#### `r table_title`
+#### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r table_title`:** Number and percentage of LPHU catchment population who identified as Aboriginal and/or Torres Strait Islander, Victoria, by LPHU, 2021
+**`r figtab_table_title`:** Number and percentage of LPHU catchment population who identified as Aboriginal and/or Torres Strait Islander, Victoria, by LPHU, 2021
 :::
 
 ```{r}
@@ -217,9 +216,9 @@ table <- population_lphu %>%
                 aboriginal_prop,
                 aboriginal_prop_per_lphu)
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -236,7 +235,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -384,14 +383,14 @@ density_sa2 <- dplyr::left_join(nephu_sa2.sf,
 - Despite having a smaller number of residents who identified as Aboriginal and/or Torres Strait Islander, these residents were concentrated in the SA2s of Collingwood (55 people per km^2^), Reservoir - North East (52 people per km^2^), Reservoir - South East (44 people per km^2^), and Fitzroy (41 people per km^2^).
 
 ::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-- Figure 4A-2, Table 4A-2, and Table 4A-3:
-  - Numerator: Number of people with a residential address in the geographical area (e.g. LGA, SA2, Victoria) who identified as Aboriginal and/or Torres Strait Islander in the 2021 Census.
-  - Denominator: Total number of people with a residential address in the geographical area (e.g. LGA, SA2, Victoria) in the 2021 Census.
+- Figure 4A-2, Table 4A-2, and Table 4A-3
+  - Numerator: `r note_numerator_census_population`
+  - Denominator: `r note_denominator_census_lga`
   
 <div style="height: 0.1em;"></div>
   
-- Figure 4A-3 and Figure 4A-4:
-  - Numerator: Number of people with a residential address in the geographical area (e.g. LGA, SA2) who identified as Aboriginal and/or Torres Strait Islander in the 2021 Census.
+- Figure 4A-3 and Figure 4A-4
+  - Numerator: `r note_numerator_census_population`
   - Denominator: Total size of the geographical area (e.g. LGA, SA2) measured in square kilometres (km^2^).
 
 <div style="height: 0.1em;"></div>
@@ -403,14 +402,14 @@ density_sa2 <- dplyr::left_join(nephu_sa2.sf,
 
 ```{r}
 #
-figure_count <- figure_count + 1
-figure_title <- paste0("Figure", " ", report_section, "-", figure_count)
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
 ```
 
-#### `r figure_title`
+#### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figure_title`:** Number of people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+**`r figtab_figure_title`:** Number of people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
@@ -428,15 +427,15 @@ population_lga %>%
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_title  <- paste0("Table", " ", report_section, "-", table_count)
-table_number <- paste0("Table_", csv_section, "_", sprintf("%.02d", table_count))
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
 ```
 
-#### `r table_title`
+#### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r table_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+**`r figtab_table_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
@@ -447,9 +446,9 @@ table <- population_lga %>%
                 aboriginal_prop,
                 aboriginal_prop_per_lga)
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -466,19 +465,19 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_title  <- paste0("Table", " ", report_section, "-", table_count)
-table_number <- paste0("Table_", csv_section, "_", sprintf("%.02d", table_count))
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
 ```
 
-#### `r table_title`
+#### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r table_title`:** SA2s with at least 200 residents who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, 2021
+**`r figtab_table_title`:** SA2s with at least 200 residents who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, 2021
 :::
 
 ```{r}
@@ -491,9 +490,9 @@ table <- population_sa2 %>%
                 aboriginal_prop,
                 aboriginal_prop_per_sa2)
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -515,18 +514,18 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ```{r}
 #
-figure_count <- figure_count + 1
-figure_title <- paste0("Figure", " ", report_section, "-", figure_count)
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
 ```
 
-#### `r figure_title`
+#### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figure_title`:** Population density (number of people per km^2^) for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+**`r figtab_figure_title`:** Population density (number of people per km^2^) for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
@@ -538,14 +537,14 @@ density_lga %>%
 
 ```{r}
 #
-figure_count <- figure_count + 1
-figure_title <- paste0("Figure", " ", report_section, "-", figure_count)
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
 ```
 
-#### `r figure_title`
+#### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figure_title`:** Population density (number of people per km^2^) for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by SA2, 2021
+**`r figtab_figure_title`:** Population density (number of people per km^2^) for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by SA2, 2021
 :::
 
 ```{r}
