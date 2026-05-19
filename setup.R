@@ -1,10 +1,11 @@
 # NEPHU Population Profile - Aboriginal Health
 # Author: Alana Little, NEPHU (alana.little@austin.org.au)
-# Version 2.0, 15/08/2025
 
 # General code that applies to all indicators
 # - Packages and options
 # - Data folders
+# - Data notes
+# - Functions
 # - LGA reference data
 # - Constants
 # - Colours
@@ -66,6 +67,15 @@ subfolder_projections <- "Population Health Data/Population Projections/Data"
 subfolder_protection  <- "Population Health Data/Child Protection/Data"
 subfolder_screening   <- "Population Health Data/Cancer Screening Participation Data/Data"
 subfolder_vcams       <- "Population Health Data/VCAMS/Data"
+
+# ------------------------------------------------------------------------------
+# Data notes
+# ------------------------------------------------------------------------------
+source(here::here("notes", "notes_chapter_caveats.R"))
+source(here::here("notes", "notes_definitions_aboriginality.R"))
+source(here::here("notes", "notes_definitions_numerator_denominator.R"))
+source(here::here("notes", "notes_footnotes_caveats.R"))
+source(here::here("notes", "notes_footnotes_data_sources.R"))
 
 # ------------------------------------------------------------------------------
 # Functions
@@ -171,8 +181,10 @@ y_upper_n <- function(y_max){
                    y_max <= 2000  ~ (ceiling(y_max / 200) * 200) + (y_max * 0.025),
                    y_max <= 2500  ~ (ceiling(y_max / 250) * 250) + (y_max * 0.025),
                    y_max <= 5000  ~ (ceiling(y_max / 500) * 500) + (y_max * 0.025),
-                   y_max <= 10000 ~ (ceiling(y_max / 1000) * 1000) + (y_max * 0.025),
+                   y_max <= 10000  ~ (ceiling(y_max / 1000) * 1000) + (y_max * 0.025),
+                   y_max <= 15000 ~ (ceiling(y_max / 1500) * 1500) + (y_max * 0.025),
                    y_max <= 20000 ~ (ceiling(y_max / 2000) * 2000) + (y_max * 0.025),
+                   y_max <= 25000 ~ (ceiling(y_max / 2500) * 2500) + (y_max * 0.025),
                    y_max <= 50000 ~ (ceiling(y_max / 5000) * 5000) + (y_max * 0.025),
                    TRUE ~ NA)
 
@@ -208,7 +220,9 @@ y_upper_rate <- function(y_max) {
                    y_max <= 2500   ~ (ceiling(y_max / 250) * 250) + (y_max * 0.025),
                    y_max <= 5000   ~ (ceiling(y_max / 500) * 500) + (y_max * 0.025),
                    y_max <= 10000  ~ (ceiling(y_max / 1000) * 1000) + (y_max * 0.025),
+                   y_max <= 15000  ~ (ceiling(y_max / 1500) * 1500) + (y_max * 0.025),
                    y_max <= 20000  ~ (ceiling(y_max / 2000) * 2000) + (y_max * 0.025),
+                   y_max <= 25000  ~ (ceiling(y_max / 2500) * 2500) + (y_max * 0.025),
                    y_max <= 50000  ~ (ceiling(y_max / 5000) * 5000) + (y_max * 0.025),
                    y_max <= 100000 ~ (ceiling(y_max / 10000) * 10000) + (y_max * 0.025),
                    TRUE ~ NA)
@@ -232,7 +246,9 @@ y_breaks <- function(y_max) {
                    y_max <= 2500   ~ 250,
                    y_max <= 5000   ~ 500,
                    y_max <= 10000  ~ 1000,
+                   y_max <= 15000  ~ 1500,
                    y_max <= 20000  ~ 2000,
+                   y_max <= 25000  ~ 2500,
                    y_max <= 50000  ~ 5000,
                    y_max <= 100000 ~ 10000,
                    TRUE ~ NA)
