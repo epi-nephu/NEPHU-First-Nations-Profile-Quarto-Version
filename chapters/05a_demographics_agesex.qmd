@@ -265,28 +265,9 @@ rm(i, results)
 - While patterns vary across LGAs, Aboriginal and/or Torres Strait Islander communities consistently show younger age profiles across the NEPHU catchment.
 
 ::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-- Figure 5A-1 and Table 5A-1
-  - Numerator: Number of people in the age/sex group with a residential address in the geographical area of interest who identified as Aboriginal and/or Torres Strait Islander in the 2021 Census.
-  - Denominator: Total number of people with a residential address in the geographical area of interest who identified as Aboriginal and/or Torres Strait Islander in the 2021 Census.
-  - Comparison: NEPHU catchment vs. Victoria.
+- Definitions and notes:
+  - `r note_aboriginality_census`
 
-<div style="height: 0.1em;"></div>
-
-- Figure 5A-2 and Table 5A-2
-  - Numerator: Number of people in the age/sex group with a residential address in the NEPHU catchment area in the 2021 Census.
-  - Denominator: Total number of people with a residential address in the NEPHU catchment area in the 2021 Census.
-  - Comparison: Aboriginal and/or Torres Strait Islander status.
-
-<div style="height: 0.1em;"></div>
-  
-- Figure 5A-3 and Table 5A-3
-  - Numerator: Number of people in the age/sex group with a residential address in the LGAs of interest in the 2021 Census.
-  - Denominator: Total number of people with a residential address in the LGAs of interest in the 2021 Census.
-  - Comparison: Aboriginal and/or Torres Strait Islander status.
-  
-<div style="height: 0.1em;"></div>
-
-- `r note_aboriginality_census`
 :::
 
 :::: {.panel-tabset}
@@ -734,6 +715,25 @@ tables[["Yarra Ranges"]]
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 5A-1 and Table 5A-1:
+  - Numerator: Number of people in the age/sex group who identified as Aboriginal and/or Torres Strait Islander
+  - Denominator: `r note_denominator_census_agesex`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 5A-2 and Table 5A-2:
+  - Numerator: Number of people in the age/sex group
+  - Denominator: `r note_denominator_census_agesex`
+
+<div style="height: 0.1em;"></div>
+  
+- Figure 5A-3 and Table 5A-3:
+  - Numerator: Number of people in the age/sex group
+  - Denominator: `r note_denominator_census_agesex`
+
 :::
 
 ```{r}
@@ -776,18 +776,10 @@ women_lga <- census_agesex %>%
 - The LGAs in the NEPHU catchment with the largest number of women who identify as Aboriginal and/or Torres Strait Islander who were of reproductive age were Whittlesea (n = 565), Hume (n = 453), and Darebin (n = 419).
 
 ::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-- Figure 5A-4 and Table 5A-4
-  - Numerator: Number of women aged between 15 and 49 years with a residential address in the LGAs of interest in the 2021 Census.
-  - Denominator: Total number of women with a residential address in the LGAs of interest in the 2021 Census.
-  - Comparison: Aboriginal and/or Torres Strait Islander status.
+- Definitions and notes:
+  - `r note_aboriginality_census`
+  - Women of reproductive age were defined as women aged between 15 and 49 years.
 
-<div style="height: 0.1em;"></div>
-
-- `r note_aboriginality_census`
-
-<div style="height: 0.1em;"></div>
-
-- Women of reproductive age were defined as women aged between 15 and 49 years.
 :::
 
 :::: {.panel-tabset}
@@ -878,5 +870,12 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 5A-4 and Table 5A-4:
+  - Numerator: Number of women aged between 15 and 49 years
+  - Denominator: Total number of women
+
 :::
 
