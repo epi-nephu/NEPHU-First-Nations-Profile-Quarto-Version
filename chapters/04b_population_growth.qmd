@@ -7,13 +7,13 @@ title-block: false
 ```{r}
 #
 source(here::here("setup.R"))
-source(here::here("setup_footnotes.R"))
 
-# Set up numbering for exporting tables as .csv
-table_section <- "04B"
-table_count   <- 0
+# Set up numbering for figures and tables
+figtab_report_section <- "4B"
+figtab_csv_section    <- "04B"
 
-figure_count <- 0
+figtab_table_count  <- 0
+figtab_figure_count <- 0
 ```
 
 
@@ -24,13 +24,21 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Population Growth {.unnumbered}
 
-::: {.caveat-box}
-**A note about the impact of under-identification**
+::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
+`r note_chapter_different_sources`
 
-`r note_box_underidentification`
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_comparisons`
+
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_masking`
 :::
-
-<div style="height: 2em;"></div>
 
 ::: {.key-question}
 What are the drivers of population growth for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment?
@@ -70,7 +78,6 @@ aboriginal_projections_iare <- aboriginal_projections_iare %>%
     iare_name = dplyr::case_when(
       iare_name == "Victoria exc. Melbourne" ~ "Rest of Victoria",
       iare_name == "Australia(c)"            ~ "Australia",
-      #
       TRUE ~ as.character(iare_name)))
 ```
 
@@ -86,26 +93,30 @@ aboriginal_projections_iare <- aboriginal_projections_iare %>%
 
 :::: {.panel-tabset}
 
-#### Table 4B-1
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
 
-::: {#tab_4B_1 .fig-tab-title}
-**Table 4B-1:** Population projections for Aboriginal and/or Torres Strait Islander people, Australia, by IARE, 2021 to 2031
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Population projections for Aboriginal and/or Torres Strait Islander people, Australia, by IARE, 2021 to 2031
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- aboriginal_projections_iare %>%
   dplyr::select(iare_name,
                 erp_2021_number,
                 medium_2031_number,
                 medium_2031_rate) 
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -119,7 +130,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -164,7 +175,6 @@ aboriginal_birthrate_iare <- aboriginal_birthrate_iare %>%
       category == "Victoria exc. Melbourne" ~ "Rest of Victoria",
       category == "Vic"                     ~ "Victoria",
       category == "Australia"               ~ "Australia",
-      #
       TRUE ~ NA_character_),
       #
       levels = c("Melbourne",
@@ -175,7 +185,6 @@ aboriginal_birthrate_iare <- aboriginal_birthrate_iare %>%
     indigenous_status = dplyr::case_when(
       indigenous_status == "Aboriginal and Torres Strait Islander" ~ "Aboriginal and/or Torres Strait Islander",
       indigenous_status == "Non-Indigenous"                        ~ "Neither Aboriginal nor Torres Strait Islander",
-      #
       TRUE ~ NA_character_)) %>% 
   #
   dplyr::select(iare_name,
