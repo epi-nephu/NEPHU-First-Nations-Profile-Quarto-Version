@@ -7,13 +7,13 @@ title-block: false
 ```{r}
 #
 source(here::here("setup.R"))
-source(here::here("setup_footnotes.R"))
 
-# Set up numbering for exporting tables as .csv
-table_section <- "05A"
-table_count   <- 0
+# Set up numbering for figures and tables
+figtab_report_section <- "5A"
+figtab_csv_section    <- "05A"
 
-figure_count <- 0
+figtab_table_count  <- 0
+figtab_figure_count <- 0
 ```
 
 
@@ -24,20 +24,24 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Age and Sex {.unnumbered}
 
-::: {.caveat-box}
-**A note about the impact of under-identification**
+::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
+`r note_chapter_comparisons` 
 
-`r note_box_underidentification` 
+<div style="height: 0.1em;"></div>
 
-**A note about the definition of older Aboriginal and/or Torres Strait Islander people**
+`r note_chapter_underidentification` 
 
-`r note_box_olderage` 
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_masking` 
+
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_olderage` 
 :::
 
-<div style="height: 2em;"></div>
-
 ::: {.key-question}
-What is the age and sex structure of Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment?
+What is the age and sex profile of Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment?
 :::
 
 ## Age and Sex Distribution
@@ -100,7 +104,6 @@ aboriginal_agesex <- census_agesex %>%
       age_group %in% c("50-54 years", "55-59 years", "60-64 years", "65-69 years", 
                        "70-74 years", "75-79 years", "80-84 years", "85-89 years", 
                        "90-94 years", "95-99 years", "100 years and over") ~ "50+ years", 
-      #
       TRUE ~ NA_character_)) %>% 
   # 
   dplyr::group_by(lphu_long,
@@ -255,28 +258,53 @@ rm(i, results)
 
 - 50% of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander were male. 
 
-- People living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander tended to be younger than those who did not identify as Aboriginal and/or Torres Strait Islander. 
+- The Aboriginal and/or Torres Strait Islander population of the NEPHU catchment has a younger age profile compared with the non-Indigenous population, reflecting strong and growing communities.
 
-- The age and sex distribution for people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander was similar to the distribution for the other LPHUs and for Victoria overall. 
+- The age and sex profile of the Aboriginal and/or Torres Strait Islander population of the NEPHU catchment is similar to other LPHUs and Victoria overall.
 
-- The age and sex distribution for people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander varied across LGAs, but in each LGA residents who identified as Aboriginal and/or Torres Strait Islander tended to be younger than those who did not identify as Aboriginal and/or Torres Strait Islander.
+- While patterns vary across LGAs, Aboriginal and/or Torres Strait Islander communities consistently show younger age profiles across the NEPHU catchment.
 
 ::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
+- Figure 5A-1 and Table 5A-1
+  - Numerator: Number of people in the age/sex group with a residential address in the geographical area of interest who identified as Aboriginal and/or Torres Strait Islander in the 2021 Census.
+  - Denominator: Total number of people with a residential address in the geographical area of interest who identified as Aboriginal and/or Torres Strait Islander in the 2021 Census.
+  - Comparison: NEPHU catchment vs. Victoria.
+
+<div style="height: 0.1em;"></div>
+
+- Figure 5A-2 and Table 5A-2
+  - Numerator: Number of people in the age/sex group with a residential address in the NEPHU catchment area in the 2021 Census.
+  - Denominator: Total number of people with a residential address in the NEPHU catchment area in the 2021 Census.
+  - Comparison: Aboriginal and/or Torres Strait Islander status.
+
+<div style="height: 0.1em;"></div>
+  
+- Figure 5A-3 and Table 5A-3
+  - Numerator: Number of people in the age/sex group with a residential address in the LGAs of interest in the 2021 Census.
+  - Denominator: Total number of people with a residential address in the LGAs of interest in the 2021 Census.
+  - Comparison: Aboriginal and/or Torres Strait Islander status.
+  
+<div style="height: 0.1em;"></div>
+
 - `r note_aboriginality_census`
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 5A-1
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_5A_1 .fig-tab-title}
-**Figure 5A-1:** Age and sex distribution of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander compared to people living in Victoria who identified as Aboriginal and/or Torres Strait Islander, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Age and sex profile of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander compared to people living in Victoria who identified as Aboriginal and/or Torres Strait Islander, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 agesex_lphu %>%
   dplyr::filter(lphu_short %in% c("NEPHU", "VIC")) %>%
   #
@@ -294,16 +322,96 @@ agesex_lphu %>%
                               "VIC"   = colour_pyramidvic))
 ```
 
-#### Figure 5A-2
 
-::: {#fig_5A_2 .fig-tab-title}
-**Figure 5A-2:** Age and sex distribution of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander compared to people living in the NEPHU catchment who did not identify as Aboriginal and/or Torres Strait Islander, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Age and sex profile of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander compared to people living in Victoria who identified as Aboriginal and/or Torres Strait Islander, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
+table <- agesex_lphu %>%
+  dplyr::filter(lphu_short %in% c("NEPHU", "VIC")) %>%
+  #
+  dplyr::select(lphu_short,
+                age_group,
+                sex,
+                aboriginal_n,
+                aboriginal_prop) %>% 
+  #
+  dplyr::mutate(aboriginal_prop = abs(aboriginal_prop)) %>% 
+  #
+  tidyr::pivot_wider(names_from  = lphu_short,
+                     values_from = c(aboriginal_n, aboriginal_prop)) %>% 
+  #
+  tidyr::pivot_wider(names_from  = sex,
+                     values_from = !c(sex,age_group)) %>% 
+  #
+  janitor::clean_names() %>% 
+  #
+  dplyr::select(age_group,
+                dplyr::ends_with("nephu_female"),
+                dplyr::ends_with("nephu_male"),
+                dplyr::ends_with("vic_female"),
+                dplyr::ends_with("vic_male")) %>%
+  #
+  janitor::adorn_totals()
 
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(aboriginal_prop_nephu_female = sprintf("%.1f", aboriginal_prop_nephu_female),
+                aboriginal_prop_nephu_male   = sprintf("%.1f", aboriginal_prop_nephu_male),
+                aboriginal_prop_vic_female   = sprintf("%.1f", aboriginal_prop_vic_female),
+                aboriginal_prop_vic_male     = sprintf("%.1f", aboriginal_prop_vic_male)) %>% 
+  #
+  f_table_simple(table_headers = c("Age group",
+                                   "Count", "Percent",
+                                   "Count", "Percent",
+                                   "Count", "Percent",
+                                   "Count", "Percent")) %>% 
+  #
+  kableExtra::add_header_above(c(" " = 1,
+                                 "Female" = 2,
+                                 "Male"   = 2,
+                                 "Female" = 2,
+                                 "Male"   = 2)) %>% 
+  #
+  kableExtra::add_header_above(c(" " = 1,
+                                 "NEPHU"    = 4,
+                                 "Victoria" = 4))
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Age and sex profile of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander compared to people living in the NEPHU catchment who did not identify as Aboriginal and/or Torres Strait Islander, 2021
+:::
+
+```{r}
+#
 agesex_lphu %>% 
   dplyr::filter(lphu_short == "NEPHU") %>% 
   #
@@ -341,58 +449,137 @@ agesex_lphu %>%
                               "Did not identify as Aboriginal\nand/or Torres Strait Islander" = colour_nonaboriginal))
 ```
 
-#### Figure 5A-3
 
-::: {#fig_5A_3 .fig-tab-title}
-**Figure 5A-3:** Age and sex distribution of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander compared to people living in the NEPHU catchment who did not identify as Aboriginal and/or Torres Strait Islander, by LGA, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Age and sex profile of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander compared to people living in the NEPHU catchment who did not identify as Aboriginal and/or Torres Strait Islander, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
+table <- agesex_lphu %>%
+  dplyr::filter(lphu_short == "NEPHU") %>%
+  #
+  dplyr::select(age_group,
+                sex,
+                aboriginal_n,
+                aboriginal_prop,
+                non_aboriginal_n,
+                non_aboriginal_prop) %>% 
+  #
+  dplyr::mutate(aboriginal_prop     = abs(aboriginal_prop),
+                non_aboriginal_prop = abs(non_aboriginal_prop)) %>% 
+  #
+  tidyr::pivot_wider(names_from  = sex,
+                     values_from = !c(sex,age_group)) %>% 
+  #
+  janitor::clean_names() %>% 
+  #
+  dplyr::select(age_group,
+                (dplyr::starts_with("aboriginal") & dplyr::ends_with("female")),
+                (dplyr::starts_with("aboriginal") & dplyr::ends_with("male")),
+                (dplyr::starts_with("non") & dplyr::ends_with("female")),
+                (dplyr::starts_with("non") & dplyr::ends_with("male"))) %>%
+  #
+  janitor::adorn_totals()
 
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(aboriginal_prop_female     = sprintf("%.1f", aboriginal_prop_female),
+                aboriginal_prop_male       = sprintf("%.1f", aboriginal_prop_male),
+                non_aboriginal_prop_female = sprintf("%.1f", non_aboriginal_prop_female),
+                non_aboriginal_prop_male   = sprintf("%.1f", non_aboriginal_prop_male)) %>% 
+  #
+  f_table_simple(table_headers = c("Age group",
+                                   "Count", "Percent",
+                                   "Count", "Percent",
+                                   "Count", "Percent",
+                                   "Count", "Percent")) %>% 
+  #
+  kableExtra::add_header_above(c(" " = 1,
+                                 "Female" = 2,
+                                 "Male"   = 2,
+                                 "Female" = 2,
+                                 "Male"   = 2)) %>% 
+  #
+  kableExtra::add_header_above(c(" " = 1,
+                                 "Identified as Aboriginal and/or Torres Strait Islander"       = 4,
+                                 "Did not identify as Aboriginal and/or Torres Strait Islander" = 4))
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Age and sex profile of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander compared to people living in the NEPHU catchment who did not identify as Aboriginal and/or Torres Strait Islander, by LGA, 2021
+:::
+
+```{r}
+#
 pyramid <- list()
 
 for (i in nephu_lga) {
   
   pyramid[[i]] <- agesex_lga %>%
     dplyr::filter(lga_name == i) %>% 
-  #
-  dplyr::select(lga_name,
-                sex,
-                age_group,
-                aboriginal_prop,
-                non_aboriginal_prop) %>% 
-  #
-  tidyr::pivot_longer(cols      = !c(lga_name, sex, age_group),
-                      names_to  = "aboriginal_status",
-                      values_to = "prop") %>% 
-  #
-  dplyr::mutate(
-    aboriginal_label = dplyr::case_when(
-      aboriginal_status == "aboriginal_prop"     ~ "Aboriginal",
-      aboriginal_status == "non_aboriginal_prop" ~ "Non-Indigenous",
-      TRUE ~ NA_character_),
     #
-    aboriginal_status = factor(dplyr::case_when(
-      aboriginal_status == "aboriginal_prop"     ~ "Identified as Aboriginal\nand/or Torres Strait Islander",
-      aboriginal_status == "non_aboriginal_prop" ~ "Did not identify as Aboriginal\nand/or Torres Strait Islander",
-      TRUE ~ NA_character_),
+    dplyr::select(lga_name,
+                  sex,
+                  age_group,
+                  aboriginal_prop,
+                  non_aboriginal_prop) %>% 
+    #
+    tidyr::pivot_longer(cols      = !c(lga_name, sex, age_group),
+                        names_to  = "aboriginal_status",
+                        values_to = "prop") %>% 
+    #
+    dplyr::mutate(
+      aboriginal_label = dplyr::case_when(
+        aboriginal_status == "aboriginal_prop"     ~ "Aboriginal",
+        aboriginal_status == "non_aboriginal_prop" ~ "Non-Indigenous",
+        TRUE ~ NA_character_),
       #
-      levels = c("Identified as Aboriginal\nand/or Torres Strait Islander",
-                 "Did not identify as Aboriginal\nand/or Torres Strait Islander")),
+      aboriginal_status = factor(dplyr::case_when(
+        aboriginal_status == "aboriginal_prop"     ~ "Identified as Aboriginal\nand/or Torres Strait Islander",
+        aboriginal_status == "non_aboriginal_prop" ~ "Did not identify as Aboriginal\nand/or Torres Strait Islander",
+        TRUE ~ NA_character_),
+        #
+        levels = c("Identified as Aboriginal\nand/or Torres Strait Islander",
+                   "Did not identify as Aboriginal\nand/or Torres Strait Islander")),
+      #
+      hover_text = paste0(sex, "\n",
+                          age_group, "\n",
+                          aboriginal_label, "\n",
+                          "Percentage: ", sprintf("%.1f", abs(prop)))) %>% 
     #
-    hover_text = paste0(sex, "\n",
-                        age_group, "\n",
-                        aboriginal_label, "\n",
-                        "Percentage: ", sprintf("%.1f", abs(prop)))) %>% 
-  #
-  f_pyramid(chart_title   = paste0(i, " LGA"),
-            prop_variable = prop,
-            fill_variable = aboriginal_status,
-            fill_values   = c("Identified as Aboriginal\nand/or Torres Strait Islander"       = colour_aboriginal,
-                              "Did not identify as Aboriginal\nand/or Torres Strait Islander" = colour_nonaboriginal))
-  
+    f_pyramid(chart_title   = paste0(i, " LGA"),
+              prop_variable = prop,
+              fill_variable = aboriginal_status,
+              fill_values   = c("Identified as Aboriginal\nand/or Torres Strait Islander"       = colour_aboriginal,
+                                "Did not identify as Aboriginal\nand/or Torres Strait Islander" = colour_nonaboriginal))
+
 }
 
 pyramid[["Banyule"]]
@@ -419,6 +606,121 @@ pyramid[["Yarra"]]
 
 pyramid[["Yarra Ranges"]]
 ```
+
+
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Age and sex profile of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander compared to people living in the NEPHU catchment who did not identify as Aboriginal and/or Torres Strait Islander, by LGA, 2021
+:::
+
+```{r}
+#
+table <- agesex_lga %>%
+  dplyr::select(lga_name,
+                age_group,
+                sex,
+                aboriginal_n,
+                aboriginal_prop,
+                non_aboriginal_n,
+                non_aboriginal_prop) %>% 
+  #
+  dplyr::mutate(aboriginal_prop     = abs(aboriginal_prop),
+                non_aboriginal_prop = abs(non_aboriginal_prop)) %>% 
+  #
+  tidyr::pivot_wider(names_from  = sex,
+                     values_from = !c(lga_name, sex,age_group)) %>% 
+  #
+  janitor::clean_names() %>% 
+  #
+  dplyr::select(lga_name, 
+                age_group,
+                (dplyr::starts_with("aboriginal") & dplyr::ends_with("female")),
+                (dplyr::starts_with("aboriginal") & dplyr::ends_with("male")),
+                (dplyr::starts_with("non") & dplyr::ends_with("female")),
+                (dplyr::starts_with("non") & dplyr::ends_with("male")))
+
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
+  
+}
+
+tables <- list()
+
+for (i in nephu_lga) {
+  
+  lga_title <- paste0(i, " LGA")
+  
+  tables[[i]] <- table %>% 
+    dplyr::filter(lga_name == i) %>% 
+    #
+    dplyr::select(-lga_name) %>% 
+    #
+    janitor::adorn_totals() %>% 
+    #
+    dplyr::mutate(aboriginal_prop_female     = sprintf("%.1f", aboriginal_prop_female),
+                  aboriginal_prop_male       = sprintf("%.1f", aboriginal_prop_male),
+                  non_aboriginal_prop_female = sprintf("%.1f", non_aboriginal_prop_female),
+                  non_aboriginal_prop_male   = sprintf("%.1f", non_aboriginal_prop_male)) %>% 
+    #
+    f_table_simple(total_row     = 6,
+                   last_column   = 9,
+                   table_headers = c("Age group",
+                                     "Count", "Percent",
+                                     "Count", "Percent",
+                                     "Count", "Percent",
+                                     "Count", "Percent")) %>% 
+    #
+    kableExtra::add_header_above(c(" " = 1,
+                                   "Female" = 2,
+                                   "Male"   = 2,
+                                   "Female" = 2,
+                                   "Male"   = 2)) %>%
+    #
+    kableExtra::add_header_above(c(" " = 1,
+                                   "Identified as Aboriginal and/or Torres Strait Islander"       = 4,
+                                   "Did not identify as Aboriginal and/or Torres Strait Islander" = 4)) %>% 
+    #
+    kableExtra::add_header_above(setNames(9, lga_title))
+  
+}
+
+tables[["Banyule"]]
+
+tables[["Boroondara"]]
+
+tables[["Darebin"]]
+
+tables[["Hume"]]
+
+tables[["Knox"]]
+
+tables[["Manningham"]]
+
+tables[["Maroondah"]]
+
+tables[["Nillumbik"]]
+
+tables[["Whitehorse"]]
+
+tables[["Whittlesea"]]
+
+tables[["Yarra"]]
+
+tables[["Yarra Ranges"]]
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -474,6 +776,13 @@ women_lga <- census_agesex %>%
 - The LGAs in the NEPHU catchment with the largest number of women who identify as Aboriginal and/or Torres Strait Islander who were of reproductive age were Whittlesea (n = 565), Hume (n = 453), and Darebin (n = 419).
 
 ::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
+- Figure 5A-4 and Table 5A-4
+  - Numerator: Number of women aged between 15 and 49 years with a residential address in the LGAs of interest in the 2021 Census.
+  - Denominator: Total number of women with a residential address in the LGAs of interest in the 2021 Census.
+  - Comparison: Aboriginal and/or Torres Strait Islander status.
+
+<div style="height: 0.1em;"></div>
+
 - `r note_aboriginality_census`
 
 <div style="height: 0.1em;"></div>
@@ -483,16 +792,20 @@ women_lga <- census_agesex %>%
 
 :::: {.panel-tabset}
 
-#### Figure 5A-4
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_5A-4 .fig-tab-title}
-**Figure 5A-4:** Number and percentage of women who identified as Aboriginal and/or Torres Strait Islander and who were of reproductive age, NEPHU catchment, by LGA, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and percentage of women who identified as Aboriginal and/or Torres Strait Islander and who were of reproductive age, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- women_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_n,
                    n_level    = "women")
@@ -504,38 +817,54 @@ figure_percent <- women_lga %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-#### Table 5A-1
 
-::: {#tab_5A-1 .fig-tab-title}
-**Table 5A-1:** Number and percentage of women who identified as Aboriginal and/or Torres Strait Islander and who were of reproductive age, NEPHU catchment, by LGA, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Number and percentage of women who were of reproductive age, NEPHU catchment, by Aboriginal and/or Torres Strait Islander status and LGA, 2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- women_lga %>%
-  f_preptable_simple_lga()
+  dplyr::filter(lga_name %in% c(nephu_lga, "NEPHU")) %>%
+  #
+  dplyr::select(lga_name,
+                aboriginal_n,
+                aboriginal_prop,
+                non_aboriginal_n,
+                non_aboriginal_prop)
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
 table %>% 
-  dplyr::mutate(aboriginal_prop = sprintf("%.1f", aboriginal_prop)) %>% 
+  dplyr::mutate(aboriginal_prop     = sprintf("%.1f", aboriginal_prop),
+                non_aboriginal_prop = sprintf("%.1f", non_aboriginal_prop)) %>% 
   #
-  f_table_simple(column_width  = "2.5in",
-                 table_headers = c("LGA",
-                                   "Number of Aboriginal and/or Torres Strait Islander women",
-                                   "Percent of Aboriginal and/or Torres Strait Islander women"))
+  f_table_simple(table_headers = c("LGA",
+                                   "Count", "Percent",
+                                   "Count", "Percent")) %>% 
+  #
+  kableExtra::add_header_above(c(" " = 1,
+                                 "Identified as Aboriginal and/or Torres Strait Islander"       = 2,
+                                 "Did not identify as Aboriginal and/or Torres Strait Islander" = 2),
+                               align = "right")
 ```
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
