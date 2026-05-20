@@ -158,13 +158,9 @@ population_lphu <- aboriginal_lga %>%
 - The proportion of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander was lower than the proportion of people living in Victoria who identified as Aboriginal and/or Torres Strait Islander (n = 65,639, 1.0% of the state population). 
 
 ::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-- Figure 4A-1 and Table 4A-1
-  - Numerator: `r note_numerator_census_population`
-  - Denominator: `r note_denominator_census_lga`
+- Definitions and notes:
+  - `r note_aboriginality_census`
 
-<div style="height: 0.1em;"></div>
-
-- `r note_aboriginality_census`
 :::
 
 :::: {.panel-tabset}
@@ -245,6 +241,13 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 4A-1 and Table 4A-1:
+  - Numerator: Number of people who identified as Aboriginal and/or Torres Strait Islander
+  - Denominator: `r note_denominator_census_lga`
+
 :::
 
 ```{r}
@@ -383,19 +386,9 @@ density_sa2 <- dplyr::left_join(nephu_sa2.sf,
 - Despite having a smaller number of residents who identified as Aboriginal and/or Torres Strait Islander, these residents were concentrated in the SA2s of Collingwood (55 people per km^2^), Reservoir - North East (52 people per km^2^), Reservoir - South East (44 people per km^2^), and Fitzroy (41 people per km^2^).
 
 ::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-- Figure 4A-2, Table 4A-2, and Table 4A-3
-  - Numerator: `r note_numerator_census_population`
-  - Denominator: `r note_denominator_census_lga`
-  
-<div style="height: 0.1em;"></div>
-  
-- Figure 4A-3 and Figure 4A-4
-  - Numerator: `r note_numerator_census_population`
-  - Denominator: Total size of the geographical area (e.g. LGA, SA2) measured in square kilometres (km^2^).
+- Definitions and notes:
+  - `r note_aboriginality_census`
 
-<div style="height: 0.1em;"></div>
-
-- `r note_aboriginality_census`
 :::
 
 :::: {.panel-tabset}
@@ -561,5 +554,18 @@ density_sa2 %>%
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 4A-2, Table 4A-2, and Table 4A-3:
+  - Numerator: Number of people who identified as Aboriginal and/or Torres Strait Islander
+  - Denominator: `r note_denominator_census_lga`
+
+<div style="height: 0.1em;"></div>
+  
+- Figure 4A-3 and Figure 4A-4:
+  - Numerator: Number of people who identified as Aboriginal and/or Torres Strait Islander
+  - Denominator: Total size of the LGA or SA2 measured in square kilometres (km^2^)
+
 :::
 
