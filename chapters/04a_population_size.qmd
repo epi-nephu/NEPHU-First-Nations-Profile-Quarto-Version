@@ -174,7 +174,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Number of people who identified as Aboriginal and/or Torres Strait Islander, Victoria, by LPHU, 2021
+**`r figtab_figure_title`:** Number of people who identified as Aboriginal and/or Torres Strait Islander, Victoria, by Local Public Health Unit (LPHU), 2021
 :::
 
 ```{r}
@@ -201,7 +201,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Number and percentage of LPHU catchment population who identified as Aboriginal and/or Torres Strait Islander, Victoria, by LPHU, 2021
+**`r figtab_table_title`:** Number and percentage of Local Public Health Unit (LPHU) catchment population who identified as Aboriginal and/or Torres Strait Islander, Victoria, by LPHU, 2021
 :::
 
 ```{r}
@@ -246,7 +246,8 @@ table %>%
 
 - Figure 4A-1 and Table 4A-1:
   - Numerator: Number of people who identified as Aboriginal and/or Torres Strait Islander
-  - Denominator: `r note_denominator_census_lga`
+  - Denominator: `r note_denominator_census_population`
+  - Disaggregation: `r note_disaggregation_lphu`
 
 :::
 
@@ -557,15 +558,31 @@ density_sa2 %>%
 
 <div style="height: 0.1em;"></div>
 
-- Figure 4A-2, Table 4A-2, and Table 4A-3:
+- Figure 4A-2 and Table 4A-2:
   - Numerator: Number of people who identified as Aboriginal and/or Torres Strait Islander
-  - Denominator: `r note_denominator_census_lga`
+  - Denominator: `r note_denominator_census_population`
+  - Disaggregation: `r note_disaggregation_lga`
 
 <div style="height: 0.1em;"></div>
-  
-- Figure 4A-3 and Figure 4A-4:
+
+- Table 4A-3:
   - Numerator: Number of people who identified as Aboriginal and/or Torres Strait Islander
-  - Denominator: Total size of the LGA or SA2 measured in square kilometres (km^2^)
+  - Denominator: `r note_denominator_census_population`
+  - Disaggregation: `r note_disaggregation_sa2`
+  
+<div style="height: 0.1em;"></div>
+
+- Figure 4A-3:
+  - Numerator: Number of people who identified as Aboriginal and/or Torres Strait Islander
+  - Denominator: Total size of the Local Government Area (LGA) measured in square kilometres (km^2^)
+  - Disaggregation: `r note_disaggregation_lga`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 4A-4:
+  - Numerator: Number of people who identified as Aboriginal and/or Torres Strait Islander
+  - Denominator: Total size of the Statistical Area Level 2 (SA2) measured in square kilometres (km^2^)
+  - Disaggregation: `r note_disaggregation_sa2`
 
 :::
 

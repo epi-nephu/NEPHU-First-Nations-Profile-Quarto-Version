@@ -42,8 +42,8 @@ f_table_grouped_sex <- function(data, n_variable, column_name, total_row = nrow(
     
     table <- table %>% 
       kableExtra::add_header_above(c(" "      = 1,
-                                     "Male"   = 2,
                                      "Female" = 2,
+                                     "Male"   = 2,
                                      "Total"  = 1)) %>% 
       #
       kableExtra::column_spec(2:6,
@@ -55,8 +55,8 @@ f_table_grouped_sex <- function(data, n_variable, column_name, total_row = nrow(
     
     table <- table %>%
       kableExtra::add_header_above(c(" "      = 1,
-                                     "Male"   = 2,
                                      "Female" = 2,
+                                     "Male"   = 2,
                                      "Total"  = 2)) %>% 
       #
       kableExtra::column_spec(2:7,
