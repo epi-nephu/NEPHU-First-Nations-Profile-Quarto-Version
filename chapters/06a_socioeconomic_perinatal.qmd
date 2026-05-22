@@ -7,13 +7,13 @@ title-block: false
 ```{r}
 #
 source(here::here("setup.R"))
-source(here::here("setup_footnotes.R"))
 
-# Set up numbering for exporting tables as .csv
-table_section <- "06A"
-table_count   <- 0
+# Set up numbering for figures and tables
+figtab_report_section <- "6A"
+figtab_csv_section    <- "06A"
 
-figure_count <- 0
+figtab_table_count   <- 0
+figtab_figure_count  <- 0
 ```
 
 
@@ -24,19 +24,25 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Perinatal Factors {.unnumbered}
 
-::: {.caveat-box}
-**A note about identification of Aboriginal and/or Torres Strait Islander status**
+::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
+- Stakeholder consultations undertaken during the development of this report highlighted that there are different drivers that impact on identification of Aboriginal and/or Torres Strait Islander status for perinatal indicators. For example, Aboriginal Health Liaison Officers within some health services may increase support for First Nations mothers and families which may increase the likelihood of identification, however, fears of child removal related to past traumatic experiences may lead to a decreased likelihood of identification.
 
-Stakeholder consultations undertaken during the development of this report highlighted that there are different drivers that impact on identification of Aboriginal and/or Torres Strait Islander status for perinatal indicators. For example, Aboriginal Health Liaison Officers within some health services may increase support for First Nations mothers and families which may increase the likelihood of identification, however, fears of child removal related to past traumatic experiences may lead to a decreased likelihood of identification.
+<div style="height: 0.1em;"></div>
 
-The way the indicators in this chapter are defined also impacts on the representativeness of the data. For the more disaggregated data at IARE level sourced from the PHIDU Social Health Atlas, reliance on identification of the mother only will exclude Aboriginal and/or Torres Strait Islander babies born to non-Indigenous mothers (where the baby’s father and other family members may be Aboriginal and/or Torres Strait Islander), and therefore only tells part of the story. It is important that there is consistency across data metrics to allow meaningful comparisons. Stakeholder consultations during the development of this report have indicated that identification and reporting of the status of Aboriginal and/or Torres Strait Islander babies is important, not just of mothers. These data are available in the [National Perinatal Data Collection](https://www.aihw.gov.au/about-our-data/our-data-collections/national-perinatal-data-collection) but are not publicly available below state level.
+`r note_chapter_different_sources`
 
-**A note about comparisons between Aboriginal and/or Torres Strait Islander peoples and non-Indigenous peoples**
+<div style="height: 0.1em;"></div>
 
-`r note_box_comparisons`
+`r note_chapter_comparisons`
+
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_masking`
 :::
-
-<div style="height: 2em;"></div>
 
 ::: {.key-question}
 Are Aboriginal and/or Torres Strait Islander children living in the NEPHU catchment getting the best start in life?
@@ -86,7 +92,7 @@ childhood_antenatal <- childhood_iare %>%
   dplyr::arrange(iare_name)
 ```
 
-- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [National Perinatal Data Collection (NPDC)](https://www.aihw.gov.au/about-our-data/our-data-collections/national-perinatal-data-collection).
+- Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [National Perinatal Data Collection (NPDC)](https://www.aihw.gov.au/about-our-data/our-data-collections/national-perinatal-data-collection).
 
 - The [Australian Pregnancy Care Guidelines](https://app.magicapp.org/?language=th#/guidelines) recommend that a woman has their first antenatal visit within the first 10 weeks of pregnancy.
 
@@ -100,30 +106,31 @@ childhood_antenatal <- childhood_iare %>%
 
 - These factors may also contribute to late recognition of pregnancy, which was identified as another contributing factor to not attending or late attendance for antenatal care.
 
+- It was discussed that these data are based on identification of the mother and will exclude Aboriginal and/or Torres Strait Islander babies born to non-Indigenous mothers (where the baby’s father and other family members may be Aboriginal and/or Torres Strait Islander), and therefore only tells part of the story. Data on the Aboriginal and/or Torres Strait Islander status of babies are available in the [National Perinatal Data Collection](https://www.aihw.gov.au/about-our-data/our-data-collections/national-perinatal-data-collection) but are not publicly available below state level.
+
 ::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-- `r note_aboriginality_perinatal`
+- Definitions and notes:
+  - `r note_aboriginality_perinatal`
+  - Women were classified as attending antenatal care in line with recommendations if they attended within the first 10 weeks of pregnancy.
 
-<div style="height: 0.1em;"></div>
-
-- Women were classified as attending antenatal care in line with recommendations if they attended within the first 10 weeks of pregnancy.
-
-<div style="height: 0.1em;"></div>
-
-- The denominator for this indicator is Aboriginal and/or Torres Strait Islander women who had at least one pregnancy between January 2019 and December 2021.
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 6A-1
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_6A_1 .fig-tab-title}
-**Figure 6A-1:** Number and percentage of women who identified as Aboriginal and/or Torres Strait Islander and who did not attend antenatal care during the first 10 weeks of pregnancy, NEPHU catchment, by IARE, 2019-2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and percentage of women who identified as Aboriginal and/or Torres Strait Islander and who did not attend antenatal care during the first 10 weeks of pregnancy, NEPHU catchment, by IARE, 2019-2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- childhood_antenatal %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
                     n_level    = "women")
@@ -135,23 +142,28 @@ figure_percent <- childhood_antenatal %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-#### Table 6A-1
 
-::: {#tab_6A-1 .fig-tab-title}
-**Table 6A-1:** Number and percentage of women who identified as Aboriginal and/or Torres Strait Islander and who did not attend antenatal care during the first 10 weeks of pregnancy, NEPHU catchment, by IARE, 2019-2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Number and percentage of women who identified as Aboriginal and/or Torres Strait Islander and who did not attend antenatal care during the first 10 weeks of pregnancy, NEPHU catchment, by IARE, 2019-2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- childhood_antenatal %>%
   dplyr::select(-iare_name_short)
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -168,7 +180,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -182,6 +194,14 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_iare_nephu`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 6A-1 and Table 6A-1:
+  - Numerator: Number of Aboriginal and/or Torres Strait Islander women who did not attend antenatal care during the first 10 weeks of pregnancy
+  - Denominator: `r note_denominator_perinatal`
+  - Disaggregation: `r note_disaggregation_iare`
+
 :::
 
 ```{r}
@@ -209,7 +229,7 @@ childhood_smoking <- childhood_iare %>%
   dplyr::arrange(iare_name)
 ```
 
-- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [National Perinatal Data Collection (NPDC)](https://www.aihw.gov.au/about-our-data/our-data-collections/national-perinatal-data-collection).
+- Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [National Perinatal Data Collection (NPDC)](https://www.aihw.gov.au/about-our-data/our-data-collections/national-perinatal-data-collection).
 
 - 33% (n = 500) of Aboriginal and/or Torres Strait Islander women in the Greater Melbourne area during 2019-2021 reported smoking during pregnancy. 
 
@@ -221,30 +241,31 @@ childhood_smoking <- childhood_iare %>%
 
 - Vaping was also discussed as being an increasing issue amongst communities, and was not captured in these data.
 
+- It was discussed that these data are based on identification of the mother and will exclude Aboriginal and/or Torres Strait Islander babies born to non-Indigenous mothers (where the baby’s father and other family members may be Aboriginal and/or Torres Strait Islander), and therefore only tells part of the story. Data on the Aboriginal and/or Torres Strait Islander status of babies are available in the [National Perinatal Data Collection](https://www.aihw.gov.au/about-our-data/our-data-collections/national-perinatal-data-collection) but are not publicly available below state level.
+
 ::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-- `r note_aboriginality_perinatal`
+- Definitions and notes:
+  - `r note_aboriginality_perinatal`
+  - Women were classified as smoking during pregnancy based on self-reporting of smoking at any time during their pregnancy.
 
-<div style="height: 0.1em;"></div>
-
-- Women were classified as smoking during pregnancy based on self-reporting of smoking at any time during their pregnancy.
-
-<div style="height: 0.1em;"></div>
-
-- The denominator for this indicator is Aboriginal and/or Torres Strait Islander women who had at least one pregnancy between January 2019 and December 2021.
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 6A-2
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_6A_2 .fig-tab-title}
-**Figure 6A-2:** Number and percentage of women who identified as Aboriginal and/or Torres Strait Islander and who reported smoking during pregnancy, NEPHU catchment, by IARE, 2019-2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and percentage of women who identified as Aboriginal and/or Torres Strait Islander and who reported smoking during pregnancy, NEPHU catchment, by IARE, 2019-2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- childhood_smoking %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
                     n_level    = "women")
@@ -256,23 +277,28 @@ figure_percent <- childhood_smoking %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-#### Table 6A-2
 
-::: {#tab_6A-2 .fig-tab-title}
-**Table 6A-2:** Number and percentage of women who identified as Aboriginal and/or Torres Strait Islander and who reported smoking during pregnancy, NEPHU catchment, by IARE, 2019-2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Number and percentage of women who identified as Aboriginal and/or Torres Strait Islander and who reported smoking during pregnancy, NEPHU catchment, by IARE, 2019-2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- childhood_smoking %>%
   dplyr::select(-iare_name_short)
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -289,7 +315,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -303,6 +329,14 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_iare_nephu`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 6A-2 and Table 6A-2:
+  - Numerator: Number of Aboriginal and/or Torres Strait Islander women who reported smoking during pregnancy
+  - Denominator: `r note_denominator_perinatal`
+  - Disaggregation: `r note_disaggregation_iare`
+
 :::
 
 ```{r}
@@ -433,7 +467,7 @@ childhood_birthweight_year <- childhood_birthweight_year %>%
                  "Did not identify as Aboriginal\nand/or Torres Strait Islander")))
 ```
 
-- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases) and the [AIHW Aboriginal and Torres Strait Islander Health Performance Framework](https://www.indigenoushpf.gov.au/), compiled from the [National Perinatal Data Collection (NPDC)](https://www.aihw.gov.au/about-our-data/our-data-collections/national-perinatal-data-collection).
+- Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases) and the [AIHW Aboriginal and Torres Strait Islander Health Performance Framework](https://www.indigenoushpf.gov.au/), compiled from the [National Perinatal Data Collection (NPDC)](https://www.aihw.gov.au/about-our-data/our-data-collections/national-perinatal-data-collection).
 
 - 92% (n = 1,959) of liveborn babies born to Aboriginal and/or Torres Strait Islander women in the Greater Melbourne area during 2019-2021 were of a healthy birthweight. 
 
@@ -446,25 +480,28 @@ childhood_birthweight_year <- childhood_birthweight_year %>%
 - Further historical and ongoing target context can be found on the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/born-healthy-and-strong/).
 
 ::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-- `r note_aboriginality_perinatal`
+- Definitions and notes:
+  - `r note_aboriginality_perinatal`
+  - Low birthweight was defined as a liveborn baby weighing less than 2,500g at birth.
 
-<div style="height: 0.1em;"></div>
-
-- Low birthweight was defined as a liveborn baby weighing less than 2,500g at birth.
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 6A-3
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_6A_3 .fig-tab-title}
-**Figure 6A-3:** Number and percentage of singleton live births with a birthweight above 2,500g for babies born to women who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 2019-2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and percentage of singleton live births with a birthweight above 2,500g for babies born to women who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 2019-2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- childhood_birthweight %>%
   f_bar_simple_iare(y_variable = aboriginal_n,
                     n_level    = "live births")
@@ -477,23 +514,28 @@ figure_percent <- childhood_birthweight %>%
 f_bar_simple_combine(figure_number, figure_percent, legend_offset = -0.4)
 ```
 
-#### Table 6A-3
 
-::: {#tab_6A-3 .fig-tab-title}
-**Table 6A-3:** Number and percentage of singleton live births with a birthweight above 2,500g for babies born to women who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 2019-2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Number and percentage of singleton live births with a birthweight above 2,500g for babies born to women who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 2019-2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- childhood_birthweight %>%
   dplyr::select(-iare_name_short)
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -510,69 +552,68 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Figure 6A-4
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_6A_4 .fig-tab-title}
-**Figure 6A-4:** Percentage of singleton live births with a birthweight below 2,500g, Victoria, by Aboriginal and/or Torres Strait Islander status of mother and year
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Percentage of singleton live births with a birthweight below 2,500g, Victoria, by Aboriginal and/or Torres Strait Islander status of mother and year
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 childhood_birthweight_year %>%
   f_line_grouped_indigenous(y_variable = prop,
                             n_level    = "live births")
 ```
 
-#### Table 6A-4
 
-::: {#tab_6A-4 .fig-tab-title}
-**Table 6A-4:** Percentage of singleton live births with a birthweight below 2,500g, Victoria, by Aboriginal and/or Torres Strait Islander status of mother and year
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Percentage of singleton live births with a birthweight below 2,500g, Victoria, by Aboriginal and/or Torres Strait Islander status of mother and year
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- childhood_birthweight_year %>%
   f_preptable_grouped_indigenous(x_variable = NA,
                                  n_variable = "prop only")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
 table %>%
-  f_table_grouped_indigenous(n_variable  = "prop only",
+  f_table_grouped_indigenous(total_row   = NULL,
+                             n_variable  = "prop only",
                              column_name = "Year")
 ```
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
-- Data for Figure 6A-3 and Table 6A-3 were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [National Perinatal Data Collection (NPDC)](https://www.aihw.gov.au/about-our-data/our-data-collections/national-perinatal-data-collection).
-  - The PHIDU Social Health Atlas is a compendium of demographic, social, health status, and health service utilisation indicators compiled by Torrens University Australia from a wide range of national, jurisdictional, and regional data sources.
-  - Data were aggregated for a three-year period (January 2019 to December 2021).
-
-<div style="height: 0.1em;"></div>
-
-- Data for Figure 6A-4 and Table 6A-4 were obtained from the [AIHW Aboriginal and Torres Strait Islander Health Performance Framework](https://www.indigenoushpf.gov.au/) compiled from the [National Perinatal Data Collection (NPDC)](https://www.aihw.gov.au/about-our-data/our-data-collections/national-perinatal-data-collection).
-  - The AIHW Aboriginal and Torres Strait Islander Health Performance Framework brings together information from a wide range of national, jurisdictional, and regional data sources to report on determinants of health, health outcomes, and health system performance for Aboriginal and/or Torres Strait Islander peoples.
-
-<div style="height: 0.1em;"></div>
-
-- The NPDC collates data about births reported by midwives and other birth attendants to the perinatal data collections in each state and territory in Australia.
-  - Aboriginal and/or Torres Strait Islander mothers are defined as those who identified themselves as Aboriginal and/or Torres Strait Islander at the time of childbirth.
+- Data were obtained from the [National Perinatal Data Collection (NPDC)](https://www.aihw.gov.au/about-our-data/our-data-collections/national-perinatal-data-collection).
+  - The NPDC collates data about births reported by midwives and other birth attendants to the perinatal data collections in each state and territory in Australia.
 
 <div style="height: 0.1em;"></div>
 
@@ -585,6 +626,24 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_iare_suppress`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 6A-3 and Table 6A-3:
+  - Numerator: Number of singleton live births with a birthweight above 2,500g
+  - Denominator: `r note_denominator_perinatal`
+  - Disaggregation: `r note_disaggregation_iare`
+  - Data were sourced from the NPDC via the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases)
+  
+<div style="height: 0.1em;"></div>
+
+- Figure 6A-4 and Table 6A-4:
+  - Numerator: Number of singleton live births with a birthweight below 2,500g
+  - Denominator: Total number of singleton live births
+  - Disaggregation: `r note_disaggregation_year`
+  - Comparison: `r note_comparison_aboriginal`
+  - Data were sourced from the NPDC via the [AIHW Aboriginal and Torres Strait Islander Health Performance Framework](https://www.indigenoushpf.gov.au/)
+
 :::
 
 ```{r}
@@ -666,25 +725,28 @@ childhood_breastfed <- childhood_breastfed %>%
 - Other barriers to breastfeeding discussed at stakeholder consultation included substance use and the need to return to work. Overall, however, breastfeeding rates were anecdotally reported to be improving over time.
 
 ::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-- `r note_aboriginality_natsihs`
+- Definitions and notes:
+  - `r note_aboriginality_natsihs`
+  - `r note_aboriginality_nhs`
 
-<div style="height: 0.1em;"></div>
-
-- `r note_aboriginality_nhs`
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 6A-5
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_6A_5 .fig-tab-title}
-**Figure 6A-5:** Breastfeeding duration for children aged 0-2 years, Victoria, by Aboriginal and/or Torres Strait Islander status, 2018-2019
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Breastfeeding duration for children aged 0-2 years, Victoria, by Aboriginal and/or Torres Strait Islander status, 2018-2019
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 factor_levels <- stringr::str_wrap(levels(childhood_breastfed$breastfed), width = 12)
 
 childhood_breastfed %>% 
@@ -718,17 +780,22 @@ childhood_breastfed %>%
                            legend_offset = -0.1)
 ```
 
-#### Table 6A-5
 
-::: {#tab_6A-5 .fig-tab-title}
-**Table 6A-5:** Breastfeeding duration for children aged 0-2 years, Victoria, by Aboriginal and/or Torres Strait Islander status, 2018-2019
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Breastfeeding duration for children aged 0-2 years, Victoria, by Aboriginal and/or Torres Strait Islander status, 2018-2019
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- childhood_breastfed %>%
   janitor::adorn_totals() %>%
   #
@@ -745,9 +812,9 @@ table <- childhood_breastfed %>%
       breastfed == "Total" ~ 100,
       TRUE ~ non_aboriginal_prop)) 
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -758,7 +825,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -780,5 +847,14 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_unknown`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 6A-5 and Table 6A-5:
+  - Numerator: Number of children aged 0-2 years
+  - Denominator: Total number of children aged 0-2 years included in the survey
+  - Disaggregation: Duration of breastfeeding
+  - Comparison: `r note_comparison_aboriginal`
+
 :::
 
