@@ -7,13 +7,13 @@ title-block: false
 ```{r}
 #
 source(here::here("setup.R"))
-source(here::here("setup_footnotes.R"))
 
-# Set up numbering for exporting tables as .csv
-table_section <- "05B"
-table_count   <- 0
+# Set up numbering for figures and tables
+figtab_report_section <- "5B"
+figtab_csv_section    <- "05B"
 
-figure_count <- 0
+figtab_table_count   <- 0
+figtab_figure_count  <- 0
 ```
 
 
@@ -24,13 +24,13 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Language {.unnumbered}
 
-::: {.caveat-box}
-**A note about the impact of under-identification**
+::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
+`r note_chapter_underidentification`
 
-`r note_box_underidentification`
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_masking`
 :::
-
-<div style="height: 2em;"></div>
 
 ## Aboriginal and/or Torres Strait Islander Languages
 
@@ -105,7 +105,6 @@ language_specific <- language_specific %>%
     language == "Other Australian Indigenous Languages, nec" ~ "Australian Indigenous Languages",
     language == "Aboriginal English, so described"           ~ "Aboriginal English",
     language == "Torres Strait Island Languages, nfd"        ~ "Torres Strait Island Languages",
-    #
     TRUE ~ as.character(language))) %>% 
   #
   dplyr::mutate(aboriginal_n = aboriginal + torres_strait_islander + both_aboriginal_and_torres_strait_islander) %>%
@@ -131,7 +130,7 @@ language_specific <- language_specific %>%
 
 - The percentage of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who reported speaking an Aboriginal and/or Torres Strait Islander language at home ranged from 7.6% (Yarra LGA) to 0.0% (Nillumbik LGA). 
 
-- Younger people (aged < 40 years) were more likely to report speaking an Aboriginal and/or Torres Strait Islander language, with no speakers aged > 60 years reported in the NEPHU catchment. There were a higher number of female speakers than male speakers across most age groups (except 40-49 years). 
+- Younger people (aged < 50 years) were more likely to report speaking an Aboriginal and/or Torres Strait Islander language, with no speakers aged > 60 years reported in the NEPHU catchment. There were a higher number of female speakers than male speakers across most age groups (except 40-49 years). 
 
 - Data on which languages were spoken were available for 181 people. The most common languages spoken at home by people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander were Australian Indigenous Languages (including those not further described or not elsewhere classified) (n = 73), Yorta Yorta (n = 27), Nyungar (n = 15), and Aboriginal English (n = 11).
 
@@ -142,6 +141,8 @@ language_specific <- language_specific %>%
 - As discussed in stakeholder consultations during the development of this report, these data may not be a true indicator of Closing the Gap Target 16, as there may be an increase in people who are learning and speaking Aboriginal and/or Torres Strait Islander languages but not necessarily speaking their language at home. 
 
 - It was also discussed that higher engagement amongst young people and children may be partly due to the success of community-driven language teaching efforts. The [Victorian Aboriginal Corporation for Languages (VACL)](https://vacl.org.au/) assists local communities with language revitalisation plans by running language camps, school programs, and events. For example, they have [partnered with Thornbury Primary School since 2012](https://www.vaeai.org.au/6895/), where students from Prep to Grade 6 have been learning Woiwurrung, the language of the Wurundjeri People.
+
+- The Fourth [National Indigenous Languages Surveys (NILS)](https://aiatsis.gov.au/research/languages/national-indigenous-languages-surveys) is currently underway, with data collection completed in February 2026. This survey has been co-designed with over 150 Aboriginal and Torres Strait Islander language representatives across Australia, from every state and territory.
 
 ::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
 - The following question was asked of all people completing the ABS Census 2021:
@@ -159,22 +160,26 @@ language_specific <- language_specific %>%
 
 - Definitions and notes:
   - `r note_aboriginality_census`
-  - When a person listed more than one language, responses were accepted in the order they appeared on the Census form. The first response was included in the data and any extra responses were rejected. 
+  - When a person listed more than one language, responses were accepted in the order they appeared on the Census form. The first response was included in the data and any extra responses were rejected. This may lead to underreporting of Aboriginal and/or Torres Strait Islander languages, as these responses were recorded as 'Yes, other languages (please specify)' and would not be included for people who also selected another language higher up on the list.
 
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 5B-1
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_5B_1 .fig-tab-title}
-**Figure 5B-1:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander who speak an Aboriginal and/or Torres Strait Islander language at home, NEPHU catchment, by LGA, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander who speak an Aboriginal and/or Torres Strait Islander language at home, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- language_any_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_n)
 
@@ -184,23 +189,28 @@ figure_percent <- language_any_lga %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-#### Table 5B-1
 
-::: {#tab_5B-1 .fig-tab-title}
-**Table 5B-1:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander who speak an Aboriginal and/or Torres Strait Islander language at home, NEPHU catchment, by LGA, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander who speak an Aboriginal and/or Torres Strait Islander language at home, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- language_any_lga %>%
   f_preptable_simple_lga()
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -215,18 +225,22 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Figure 5B-2
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_5B_2 .fig-tab-title}
-**Figure 5B-2:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander who speak an Aboriginal and/or Torres Strait Islander language at home, NEPHU catchment, by age and sex, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander who speak an Aboriginal and/or Torres Strait Islander language at home, NEPHU catchment, by age and sex, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- language_any_agesex %>% 
   f_bar_grouped_agesex(y_variable = aboriginal_n)
 
@@ -236,23 +250,28 @@ figure_percent <- language_any_agesex %>%
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
 
-#### Table 5B-2
 
-::: {#tab_5B-2 .fig-tab-title}
-**Table 5B-2:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander who speak an Aboriginal and/or Torres Strait Islander language at home, NEPHU catchment, by age and sex, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander who speak an Aboriginal and/or Torres Strait Islander language at home, NEPHU catchment, by age and sex, 2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- language_any_agesex %>% 
   f_preptable_grouped_agesex()
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -266,18 +285,22 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Figure 5B-3
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_5B_3 .fig-tab-title}
-**Figure 5B-3:** Aboriginal and/or Torres Strait Islander languages spoken by people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Aboriginal and/or Torres Strait Islander languages spoken by people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 language_specific %>% 
   dplyr::filter(language != "Total") %>%
   #
@@ -288,22 +311,27 @@ language_specific %>%
                     y_variable = aboriginal_n)
 ```
 
-#### Table 5B-3
 
-::: {#tab_5B-3 .fig-tab-title}
-**Table 5B-3:** Aboriginal and/or Torres Strait Islander languages spoken by people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Aboriginal and/or Torres Strait Islander languages spoken by people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, 2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- language_specific
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -318,7 +346,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -335,10 +363,28 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
-- For Figure 5B-3 and Table 5B-3, *Australian Indigenous Languages* includes: 
-  - Woiwurrung
-  - Languages not further described 
-  - Languages not elsewhere classified
+- Figure 5B-1 and Table 5B-1:
+  - Numerator: Number of Aboriginal and/or Torres Strait Islander people who speak an Aboriginal and/or Torres Strait Islander language at home
+  - Denominator: `r note_denominator_census_aboriginal`
+  - Disaggregation: `r note_disaggregation_lga`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 5B-2 and Table 5B-2:
+  - Numerator: Number of Aboriginal and/or Torres Strait Islander people who speak an Aboriginal and/or Torres Strait Islander language at home
+  - Denominator: `r note_denominator_census_aboriginal`
+  - Disaggregation: `r note_disaggregation_agesex`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 5B-3 and Table 5B-3:
+  - Numerator: Number of Aboriginal and/or Torres Strait Islander people who speak the specified language
+  - Denominator: `r note_denominator_census_aboriginal`
+  - *Australian Indigenous Languages* includes: 
+    - Woiwurrung
+    - Languages not further described 
+    - Languages not elsewhere classified
+
 :::
 
 ```{r}
@@ -346,7 +392,7 @@ table %>%
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
 
-## Languages Other Than English
+## Other Languages
 
 ::: {.key-question}
 What proportion of Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment use other languages at home?
@@ -406,22 +452,26 @@ language_other <- language_other %>%
 
 - Definitions and notes:
   - `r note_aboriginality_census`
-  - When a person listed more than one language, responses were accepted in the order they appeared on the Census form. The first response was included in the data and any extra responses were rejected.
+  - When a person listed more than one language, responses were accepted in the order they appeared on the Census form. The first response was included in the data and any extra responses were rejected. This may lead to underreporting of languages that are not explicitly listed in the question, as these responses were recorded as 'Yes, other languages (please specify)' and would not be included for people who also selected another language higher up on the list.
 
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 5B-4
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_5B_4 .fig-tab-title}
-**Figure 5B-4:** Other languages used by people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Other languages used by people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 language_other %>% 
   dplyr::filter(language != "Total") %>%
   #
@@ -432,22 +482,27 @@ language_other %>%
                     y_variable = aboriginal_n)
 ```
 
-#### Table 5B-4
 
-::: {#tab_5B-4 .fig-tab-title}
-**Table 5B-4:** Other languages used by people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Other languages used by people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, 2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- language_other
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -462,7 +517,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -476,6 +531,13 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 5B-4 and Table 5B-4:
+  - Numerator: Number of Aboriginal and/or Torres Strait Islander people who speak the specified language at home
+  - Denominator: `r note_denominator_census_aboriginal`
+
 :::
 
 ```{r}
@@ -528,7 +590,6 @@ english_agesex <- english_agesex %>%
   dplyr::mutate(english_proficiency = dplyr::case_when(
     english_proficiency == "Uses other language and speaks English: Not well"   ~ "no",
     english_proficiency == "Uses other language and speaks English: Not at all" ~ "no",
-    #
     TRUE ~ "yes")) %>% 
   #
   f_wrangle_census_agesex(variable = english_proficiency,
@@ -562,22 +623,26 @@ english_agesex <- english_agesex %>%
 
 - Definitions and notes:
   - `r note_aboriginality_census`
-  - When a person listed more than one language, responses were accepted in the order they appeared on the Census form. The first response was included in the data and any extra responses were rejected.
+  - When a person listed more than one language, responses were accepted in the order they appeared on the Census form. The first response was included in the data and any extra responses were rejected. This may lead to underreporting of languages that are not explicitly listed in the question, as these responses were recorded as 'Yes, other languages (please specify)' and would not be included for people who also selected another language higher up on the list.
 
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 5B-5
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_5B_5 .fig-tab-title}
-**Figure 5B-5:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander with a high level of English proficiency, NEPHU catchment, by LGA, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander with a high level of English proficiency, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- english_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_n)
 
@@ -587,23 +652,28 @@ figure_percent <- english_lga %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-#### Table 5B-5
 
-::: {#tab_5B-5 .fig-tab-title}
-**Table 5B-5:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander with a high level of English proficiency, NEPHU catchment, by LGA, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander with a high level of English proficiency, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- english_lga %>%
   f_preptable_simple_lga()
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -618,18 +688,22 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Figure 5B-6
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_5B_6 .fig-tab-title}
-**Figure 5B-6:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander with a high level of English proficiency, NEPHU catchment, by age and sex, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander with a high level of English proficiency, NEPHU catchment, by age and sex, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- english_agesex %>%
   f_bar_grouped_agesex(y_variable = aboriginal_n)
 
@@ -639,23 +713,28 @@ figure_percent <- english_agesex %>%
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
 
-#### Table 5B-6
 
-::: {#tab_5B-6 .fig-tab-title}
-**Table 5B-6:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander with a high level of English proficiency, NEPHU catchment, by age and sex, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander with a high level of English proficiency, NEPHU catchment, by age and sex, 2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- english_agesex %>% 
   f_preptable_grouped_agesex()
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -669,7 +748,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -683,5 +762,20 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 5B-5 and Table 5B-5:
+  - Numerator: Number of Aboriginal and/or Torres Strait Islander people with a high level of English proficiency
+  - Denominator: `r note_denominator_census_aboriginal`
+  - Disaggregation: `r note_disaggregation_lga`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 5B-6, and Table 5B-6:
+  - Numerator: Number of Aboriginal and/or Torres Strait Islander people with a high level of English proficiency
+  - Denominator: `r note_denominator_census_aboriginal`
+  - Disaggregation: `r note_disaggregation_agesex`
+
 :::
 
