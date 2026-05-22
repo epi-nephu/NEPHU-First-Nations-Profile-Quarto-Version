@@ -73,7 +73,7 @@ subfolder_vcams       <- "Population Health Data/VCAMS/Data"
 # ------------------------------------------------------------------------------
 source(here::here("notes", "notes_chapter_caveats.R"))
 source(here::here("notes", "notes_definitions_aboriginality.R"))
-source(here::here("notes", "notes_definitions_numerator_denominator.R"))
+source(here::here("notes", "notes_definitions_denominator.R"))
 source(here::here("notes", "notes_footnotes_caveats.R"))
 source(here::here("notes", "notes_footnotes_data_sources.R"))
 
@@ -170,7 +170,9 @@ padding_male   <- 26
 # y-axis upper limits for counts
 y_upper_n <- function(y_max){
   #
-  dplyr::case_when(y_max <= 5     ~ 5.125,
+  dplyr::case_when(y_max <= 1     ~ 1.0025,
+                   y_max <= 2.5   ~ 2.625,
+                   y_max <= 5     ~ 5.125,
                    y_max <= 10    ~ (ceiling(y_max / 1) * 1) + (y_max * 0.025),
                    y_max <= 50    ~ (ceiling(y_max / 5) * 5) + (y_max * 0.025),
                    y_max <= 100   ~ (ceiling(y_max / 10) * 10) + (y_max * 0.025),
@@ -194,7 +196,8 @@ y_upper_n <- function(y_max){
 y_upper_prop <- function(y_max) {
   #
   dplyr::case_when(y_max <= 1   ~ 1.0025,
-                   y_max <= 5   ~ (ceiling(y_max / 0.5) * 0.5) + (y_max * 0.025),
+                   y_max <= 2.5 ~ 2.625,
+                   y_max <= 5   ~ 5.25,
                    y_max <= 10  ~ (ceiling(y_max / 1) * 1) + (y_max * 0.025),
                    y_max <= 20  ~ (ceiling(y_max / 2) * 2) + (y_max * 0.025),
                    y_max <= 50  ~ (ceiling(y_max / 5) * 5) + (y_max * 0.025),
@@ -208,7 +211,8 @@ y_upper_prop <- function(y_max) {
 y_upper_rate <- function(y_max) {
   #
   dplyr::case_when(y_max <= 1      ~ 1.0025,
-                   y_max <= 5      ~ (ceiling(y_max / 0.5) * 0.5) + (y_max * 0.025),
+                   y_max <= 2.5    ~ 2.625,
+                   y_max <= 5      ~ 5.25,
                    y_max <= 10     ~ (ceiling(y_max / 1) * 1) + (y_max * 0.025),
                    y_max <= 50     ~ (ceiling(y_max / 5) * 5) + (y_max * 0.025),
                    y_max <= 100    ~ (ceiling(y_max / 10) * 10) + (y_max * 0.025),

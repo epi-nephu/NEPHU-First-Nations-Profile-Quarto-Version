@@ -93,16 +93,6 @@ li > ul {
   border-radius: 10px;
 }
 
-.caveat-box {
-  padding-top: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
-  background: #E1AA82;
-  color: black;
-  border: 2px solid #B56734;
-  border-radius: 10px;
-}
-
 .ctg-box {
   padding-top: 10px;
   padding-left: 10px;
@@ -130,9 +120,17 @@ li > ul {
   background-color: #B2D4D2 !important;
 }
 
+.callout-warning {
+  border-left-color: #B56734 !important;
+}
+
+.callout-warning .callout-header {
+  background-color: #E1AA82 !important;
+}
+
 .callout-body {
   font-family: Arial;
-  font-size: 10pt !important;
+  font-size: 11pt !important;
   margin-bottom: 0pt !important;
 }
 
