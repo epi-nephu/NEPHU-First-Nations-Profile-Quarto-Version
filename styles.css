@@ -18,19 +18,19 @@ nav[aria-label="breadcrumb"] {
 }
 
 .nav-page-text {
-  font-family: Arial;
+  font-family: "Karla";
   font-weight: bold;
   color: #2E258D;
 }
 
 .bi-arrow-left-short {
-  font-family: Arial;
+  font-family: "Karla";
   font-weight: bold;
   color: #2E258D;
 }
 
 .bi-arrow-right-short {
-  font-family: Arial;
+  font-family: "Karla";
   font-weight: bold;
   color: #2E258D;
 }
@@ -41,7 +41,7 @@ h1 {
 
 h2.unnumbered {
   margin-top: 0pt;
-  font-family: Arial;
+  font-family: "Karla";
   font-weight: bold;
   font-size: 30pt;
   text-align: center;
@@ -49,24 +49,24 @@ h2.unnumbered {
 }
 
 h2 {
-  font-family: Arial;
+  font-family: "Karla";
+  font-weight: bold;
+  font-size: 16pt;
+  color: #3856A7;
+  margin-top: 0pt;
+}
+
+h3 {
+  font-family: "Karla";
   font-weight: bold;
   font-size: 14pt;
   color: #3856A7;
   margin-top: 0pt;
 }
 
-h3 {
-  font-family: Arial;
-  font-weight: bold;
-  font-size: 12pt;
-  color: #3856A7;
-  margin-top: 0pt;
-}
-
 body {
-  font-family: Arial;
-  font-size: 11pt;
+  font-family: "Karla";
+  font-size: 13pt;
 }
 
 li > ul {
@@ -75,10 +75,10 @@ li > ul {
 }
 
 .key-question {
-  font-family: Arial;
+  font-family: "Karla";
   font-style: italic;
   font-weight: bold;
-  font-size: 12pt;
+  font-size: 14pt;
   color: #2E258D;
   text-align: center;
 }
@@ -129,21 +129,21 @@ li > ul {
 }
 
 .callout-body {
-  font-family: Arial;
-  font-size: 11pt !important;
+  font-family: "Karla";
+  font-size: 13pt !important;
   margin-bottom: 0pt !important;
 }
 
 .fig-tab-title {
-  font-family: Arial;
+  font-family: "Karla";
   font-style: italic;
-  font-size: 11pt;
+  font-size: 12pt;
   text-align: center;
   margin-bottom: 5pt;
 }
 
 .download-link {
-  font-size: 9pt;
+  font-size: 10pt;
   font-weight: bold;
   border: 1px solid #4F81BD;
   background: #4F81BD;

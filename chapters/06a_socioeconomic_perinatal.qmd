@@ -12,8 +12,8 @@ source(here::here("setup.R"))
 figtab_report_section <- "6A"
 figtab_csv_section    <- "06A"
 
-figtab_table_count   <- 0
-figtab_figure_count  <- 0
+figtab_table_count  <- 0
+figtab_figure_count <- 0
 ```
 
 
@@ -633,7 +633,7 @@ table %>%
   - Numerator: Number of singleton live births with a birthweight above 2,500g
   - Denominator: `r note_denominator_perinatal`
   - Disaggregation: `r note_disaggregation_iare`
-  - Data were sourced from the NPDC via the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases)
+  - Data were sourced from the NPDC via the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases)
   
 <div style="height: 0.1em;"></div>
 

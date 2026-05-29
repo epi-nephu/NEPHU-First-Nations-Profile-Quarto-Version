@@ -877,7 +877,14 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
-- Figure 5A-4 and Table 5A-4:
+- Figure 5A-4:
+  - Numerator: Number of women aged between 15 and 49 years
+  - Denominator: Total number of women who completed the Census
+  - Disaggregation: `r note_disaggregation_lga`
+
+<div style="height: 0.1em;"></div>
+
+- Table 5A-4:
   - Numerator: Number of women aged between 15 and 49 years
   - Denominator: Total number of women who completed the Census
   - Disaggregation: `r note_disaggregation_lga`
