@@ -222,7 +222,7 @@ table %>%
   dplyr::mutate(aboriginal_prop          = sprintf("%.1f", aboriginal_prop),
                 aboriginal_prop_per_lphu = sprintf("%.1f", aboriginal_prop_per_lphu)) %>% 
   #
-  f_table_simple(column_width  = "2.5in",
+  f_table_simple(column_width  = "2in",
                  table_headers = c("LPHU",
                                    "Number of Aboriginal and/or Torres Strait Islander people",
                                    "Percent of total LPHU population",
