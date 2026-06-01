@@ -54,16 +54,22 @@ f_pyramid <- function(data, prop_variable, fill_variable, fill_values, chart_tit
     #
     theme_classic() +
     #
-    theme(plot.title   = element_text(size = 12, family = "Arial", face = "bold"),
-          axis.title.x = element_text(size = 10, family = "Arial", margin = margin(t = 10)))
+    theme(plot.title   = element_text(size = 12, family = "Karla", face = "bold"),
+          axis.title.x = element_text(size = 10, family = "Karla", margin = margin(t = 10)))
 
   figure <- figure %>%
     plotly::ggplotly(tooltip = "text") %>%
     #
     plotly::layout(modebar = list(orientation = 'v'),
-                   #                   
+                   #
+                   xaxis = list(tickfont = list(family = "Karla")),
+                   #
+                   yaxis = list(tickfont = list(family = "Karla")),
+                   #
                    legend = list(x = 0.5,
                                  y = -0.15,
+                                 #
+                                 font = list(family = "Karla"),
                                  #
                                  orientation = "h",
                                  xanchor     = "center"))

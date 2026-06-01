@@ -36,7 +36,7 @@ f_table_simple <- function(data, total_row = nrow(table), last_column = ncol(tab
                               #
                               full_width = FALSE,
                               position   = "center",
-                              html_font  = "Arial",
+                              html_font  = "Karla",
                               font_size  = 12) %>%
     #
     kableExtra::row_spec(row  = c(0, total_row),

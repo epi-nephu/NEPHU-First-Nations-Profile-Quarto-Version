@@ -32,7 +32,7 @@ f_table_grouped_sex <- function(data, n_variable, column_name, total_row = nrow(
                               #
                               full_width = FALSE,
                               position   = "center",
-                              html_font  = "Arial",
+                              html_font  = "Karla",
                               font_size  = 12) %>%
     #
     kableExtra::row_spec(row  = c(0, total_row),
@@ -125,7 +125,7 @@ f_table_grouped_indigenous <- function(data, n_variable, column_name, total_row 
                               #
                               full_width = FALSE,
                               position   = "center",
-                              html_font  = "Arial",
+                              html_font  = "Karla",
                               font_size  = 12) %>%
     #
     kableExtra::row_spec(row  = c(0, total_row),
@@ -194,7 +194,7 @@ f_table_grouped_phess <- function(data, total_row = nrow(table), last_column = n
                               #
                               full_width = FALSE,
                               position   = "center",
-                              html_font  = "Arial",
+                              html_font  = "Karla",
                               font_size  = 12) %>%
     #
     kableExtra::column_spec(2:ncol(table),

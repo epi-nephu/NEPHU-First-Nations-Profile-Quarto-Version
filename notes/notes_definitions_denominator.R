@@ -25,6 +25,8 @@ note_disaggregation_agesex <- "Age and sex"
 
 note_disaggregation_year <- "Year"
 
+note_disaggregation_grade <- "School year (grade)"
+
 ################################################################################
 # Commonly used comparison definitions
 ################################################################################

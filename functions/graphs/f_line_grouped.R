@@ -79,11 +79,17 @@ f_line_grouped <- function(data, y_variable, fill_variable, fill_values, y_max =
                    #
                    modebar = list(orientation = 'v'),
                    #
-                   yaxis = list(title = list(text     = y_title,
-                                             font     = list(size = 13, family = "Arial"),
+                   xaxis = list(tickfont = list(family = "Karla")),
+                   #
+                   yaxis = list(tickfont = list(family = "Karla"),
+                                #
+                                title = list(text     = y_title,
+                                             font     = list(size = 13, family = "Karla"),
                                              standoff = 10)),
                    #
                    legend = list(x = 0.5,
+                                 #
+                                 font = list(family = "Karla"),
                                  #
                                  orientation = "h",
                                  xanchor     = "center"))
@@ -91,6 +97,8 @@ f_line_grouped <- function(data, y_variable, fill_variable, fill_values, y_max =
   return(figure)
 
 }
+
+
 
 ################################################################################
 # By indigenous status
@@ -210,11 +218,17 @@ f_line_grouped_indigenous <- function(data, y_variable, n_level = "people", ctg_
                    #
                    modebar = list(orientation = 'v'),
                    #
-                   yaxis = list(title = list(text     = y_title,
-                                             font     = list(size = 13, family = "Arial"),
+                   xaxis = list(tickfont = list(family = "Karla")),
+                   #
+                   yaxis = list(tickfont = list(family = "Karla"),
+                                #
+                                title = list(text     = y_title,
+                                             font     = list(size = 13, family = "Karla"),
                                              standoff = 10)),
                    #
                    legend = list(x = 0.5,
+                                 #
+                                 font = list(family = "Karla"),
                                  #
                                  orientation = "h",
                                  xanchor     = "center"))
@@ -356,11 +370,17 @@ f_line_grouped_sex <- function(data, y_variable, n_level = "people", ctg_target 
                    #
                    modebar = list(orientation = 'v'),
                    #
-                   yaxis = list(title = list(text     = y_title,
-                                             font     = list(size = 13, family = "Arial"),
+                   xaxis = list(tickfont = list(family = "Karla")),
+                   #
+                   yaxis = list(tickfont = list(family = "Karla"),
+                                #
+                                title = list(text     = y_title,
+                                             font     = list(size = 13, family = "Karla"),
                                              standoff = 10)),
                    #
                    legend = list(x = 0.5,
+                                 #
+                                 font = list(family = "Karla"),
                                  #
                                  orientation = "h",
                                  xanchor     = "center"))

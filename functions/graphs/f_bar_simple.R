@@ -56,8 +56,12 @@ f_bar_simple <- function(data, x_variable, y_variable, y_title = "Number of peop
                    #
                    modebar = list(orientation = 'v'),
                    #
-                   yaxis = list(title = list(text     = y_title,
-                                             font     = list(size = 13, family = "Arial"),
+                   xaxis = list(tickfont = list(family = "Karla")),
+                   #
+                   yaxis = list(tickfont = list(family = "Karla"),
+                                #
+                                title = list(text     = y_title,
+                                             font     = list(size = 13, family = "Karla"),
                                              standoff = 10)))
   
   return(figure)
@@ -100,8 +104,12 @@ f_bar_simple_flip <- function(data, x_variable, y_variable, x_title = "Number of
                    #
                    modebar = list(orientation = 'v'),
                    #
-                   xaxis = list(title = list(text     = x_title,
-                                             font     = list(size = 13, family = "Arial"),
+                   yaxis = list(tickfont = list(family = "Karla")),
+                   #
+                   xaxis = list(tickfont = list(family = "Karla"),
+                                #
+                                title = list(text     = x_title,
+                                             font     = list(size = 13, family = "Karla"),
                                              standoff = 10)))
   
   return(figure)
@@ -186,8 +194,12 @@ f_bar_simple_lga <- function(data, y_variable, n_level = "people", ctg_target = 
                    #
                    modebar = list(orientation = 'v'),
                    #
-                   yaxis = list(title = list(text     = y_title,
-                                             font     = list(size = 13, family = "Arial"),
+                   xaxis = list(tickfont = list(family = "Karla")),
+                   #
+                   yaxis = list(tickfont = list(family = "Karla"),
+                                #
+                                title = list(text     = y_title,
+                                             font     = list(size = 13, family = "Karla"),
                                              standoff = 10)))
   
   return(figure)
@@ -337,8 +349,12 @@ f_bar_simple_iare <- function(data, y_variable, n_level = "people", ctg_target =
                    #
                    modebar = list(orientation = 'v'),
                    #
-                   yaxis = list(title = list(text     = y_title,
-                                             font     = list(size = 13, family = "Arial"),
+                   xaxis = list(tickfont = list(family = "Karla")),
+                   #
+                   yaxis = list(tickfont = list(family = "Karla"),
+                                #
+                                title = list(text     = y_title,
+                                             font     = list(size = 13, family = "Karla"),
                                              standoff = 10)))
   
   return(figure)
@@ -356,6 +372,8 @@ f_bar_simple_combine <- function(figure_number, figure_percent, legend_offset = 
     #
     plotly::layout(legend = list(x = 0.775,
                                  y = legend_offset,
+                                 #
+                                 font = list(family = "Karla"),
                                  #
                                  orientation = "h",
                                  xanchor     = "center"))

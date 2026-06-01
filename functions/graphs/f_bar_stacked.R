@@ -69,15 +69,20 @@ f_bar_stacked <- function(data, total_data = stacked_total, x_variable, y_variab
                    #
                    modebar = list(orientation = 'v'),
                    #
-                   yaxis = list(title = list(text     = y_title,
-                                             font     = list(size = 13, family = "Arial"),
+                   xaxis = list(tickfont = list(family = "Karla")),
+                   #
+                   yaxis = list(tickfont = list(family = "Karla"),
+                                #
+                                title = list(text     = y_title,
+                                             font     = list(size = 13, family = "Karla"),
                                              standoff = 10)),
                    #
                    legend = list(x = 0.5,
                                  y = legend_offset,
                                  #
+                                 font = list(family = "Karla"),
+                                 #
                                  orientation = "h",
-                                 traceorder  = "reversed",
                                  xanchor     = "center"))
 
   return(figure)
@@ -127,15 +132,20 @@ f_bar_stacked_lga <- function(data, fill_values, n_level) {
                    #
                    modebar = list(orientation = 'v'),
                    #
-                   yaxis = list(title = list(text     = y_title,
-                                             font     = list(size = 13, family = "Arial"),
+                   xaxis = list(tickfont = list(family = "Karla")),
+                   #
+                   yaxis = list(tickfont = list(family = "Karla"),
+                                #
+                                title = list(text     = y_title,
+                                             font     = list(size = 13, family = "Karla"),
                                              standoff = 10)),
                    #
                    legend = list(x = 0.5,
                                  y = -0.3,
                                  #
+                                 font = list(family = "Karla"),
+                                 #
                                  orientation = "h",
-                                 traceorder  = "reversed",
                                  xanchor     = "center"))
   
   return(figure)
@@ -190,15 +200,20 @@ f_bar_stacked_agesex <- function(data, fill_values, n_level) {
                    #
                    modebar = list(orientation = 'v'),
                    #
-                   yaxis = list(title = list(text     = y_title,
-                                             font     = list(size = 13, family = "Arial"),
+                   xaxis = list(tickfont = list(family = "Karla")),
+                   #
+                   yaxis = list(tickfont = list(family = "Karla"),
+                                #
+                                title = list(text     = y_title,
+                                             font     = list(size = 13, family = "Karla"),
                                              standoff = 10)),
                    #
                    legend = list(x = 0.5,
                                  y = -0.35,
                                  #
+                                 font = list(family = "Karla"),
+                                 #
                                  orientation = "h",
-                                 traceorder  = "reversed",
                                  xanchor     = "center"))
   
   return(figure)
@@ -267,11 +282,17 @@ f_bar_stacked_phess <- function(data) {
                    #
                    modebar = list(orientation = 'v'),
                    #
-                   yaxis = list(title = list(text     = "Number of notifications",
-                                             font     = list(size = 13, family = "Arial"),
+                   xaxis = list(tickfont = list(family = "Karla")),
+                   #
+                   yaxis = list(tickfont = list(family = "Karla"),
+                                #
+                                title = list(text     = "Number of notifications",
+                                             font     = list(size = 13, family = "Karla"),
                                              standoff = 10)),
                    #
                    legend = list(x = 0.5,
+                                 #
+                                 font = list(family = "Karla"),
                                  #
                                  orientation = "h",
                                  traceorder  = "reversed",

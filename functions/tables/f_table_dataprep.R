@@ -254,16 +254,21 @@ f_preptable_screening <- function(data) {
 ################################################################################
 f_preptable_naplan <- function(data) {
   
-  data <- data %>% 
-    dplyr::filter(indigenous_status == "Aboriginal and Torres Strait Islander students") %>%
+  data <- data %>%
+    dplyr::select(-year) %>% 
     #
-    dplyr::select(-indigenous_status,
-                  -year) %>% 
+    dplyr::mutate(indigenous_status = dplyr::case_when(
+      indigenous_status == "Aboriginal and Torres Strait Islander students" ~ "aboriginal",
+      TRUE ~ "non_aboriginal")) %>% 
     #
     tidyr::pivot_wider(names_from  = "grade",
                        values_from = "vic") %>% 
     #
     janitor::clean_names() %>% 
+    #
+    tidyr::pivot_wider(names_from  = indigenous_status,
+                       names_vary  = "slowest",
+                       values_from = year_3:year_9) %>% 
     #
     janitor::adorn_totals()
   

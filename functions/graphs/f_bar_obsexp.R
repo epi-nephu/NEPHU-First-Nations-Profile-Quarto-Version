@@ -68,12 +68,18 @@ f_bar_obsexp_lga <- function(data, n_level = "people") {
                    #
                    modebar = list(orientation = 'v'),
                    #
-                   yaxis = list(title = list(text     = paste0("Number of ", n_level),
-                                             font     = list(size = 13, family = "Arial"),
+                   xaxis = list(tickfont = list(family = "Karla")),
+                   #
+                   yaxis = list(tickfont = list(family = "Karla"),
+                                #
+                                title = list(text     = y_title,
+                                             font     = list(size = 13, family = "Karla"),
                                              standoff = 10)),
                    #
                    legend = list(x = 0.5,
                                  y = -0.3,
+                                 #
+                                 font = list(family = "Karla"),
                                  #
                                  orientation = "h",
                                  xanchor     = "center"))
@@ -152,11 +158,13 @@ f_bar_obsexp_agesex <- function(data, n_level = "people") {
                    modebar = list(orientation = 'v'),
                    #
                    yaxis = list(title = list(text     = paste0("Number of ", n_level),
-                                             font     = list(size = 13, family = "Arial"),
+                                             font     = list(size = 13, family = "Karla"),
                                              standoff = 10)),
                    #
                    legend = list(x = 0.5,
                                  y = -0.3,
+                                 #
+                                 font = list(family = "Karla"),
                                  #
                                  orientation = "h",
                                  xanchor     = "center"))

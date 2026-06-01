@@ -24,7 +24,7 @@ f_table_obsexp <- function(data, total_row = nrow(table), column_name, header_na
                               #
                               full_width = FALSE,
                               position   = "center",
-                              html_font  = "Arial",
+                              html_font  = "Karla",
                               font_size  = 12) %>%
     #
     kableExtra::row_spec(row  = c(0, total_row),

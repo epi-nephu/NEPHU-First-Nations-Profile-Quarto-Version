@@ -78,8 +78,12 @@ f_line_simple <- function(data, y_variable, n_level = "people", ctg_target = NA)
                    #
                    modebar = list(orientation = 'v'),
                    #
-                   yaxis = list(title = list(text     = y_title,
-                                             font     = list(size = 13, family = "Arial"),
+                   xaxis = list(tickfont = list(family = "Karla")),
+                   #
+                   yaxis = list(tickfont = list(family = "Karla"),
+                                #
+                                title = list(text     = y_title,
+                                             font     = list(size = 13, family = "Karla"),
                                              standoff = 10)))
   
   return(figure)
@@ -96,6 +100,8 @@ f_line_simple_combine <- function(figure_number, figure_percent) {
                             margin = 0.05) %>% 
     #
     plotly::layout(legend = list(x = 0.775,
+                                 #
+                                 font = list(family = "Karla"),
                                  #
                                  orientation = "h",
                                  xanchor     = "center"))
