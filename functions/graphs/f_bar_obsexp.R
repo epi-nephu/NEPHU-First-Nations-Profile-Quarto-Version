@@ -52,7 +52,7 @@ f_bar_obsexp_lga <- function(data, n_level = "people") {
                        labels = scales::comma_format(big.mark = ",")) +
     #
     scale_fill_manual(values = c(colour_aboriginal, colour_nonaboriginal),
-                      guide  = "none") +
+                      name   = NULL) +
     #
     labs(x = NULL,
          y = NULL) +
@@ -137,7 +137,7 @@ f_bar_obsexp_agesex <- function(data, n_level = "people") {
                        labels = scales::comma_format(big.mark = ",")) +
     #
     scale_fill_manual(values = c(colour_aboriginal, colour_nonaboriginal),
-                      guide  = "none") +
+                      name   = NULL) +
     #
     labs(x = NULL,
          y = NULL) +

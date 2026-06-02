@@ -25,7 +25,7 @@ f_bar_grouped <- function(data, x_variable, y_variable, fill_variable, fill_valu
                        labels = scales::comma_format(big.mark = ",")) +
     #
     scale_fill_manual(values = fill_values,
-                      guide  = "none") +
+                      name   = NULL) +
     #
     labs(x = NULL,
          y = NULL) +
@@ -112,7 +112,7 @@ f_bar_grouped_agesex <- function(data, y_variable, n_level = "people") {
                        labels = scales::comma_format(big.mark = ",")) +
     #
     scale_fill_manual(values = c(colour_female, colour_male),
-                      guide  = "none") +
+                      name   = NULL) +
     #
     labs(x = NULL,
          y = NULL) +
@@ -212,7 +212,7 @@ f_bar_grouped_sex <- function(data, x_variable, y_variable, y_title, x_angle = 0
                        labels = scales::comma_format(big.mark = ",")) +
     #
     scale_fill_manual(values = c(colour_female, colour_male),
-                      guide  = "none") +
+                      name   = NULL) +
     #
     labs(x = NULL,
          y = NULL) +
@@ -312,7 +312,7 @@ f_bar_grouped_indigenous <- function(data, x_variable, y_variable, n_level = "pe
                        labels = scales::comma_format(big.mark = ",")) +
     #
     scale_fill_manual(values = c(colour_aboriginal, colour_nonaboriginal),
-                      guide  = "none") +
+                      name   = NULL) +
     #
     labs(x = NULL,
          y = NULL) +
