@@ -7,13 +7,13 @@ title-block: false
 ```{r}
 #
 source(here::here("setup.R"))
-source(here::here("setup_footnotes.R"))
 
-# Set up numbering for exporting tables as .csv
-table_section <- "06D"
-table_count   <- 0
+# Set up numbering for figures and tables 
+figtab_report_section <- "6D" 
+figtab_csv_section    <- "06D" 
 
-figure_count <- 0
+figtab_table_count  <- 0 
+figtab_figure_count <- 0 
 ```
 
 
@@ -24,17 +24,21 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Employment {.unnumbered}
 
-::: {.caveat-box}
-**A note about the impact of under-identification**
+::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
+`r note_chapter_comparisons` 
 
-`r note_box_underidentification`
+<div style="height: 0.1em;"></div> 
 
-**A note about interpreting observed vs. expected figures**
+`r note_chapter_underidentification`
 
-`r note_box_obsexp`
+<div style="height: 0.1em;"></div> 
+
+`r note_chapter_masking`
+
+<div style="height: 0.1em;"></div> 
+
+`r note_chapter_obsexp`
 :::
-
-<div style="height: 2em;"></div>
 
 ::: {.key-question}
 Are Aboriginal and/or Torres Strait Islanders living in the NEPHU catchment gainfully employed?
@@ -126,11 +130,11 @@ engaged_agesex <- engaged_agesex %>%
 
 - Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
 
-- Overall, 52% (n = 4,334) of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census were fully engaged in employment, education, or training and a further 19% (n = 1,590) were partially engaged.
+- Overall, 52% (n = 4,334) of people aged 15 years and over living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census were fully engaged in employment, education, or training and a further 19% (n = 1,590) were partially engaged.
 
-- The number of people who identified as Aboriginal and/or Torres Strait Islander in the Census living in different LGAs within the NEPHU catchment who were fully engaged in employment, education, or training ranged from 724 (Whittlesea LGA) to 125 (Nillumbik LGA).
+- The number of people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander in the Census living in different LGAs within the NEPHU catchment who were fully engaged in employment, education, or training ranged from 724 (Whittlesea LGA) to 125 (Nillumbik LGA).
 
-- The percentage of people who identified as Aboriginal and/or Torres Strait Islander in the Census living in different LGAs within the NEPHU catchment who were fully engaged in employment, education, or training ranged from 63% (Boroondara LGA) to 49% (Darebin LGA).
+- The percentage of people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander in the Census living in different LGAs within the NEPHU catchment who were fully engaged in employment, education, or training ranged from 63% (Boroondara LGA) to 49% (Darebin LGA).
 
 - Younger people were more likely to be fully or partially engaged in employment, education, or training. Males were more likely to be fully engaged and females were more likely to be partially engaged.
 
@@ -168,16 +172,20 @@ engaged_agesex <- engaged_agesex %>%
 
 :::: {.panel-tabset}
 
-#### Figure 6D-1
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_6D_1 .fig-tab-title}
-**Figure 6D-1:** Engagement in employment, education, or training for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Engagement in employment, education, or training for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 engaged_lga %>% 
   dplyr::filter(lga_name %in% nephu_lga) %>% 
   #
@@ -198,23 +206,28 @@ engaged_lga %>%
                     n_level     = "people")
 ```
 
-#### Table 6D-1
 
-::: {#tab_6D_1 .fig-tab-title}
-**Table 6D-1:** Engagement in employment, education, or training for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Engagement in employment, education, or training for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- engaged_lga %>% 
   dplyr::filter(lga_name %in% c(nephu_lga, "NEPHU"))
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -236,18 +249,22 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Figure 6D-2
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_6D_2 .fig-tab-title}
-**Figure 6D-2:** Engagement in employment, education, or training for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Engagement in employment, education, or training for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 engaged_agesex %>% 
   dplyr::filter(age_group %in% age_group_lvl) %>% 
   #
@@ -268,22 +285,27 @@ engaged_agesex %>%
                        n_level     = "people")
 ```
 
-#### Table 6D-2
 
-::: {#tab_6D_2 .fig-tab-title}
-**Table 6D-2:** Engagement in employment, education, or training for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Engagement in employment, education, or training for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- engaged_agesex
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -329,7 +351,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -343,6 +365,21 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 6D-1 and Table 6D-1:
+  - Numerator: Number of Aboriginal and/or Torres Strait Islander people in each employment category
+  - Denominator: `r note_denominator_census_aboriginal`
+  - Disaggregation: `r note_disaggregation_lga`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 6D-2 and Table 6D-2:
+  - Numerator: Number of Aboriginal and/or Torres Strait Islander people in each employment category
+  - Denominator: `r note_denominator_census_aboriginal`
+  - Disaggregation: `r note_disaggregation_agesex`
+
 :::
 
 ### Young Adults
@@ -485,16 +522,20 @@ fully_age <- f_read_ctg_indigenous("CTG07_Employment_Education_Data_Tables.xlsx"
 
 :::: {.panel-tabset}
 
-#### Figure 6D-3
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_6D_3 .fig-tab-title}
-**Figure 6D-3:** Percentage of people aged 15-24 years who identified as Aboriginal and/or Torres Strait Islander and who were fully engaged in education, employment, or training, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Percentage of people aged 15-24 years who identified as Aboriginal and/or Torres Strait Islander and who were fully engaged in education, employment, or training, Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 fully_trend %>% 
   dplyr::filter(unit == "prop") %>%
   #
@@ -505,24 +546,29 @@ fully_trend %>%
                             ctg_target = 67)
 ```
 
-#### Table 6D-3
 
-::: {#tab_6D_3 .fig-tab-title}
-**Table 6D-3:** Number and percentage of people aged 15-24 years who identified as Aboriginal and/or Torres Strait Islander and who were fully engaged in education, employment, or training, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Number and percentage of people aged 15-24 years who identified as Aboriginal and/or Torres Strait Islander and who were fully engaged in education, employment, or training, Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- fully_trend %>% 
   f_preptable_grouped_indigenous(x_variable = year,
                                  n_variable = "n and prop")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -537,18 +583,22 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Figure 6D-4
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_6D_4 .fig-tab-title}
-**Figure 6D-4:** Number and percentage of people aged 15-24 years who identified as Aboriginal and/or Torres Strait Islander and who were fully engaged in education, employment, or training, NEPHU catchment, by LGA, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and percentage of people aged 15-24 years who identified as Aboriginal and/or Torres Strait Islander and who were fully engaged in education, employment, or training, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- fully_youth_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_n,
                    n_level    = "people aged 15-24 yrs")
@@ -561,37 +611,47 @@ figure_percent <- fully_youth_lga %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-#### Figure 6D-5
 
-::: {#fig_6D_5 .fig-tab-title}
-**Figure 6D-5:** Observed vs. expected number of people aged 15-24 years who were fully engaged in education, employment, or training and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Observed vs. expected number of people aged 15-24 years who were fully engaged in education, employment, or training and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 fully_youth_lga %>%
   f_bar_obsexp_lga(n_level = "people aged 15-24 yrs")
 ```
 
-#### Table 6D-4
 
-::: {#tab_6D_4 .fig-tab-title}
-**Table 6D-4:** Observed vs. expected number of people aged 15-24 years who were fully engaged in education, employment, or training and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Observed vs. expected number of people aged 15-24 years who were fully engaged in education, employment, or training and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- fully_youth_lga %>%
   f_preptable_obsexp_lga()
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -602,25 +662,29 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Table 6D-5
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
 
-::: {#tab_6D_5 .fig-tab-title}
-**Table 6D-5:** Observed vs. expected number of people aged 15-24 years who were fully engaged in education, employment, or training and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by sex, 2021
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Observed vs. expected number of people aged 15-24 years who were fully engaged in education, employment, or training and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by sex, 2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- fully_youth_sex %>%
   f_preptable_obsexp_sex()
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -631,18 +695,22 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Figure 6D-6
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_6D_6 .fig-tab-title}
-**Figure 6D-6:** Percentage of people aged 15-24 years who were fully engaged in education, employment, or training, Victoria, by Aboriginal and/or Torres Strait Islander status and age, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Percentage of people aged 15-24 years who were fully engaged in education, employment, or training, Victoria, by Aboriginal and/or Torres Strait Islander status and age, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 fully_age %>%
   dplyr::filter(unit == "prop") %>%
   #
@@ -654,24 +722,29 @@ fully_age %>%
                            legend_offset = -0.1)
 ```
 
-#### Table 6D-6
 
-::: {#tab_6D_6 .fig-tab-title}
-**Table 6D-6:** Number and percentage of people aged 15-24 years who were fully engaged in education, employment, or training, Victoria, by Aboriginal and/or Torres Strait Islander status and age, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Number and percentage of people aged 15-24 years who were fully engaged in education, employment, or training, Victoria, by Aboriginal and/or Torres Strait Islander status and age, 2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- fully_age %>% 
   f_preptable_grouped_indigenous(x_variable = age,
                                  n_variable = "n and prop")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -686,7 +759,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -695,16 +768,46 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
-- Data for Figure 6D-3 and Table 6D-3 were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the ABS Census for the Census years between 2001 and 2021.
-  - The Closing the Gap Information Repository brings together data from a wide range of data sources to provide up to date information for each Closing the Gap target, indicator, and contextual factors.
-
-<div style="height: 0.1em;"></div>
-
 `r note_caveat_underidentification`
 
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 6D-3 and Table 6D-3:
+  - Numerator: Number of people aged 15-24 years who were fully engaged in education, employment, or training
+  - Denominator: Total number of people aged 15-24 years who completed the Census
+  - Disaggregation: `r note_disaggregation_year`
+  - Comparison: `r note_comparison_aboriginal`
+  - Data were sourced from the Census via the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/)
+
+<div style="height: 0.1em;"></div>
+
+- Figure 6D-4, Figure 6D-5, and Table 6D-4:
+  - Numerator: Number of people aged 15-24 years who were fully engaged in education, employment, or training
+  - Denominator: Total number of people aged 15-24 years who completed the Census
+  - Disaggregation: `r note_disaggregation_lga`
+  - Comparison: `r note_comparison_aboriginal`
+
+<div style="height: 0.1em;"></div>
+
+- Table 6D-5:
+  - Numerator: Number of people aged 15-24 years who were fully engaged in education, employment, or training
+  - Denominator: Total number of people aged 15-24 years who completed the Census
+  - Disaggregation: `r note_disaggregation_sex`
+  - Comparison: `r note_comparison_aboriginal`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 6D-6 and Table 6D-6:
+  - Numerator: Number of people who were fully engaged in education, employment, or training
+  - Denominator: `r note_denominator_census_population`
+  - Disaggregation: `r note_disaggregation_age`
+  - Comparison: `r note_comparison_aboriginal`
+  - Data were sourced from the Census via the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/)
+
 :::
 
 ```{r}
@@ -808,7 +911,7 @@ status_agesex <- status_agesex %>%
 
 - Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
 
-- Overall, 36% (n = 2,970) of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census were employed full-time, 19% (n = 1,599) were employed part-time, 5.2% (n = 435) were on leave from work, and 40% (n = 3,355) were unemployed. Unemployed people includes both people who are not part of the labour force and those who were actively looking for work.
+- Overall, 36% (n = 2,970) of people aged 15 years and over living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census were employed full-time, 19% (n = 1,599) were employed part-time, 5.2% (n = 435) were on leave from work, and 40% (n = 3,355) were unemployed. Unemployed people includes both people who are not part of the labour force and those who were actively looking for work.
 
 - This was similar to non-Indigenous people living in the NEPHU catchment (38% employed full-time, 22% employed part-time, 4.0% on leave from work, and 37% unemployed).
 
@@ -851,16 +954,20 @@ status_agesex <- status_agesex %>%
 
 :::: {.panel-tabset}
 
-#### Figure 6D-7
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_6D_7 .fig-tab-title}
-**Figure 6D-7:** Employment status for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Employment status for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 status_lga %>% 
   dplyr::filter(lga_name %in% nephu_lga) %>% 
   #
@@ -883,23 +990,28 @@ status_lga %>%
                     n_level     = "people")
 ```
 
-#### Table 6D-7
 
-::: {#tab_6D_7 .fig-tab-title}
-**Table 6D-7:** Employment status for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Employment status for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- status_lga %>% 
   dplyr::filter(lga_name %in% c(nephu_lga, "NEPHU"))
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -924,18 +1036,22 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Figure 6D-8
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_6D_8 .fig-tab-title}
-**Figure 6D-8:** Employment status for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Employment status for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 status_agesex %>% 
   dplyr::filter(age_group %in% age_group_lvl) %>% 
   #
@@ -958,22 +1074,27 @@ status_agesex %>%
                        n_level     = "people")
 ```
 
-#### Table 6D-8
 
-::: {#tab_6D_8 .fig-tab-title}
-**Table 6D-8:** Employment status for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Employment status for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- status_agesex
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -1034,7 +1155,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -1048,6 +1169,21 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 6D-7 and Table 6D-7:
+  - Numerator: Number of Aboriginal and/or Torres Strait Islander people in each employment category
+  - Denominator: `r note_denominator_census_aboriginal`
+  - Disaggregation: `r note_disaggregation_lga`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 6D-8 and Table 6D-8:
+  - Numerator: Number of Aboriginal and/or Torres Strait Islander people in each employment category
+  - Denominator: `r note_denominator_census_aboriginal`
+  - Disaggregation: `r note_disaggregation_agesex`
+
 :::
 
 ### Working Age Adults
@@ -1112,7 +1248,6 @@ status_working_sex <- status_working %>%
                                    sex       = "NEPHU") %>% 
                      #
                      dplyr::select(-lga_name))
-
 ```
 
 - Data for this topic were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the ABS Census for the Census years between 2001 and 2021, as well as the [ABS Census 2021](https://www.abs.gov.au/census).
@@ -1168,16 +1303,20 @@ status_working_sex <- status_working %>%
 
 :::: {.panel-tabset}
 
-#### Figure 6D-9
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_6D_9 .fig-tab-title}
-**Figure 6D-9:** Percentage of people aged 25-64 years who were employed (full-time, part-time, or on leave), Victoria, by Aboriginal and/or Torres Strait Islander status and year
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Percentage of people aged 25-64 years who were employed (full-time, part-time, or on leave), Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 status_trend %>% 
   dplyr::filter(unit == "prop") %>%
   #
@@ -1188,24 +1327,29 @@ status_trend %>%
                             ctg_target = 62)
 ```
 
-#### Table 6D-9
 
-::: {#tab_6D_9 .fig-tab-title}
-**Table 6D-9:** Number and percentage of people aged 25-64 years who were employed (full-time, part-time, or on leave), Victoria, by Aboriginal and/or Torres Strait Islander status and year
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Number and percentage of people aged 25-64 years who were employed (full-time, part-time, or on leave), Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- status_trend %>% 
   f_preptable_grouped_indigenous(x_variable = year,
                                  n_variable = "n and prop")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -1220,18 +1364,22 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Figure 6D-10
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_6D_10 .fig-tab-title}
-**Figure 6D-10:** Number and percentage of people aged 25-64 years who identified as Aboriginal and/or Torres Strait Islander and who were employed (full-time, part-time, or on leave), NEPHU catchment, by LGA, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and percentage of people aged 25-64 years who identified as Aboriginal and/or Torres Strait Islander and who were employed (full-time, part-time, or on leave), NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- status_working_lga %>%
   f_bar_simple_lga(y_variable = aboriginal_n,
                    n_level    = "people aged 25-64 yrs")
@@ -1244,37 +1392,47 @@ figure_percent <- status_working_lga %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-#### Figure 6D-11
 
-::: {#fig_6D_11 .fig-tab-title}
-**Figure 6D-11:** Observed vs. expected number of people aged 25-64 years who were employed (full-time, part-time, or on leave) and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Observed vs. expected number of people aged 25-64 years who were employed (full-time, part-time, or on leave) and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 status_working_lga %>%
   f_bar_obsexp_lga(n_level = "people aged 25-64 yrs")
 ```
 
-#### Table 6D-10
 
-::: {#tab_6D_10 .fig-tab-title}
-**Table 6D-10:** Observed vs. expected number of people aged 25-64 years who were employed (full-time, part-time, or on leave) and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Observed vs. expected number of people aged 25-64 years who were employed (full-time, part-time, or on leave) and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- status_working_lga %>%
   f_preptable_obsexp_lga()
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -1285,25 +1443,29 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Table 6D-11
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
 
-::: {#tab_6D_11 .fig-tab-title}
-**Table 6D-11:** Observed vs. expected number of people aged 25-64 years who were employed (full-time, part-time, or on leave) and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by sex, 2021
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Observed vs. expected number of people aged 25-64 years who were employed (full-time, part-time, or on leave) and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by sex, 2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- status_working_sex %>%
   f_preptable_obsexp_sex()
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -1314,7 +1476,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -1323,16 +1485,37 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
-- Data for Figure 6D-9 and Table 6D-9 were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the ABS Census for the Census years between 2001 and 2021.
-  - The Closing the Gap Information Repository brings together data from a wide range of data sources to provide up to date information for each Closing the Gap target, indicator, and contextual factors.
-
-<div style="height: 0.1em;"></div>
-
 `r note_caveat_underidentification`
 
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 6D-9 and Table 6D-9:
+  - Numerator: Number of people aged 25-64 years who were employed
+  - Denominator: Total number of people aged 25-64 years who completed the Census
+  - Disaggregation: `r note_disaggregation_year`
+  - Comparison: `r note_comparison_aboriginal`
+  - Data were sourced from the Census via the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/)
+
+<div style="height: 0.1em;"></div>
+
+- Figure 6D-10, Figure 6D-11, and Table 6D-10:
+  - Numerator: Number of people aged 25-64 years who were employed
+  - Denominator: Total number of people aged 25-64 years who completed the Census
+  - Disaggregation: `r note_disaggregation_lga`
+  - Comparison: `r note_comparison_aboriginal`
+
+<div style="height: 0.1em;"></div>
+
+- Table 6D-11:
+  - Numerator: Number of people aged 25-64 years who were employed
+  - Denominator: Total number of people aged 25-64 years who completed the Census
+  - Disaggregation: `r note_disaggregation_sex`
+  - Comparison: `r note_comparison_aboriginal`
+
 :::
 
 ```{r}
@@ -1387,13 +1570,13 @@ volunteer_agesex <- volunteer_agesex %>%
 
 - Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
 
-- Overall, 14% (n = 1,154) of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census did volunteer work for an organisation or group. This was similar to non-Indigenous people living in the NEPHU catchment (14%).
+- Overall, 14% (n = 1,154) of people aged 15 years and over living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census did volunteer work for an organisation or group. This was similar to non-Indigenous people living in the NEPHU catchment (14%).
 
-- The number of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who did volunteer work for an organisation or group ranged from 193 (Yarra Ranges LGA) to 34 (Nillumbik LGA).
+- The number of people aged 15 years and over living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who did volunteer work for an organisation or group ranged from 193 (Yarra Ranges LGA) to 34 (Nillumbik LGA).
 
-- The gap between the observed number of Aboriginal and/or Torres Strait Islander people and the expected number if the proportion was the same as for non-Indigenous people was biggest for Whittlesea and Hume LGAs.
+- The number of Aboriginal and/or Torres Strait Islander people aged 15 years and over undertaking volunteer work was higher than the expected number if the proportion was the same as for non-Indigenous people for 8 of the 12 LGAs in the NEPHU catchment, indicating that Aboriginal and/or Torres Strait Islander people do more volunteer work. The gap was biggest for Whittlesea and Hume LGAs.
 
-- The percentage of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who did volunteer work for an organisation or group ranged from 22% (Yarra LGA) to 9.3% (Hume LGA).
+- The percentage of people aged 15 years and over living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who did volunteer work for an organisation or group ranged from 22% (Yarra LGA) to 9.3% (Hume LGA).
 
 **Key points from stakeholder consultation**
 
@@ -1414,16 +1597,20 @@ volunteer_agesex <- volunteer_agesex %>%
 
 :::: {.panel-tabset}
 
-#### Figure 6D-12
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_6D_12 .fig-tab-title}
-**Figure 6D-12:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who did volunteer work for an organisation or group, NEPHU catchment, by LGA, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and percentage of people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander and who did volunteer work for an organisation or group, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- volunteer_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_n)
 
@@ -1433,37 +1620,47 @@ figure_percent <- volunteer_lga %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-#### Figure 6D-13
 
-::: {#fig_6D_13 .fig-tab-title}
-**Figure 6D-13:** Observed vs. expected number of people who did volunteer work for an organisation or group and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Observed vs. expected number of people aged 15 years and over who did volunteer work for an organisation or group and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 volunteer_lga %>% 
   f_bar_obsexp_lga()
 ```
 
-#### Table 6D-12
 
-::: {#tab_6D_12 .fig-tab-title}
-**Table 6D-12:** Observed vs. expected number of people who did volunteer work for an organisation or group and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Observed vs. expected number of people aged 15 years and over who did volunteer work for an organisation or group and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- volunteer_lga %>%
   f_preptable_obsexp_lga()
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -1474,18 +1671,22 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Figure 6D-14
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_6D_14 .fig-tab-title}
-**Figure 6D-14:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who did volunteer work for an organisation or group, NEPHU catchment, by age and sex, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and percentage of people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander and who did volunteer work for an organisation or group, NEPHU catchment, by age and sex, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- volunteer_agesex %>% 
   f_bar_grouped_agesex(y_variable = aboriginal_n)
 
@@ -1495,37 +1696,47 @@ figure_percent <- volunteer_agesex %>%
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
 
-#### Figure 6D-15
 
-::: {#fig_6D_15 .fig-tab-title}
-**Figure 6D-15:** Observed vs. expected number of people who did volunteer work for an organisation or group and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021 
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Observed vs. expected number of people aged 15 years and over who did volunteer work for an organisation or group and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021 
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 volunteer_agesex %>%
   f_bar_obsexp_agesex()
 ```
 
-#### Table 6D-13
 
-::: {#tab_6D_13 .fig-tab-title}
-**Table 6D-13:** Observed vs. expected number of people who did volunteer work for an organisation or group and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Observed vs. expected number of people aged 15 years and over who did volunteer work for an organisation or group and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- volunteer_agesex %>%
   f_preptable_obsexp_agesex()
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -1550,7 +1761,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -1564,6 +1775,23 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 6D-12, Figure 6D-13, and Table 6D-12:
+  - Numerator: Number of people who did volunteer work for an organisation or group
+  - Denominator: `r note_denominator_census_population`
+  - Disaggregation: `r note_disaggregation_lga`
+  - Comparison: `r note_comparison_aboriginal`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 6D-14, Figure 6D-15, and Table 6D-13:
+  - Numerator: Number of people who did volunteer work for an organisation or group
+  - Denominator: `r note_denominator_census_population`
+  - Disaggregation: `r note_disaggregation_agesex`
+  - Comparison: `r note_comparison_aboriginal`
+
 :::
 
 ```{r}
@@ -1619,13 +1847,13 @@ carer_agesex <- carer_agesex %>%
 
 - Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
 
-- Overall, 17% (n = 1,430) of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census undertook unpaid caring duties. This was higher than for non-Indigenous people living in the NEPHU catchment (14%).
+- Overall, 17% (n = 1,430) of people aged 15 years and over living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census undertook unpaid caring duties. This was higher than for non-Indigenous people living in the NEPHU catchment (14%).
 
-- The number of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who undertook unpaid caring duties ranged from 233 (Hume LGA) to 35 (Manningham LGA).
+- The number of people aged 15 years and over living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who undertook unpaid caring duties ranged from 233 (Hume LGA) to 35 (Manningham LGA).
 
-- The gap between the observed number of Aboriginal and/or Torres Strait Islander people and the expected number if the proportion was the same as for non-Indigenous people was biggest for Hume, Knox, and Whittlesea LGAs.
+- The number of Aboriginal and/or Torres Strait Islander people aged 15 years and over undertaking unpaid caring duties was higher than the expected number if the proportion was the same as for non-Indigenous people for 10 of the 12 LGAs in the NEPHU catchment, indicating that Aboriginal and/or Torres Strait Islander people do more unpaid caring. The gap was biggest for Hume, Knox, and Whittlesea LGAs.
 
-- The percentage of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who undertook unpaid caring duties ranged from 22% (Whitehorse LGA) to 13% (Yarra LGA).
+- The percentage of people aged 15 years and over living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who undertook unpaid caring duties ranged from 22% (Whitehorse LGA) to 13% (Yarra LGA).
 
 - Females were more likely to undertake unpaid caring duties compared to males.
 
@@ -1650,16 +1878,20 @@ carer_agesex <- carer_agesex %>%
 
 :::: {.panel-tabset}
 
-#### Figure 6D-16
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_6D_16 .fig-tab-title}
-**Figure 6D-16:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who undertook unpaid caring duties, NEPHU catchment, by LGA, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and percentage of people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander and who undertook unpaid caring duties, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- carer_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_n)
 
@@ -1669,37 +1901,47 @@ figure_percent <- carer_lga %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-#### Figure 6D-17
 
-::: {#fig_6D_17 .fig-tab-title}
-**Figure 6D-17:** Observed vs. expected number of people who undertook unpaid caring duties and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Observed vs. expected number of people aged 15 years and over who undertook unpaid caring duties and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 carer_lga %>% 
   f_bar_obsexp_lga()
 ```
 
-#### Table 6D-14
 
-::: {#tab_6D_14 .fig-tab-title}
-**Table 6D-14:** Observed vs. expected number of people who undertook unpaid caring duties and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Observed vs. expected number of people aged 15 years and over who undertook unpaid caring duties and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- carer_lga %>%
   f_preptable_obsexp_lga()
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -1710,18 +1952,22 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Figure 6D-18
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_6D_18 .fig-tab-title}
-**Figure 6D-18:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who undertook unpaid caring duties, NEPHU catchment, by age and sex, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and percentage of people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander and who undertook unpaid caring duties, NEPHU catchment, by age and sex, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- carer_agesex %>% 
   f_bar_grouped_agesex(y_variable = aboriginal_n)
 
@@ -1731,37 +1977,47 @@ figure_percent <- carer_agesex %>%
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
 
-#### Figure 6D-19
 
-::: {#fig_6D_19 .fig-tab-title}
-**Figure 6D-19:** Observed vs. expected number of people who undertook unpaid caring duties and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Observed vs. expected number of people aged 15 years and over who undertook unpaid caring duties and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 carer_agesex %>% 
   f_bar_obsexp_agesex()
 ```
 
-#### Table 6D-15
 
-::: {#tab_6D_15 .fig-tab-title}
-**Table 6D-15:** Observed vs. expected number of people who undertook unpaid caring duties and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Observed vs. expected number of people aged 15 years and over who undertook unpaid caring duties and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- carer_agesex %>%
   f_preptable_obsexp_agesex()
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -1786,7 +2042,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -1800,5 +2056,22 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 6D-16, Figure 6D-17, and Table 6D-14:
+  - Numerator: Number of people who undertook unpaid caring duties
+  - Denominator: `r note_denominator_census_population`
+  - Disaggregation: `r note_disaggregation_lga`
+  - Comparison: `r note_comparison_aboriginal`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 6D-18, Figure 6D-19, and Table 6D-15:
+  - Numerator: Number of people who undertook unpaid caring duties
+  - Denominator: `r note_denominator_census_population`
+  - Disaggregation: `r note_disaggregation_agesex`
+  - Comparison: `r note_comparison_aboriginal`
+
 :::
 
