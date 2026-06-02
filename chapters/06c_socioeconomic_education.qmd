@@ -7,13 +7,13 @@ title-block: false
 ```{r}
 #
 source(here::here("setup.R"))
-source(here::here("setup_footnotes.R"))
 
-# Set up numbering for exporting tables as .csv
-table_section <- "06C"
-table_count   <- 0
+# Set up numbering for figures and tables
+figtab_report_section <- "6C" 
+figtab_csv_section    <- "06C"
 
-figure_count <- 0
+figtab_table_count  <- 0 
+figtab_figure_count <- 0 
 ```
 
 
@@ -24,17 +24,21 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Education {.unnumbered}
 
-::: {.caveat-box}
-**A note about the impact of under-identification**
+::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
+`r note_chapter_comparisons` 
 
-`r note_box_underidentification`
+<div style="height: 0.1em;"></div> 
 
-**A note about interpreting observed vs. expected figures**
+`r note_chapter_underidentification`
 
-`r note_box_obsexp`
+<div style="height: 0.1em;"></div> 
+
+`r note_chapter_masking`
+
+<div style="height: 0.1em;"></div> 
+
+`r note_chapter_obsexp`
 :::
-
-<div style="height: 2em;"></div>
 
 ::: {.key-question}
 What is the average educational attainment for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment?
@@ -153,16 +157,20 @@ school_agesex <- school_agesex %>%
 
 :::: {.panel-tabset}
 
-#### Figure 6C-1
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_6C_1 .fig-tab-title}
-**Figure 6C-1:** Highest level of school completed for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Highest level of school completed for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 school_lga %>% 
   dplyr::filter(lga_name %in% nephu_lga) %>% 
   #
@@ -183,23 +191,28 @@ school_lga %>%
                     n_level     = "people")
 ```
 
-#### Table 6C-1
 
-::: {#tab_6C_1 .fig-tab-title}
-**Table 6C-1:** Highest level of school completed for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Highest level of school completed for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- school_lga %>% 
   dplyr::filter(lga_name %in% c(nephu_lga, "NEPHU"))
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -221,18 +234,22 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Figure 6C-2
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_6C_2 .fig-tab-title}
-**Figure 6C-2:** Highest level of school completed for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Highest level of school completed for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 school_agesex %>% 
   dplyr::filter(age_group %in% age_group_lvl) %>% 
   #
@@ -253,22 +270,27 @@ school_agesex %>%
                        n_level     = "people")
 ```
 
-#### Table 6C-2
 
-::: {#tab_6C_2 .fig-tab-title}
-**Table 6C-2:** Highest level of school completed for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Highest level of school completed for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- school_agesex
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -314,7 +336,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -332,6 +354,21 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - People who did not attend school are included in the *Year 8 and below* category.
+
+<div style="height: 0.1em;"></div>
+
+- Figure 6C-1 and Table 6C-1:
+  - Numerator: Number of Aboriginal and/or Torres Strait Islander people in each level of school completion category
+  - Denominator: `r note_denominator_census_aboriginal`
+  - Disaggregation: `r note_disaggregation_lga`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 6C-2 and Table 6C-2:
+  - Numerator: Number of Aboriginal and/or Torres Strait Islander people in each level of school completion category
+  - Denominator: `r note_denominator_census_aboriginal`
+  - Disaggregation: `r note_disaggregation_agesex`
+
 :::
 
 ```{r}
@@ -402,19 +439,21 @@ year12_sex <- year12_youth %>%
 
 - Data for this topic were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the ABS Census for the Census years between 2001 and 2021, as well as the [ABS Census 2021](https://www.abs.gov.au/census).
 
-- The percentage of Aboriginal and/or Torres Strait Islander people aged 20-24 years living in Victoria with a Year 12 or equivalent education increased from 49% in 2001 to 73% in 2021. 
+- The percentage of Aboriginal and/or Torres Strait Islander young people aged 20–24 years in Victoria who have completed Year 12 or an equivalent qualification has increased over time, from 49% in 2001 to 73% in 2021. 
 
-- Overall, 74% (n = 853) of people aged 20-24 years living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census had a Year 12 or equivalent education. This was lower than for non-Indigenous people living in the NEPHU catchment (89%). 
-
-- The number of people aged 20-24 years living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who had a Year 12 or equivalent education ranged from 141 (Whittlesea LGA) to 21 (Manningham LGA). 
+- In 2021, 74% (n = 853) of Aboriginal and Torres Strait Islander young people aged 20–24 years in the NEPHU catchment had completed Year 12 or an equivalent qualification. 
 
 - The gap between the observed number of Aboriginal and/or Torres Strait Islander people aged 20-24 years with a Year 12 or equivalent education and the expected number if the proportion was the same as for non-Indigenous people was biggest for Hume and Knox LGAs. 
 
 - The percentage of people aged 20-24 years living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who had a Year 12 or equivalent education ranged from 90% (Yarra LGA) to 65% (Knox LGA). 
 
-- All 12 NEPHU LGAs were below the Closing the Gap target of 96% of Aboriginal and/or Torres Strait Islander people aged 20-24 years attaining Year 12 or an equivalent qualification. 
+- All 12 NEPHU LGAs were below the Closing the Gap target of 96% of Aboriginal and/or Torres Strait Islander people aged 20-24 years attaining Year 12 or an equivalent qualification.
+
+- The variation seen across different LGAs within the NEPHU catchment reflect a range of social, cultural, and structural factors that influence access to education and opportunities for young people. 
 
 - 79% (n = 436) of females living in the NEPHU catchment aged 20-24 years who identified as Aboriginal and/or Torres Strait Islander in the Census had a Year 12 or equivalent education, compared to 71% (n = 417) of males.
+
+- Overall, these data highlight positive outcomes and continued progress in educational attainment among Aboriginal and Torres Strait Islander young people in the region. Ongoing support for culturally safe, accessible, and community-informed education pathways remains important to sustain and strengthen these outcomes.
 
 - Further historical and ongoing target context can be found on the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/student-learning-potential/).
 
@@ -446,16 +485,20 @@ year12_sex <- year12_youth %>%
 
 :::: {.panel-tabset}
 
-#### Figure 6C-3
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_6C_3 .fig-tab-title}
-**Figure 6C-3:** Percentage of people aged 20-24 years who identified as Aboriginal and/or Torres Strait Islander and who have completed Year 12 or equivalent, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Percentage of people aged 20-24 years who identified as Aboriginal and/or Torres Strait Islander and who have completed Year 12 or equivalent, Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 year12_trend %>% 
   dplyr::filter(unit == "prop") %>% 
   #
@@ -466,24 +509,29 @@ year12_trend %>%
                             ctg_target = 96)
 ```
 
-#### Table 6C-3
 
-::: {#tab_6C_3 .fig-tab-title}
-**Table 6C-3:** Number and percentage of people aged 20-24 years who identified as Aboriginal and/or Torres Strait Islander and who have completed Year 12 or equivalent, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Number and percentage of people aged 20-24 years who identified as Aboriginal and/or Torres Strait Islander and who have completed Year 12 or equivalent, Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- year12_trend %>%
   f_preptable_grouped_indigenous(x_variable = year,
                                  n_variable = "n and prop")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -498,18 +546,22 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Figure 6C-4
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_6C_4 .fig-tab-title}
-**Figure 6C-4:** Number and percentage of people aged 20-24 years who identified as Aboriginal and/or Torres Strait Islander and who have completed Year 12 or equivalent, NEPHU catchment, by LGA, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and percentage of people aged 20-24 years who identified as Aboriginal and/or Torres Strait Islander and who have completed Year 12 or equivalent, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- year12_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_n,
                    n_level    = "people aged 20-24 yrs")
@@ -522,37 +574,47 @@ figure_percent <- year12_lga %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-#### Figure 6C-5
 
-::: {#fig_6C_5 .fig-tab-title}
-**Figure 6C-5:** Observed vs. expected number of people aged 20-24 years who have completed Year 12 or equivalent and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Observed vs. expected number of people aged 20-24 years who have completed Year 12 or equivalent and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 year12_lga %>% 
   f_bar_obsexp_lga(n_level = "people aged 20-24 yrs")
 ```
 
-#### Table 6C-4
 
-::: {#tab_6C_4 .fig-tab-title}
-**Table 6C-4:** Observed vs. expected number of people aged 20-24 years who have completed Year 12 or equivalent and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Observed vs. expected number of people aged 20-24 years who have completed Year 12 or equivalent and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- year12_lga %>%
   f_preptable_obsexp_lga()
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -563,25 +625,29 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Table 6C-5
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
 
-::: {#tab_6C_5 .fig-tab-title}
-**Table 6C-5:** Observed vs. expected number of people aged 20-24 years who have completed Year 12 or equivalent and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by sex, 2021
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Observed vs. expected number of people aged 20-24 years who have completed Year 12 or equivalent and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by sex, 2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- year12_sex %>%
   f_preptable_obsexp_sex()
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -592,7 +658,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -601,16 +667,37 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
-- Data for Figure 6C-3 and Table 6C-3 were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the ABS Census for the Census years between 2001 and 2021.
-  - The Closing the Gap Information Repository brings together data from a wide range of data sources to provide up to date information for each Closing the Gap target, indicator, and contextual factors.
-
-<div style="height: 0.1em;"></div>
-
 `r note_caveat_underidentification`
 
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 6C-3 and Table 6C-3:
+  - Numerator: Number of people aged 20-24 years who have completed Year 12 or equivalent
+  - Denominator: Total number of people aged 20-24 years who completed the Census
+  - Disaggregation: `r note_disaggregation_year`
+  - Comparison: `r note_comparison_aboriginal`
+  - Data were sourced from the Census via the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/)
+
+<div style="height: 0.1em;"></div>
+
+- Figure 6C-4, Figure 6C-5, and Table 6C-4:
+  - Numerator: Number of people aged 20-24 years who have completed Year 12 or equivalent
+  - Denominator: Total number of people aged 20-24 years who completed the Census
+  - Disaggregation: `r note_disaggregation_lga`
+  - Comparison: `r note_comparison_aboriginal`
+
+<div style="height: 0.1em;"></div>
+
+- Table 6C-5:
+  - Numerator: Number of people aged 20-24 years who have completed Year 12 or equivalent
+  - Denominator: Total number of people aged 20-24 years who completed the Census
+  - Disaggregation: `r note_disaggregation_sex`
+  - Comparison: `r note_comparison_aboriginal`
+
 :::
 
 ```{r}
@@ -760,16 +847,20 @@ qualification_agesex <- qualification_agesex %>%
 
 :::: {.panel-tabset}
 
-#### Figure 6C-6
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_6C_6 .fig-tab-title}
-**Figure 6C-6:** Highest level of education for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Highest level of education for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 qualification_lga %>% 
   dplyr::filter(lga_name %in% nephu_lga) %>%
   #
@@ -792,23 +883,28 @@ qualification_lga %>%
                     n_level     = "people")
 ```
 
-#### Table 6C-6
 
-::: {#tab_6C_6 .fig-tab-title}
-**Table 6C-6:** Highest level of education for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Highest level of education for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- qualification_lga %>% 
   dplyr::filter(lga_name %in% c(nephu_lga, "NEPHU"))
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -833,18 +929,22 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Figure 6C-7
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_6C_7 .fig-tab-title}
-**Figure 6C-7:** Highest level of education for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Highest level of education for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 qualification_agesex %>% 
   dplyr::filter(age_group %in% age_group_lvl) %>%
   #
@@ -867,22 +967,27 @@ qualification_agesex %>%
                        n_level     = "people")
 ```
 
-#### Table 6C-7
 
-::: {#tab_6C_7 .fig-tab-title}
-**Table 6C-7:** Highest level of education for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Highest level of education for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- qualification_agesex
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -943,7 +1048,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -961,6 +1066,21 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - People who did not attend school are included in the *High School and below* category.
+
+<div style="height: 0.1em;"></div>
+
+- Figure 6C-6 and Table 6C-6:
+  - Numerator: Number of Aboriginal and/or Torres Strait Islander people in each level of education category
+  - Denominator: `r note_denominator_census_aboriginal`
+  - Disaggregation: `r note_disaggregation_lga`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 6C-7 and Table 6C-7:
+  - Numerator: Number of Aboriginal and/or Torres Strait Islander people in each level of education category
+  - Denominator: `r note_denominator_census_aboriginal`
+  - Disaggregation: `r note_disaggregation_agesex`
+
 :::
 
 ```{r}
@@ -1051,7 +1171,7 @@ uni_sex <- uni_youth %>%
 
 **Key points from stakeholder consultation**
 
-- 4 out of 12 LGAs in the NEPHU catchment currently above the Closing the Gap target, showing the progress that has been made in achieving this target.  
+- 4 out of 12 LGAs in the NEPHU catchment are currently above the Closing the Gap target, showing the progress that has been made in achieving this target.
 
 - Multiple Aboriginal Community-Controlled Organisations in Victoria are now offering programs for tertiary education.
 
@@ -1083,16 +1203,20 @@ uni_sex <- uni_youth %>%
 
 :::: {.panel-tabset}
 
-#### Figure 6C-8
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_6C_8 .fig-tab-title}
-**Figure 6C-8:** Percentage of people aged 25-34 years who identified as Aboriginal and/or Torres Strait Islander and who have completed a tertiary qualification (Certificate III and above), Victoria, by Aboriginal and/or Torres Strait Islander status and year
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Percentage of people aged 25-34 years who identified as Aboriginal and/or Torres Strait Islander and who have completed a tertiary qualification (Certificate III and above), Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 uni_trend %>% 
   dplyr::filter(unit == "prop") %>%
   dplyr::rename(prop = vic) %>% 
@@ -1102,24 +1226,29 @@ uni_trend %>%
                             ctg_target = 70)
 ```
 
-#### Table 6C-8
 
-::: {#tab_6C_8 .fig-tab-title}
-**Table 6C-8:** Number and percentage of people aged 25-34 years who identified as Aboriginal and/or Torres Strait Islander and who have completed a tertiary qualification (Certificate III and above), Victoria, by Aboriginal and/or Torres Strait Islander status and year
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Number and percentage of people aged 25-34 years who identified as Aboriginal and/or Torres Strait Islander and who have completed a tertiary qualification (Certificate III and above), Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- uni_trend %>% 
   f_preptable_grouped_indigenous(x_variable = year,
                                  n_variable = "n and prop")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -1134,18 +1263,22 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Figure 6C-9
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_6C_9 .fig-tab-title}
-**Figure 6C-9:** Number and percentage of people aged 25-34 years who identified as Aboriginal and/or Torres Strait Islander and who have completed a tertiary qualification (Certificate III and above), NEPHU catchment, by LGA, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and percentage of people aged 25-34 years who identified as Aboriginal and/or Torres Strait Islander and who have completed a tertiary qualification (Certificate III and above), NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- uni_lga %>%
   f_bar_simple_lga(y_variable = aboriginal_n,
                    n_level    = "people aged 25-34 yrs")
@@ -1158,37 +1291,47 @@ figure_percent <- uni_lga %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-#### Figure 6C-10
 
-::: {#fig_6C_10 .fig-tab-title}
-**Figure 6C-10:** Observed vs. expected number of people aged 25-34 years who have completed a tertiary qualification (Certificate III and above) and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Observed vs. expected number of people aged 25-34 years who have completed a tertiary qualification (Certificate III and above) and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 uni_lga %>% 
   f_bar_obsexp_lga(n_level = "people aged 25-34 yrs")
 ```
 
-#### Table 6C-9
 
-::: {#tab_6C_9 .fig-tab-title}
-**Table 6C-9:** Observed vs. expected number of people aged 25-34 years who have completed a tertiary qualification (Certificate III and above) and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Observed vs. expected number of people aged 25-34 years who have completed a tertiary qualification (Certificate III and above) and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- uni_lga %>%
   f_preptable_obsexp_lga()
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -1199,25 +1342,29 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Table 6C-10
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
 
-::: {#tab_6C_10 .fig-tab-title}
-**Table 6C-10:** Observed vs. expected number of people aged 25-34 years who have completed a tertiary qualification (Certificate III and above) and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by sex, 2021
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Observed vs. expected number of people aged 25-34 years who have completed a tertiary qualification (Certificate III and above) and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by sex, 2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- uni_sex %>%
   f_preptable_obsexp_sex()
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -1228,7 +1375,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -1237,15 +1384,36 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
-- Data for Figure 6C-8 and Table 6C-8 were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the ABS Census for the Census years between 2001 and 2021.
-  - The Closing the Gap Information Repository brings together data from a wide range of data sources to provide up to date information for each Closing the Gap target, indicator, and contextual factors.
-
-<div style="height: 0.1em;"></div>
-
 `r note_caveat_underidentification`
 
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 6C-8 and Table 6C-8:
+  - Numerator: Number of people aged 25-34 years who have completed a tertiary qualification
+  - Denominator: Total number of people aged 25-34 years who completed the Census
+  - Disaggregation: `r note_disaggregation_year`
+  - Comparison: `r note_comparison_aboriginal`
+  - Data were sourced from the Census via the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/)
+
+<div style="height: 0.1em;"></div>
+
+- Figure 6C-9, Figure 6C-10, and Table 6C-9:
+  - Numerator: Number of people aged 25-34 years who have completed a tertiary qualification
+  - Denominator: Total number of people aged 25-34 years who completed the Census
+  - Disaggregation: `r note_disaggregation_lga`
+  - Comparison: `r note_comparison_aboriginal`
+
+<div style="height: 0.1em;"></div>
+
+- Table 6C-10:
+  - Numerator: Number of people aged 25-34 years who have completed a tertiary qualification
+  - Denominator: Total number of people aged 25-34 years who completed the Census
+  - Disaggregation: `r note_disaggregation_sex`
+  - Comparison: `r note_comparison_aboriginal`
+
 :::
 
