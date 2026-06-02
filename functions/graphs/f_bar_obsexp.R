@@ -72,7 +72,7 @@ f_bar_obsexp_lga <- function(data, n_level = "people") {
                    #
                    yaxis = list(tickfont = list(family = "Karla"),
                                 #
-                                title = list(text     = y_title,
+                                title = list(text     = paste0("Number of ", n_level),
                                              font     = list(size = 13, family = "Karla"),
                                              standoff = 10)),
                    #

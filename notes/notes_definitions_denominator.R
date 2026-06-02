@@ -22,6 +22,7 @@ note_disaggregation_sa2  <- "Statistical Area Level 2 (SA2)"
 note_disaggregation_iare <- "Indigenous Area of Residence (IARE)"
 
 note_disaggregation_agesex <- "Age and sex"
+note_disaggregation_sex <- "Sex"
 
 note_disaggregation_year <- "Year"
 
