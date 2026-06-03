@@ -7,13 +7,13 @@ title-block: false
 ```{r}
 #
 source(here::here("setup.R"))
-source(here::here("setup_footnotes.R"))
 
-# Set up numbering for exporting tables as .csv
-table_section <- "06F"
-table_count   <- 0
+# Set up numbering for figures and tables
+figtab_report_section <- "6F"
+figtab_csv_section    <- "06F"
 
-figure_count <- 0
+figtab_table_count  <- 0
+figtab_figure_count <- 0
 ```
 
 
@@ -24,17 +24,25 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Housing {.unnumbered}
 
-::: {.caveat-box}
-**A note about the impact of under-identification**
+::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
+`r note_chapter_different_sources`
 
-`r note_box_underidentification`
+<div style="height: 0.1em;"></div>
 
-**A note about interpreting observed vs. expected figures**
+`r note_chapter_comparisons`
 
-`r note_box_obsexp`
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_masking`
+
+<div style="height: 0.1em;"></div>  
+
+`r note_chapter_obsexp`
 :::
-
-<div style="height: 2em;"></div>
 
 ::: {.key-question}
 Are Aboriginal and/or Torres Strait Islander people in the NEPHU catchment living in affordable and suitable housing?
@@ -73,7 +81,6 @@ overcrowded_lga <- f_read_census_lga("Aboriginal_Household_Overcrowding_LGA.csv"
     overcrowding == "Two bedrooms spare"                 ~ "Yes",
     overcrowding == "Three bedrooms spare"               ~ "Yes",
     overcrowding == "Four or more bedrooms spare"        ~ "Yes",
-    #
     TRUE ~ NA_character_))
 
 # Data wrangling - by LGA
@@ -121,16 +128,20 @@ overcrowded_lga <- overcrowded_lga %>%
 
 :::: {.panel-tabset}
 
-#### Figure 6F-1
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_6F_1 .fig-tab-title}
-**Figure 6F-1:** Number and percentage of appropriately sized (not overcrowded) Aboriginal and/or Torres Strait Islander households, NEPHU catchment, by LGA, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and percentage of appropriately sized (not overcrowded) Aboriginal and/or Torres Strait Islander households, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- overcrowded_lga %>%
   f_bar_simple_lga(y_variable = aboriginal_n,
                    n_level    = "households")
@@ -143,37 +154,47 @@ figure_percent <- overcrowded_lga %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-#### Figure 6F-2
 
-::: {#fig_6F_2 .fig-tab-title}
-**Figure 6F-2:** Observed vs. expected number of appropriately sized (not overcrowded) Aboriginal and/or Torres Strait Islander households, NEPHU catchment, by LGA, 2021
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Observed vs. expected number of appropriately sized (not overcrowded) Aboriginal and/or Torres Strait Islander households, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 overcrowded_lga %>% 
   f_bar_obsexp_lga(n_level = "households")
 ```
 
-#### Table 6F-1
 
-::: {#tab_6F_1 .fig-tab-title}
-**Table 6F-1:** Observed vs. expected number of appropriately sized (not overcrowded) Aboriginal and/or Torres Strait Islander households, NEPHU catchment, by LGA, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Observed vs. expected number of appropriately sized (not overcrowded) Aboriginal and/or Torres Strait Islander households, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- overcrowded_lga %>%
   f_preptable_obsexp_lga()
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -184,7 +205,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -194,6 +215,15 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 6F-1, Figure 6F-2, and Table 6F-1:
+  - Numerator: Number of households where extra bedrooms were not required
+  - Denominator: Total number of households with at least one Aboriginal and/or Torres Strait Islander member
+  - Disaggregation: `r note_disaggregation_lga`
+  - Comparison: `r note_comparison_aboriginal`
+
 :::
 
 ### Housing Quality
@@ -231,7 +261,7 @@ suitability_acceptable <- suitability_acceptable %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -279,7 +309,7 @@ suitability_structural <- suitability_structural %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!c(sex, category),
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -325,7 +355,7 @@ suitability_bathroom <- suitability_bathroom %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!c(sex, category),
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -371,7 +401,7 @@ suitability_kitchen <- suitability_kitchen %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!c(sex, category),
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -417,7 +447,7 @@ suitability_laundry <- suitability_laundry %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!c(sex, category),
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -463,7 +493,7 @@ suitability_sewerage <- suitability_sewerage %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!c(sex, category),
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -527,23 +557,27 @@ suitability_combined <- suitability_structural %>%
 
 :::: {.panel-tabset}
 
-#### Table 6F-2
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
 
-::: {#tab_6F_2 .fig-tab-title}
-**Table 6F-2:** Whether they were living in a house or dwelling of acceptable standard for people who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Whether they were living in a house or dwelling of acceptable standard for people who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- suitability_acceptable %>% 
   f_preptable_grouped_sex(variable_name = "acceptable_standard")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -558,18 +592,22 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Figure 6F-3
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_6F_3 .fig-tab-title}
-**Figure 6F-3:** Housing quality issues reported by people who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Housing quality issues reported by people who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- suitability_combined %>% 
   dplyr::filter(sex != "Total" & answer == "No") %>%
   dplyr::mutate(answer = dplyr::recode(category,
@@ -597,27 +635,38 @@ figure_percent <- suitability_combined %>%
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 ```
 
-#### Table 6F-3
 
-::: {#tab_6F_3 .fig-tab-title}
-**Table 6F-3:** Housing quality issues reported by people who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Housing quality issues reported by people who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- suitability_combined %>% 
   tidyr::pivot_wider(names_from  = "sex",
                      values_from = c("n", "prop"),
                      names_vary  = "slowest") %>% 
   #
-  janitor::clean_names()
+  janitor::clean_names() %>% 
+  #
+  dplyr::select(category,
+                answer,
+                ends_with("_female"),
+                ends_with("_male"),
+                ends_with("_total"))
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -643,7 +692,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -669,6 +718,14 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_multipleresponse`
+
+<div style="height: 0.1em;"></div>
+
+- Table 6F-2, Figure 6F-3, and Table 6F-3:
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Comparison: `r note_comparison_sex`
+
 :::
 
 ```{r}
@@ -732,7 +789,7 @@ tenure_lga <- tenure_lga %>%
 
 - The percentage of rented households with at least one member who identified as Aboriginal and/or Torres Strait Islander was higher than for non-Indigenous households (52% vs 27%), while the percentage of mortgaged or owned outright homes was lower than for non-Indigenous households (owned with mortgage: 30% vs 38%; owned outright: 16% vs 33%).
 
-- In Yarra (75%) and Darebin (76%) LGAs, higher proportions of households were rented, which may reflect the younger age profile of these LGAs.
+- In Darebin (76%) and Yarra (75%) LGAs, higher proportions of households were rented, which may reflect the younger age profile of these LGAs.
 
 ::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
 - The following question was asked of all people completing the ABS Census 2021:
@@ -754,16 +811,20 @@ tenure_lga <- tenure_lga %>%
 
 :::: {.panel-tabset}
 
-#### Figure 6F-4
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_6F_4 .fig-tab-title}
-**Figure 6F-4:** Housing tenure type for Aboriginal and/or Torres Strait Islander households, NEPHU catchment, by LGA, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Housing tenure type for Aboriginal and/or Torres Strait Islander households, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 tenure_lga %>% 
   dplyr::filter(lga_name %in% nephu_lga) %>% 
   #
@@ -782,27 +843,33 @@ tenure_lga %>%
                "Rented",
                "Other"))) %>% 
   
-  f_bar_stacked_lga(fill_values = c(colour_stack4, colour_stack3, colour_stack2, colour_stack1),
-                    n_level     = "households")
+  f_bar_stacked_lga(fill_values  = c(colour_stack4, colour_stack3, colour_stack2, colour_stack1),
+                    n_level      = "households",
+                    legend_order = "reversed")
 ```
 
-#### Table 6F-4
 
-::: {#tab_6F_4 .fig-tab-title}
-**Table 6F-4:** Housing tenure type for Aboriginal and/or Torres Strait Islander households, NEPHU catchment, by LGA, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Housing tenure type for Aboriginal and/or Torres Strait Islander households, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- tenure_lga %>% 
   dplyr::filter(lga_name %in% c(nephu_lga, "NEPHU"))
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -827,7 +894,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -841,6 +908,14 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - *Other* includes dwellings purchased under a shared equity scheme, occupied under a life tenure scheme (e.g. retirement villages), or occupied rent-free.
+
+<div style="height: 0.1em;"></div>
+
+- Figure 6F-4 and Table 6F-4:
+  - Numerator: Number of Aboriginal and/or Torres Strait Islander households in each category
+  - Denominator: Total number of households with at least one Aboriginal and/or Torres Strait Islander member
+  - Disaggregation: `r note_disaggregation_lga`
+
 :::
 
 ### Housing Stress
@@ -921,16 +996,20 @@ stress_lga <- mortgage_lga %>%
 
 :::: {.panel-tabset}
 
-#### Figure 6F-5
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_6F_5 .fig-tab-title}
-**Figure 6F-5:** Number and percentage of Aboriginal and/or Torres Strait Islander households that spent more than 30% of their annual household income on housing costs (mortgage or rent), NEPHU catchment, by LGA, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and percentage of Aboriginal and/or Torres Strait Islander households that spent more than 30% of their annual household income on housing costs (mortgage or rent), NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- stress_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_n,
                    n_level    = "households")
@@ -942,37 +1021,47 @@ figure_percent <- stress_lga %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-#### Figure 6F-6
 
-::: {#fig_6F_6 .fig-tab-title}
-**Figure 6F-6:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander households that spent more than 30% of their annual household income on housing costs (mortgage or rent), NEPHU catchment, by LGA, 2021
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander households that spent more than 30% of their annual household income on housing costs (mortgage or rent), NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 stress_lga %>%
   f_bar_obsexp_lga(n_level = "households")
 ```
 
-#### Table 6F-5
 
-::: {#tab_6F_5 .fig-tab-title}
-**Table 6F-5:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander households that spent more than 30% of their annual household income on housing costs (mortgage or rent), NEPHU catchment, by LGA, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander households that spent more than 30% of their annual household income on housing costs (mortgage or rent), NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- stress_lga %>%
   f_preptable_obsexp_lga()
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -983,7 +1072,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -997,6 +1086,15 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - A number of regions across the state were in various stages of lockdown on 2021 Census night. This resulted in a greater number of people being stood down from work than usual, which may have had an impact on housing affordability and housing stress.
+
+<div style="height: 0.1em;"></div>
+
+- Figure 6F-5, Figure 6F-6, and Table 6F-5:
+  - Numerator: Number of households in each category
+  - Denominator: Total number of households
+  - Disaggregation: `r note_disaggregation_lga`
+  - Comparison: `r note_comparison_aboriginal`
+
 :::
 
 ### Homelessness
@@ -1068,16 +1166,20 @@ homeless_agesex <- homeless_agesex %>%
 
 :::: {.panel-tabset}
 
-#### Figure 6F-7
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_6F_7 .fig-tab-title}
-**Figure 6F-7:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who were homeless or marginally housed on Census night, NEPHU catchment, by LGA, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who were homeless or marginally housed on Census night, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- homeless_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_n)
 
@@ -1087,37 +1189,47 @@ figure_percent <- homeless_lga %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-#### Figure 6F-8
 
-::: {#fig_6F_8 .fig-tab-title}
-**Figure 6F-8:** Observed vs. expected number of people who were homeless or marginally housed on Census night and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Observed vs. expected number of people who were homeless or marginally housed on Census night and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 homeless_lga %>%
   f_bar_obsexp_lga()
 ```
 
-#### Table 6F-6
 
-::: {#tab_6F_6 .fig-tab-title}
-**Table 6F-6:** Observed vs. expected number of people who were homeless or marginally housed on Census night and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Observed vs. expected number of people who were homeless or marginally housed on Census night and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- homeless_lga %>%
   f_preptable_obsexp_lga()
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -1128,18 +1240,22 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Figure 6F-9
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_6F_9 .fig-tab-title}
-**Figure 6F-9:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who were homeless or marginally housed on Census night, NEPHU catchment, by age and sex, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who were homeless or marginally housed on Census night, NEPHU catchment, by age and sex, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- homeless_agesex %>%
   f_bar_grouped_agesex(y_variable = aboriginal_n)
 
@@ -1149,37 +1265,47 @@ figure_percent <- homeless_agesex %>%
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
 
-#### Figure 6F-10
 
-::: {#fig_6F_10 .fig-tab-title}
-**Figure 6F-10:** Observed vs. expected number of people who were homeless or marginally housed on Census night and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Observed vs. expected number of people who were homeless or marginally housed on Census night and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 homeless_agesex %>%
   f_bar_obsexp_agesex()
 ```
 
-#### Table 6F-7
 
-::: {#tab_6F_7 .fig-tab-title}
-**Table 6F-7:** Observed vs. expected number of people who were homeless or marginally housed on Census night and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Observed vs. expected number of people who were homeless or marginally housed on Census night and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- homeless_agesex %>%
   f_preptable_obsexp_agesex()
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -1204,7 +1330,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -1222,5 +1348,22 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - A number of regions across the state were in various stages of lockdown on 2021 Census night. This resulted in a greater number of people being stood down from work than usual, which may have had an impact on housing affordability and housing stress.
+
+<div style="height: 0.1em;"></div>
+
+- Figure 6F-7, Figure 6F-8, and Table 6F-6:
+  - Numerator: Number of people who who were homeless or marginally housed on Census night
+  - Denominator: `r note_denominator_census_population`
+  - Disaggregation: `r note_disaggregation_lga`
+  - Comparison: `r note_comparison_aboriginal`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 6F-9, Figure 6F-10, and Table 6F-7:
+  - Numerator: Number of people who who were homeless or marginally housed on Census night
+  - Denominator: `r note_denominator_census_population`
+  - Disaggregation: `r note_disaggregation_agesex`
+  - Comparison: `r note_comparison_aboriginal`
+
 :::
 

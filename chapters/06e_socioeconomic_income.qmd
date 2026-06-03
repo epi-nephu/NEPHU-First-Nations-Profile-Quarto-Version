@@ -812,7 +812,7 @@ table %>%
 - Table 6E-4:
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
-  - Disaggregation: `r note_disaggregation_sex`
+  - Comparison: `r note_comparison_sex`
 
 :::
 
@@ -946,7 +946,7 @@ table %>%
 - Table 6E-5:
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
-  - Disaggregation: `r note_disaggregation_sex`
+  - Comparison: `r note_comparison_sex`
 
 :::
 
@@ -1139,7 +1139,7 @@ table %>%
 - Figure 6E-4 and Table 6E-6:
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
-  - Disaggregation: `r note_disaggregation_sex`
+  - Comparison: `r note_comparison_sex`
 
 :::
 
