@@ -7,13 +7,13 @@ title-false: false
 ```{r}
 #
 source(here::here("setup.R"))
-source(here::here("setup_footnotes.R"))
 
-# Set up numbering for exporting tables as .csv
-table_section <- "07A"
-table_count   <- 0
+# Set up numbering for figures and tables 
+figtab_report_section <- "7A"
+figtab_csv_section    <- "07A"
 
-figure_count <- 0
+figtab_table_count  <- 0
+figtab_figure_count <- 0
 ```
 
 
@@ -24,13 +24,13 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Strength and Belonging {.unnumbered}
 
-::: {.caveat-box}
-**A note about the impact of under-identification**
+::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
+`r note_chapter_underidentification`
 
-`r note_box_underidentification`
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_masking`
 :::
-
-<div style="height: 2em;"></div>
 
 ::: {.key-question}
 How do Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment stay strong through connection to Culture and Community?
@@ -75,7 +75,7 @@ knowledge <- knowledge %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -154,7 +154,7 @@ knowledge_2018 <- knowledge_2018 %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!iare_name,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -195,11 +195,7 @@ knowledge_2018 <- knowledge_2018 %>%
 ::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
 - The following question was asked of all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
   - How satisfied are you with your knowledge of your culture?
-    - Very satisfied
-    - Satisfied
-    - Neutral
-    - Not very satisfied
-    - Not at all satisfied
+    - Likert Scale (Very satisfied to Not at all satisfied)
 
 <div style="height: 0.1em;"></div>
 
@@ -210,16 +206,20 @@ knowledge_2018 <- knowledge_2018 %>%
 
 :::: {.panel-tabset}
 
-#### Figure 7A-1
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_7A_1 .fig-tab-title}
-**Figure 7A-1:** Level of satisfaction with cultural knowledge for survey respondents aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Level of satisfaction with cultural knowledge for survey respondents aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 factor_levels <- stringr::str_wrap(levels(knowledge$answer), width = 10)
 
 figure_number <- knowledge %>% 
@@ -241,23 +241,28 @@ figure_percent <- knowledge %>%
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 ```
 
-#### Table 7A-1
 
-::: {#tab_7A-1 .fig-tab-title}
-**Table 7A-1:** Level of satisfaction with cultural knowledge for survey respondents aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Level of satisfaction with cultural knowledge for survey respondents aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- knowledge %>% 
   f_preptable_grouped_sex(variable_name = "satisfaction_knowledge")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -272,7 +277,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -285,11 +290,23 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
 
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_estimate`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 7A-1 and Table 7A-1:
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Disaggregation: `r note_disaggregation_sex`
+
 :::
 
 ```{r}
@@ -332,7 +349,7 @@ pride <- pride %>%
                 starts_with("answered")) %>%
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -361,8 +378,7 @@ pride <- pride %>%
 ::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
 - The following question was asked of all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
   - Are you proud of being Aboriginal and/or Torres Strait Islander?
-    - Yes
-    - No
+    - Dichotomous (Yes - No)
 
 <div style="height: 0.1em;"></div>
 
@@ -373,23 +389,27 @@ pride <- pride %>%
 
 :::: {.panel-tabset}
 
-#### Table 7A-2
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
 
-::: {#tab_7A-2 .fig-tab-title}
-**Table 7A-2:** Pride in being Aboriginal and/or Torres Strait Islander for people aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Pride in being Aboriginal and/or Torres Strait Islander for people aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- pride %>%
   f_preptable_grouped_sex(variable_name = "proud_culture")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -404,7 +424,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -417,11 +437,23 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
 
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_estimate`
+
+<div style="height: 0.1em;"></div>
+
+- Table 7A-2:
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Disaggregation: `r note_disaggregation_sex`
+
 :::
 
 ```{r}
@@ -472,7 +504,7 @@ identification <- identification %>%
                 starts_with("answered")) %>%
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -515,7 +547,6 @@ identification <- identification %>%
     - A mission
     - An Aboriginal and/or Torres Strait Islander regional group
     - None of the above
-    - Don't know
 
 <div style="height: 0.1em;"></div>
 
@@ -526,16 +557,20 @@ identification <- identification %>%
 
 :::: {.panel-tabset}
 
-#### Figure 7A-2
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_7A_2 .fig-tab-title}
-**Figure 7A-2:** Identification with one or more specific groups for people aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Identification with one or more specific groups for people aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- identification %>% 
   dplyr::filter(sex != "Total" & answer != "Total") %>%
   #
@@ -553,23 +588,28 @@ figure_percent <- identification %>%
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
 
-#### Table 7A-3
 
-::: {#tab_7A-3 .fig-tab-title}
-**Table 7A-3:** Identification with one or more specific groups for people aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Identification with one or more specific groups for people aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- identification %>% 
   f_preptable_grouped_sex(variable_name = "identifies_with")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -584,7 +624,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -597,6 +637,10 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
 
 <div style="height: 0.1em;"></div>
@@ -606,6 +650,14 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_multipleresponse`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 7A-2 and Table 7A-3:
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Disaggregation: `r note_disaggregation_sex`
+
 :::
 
 ```{r}
@@ -648,7 +700,7 @@ acceptance <- acceptance %>%
                 starts_with("answered")) %>%
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -669,8 +721,7 @@ acceptance <- acceptance %>%
 ::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
 - The following question was asked of all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
   - Do you feel accepted by other Aboriginal and/or Torres Strait Islander people?
-    - Yes
-    - No
+    - Dichotomous (Yes - No)
 
 <div style="height: 0.1em;"></div>
 
@@ -681,23 +732,27 @@ acceptance <- acceptance %>%
 
 :::: {.panel-tabset}
 
-#### Table 7A-4
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
 
-::: {#tab_7A-4 .fig-tab-title}
-**Table 7A-4:** Feeling accepted by other members of Aboriginal and/or Torres Strait Islander community for people aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Feeling accepted by other members of Aboriginal and/or Torres Strait Islander community for people aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- acceptance %>%
   f_preptable_grouped_sex(variable_name = "accepted_community")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -712,7 +767,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -725,11 +780,23 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
 
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_estimate`
+
+<div style="height: 0.1em;"></div>
+
+- Table 7A-4:
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Disaggregation: `r note_disaggregation_sex`
+
 :::
 
 ```{r}
@@ -776,7 +843,7 @@ recognition <- recognition %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -803,11 +870,7 @@ recognition <- recognition %>%
 ::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
 - The following question was asked of all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
   - How important is it to you to be recognised as an Aboriginal and/or Torres Strait Islander person?
-    - Very important
-    - Important
-    - Neutral
-    - Not very important
-    - Not at all important
+    - Likert scale (Very important to Not at all important)
 
 <div style="height: 0.1em;"></div>
 
@@ -818,16 +881,20 @@ recognition <- recognition %>%
 
 :::: {.panel-tabset}
 
-#### Figure 7A-3
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_7A_3 .fig-tab-title}
-**Figure 7A-3:** Importance of recognition as Aboriginal and/or Torres Strait Islander for people aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Importance of recognition as Aboriginal and/or Torres Strait Islander for people aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 factor_levels <- stringr::str_wrap(levels(recognition$answer), width = 10)
 
 figure_number <- recognition %>% 
@@ -851,24 +918,28 @@ figure_percent <- recognition %>%
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
 
-#### Table 7A-5
 
-::: {#tab_7A-5 .fig-tab-title}
-**Table 7A-5:** Importance of recognition as Aboriginal and/or Torres Strait Islander for people aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Importance of recognition as Aboriginal and/or Torres Strait Islander for people aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- recognition %>% 
   f_preptable_grouped_sex(variable_name = "importance_recognition")
 
-
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -883,7 +954,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -896,10 +967,22 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
 
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_estimate`
+
+<div style="height: 0.1em;"></div>
+
+- Table 7A-5:
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Disaggregation: `r note_disaggregation_sex`
+
 :::
 
