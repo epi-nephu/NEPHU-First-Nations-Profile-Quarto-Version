@@ -369,14 +369,14 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6D-1 and Table 6D-1:
-  - Numerator: Number of Aboriginal and/or Torres Strait Islander people in each employment category
+  - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_census_aboriginal`
   - Disaggregation: `r note_disaggregation_lga`
 
 <div style="height: 0.1em;"></div>
 
 - Figure 6D-2 and Table 6D-2:
-  - Numerator: Number of Aboriginal and/or Torres Strait Islander people in each employment category
+  - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_census_aboriginal`
   - Disaggregation: `r note_disaggregation_agesex`
 
@@ -1173,14 +1173,14 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6D-7 and Table 6D-7:
-  - Numerator: Number of Aboriginal and/or Torres Strait Islander people in each employment category
+  - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_census_aboriginal`
   - Disaggregation: `r note_disaggregation_lga`
 
 <div style="height: 0.1em;"></div>
 
 - Figure 6D-8 and Table 6D-8:
-  - Numerator: Number of Aboriginal and/or Torres Strait Islander people in each employment category
+  - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_census_aboriginal`
   - Disaggregation: `r note_disaggregation_agesex`
 

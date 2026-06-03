@@ -358,14 +358,14 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6C-1 and Table 6C-1:
-  - Numerator: Number of Aboriginal and/or Torres Strait Islander people in each level of school completion category
+  - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_census_aboriginal`
   - Disaggregation: `r note_disaggregation_lga`
 
 <div style="height: 0.1em;"></div>
 
 - Figure 6C-2 and Table 6C-2:
-  - Numerator: Number of Aboriginal and/or Torres Strait Islander people in each level of school completion category
+  - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_census_aboriginal`
   - Disaggregation: `r note_disaggregation_agesex`
 
@@ -1070,14 +1070,14 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6C-6 and Table 6C-6:
-  - Numerator: Number of Aboriginal and/or Torres Strait Islander people in each level of education category
+  - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_census_aboriginal`
   - Disaggregation: `r note_disaggregation_lga`
 
 <div style="height: 0.1em;"></div>
 
 - Figure 6C-7 and Table 6C-7:
-  - Numerator: Number of Aboriginal and/or Torres Strait Islander people in each level of education category
+  - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_census_aboriginal`
   - Disaggregation: `r note_disaggregation_agesex`
 

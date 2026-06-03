@@ -733,7 +733,7 @@ tables[["Yarra Ranges"]]
 <div style="height: 0.1em;"></div>
   
 - Figure 5A-3 and Table 5A-3:
-  - Numerator: Number of people in the age/sex group
+  - Numerator: Number of people in each age/sex group
   - Denominator: `r note_denominator_census_population`
   - Disaggregation: `r note_disaggregation_lga`
   - Comparison: `r note_comparison_aboriginal`

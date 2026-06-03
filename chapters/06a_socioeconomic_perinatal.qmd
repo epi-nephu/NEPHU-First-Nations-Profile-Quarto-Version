@@ -851,9 +851,8 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6A-5 and Table 6A-5:
-  - Numerator: Number of children aged 0-2 years
+  - Numerator: Number of children aged 0-2 years in each category
   - Denominator: Total number of children aged 0-2 years included in the survey
-  - Disaggregation: Duration of breastfeeding
   - Comparison: `r note_comparison_aboriginal`
 
 :::

@@ -321,7 +321,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6B-2 and Table 6B-2:
-  - Numerator: Number of Aboriginal and/or Torres Strait Islander children in each attendance category
+  - Numerator: Number of Aboriginal and/or Torres Strait Islander children in each category
   - Denominator: Total number of Aboriginal and/or Torres Strait Islander children enrolled in a preschool program
   - Disaggregation: `r note_disaggregation_year`
   - Data were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/) compiled from the [National Early Childhood Education and Care Collection (NECECC)](https://www.abs.gov.au/statistics/people/education/preschool-education/latest-release).

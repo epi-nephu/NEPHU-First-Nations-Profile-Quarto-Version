@@ -7,7 +7,7 @@
 ################################################################################
 # Classic stacked bar chart
 ################################################################################
-f_bar_stacked <- function(data, total_data = stacked_total, x_variable, y_variable, fill_variable, fill_values, n_level, legend_offset = -0.1, x_angle = 0, facet_wrap = "no") {
+f_bar_stacked <- function(data, total_data = stacked_total, x_variable, y_variable, fill_variable, fill_values, n_level, legend_offset = -0.1, x_angle = 0, facet_wrap = "no", legend_order = "normal") {
   
   x_variable    <- rlang::enquo(x_variable)
   y_variable    <- rlang::enquo(y_variable)
@@ -83,7 +83,8 @@ f_bar_stacked <- function(data, total_data = stacked_total, x_variable, y_variab
                                  font = list(family = "Karla"),
                                  #
                                  orientation = "h",
-                                 xanchor     = "center"))
+                                 xanchor     = "center",
+                                 traceorder  = legend_order))
 
   return(figure)
 
@@ -92,7 +93,7 @@ f_bar_stacked <- function(data, total_data = stacked_total, x_variable, y_variab
 ################################################################################
 # By LGA 
 ################################################################################
-f_bar_stacked_lga <- function(data, fill_values, n_level) {
+f_bar_stacked_lga <- function(data, fill_values, n_level, legend_order = "normal") {
   
   data <- data %>% 
     dplyr::mutate(hover_text = paste0(lga_name, " LGA", "\n",
@@ -146,7 +147,8 @@ f_bar_stacked_lga <- function(data, fill_values, n_level) {
                                  font = list(family = "Karla"),
                                  #
                                  orientation = "h",
-                                 xanchor     = "center"))
+                                 xanchor     = "center",
+                                 traceorder  = legend_order))
   
   return(figure)
   
@@ -155,7 +157,7 @@ f_bar_stacked_lga <- function(data, fill_values, n_level) {
 ################################################################################
 # By age and sex 
 ################################################################################
-f_bar_stacked_agesex <- function(data, fill_values, n_level) {
+f_bar_stacked_agesex <- function(data, fill_values, n_level, legend_order = "normal") {
   
   data <- data %>% 
     dplyr::mutate(hover_text = paste0(sex, "\n",
@@ -214,7 +216,8 @@ f_bar_stacked_agesex <- function(data, fill_values, n_level) {
                                  font = list(family = "Karla"),
                                  #
                                  orientation = "h",
-                                 xanchor     = "center"))
+                                 xanchor     = "center",
+                                 traceorder  = legend_order))
   
   return(figure)
   
@@ -223,7 +226,7 @@ f_bar_stacked_agesex <- function(data, fill_values, n_level) {
 ################################################################################
 # By year (PHESS counts)
 ################################################################################
-f_bar_stacked_phess <- function(data) {
+f_bar_stacked_phess <- function(data, legend_order = "reversed") {
   
   total_data <- data %>% 
     dplyr::filter(indigenous_label == "Aboriginal") %>%
@@ -295,7 +298,7 @@ f_bar_stacked_phess <- function(data) {
                                  font = list(family = "Karla"),
                                  #
                                  orientation = "h",
-                                 traceorder  = "reversed",
+                                 traceorder  = legend_order,
                                  xanchor     = "center"))
   
   return(figure)

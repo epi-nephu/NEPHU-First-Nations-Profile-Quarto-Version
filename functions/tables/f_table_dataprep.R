@@ -128,6 +128,11 @@ f_preptable_grouped_sex <- function(data, variable_name) {
     #
     janitor::clean_names() %>% 
     #
+    dplyr::select(answer,
+                  ends_with("_female"),
+                  ends_with("_male"),
+                  ends_with("_total")) %>% 
+    #
     dplyr::rename(!!variable_name := answer)
   
   return(data)

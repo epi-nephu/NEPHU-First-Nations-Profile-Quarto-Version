@@ -108,8 +108,7 @@ note_data_reconciliation <- glue::glue("
 note_data_tax <- glue::glue("
 - Data were obtained from the [ABS Census 2021](https://www.abs.gov.au/census) linked to data from the Australian Taxation Office and Department of Social Services held in the [Person Level Integrated Data Asset (PLIDA)](https://www.abs.gov.au/about/data-services/data-integration/integrated-data/person-level-integrated-data-asset-plida). Data are publicly available at Local Government Area (LGA), ABS Statistical Area Level 2 (SA2), and Indigenous Area of Residence (IARE) level.
   - PLIDA is a secure linked data asset maintained by the ABS that brings together information on health, education, government payments, income and taxation, employment, and population demographics.
-  - The 2021 Census was held on the evening of August 10th 2021.
-  - Aboriginal and/or Torres Strait Islander peoples were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander in the Census.")
+  - The 2021 Census was held on the evening of August 10th 2021.")
 
 note_data_vcsf <- glue::glue("
 - Data were obtained from the [Victorian Cancer Screening Framework (VCSF)](https://acpcc.org.au/services/population-health/), maintained by the Australian Centre for the Prevention of Cervical Cancer (ACPCC).
