@@ -2,18 +2,18 @@
 title-block: false
 ---
 
-# Income
+# Income and Food Security
 
 ```{r}
 #
 source(here::here("setup.R"))
-source(here::here("setup_footnotes.R"))
 
-# Set up numbering for exporting tables as .csv
-table_section <- "06E"
-table_count   <- 0
+# Set up numbering for figures and tables 
+figtab_report_section <- "6E"
+figtab_csv_section    <- "06E"
 
-figure_count <- 0
+figtab_table_count  <- 0
+figtab_figure_count <- 0
 ```
 
 
@@ -22,15 +22,19 @@ figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Income {.unnumbered}
+## Income and Food Security {.unnumbered}
 
-::: {.caveat-box}
-**A note about the impact of under-identification**
+::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
+`r note_chapter_different_sources`
 
-`r note_box_underidentification`
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_masking`
 :::
-
-<div style="height: 2em;"></div>
 
 ::: {.key-question}
 What is the average income for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment?
@@ -93,7 +97,7 @@ household_lga <- household %>%
 
 - Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
 
-- Overall, 28% (n = 1,683) of households in the NEPHU catchment with at least one member who identified as Aboriginal and/or Torres Strait Islander in the Census had a weekly household income of more than \$1,500. This was lower than for non-Indigenous households where 35% had a weekly income of more than \$1,500.
+- Overall, 28% (n = 1,683) of households in the NEPHU catchment with at least one member who identified as Aboriginal and/or Torres Strait Islander in the Census had a weekly household income of more than \$1,500.
 
 - The number of households in different LGAs within the NEPHU catchment with at least one member who identified as Aboriginal and/or Torres Strait Islander with a weekly income of less than \$500 ranged from 209 (Darebin LGA) to 18 (Nillumbik LGAs).
 
@@ -115,16 +119,20 @@ household_lga <- household %>%
 
 :::: {.panel-tabset}
 
-#### Figure 6E-1
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_6E_1 .fig-tab-title}
-**Figure 6E-1:** Weekly income for households with at least one person who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Weekly income for households with at least one person who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 household_lga %>% 
   dplyr::filter(lga_name %in% nephu_lga) %>% 
   #
@@ -141,37 +149,50 @@ household_lga %>%
     levels = c("<$500",
                "$500-$1,499",
                "$1,500-$2,999",
-               ">$3,000"))) %>% 
-  
-  f_bar_stacked_lga(fill_values = c(colour_stack4, colour_stack3, colour_stack2, colour_stack1),
-                    n_level     = "households")
+               ">$3,000"))) %>%
+  #
+  f_bar_stacked_lga(fill_values  = c(colour_stack4, colour_stack3, colour_stack2, colour_stack1),
+                    n_level      = "households",
+                    legend_order = "reversed")
 ```
 
-#### Table 6E-1
 
-::: {#tab_6E_1 .fig-tab-title}
-**Table 6E-1:** Weekly income for households with at least one person who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Weekly income for households with at least one person who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- household_lga %>% 
-  dplyr::filter(lga_name %in% c(nephu_lga, "NEPHU"))
+  dplyr::filter(lga_name %in% c(nephu_lga, "NEPHU")) %>% 
+  #
+  dplyr::select(lga_name,
+                starts_with("less_"),
+                starts_with("more_500"),
+                starts_with("more_1500"),
+                starts_with("more_3000"),
+                aboriginal_total)
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
 table %>% 
-  dplyr::mutate(more_3000_prop = sprintf("%.1f", more_3000_prop),
-                more_1500_prop = sprintf("%.1f", more_1500_prop),
+  dplyr::mutate(less_500_prop  = sprintf("%.1f", less_500_prop),
                 more_500_prop  = sprintf("%.1f", more_500_prop),
-                less_500_prop  = sprintf("%.1f", less_500_prop)) %>% 
+                more_1500_prop = sprintf("%.1f", more_1500_prop),
+                more_3000_prop = sprintf("%.1f", more_3000_prop)) %>% 
   #
   f_table_simple(table_headers = c("LGA", 
                                    "Count", "Percent", "Count", "Percent", "Count", "Percent", "Count", "Percent",
@@ -179,17 +200,17 @@ table %>%
                  column_width  = "0.75in") %>% 
   #
   kableExtra::add_header_above(c(" " = 1,
-                                 "More than <span>$</span>3,000"           = 2,
-                                 "<span>$</span>1,500–<span>$</span>2,999" = 2,
-                                 "<span>$</span>500–<span>$</span>1,499"   = 2,
                                  "Less than <span>$</span>500"             = 2,
+                                 "<span>$</span>500–<span>$</span>1,499"   = 2,
+                                 "<span>$</span>1,500–<span>$</span>2,999" = 2,
+                                 "More than <span>$</span>3,000"           = 2,
                                  " " = 1),
                                escape = FALSE)
 ```
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -199,6 +220,14 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 6E-1 and Table 6E-1:
+  - Numerator: Number of Aboriginal and/or Torres Strait Islander households in each category
+  - Denominator: Total number of households with at least one Aboriginal and/or Torres Strait Islander member
+  - Disaggregation: `r note_disaggregation_lga`
+
 :::
 
 ```{r}
@@ -367,39 +396,38 @@ benefit_agesex <- benefit_agesex %>%
 
 **Key points from stakeholder consultation**
 
-- At stakeholder consultations during the development of this report it was mentioned that people often encounter barriers when trying to access income support payments.
+- At stakeholder consultations during the development of this report it was mentioned that Aboriginal and/or Torres Strait Islander people often encounter barriers when trying to access income support payments.
 
 ::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-- `r note_aboriginality_census`
-
-<div style="height: 0.1em;"></div>
-
-- This indicator measures the main type of income support payment received. People may have received more than one type of income support payment.
-
-<div style="height: 0.1em;"></div>
-
-- The types of income support payments were classified as:
-  - Carer support (Carer Allowance, Carer Payment)
-  - Disability support (Disability Support Pension, Mobility Allowance)
-  - Family and parenting (Dad and Partner Pay, Family Tax Benefits, Paid Parental Leave Payment, Parenting Payment)
-  - Older Australians (Age Pension, Widow Allowance)
-  - Work and study (Austudy/Abstudy, Newstart Allowance and Jobseeker, Youth Allowance)
-  - Other payments (Future Flexible Support Payment, Special Benefit, other government pensions and allowances)
+- Definitions and notes:
+  - `r note_aboriginality_census`
+  - This indicator measures the main type of income support payment received. People may have received more than one type of income support payment.
+  - The types of income support payments were classified as:
+    - Carer support (Carer Allowance, Carer Payment)
+    - Disability support (Disability Support Pension, Mobility Allowance)
+    - Family and parenting (Dad and Partner Pay, Family Tax Benefits, Paid Parental Leave Payment, Parenting Payment)
+    - Older Australians (Age Pension, Widow Allowance)
+    - Work and study (Austudy/Abstudy, Newstart Allowance and Jobseeker, Youth Allowance)
+    - Other payments (Future Flexible Support Payment, Special Benefit, other government pensions and allowances)
 
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 6E-2
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_6E_2 .fig-tab-title}
-**Figure 6E-2:** Main type of income support payment for people receiving income support and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 01 July 2020 to 30 June 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Main type of income support payment for people receiving income support and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 01 July 2020 to 30 June 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 benefit_lga %>% 
   dplyr::filter(lga_name %in% nephu_lga) %>% 
   #
@@ -422,27 +450,34 @@ benefit_lga %>%
                "Carer support",
                "Other payments"))) %>% 
   #
-  f_bar_stacked_lga(fill_values = c(colour_stack6, colour_stack5, colour_stack4, colour_stack3, colour_stack2, colour_stack1),
-                    n_level     = "people")
+  f_bar_stacked_lga(fill_values  = c(colour_stack6, colour_stack5, colour_stack4,
+                                     colour_stack3, colour_stack2, colour_stack1),
+                    n_level      = "people",
+                    legend_order = "reversed")
 ```
 
-#### Table 6E-2
 
-::: {#tab_6E_2 .fig-tab-title}
-**Table 6E-2:** Main type of income support payment for people receiving income support and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 01 July 2020 to 30 June 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Main type of income support payment for people receiving income support and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 01 July 2020 to 30 June 2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- benefit_lga %>% 
   dplyr::filter(lga_name %in% c(nephu_lga, "NEPHU"))
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -465,25 +500,29 @@ table %>%
                                  "Disability support" = 2,
                                  "Family/parenting"   = 2,
                                  "Older Australians"  = 2,
-                                 "Study/work"         = 2,
+                                 "Work/study"         = 2,
                                  "Other payments"     = 2,
                                  " " = 1))
 ```
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Figure 6E-3
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_6E_3 .fig-tab-title}
-**Figure 6E-3:** Main type of income support payment for people receiving income support and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 01 July 2020 to 30 June 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Main type of income support payment for people receiving income support and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 01 July 2020 to 30 June 2021
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 benefit_agesex %>% 
   dplyr::filter(age_group %in% age_group_lvl) %>% 
   #
@@ -506,26 +545,33 @@ benefit_agesex %>%
                "Carer support",
                "Other payments"))) %>% 
   #
-  f_bar_stacked_agesex(fill_values = c(colour_stack6, colour_stack5, colour_stack4, colour_stack3, colour_stack2, colour_stack1),
-                       n_level     = "people")
+  f_bar_stacked_agesex(fill_values  = c(colour_stack6, colour_stack5, colour_stack4,
+                                        colour_stack3, colour_stack2, colour_stack1),
+                       n_level      = "people",
+                       legend_order = "reversed")
 ```
 
-#### Table 6E-3
 
-::: {#tab_6E_3 .fig-tab-title}
-**Table 6E-3:** Main type of income support payment for people receiving income support and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 01 July 2020 to 30 June 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Main type of income support payment for people receiving income support and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 01 July 2020 to 30 June 2021
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- benefit_agesex
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -560,7 +606,7 @@ table %>%
                                  "Disability support" = 2,
                                  "Family/parenting"   = 2,
                                  "Older Australians"  = 2,
-                                 "Study/work"         = 2,
+                                 "Work/study"         = 2,
                                  "Other payments"     = 2,
                                  " " = 1))
 
@@ -587,14 +633,14 @@ table %>%
                                  "Disability support" = 2,
                                  "Family/parenting"   = 2,
                                  "Older Australians"  = 2,
-                                 "Study/work"         = 2,
+                                 "Work/study"         = 2,
                                  "Other payments"     = 2,
                                  " " = 1))
 ```
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -612,6 +658,21 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - A number of regions across the state were in various stages of lockdown during the 2020/2021 financial year. This resulted in a greater number of people being stood down from work than usual, which may have had an impact on the receipt of income support payments.
+
+<div style="height: 0.1em;"></div>
+
+- Figure 6E-2 and Table 6E-2:
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_census_aboriginal`
+  - Disaggregation: `r note_disaggregation_lga`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 6E-3 and Table 6E-3:
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_census_aboriginal`
+  - Disaggregation: `r note_disaggregation_agesex`
+
 :::
 
 ```{r}
@@ -656,7 +717,7 @@ financial_expenses <- financial_expenses %>%
                 starts_with("answered")) %>%
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
     #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -677,8 +738,7 @@ financial_expenses <- financial_expenses %>%
 ::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
 - The following question was asked of a representative for each household completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
   - In the last 12 months were there any days when you or other people in your household ran out of money for clothing or bills?
-    - Yes
-    - No
+    - Dichotomous (Yes - No)
 
 <div style="height: 0.1em;"></div>
 
@@ -689,23 +749,27 @@ financial_expenses <- financial_expenses %>%
 
 :::: {.panel-tabset}
 
-#### Table 6E-4
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
 
-::: {#tab_6E_4 .fig-tab-title}
-**Table 6E-4:** Whether had days without money for basic living expenses (clothing or bills) during the previous 12 months for people who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Whether had days without money for basic living expenses (clothing or bills) during the previous 12 months for people who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- financial_expenses %>% 
   f_preptable_grouped_sex(variable_name = "days_without_money")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -720,7 +784,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -742,6 +806,14 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_estimate`
+
+<div style="height: 0.1em;"></div>
+
+- Table 6E-4:
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Disaggregation: `r note_disaggregation_sex`
+
 :::
 
 ### Emergency Funds
@@ -779,7 +851,7 @@ financial_emergency <- financial_emergency %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -800,9 +872,7 @@ financial_emergency <- financial_emergency %>%
 ::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
 - The following question was asked of a representative for each household completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
   - We know that \$2,000 is a lot of money, but if all of a sudden you or the people who live in this household had to get \$2,000 for something important, could you or they get it within a week?
-    - Yes
-    - No
-    - Don't know
+    - Dichotomous (Yes - No)
 
 <div style="height: 0.1em;"></div>
 
@@ -813,23 +883,27 @@ financial_emergency <- financial_emergency %>%
 
 :::: {.panel-tabset}
 
-#### Table 6E-5
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
 
-::: {#tab_6E_5 .fig-tab-title}
-**Table 6E-5:** Whether household members could raise $2,000 in a week in an emergency for people who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Whether household members could raise $2,000 in a week in an emergency for people who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- financial_emergency %>% 
   f_preptable_grouped_sex(variable_name = "emergency_funds")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -844,7 +918,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -866,6 +940,14 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_estimate`
+
+<div style="height: 0.1em;"></div>
+
+- Table 6E-5:
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Disaggregation: `r note_disaggregation_sex`
+
 :::
 
 ### Food Security
@@ -907,7 +989,7 @@ financial_foodsecurity <- financial_foodsecurity %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>%
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -932,20 +1014,11 @@ financial_foodsecurity <- financial_foodsecurity %>%
 ::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
 - The following questions were asked of a representative for each household completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
   - In the last 12 months, how often did you or other people in your household worry about whether food would run out before you got money to buy more?
-    - Often
-    - Sometimes
-    - Never
-    - Don't know
+    - Likert scale (Often - Sometimes - Never)
   - In the last 12 months, how often was the food that you bought not enough for everyone in the household and you didn't have money to buy more?
-    - Often
-    - Sometimes
-    - Never
-    - Don't know
+    - Likert scale (Often - Sometimes - Never)
   - In the last 12 months, how often were you or other people in your household not able to afford to eat healthy or nutritious meals?
-    - Often
-    - Sometimes
-    - Never
-    - Don't know
+    - Likert scale (Often - Sometimes - Never)
 
 <div style="height: 0.1em;"></div>
 
@@ -971,16 +1044,20 @@ financial_foodsecurity <- financial_foodsecurity %>%
 
 :::: {.panel-tabset}
 
-#### Figure 6E-4
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_6E_4 .fig-tab-title}
-**Figure 6E-4:** Level of food security during the previous 12 months for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Level of food security during the previous 12 months for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- financial_foodsecurity %>% 
   dplyr::filter(sex != "Total" & answer != "Total") %>%
   dplyr::mutate(answer = stringr::str_wrap(answer, width = 10)) %>% 
@@ -998,23 +1075,28 @@ figure_percent <- financial_foodsecurity %>%
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.15)
 ```
 
-#### Table 6E-6
 
-::: {#tab_6E_6 .fig-tab-title}
-**Table 6E-6:** Level of food security during the previous 12 months for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Level of food security during the previous 12 months for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- financial_foodsecurity %>% 
   f_preptable_grouped_sex(variable_name = "food_security")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -1029,7 +1111,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -1051,5 +1133,13 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_estimate`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 6E-4 and Table 6E-6:
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Disaggregation: `r note_disaggregation_sex`
+
 :::
 
