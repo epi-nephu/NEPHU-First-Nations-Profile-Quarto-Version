@@ -658,7 +658,7 @@ table <- suitability_combined %>%
   #
   janitor::clean_names() %>% 
   #
-  dplyr::select(category,
+  dplyr::select(category, 
                 answer,
                 ends_with("_female"),
                 ends_with("_male"),
