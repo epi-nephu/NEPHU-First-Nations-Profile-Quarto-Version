@@ -83,16 +83,6 @@ li > ul {
   text-align: center;
 }
 
-.warning-box {
-  padding-top: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
-  background: #DDC6CE;
-  color: black;
-  border: 2px solid #5F243C;
-  border-radius: 10px;
-}
-
 .ctg-box {
   padding-top: 10px;
   padding-left: 10px;
@@ -126,6 +116,14 @@ li > ul {
 
 .callout-warning .callout-header {
   background-color: #E1AA82 !important;
+}
+
+.callout-important {
+  border-left-color: #5F243C !important;
+}
+
+.callout-important .callout-header {
+  background-color: #DDC6CE !important;
 }
 
 .callout-body {
