@@ -311,6 +311,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6B-1 and Table 6B-1:
+  - Indicator: Preschool attendance
   - Numerator: Number of Aboriginal and/or Torres Strait Islander children enrolled in a preschool program
   - Denominator: Total number of Aboriginal and/or Torres Strait Islander children in the year before schooling age cohort
   - Disaggregation: `r note_disaggregation_year`
@@ -321,6 +322,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6B-2 and Table 6B-2:
+  - Indicator: Preschool attendance
   - Numerator: Number of Aboriginal and/or Torres Strait Islander children in each category
   - Denominator: Total number of Aboriginal and/or Torres Strait Islander children enrolled in a preschool program
   - Disaggregation: `r note_disaggregation_year`
@@ -464,6 +466,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6B-3 and Table 6B-3:
+  - Indicator: Early childhood development
   - Numerator: Number of children assessed as developmentally on track
   - Denominator: Total number of children included in the AEDC
   - Disaggregation: `r note_disaggregation_year`
@@ -780,6 +783,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6B-4 and Table 6B-4:
+  - Indicator: Reading proficiency
   - Numerator: Number of children at each NAPLAN proficiency level for reading
   - Denominator: Total number of children undertaking the NAPLAN tests
   - Disaggregation: `r note_disaggregation_grade`
@@ -788,6 +792,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6B-5 and Table 6B-5:
+  - Indicator: Writing proficiency
   - Numerator: Number of children at each NAPLAN proficiency level for writing
   - Denominator: Total number of children undertaking the NAPLAN tests
   - Disaggregation: `r note_disaggregation_grade`
@@ -796,6 +801,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6B-6 and Table 6B-6:
+  - Indicator: Numeracy proficiency
   - Numerator: Number of children at each NAPLAN proficiency level for numeracy
   - Denominator: Total number of children undertaking the NAPLAN tests
   - Disaggregation: `r note_disaggregation_grade`

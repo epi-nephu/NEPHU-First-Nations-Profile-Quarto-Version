@@ -224,6 +224,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6E-1 and Table 6E-1:
+  - Indicator: Weekly household income
   - Numerator: Number of Aboriginal and/or Torres Strait Islander households in each category
   - Denominator: Total number of households with at least one Aboriginal and/or Torres Strait Islander member
   - Disaggregation: `r note_disaggregation_lga`
@@ -662,6 +663,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6E-2 and Table 6E-2:
+  - Indicator: Main type of income support payment
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_census_aboriginal`
   - Disaggregation: `r note_disaggregation_lga`
@@ -669,6 +671,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6E-3 and Table 6E-3:
+  - Indicator: Main type of income support payment
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_census_aboriginal`
   - Disaggregation: `r note_disaggregation_agesex`
@@ -738,7 +741,7 @@ financial_expenses <- financial_expenses %>%
 ::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
 - The following question was asked of a representative for each household completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
   - In the last 12 months were there any days when you or other people in your household ran out of money for clothing or bills?
-    - Dichotomous (Yes - No)
+    - `r note_response_binary`
 
 <div style="height: 0.1em;"></div>
 
@@ -810,6 +813,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Table 6E-4:
+  - Indicator: Days without money for basic living expenses
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
   - Comparison: `r note_comparison_sex`
@@ -872,7 +876,7 @@ financial_emergency <- financial_emergency %>%
 ::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
 - The following question was asked of a representative for each household completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
   - We know that \$2,000 is a lot of money, but if all of a sudden you or the people who live in this household had to get \$2,000 for something important, could you or they get it within a week?
-    - Dichotomous (Yes - No)
+    - `r note_response_binary`
 
 <div style="height: 0.1em;"></div>
 
@@ -944,6 +948,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Table 6E-5:
+  - Indicator: Ability to raise money in an emergency
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
   - Comparison: `r note_comparison_sex`
@@ -1014,11 +1019,11 @@ financial_foodsecurity <- financial_foodsecurity %>%
 ::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
 - The following questions were asked of a representative for each household completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
   - In the last 12 months, how often did you or other people in your household worry about whether food would run out before you got money to buy more?
-    - Likert scale (Often - Sometimes - Never)
+    - `r note_response_likert_often`
   - In the last 12 months, how often was the food that you bought not enough for everyone in the household and you didn't have money to buy more?
-    - Likert scale (Often - Sometimes - Never)
+    - `r note_response_likert_often`
   - In the last 12 months, how often were you or other people in your household not able to afford to eat healthy or nutritious meals?
-    - Likert scale (Often - Sometimes - Never)
+    - `r note_response_likert_often`
 
 <div style="height: 0.1em;"></div>
 
@@ -1137,6 +1142,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6E-4 and Table 6E-6:
+  - Indicator: Food security
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
   - Comparison: `r note_comparison_sex`

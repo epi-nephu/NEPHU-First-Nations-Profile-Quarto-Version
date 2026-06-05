@@ -245,6 +245,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 4A-1 and Table 4A-1:
+  - Indicator: Population size
   - Numerator: Number of people who identified as Aboriginal and/or Torres Strait Islander
   - Denominator: `r note_denominator_census_population`
   - Disaggregation: `r note_disaggregation_lphu`
@@ -559,6 +560,7 @@ density_sa2 %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 4A-2 and Table 4A-2:
+  - Indicator: Population size
   - Numerator: Number of people who identified as Aboriginal and/or Torres Strait Islander
   - Denominator: `r note_denominator_census_population`
   - Disaggregation: `r note_disaggregation_lga`
@@ -566,6 +568,7 @@ density_sa2 %>%
 <div style="height: 0.1em;"></div>
 
 - Table 4A-3:
+  - Indicator: Population size
   - Numerator: Number of people who identified as Aboriginal and/or Torres Strait Islander
   - Denominator: `r note_denominator_census_population`
   - Disaggregation: `r note_disaggregation_sa2`
@@ -573,6 +576,7 @@ density_sa2 %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 4A-3:
+  - Indicator: Population density
   - Numerator: Number of people who identified as Aboriginal and/or Torres Strait Islander
   - Denominator: Total size of the Local Government Area (LGA) measured in square kilometres (km^2^)
   - Disaggregation: `r note_disaggregation_lga`
@@ -580,6 +584,7 @@ density_sa2 %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 4A-4:
+  - Indicator: Population density
   - Numerator: Number of people who identified as Aboriginal and/or Torres Strait Islander
   - Denominator: Total size of the Statistical Area Level 2 (SA2) measured in square kilometres (km^2^)
   - Disaggregation: `r note_disaggregation_sa2`

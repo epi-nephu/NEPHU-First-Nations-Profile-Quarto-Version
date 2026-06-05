@@ -140,6 +140,14 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - The baseline 2021 counts for comparison are based on [ABS Estimated Residential Population](https://www.abs.gov.au/statistics/people/population) calculations, which take into account the known under-reporting of Aboriginal and/or Torres Strait Islander status in the Census.
+
+<div style="height: 0.1em;"></div>
+
+- Table 4B-1:
+  - Indicator: Projected population growth
+  - Numerator: Estimated number of Aboriginal and/or Torres Strait Islander people in 2031
+  - Denominator: Estimated number of Aboriginal and/or Torres Strait Islander people in 2021
+
 :::
 
 ```{r}

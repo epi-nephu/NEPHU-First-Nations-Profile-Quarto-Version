@@ -198,6 +198,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6A-1 and Table 6A-1:
+  - Indicator: Antenatal care attendance
   - Numerator: Number of Aboriginal and/or Torres Strait Islander women who did not attend antenatal care during the first 10 weeks of pregnancy
   - Denominator: `r note_denominator_perinatal`
   - Disaggregation: `r note_disaggregation_iare`
@@ -333,6 +334,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6A-2 and Table 6A-2:
+  - Indicator: Smoking during pregnancy
   - Numerator: Number of Aboriginal and/or Torres Strait Islander women who reported smoking during pregnancy
   - Denominator: `r note_denominator_perinatal`
   - Disaggregation: `r note_disaggregation_iare`
@@ -630,6 +632,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6A-3 and Table 6A-3:
+  - Indicator: Birthweight
   - Numerator: Number of singleton live births with a birthweight above 2,500g
   - Denominator: `r note_denominator_perinatal`
   - Disaggregation: `r note_disaggregation_iare`
@@ -638,6 +641,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6A-4 and Table 6A-4:
+  - Indicator: Birthweight
   - Numerator: Number of singleton live births with a birthweight below 2,500g
   - Denominator: Total number of singleton live births
   - Disaggregation: `r note_disaggregation_year`
@@ -851,6 +855,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6A-5 and Table 6A-5:
+  - Indicator: Duration of breastfeeding
   - Numerator: Number of children aged 0-2 years in each category
   - Denominator: Total number of children aged 0-2 years included in the survey
   - Comparison: `r note_comparison_aboriginal`

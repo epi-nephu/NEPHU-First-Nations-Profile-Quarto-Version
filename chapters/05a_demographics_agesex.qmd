@@ -719,6 +719,7 @@ tables[["Yarra Ranges"]]
 <div style="height: 0.1em;"></div>
 
 - Figure 5A-1 and Table 5A-1:
+  - Indicator: Age and sex profile
   - Numerator: Number of Aboriginal and/or Torres Strait Islander people in each age/sex group
   - Denominator: `r note_denominator_census_aboriginal`
   - Comparison: NEPHU vs. Victoria
@@ -726,6 +727,7 @@ tables[["Yarra Ranges"]]
 <div style="height: 0.1em;"></div>
 
 - Figure 5A-2 and Table 5A-2:
+  - Indicator: Age and sex profile
   - Numerator: Number of people in each age/sex group
   - Denominator: `r note_denominator_census_population`
   - Comparison: `r note_comparison_aboriginal`
@@ -733,6 +735,7 @@ tables[["Yarra Ranges"]]
 <div style="height: 0.1em;"></div>
   
 - Figure 5A-3 and Table 5A-3:
+  - Indicator: Age and sex profile
   - Numerator: Number of people in each age/sex group
   - Denominator: `r note_denominator_census_population`
   - Disaggregation: `r note_disaggregation_lga`
@@ -877,14 +880,8 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
-- Figure 5A-4:
-  - Numerator: Number of women aged between 15 and 49 years
-  - Denominator: Total number of women who completed the Census
-  - Disaggregation: `r note_disaggregation_lga`
-
-<div style="height: 0.1em;"></div>
-
-- Table 5A-4:
+- Figure 5A-4 and Table 5A-4:
+  - Indicator: Women of reproductive age
   - Numerator: Number of women aged between 15 and 49 years
   - Denominator: Total number of women who completed the Census
   - Disaggregation: `r note_disaggregation_lga`

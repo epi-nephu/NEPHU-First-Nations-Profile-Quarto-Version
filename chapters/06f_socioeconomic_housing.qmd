@@ -219,6 +219,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6F-1, Figure 6F-2, and Table 6F-1:
+  - Indicator: Household overcrowding
   - Numerator: Number of households where extra bedrooms were not required
   - Denominator: Total number of households with at least one Aboriginal and/or Torres Strait Islander member
   - Disaggregation: `r note_disaggregation_lga`
@@ -722,6 +723,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Table 6F-2, Figure 6F-3, and Table 6F-3:
+  - Indicator: Housing quality
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
   - Comparison: `r note_comparison_sex`
@@ -912,6 +914,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6F-4 and Table 6F-4:
+  - Indicator: Housing tenure
   - Numerator: Number of Aboriginal and/or Torres Strait Islander households in each category
   - Denominator: Total number of households with at least one Aboriginal and/or Torres Strait Islander member
   - Disaggregation: `r note_disaggregation_lga`
@@ -1090,6 +1093,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6F-5, Figure 6F-6, and Table 6F-5:
+  - Indicator: Housing stress
   - Numerator: Number of households in each category
   - Denominator: Total number of households
   - Disaggregation: `r note_disaggregation_lga`
@@ -1352,6 +1356,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6F-7, Figure 6F-8, and Table 6F-6:
+  - Indicator: Homelessness
   - Numerator: Number of people who who were homeless or marginally housed on Census night
   - Denominator: `r note_denominator_census_population`
   - Disaggregation: `r note_disaggregation_lga`
@@ -1360,6 +1365,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6F-9, Figure 6F-10, and Table 6F-7:
+  - Indicator: Homelessness
   - Numerator: Number of people who who were homeless or marginally housed on Census night
   - Denominator: `r note_denominator_census_population`
   - Disaggregation: `r note_disaggregation_agesex`

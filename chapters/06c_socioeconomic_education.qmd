@@ -358,6 +358,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6C-1 and Table 6C-1:
+  - Indicator: Highest level of school completed
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_census_aboriginal`
   - Disaggregation: `r note_disaggregation_lga`
@@ -365,6 +366,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6C-2 and Table 6C-2:
+  - Indicator: Highest level of school completed
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_census_aboriginal`
   - Disaggregation: `r note_disaggregation_agesex`
@@ -676,6 +678,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6C-3 and Table 6C-3:
+  - Indicator: Year 12 completion
   - Numerator: Number of people aged 20-24 years who have completed Year 12 or equivalent
   - Denominator: Total number of people aged 20-24 years who completed the Census
   - Disaggregation: `r note_disaggregation_year`
@@ -685,6 +688,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6C-4, Figure 6C-5, and Table 6C-4:
+  - Indicator: Year 12 completion
   - Numerator: Number of people aged 20-24 years who have completed Year 12 or equivalent
   - Denominator: Total number of people aged 20-24 years who completed the Census
   - Disaggregation: `r note_disaggregation_lga`
@@ -693,6 +697,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Table 6C-5:
+  - Indicator: Year 12 completion
   - Numerator: Number of people aged 20-24 years who have completed Year 12 or equivalent
   - Denominator: Total number of people aged 20-24 years who completed the Census
   - Disaggregation: `r note_disaggregation_sex`
@@ -1070,6 +1075,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6C-6 and Table 6C-6:
+  - Indicator: Highest level of education
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_census_aboriginal`
   - Disaggregation: `r note_disaggregation_lga`
@@ -1077,6 +1083,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6C-7 and Table 6C-7:
+  - Indicator: Highest level of education
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_census_aboriginal`
   - Disaggregation: `r note_disaggregation_agesex`
@@ -1393,6 +1400,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6C-8 and Table 6C-8:
+  - Indicator: Tertiary qualification completion
   - Numerator: Number of people aged 25-34 years who have completed a tertiary qualification
   - Denominator: Total number of people aged 25-34 years who completed the Census
   - Disaggregation: `r note_disaggregation_year`
@@ -1402,6 +1410,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6C-9, Figure 6C-10, and Table 6C-9:
+  - Indicator: Tertiary qualification completion
   - Numerator: Number of people aged 25-34 years who have completed a tertiary qualification
   - Denominator: Total number of people aged 25-34 years who completed the Census
   - Disaggregation: `r note_disaggregation_lga`
@@ -1410,6 +1419,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Table 6C-10:
+  - Indicator: Tertiary qualification completion
   - Numerator: Number of people aged 25-34 years who have completed a tertiary qualification
   - Denominator: Total number of people aged 25-34 years who completed the Census
   - Disaggregation: `r note_disaggregation_sex`

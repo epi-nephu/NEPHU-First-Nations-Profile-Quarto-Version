@@ -364,6 +364,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 5B-1 and Table 5B-1:
+  - Indicator: Language spoken at home (Aboriginal and/or Torres Strait Islander languages)
   - Numerator: Number of Aboriginal and/or Torres Strait Islander people who speak an Aboriginal and/or Torres Strait Islander language at home
   - Denominator: `r note_denominator_census_aboriginal`
   - Disaggregation: `r note_disaggregation_lga`
@@ -371,6 +372,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 5B-2 and Table 5B-2:
+  - Indicator: Language spoken at home (Aboriginal and/or Torres Strait Islander languages)
   - Numerator: Number of Aboriginal and/or Torres Strait Islander people who speak an Aboriginal and/or Torres Strait Islander language at home
   - Denominator: `r note_denominator_census_aboriginal`
   - Disaggregation: `r note_disaggregation_agesex`
@@ -378,6 +380,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 5B-3 and Table 5B-3:
+  - Indicator: Language spoken at home (Aboriginal and/or Torres Strait Islander languages)
   - Numerator: Number of Aboriginal and/or Torres Strait Islander people who speak the specified language
   - Denominator: `r note_denominator_census_aboriginal`
   - *Australian Indigenous Languages* includes: 
@@ -535,6 +538,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 5B-4 and Table 5B-4:
+  - Indicator: Language spoken at home (other languages)
   - Numerator: Number of Aboriginal and/or Torres Strait Islander people who speak the specified language at home
   - Denominator: `r note_denominator_census_aboriginal`
 
@@ -614,10 +618,7 @@ english_agesex <- english_agesex %>%
     - Yes, Greek
     - Yes, other language (please specify)
   - How well does the person speak English?
-    - Very well
-    - Well
-    - Not well
-    - Not at all
+    - `r note_response_likert_verywell`
 
 <div style="height: 0.1em;"></div>
 
@@ -766,6 +767,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 5B-5 and Table 5B-5:
+  - Indicator: English proficiency
   - Numerator: Number of Aboriginal and/or Torres Strait Islander people with a high level of English proficiency
   - Denominator: `r note_denominator_census_aboriginal`
   - Disaggregation: `r note_disaggregation_lga`
@@ -773,6 +775,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 5B-6, and Table 5B-6:
+  - Indicator: English proficiency
   - Numerator: Number of Aboriginal and/or Torres Strait Islander people with a high level of English proficiency
   - Denominator: `r note_denominator_census_aboriginal`
   - Disaggregation: `r note_disaggregation_agesex`

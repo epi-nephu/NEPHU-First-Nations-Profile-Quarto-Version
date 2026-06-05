@@ -195,7 +195,7 @@ knowledge_2018 <- knowledge_2018 %>%
 ::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
 - The following question was asked of all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
   - How satisfied are you with your knowledge of your culture?
-    - Likert Scale (Very satisfied to Not at all satisfied)
+    - `r note_response_likert_verysatisfied`
 
 <div style="height: 0.1em;"></div>
 
@@ -303,6 +303,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 7A-1 and Table 7A-1:
+  - Indicator: Satisfaction with cultural knowledge
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
   - Disaggregation: `r note_disaggregation_sex`
@@ -378,7 +379,7 @@ pride <- pride %>%
 ::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
 - The following question was asked of all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
   - Are you proud of being Aboriginal and/or Torres Strait Islander?
-    - Dichotomous (Yes - No)
+    - `r note_response_binary`
 
 <div style="height: 0.1em;"></div>
 
@@ -450,6 +451,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Table 7A-2:
+  - Indicator: Pride in culture
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
   - Disaggregation: `r note_disaggregation_sex`
@@ -654,6 +656,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 7A-2 and Table 7A-3:
+  - Indicator: Identification with cultural group
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
   - Disaggregation: `r note_disaggregation_sex`
@@ -721,7 +724,7 @@ acceptance <- acceptance %>%
 ::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
 - The following question was asked of all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
   - Do you feel accepted by other Aboriginal and/or Torres Strait Islander people?
-    - Dichotomous (Yes - No)
+    - `r note_response_binary`
 
 <div style="height: 0.1em;"></div>
 
@@ -793,6 +796,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Table 7A-4:
+  - Indicator: Acceptance by community
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
   - Disaggregation: `r note_disaggregation_sex`
@@ -870,7 +874,7 @@ recognition <- recognition %>%
 ::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
 - The following question was asked of all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
   - How important is it to you to be recognised as an Aboriginal and/or Torres Strait Islander person?
-    - Likert scale (Very important to Not at all important)
+    - `r note_response_likert_veryimportant`
 
 <div style="height: 0.1em;"></div>
 
@@ -980,6 +984,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Table 7A-5:
+  - Indicator: Cultural recognition
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
   - Disaggregation: `r note_disaggregation_sex`

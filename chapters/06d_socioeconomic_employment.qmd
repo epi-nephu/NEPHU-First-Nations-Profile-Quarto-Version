@@ -369,6 +369,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6D-1 and Table 6D-1:
+  - Indicator: Engagement in employment, education, or training
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_census_aboriginal`
   - Disaggregation: `r note_disaggregation_lga`
@@ -376,6 +377,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6D-2 and Table 6D-2:
+  - Indicator: Engagement in employment, education, or training
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_census_aboriginal`
   - Disaggregation: `r note_disaggregation_agesex`
@@ -777,6 +779,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6D-3 and Table 6D-3:
+  - Indicator: Engagement in employment, education, or training
   - Numerator: Number of people aged 15-24 years who were fully engaged in education, employment, or training
   - Denominator: Total number of people aged 15-24 years who completed the Census
   - Disaggregation: `r note_disaggregation_year`
@@ -786,6 +789,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6D-4, Figure 6D-5, and Table 6D-4:
+  - Indicator: Engagement in employment, education, or training
   - Numerator: Number of people aged 15-24 years who were fully engaged in education, employment, or training
   - Denominator: Total number of people aged 15-24 years who completed the Census
   - Disaggregation: `r note_disaggregation_lga`
@@ -794,6 +798,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Table 6D-5:
+  - Indicator: Engagement in employment, education, or training
   - Numerator: Number of people aged 15-24 years who were fully engaged in education, employment, or training
   - Denominator: Total number of people aged 15-24 years who completed the Census
   - Disaggregation: `r note_disaggregation_sex`
@@ -802,6 +807,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6D-6 and Table 6D-6:
+  - Indicator: Engagement in employment, education, or training
   - Numerator: Number of people who were fully engaged in education, employment, or training
   - Denominator: `r note_denominator_census_population`
   - Disaggregation: `r note_disaggregation_age`
@@ -1173,6 +1179,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6D-7 and Table 6D-7:
+  - Indicator: Employment
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_census_aboriginal`
   - Disaggregation: `r note_disaggregation_lga`
@@ -1180,6 +1187,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6D-8 and Table 6D-8:
+  - Indicator: Employment
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_census_aboriginal`
   - Disaggregation: `r note_disaggregation_agesex`
@@ -1494,6 +1502,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6D-9 and Table 6D-9:
+  - Indicator: Employment
   - Numerator: Number of people aged 25-64 years who were employed
   - Denominator: Total number of people aged 25-64 years who completed the Census
   - Disaggregation: `r note_disaggregation_year`
@@ -1503,6 +1512,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6D-10, Figure 6D-11, and Table 6D-10:
+  - Indicator: Employment
   - Numerator: Number of people aged 25-64 years who were employed
   - Denominator: Total number of people aged 25-64 years who completed the Census
   - Disaggregation: `r note_disaggregation_lga`
@@ -1511,6 +1521,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Table 6D-11:
+  - Indicator: Employment
   - Numerator: Number of people aged 25-64 years who were employed
   - Denominator: Total number of people aged 25-64 years who completed the Census
   - Disaggregation: `r note_disaggregation_sex`
@@ -1779,6 +1790,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6D-12, Figure 6D-13, and Table 6D-12:
+  - Indicator: Participation in volunteer work
   - Numerator: Number of people who did volunteer work for an organisation or group
   - Denominator: `r note_denominator_census_population`
   - Disaggregation: `r note_disaggregation_lga`
@@ -1787,6 +1799,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6D-14, Figure 6D-15, and Table 6D-13:
+  - Indicator: Participation in volunteer work
   - Numerator: Number of people who did volunteer work for an organisation or group
   - Denominator: `r note_denominator_census_population`
   - Disaggregation: `r note_disaggregation_agesex`
@@ -2060,6 +2073,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6D-16, Figure 6D-17, and Table 6D-14:
+  - Indicator: Participation in unpaid caring duties
   - Numerator: Number of people who undertook unpaid caring duties
   - Denominator: `r note_denominator_census_population`
   - Disaggregation: `r note_disaggregation_lga`
@@ -2068,6 +2082,7 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 6D-18, Figure 6D-19, and Table 6D-15:
+  - Indicator: Participation in unpaid caring duties
   - Numerator: Number of people who undertook unpaid caring duties
   - Denominator: `r note_denominator_census_population`
   - Disaggregation: `r note_disaggregation_agesex`
