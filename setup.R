@@ -73,7 +73,7 @@ subfolder_vcams       <- "Population Health Data/VCAMS/Data"
 # ------------------------------------------------------------------------------
 source(here::here("notes", "notes_chapter_caveats.R"))
 source(here::here("notes", "notes_definitions_aboriginality.R"))
-source(here::here("notes", "notes_definitions_denominator.R"))
+source(here::here("notes", "notes_definitions_other.R"))
 source(here::here("notes", "notes_footnotes_caveats.R"))
 source(here::here("notes", "notes_footnotes_data_sources.R"))
 

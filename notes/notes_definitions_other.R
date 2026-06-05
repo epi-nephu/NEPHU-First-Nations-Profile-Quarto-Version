@@ -2,6 +2,17 @@
 # Author: Alana Little, NEPHU (alana.little@austin.org.au)
 
 ################################################################################
+# Commonly used response options
+################################################################################
+note_response_binary <- "Dichotomous (Yes/No)"
+
+note_response_likert_often         <- "Likert scale (Often/Sometimes/Never)"
+note_response_likert_veryimportant <- "Likert scale (Very Important/Important/Neutral/Not Very Important/Not At All Important)"
+note_response_likert_verysatisfied <- "Likert scale (Very Satisfied/Satisfied/Neutral/Not Very Satisfied/Not At All Satisfied)"
+note_response_likert_verywell      <- "Likert scale (Very Well/Well/Not Well/Not At All)"
+
+
+################################################################################
 # Commonly used numerator definitions
 ################################################################################
 note_numerator_category_aboriginal <- "Number of Aboriginal and/or Torres Strait Islander people in each category"
