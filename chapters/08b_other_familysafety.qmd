@@ -7,13 +7,13 @@ title-block: false
 ```{r}
 #
 source(here::here("setup.R"))
-source(here::here("setup_footnotes.R"))
 
-# Set up numbering for exporting tables as .csv
-table_section <- "08B"
-table_count   <- 0
+# Set up numbering for figures and tables
+figtab_report_section <- "8B"
+figtab_csv_section    <- "08B"
 
-figure_count <- 0
+figtab_table_count  <- 0
+figtab_figure_count <- 0
 ```
 
 
@@ -24,30 +24,36 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Family Safety and Wellbeing {.unnumbered}
 
-::: {.warning-box}
-`r bsicons::bs_icon("exclamation-triangle", size = "15pt")` **Content warning** `r bsicons::bs_icon("exclamation-triangle", size = "15pt")`
-
+::: {.callout-important title="Content warning" icon=true collapse=false}
 The following section contains information about family safety and wellbeing involving Aboriginal and/or Torres Strait Islander children, families, and communities. This content may bring up strong emotions or memories, particularly for those who have lived experience of child removal, family separation, or the ongoing impacts of colonisation and government policies.
 
 We encourage readers to look after themselves while engaging with this material. Please take breaks if needed, and seek support from trusted family, community, or professional services if the content causes distress. 
 
 As you read, please remember to lean on your strengths, your community, and your supports. This knowledge is shared with deep respect, care, and understanding.
 
-If you or someone you know needs support, please consider reaching out to one of the following culturally safe services.
+If you or someone you know needs support, please consider reaching out to the culturally safe services listed here.
 :::
 
-<div style="height: 2em;"></div>
+<div style="height: 0.1em;"></div>
 
-::: {.caveat-box}
-**A note about the impact of under-identification**
+::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
+`r note_chapter_different_sources`
 
-`r note_box_underidentification`
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_comparisons`
+
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_masking`
 :::
-
-<div style="height: 2em;"></div>
 
 ::: {.key-question}
-What factors within community and broader systems impact the ways Aboriginal and/or Torres Strait Islander families in the NEPHU catchment are supported to maintain wellbeing, care for children, and keep families connected?
+What external factors influence health and wellbeing for Aboriginal and/or Torres Strait Islander people and families in the NEPHU catchment, including in supporting children and strong families?
 :::
 
 ## Out-of-Home Care
@@ -73,12 +79,12 @@ outofhome <- readxl::read_excel(file.path(root_folder, subfolder_protection, "Ch
   #
   dplyr::mutate(
     indigenous_status = dplyr::case_when(
-      row_number() %in% c(3:7, 58:62) ~ "aboriginal",
+      row_number() %in% c(3:7, 58:62)  ~ "aboriginal",
       row_number() %in% c(9:13, 64:68) ~ "non_aboriginal",
       TRUE ~ NA_character_),
     #
     unit = dplyr::case_when(
-      row_number() %in% c(3:7, 9:13) ~ "n",
+      row_number() %in% c(3:7, 9:13)    ~ "n",
       row_number() %in% c(58:62, 64:68) ~ "rate",
       TRUE ~ NA_character_)) %>% 
   #
@@ -183,31 +189,30 @@ relationship <- relationship %>%
 - The importance of eliminating racism and discrimination in child protection was discussed, with self-determination and service provision that is led by Aboriginal and/or Torres Strait Islander peoples being critical in addressing this issue. This includes support for pre-birth interventions.
 
 ::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-- `r note_aboriginality_childprotection`
-
-<div style="height: 0.1em;"></div> 
-
-- Children were defined as persons aged 0-17 years.
-
-<div style="height: 0.1em;"></div> 
-
-- The out-of-home care rate was calculated as the total number of children in out-of-home care per 1,000 population on June 30th of each year as estimated by the [ABS Estimated Residential Population (ERP)](https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071) for the year.
-  - ERP calculations take into account the known under-reporting of Aboriginal and/or Torres Strait Islander status in the Census.
+- Definitions and notes:
+  - `r note_aboriginality_childprotection`
+  - Children were defined as persons aged 0-17 years.
+  - The out-of-home care rate was calculated as the total number of children in out-of-home care per 1,000 population on June 30th of each year as estimated by the [ABS Estimated Residential Population (ERP)](https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071) for the year.
+    - ERP calculations take into account the known under-reporting of Aboriginal and/or Torres Strait Islander status in the Census.
 
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 8B-1
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_8B_1 .fig-tab-title}
-**Figure 8B-1:** Out-of-home care rate (per 1,000 population) on June 30th for Victorian children, by Aboriginal and/or Torres Strait Islander status and year
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Out-of-home care rate (per 1,000 population) on June 30th for Victorian children, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 ctg_target <- outofhome$vic[11] * 0.55
 
 outofhome %>% 
@@ -220,24 +225,29 @@ outofhome %>%
                             n_level    = "1,000")
 ```
 
-#### Table 8B-1
 
-::: {#tab_8B_1 .fig-tab-title}
-**Table 8B-1:** Number of children in out-of-home care and out-of-home care rate (per 1,000 population) on June 30th for Victorian children, by Aboriginal and/or Torres Strait Islander status and year
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Number of children in out-of-home care and out-of-home care rate (per 1,000 population) on June 30th for Victorian children, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- outofhome %>%
   f_preptable_grouped_indigenous(x_variable = year,
                                  n_variable = "n and rate")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -252,18 +262,22 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Figure 8B-2
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_8B_2 .fig-tab-title}
-**Figure 8B-2:** Relationship to carer for Aboriginal and/or Torres Strait Islander children in out-of-home care, Victoria, by year
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Relationship to carer for Aboriginal and/or Torres Strait Islander children in out-of-home care, Victoria, by year
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 stacked_total <- relationship %>% 
   dplyr::group_by(year) %>% 
   dplyr::summarise(total = sum(aboriginal_n)) %>% 
@@ -279,20 +293,26 @@ relationship %>%
                 fill_variable = forcats::fct_rev(relationship),
                 fill_values   = c(colour_stack4, colour_stack3, colour_stack2, colour_stack1),
                 n_level       = "children",
-                legend_offset = -0.2)
+                legend_offset = -0.2,
+                legend_order  = "reversed")
 ```
 
-#### Table 8B-2
 
-::: {#tab_8B_2 .fig-tab-title}
-**Table 8B-2:** Relationship to carer for Aboriginal and/or Torres Strait Islander children in out-of-home care, Victoria, by year
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Relationship to carer for Aboriginal and/or Torres Strait Islander children in out-of-home care, Victoria, by year
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- relationship %>%
   tidyr::pivot_wider(names_from  = "relationship",
                      values_from = c("aboriginal_n", "aboriginal_prop"),
@@ -312,9 +332,9 @@ table <- relationship %>%
   #
   dplyr::mutate(number_total = aboriginal_kin_n + aboriginal_other_n + non_aboriginal_kin_n + other_care_n)
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -339,7 +359,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -353,6 +373,24 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - For Figure 8B-2 and Table 8B-2, *Other care arrangements* includes children in out-of-home care who were living with non-Indigenous carers who were not relatives/kin, living in residential care or family group homes, living independently, and where the living arrangements were not known.
+
+<div style="height: 0.1em;"></div>
+
+- Figure 8B-1 and Table 8B-1:
+  - Indicator: Out-of-home care rate
+  - Numerator: Number of children in out-of-home care on June 30th
+  - Denominator: `r note_denominator_erp`
+  - Disaggregation: `r note_disaggregation_year`
+  - Comparison: `r note_comparison_aboriginal`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 8B-2 and Table 8B-2:
+  - Indicator: Relationship to carer for children in Out-of-home care
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: Total number of children in out-of-home care
+  - Disaggregation: `r note_disaggregation_year`
+
 :::
 
 ```{r}
@@ -413,13 +451,14 @@ violence_women <- violence_women %>%
 
 - At stakeholder consultation during the development of this report, these data were thought to be an underestimate and not a true reflection of the safety of households.
 
-- Concerns of child removal were thought to be a possible contributor to underreporting. 
+- It was discussed that women may be scared to report family violence for a variety of reasons, including concerns about potential child removal.
+
+- It was also discussed that perpetrators of family violence are often incorrectly assumed to be Aboriginal and/or Torres Strait Islander men, when in reality perpetrators of family violence against Aboriginal and/or Torres Strait Islander women and children are more commonly non-Indigenous men.
 
 ::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
 - The following questions were asked of all people aged 15 years and over completing the 2018-19 ABS National Aboriginal and Torres Strait Islander Health Survey:
   - In the last 12 months, has anyone, including people you know well, physically hurt or harmed you on purpose? Please include physical fights.
-    - Yes
-    - No
+    - `r note_response_binary`
   - In the last 12 months, has anyone, including people you know well, threatened to physically hurt or harm you?
     - Yes, face-to-face
     - Yes, non face-to-face (e.g. phone, text message, Facebook, Twitter)
@@ -484,33 +523,32 @@ violence_incidents <- violence_incidents %>%
 - The number of family violence incidents reported increased each year for both males and females.
 
 ::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-- `r note_aboriginality_crime`
-
-<div style="height: 0.1em;"></div> 
-
-- Family violence is not limited to physical violence and definitions can be found on the [Victorian government website](https://www.vic.gov.au/what-family-violence).
-  - Family violence incidents were defined as those where a Victoria Police Risk Assessment and Risk Management Report (also known as an L17 form) was completed and recorded on LEAP.
-
-<div style="height: 0.1em;"></div> 
-
-- An affected family member is the individual who is deemed to be affected by events occurring during a family incident.
-  - The other individual involved in a family incident is referred to as the ‘other party’.
-  - The other party could be a current partner, former partner, or a family member.
+- Definitions and notes:
+  - `r note_aboriginality_crime`
+  - Family violence is not limited to physical violence and definitions can be found on the [Victorian government website](https://www.vic.gov.au/what-family-violence).
+    - Family violence incidents were defined as those where a Victoria Police Risk Assessment and Risk Management Report (also known as an L17 form) was completed and recorded on LEAP.
+  - An affected family member is the individual who is deemed to be affected by events occurring during a family incident.
+    - The other individual involved in a family incident is referred to as the ‘other party’.
+    - The other party could be a current partner, former partner, or a family member.
 
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 8B-3
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_8B_3 .fig-tab-title}
-**Figure 8B-3:** Number of family violence incidents reported by affected Aboriginal and/or Torres Strait Islander family members, Victoria, by sex and year
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number of family violence incidents reported by affected Aboriginal and/or Torres Strait Islander family members, Victoria, by sex and year
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 violence_incidents %>% 
   dplyr::filter(sex != "Total" & indigenous_status == "Aboriginal") %>%
   #
@@ -518,19 +556,24 @@ violence_incidents %>%
                      n_level    = "reported incidents")
 ```
 
-#### Table 8B-3
 
-::: {#tab_8B_3 .fig-tab-title}
-**Table 8B-3:** Number of family violence incidents reported by affected Aboriginal and/or Torres Strait Islander family members, Victoria, by sex and year
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Number of family violence incidents reported by affected Aboriginal and/or Torres Strait Islander family members, Victoria, by sex and year
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- violence_incidents %>%
-  tidyr::pivot_wider(names_from = "sex",
+  tidyr::pivot_wider(names_from  = "sex",
                      values_from = "n") %>% 
   #
   janitor::clean_names() %>% 
@@ -544,9 +587,9 @@ table <- violence_incidents %>%
   #
   dplyr::arrange(year)
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -563,7 +606,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -573,5 +616,14 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 8B-3 and Table 8B-3:
+  - Indicator: Family violence incidents
+  - Numerator: Number of incidents reported by Aboriginal and/or Torres Strait Islander family members
+  - Disaggregation: `r note_disaggregation_year`
+  - Comparison: `r note_comparison_sex`
+
 :::
 
