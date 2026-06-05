@@ -7,13 +7,13 @@ title-block: false
 ```{r}
 #
 source(here::here("setup.R"))
-source(here::here("setup_footnotes.R"))
 
-# Set up numbering for exporting tables as .csv
-table_section <- "08D"
-table_count   <- 0
+# Set up numbering for figures and tables
+figtab_report_section <- "8D"
+figtab_csv_section    <- "08D"
 
-figure_count <- 0
+figtab_table_count  <- 0
+figtab_figure_count <- 0
 ```
 
 
@@ -24,16 +24,16 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Connection Through Digital Technology {.unnumbered}
 
-::: {.caveat-box}
-**A note about the impact of under-identification**
+::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
+`r note_chapter_underidentification`
 
-`r note_box_underidentification`
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_masking`
 :::
 
-<div style="height: 2em;"></div>
-
 ::: {.key-question}
-What factors within community and broader systems impact the ways Aboriginal and/or Torres Strait Islander families in the NEPHU catchment are supported to maintain wellbeing, care for children, and keep families connected?
+What external factors influence health and wellbeing for Aboriginal and/or Torres Strait Islander people and families in the NEPHU catchment, including in supporting children and strong families?
 :::
 
 ## Internet Use for Connection and Everyday Life
@@ -79,7 +79,7 @@ digital_status <- digital_status %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -136,7 +136,7 @@ digital_reason <- digital_reason %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -181,8 +181,7 @@ digital_reason <- digital_reason %>%
 ::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
 - The following questions were asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
   - Have you personally used the internet in the last three months? This could have been through devices such as mobile phones, smart watches, laptops, computers, tablets, game consoles, or internet enabled televisions.
-    - Yes
-    - No
+    - `r note_response_binary`
   - In the last three months, did you use the internet for any of these reasons? (Select all that apply)
     - Social networking (e.g. Facebook, Twitter, Skype)
     - Purchasing or ordering goods or services online (e.g. travel, tickets, accommodation, computer software, clothes, food, movies, music, books)
@@ -206,23 +205,27 @@ digital_reason <- digital_reason %>%
 
 :::: {.panel-tabset}
 
-#### Table 8D-1
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
 
-::: {#tab_8D_1 .fig-tab-title}
-**Table 8D-1:** Personal use of the internet during the three months prior to the survey for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Personal use of the internet during the three months prior to the survey for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- digital_status %>% 
   f_preptable_grouped_sex(variable_name = "internet_accessed")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -237,18 +240,22 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Figure 8D-1
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_8D_1 .fig-tab-title}
-**Figure 8D-1:** Reasons for accessing the internet during the three months prior to the survey for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Reasons for accessing the internet during the three months prior to the survey for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 factor_levels <- stringr::str_wrap(levels(digital_reason$answer), width = 15)
 
 figure_number <- digital_reason %>% 
@@ -272,23 +279,28 @@ figure_percent <- digital_reason %>%
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.35)
 ```
 
-#### Table 8D-2
 
-::: {#tab_8D_2 .fig-tab-title}
-**Table 8D-2:** Reasons for accessing the internet during the three months prior to the survey for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Reasons for accessing the internet during the three months prior to the survey for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- digital_reason %>% 
   f_preptable_grouped_sex(variable_name = "internet_reason")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -303,7 +315,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -316,6 +328,10 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
 
 <div style="height: 0.1em;"></div>
@@ -325,5 +341,22 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_multipleresponse`
+
+<div style="height: 0.1em;"></div>
+
+- Table 8D-1:
+  - Indicator: Personal internet use
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Disaggregation: `r note_disaggregation_sex`
+  
+<div style="height: 0.1em;"></div>
+
+- Figure 8D-1 and Table 8D-2:
+  - Indicator: Reasons for accessing the internet
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Disaggregation: `r note_disaggregation_sex`
+
 :::
 

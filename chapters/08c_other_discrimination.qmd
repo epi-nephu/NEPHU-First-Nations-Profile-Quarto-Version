@@ -7,13 +7,13 @@ title-block: false
 ```{r}
 #
 source(here::here("setup.R"))
-source(here::here("setup_footnotes.R"))
 
-# Set up numbering for exporting tables as .csv
-table_section <- "08C"
-table_count   <- 0
+# Set up numbering for figures and tables
+figtab_report_section <- "8C"
+figtab_csv_section    <- "08C"
 
-figure_count <- 0
+figtab_table_count  <- 0
+figtab_figure_count <- 0
 ```
 
 
@@ -24,16 +24,24 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Racism and Discrimination {.unnumbered}
 
-::: {.caveat-box}
-**A note about the impact of under-identification**
+::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
+`r note_chapter_different_sources`
 
-`r note_box_underidentification`
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_comparisons`
+
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_masking`
 :::
 
-<div style="height: 2em;"></div>
-
 ::: {.key-question}
-What factors within community and broader systems impact the ways Aboriginal and/or Torres Strait Islander families in the NEPHU catchment are supported to maintain wellbeing, care for children, and keep families connected?
+What external factors influence health and wellbeing for Aboriginal and/or Torres Strait Islander people and families in the NEPHU catchment, including in supporting children and strong families?
 :::
 
 ## Experience of Racism
@@ -80,7 +88,7 @@ discrimination_prejudice <- discrimination_prejudice %>%
                  "Did not identify as Aboriginal\nand/or Torres Strait Islander")),
     #
     unit = dplyr::case_when(
-      unit == "Proportion (b)" ~ "prop",
+      unit == "Proportion (b)"             ~ "prop",
       unit == "Number (weighted estimate)" ~ "n",
       TRUE ~ NA_character_))
 ```
@@ -111,16 +119,20 @@ discrimination_prejudice <- discrimination_prejudice %>%
 
 :::: {.panel-tabset}
 
-#### Figure 8C-1
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_8C_1 .fig-tab-title}
-**Figure 8C-1:** Percentage of people reporting that they had experienced racial prejudice in the six months prior to the survey, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Percentage of people reporting that they had experienced racial prejudice in the six months prior to the survey, Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 discrimination_prejudice %>% 
   dplyr::filter(unit == "prop") %>% 
   #
@@ -129,24 +141,29 @@ discrimination_prejudice %>%
   f_line_grouped_indigenous(y_variable = prop)
 ```
 
-#### Table 8C-1
 
-::: {#tab_8C_1 .fig-tab-title}
-**Table 8C-1:** Number and percentage of people reporting that they had experienced racial prejudice in the six months prior to the survey, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Number and percentage of people reporting that they had experienced racial prejudice in the six months prior to the survey, Victoria, by Aboriginal and/or Torres Strait Islander status and year
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- discrimination_prejudice %>%
   f_preptable_grouped_indigenous(x_variable = year,
                                  n_variable = "n and prop")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -161,7 +178,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -179,6 +196,16 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_unknown`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 8C-1 and Table 8C-1:
+  - Indicator: Experience of racial prejudice
+  - Numerator: Number of people who had experienced racial prejudice
+  - Denominator: Total number of people who answered this question in the Australian Reconciliation Barometer survey
+  - Disaggregation: `r note_disaggregation_year`
+  - Comparison: `r note_comparison_aboriginal`
+
 :::
 
 ```{r}
@@ -221,7 +248,7 @@ discimination_unfair <- discimination_unfair %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -264,7 +291,7 @@ discimination_avoid <- discimination_avoid %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -321,23 +348,27 @@ discimination_avoid <- discimination_avoid %>%
 
 :::: {.panel-tabset}
 
-#### Table 8C-2
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
 
-::: {#tab_8C_2 .fig-tab-title}
-**Table 8C-2:** Experience of unfair treatment in the 12 months prior to the survey for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Experience of unfair treatment in the 12 months prior to the survey for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- discimination_unfair %>% 
   f_preptable_grouped_sex(variable_name = "unfair_treatment")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -352,25 +383,29 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Table 8C-3
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
 
-::: {#tab_8C_3 .fig-tab-title}
-**Table 8C-3:** Avoidance of situations in the 12 months prior to the survey due to previous unfair treatment for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Avoidance of situations in the 12 months prior to the survey due to previous unfair treatment for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- discimination_avoid %>% 
   f_preptable_grouped_sex(variable_name = "avoided_situation")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -385,7 +420,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -398,10 +433,31 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
 
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_estimate`
+
+<div style="height: 0.1em;"></div>
+
+- Table 8C-2:
+  - Indicator: Experience of unfair treatment
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Disaggregation: `r note_disaggregation_sex`
+
+<div style="height: 0.1em;"></div>
+
+- Table 8C-3:
+  - Indicator: Avoidance of situations due to previous unfair treatment
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Disaggregation: `r note_disaggregation_sex`
+
 :::
 
