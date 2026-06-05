@@ -15,13 +15,11 @@ note_data_census <- glue::glue("
 note_data_childprotection <- glue::glue("
 - Data were obtained from the [AIHW Child Protection National Minimum Dataset](https://www.aihw.gov.au/about-our-data/our-data-collections/child-protection-national-minimum-data-set).
   - The AIHW Child Protection National Minimum Dataset includes information about children who come into contact with State and Territory departments responsible for child protection.
-  - Aboriginal and/or Torres Strait Islander peoples were defined as those who are identified as such in the individual state and territory data collections that make up the AIHW Child Protection National Minimum Dataset.
   - Children were defined as persons aged 0-17 years.")
 
 note_data_crime <- glue::glue("
 - Data were obtained from the [Victorian Crime Statistics Agency](https://www.crimestatistics.vic.gov.au/crime-statistics/latest-aboriginal-crime-data/family-incidents-by-aboriginal-and-torres-strait).
-  - The Victorian Crime Statistics Agency collates information about crimes reported to Victoria Police and recorded in the Law Enforcement Assistance Program (LEAP) database.
-  - Aboriginal and/or Torres Strait Islander status for affected family members and other parties is based on the most frequent recording of the Indigenous status for each person in the LEAP database. If a person appears in the database multiple times, the most frequently recorded response is taken as being correct.")
+  - The Victorian Crime Statistics Agency collates information about crimes reported to Victoria Police and recorded in the Law Enforcement Assistance Program (LEAP) database.")
 
 note_data_ctg_nativetitle <- glue::glue("
 - Data were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the [National Native Title Tribunal Geospatial Data Model](https://www.nntt.gov.au/assistance/Geospatial/Pages/Spatial-aata.aspx).
@@ -43,13 +41,11 @@ note_data_framework_breastfed <- glue::glue("
 note_data_justice_adult <- glue::glue("
 - Data were obtained from the [ABS Prisoners in Australia Dataset](https://www.abs.gov.au/statistics/people/crime-and-justice/prisoners-australia/latest-release).
   - The ABS Prisoners in Australia Dataset includes all persons remanded or sentenced to adult custodial corrective services agencies in each Australian state and territory.
-  - Aboriginal and/or Torres Strait Islander peoples were defined as those who identified themselves as Aboriginal and/or Torres Strait Islander at the time of their contact with a corrective service agency.
   - Adults were defined as persons aged 18 years and over.")
 
 note_data_justice_youth <- glue::glue("
 - Data were obtained from the [AIHW Youth Justice National Minimum Dataset](https://www.aihw.gov.au/about-our-data/our-data-collections/youth-justice).
   - The AIHW Youth Justice National Minimum Dataset includes information about young people in Australia who were under youth justice supervision in each Australian state and territory.
-  - Aboriginal and/or Torres Strait Islander peoples were defined as those who identified themselves as Aboriginal and/or Torres Strait Islander at the time of their contact with the youth justice system.
   - Young people were defined as persons aged 10-17 years.")
 
 note_data_mortality <- glue::glue("
@@ -102,8 +98,7 @@ note_data_phidu_vemd <- glue::glue("
 
 note_data_reconciliation <- glue::glue("
 - Data were obtained from the [Australian Reconciliation Barometer](https://www.reconciliation.org.au/reconciliation/australian-reconciliation-barometer/).
-  - The Australian Reconciliation Barometer is a national survey undertaken every two years since 2008, and aims to measure the progress of reconciliation between Aboriginal and/or Torres Strait Islander and non-Indigenous peoples.
-  - Aboriginal and/or Torres Strait Islander peoples were defined as those who self-identified as Aboriginal and/or Torres Strait Islander when completing the survey.")
+  - The Australian Reconciliation Barometer is a national survey undertaken every two years since 2008, and aims to measure the progress of reconciliation between Aboriginal and/or Torres Strait Islander and non-Indigenous peoples.")
 
 note_data_tax <- glue::glue("
 - Data were obtained from the [ABS Census 2021](https://www.abs.gov.au/census) linked to data from the Australian Taxation Office and Department of Social Services held in the [Person Level Integrated Data Asset (PLIDA)](https://www.abs.gov.au/about/data-services/data-integration/integrated-data/person-level-integrated-data-asset-plida). Data are publicly available at Local Government Area (LGA), ABS Statistical Area Level 2 (SA2), and Indigenous Area of Residence (IARE) level.
