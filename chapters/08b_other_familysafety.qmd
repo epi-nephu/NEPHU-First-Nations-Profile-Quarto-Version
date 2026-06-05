@@ -372,10 +372,6 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
-- For Figure 8B-2 and Table 8B-2, *Other care arrangements* includes children in out-of-home care who were living with non-Indigenous carers who were not relatives/kin, living in residential care or family group homes, living independently, and where the living arrangements were not known.
-
-<div style="height: 0.1em;"></div>
-
 - Figure 8B-1 and Table 8B-1:
   - Indicator: Out-of-home care rate
   - Numerator: Number of children in out-of-home care on June 30th
@@ -390,6 +386,7 @@ table %>%
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: Total number of children in out-of-home care
   - Disaggregation: `r note_disaggregation_year`
+  - *Other care arrangements* includes children in out-of-home care who were living with non-Indigenous carers who were not relatives/kin, living in residential care or family group homes, living independently, and where the living arrangements were not known.
 
 :::
 
