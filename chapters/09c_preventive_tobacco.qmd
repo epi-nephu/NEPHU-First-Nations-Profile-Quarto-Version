@@ -7,13 +7,13 @@ title-block: false
 ```{r}
 #
 source(here::here("setup.R"))
-source(here::here("setup_footnotes.R"))
 
-# Set up numbering for exporting tables as .csv
-table_section <- "09C"
-table_count   <- 0
+# Set up numbering for figures and tables
+figtab_report_section <- "9C"
+figtab_csv_section    <- "09C"
 
-figure_count <- 0
+figtab_table_count  <- 0
+figtab_figure_count <- 0
 ```
 
 
@@ -24,13 +24,13 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Tobacco and Vaping {.unnumbered}
 
-::: {.caveat-box}
-**A note about the impact of under-identification**
+::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
+`r note_chapter_underidentification`
 
-`r note_box_underidentification`
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_masking`
 :::
-
-<div style="height: 2em;"></div>
 
 ::: {.key-question}
 What health and wellbeing practices are Aboriginal and/or Torres Strait Islander Peoples living in the NEPHU catchment engaging in?
@@ -73,7 +73,7 @@ smoking_current <- smoking_current %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -118,7 +118,7 @@ smoking_quit <- smoking_quit %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -132,7 +132,7 @@ smoking_quit <- smoking_quit %>%
 
 - Data for this topic were obtained from the [2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release).
 
-- 25% of Aboriginal and/or Torres Strait Islander survey respondents aged 15 years and over who had ever smoked were current smokers. This equates to approximately 6,600 Aboriginal and/or Torres Strait Islander adults.
+- 25% of Aboriginal and/or Torres Strait Islander survey respondents aged 15 years and over living in Greater Melbourne were current smokers. This equates to approximately 6,600 Aboriginal and/or Torres Strait Islander people.
 
 - Males were more likely to be current smokers than females (33% vs. 16%).
 
@@ -143,11 +143,9 @@ smoking_quit <- smoking_quit %>%
 ::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
 - The following questions were asked of all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
   - Do you currently smoke?
-    - Yes
-    - No
+    - Dichotomous (Yes - No)
   - Have you ever smoked regularly, that is, at least once a day?
-    - Yes
-    - No
+    - Dichotomous (Yes - No)
   - Have you ever: (Select all that apply)
     - Chewed tobacco
     - Smoked pipes
@@ -155,18 +153,13 @@ smoking_quit <- smoking_quit %>%
     - Smoked other tobacco products (excluding cigarettes)
     - None of the above
   - Have you smoked at least 100 cigarettes in your entire life?
-    - Yes
-    - No
+    - Dichotomous (Yes - No)
   - Have you smoked pipes, cigars, or other tobacco products (excluding cigarettes) at least 20 times in your entire life?
-    - Yes
-    - No
+    - Dichotomous (Yes - No)
   - Did you stop smoking regularly, that is, at least once a day, within the last 12 months?
-    - Yes
-    - No
+    - Dichotomous (Yes - No)
   - In the last 12 months did you attempt to quit smoking?
-    - Yes
-    - No
-    - Don't know
+    - Dichotomous (Yes - No)
 
 <div style="height: 0.1em;"></div>
 
@@ -183,16 +176,20 @@ smoking_quit <- smoking_quit %>%
 
 :::: {.panel-tabset}
 
-#### Figure 9C-1
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_9C_1 .fig-tab-title}
-**Figure 9C-1:** Current smoking status for survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Current smoking status for survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- smoking_current %>% 
   dplyr::filter(sex != "Total" & answer != "Total") %>%
   #
@@ -208,23 +205,28 @@ figure_percent <- smoking_current %>%
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 ```
 
-#### Table 9C-1
 
-::: {#tab_9C_1 .fig-tab-title}
-**Table 9C-1:** Current smoking status for survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Current smoking status for survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- smoking_current %>% 
   f_preptable_grouped_sex(variable_name = "smoking_status")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -239,25 +241,29 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Table 9C-2
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
 
-::: {#tab_9C_2 .fig-tab-title}
-**Table 9C-2:** Attempts to quit smoking for survey respondents aged 15 years and over who were current smokers and who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Attempts to quit smoking for survey respondents aged 15 years and over who were current smokers and who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- smoking_quit %>% 
   f_preptable_grouped_sex(variable_name = "quit_attempt")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -272,7 +278,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -285,11 +291,32 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
 
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_estimate`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 9C-1 and Table 9C-1:
+  - Indicator: Current smoking status
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Disaggregation: `r note_disaggregation_sex`
+  
+<div style="height: 0.1em;"></div>
+
+- Table 9C-2:
+  - Indicator: Quit smoking attempts in the past 12 months
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Disaggregation: `r note_disaggregation_sex`
+
 :::
 
 ```{r}
@@ -332,7 +359,7 @@ vaping_lifetime <- vaping_lifetime %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -375,7 +402,7 @@ vaping_current <- vaping_current %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -395,7 +422,7 @@ vaping_current <- vaping_current %>%
 
 - 43% of Aboriginal and/or Torres Strait Islander survey respondents who had ever used a vaping device or e-cigarette reported that they were current users. This equates to approximately 4,300 Aboriginal and/or Torres Strait Islander adults.
 
-- Females were more likely to be current users of vaping devices or e-cigarettes than males (62% vs. 32%).
+- For people who had ever used a vaping device or e-cigarette, females were more likely to be current users of vaping devices or e-cigarettes than males (62% vs. 32%).
 
 **Key points from stakeholder consultation**
 
@@ -406,12 +433,10 @@ vaping_current <- vaping_current %>%
 ::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
 - The following questions were asked of all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
   - Have you ever used a vape or e-cigarette?
-    - Yes
-    - No
+    - Dichotomous (Yes - No)
   - Do you currently vape or use an e-cigarette?
-    - Yes
-    - No
-  
+    - Dichotomous (Yes - No)
+
 <div style="height: 0.1em;"></div>
 
 - Definitions and notes:
@@ -423,23 +448,27 @@ vaping_current <- vaping_current %>%
 
 :::: {.panel-tabset}
 
-#### Table 9C-3
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
 
-::: {#tab_9C_3 .fig-tab-title}
-**Table 9C-3:** Lifetime vaping status for survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Lifetime vaping status for survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- vaping_lifetime %>% 
   f_preptable_grouped_sex(variable_name = "vaping_status")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -454,25 +483,29 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Table 9C-4
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
 
-::: {#tab_9C_4 .fig-tab-title}
-**Table 9C-4:** Current vaping status for survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Current vaping status for survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- vaping_current %>% 
   f_preptable_grouped_sex(variable_name = "vaping_status")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -487,7 +520,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -500,10 +533,31 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
 
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_estimate`
+
+<div style="height: 0.1em;"></div>
+
+- Table 9C-3:
+  - Indicator: Lifetime vaping status
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Disaggregation: `r note_disaggregation_sex`
+  
+<div style="height: 0.1em;"></div>
+
+- Table 9C-4:
+  - Indicator: Current vaping status
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Disaggregation: `r note_disaggregation_sex`
+
 :::
 
