@@ -7,13 +7,13 @@ title-block: false
 ```{r}
 #
 source(here::here("setup.R"))
-source(here::here("setup_footnotes.R"))
 
-# Set up numbering for exporting tables as .csv
-table_section <- "07B"
-table_count   <- 0
+# Set up numbering for figures and tables
+figtab_report_section <- "7B"
+figtab_csv_section    <- "07B"
 
-figure_count <- 0
+figtab_table_count  <- 0
+figtab_figure_count <- 0
 ```
 
 
@@ -24,13 +24,17 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Connection to Country {.unnumbered}
 
-::: {.caveat-box}
-**A note about the impact of under-identification**
+::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
+`r note_chapter_different_sources`
 
-`r note_box_underidentification`
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_masking`
 :::
-
-<div style="height: 2em;"></div>
 
 ::: {.key-question}
 How do Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment stay strong through connection to Culture and Community?
@@ -71,7 +75,7 @@ homeland <- homeland %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -92,8 +96,7 @@ homeland <- homeland %>%
 ::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
 - The following question was asked of all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
   - Do you recognise an area as your homeland or traditional Country?
-    - Yes
-    - No
+    - `r note_response_binary`
     
 <div style="height: 0.1em;"></div>
 
@@ -104,23 +107,27 @@ homeland <- homeland %>%
 
 :::: {.panel-tabset}
 
-#### Table 7B-1
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
 
-::: {#tab_7B-1 .fig-tab-title}
-**Table 7B-1:** Recognition of an area as traditional Country for people aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Recognition of an area as traditional Country for people aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- homeland %>% 
   f_preptable_grouped_sex(variable_name = "recognise_country")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -135,7 +142,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -148,11 +155,24 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
 
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_estimate`
+
+<div style="height: 0.1em;"></div>
+
+- Table 7B-1:
+  - Indicator: Recognition of traditional Country
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Disaggregation: `r note_disaggregation_sex`
+
 :::
 
 ```{r}
@@ -198,7 +218,7 @@ visit <- visit %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -225,11 +245,9 @@ visit <- visit %>%
 ::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
 - The following questions were asked of all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
   - Do you recognise an area as your homeland or traditional Country?
-    - Yes
-    - No
+    - `r note_response_binary`
   - If yes, do you currently live there?
-    - Yes
-    - No
+    - `r note_response_binary`
   - If you do not currently live there, how often do you visit?
     - At least once a week
     - At least once a fortnight
@@ -248,16 +266,20 @@ visit <- visit %>%
 
 :::: {.panel-tabset}
 
-#### Figure 7B-1
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_7B_1 .fig-tab-title}
-**Figure 7B-1:** Frequency of visits to traditional Country for people aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Frequency of visits to traditional Country for people aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 factor_levels <- stringr::str_wrap(levels(visit$answer), width = 15)
 
 figure_number <- visit %>% 
@@ -281,23 +303,28 @@ figure_percent <- visit %>%
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
 
-#### Table 7B-2
 
-::: {#tab_7B-2 .fig-tab-title}
-**Table 7B-2:** Frequency of visits to traditional Country for people aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Frequency of visits to traditional Country for people aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- visit %>% 
   f_preptable_grouped_sex(variable_name = "visit_country")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -312,7 +339,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -325,11 +352,24 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
 
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_estimate`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 7B-1 and Table 7B-2:
+  - Indicator: Frequency of visits to traditional Country
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Disaggregation: `r note_disaggregation_sex`
+
 :::
 
 ```{r}
@@ -441,25 +481,30 @@ native_title <- nativetitle_land %>%
 - Further historical and ongoing target context can be found on the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/land-and-waters/).
 
 ::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-- Total land mass, total sea area, and the percentage subject to Aboriginal and/or Torres Strait Islander people’s legal rights or interests are calculated based on jurisdictional boundaries sourced from Geoscience Australia.
-- Land mass subject to Aboriginal and/or Torres Strait Islander people’s legal rights or interests includes:
-  - Determinations of native title (land subject to a determination that native title exists exclusive or non-exclusive)
-  - Indigenous estates (land grants under various land rights regimes of the states and territories and the Commonwealth)
+- Definitions and notes:
+  - Total land mass, total sea area, and the percentage subject to Aboriginal and/or Torres Strait Islander people’s legal rights or interests are calculated based on jurisdictional boundaries sourced from Geoscience Australia.
+  - Land mass subject to Aboriginal and/or Torres Strait Islander people’s legal rights or interests includes:
+    - Determinations of native title (land subject to a determination that native title exists exclusive or non-exclusive)
+    - Indigenous estates (land grants under various land rights regimes of the states and territories and the Commonwealth)
 
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 7B-2
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_7B_2 .fig-tab-title}
-**Figure 7B-2:** Percentage of land mass and sea area subject to Aboriginal and/or Torres Strait Islander people's legal rights or interests on June 30th, by year
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Percentage of land mass and sea area subject to Aboriginal and/or Torres Strait Islander people’s legal rights or interests on June 30th, Victoria, by year
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_percent <- native_title %>% 
   dplyr::select(year,
                 land_prop,
@@ -521,17 +566,22 @@ figure_percent %>%
                                xanchor     = "center"))
 ```
 
-#### Table 7B-3
 
-::: {#tab_7B_3 .fig-tab-title}
-**Table 7B-3:** Land mass and sea area subject to Aboriginal and/or Torres Strait Islander people's legal rights or interests on June 30th, by year
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Land mass and sea area subject to Aboriginal and/or Torres Strait Islander people’s legal rights or interests on June 30th, Victoria, by year
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- native_title %>% 
   dplyr::select(year,
                 land_n,
@@ -541,9 +591,9 @@ table <- native_title %>%
   #
   dplyr::arrange(year)
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -562,7 +612,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -572,5 +622,13 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - The Closing the Gap targets are marked with a dashed green line (land mass) and a dashed blue line (sea area) in Figure 7B-2.
+
+<div style="height: 0.1em;"></div>
+
+- Figure 7B-2 and Table 7B-3:
+  - Indicator: Land and sea area subject to Aboriginal and/or Torres Strait Islander people’s legal rights or interests
+  - Numerator: Land mass or sea area in Victoria subject to Aboriginal and/or Torres Strait Islander people’s legal rights or interests measured in square kilometres (km^2^)
+  - Denominator: Total land mass or sea area in Victoria measured in square kilometres (km^2^)
+
 :::
 
