@@ -7,13 +7,13 @@ title-block: false
 ```{r}
 #
 source(here::here("setup.R"))
-source(here::here("setup_footnotes.R"))
 
-# Set up numbering for exporting tables as .csv
-table_section <- "09A"
-table_count   <- 0
+# Set up numbering for figures and tables
+figtab_report_section <- "9A"
+figtab_csv_section    <- "09A"
 
-figure_count <- 0
+figtab_table_count  <- 0
+figtab_figure_count <- 0
 ```
 
 
@@ -24,13 +24,13 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Healthy Eating {.unnumbered}
 
-::: {.caveat-box}
-**A note about the impact of under-identification**
+::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
+`r note_chapter_underidentification`
 
-`r note_box_underidentification`
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_masking`
 :::
-
-<div style="height: 2em;"></div>
 
 ::: {.key-question}
 What health and wellbeing practices are Aboriginal and/or Torres Strait Islander Peoples living in the NEPHU catchment engaging in?
@@ -119,7 +119,7 @@ fruit_increase <- fruit_increase %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -139,20 +139,18 @@ fruit_increase <- fruit_increase %>%
 
 - Overall, 58% of Aboriginal and/or Torres Strait Islander child survey respondents (aged 2 to 17 years) living in Victoria met the daily fruit consumption guidelines. This equates to approximately 16,000 Aboriginal and/or Torres Strait Islander children in Victoria.
 
-- Female survey respondents were more likely to have met the daily fruit consumption guidelines than males for both adults (29% vs. 23%) and children (63% vs. 56%).
+- Females were more likely to have met the daily fruit consumption guidelines than males for both adults (29% vs. 23%) and children (63% vs. 56%).
 
-- 18% of Aboriginal and/or Torres Strait Islander survey respondents living in Greater Melbourne reported that they consumed more fruit at the time of the survey than they did at the same time in the previous year, and 65% reported that their level of fruit consumption was similar to the same time in the previous year.
+- 18% of all Aboriginal and/or Torres Strait Islander survey respondents (adults and children) living in Greater Melbourne reported that they consumed more fruit at the time of the survey than they did at the same time in the previous year, and 65% reported that their level of fruit consumption was similar to the same time in the previous year.
 
-- Male survey respondents were more likely to have increased their fruit consumption compared to the same time in the previous year than females (22% vs. 14%).
+- Males were more likely to have increased their fruit consumption compared to the same time in the previous year than females (22% vs. 14%).
 
 ::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
 - The following questions were asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
   - How many serves of fruit (including fresh, dried, frozen, and tinned) do you usually eat each day?
     - Numeric response (1-20)
   - Since this time last year, has the amount of fruit you usually consume increased, decreased, or stayed about the same?
-    - Increased
-    - Decreased
-    - Stayed about the same
+    - `r note_response_likert_increased`
 
 <div style="height: 0.1em;"></div>
 
@@ -168,16 +166,20 @@ fruit_increase <- fruit_increase %>%
 
 :::: {.panel-tabset}
 
-#### Figure 9A-1
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_9A_1 .fig-tab-title}
-**Figure 9A-1:** Estimated number of people and percentage of survey respondents who identified as Aboriginal and/or Torres Strait Islander and who met recommended daily fruit consumption guidelines, Victoria, by sex and age group, 2022-2023
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Estimated number of people and percentage of survey respondents who identified as Aboriginal and/or Torres Strait Islander and who met recommended daily fruit consumption guidelines, Victoria, by sex and age group, 2022-2023
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- diet_fruit %>% 
   dplyr::filter(sex != "Total" & answer == "Met guideline") %>%
   #
@@ -193,23 +195,29 @@ figure_percent <- diet_fruit %>%
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 ```
 
-#### Table 9A-1
 
-::: {#tab_9A_1 .fig-tab-title}
-**Table 9A-1:** Daily fruit consumption for people who identified as Aboriginal and/or Torres Strait Islander, Victoria, by sex and age group, 2022-2023
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Daily fruit consumption for people who identified as Aboriginal and/or Torres Strait Islander, Victoria, by sex and age group, 2022-2023
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- diet_fruit %>% 
-  f_preptable_grouped_sex(variable_name = "fruit_consumption")
+  f_preptable_grouped_agesex(natsihs       = "yes",
+                             variable_name = "fruit_consumption")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -230,18 +238,22 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Figure 9A-2
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_9A_2 .fig-tab-title}
-**Figure 9A-2:** Fruit consumption compared to the same time at the previous year for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Fruit consumption compared to the same time at the previous year for all survey respondents (adults and children) who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- fruit_increase %>% 
   dplyr::filter(sex != "Total" & answer != "Total") %>%
   #
@@ -257,23 +269,28 @@ figure_percent <- fruit_increase %>%
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 ```
 
-#### Table 9A-2
 
-::: {#tab_9A_2 .fig-tab-title}
-**Table 9A-2:** Fruit consumption compared to the same time at the previous year for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Fruit consumption compared to the same time at the previous year for all survey respondents (adults and children) who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- fruit_increase %>%
   f_preptable_grouped_sex(variable_name = "fruit_consumption")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -288,7 +305,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -301,11 +318,32 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
 
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_estimate`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 9A-1 and Table 9A-1:
+  - Indicator: Alignment with fruit consumption guidelines
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Disaggregation: `r note_disaggregation_agesex`
+  
+<div style="height: 0.1em;"></div>
+
+- Figure 9A-2 and Table 9A-2:
+  - Indicator: Fruit consumption compared with previous year
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Disaggregation: `r note_disaggregation_sex`
+
 :::
 
 ```{r}
@@ -388,7 +426,7 @@ vege_increase <- vege_increase %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -410,20 +448,18 @@ vege_increase <- vege_increase %>%
 
 - Overall, 5.8% of Aboriginal and/or Torres Strait Islander child survey respondents (aged 2 to 17 years) living in Victoria met the daily vegetable consumption guidelines. This equates to approximately 1,600 Aboriginal and/or Torres Strait Islander children in Victoria.
 
-- 15% of Aboriginal and/or Torres Strait Islander survey respondents living in Greater Melbourne reported that they consumed more vegetables at the time of the survey than they did at the same time in the previous year, and 73% reported that their level of vegetable consumption was similar to the same time in the previous year.
-
 - Female children were more likely to have met the guidelines than male children (4.5 % vs. 2.9%).
 
-- Male survey respondents were more likely to have increased their vegetable consumption compared to the same time in the previous year than females (18% vs. 10%).
+- 15% of all Aboriginal and/or Torres Strait Islander survey respondents (adults and children) living in Greater Melbourne reported that they consumed more vegetables at the time of the survey than they did at the same time in the previous year, and 73% reported that their level of vegetable consumption was similar to the same time in the previous year. 
+
+- Males were more likely to have increased their vegetable consumption compared to the same time in the previous year than females (18% vs. 10%).
 
 ::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
 - The following questions were asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
   - How many serves of vegetables (including fresh, frozen, and tinned) do you usually eat each day?
     - Numeric response (1-20)
   - Since this time last year, has the amount of vegetables you usually consume increased, decreased, or stayed about the same?
-    - Increased
-    - Decreased
-    - Stayed about the same
+    - `r note_response_likert_increased`
 
 <div style="height: 0.1em;"></div>
 
@@ -440,16 +476,20 @@ vege_increase <- vege_increase %>%
 
 :::: {.panel-tabset}
 
-#### Figure 9A-3
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_9A_3 .fig-tab-title}
-**Figure 9A-3:** Estimated number of people and percentage of survey respondents who identified as Aboriginal and/or Torres Strait Islander and who met recommended daily vegetable consumption guidelines, Victoria, by sex and age group, 2022-2023
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Estimated number of people and percentage of survey respondents who identified as Aboriginal and/or Torres Strait Islander and who met recommended daily vegetable consumption guidelines, Victoria, by sex and age group, 2022-2023
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- diet_vege %>% 
   dplyr::filter(sex != "Total" & answer == "Met guideline") %>%
   #
@@ -465,23 +505,29 @@ figure_percent <- diet_vege %>%
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 ```
 
-#### Table 9A-3
 
-::: {#tab_9A_3 .fig-tab-title}
-**Table 9A-3:** Daily vegetable consumption for people who identified as Aboriginal and/or Torres Strait Islander, Victoria, by sex and age group, 2022-2023
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Daily vegetable consumption for people who identified as Aboriginal and/or Torres Strait Islander, Victoria, by sex and age group, 2022-2023
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- diet_vege %>% 
-  f_preptable_grouped_sex(variable_name = "vegetable_consumption")
+  f_preptable_grouped_agesex(natsihs       = "yes",
+                             variable_name = "vegetable_consumption")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -502,18 +548,22 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Figure 9A-4
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_9A_4 .fig-tab-title}
-**Figure 9A-4:** Vegetable consumption compared to the same time at the previous year for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Vegetable consumption compared to the same time at the previous year for all survey respondents (adults and children) who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- vege_increase %>% 
   dplyr::filter(sex != "Total" & answer != "Total") %>%
   #
@@ -529,23 +579,28 @@ figure_percent <- vege_increase %>%
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 ```
 
-#### Table 9A-4
 
-::: {#tab_9A_4 .fig-tab-title}
-**Table 9A-4:** Vegetable consumption compared to the same time at the previous year for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Vegetable consumption compared to the same time at the previous year for all survey respondents (adults and children) who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- vege_increase %>% 
   f_preptable_grouped_sex(variable_name = "vegetable_consumption")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -560,7 +615,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -573,11 +628,32 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
 
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_estimate`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 9A-3 and Table 9A-3:
+  - Indicator: Alignment with vegetable consumption guidelines
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Disaggregation: `r note_disaggregation_agesex`
+  
+<div style="height: 0.1em;"></div>
+
+- Figure 9A-4 and Table 9A-4:
+  - Indicator: Vegetable consumption compared with previous year
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Disaggregation: `r note_disaggregation_sex`
+
 :::
 
 ```{r}
@@ -660,7 +736,7 @@ sugar_daily <- sugar_daily %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -674,13 +750,17 @@ sugar_daily <- sugar_daily %>%
 
 - Data for this topic were obtained from the [2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release).
 
-- Overall, 59% of Aboriginal and/or Torres Strait Islander adult survey respondents (aged 18 years and over) living in Victoria consumed sugar sweetened drinks at least once per week. This equates to approximately 29,100 Aboriginal and/or Torres Strait Islander adults in Victoria. Males were more likely to consume sugar sweetened drinks at least once per week than females (70% vs. 52%).
+- Overall, 59% of Aboriginal and/or Torres Strait Islander adult survey respondents (aged 18 years and over) living in Victoria consumed sugar sweetened drinks at least once per week. This equates to approximately 29,100 Aboriginal and/or Torres Strait Islander adults in Victoria.
 
-- Overall, 54% of Aboriginal and/or Torres Strait Islander child survey respondents (aged 2 to 17 years) living in Victoria consumed sugar sweetened drinks at least once per week. This equates to approximately 14,800 Aboriginal and/or Torres Strait Islander children in Victoria. Females were more likely to consume sugar sweetened drinks at least once per week than males (62% vs. 47%).
+- Adult males were more likely to consume sugar sweetened drinks at least once per week than adult females (70% vs. 52%).
 
-- 22% of Aboriginal and/or Torres Strait Islander survey respondents living in Greater Melbourne reported that they consumed sugar sweetened drinks daily.
+- Overall, 54% of Aboriginal and/or Torres Strait Islander child survey respondents (aged 2 to 17 years) living in Victoria consumed sugar sweetened drinks at least once per week. This equates to approximately 14,800 Aboriginal and/or Torres Strait Islander children in Victoria.
 
-- Male survey respondents were more likely to consume sugar sweetened drinks daily than females (30% vs. 13%).
+- Female children were more likely to consume sugar sweetened drinks at least once per week than male children (62% vs. 47%).
+
+- 22% of all Aboriginal and/or Torres Strait Islander survey respondents (adults and children) living in Greater Melbourne reported that they consumed sugar sweetened drinks daily.
+
+- Males were more likely to consume sugar sweetened drinks daily than females (30% vs. 13%).
 
 ::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
 - The following question was asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
@@ -698,16 +778,20 @@ sugar_daily <- sugar_daily %>%
 
 :::: {.panel-tabset}
 
-#### Figure 9A-5
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_9A_5 .fig-tab-title}
-**Figure 9A-5:** Estimated number of people and percentage of survey respondents who identified as Aboriginal and/or Torres Strait Islander and who consume sugar sweetened drinks at least once per week, Victoria, by sex and age group, 2022-2023
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Estimated number of people and percentage of survey respondents who identified as Aboriginal and/or Torres Strait Islander and who consume sugar sweetened drinks at least once per week, Victoria, by sex and age group, 2022-2023
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- drink_sugar %>% 
   dplyr::filter(sex != "Total" & answer == "At least once per week") %>%
   #
@@ -723,23 +807,29 @@ figure_percent <- drink_sugar %>%
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 ```
 
-#### Table 9A-5
 
-::: {#tab_9A_5 .fig-tab-title}
-**Table 9A-5:** Weekly sugar sweetened drinks consumption for people who identified as Aboriginal and/or Torres Strait Islander, Victoria, by sex and age group, 2022-2023
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Weekly sugar sweetened drinks consumption for people who identified as Aboriginal and/or Torres Strait Islander, Victoria, by sex and age group, 2022-2023
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- drink_sugar %>% 
-  f_preptable_grouped_sex(variable_name = "sugar_drink_consumption")
+  f_preptable_grouped_agesex(natsihs       = "yes",
+                             variable_name = "sugar_drink_consumption")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -760,25 +850,29 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Table 9A-6
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
 
-::: {#tab_9A_6 .fig-tab-title}
-**Table 9A-6:** Daily sugar sweetened drinks consumption for people who identified as Aboriginal and/or Torres Strait Islander, Victoria, by sex and age group, 2022-2023
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Daily sugar sweetened drinks consumption for all survey respondents (adults and children) who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- sugar_daily %>% 
   f_preptable_grouped_sex(variable_name = "sugar_drink_consumption")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -793,7 +887,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -806,11 +900,32 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
 
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_estimate`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 9A-5 and Table 9A-5:
+  - Indicator: Weekly sugar sweetened drinks consumption
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Disaggregation: `r note_disaggregation_agesex`
+  
+<div style="height: 0.1em;"></div>
+
+- Table 9A-6:
+  - Indicator: Daily sugar sweetened drinks consumption
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Disaggregation: `r note_disaggregation_sex`
+
 :::
 
 ```{r}
@@ -893,7 +1008,7 @@ diet_daily <- diet_daily %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -907,13 +1022,17 @@ diet_daily <- diet_daily %>%
 
 - Data for this topic were obtained from the [2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release).
 
-- Overall, 34% of Aboriginal and/or Torres Strait Islander adult survey respondents (aged 18 years and over) living in Victoria consumed artificially sweetened (diet) drinks at least once per week. This equates to approximately 16,800 Aboriginal and/or Torres Strait Islander adults in Victoria. Females were more likely to consume artificially sweetened drinks at least once per week than males (38% vs. 29%).
+- Overall, 34% of Aboriginal and/or Torres Strait Islander adult survey respondents (aged 18 years and over) living in Victoria consumed artificially sweetened (diet) drinks at least once per week. This equates to approximately 16,800 Aboriginal and/or Torres Strait Islander adults in Victoria.
 
-- Overall, 19% of Aboriginal and/or Torres Strait Islander child survey respondents (aged 2 to 17 years) living in Victoria consumed artificially sweetened drinks at least once per week. This equates to approximately 5,200 Aboriginal and/or Torres Strait Islander children in Victoria. Males were more likely to consume artificially sweetened drinks at least once per week than females (18% vs. 15%).
+- Adult females were more likely to consume artificially sweetened drinks at least once per week than adult males (38% vs. 29%).
 
-- 8.1% of Aboriginal and/or Torres Strait Islander survey respondents living in Greater Melbourne reported that they consumed artificially sweetened drinks daily.
+- Overall, 19% of Aboriginal and/or Torres Strait Islander child survey respondents (aged 2 to 17 years) living in Victoria consumed artificially sweetened drinks at least once per week. This equates to approximately 5,200 Aboriginal and/or Torres Strait Islander children in Victoria.
 
-- Female survey respondents were more likely to consume artificially sweetened drinks daily than males (11% vs. 4.9%).
+- Male children were more likely to consume artificially sweetened drinks at least once per week than female children (18% vs. 15%).
+
+- 8.1% of all Aboriginal and/or Torres Strait Islander survey respondents (adults and children) living in Greater Melbourne reported that they consumed artificially sweetened drinks daily.
+
+- Females were more likely to consume artificially sweetened drinks daily than males (12% vs. 4.9%).
 
 ::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
 - The following question was asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
@@ -931,16 +1050,20 @@ diet_daily <- diet_daily %>%
 
 :::: {.panel-tabset}
 
-#### Figure 9A-6
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_9A_6 .fig-tab-title}
-**Figure 9A-6:** Estimated number of people and percentage of survey respondents who identified as Aboriginal and/or Torres Strait Islander and who consume artificially sweetened drinks at least once per week, Victoria, by sex and age group, 2022-2023
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Estimated number of people and percentage of survey respondents who identified as Aboriginal and/or Torres Strait Islander and who consume artificially sweetened drinks at least once per week, Victoria, by sex and age group, 2022-2023
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- drink_diet %>% 
   dplyr::filter(sex != "Total" & answer == "At least once per week") %>%
   #
@@ -956,23 +1079,29 @@ figure_percent <- drink_diet %>%
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 ```
 
-#### Table 9A-7
 
-::: {#tab_9A_7 .fig-tab-title}
-**Table 9A-7:** Weekly artificially sweetened drinks consumption for people who identified as Aboriginal and/or Torres Strait Islander, Victoria, by sex and age group, 2022-2023
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Weekly artificially sweetened drinks consumption for people who identified as Aboriginal and/or Torres Strait Islander, Victoria, by sex and age group, 2022-2023
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- drink_diet %>% 
-  f_preptable_grouped_sex(variable_name = "diet_drink_consumption")
+  f_preptable_grouped_agesex(natsihs       = "yes",
+                             variable_name = "diet_drink_consumption")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -993,25 +1122,29 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Table 9A-8
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
 
-::: {#tab_9A_8 .fig-tab-title}
-**Table 9A-8:** Daily artificially sweetened drinks consumption for people who identified as Aboriginal and/or Torres Strait Islander, Victoria, by sex and age group, 2022-2023
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Daily artificially sweetened drinks consumption for people who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- diet_daily %>% 
   f_preptable_grouped_sex(variable_name = "diet_drink_consumption")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -1026,7 +1159,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -1039,10 +1172,31 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
 
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_estimate`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 9A-5 and Table 9A-5:
+  - Indicator: Weekly artificially sweetened drinks consumption
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Disaggregation: `r note_disaggregation_agesex`
+  
+<div style="height: 0.1em;"></div>
+
+- Table 9A-6:
+  - Indicator: Daily artificially sweetened drinks consumption
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Disaggregation: `r note_disaggregation_sex`
+
 :::
 
