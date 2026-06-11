@@ -96,22 +96,45 @@ f_preptable_simple_agesex <- function(data) {
 ################################################################################
 # Columns grouped by age and sex
 ################################################################################
-f_preptable_grouped_agesex <- function(data) {
+f_preptable_grouped_agesex <- function(data, natsihs = "no", variable_name = NULL) {
   
-  data <- data %>% 
-    dplyr::select(age_group,
-                  sex,
-                  aboriginal_n,
-                  aboriginal_prop) %>%
-    #
-    tidyr::pivot_wider(names_from  = sex,
-                       values_from = c("aboriginal_n", "aboriginal_prop"),
-                       names_vary  = "slowest") %>% 
-    #
-    janitor::clean_names() %>% 
-    #
-    dplyr::mutate(aboriginal_n_total = aboriginal_n_female + aboriginal_n_male)
+  if (natsihs == "no") {
+    
+    data <- data %>% 
+      dplyr::select(age_group,
+                    sex,
+                    aboriginal_n,
+                    aboriginal_prop) %>%
+      #
+      tidyr::pivot_wider(names_from  = sex,
+                         values_from = c("aboriginal_n", "aboriginal_prop"),
+                         names_vary  = "slowest") %>% 
+      #
+      janitor::clean_names() %>% 
+      #
+      dplyr::mutate(aboriginal_n_total = aboriginal_n_female + aboriginal_n_male)
+
+  }
   
+  if (natsihs == "yes") {
+
+    data <- data %>% 
+      tidyr::pivot_wider(names_from  = "sex",
+                         values_from = c("n", "prop"),
+                         names_vary  = "slowest") %>% 
+      #
+      janitor::clean_names() %>% 
+      #
+      dplyr::select(age_group,
+                    answer,
+                    ends_with("_female"),
+                    ends_with("_male"),
+                    ends_with("_total")) %>% 
+      #
+      dplyr::rename(!!variable_name := answer)
+    
+  }
+
   return(data)
 
 }

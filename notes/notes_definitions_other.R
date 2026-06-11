@@ -6,11 +6,11 @@
 ################################################################################
 note_response_binary <- "Dichotomous (Yes/No)"
 
+note_response_likert_increased     <- "Likert scale (Increased/Stayed About The Same/Decreased)"
 note_response_likert_often         <- "Likert scale (Often/Sometimes/Never)"
 note_response_likert_veryimportant <- "Likert scale (Very Important/Important/Neutral/Not Very Important/Not At All Important)"
 note_response_likert_verysatisfied <- "Likert scale (Very Satisfied/Satisfied/Neutral/Not Very Satisfied/Not At All Satisfied)"
 note_response_likert_verywell      <- "Likert scale (Very Well/Well/Not Well/Not At All)"
-
 
 ################################################################################
 # Commonly used numerator definitions
