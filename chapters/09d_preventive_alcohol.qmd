@@ -7,13 +7,13 @@ title-block: false
 ```{r}
 #
 source(here::here("setup.R"))
-source(here::here("setup_footnotes.R"))
 
-# Set up numbering for exporting tables as .csv
-table_section <- "09D"
-table_count   <- 0
+# Set up numbering for figures and tables
+figtab_report_section <- "9D"
+figtab_csv_section    <- "09D"
 
-figure_count <- 0
+figtab_table_count  <- 0
+figtab_figure_count <- 0
 ```
 
 
@@ -24,13 +24,13 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Alcohol and Other Drugs {.unnumbered}
 
-::: {.caveat-box}
-**A note about the impact of under-identification**
+::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
+`r note_chapter_underidentification`
 
-`r note_box_underidentification`
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_masking`
 :::
-
-<div style="height: 2em;"></div>
 
 ::: {.key-question}
 What health and wellbeing practices are Aboriginal and/or Torres Strait Islander Peoples living in the NEPHU catchment engaging in?
@@ -75,7 +75,7 @@ alcohol_guidelines <- alcohol_guidelines %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -124,7 +124,7 @@ alcohol_increase <- alcohol_increase %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -159,7 +159,6 @@ alcohol_increase <- alcohol_increase %>%
     - 12 months
     - More than 12 months
     - Never consumed alcohol
-    - Don't remember
   - On which days in the past week did you drink alcohol? (Select all that apply)
     - Monday
     - Tuesday
@@ -185,18 +184,14 @@ alcohol_increase <- alcohol_increase %>%
     - About 1 day a month
     - Less often than one day a month
     - Never
-    - Don't know
   - How often in the last 12 months have you had five or more standard alcoholic drinks in a day?
     - Daily
     - Numeric response (1-6) days per week
     - Numeric response (1-30) days per month
     - Numeric response (1-365) days per year
     - Never
-    - Don't know
   - Has the amount of alcohol that you usually drink increased, decreased, or stayed about the same since this time last year?
-    - Increased
-    - Decreased
-    - Stayed about the same
+    - `r note_response_likert_increased`
 
 <div style="height: 0.1em;"></div>
 
@@ -213,16 +208,20 @@ alcohol_increase <- alcohol_increase %>%
 
 :::: {.panel-tabset}
 
-#### Figure 9D-1
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_9D_1 .fig-tab-title}
-**Figure 9D-1:** Alcohol consumption for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Alcohol consumption for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 factor_levels <- stringr::str_wrap(levels(alcohol_guidelines$answer), width = 15)
 
 figure_number <- alcohol_guidelines %>% 
@@ -246,23 +245,28 @@ figure_percent <- alcohol_guidelines %>%
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
 
-#### Table 9D-1
 
-::: {#tab_9D_1 .fig-tab-title}
-**Table 9D-1:** Alcohol consumption for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Alcohol consumption for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- alcohol_guidelines %>%
   f_preptable_grouped_sex(variable_name = "alcohol_consumption")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -277,18 +281,22 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Figure 9D-2
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_9D_2 .fig-tab-title}
-**Figure 9D-2:** Alcohol consumption compared to the same time in the previous year for survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Alcohol consumption compared to the same time in the previous year for survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- alcohol_increase %>% 
   dplyr::filter(sex != "Total" & answer != "Total") %>%
   #
@@ -304,23 +312,28 @@ figure_percent <- alcohol_increase %>%
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 ```
 
-#### Table 9D-2
 
-::: {#tab_9D_2 .fig-tab-title}
-**Table 9D-2:** Alcohol consumption compared to the same time in the previous year for survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Alcohol consumption compared to the same time in the previous year for survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- alcohol_increase %>%
   f_preptable_grouped_sex(variable_name = "alcohol_consumption")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -335,7 +348,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -348,11 +361,32 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
 
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_estimate`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 9D-1 and Table 9D-1:
+  - Indicator: Alignment with alcohol consumption guidelines
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Disaggregation: `r note_disaggregation_sex`
+  
+<div style="height: 0.1em;"></div>
+
+- Figure 9D-2 and Table 9D-2:
+  - Indicator: Alcohol consumption compared with previous year
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Disaggregation: `r note_disaggregation_sex`
+
 :::
 
 ```{r}
@@ -395,7 +429,7 @@ illicit_status <- illicit_status %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -416,33 +450,19 @@ illicit_status <- illicit_status %>%
 ::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
 - The following questions were asked of all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
   - Have you used pain killers or analgesics when you were not sick or for non-medical purposes in the last 12 months?
-    - Yes
-    - No
-    - Prefer not to answer
+    - `r note_response_binary`
   - Have you used tranquilisers or sleeping pills when you were not sick or for non-medical purposes in the last 12 months?
-    - Yes
-    - No
-    - Prefer not to answer
+    - `r note_response_binary`
   - Have you used marijuana, hashish, or cannabis resin in the last 12 months?
-    - Yes
-    - No
-    - Prefer not to answer
+    - `r note_response_binary`
   - Have you used methadone when you were not sick or for non-medical purposes in the last 12 months?
-    - Yes
-    - No
-    - Prefer not to answer
+    - `r note_response_binary`
   - Have you sniffed petrol in the last 12 months?
-    - Yes
-    - No
-    - Prefer not to answer
+    - `r note_response_binary`
   - Have you sniffed glue, solvents, paint thinners, aerosols, or anything else in the last 12 months?
-    - Yes
-    - No
-    - Prefer not to answer
+    - `r note_response_binary`
   - Have you used kava in the last 12 months?
-    - Yes
-    - No
-    - Prefer not to answer
+    - `r note_response_binary`
   - Have you used any of these in the last 12 months? (Select all that apply)
     - Amphetamines, ice, or speed
     - Heroin
@@ -452,7 +472,6 @@ illicit_status <- illicit_status %>%
     - Ecstasy or designer drugs
     - Other (please specify)
     - None used in the last 12 months
-    - Prefer not to answer
 
 <div style="height: 0.1em;"></div>
 
@@ -463,23 +482,27 @@ illicit_status <- illicit_status %>%
 
 :::: {.panel-tabset}
 
-#### Table 9D-3
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
 
-::: {#tab_9D_3 .fig-tab-title}
-**Table 9D-3:** Use of substances for non-medical purposes during the 12 months prior to the survey for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Victoria, by sex, 2022-2023
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Use of substances for non-medical purposes during the 12 months prior to the survey for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Victoria, by sex, 2022-2023
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- illicit_status %>%
   f_preptable_grouped_sex(variable_name = "substance_use")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -494,7 +517,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -507,10 +530,23 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
 
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_estimate`
+
+<div style="height: 0.1em;"></div>
+
+- Table 9D-3:
+  - Indicator: Use of substances for non-medical purposes
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Disaggregation: `r note_disaggregation_sex`
+
 :::
 
