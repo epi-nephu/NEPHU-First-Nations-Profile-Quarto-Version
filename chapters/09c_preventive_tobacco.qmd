@@ -416,11 +416,11 @@ vaping_current <- vaping_current %>%
 
 - Data for this topic were obtained from the [2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release).
 
-- Overall, 36% of Aboriginal and/or Torres Strait Islander adult survey respondents (aged 15 years and over) living in Greater Melbourne had ever used a vaping device or e-cigarette. This equates to approximately 9,900 Aboriginal and/or Torres Strait Islander adults in Victoria.
+- Overall, 36% of Aboriginal and/or Torres Strait Islander survey respondents aged 15 years and over living in Greater Melbourne had ever used a vaping device or e-cigarette. This equates to approximately 9,900 Aboriginal and/or Torres Strait Islander people.
 
 - Males were more likely to have ever used a vaping device or e-cigarette than females (45% vs. 25%).
 
-- 43% of Aboriginal and/or Torres Strait Islander survey respondents who had ever used a vaping device or e-cigarette reported that they were current users. This equates to approximately 4,300 Aboriginal and/or Torres Strait Islander adults.
+- 43% of Aboriginal and/or Torres Strait Islander survey respondents who had ever used a vaping device or e-cigarette reported that they were current users. This equates to approximately 4,300 Aboriginal and/or Torres Strait Islander people.
 
 - For people who had ever used a vaping device or e-cigarette, females were more likely to be current users of vaping devices or e-cigarettes than males (62% vs. 32%).
 
