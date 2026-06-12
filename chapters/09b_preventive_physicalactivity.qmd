@@ -7,13 +7,13 @@ title-block: false
 ```{r}
 #
 source(here::here("setup.R"))
-source(here::here("setup_footnotes.R"))
 
-# Set up numbering for exporting tables as .csv
-table_section <- "09B"
-table_count   <- 0
+# Set up numbering for figures and tables
+figtab_report_section <- "9B"
+figtab_csv_section    <- "09B"
 
-figure_count <- 0
+figtab_table_count  <- 0
+figtab_figure_count <- 0
 ```
 
 
@@ -24,13 +24,21 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Physical Activity {.unnumbered}
 
-::: {.caveat-box}
-**A note about the impact of under-identification**
+::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
+`r note_chapter_different_sources`
 
-`r note_box_underidentification`
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_comparisons`
+
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_masking`
 :::
-
-<div style="height: 2em;"></div>
 
 ::: {.key-question}
 What health and wellbeing practices are Aboriginal and/or Torres Strait Islander Peoples living in the NEPHU catchment engaging in?
@@ -71,7 +79,7 @@ activity_guidelines <- activity_guidelines %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -129,7 +137,7 @@ activity_type <- activity_type %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -182,8 +190,7 @@ activity_type <- activity_type %>%
     - Vigorous activity for exercise
     - Vigorous activity while working
   - Did you do any strength and toning activities last week?
-    - Yes
-    - No
+    - `r note_response_binary`
 
 <div style="height: 0.1em;"></div>
 
@@ -197,23 +204,27 @@ activity_type <- activity_type %>%
 
 :::: {.panel-tabset}
 
-#### Table 9B-1
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
 
-::: {#tab_9B_1 .fig-tab-title}
-**Table 9B-1:** Physical activity for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Physical activity for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- activity_guidelines %>% 
   f_preptable_grouped_sex(variable_name = "physical_activity")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -228,18 +239,22 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Figure 9B-1
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_9B_1 .fig-tab-title}
-**Figure 9B-1:** Types of physical activity undertaken during the week prior to the survey for survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Types of physical activity undertaken during the week prior to the survey for survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 factor_levels <- stringr::str_wrap(levels(activity_type$answer), width = 15)
 
 figure_number <- activity_type %>% 
@@ -263,23 +278,28 @@ figure_percent <- activity_type %>%
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
 
-#### Table 9B-2
 
-::: {#tab_9B_2 .fig-tab-title}
-**Table 9B-2:** Types of physical activity undertaken during the week prior to the survey for survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Types of physical activity undertaken during the week prior to the survey for survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- activity_type %>% 
   f_preptable_grouped_sex(variable_name = "activity_type")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -294,7 +314,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -307,6 +327,10 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
 
 <div style="height: 0.1em;"></div>
@@ -316,6 +340,23 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_multipleresponse`
+
+<div style="height: 0.1em;"></div>
+
+- Table 9B-1:
+  - Indicator: Alignment with physical activity guidelines
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Disaggregation: `r note_disaggregation_sex`
+  
+<div style="height: 0.1em;"></div>
+
+- Figure 9B-1 and Table 9B-2:
+  - Indicator: Types of physical activity during previous week
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Disaggregation: `r note_disaggregation_sex`
+
 :::
 
 ```{r}
@@ -439,27 +480,31 @@ transport_agesex <- transport_agesex %>%
     - Other (please specify)
     - Worked at home
     - Did not go to work
-  - In cases where the combination of responses contained ‘Did not go to work’, ‘Worked at home’, or ‘Walked only’, then these unique responses override any others.
 
 <div style="height: 0.1em;"></div>
 
 - Definitions and notes:
   - `r note_aboriginality_census`
+  - In cases where the combination of responses contained ‘Did not go to work’, ‘Worked at home’, or ‘Walked only’, then these unique responses override any others.
 
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 9B-2
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_9B_2 .fig-tab-title}
-**Figure 9B-2:** Mode of transport to work on 10th August 2021 for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Mode of transport to work on 10th August 2021 for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 transport_lga %>% 
   dplyr::filter(lga_name %in% nephu_lga) %>%
   #
@@ -480,27 +525,33 @@ transport_lga %>%
                "Public transport",
                "Active transport"))) %>% 
   #
-  f_bar_stacked_lga(fill_values = c(colour_stack5, colour_stack4, colour_stack3, colour_stack2, colour_stack1),
-                    n_level     = "people")
+  f_bar_stacked_lga(fill_values  = c(colour_stack5, colour_stack4, colour_stack3, colour_stack2, colour_stack1),
+                    n_level      = "people",
+                    legend_order = "reversed")
 ```
 
-#### Table 9B-3
 
-::: {#tab_9B_3 .fig-tab-title}
-**Table 9B-3:** Mode of transport to work on 10th August 2021 for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Mode of transport to work on 10th August 2021 for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- transport_lga %>% 
   dplyr::filter(lga_name %in% c(nephu_lga, "NEPHU"))
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -527,18 +578,22 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Figure 9B-3
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_9B_3 .fig-tab-title}
-**Figure 9B-3:** Mode of transport to work on 10th August 2021 for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Mode of transport to work on 10th August 2021 for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 transport_agesex %>% 
   dplyr::filter(age_group %in% age_group_lvl) %>%
   #
@@ -559,26 +614,32 @@ transport_agesex %>%
                "Public transport",
                "Active transport"))) %>% 
   #
-  f_bar_stacked_agesex(fill_values = c(colour_stack5, colour_stack4, colour_stack3, colour_stack2, colour_stack1),
-                       n_level     = "people")
+  f_bar_stacked_agesex(fill_values  = c(colour_stack5, colour_stack4, colour_stack3, colour_stack2, colour_stack1),
+                       n_level      = "people",
+                       legend_order = "reversed")
 ```
 
-#### Table 9B-4
 
-::: {#tab_9B_4 .fig-tab-title}
-**Table 9B-4:** Mode of transport to work on 10th August 2021 for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Mode of transport to work on 10th August 2021 for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- transport_agesex
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -644,7 +705,7 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
@@ -666,5 +727,22 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - A number of regions across the state were in various stages of lockdown on 2021 Census night and during the week preceding it, resulting in a greater number of people working from home during this time. Working from home was included in the ‘Did not travel’ category.
+
+<div style="height: 0.1em;"></div>
+
+- Figure 9B-2 and Table 9B-3:
+  - Indicator: Mode of transport to work
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_census_aboriginal`
+  - Disaggregation: `r note_disaggregation_lga`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 9B-3, and Table 9B-4:
+  - Indicator: Mode of transport to work
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_census_aboriginal`
+  - Disaggregation: `r note_disaggregation_agesex`
+
 :::
 
