@@ -17,7 +17,9 @@ note_response_likert_verywell      <- "Likert scale (Very Well/Well/Not Well/Not
 ################################################################################
 note_numerator_category_aboriginal <- "Number of Aboriginal and/or Torres Strait Islander people in each category"
 note_numerator_category_population <- "Number of people in each category"
-  
+
+note_numerator_vaccination <- "Number of people who received the specified vaccine"
+
 ################################################################################
 # Commonly used denominator definitions
 ################################################################################
@@ -29,6 +31,8 @@ note_denominator_erp <- "Estimated total number of people in the population for 
 note_denominator_natsihs <- "Total number of Aboriginal and/or Torres Strait Islander people who answered this question/these questions in the National Aboriginal and Torres Strait Islander Health Survey"
 
 note_denominator_perinatal <- "Total number of Aboriginal and/or Torres Strait Islander women who had at least one pregnancy between January 2019 and December 2021"
+
+note_denominator_vaccination <- "Total number of people of the specified age enrolled in Medicare"
 
 ################################################################################
 # Commonly used disaggregation definitions

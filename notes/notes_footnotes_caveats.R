@@ -36,6 +36,9 @@ note_caveat_pandemic_decrease <- glue::glue("
 note_caveat_pandemic_screening <- glue::glue("
 - The COVID-19 pandemic affected the availability of screening services and health seeking behaviours, which may have had an impact on screening participation.")
 
+note_caveat_pandemic_vaccination <- glue::glue("
+- The COVID-19 pandemic affected the availability of health services and health seeking behaviours, which may have had an impact on vaccination rates.")
+
 note_caveat_survey_estimate <- glue::glue("
 - Survey data do not represent exact numbers of people. As only a sample of people were surveyed, their results were converted into estimates for the entire population and/or reported as percentages. The total number of respondents may differ across different survey questions.")
 

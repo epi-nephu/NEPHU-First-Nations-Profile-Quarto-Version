@@ -29,8 +29,7 @@ note_data_ctg_nativetitle <- glue::glue("
 note_data_framework_air <- glue::glue("
 - Data were obtained from the [AIHW Aboriginal and Torres Strait Islander Health Performance Framework](https://www.indigenoushpf.gov.au/), compiled from the [Australian Immunisation Register (AIR)](https://www.servicesaustralia.gov.au/australian-immunisation-register).
   - The AIHW Aboriginal and Torres Strait Islander Health Performance Framework brings together information from a wide range of national, jurisdictional, and regional data sources to report on determinants of health, health outcomes, and health system performance for Aboriginal and/or Torres Strait Islander peoples.
-  - The AIR records all vaccines given to people in Australia and includes vaccines given under the National Immunisation Program, through school programs, and privately (e.g. travel-related vaccines).
-  - Aboriginal and/or Torres Strait Islander peoples were defined as those recorded as Aboriginal and/or Torres Strait Islander in the AIR based on their Medicare records or as recorded by an immunisation provider.")
+  - The AIR records all vaccines given to people in Australia and includes vaccines given under the National Immunisation Program, through school programs, and privately (e.g. travel-related vaccines).")
 
 note_data_framework_breastfed <- glue::glue("
 - Data were obtained from the [AIHW Aboriginal and Torres Strait Islander Health Performance Framework](https://www.indigenoushpf.gov.au/), compiled from the [2018-19 ABS National Aboriginal and Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release) and the [2017-18 ABS National Health Survey](https://www.abs.gov.au/statistics/health/health-conditions-and-risks/national-health-survey/latest-release).
@@ -68,7 +67,6 @@ note_data_natsihs <- glue::glue("
 note_data_phess <- glue::glue("
 - Data were obtained from the [Victorian Public Health Event Surveillance System (PHESS)](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria).
   - PHESS contains data on conditions that are legally required to be notified to the Victorian Department of Health by medical practitioners and pathology services (laboratories) under the *Public Health and Wellbeing Act 2008*.
-  - Aboriginal and/or Torres Strait Islander peoples were defined based on the recording of Aboriginal and/or Torres Strait Islander status at the time of notification by a pathology service or medical practitioner or as determined during case management and follow-up by Local Public Health Units or the Victorian Department of Health.
   - Data presented here are for notifications where Aboriginal and/or Torres Strait Islander status was known. The completeness of data on Aboriginal and/or Torres Strait Islander status varies across conditions and over time, as the percentage of notifications signed out for case management and follow-up varies across conditions and has increased since the transition of case management and follow-up to Local Public Health Units during 2022-2023.
   - Data broken down by Aboriginal and/or Torres Strait Islander status are publicly available for a [selection of conditions at statewide level](https://www.health.vic.gov.au/infectious-diseases/aboriginal-and-torres-strait-islander-summary-state-wide-victoria). Additional data may be made available upon request to the Victorian Department of Health.")
 
@@ -82,7 +80,6 @@ note_data_phidu_vaed <- glue::glue("
 - Data were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
   - The Aboriginal and Torres Strait Islander Social Health Atlas of Australia is a compendium of demographic, social, health status, and health service utilisation indicators compiled by Torrens University Australia from a wide range of national, jurisdictional, and regional data sources.
   - The VAED includes data from all Victorian public and private hospitals, including rehabilitation centres, extended care facilities, and day procedure centres.
-  - Aboriginal and/or Torres Strait Islander peoples were defined as those who identified themselves as Aboriginal and/or Torres Strait Islander at the time of their contact with the health service.
   - Data were aggregated for a four-year period (July 2017 to June 2021).")
 
 note_data_phidu_vemd <- glue::glue("
@@ -93,8 +90,7 @@ note_data_phidu_vemd <- glue::glue("
     - The ability to provide resuscitation, stabilisation, and initial management of all emergencies,
     - Availability of medical staff in the hospital 24 hours a day,
     - Designated emergency department nursing staff 24 hours per day, 7 days per week, and
-    - A designated emergency department nursing unit manager.
-  - Aboriginal and/or Torres Strait Islander peoples were defined as those who identified themselves as Aboriginal and/or Torres Strait Islander at the time of their contact with the health service.")
+    - A designated emergency department nursing unit manager.")
 
 note_data_reconciliation <- glue::glue("
 - Data were obtained from the [Australian Reconciliation Barometer](https://www.reconciliation.org.au/reconciliation/australian-reconciliation-barometer/).
@@ -108,6 +104,5 @@ note_data_tax <- glue::glue("
 note_data_vcsf <- glue::glue("
 - Data were obtained from the [Victorian Cancer Screening Framework (VCSF)](https://acpcc.org.au/services/population-health/), maintained by the Australian Centre for the Prevention of Cervical Cancer (ACPCC).
   - The VCSF collates data from the [National Cancer Screening Register](https://www.ncsr.gov.au/) (cervical and bowel screening) and [BreastScreen Victoria](https://www.breastscreen.org.au/) in order to monitor and improve prevention and early detection of breast, bowel, and cervical cancers in Victoria, particularly among priority communities.
-  - Aboriginal and/or Torres Strait Islander peoples were defined based on the recording of Aboriginal and/or Torres Strait Islander status in the individual datasets that make up the VCSF.
   - Data broken down by Aboriginal and/or Torres Strait Islander status are not publicly available on the VCSF website but can be requested from the ACPCC.")
 
