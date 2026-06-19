@@ -7,13 +7,13 @@ title-block: false
 ```{r}
 #
 source(here::here("setup.R"))
-source(here::here("setup_footnotes.R"))
 
-# Set up numbering for exporting tables as .csv
-table_section <- "09G"
-table_count   <- 0
+# Set up numbering for figures and tables
+figtab_report_section <- "9G"
+figtab_csv_section    <- "09G"
 
-figure_count <- 0
+figtab_table_count  <- 0
+figtab_figure_count <- 0
 ```
 
 
@@ -24,13 +24,17 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Cancer Screening {.unnumbered}
 
-::: {.caveat-box}
-**A note about the impact of under-identification**
+::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
+`r note_chapter_comparisons`
 
-`r note_box_underidentification`
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_masking`
 :::
-
-<div style="height: 2em;"></div>
 
 ::: {.key-question}
 What health and wellbeing practices are Aboriginal and/or Torres Strait Islander Peoples living in the NEPHU catchment engaging in?
@@ -137,29 +141,29 @@ breast_age <- breast_age %>%
 - Participation of Aboriginal and/or Torres Strait Islander women in breast screening was highest for the 60-69 year (35%) and 70-74 year (36%) age groups.
 
 ::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-- `r note_aboriginality_breast`
+- Definitions and notes:
+  - `r note_aboriginality_breast`
+  - Although screening is recommended for women and trans and gender diverse people every two years from the age of 50-74 years, as a priority group in the community, it is recommended that Aboriginal and/or Torres Strait Islander women commence breast screening every two years [from the age of 40 years](https://bsv.sfo2.cdn.digitaloceanspaces.com/public/Documents/BSV_Client-Resource-Fact-Sheet-for-Aboriginal-and-Torres-Strait-Islander-Women-Nov2024_V3.pdf).
+  - Breast screening that occurs outside of the BreastScreen Victoria program (e.g. private mammography) will not be captured by these data.
 
-<div style="height: 0.1em;"></div> 
-
-- For Aboriginal and/or Torres Strait Islander women and people with breasts, [screening is recommended](https://bsv.sfo2.cdn.digitaloceanspaces.com/public/Documents/BSV_Client-Resource-Fact-Sheet-for-Aboriginal-and-Torres-Strait-Islander-Women-Nov2024_V3.pdf) every two years from 40-74 years of age. For non-Indigenous women and people with breasts, [screening is recommended](https://bsv.sfo2.cdn.digitaloceanspaces.com/public/Documents/BSV_Resource_Is_The_BreastScreen_Victoria_Program_for_you_Mar2023.pdf) every two years from 50-74 years of age. 
-
-<div style="height: 0.1em;"></div> 
-
-- Breast screening that occurs outside of the BreastScreen Victoria program (e.g. private mammography) will not be captured by these data.
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 9G-1
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_9G_1 .fig-tab-title}
-**Figure 9G-1:** Breast screening participation rate, Victoria, by Aboriginal and/or Torres Strait Islander status and time period
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Breast screening participation rate, Victoria, by Aboriginal and/or Torres Strait Islander status and time period
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 breast_year %>% 
   f_bar_grouped_indigenous(x_variable    = period,
                            y_variable    = prop,
@@ -168,23 +172,28 @@ breast_year %>%
                            legend_offset = -0.1)
 ```
 
-#### Table 9G-1
 
-::: {#tab_9G_1 .fig-tab-title}
-**Table 9G-1:** Breast screening participation, Victoria, by Aboriginal and/or Torres Strait Islander status and time period
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Breast screening participation, Victoria, by Aboriginal and/or Torres Strait Islander status and time period
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- breast_year %>% 
   f_preptable_screening()
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -199,18 +208,22 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Figure 9G-2
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_9G_2 .fig-tab-title}
-**Figure 9G-2:** Breast screening participation rate, Victoria, by Aboriginal and/or Torres Strait Islander status and age group, 2019-2020
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Breast screening participation rate, Victoria, by Aboriginal and/or Torres Strait Islander status and age group, 2019-2020
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 factor_levels <- stringr::str_wrap(levels(breast_age$age_group), width = 11)
 
 breast_age %>% 
@@ -223,24 +236,29 @@ breast_age %>%
                            legend_offset = -0.1)
 ```
 
-#### Table 9G-2
 
-::: {#tab_9G_2 .fig-tab-title}
-**Table 9G-2:** Breast screening participation rate, Victoria, by Aboriginal and/or Torres Strait Islander status and age group, 2019-2020
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Breast screening participation rate, Victoria, by Aboriginal and/or Torres Strait Islander status and age group, 2019-2020
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- breast_age %>%
   f_preptable_grouped_indigenous(x_variable = age_group,
                                  n_variable = "prop only")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -254,40 +272,39 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
-- Data for Figure 9G-1 and Table 9G-1 were obtained from the [Victorian Cancer Screening Framework (VCSF)](https://acpcc.org.au/services/population-health/), maintained by the Australian Centre for the Prevention of Cervical Cancer (ACPCC).
-  - The VCSF collates data from the [National Cancer Screening Register](https://www.ncsr.gov.au/) (cervical and bowel screening) and [BreastScreen Australia](https://www.breastscreen.org.au/) in order to monitor and improve prevention and early detection of breast, bowel, and cervical cancers in Victoria, particularly among priority communities.
-  - Aboriginal and/or Torres Strait Islander peoples were defined based on the recording of Aboriginal and/or Torres Strait Islander status in the individual datasets that make up the VCSF.
-  - Data broken down by Aboriginal and/or Torres Strait Islander status are not publicly available on the VCSF website but can be requested from the ACPCC.
-  
-<div style="height: 0.1em;"></div>
-
-- For Figure 9G-1 and Table 9G-1, the participation rate is the number of eligible women (aged 50-74 years) screened by BreastScreen Victoria divided by the total number of eligible women (aged 50-74 years) for each two year time period.
-  - The total number of eligible women for each two year period is derived from the [ABS Estimated Residential Population (ERP)](https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071).
-
-<div style="height: 0.1em;"></div>
-
-- Data for Figure 9G-2 and Table 9G-2 were obtained from the [AIHW Aboriginal and Torres Strait Islander Health Performance Framework](https://www.indigenoushpf.gov.au/), compiled from [BreastScreen Australia](https://www.breastscreen.org.au/).
-  - The AIHW Aboriginal and Torres Strait Islander Health Performance Framework brings together information from a wide range of national, jurisdictional, and regional data sources to report on determinants of health, health outcomes, and health system performance for Aboriginal and/or Torres Strait Islander peoples.
-  - BreastScreen Australia is the national free breast cancer screening program.
-  - Aboriginal and/or Torres Strait Islander women were defined as those who identified themselves as Aboriginal and/or Torres Strait Islander at the time of their breast screening appointment.
-
-<div style="height: 0.1em;"></div>
-
-- For Figure 9G-2 and Table 9G-2, the participation rates for each age group are the number of women screened during January 2019 to December 2020 as a percentage of the eligible female population, calculated as the average of the 2019 and 2020 [ABS resident population projections](https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071) based on the ABS Census 2016.
-  - The total rates for the 50-74 years age group were directly age-standardised to the Australian 2001 standard population in 5-year age groups between 50 and 74 years.
-
-<div style="height: 0.1em;"></div>
-
 `r note_caveat_underidentification`
 
 <div style="height: 0.1em;"></div>
 
-`r note_caveat_pandemic_screening`
+- The COVID‑19 pandemic disrupted screening services and health‑seeking behaviours, which is reflected in [participation during 2020–2022](https://acpcc.org.au/services/population-health/annual-statistical-report/).
+
+<div style="height: 0.1em;"></div>
+
+- Figure 9G-1 and Table 9G-1:
+  - Indicator: Breast screening participation rate
+  - Numerator: Number of women aged 50-74 years screened by BreastScreen Victoria in each 2-year reporting period
+  - Denominator: [Estimated total number of women](https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071) aged 50-74 years in Victoria for the specified 2-year reporting period
+  - Comparison: `r note_comparison_aboriginal` and reporting period
+  - `r note_data_screening_breast`
+  - Due to data quality issues and Indigenous Data Sovereignty/Indigenous Data Governance requirements, the Indigenous data in the VCSF screening program reports are quite dated.
+    - Breast screening participation data were released in May 2024.
+    - Users of the data should exercise caution when interpreting these data for future planning purposes.
+
+<div style="height: 0.1em;"></div>
+
+- Figure 9G-2 and Table 9G-2:
+  - Indicator: Breast screening participation rate
+  - Numerator: Number of women aged 40-74 years screened by BreastScreen Victoria during January 2019 to December 2020
+  - Denominator: [Estimated total number of women](https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071) aged 40-74 years, based on the average of the 2019 and 2020 [ABS resident population projections](https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071)
+  - Comparison: `r note_comparison_aboriginal` and `r note_comparison_age`
+  - Data were sourced from [BreastScreen Australia](https://www.breastscreen.org.au/) via the [AIHW Aboriginal and Torres Strait Islander Health Performance Framework](https://www.indigenoushpf.gov.au/).
+  - The total rates for the 50-74 years age group were directly age-standardised to the Australian 2001 standard population in 5-year age groups between 50 and 74 years.
+
 :::
 
 ```{r}
@@ -306,129 +323,46 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 cervical_year <- f_read_vcsf("Cervical Screening Participation (2017-2021) - Cell Suppression Applied.xlsx",
                              data_sheet    = "8. Indigenous - target age",
                              skip_rows     = 10,
-                             row_select    = c(1, 5),
-                             column_select = c(indigenous_status = "indigenous_status_ever_identified",
-                                               screened_n_year2  = "participants_screened_3",
-                                               eligible_n_year2  = "eligible_population_4",
-                                               screened_n_year3  = "participants_screened_7",
-                                               eligible_n_year3  = "eligible_population_8",
-                                               screened_n_year5  = "participants_screened_11",
-                                               eligible_n_year5  = "eligible_population_12")) %>% 
-  #
-  dplyr::mutate(indigenous_status = dplyr::case_when(
-    indigenous_status == "Aboriginal and/or Torres Strait Islander"             ~ "aboriginal",
-    indigenous_status == "Never indicated Aboriginal or Torres Strait Islander" ~ "non_aboriginal",
-    TRUE ~ NA_character_))
-
-# Data wrangling
-cervical_year <- cervical_year %>%
-  f_wrangle_vcsf() %>% 
-  #
-  dplyr::mutate(
-    eligible = dplyr::case_when(indigenous_label == "Non-Indigenous" & period == "year2" ~ 1707332,
-                                indigenous_label == "Non-Indigenous" & period == "year3" ~ 1700010,
-                                indigenous_label == "Non-Indigenous" & period == "year5" ~ 1673274,
-                                TRUE ~ eligible),
-    #
-    period = factor(dplyr::recode(period,
-                                  "year2" = "2 years (2020-2021)",
-                                  "year3" = "3 years (2019-2021)",
-                                  "year5" = "5 years (2017-2021)")),
-    #
-    prop = screened / eligible * 100) %>% 
-  #
-  dplyr::arrange(period)
+                             row_select    = c(1, 6),
+                             column_select = c(indigenous_status   = "indigenous_status_ever_identified",
+                                               screened_n_year5    = "participants_screened_11",
+                                               eligible_n_year5    = "eligible_population_12",
+                                               participation_year5 = "participation_13"))
 ```
 
 - Data for this topic were obtained from [Victorian Cancer Screening Framework](https://acpcc.org.au/services/population-health/), compiled from the [National Cancer Screening Register](https://www.ncsr.gov.au/).
 
-- During the five-year period 2017-2021 67% of Aboriginal and/or Torres Strait Islander women and people with a cervix aged 25-74 years had at least one cervical screening test (human papillomavirus test or cervical cytology), compared to 72% of non-Indigenous women.
-
-::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-- `r note_aboriginality_cervical`
-
-<div style="height: 0.1em;"></div> 
+<div style="height: 0.1em;"></div>
 
 - A cervical screening test is [recommended every five years](https://www.health.gov.au/our-work/national-cervical-screening-program) for all women and people with a cervix from 25-74 years of age.
 
-<div style="height: 0.1em;"></div> 
+<div style="height: 0.1em;"></div>
 
-- Cervical screening coverage is the number of eligible women (aged 25-74 years) who had at least one human papillomavirus test or cervical cytology test for any reason divided by the total number of eligible women (aged 25-74 years) for each time period.
-  - The total number of eligible women for each two year period is derived from the [ABS Estimated Resident Population](https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071), adjusted for the number of women who have had a hysterectomy (hysterectomy fraction).
-  - Active participants in the [Compass trial](https://acpcc.org.au/compass/) were excluded.
-
-:::
-
-:::: {.panel-tabset}
-
-#### Figure 9G-3
-
-::: {#fig_9G_3 .fig-tab-title}
-**Figure 9G-3:** Cervical screening coverage for the previous two, three, and five years, Victoria, by Aboriginal and/or Torres Strait Islander status and time period
-:::
-
-```{r}
-#
-figure_count <- figure_count + 1
-
-factor_levels <- stringr::str_wrap(levels(cervical_year$period), width = 15)
-
-cervical_year %>% 
-  dplyr::mutate(period = factor(stringr::str_wrap(period, width = 15), levels = factor_levels)) %>%
-  #
-  f_bar_grouped_indigenous(x_variable    = period,
-                           y_variable    = prop,
-                           n_level       = "eligible women",
-                           x_angle       = 0,
-                           legend_offset = -0.1)
-```
-
-#### Table 9G-3
-
-::: {#tab_9G_3 .fig-tab-title}
-**Table 9G-3:** Cervical screening coverage for the previous two, three, and five years, Victoria, by Aboriginal and/or Torres Strait Islander status and time period
-:::
-
-```{r}
-#
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
-table <- cervical_year %>%
-  f_preptable_screening()
-
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
-  
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
-  
-}
-
-table %>%
-  dplyr::mutate(prop_aboriginal     = sprintf("%.1f", prop_aboriginal),
-                prop_non_indigenous = sprintf("%.1f", prop_non_indigenous)) %>% 
-  #
-  f_table_grouped_indigenous(n_variable  = "screening",
-                             column_name = "Time period",
-                             total_row   = NULL)
-```
-
-<div style="height: 1em;"></div>
-
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
-
-::::
-
-::: {.callout-note title="Data notes" icon=false collapse=false}
-`r note_data_vcsf`
+- During the five-year period 2017-2021 68% of Victorian Aboriginal and/or Torres Strait Islander women and people with a cervix aged 25-74 years had at least one cervical screening test (human papillomavirus test or cervical cytology), compared to 72% of all women and people with a cervix aged 25-74 years living in Victoria.
 
 <div style="height: 0.1em;"></div>
 
-`r note_caveat_underidentification`
+- Data from the National Cancer Screening Register (NCSR) Victorian Raw Data Extract (September 2022) was provided by the Australian Centre for the Prevention of Cervical Cancer (ACPCC) on behalf of the Victorian Cancer Screening Framework (VCSF).
+  - The NCSR is Australia's digital platform which supports the implementation of cervical and bowel screening including invitation of eligible participants and storing results of relevant screening and follow-up diagnostic tests. 
+  - The VCSF is a funding and governance model that guides delivery and investment of cancer screening initiatives in Victoria, Australia and is funded by the Victorian Department of Health.
+  - Cancer screening data disaggregated by Aboriginal and/or Torres Strait Islander status are not currently publicly available and were provided through the VCSF Data Access and Release Procedure.
+  - Aboriginal and/or Torres Strait Islander peoples were defined using the Indigenous Status Ever Identified field which indicates if a screening participant has ever indicated that they were Aboriginal, Torres Strait Islander, or Aboriginal and Torres Strait Islander at the time of cervical screening.
+
+<div style="height: 0.1em;"></div>
+
+- Due to data quality issues and Indigenous Data Sovereignty/Indigenous Data Governance requirements, the Indigenous data in the VCSF screening program reports are quite dated.  
+  - Cervical screening participation data were released in October 2022. 
+  - Users of the data should exercise caution when interpreting these data for future planning purposes.  
+
+<div style="height: 0.1em;"></div>
+
+- The Cervical Screening Coverage rate was calculated as follows:
+  - Numerator: Number of participants aged 25-74 years who had at least one human papillomavirus test or cytology test for any reason in Victoria in the five-year reporting period.
+  - Denominator: Average of Australian Bureau of Statistics (ABS) [Estimated Resident Population (ERP)](https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071) over five-year reporting periods, adjusted for the number of women who have had a hysterectomy (hysterectomy fraction) and active [Compass trial](https://acpcc.org.au/compass/) participants in Victoria. 
 
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_pandemic_screening`
-:::
 
 ```{r}
 #| out-width: "100%"
@@ -446,73 +380,75 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 bowel_year <- f_read_vcsf("Bowel Cancer Screening Participation (2016-2020) - 2019_20 data from Sep21 RDE - final.xlsx",
                           data_sheet    = "8.1 Indigenous target age",
                           skip_rows     = 7,
-                          row_select    = c(1, 5),
+                          row_select    = c(1, 6),
                           column_select = c(indigenous_status = "indigenous_status_ever_identified",
-                                            screened_n_2018   = "participants_screened_8",
-                                            eligible_n_2018   = "persons_invited_9",
-                                            screened_n_2017   = "participants_screened_12",
-                                            eligible_n_2017   = "persons_invited_13",
-                                            screened_n_2016   = "participants_screened_16",
-                                            eligible_n_2016   = "persons_invited_17")) %>% 
+                                            screened_2018     = "participants_screened_8",
+                                            eligible_2018     = "persons_invited_9",
+                                            prop_2018         = "participation_10",
+                                            screened_2017     = "participants_screened_12",
+                                            eligible_2017     = "persons_invited_13",
+                                            prop_2017         = "participation_14",
+                                            screened_2016     = "participants_screened_16",
+                                            eligible_2016     = "persons_invited_17",
+                                            prop_2016         = "participation_18")) %>% 
   #
-  dplyr::mutate(indigenous_status = dplyr::case_when(
-    indigenous_status == "Aboriginal and/or Torres Strait Islander"             ~ "aboriginal",
-    indigenous_status == "Never indicated Aboriginal or Torres Strait Islander" ~ "non_aboriginal",
-    TRUE ~ NA_character_))
+  dplyr::mutate(
+    indigenous_status = dplyr::case_when(
+      indigenous_status == "Aboriginal and/or Torres Strait Islander" ~ "Aboriginal and/or Torres Strait Islander",
+      indigenous_status == "Total persons"                            ~ "Total persons",
+      TRUE ~ NA_character_))
 
 # Data wrangling
 bowel_year <- bowel_year %>%
-  f_wrangle_vcsf() %>% 
+  dplyr::mutate(across(!indigenous_status, as.numeric)) %>% 
+  #
+  tidyr::pivot_longer(!indigenous_status,
+                      names_to  = c(".value", "period"),
+                      names_sep = "_") %>% 
   #
   dplyr::mutate(
-    eligible = dplyr::case_when(indigenous_label == "Non-Indigenous" & period == "2018" ~ 1400917,
-                                indigenous_label == "Non-Indigenous" & period == "2017" ~ 1254842,
-                                indigenous_label == "Non-Indigenous" & period == "2016" ~ 1014152,
-                                TRUE ~ eligible),
+    indigenous_label = indigenous_status,
     #
     period = factor(dplyr::recode(period,
                                   "2018" = "2018-2019",
                                   "2017" = "2017-2018",
                                   "2016" = "2016-2017")),
     #
-    prop = screened / eligible * 100) %>% 
+    prop = prop * 100) %>% 
   #
   dplyr::arrange(period)
 ```
 
 - Data for this topic were obtained from [Victorian Cancer Screening Framework](https://acpcc.org.au/services/population-health/), compiled from the [National Cancer Screening Register](https://www.ncsr.gov.au/).
 
-- Participation in bowel screening increased for invited Aboriginal and/or Torres Strait Islander people aged 50-74 years from 23% in 2016-2017 to 37% in 2018-2019. Participation was lower than for non-Indigenous people at each time period.
+- Participation in bowel screening increased for invited Aboriginal and/or Torres Strait Islander people aged 50-74 years from 23% in 2016-2017 to 37% in 2018-2019. Participation was lower than for all people aged 50-74 years at each time period.
 
 ::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-- `r note_aboriginality_bowel`
-
-<div style="height: 0.1em;"></div> 
-
-- All eligible people are [invited to participate in bowel screening](https://www.health.gov.au/our-work/national-bowel-cancer-screening-program/about-the-national-bowel-cancer-screening-program) every two years from 45-74 years of age.
-  - Faecal occult blood test kits (bowel screening kits) are free and mailed out to eligible participants from 50-74 years of age.
-  - People aged 45-49 years are able to request a free bowel screening kit through their usual healthcare provider.
-  - Bowel cancer screening activities (e.g. colonoscopy) may also occur outside of the scope of the national screening program and this may affect bowel cancer screening participation rates.
-
-<div style="height: 0.1em;"></div> 
-
-- The participation rate is the number of bowel screening kits returned within 30 months divided by the total number of people aged 50-74 years who were sent an invitation to participate in the bowel screening program for each time period.
-  - The number of people invited to screen was derived from the [ABS Estimated Resident Population](https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071).
+- Definitions and notes:
+  - `r note_aboriginality_bowel`
+  - All eligible people are [invited to participate in bowel screening](https://www.health.gov.au/our-work/national-bowel-cancer-screening-program/about-the-national-bowel-cancer-screening-program) every two years from 45-74 years of age.
+    - Faecal occult blood test kits (bowel screening kits) are free and mailed out to eligible participants from 50-74 years of age.
+    - People aged 45-49 years are able to request a free bowel screening kit through their usual healthcare provider.
+    - Bowel cancer screening activities (e.g. colonoscopy) may also occur outside of the scope of the national screening program and this may affect bowel cancer screening participation rates.
 
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 9G-4
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_9G_4 .fig-tab-title}
-**Figure 9G-4:** Bowel screening participation rate, Victoria, by Aboriginal and/or Torres Strait Islander status and time period
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Bowel screening participation rate, Victoria, by Aboriginal and/or Torres Strait Islander status and time period
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 bowel_year %>% 
   f_bar_grouped_indigenous(x_variable    = period,
                            y_variable    = prop,
@@ -521,50 +457,95 @@ bowel_year %>%
                            legend_offset = -0.1)
 ```
 
-#### Table 9G-4
 
-::: {#tab_9G_4 .fig-tab-title}
-**Table 9G-4:** Bowel screening participation rate, Victoria, by Aboriginal and/or Torres Strait Islander status and time period
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Bowel screening participation rate, Victoria, by Aboriginal and/or Torres Strait Islander status and time period
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- bowel_year %>% 
+  dplyr::mutate(indigenous_label = dplyr::case_when(
+    indigenous_label == "Aboriginal and/or Torres Strait Islander" ~ "aboriginal",
+    indigenous_label == "Total persons"                            ~ "total",
+    TRUE ~ NA_character_)) %>% 
+  #
   f_preptable_screening()
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
 table %>%
-  dplyr::mutate(prop_aboriginal     = sprintf("%.1f", prop_aboriginal),
-                prop_non_indigenous = sprintf("%.1f", prop_non_indigenous)) %>% 
+  dplyr::mutate(prop_aboriginal = sprintf("%.1f", prop_aboriginal),
+                prop_total      = sprintf("%.1f", prop_total)) %>% 
   #
-  f_table_grouped_indigenous(n_variable  = "screening",
-                             column_name = "Time period",
-                             total_row   = NULL)
+  knitr::kable(format      = "html",
+               format.args = list(big.mark = ","),
+               align       = "lrrrrrr",
+               col.names   = c("Time period", "Screened (n)", "Eligible (n)", "Screened (%)", "Screened (n)", "Eligible (n)", "Screened (%)"),
+               escape      = FALSE) %>%
+  #
+  kableExtra::kable_styling(bootstrap_options = c("hover", "responsive"),
+                            #
+                            full_width = FALSE,
+                            position   = "center",
+                            html_font  = "Karla",
+                            font_size  = 12) %>%
+  #
+  kableExtra::row_spec(row  = 0,
+                       bold = TRUE) %>%
+  #
+  kableExtra::column_spec(2:7,
+                          width = "1.25in") %>% 
+  #
+  kableExtra::add_header_above(c(" " = 1,
+                                 "Aboriginal and/or Torres Strait Islander" = 3,
+                                 "Total persons"                            = 3))
 ```
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
-`r note_data_vcsf`
+`r note_data_screening_bowel`
 
 <div style="height: 0.1em;"></div>
 
-`r note_caveat_underidentification`
+- Due to data quality issues and Indigenous Data Sovereignty/Indigenous Data Governance requirements, the Indigenous data in the VCSF screening program reports are quite dated.
+  - Bowel screening participation data were released in December 2021.
+  - Users of the data should exercise caution when interpreting these data for future planning purposes.
+
+<div style="height: 0.1em;"></div>
+
+- Phase 3 of the rollout of the National Bowel Cancer Screening Program was completed in 2019, at which point all eligible participants aged 50–74 years were routinely invited to screen.
+  - It is therefore important to note that the two-year reporting periods quoted in this report (2016–2019) did not include the same age cohorts in each period. This change in eligibility over time may have contributed to differences in participation rates observed over the entire time period. 
 
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_pandemic_screening`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 9G-3 and Table 9G-3:
+  - Indicator: Bowel screening participation rate
+  - Numerator: Number of persons aged 50-74 years who returned a completed bowel screening test in Victoria within the 2.5-year period (including an additional 6-month period after the end of each 2-year invitation period)
+  - Denominator: Number of persons who were invited to screen through the National Bowel Cancer Screening Program (NBCSP) in the two-year reporting period
+  - Comparison: `r note_comparison_aboriginal` and reporting period
+
 :::
 
