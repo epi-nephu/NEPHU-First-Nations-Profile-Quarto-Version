@@ -96,13 +96,20 @@ note_data_reconciliation <- glue::glue("
 - Data were obtained from the [Australian Reconciliation Barometer](https://www.reconciliation.org.au/reconciliation/australian-reconciliation-barometer/).
   - The Australian Reconciliation Barometer is a national survey undertaken every two years since 2008, and aims to measure the progress of reconciliation between Aboriginal and/or Torres Strait Islander and non-Indigenous peoples.")
 
+note_data_screening_bowel <- glue::glue("
+- Data from the National Cancer Screening Register (NCSR) Victorian Raw Data Extract (October 2021) was provided by the Australian Centre for the Prevention of Cervical Cancer (ACPCC) on behalf of the [Victorian Cancer Screening Framework (VCSF)](https://acpcc.org.au/services/population-health/).
+  - The NCSR is Australia's digital platform which supports the implementation of cervical and bowel screening including invitation of eligible participants and storing results of relevant screening and follow-up diagnostic tests.
+  - The VCSF is a funding and governance model that guides delivery and investment of cancer screening initiatives in Victoria, Australia and is funded by the Victorian Department of Health.
+  - Cancer screening data disaggregated by Aboriginal and/or Torres Strait Islander status are not currently publicly available and were provided through the VCSF Data Access and Release Procedure.")
+
+note_data_screening_breast <- glue::glue("
+- Data from Breast Screen Victoria (BSV) (Quarterly Data Extract from 05/2024) was provided by the Australian Centre for the Prevention of Cervical Cancer (ACPCC) on behalf of the [Victorian Cancer Screening Framework (VCSF)](https://acpcc.org.au/services/population-health/).
+  - The VCSF is a funding and governance model that guides delivery and investment of cancer screening initiatives in Victoria, Australia and is funded by the Victorian Department of Health.
+  - Participation data includes participants with Victorian residential addresses only and excludes participants who received mammography at a private health service.
+  - Cancer screening data disaggregated by Aboriginal and/or Torres Strait Islander status are not currently publicly available and were provided through the VCSF Data Access and Release Procedure.")
+
 note_data_tax <- glue::glue("
 - Data were obtained from the [ABS Census 2021](https://www.abs.gov.au/census) linked to data from the Australian Taxation Office and Department of Social Services held in the [Person Level Integrated Data Asset (PLIDA)](https://www.abs.gov.au/about/data-services/data-integration/integrated-data/person-level-integrated-data-asset-plida). Data are publicly available at Local Government Area (LGA), ABS Statistical Area Level 2 (SA2), and Indigenous Area of Residence (IARE) level.
   - PLIDA is a secure linked data asset maintained by the ABS that brings together information on health, education, government payments, income and taxation, employment, and population demographics.
   - The 2021 Census was held on the evening of August 10th 2021.")
-
-note_data_vcsf <- glue::glue("
-- Data were obtained from the [Victorian Cancer Screening Framework (VCSF)](https://acpcc.org.au/services/population-health/), maintained by the Australian Centre for the Prevention of Cervical Cancer (ACPCC).
-  - The VCSF collates data from the [National Cancer Screening Register](https://www.ncsr.gov.au/) (cervical and bowel screening) and [BreastScreen Victoria](https://www.breastscreen.org.au/) in order to monitor and improve prevention and early detection of breast, bowel, and cervical cancers in Victoria, particularly among priority communities.
-  - Data broken down by Aboriginal and/or Torres Strait Islander status are not publicly available on the VCSF website but can be requested from the ACPCC.")
 

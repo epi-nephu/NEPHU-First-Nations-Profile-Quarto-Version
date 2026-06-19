@@ -10,16 +10,14 @@ note_aboriginality_air <- glue::glue("
 In the Australian Immunisation Register, Aboriginal and/or Torres Strait Islander peoples were defined as those recorded as Aboriginal and/or Torres Strait Islander based on their Medicare records or as recorded by an immunisation provider.")
 
 note_aboriginality_bowel <- glue::glue("
-In the National Cancer Screening Register, Aboriginal and/or Torres Strait Islander peoples were defined based on the recording of Aboriginal and/or Torres Strait Islander status in the National Bowel Cancer Screening Program data.")
+For bowel screening data in the National Cancer Screening Register, Aboriginal and/or Torres Strait Islander peoples were defined using the Indigenous Status Ever Identified field which indicates if a screening participant has ever indicated that they were Aboriginal, Torres Strait Islander, or Aboriginal and Torres Strait Islander at the time of bowel screening.
+  - Due to an increase in the number of participants with Indigenous Status Ever Identified when compared with earlier ad-hoc data requests the verification of Indigenous data accuracy is ongoing.")
 
 note_aboriginality_breast <- glue::glue("
-In the BreastScreen Australia dataset, Aboriginal and/or Torres Strait Islander women were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander at the time of their breast screening appointment.")
+In BreastScreen Victoria data, Aboriginal and/or Torres Strait Islander peoples were defined as those who identified as Aboriginal, Torres Strait Islander, or Aboriginal and Torres Strait Islander at the time of breast screening.")
 
 note_aboriginality_census <- glue::glue("
 In the ABS Census, Aboriginal and/or Torres Strait Islander peoples were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander when they completed the Census.")
-
-note_aboriginality_cervical <- glue::glue("
-In the National Cancer Screening Register, Aboriginal and/or Torres Strait Islander peoples were defined based on the recording of Aboriginal and/or Torres Strait Islander status in Medicare, pathology, or colposcopy records.")
 
 note_aboriginality_childprotection <- glue::glue("
 Aboriginal and/or Torres Strait Islander peoples were defined as those who were identified as such in the individual state and territory data collections that make up the AIHW Child Protection National Minimum Dataset.")
