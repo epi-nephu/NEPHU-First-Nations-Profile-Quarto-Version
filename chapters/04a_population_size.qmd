@@ -174,7 +174,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Number of people who identified as Aboriginal and/or Torres Strait Islander, Victoria, by Local Public Health Unit (LPHU), 2021
+**`r figtab_figure_title`:** Number of people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_victoria`, by `r note_comparison_lphu`, `r note_time_census`
 :::
 
 ```{r}
@@ -201,7 +201,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Number and percentage of Local Public Health Unit (LPHU) catchment population who identified as Aboriginal and/or Torres Strait Islander, Victoria, by LPHU, 2021
+**`r figtab_table_title`:** Number and percentage of LPHU catchment population who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_victoria`, by `r note_comparison_lphu`, `r note_time_census`
 :::
 
 ```{r}
@@ -248,7 +248,8 @@ table %>%
   - Indicator: Population size
   - Numerator: Number of people who identified as Aboriginal and/or Torres Strait Islander
   - Denominator: `r note_denominator_census_population`
-  - Disaggregation: `r note_disaggregation_lphu`
+  - Geographical area: `r note_geography_victoria`
+  - Comparison: `r note_comparison_lphu`
 
 :::
 
@@ -404,7 +405,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Number of people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+**`r figtab_figure_title`:** Number of people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -430,7 +431,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+**`r figtab_table_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -472,7 +473,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** SA2s with at least 200 residents who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, 2021
+**`r figtab_table_title`:** SA2s with at least 200 residents who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_sa2`, `r note_time_census`
 :::
 
 ```{r}
@@ -520,7 +521,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Population density (number of people per km^2^) for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+**`r figtab_figure_title`:** Population density (number of people per km^2^) for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -539,7 +540,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Population density (number of people per km^2^) for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by SA2, 2021
+**`r figtab_figure_title`:** Population density (number of people per km^2^) for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_sa2`, `r note_time_census`
 :::
 
 ```{r}
@@ -563,7 +564,8 @@ density_sa2 %>%
   - Indicator: Population size
   - Numerator: Number of people who identified as Aboriginal and/or Torres Strait Islander
   - Denominator: `r note_denominator_census_population`
-  - Disaggregation: `r note_disaggregation_lga`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_lga`
 
 <div style="height: 0.1em;"></div>
 
@@ -571,7 +573,8 @@ density_sa2 %>%
   - Indicator: Population size
   - Numerator: Number of people who identified as Aboriginal and/or Torres Strait Islander
   - Denominator: `r note_denominator_census_population`
-  - Disaggregation: `r note_disaggregation_sa2`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_sa2`
   
 <div style="height: 0.1em;"></div>
 
@@ -579,7 +582,8 @@ density_sa2 %>%
   - Indicator: Population density
   - Numerator: Number of people who identified as Aboriginal and/or Torres Strait Islander
   - Denominator: Total size of the Local Government Area (LGA) measured in square kilometres (km^2^)
-  - Disaggregation: `r note_disaggregation_lga`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_lga`
 
 <div style="height: 0.1em;"></div>
 
@@ -587,7 +591,8 @@ density_sa2 %>%
   - Indicator: Population density
   - Numerator: Number of people who identified as Aboriginal and/or Torres Strait Islander
   - Denominator: Total size of the Statistical Area Level 2 (SA2) measured in square kilometres (km^2^)
-  - Disaggregation: `r note_disaggregation_sa2`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_sa2`
 
 :::
 

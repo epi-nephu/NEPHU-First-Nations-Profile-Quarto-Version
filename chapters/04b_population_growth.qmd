@@ -103,7 +103,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Population projections for Aboriginal and/or Torres Strait Islander people, Australia, by IARE, 2021 to 2031
+**`r figtab_table_title`:** Population projections for Aboriginal and/or Torres Strait Islander people, `r note_geography_australia`, by `r note_comparison_iare`, `r note_time_projections`
 :::
 
 ```{r}
@@ -147,6 +147,8 @@ table %>%
   - Indicator: Projected population growth
   - Numerator: Estimated number of Aboriginal and/or Torres Strait Islander people in 2031
   - Denominator: Estimated number of Aboriginal and/or Torres Strait Islander people in 2021
+  - Geographical area: `r note_geography_australia`
+  - Comparison: `r note_comparison_iare`
 
 :::
 
