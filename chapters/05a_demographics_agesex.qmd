@@ -281,7 +281,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Age and sex profile of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander compared to people living in Victoria who identified as Aboriginal and/or Torres Strait Islander, 2021
+**`r figtab_figure_title`:** Age and sex profile of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander compared to people living in Victoria who identified as Aboriginal and/or Torres Strait Islander, `r note_time_census`
 :::
 
 ```{r}
@@ -314,7 +314,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Age and sex profile of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander compared to people living in Victoria who identified as Aboriginal and/or Torres Strait Islander, 2021
+**`r figtab_table_title`:** Age and sex profile of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander compared to people living in Victoria who identified as Aboriginal and/or Torres Strait Islander, `r note_time_census`
 :::
 
 ```{r}
@@ -388,7 +388,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Age and sex profile of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander compared to people living in the NEPHU catchment who did not identify as Aboriginal and/or Torres Strait Islander, 2021
+**`r figtab_figure_title`:** Age and sex profile of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander compared to people living in the NEPHU catchment who did not identify as Aboriginal and/or Torres Strait Islander, `r note_time_census`
 :::
 
 ```{r}
@@ -441,7 +441,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Age and sex profile of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander compared to people living in the NEPHU catchment who did not identify as Aboriginal and/or Torres Strait Islander, 2021
+**`r figtab_table_title`:** Age and sex profile of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander compared to people living in the NEPHU catchment who did not identify as Aboriginal and/or Torres Strait Islander, `r note_time_census`
 :::
 
 ```{r}
@@ -514,7 +514,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Age and sex profile of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander compared to people living in the NEPHU catchment who did not identify as Aboriginal and/or Torres Strait Islander, by LGA, 2021
+**`r figtab_figure_title`:** Age and sex profile of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander compared to people living in the NEPHU catchment who did not identify as Aboriginal and/or Torres Strait Islander, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -599,7 +599,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Age and sex profile of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander compared to people living in the NEPHU catchment who did not identify as Aboriginal and/or Torres Strait Islander, by LGA, 2021
+**`r figtab_table_title`:** Age and sex profile of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander compared to people living in the NEPHU catchment who did not identify as Aboriginal and/or Torres Strait Islander, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -722,6 +722,7 @@ tables[["Yarra Ranges"]]
   - Indicator: Age and sex profile
   - Numerator: Number of Aboriginal and/or Torres Strait Islander people in each age/sex group
   - Denominator: `r note_denominator_census_aboriginal`
+  - Geographical area: `r note_geography_victoria`
   - Comparison: NEPHU vs. Victoria
 
 <div style="height: 0.1em;"></div>
@@ -730,6 +731,7 @@ tables[["Yarra Ranges"]]
   - Indicator: Age and sex profile
   - Numerator: Number of people in each age/sex group
   - Denominator: `r note_denominator_census_population`
+  - Geographical area: `r note_geography_nephu`
   - Comparison: `r note_comparison_aboriginal`
 
 <div style="height: 0.1em;"></div>
@@ -738,9 +740,9 @@ tables[["Yarra Ranges"]]
   - Indicator: Age and sex profile
   - Numerator: Number of people in each age/sex group
   - Denominator: `r note_denominator_census_population`
-  - Disaggregation: `r note_disaggregation_lga`
-  - Comparison: `r note_comparison_aboriginal`
-  
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_lga` and `r note_comparison_aboriginal`
+
 :::
 
 ```{r}
@@ -800,7 +802,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Number and percentage of women who identified as Aboriginal and/or Torres Strait Islander and who were of reproductive age, NEPHU catchment, by LGA, 2021
+**`r figtab_figure_title`:** Number and percentage of women who identified as Aboriginal and/or Torres Strait Islander and who were of reproductive age, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -827,7 +829,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Number and percentage of women who were of reproductive age, NEPHU catchment, by Aboriginal and/or Torres Strait Islander status and LGA, 2021
+**`r figtab_table_title`:** Number and percentage of women who were of reproductive age, `r note_geography_nephu`, by `r note_comparison_lga` and `r note_comparison_aboriginal`, `r note_time_census`
 :::
 
 ```{r}
@@ -884,8 +886,8 @@ table %>%
   - Indicator: Women of reproductive age
   - Numerator: Number of women aged between 15 and 49 years
   - Denominator: Total number of women who completed the Census
-  - Disaggregation: `r note_disaggregation_lga`
-  - Comparison: `r note_comparison_aboriginal`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_lga` and `r note_comparison_aboriginal`
 
 :::
 

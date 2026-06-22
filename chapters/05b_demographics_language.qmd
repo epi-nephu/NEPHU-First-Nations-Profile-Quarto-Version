@@ -175,7 +175,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander who speak an Aboriginal and/or Torres Strait Islander language at home, NEPHU catchment, by LGA, 2021
+**`r figtab_figure_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander who speak an Aboriginal and/or Torres Strait Islander language at home, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -200,7 +200,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander who speak an Aboriginal and/or Torres Strait Islander language at home, NEPHU catchment, by LGA, 2021
+**`r figtab_table_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander who speak an Aboriginal and/or Torres Strait Islander language at home, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -236,7 +236,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander who speak an Aboriginal and/or Torres Strait Islander language at home, NEPHU catchment, by age and sex, 2021
+**`r figtab_figure_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander who speak an Aboriginal and/or Torres Strait Islander language at home, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
 :::
 
 ```{r}
@@ -261,7 +261,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander who speak an Aboriginal and/or Torres Strait Islander language at home, NEPHU catchment, by age and sex, 2021
+**`r figtab_table_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander who speak an Aboriginal and/or Torres Strait Islander language at home, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
 :::
 
 ```{r}
@@ -296,7 +296,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Aboriginal and/or Torres Strait Islander languages spoken by people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, 2021
+**`r figtab_figure_title`:** Aboriginal and/or Torres Strait Islander languages spoken by people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, `r note_time_census`
 :::
 
 ```{r}
@@ -322,7 +322,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Aboriginal and/or Torres Strait Islander languages spoken by people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, 2021
+**`r figtab_table_title`:** Aboriginal and/or Torres Strait Islander languages spoken by people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, `r note_time_census`
 :::
 
 ```{r}
@@ -367,7 +367,8 @@ table %>%
   - Indicator: Language spoken at home (Aboriginal and/or Torres Strait Islander languages)
   - Numerator: Number of Aboriginal and/or Torres Strait Islander people who speak an Aboriginal and/or Torres Strait Islander language at home
   - Denominator: `r note_denominator_census_aboriginal`
-  - Disaggregation: `r note_disaggregation_lga`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_lga`
 
 <div style="height: 0.1em;"></div>
 
@@ -375,7 +376,8 @@ table %>%
   - Indicator: Language spoken at home (Aboriginal and/or Torres Strait Islander languages)
   - Numerator: Number of Aboriginal and/or Torres Strait Islander people who speak an Aboriginal and/or Torres Strait Islander language at home
   - Denominator: `r note_denominator_census_aboriginal`
-  - Disaggregation: `r note_disaggregation_agesex`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_agesex`
 
 <div style="height: 0.1em;"></div>
 
@@ -383,10 +385,14 @@ table %>%
   - Indicator: Language spoken at home (Aboriginal and/or Torres Strait Islander languages)
   - Numerator: Number of Aboriginal and/or Torres Strait Islander people who speak the specified language
   - Denominator: `r note_denominator_census_aboriginal`
-  - *Australian Indigenous Languages* includes: 
-    - Woiwurrung
-    - Languages not further described 
-    - Languages not elsewhere classified
+  - Geographical area: `r note_geography_nephu`
+
+<div style="height: 0.1em;"></div>
+
+- For Figure 5B-3 and Table 5B-3, *Australian Indigenous Languages* includes: 
+  - Woiwurrung
+  - Languages not further described 
+  - Languages not elsewhere classified
 
 :::
 
@@ -470,7 +476,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Other languages used by people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, 2021
+**`r figtab_figure_title`:** Other languages used by people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, `r note_time_census`
 :::
 
 ```{r}
@@ -496,7 +502,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Other languages used by people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, 2021
+**`r figtab_table_title`:** Other languages used by people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, `r note_time_census`
 :::
 
 ```{r}
@@ -541,6 +547,7 @@ table %>%
   - Indicator: Language spoken at home (other languages)
   - Numerator: Number of Aboriginal and/or Torres Strait Islander people who speak the specified language at home
   - Denominator: `r note_denominator_census_aboriginal`
+  - Geographical area: `r note_geography_nephu`
 
 :::
 
@@ -639,7 +646,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander with a high level of English proficiency, NEPHU catchment, by LGA, 2021
+**`r figtab_figure_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander with a high level of English proficiency, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -664,7 +671,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander with a high level of English proficiency, NEPHU catchment, by LGA, 2021
+**`r figtab_table_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander with a high level of English proficiency, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -700,7 +707,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander with a high level of English proficiency, NEPHU catchment, by age and sex, 2021
+**`r figtab_figure_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander with a high level of English proficiency, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
 :::
 
 ```{r}
@@ -725,7 +732,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander with a high level of English proficiency, NEPHU catchment, by age and sex, 2021
+**`r figtab_table_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander with a high level of English proficiency, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
 :::
 
 ```{r}
@@ -770,7 +777,8 @@ table %>%
   - Indicator: English proficiency
   - Numerator: Number of Aboriginal and/or Torres Strait Islander people with a high level of English proficiency
   - Denominator: `r note_denominator_census_aboriginal`
-  - Disaggregation: `r note_disaggregation_lga`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_lga`
 
 <div style="height: 0.1em;"></div>
 
@@ -778,7 +786,8 @@ table %>%
   - Indicator: English proficiency
   - Numerator: Number of Aboriginal and/or Torres Strait Islander people with a high level of English proficiency
   - Denominator: `r note_denominator_census_aboriginal`
-  - Disaggregation: `r note_disaggregation_agesex`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_agesex`
 
 :::
 
