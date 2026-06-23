@@ -128,7 +128,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Percentage of people reporting that they had experienced racial prejudice in the six months prior to the survey, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**`r figtab_figure_title`:** Percentage of people reporting that they had experienced racial prejudice in the six months prior to the survey, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_year)` and `r note_comparison_aboriginal`
 :::
 
 ```{r}
@@ -152,7 +152,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Number and percentage of people reporting that they had experienced racial prejudice in the six months prior to the survey, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**`r figtab_table_title`:** Number and percentage of people reporting that they had experienced racial prejudice in the six months prior to the survey, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_year)` and `r note_comparison_aboriginal`
 :::
 
 ```{r}
@@ -203,8 +203,8 @@ table %>%
   - Indicator: Experience of racial prejudice
   - Numerator: Number of people who had experienced racial prejudice
   - Denominator: Total number of people who answered this question in the Australian Reconciliation Barometer survey
-  - Disaggregation: `r note_disaggregation_year`
-  - Comparison: `r note_comparison_aboriginal`
+  - Geographical area: `r note_geography_victoria`
+  - Comparison: `r note_comparison_year` and `r note_comparison_aboriginal`
 
 :::
 
@@ -358,7 +358,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Experience of unfair treatment in the 12 months prior to the survey for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**`r figtab_table_title`:** Experience of unfair treatment in the 12 months prior to the survey for survey respondents who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -395,7 +395,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Avoidance of situations in the 12 months prior to the survey due to previous unfair treatment for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**`r figtab_table_title`:** Avoidance of situations in the 12 months prior to the survey due to previous unfair treatment for survey respondents who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -449,7 +449,8 @@ table %>%
   - Indicator: Experience of unfair treatment
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
-  - Disaggregation: `r note_disaggregation_sex`
+  - Geographical area: `r note_geography_melbourne`
+  - Comparison: `r note_comparison_sex`
 
 <div style="height: 0.1em;"></div>
 
@@ -457,7 +458,8 @@ table %>%
   - Indicator: Avoidance of situations due to previous unfair treatment
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
-  - Disaggregation: `r note_disaggregation_sex`
+  - Geographical area: `r note_geography_melbourne`
+  - Comparison: `r note_comparison_sex`
 
 :::
 

@@ -143,12 +143,12 @@ relationship <- relationship %>%
                   TRUE ~ NA_character_),
                 #
                 relationship = dplyr::case_when(
-                  relationship == "Aboriginal and Torres Strait Islander relatives/kin" ~ "First Nations relatives/kin",
+                  relationship == "Aboriginal and Torres Strait Islander relatives/kin" ~ "First Nations relatives",
                   relationship == "Other Aboriginal and Torres Strait Islander carers"  ~ "Other First Nations carers",
-                  relationship == "Non-Indigenous relatives/kin"                        ~ "Non-Indigenous relatives/kin",
-                  relationship == "Other non-Indigenous carers"                         ~ "Other care arrangements",
-                  relationship == "Residential care or family group home"               ~ "Other care arrangements",
-                  relationship == "Independent living/living arrangements unknown"      ~ "Other care arrangements",
+                  relationship == "Non-Indigenous relatives/kin"                        ~ "Non-Indigenous relatives",
+                  relationship == "Other non-Indigenous carers"                         ~ "Other arrangements",
+                  relationship == "Residential care or family group home"               ~ "Other arrangements",
+                  relationship == "Independent living/living arrangements unknown"      ~ "Other arrangements",
                   TRUE ~ NA_character_)) %>% 
   #
   dplyr::filter(!is.na(relationship)) %>% 
@@ -164,10 +164,10 @@ relationship <- relationship %>%
   janitor::clean_names() %>% 
   #
   dplyr::mutate(relationship = factor(relationship,
-                                      levels = c("First Nations relatives/kin",
+                                      levels = c("First Nations relatives",
                                                  "Other First Nations carers",
-                                                 "Non-Indigenous relatives/kin",
-                                                 "Other care arrangements")))
+                                                 "Non-Indigenous relatives",
+                                                 "Other arrangements")))
 ```
 
 - Data for this topic were obtained from the [AIHW Child Protection National Minimum Dataset](https://www.aihw.gov.au/about-our-data/our-data-collections/child-protection-national-minimum-data-set).
@@ -176,7 +176,7 @@ relationship <- relationship %>%
 
 - The out-of-home care rate for Aboriginal and/or Torres Strait Islander children in Victoria has worsened compared to the 2019 Closing the Gap baseline rate.
 
-- On June 30th 2024, 82% (n = 2,365) of Aboriginal and/or Torres Strait Islander children in Victoria who were in out-of-home care had been placed with Aboriginal and/or Torres Strait Islander relatives or kin, non-Indigenous relatives or kin, or other Aboriginal and/or Torres Strait Islander carers.
+- On June 30th 2024, 82% (n = 2,365) of Aboriginal and/or Torres Strait Islander children in Victoria who were in out-of-home care had been placed with Aboriginal and/or Torres Strait Islander relatives, non-Indigenous relatives, or other Aboriginal and/or Torres Strait Islander carers.
 
 - Further historical and ongoing target context can be found on the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/child-protection/).
 
@@ -208,7 +208,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Out-of-home care rate (per 1,000 population) on June 30th for Victorian children, by Aboriginal and/or Torres Strait Islander status and year
+**`r figtab_figure_title`:** Out-of-home care rate (per 1,000 population) on June 30th, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_year)` and `r note_comparison_aboriginal`
 :::
 
 ```{r}
@@ -236,7 +236,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Number of children in out-of-home care and out-of-home care rate (per 1,000 population) on June 30th for Victorian children, by Aboriginal and/or Torres Strait Islander status and year
+**`r figtab_table_title`:** Number of children in out-of-home care and out-of-home care rate (per 1,000 population) on June 30th, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_year)` and `r note_comparison_aboriginal`
 :::
 
 ```{r}
@@ -273,7 +273,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Relationship to carer for Aboriginal and/or Torres Strait Islander children in out-of-home care, Victoria, by year
+**`r figtab_figure_title`:** Relationship to carer for Aboriginal and/or Torres Strait Islander children in out-of-home care, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_year)`
 :::
 
 ```{r}
@@ -308,7 +308,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Relationship to carer for Aboriginal and/or Torres Strait Islander children in out-of-home care, Victoria, by year
+**`r figtab_table_title`:** Relationship to carer for Aboriginal and/or Torres Strait Islander children in out-of-home care, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_year)`
 :::
 
 ```{r}
@@ -321,16 +321,16 @@ table <- relationship %>%
   janitor::clean_names() %>%
   #
   dplyr::select(year,
-                aboriginal_kin_n = aboriginal_n_first_nations_relatives_kin,
-                aboriginal_kin_prop = aboriginal_prop_first_nations_relatives_kin,
+                aboriginal_relatives_n = aboriginal_n_first_nations_relatives,
+                aboriginal_relatives_prop = aboriginal_prop_first_nations_relatives,
                 aboriginal_other_n = aboriginal_n_other_first_nations_carers,
                 aboriginal_other_prop = aboriginal_prop_other_first_nations_carers,
-                non_aboriginal_kin_n = aboriginal_n_non_indigenous_relatives_kin,
-                non_aboriginal_kin_prop = aboriginal_prop_non_indigenous_relatives_kin,
-                other_care_n = aboriginal_n_other_care_arrangements,
-                other_care_prop = aboriginal_prop_other_care_arrangements) %>% 
+                non_aboriginal_relatives_n = aboriginal_n_non_indigenous_relatives,
+                non_aboriginal_relatives_prop = aboriginal_prop_non_indigenous_relatives,
+                other_care_n = aboriginal_n_other_arrangements,
+                other_care_prop = aboriginal_prop_other_arrangements) %>% 
   #
-  dplyr::mutate(number_total = aboriginal_kin_n + aboriginal_other_n + non_aboriginal_kin_n + other_care_n)
+  dplyr::mutate(number_total = aboriginal_relatives_n + aboriginal_other_n + non_aboriginal_relatives_n + other_care_n)
 
 if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
@@ -339,10 +339,10 @@ if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
 }
 
 table %>% 
-  dplyr::mutate(aboriginal_kin_prop     = sprintf("%.1f", aboriginal_kin_prop),
-                aboriginal_other_prop   = sprintf("%.1f", aboriginal_other_prop),
-                non_aboriginal_kin_prop = sprintf("%.1f", non_aboriginal_kin_prop),
-                other_care_prop         = sprintf("%.1f", other_care_prop)) %>% 
+  dplyr::mutate(aboriginal_relatives_prop     = sprintf("%.1f", aboriginal_relatives_prop),
+                aboriginal_other_prop         = sprintf("%.1f", aboriginal_other_prop),
+                non_aboriginal_relatives_prop = sprintf("%.1f", non_aboriginal_relatives_prop),
+                other_care_prop               = sprintf("%.1f", other_care_prop)) %>% 
   #
   f_table_simple(total_row     = NULL,
                  table_headers = c("Year",
@@ -350,10 +350,10 @@ table %>%
                                    "Total")) %>% 
   #
   kableExtra::add_header_above(c(" " = 1,
-                                 "First Nations relatives/kin"  = 2,
-                                 "Other First Nations carers"   = 2,
-                                 "Non-Indigenous relatives/kin" = 2,
-                                 "Other care arrangements"      = 2,
+                                 "First Nations relatives"    = 2,
+                                 "Other First Nations carers" = 2,
+                                 "Non-Indigenous relatives"   = 2,
+                                 "Other arrangements"         = 2,
                                  " " = 1))
 ```
 
@@ -376,8 +376,8 @@ table %>%
   - Indicator: Out-of-home care rate
   - Numerator: Number of children in out-of-home care on June 30th
   - Denominator: `r note_denominator_erp`
-  - Disaggregation: `r note_disaggregation_year`
-  - Comparison: `r note_comparison_aboriginal`
+  - Geographical area: `r note_geography_victoria`
+  - Comparison: `r note_comparison_year` and `r note_comparison_aboriginal`
 
 <div style="height: 0.1em;"></div>
 
@@ -385,8 +385,12 @@ table %>%
   - Indicator: Relationship to carer for children in Out-of-home care
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: Total number of children in out-of-home care
-  - Disaggregation: `r note_disaggregation_year`
-  - *Other care arrangements* includes children in out-of-home care who were living with non-Indigenous carers who were not relatives/kin, living in residential care or family group homes, living independently, and where the living arrangements were not known.
+  - Geographical area: `r note_geography_victoria`
+  - Comparison: `r note_comparison_year`
+
+<div style="height: 0.1em;"></div>
+  
+- For Figure 8B-2 and Table 8B-2, *Other arrangements* includes children in out-of-home care who were living with non-Indigenous carers who were not relatives/kin, living in residential care or family group homes, living independently, or where their living arrangements were not known.
 
 :::
 
@@ -541,7 +545,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Number of family violence incidents reported by affected Aboriginal and/or Torres Strait Islander family members, Victoria, by sex and year
+**`r figtab_figure_title`:** Number of family violence incidents reported by affected Aboriginal and/or Torres Strait Islander family members, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_year)` and `r stringr::str_to_lower(note_comparison_sex)`
 :::
 
 ```{r}
@@ -564,7 +568,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Number of family violence incidents reported by affected Aboriginal and/or Torres Strait Islander family members, Victoria, by sex and year
+**`r figtab_table_title`:** Number of family violence incidents reported by affected Aboriginal and/or Torres Strait Islander family members, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_year)` and `r stringr::str_to_lower(note_comparison_sex)`
 :::
 
 ```{r}
@@ -619,8 +623,8 @@ table %>%
 - Figure 8B-3 and Table 8B-3:
   - Indicator: Family violence incidents
   - Numerator: Number of incidents reported by Aboriginal and/or Torres Strait Islander family members
-  - Disaggregation: `r note_disaggregation_year`
-  - Comparison: `r note_comparison_sex`
+  - Geographical area: `r note_geography_victoria`
+  - Comparison: `r note_comparison_year` and `r stringr::str_to_lower(note_comparison_sex)`
 
 :::
 

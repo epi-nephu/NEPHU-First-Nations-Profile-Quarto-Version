@@ -25,7 +25,9 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 ## Criminal Justice {.unnumbered}
 
 ::: {.callout-important title="Content warning" icon=true collapse=false}
-The following section contains information about the criminal justice system, adult incarceration rates, and youth detention rates for Aboriginal and/or Torres Strait Islander peoples. This content aligns with Closing the Gap [Target 10](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/criminal-justice/) and [Target 11](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/youth-justice/) and addresses systemic issues that may be distressing or triggering, especially for those with lived or family experiences of incarceration, over-policing, or justice system harm.
+The following section contains information about the criminal justice system, adult incarceration rates, and youth detention rates for Aboriginal and/or Torres Strait Islander peoples.
+
+- This content aligns with Closing the Gap [Target 10](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/criminal-justice/) and [Target 11](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/youth-justice/) and addresses systemic issues that may be distressing or triggering, especially for those with lived or family experiences of incarceration, over-policing, or justice system harm.
  
 We acknowledge the ongoing impacts of colonisation and systemic injustice on Aboriginal and/or Torres Strait Islander communities, and the strength of those who continue to advocate for truth, justice, and self-determination. 
  
@@ -141,7 +143,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Age-standardised incarceration rate (per 100,000 population) for Victorian adults, by Aboriginal and/or Torres Strait Islander status and year
+**`r figtab_figure_title`:** Age-standardised adult incarceration rate (per 100,000 population), `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_year)` and `r note_comparison_aboriginal`
 :::
 
 ```{r}
@@ -165,7 +167,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Age-standardised incarceration rate (per 100,000 population) for Victorian adults, by Aboriginal and/or Torres Strait Islander status and year
+**`r figtab_table_title`:** Age-standardised adult incarceration rate (per 100,000 population), `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_year)` and `r note_comparison_aboriginal`
 :::
 
 ```{r}
@@ -208,8 +210,8 @@ table %>%
   - Indicator: Adult incarceration rate
   - Numerator: Number of incarcerations
   - Denominator: `r note_denominator_erp`
-  - Disaggregation: `r note_disaggregation_year`
-  - Comparison: `r note_comparison_aboriginal`
+  - Geographical area: `r note_geography_victoria`
+  - Comparison: `r note_comparison_year` and `r note_comparison_aboriginal`
 
 :::
 
@@ -305,7 +307,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Detention rate (per 10,000 population) on an average day for Victorian young people, by Aboriginal and/or Torres Strait Islander status and year
+**`r figtab_figure_title`:** Youth detention rate (per 10,000 population) on an average day, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_year)` and `r note_comparison_aboriginal`
 :::
 
 ```{r}
@@ -329,7 +331,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Detention rate (per 10,000 population) on an average day for Victorian young people, by Aboriginal and/or Torres Strait Islander status and year
+**`r figtab_table_title`:** Youth detention rate (per 10,000 population) on an average day, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_year)` and `r note_comparison_aboriginal`
 :::
 
 ```{r}
@@ -372,8 +374,8 @@ table %>%
   - Indicator: Youth detention rate
   - Numerator: Number of young people in detention on June 30th
   - Denominator: `r note_denominator_erp`
-  - Disaggregation: `r note_disaggregation_year`
-  - Comparison: `r note_comparison_aboriginal`
+  - Geographical area: `r note_geography_victoria`
+  - Comparison: `r note_comparison_year` and `r note_comparison_aboriginal`
 
 :::
 
