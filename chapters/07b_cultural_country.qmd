@@ -117,7 +117,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Recognition of an area as traditional Country for people aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**`r figtab_table_title`:** Recognition of an area as traditional Country for people aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -171,7 +171,8 @@ table %>%
   - Indicator: Recognition of traditional Country
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
-  - Disaggregation: `r note_disaggregation_sex`
+  - Geographical area: `r note_geography_melbourne`
+  - Comparison: `r note_comparison_sex`
 
 :::
 
@@ -275,7 +276,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Frequency of visits to traditional Country for people aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**`r figtab_figure_title`:** Frequency of visits to traditional Country for people aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -314,7 +315,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Frequency of visits to traditional Country for people aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**`r figtab_table_title`:** Frequency of visits to traditional Country for people aged 18 years and over who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -368,7 +369,8 @@ table %>%
   - Indicator: Frequency of visits to traditional Country
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
-  - Disaggregation: `r note_disaggregation_sex`
+  - Geographical area: `r note_geography_melbourne`
+  - Comparison: `r note_comparison_sex`
 
 :::
 
@@ -500,7 +502,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Percentage of land mass and sea area subject to Aboriginal and/or Torres Strait Islander people’s legal rights or interests on June 30th, Victoria, by year
+**`r figtab_figure_title`:** Percentage of land mass and sea area subject to Aboriginal and/or Torres Strait Islander people’s legal rights or interests on June 30th, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_year)`
 :::
 
 ```{r}
@@ -577,7 +579,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Land mass and sea area subject to Aboriginal and/or Torres Strait Islander people’s legal rights or interests on June 30th, Victoria, by year
+**`r figtab_table_title`:** Land mass and sea area subject to Aboriginal and/or Torres Strait Islander people’s legal rights or interests on June 30th, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_year)`
 :::
 
 ```{r}
@@ -629,6 +631,8 @@ table %>%
   - Indicator: Land and sea area subject to Aboriginal and/or Torres Strait Islander people’s legal rights or interests
   - Numerator: Land mass or sea area in Victoria subject to Aboriginal and/or Torres Strait Islander people’s legal rights or interests measured in square kilometres (km^2^)
   - Denominator: Total land mass or sea area in Victoria measured in square kilometres (km^2^)
+  - Geographical area: `r note_geography_victoria`
+  - Comparison: `r note_comparison_year`
 
 :::
 
