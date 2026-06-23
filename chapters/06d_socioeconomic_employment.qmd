@@ -181,7 +181,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Engagement in employment, education, or training for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+**`r figtab_figure_title`:** Engagement in employment, education, or training for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -217,7 +217,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Engagement in employment, education, or training for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+**`r figtab_table_title`:** Engagement in employment, education, or training for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -260,7 +260,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Engagement in employment, education, or training for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
+**`r figtab_figure_title`:** Engagement in employment, education, or training for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
 :::
 
 ```{r}
@@ -296,7 +296,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Engagement in employment, education, or training for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
+**`r figtab_table_title`:** Engagement in employment, education, or training for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
 :::
 
 ```{r}
@@ -372,7 +372,8 @@ table %>%
   - Indicator: Engagement in employment, education, or training
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_census_aboriginal`
-  - Disaggregation: `r note_disaggregation_lga`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_lga`
 
 <div style="height: 0.1em;"></div>
 
@@ -380,7 +381,8 @@ table %>%
   - Indicator: Engagement in employment, education, or training
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_census_aboriginal`
-  - Disaggregation: `r note_disaggregation_agesex`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_agesex`
 
 :::
 
@@ -533,7 +535,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Percentage of people aged 15-24 years who identified as Aboriginal and/or Torres Strait Islander and who were fully engaged in education, employment, or training, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**`r figtab_figure_title`:** Percentage of people aged 15-24 years who were fully engaged in education, employment, or training, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_year)` and `r note_comparison_aboriginal`
 :::
 
 ```{r}
@@ -559,7 +561,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Number and percentage of people aged 15-24 years who identified as Aboriginal and/or Torres Strait Islander and who were fully engaged in education, employment, or training, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**`r figtab_table_title`:** Number and percentage of people aged 15-24 years who were fully engaged in education, employment, or training, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_year)` and `r note_comparison_aboriginal`
 :::
 
 ```{r}
@@ -596,7 +598,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Number and percentage of people aged 15-24 years who identified as Aboriginal and/or Torres Strait Islander and who were fully engaged in education, employment, or training, NEPHU catchment, by LGA, 2021
+**`r figtab_figure_title`:** Number and percentage of people aged 15-24 years who identified as Aboriginal and/or Torres Strait Islander and who were fully engaged in education, employment, or training, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -623,7 +625,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Observed vs. expected number of people aged 15-24 years who were fully engaged in education, employment, or training and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+**`r figtab_figure_title`:** Observed vs. expected number of people aged 15-24 years who were fully engaged in education, employment, or training and who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -643,7 +645,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Observed vs. expected number of people aged 15-24 years who were fully engaged in education, employment, or training and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+**`r figtab_table_title`:** Observed vs. expected number of people aged 15-24 years who were fully engaged in education, employment, or training and who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -676,7 +678,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Observed vs. expected number of people aged 15-24 years who were fully engaged in education, employment, or training and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by sex, 2021
+**`r figtab_table_title`:** Observed vs. expected number of people aged 15-24 years who were fully engaged in education, employment, or training and who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_census`
 :::
 
 ```{r}
@@ -708,7 +710,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Percentage of people aged 15-24 years who were fully engaged in education, employment, or training, Victoria, by Aboriginal and/or Torres Strait Islander status and age, 2021
+**`r figtab_figure_title`:** Percentage of people aged 15-24 years who were fully engaged in education, employment, or training, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_age)` and `r note_comparison_aboriginal`, `r note_time_census`
 :::
 
 ```{r}
@@ -735,7 +737,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Number and percentage of people aged 15-24 years who were fully engaged in education, employment, or training, Victoria, by Aboriginal and/or Torres Strait Islander status and age, 2021
+**`r figtab_table_title`:** Number and percentage of people aged 15-24 years who were fully engaged in education, employment, or training, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_age)` and `r note_comparison_aboriginal`, `r note_time_census`
 :::
 
 ```{r}
@@ -782,9 +784,12 @@ table %>%
   - Indicator: Engagement in employment, education, or training
   - Numerator: Number of people aged 15-24 years who were fully engaged in education, employment, or training
   - Denominator: Total number of people aged 15-24 years who completed the Census
-  - Disaggregation: `r note_disaggregation_year`
-  - Comparison: `r note_comparison_aboriginal`
-  - Data were sourced from the Census via the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/)
+  - Geographical area: `r note_geography_victoria`
+  - Comparison: `r note_comparison_year` and `r note_comparison_aboriginal`
+
+<div style="height: 0.1em;"></div>
+
+- Data for Figure 6D-3 and Table 6D-3 were sourced from the Census via the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/).
 
 <div style="height: 0.1em;"></div>
 
@@ -792,8 +797,8 @@ table %>%
   - Indicator: Engagement in employment, education, or training
   - Numerator: Number of people aged 15-24 years who were fully engaged in education, employment, or training
   - Denominator: Total number of people aged 15-24 years who completed the Census
-  - Disaggregation: `r note_disaggregation_lga`
-  - Comparison: `r note_comparison_aboriginal`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_lga` and `r note_comparison_aboriginal`
 
 <div style="height: 0.1em;"></div>
 
@@ -801,8 +806,8 @@ table %>%
   - Indicator: Engagement in employment, education, or training
   - Numerator: Number of people aged 15-24 years who were fully engaged in education, employment, or training
   - Denominator: Total number of people aged 15-24 years who completed the Census
-  - Disaggregation: `r note_disaggregation_sex`
-  - Comparison: `r note_comparison_aboriginal`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_sex` and `r note_comparison_aboriginal`
 
 <div style="height: 0.1em;"></div>
 
@@ -810,9 +815,12 @@ table %>%
   - Indicator: Engagement in employment, education, or training
   - Numerator: Number of people who were fully engaged in education, employment, or training
   - Denominator: `r note_denominator_census_population`
-  - Disaggregation: `r note_disaggregation_age`
-  - Comparison: `r note_comparison_aboriginal`
-  - Data were sourced from the Census via the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/)
+  - Geographical area: `r note_geography_victoria`
+  - Comparison: `r note_comparison_age` and `r note_comparison_aboriginal`
+
+<div style="height: 0.1em;"></div>
+
+- Data for Figure 6D-6 and Table 6D-6 were sourced from the Census via the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/).
 
 :::
 
@@ -969,7 +977,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Employment status for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+**`r figtab_figure_title`:** Employment status for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -1007,7 +1015,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Employment status for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+**`r figtab_table_title`:** Employment status for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -1053,7 +1061,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Employment status for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
+**`r figtab_figure_title`:** Employment status for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
 :::
 
 ```{r}
@@ -1091,7 +1099,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Employment status for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
+**`r figtab_table_title`:** Employment status for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
 :::
 
 ```{r}
@@ -1182,7 +1190,8 @@ table %>%
   - Indicator: Employment
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_census_aboriginal`
-  - Disaggregation: `r note_disaggregation_lga`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_lga`
 
 <div style="height: 0.1em;"></div>
 
@@ -1190,7 +1199,8 @@ table %>%
   - Indicator: Employment
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_census_aboriginal`
-  - Disaggregation: `r note_disaggregation_agesex`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_agesex`
 
 :::
 
@@ -1320,7 +1330,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Percentage of people aged 25-64 years who were employed (full-time, part-time, or on leave), Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**`r figtab_figure_title`:** Percentage of people aged 25-64 years who were employed (full-time, part-time, or on leave), `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_year)` and `r note_comparison_aboriginal`
 :::
 
 ```{r}
@@ -1346,7 +1356,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Number and percentage of people aged 25-64 years who were employed (full-time, part-time, or on leave), Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**`r figtab_table_title`:** Number and percentage of people aged 25-64 years who were employed (full-time, part-time, or on leave), `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_year)` and `r note_comparison_aboriginal`
 :::
 
 ```{r}
@@ -1383,7 +1393,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Number and percentage of people aged 25-64 years who identified as Aboriginal and/or Torres Strait Islander and who were employed (full-time, part-time, or on leave), NEPHU catchment, by LGA, 2021
+**`r figtab_figure_title`:** Number and percentage of people aged 25-64 years who identified as Aboriginal and/or Torres Strait Islander and who were employed (full-time, part-time, or on leave), `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -1410,7 +1420,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Observed vs. expected number of people aged 25-64 years who were employed (full-time, part-time, or on leave) and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+**`r figtab_figure_title`:** Observed vs. expected number of people aged 25-64 years who were employed (full-time, part-time, or on leave) and who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -1430,7 +1440,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Observed vs. expected number of people aged 25-64 years who were employed (full-time, part-time, or on leave) and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+**`r figtab_table_title`:** Observed vs. expected number of people aged 25-64 years who were employed (full-time, part-time, or on leave) and who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -1463,7 +1473,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Observed vs. expected number of people aged 25-64 years who were employed (full-time, part-time, or on leave) and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by sex, 2021
+**`r figtab_table_title`:** Observed vs. expected number of people aged 25-64 years who were employed (full-time, part-time, or on leave) and who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_census`
 :::
 
 ```{r}
@@ -1505,9 +1515,12 @@ table %>%
   - Indicator: Employment
   - Numerator: Number of people aged 25-64 years who were employed
   - Denominator: Total number of people aged 25-64 years who completed the Census
-  - Disaggregation: `r note_disaggregation_year`
-  - Comparison: `r note_comparison_aboriginal`
-  - Data were sourced from the Census via the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/)
+  - Geographical area: `r note_geography_victoria`
+  - Comparison: `r note_comparison_year` and `r note_comparison_aboriginal`
+
+<div style="height: 0.1em;"></div>
+
+- Data for Figure 6D-9 and Table 6D-9 were sourced from the Census via the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/).
 
 <div style="height: 0.1em;"></div>
 
@@ -1515,8 +1528,8 @@ table %>%
   - Indicator: Employment
   - Numerator: Number of people aged 25-64 years who were employed
   - Denominator: Total number of people aged 25-64 years who completed the Census
-  - Disaggregation: `r note_disaggregation_lga`
-  - Comparison: `r note_comparison_aboriginal`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_lga` and `r note_comparison_aboriginal`
 
 <div style="height: 0.1em;"></div>
 
@@ -1524,8 +1537,8 @@ table %>%
   - Indicator: Employment
   - Numerator: Number of people aged 25-64 years who were employed
   - Denominator: Total number of people aged 25-64 years who completed the Census
-  - Disaggregation: `r note_disaggregation_sex`
-  - Comparison: `r note_comparison_aboriginal`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_sex` and `r note_comparison_aboriginal`
 
 :::
 
@@ -1617,7 +1630,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Number and percentage of people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander and who did volunteer work for an organisation or group, NEPHU catchment, by LGA, 2021
+**`r figtab_figure_title`:** Number and percentage of people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander and who did volunteer work for an organisation or group, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -1641,7 +1654,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Observed vs. expected number of people aged 15 years and over who did volunteer work for an organisation or group and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+**`r figtab_figure_title`:** Observed vs. expected number of people aged 15 years and over who did volunteer work for an organisation or group and who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -1661,7 +1674,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Observed vs. expected number of people aged 15 years and over who did volunteer work for an organisation or group and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+**`r figtab_table_title`:** Observed vs. expected number of people aged 15 years and over who did volunteer work for an organisation or group and who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -1693,7 +1706,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Number and percentage of people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander and who did volunteer work for an organisation or group, NEPHU catchment, by age and sex, 2021
+**`r figtab_figure_title`:** Number and percentage of people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander and who did volunteer work for an organisation or group, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
 :::
 
 ```{r}
@@ -1717,7 +1730,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Observed vs. expected number of people aged 15 years and over who did volunteer work for an organisation or group and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021 
+**`r figtab_figure_title`:** Observed vs. expected number of people aged 15 years and over who did volunteer work for an organisation or group and who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
 :::
 
 ```{r}
@@ -1737,7 +1750,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Observed vs. expected number of people aged 15 years and over who did volunteer work for an organisation or group and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
+**`r figtab_table_title`:** Observed vs. expected number of people aged 15 years and over who did volunteer work for an organisation or group and who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
 :::
 
 ```{r}
@@ -1793,8 +1806,8 @@ table %>%
   - Indicator: Participation in volunteer work
   - Numerator: Number of people who did volunteer work for an organisation or group
   - Denominator: `r note_denominator_census_population`
-  - Disaggregation: `r note_disaggregation_lga`
-  - Comparison: `r note_comparison_aboriginal`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_lga` and `r note_comparison_aboriginal`
 
 <div style="height: 0.1em;"></div>
 
@@ -1802,8 +1815,8 @@ table %>%
   - Indicator: Participation in volunteer work
   - Numerator: Number of people who did volunteer work for an organisation or group
   - Denominator: `r note_denominator_census_population`
-  - Disaggregation: `r note_disaggregation_agesex`
-  - Comparison: `r note_comparison_aboriginal`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_agesex` and `r note_comparison_aboriginal`
 
 :::
 
@@ -1900,7 +1913,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Number and percentage of people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander and who undertook unpaid caring duties, NEPHU catchment, by LGA, 2021
+**`r figtab_figure_title`:** Number and percentage of people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander and who undertook unpaid caring duties, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -1924,7 +1937,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Observed vs. expected number of people aged 15 years and over who undertook unpaid caring duties and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+**`r figtab_figure_title`:** Observed vs. expected number of people aged 15 years and over who undertook unpaid caring duties and who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -1944,7 +1957,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Observed vs. expected number of people aged 15 years and over who undertook unpaid caring duties and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+**`r figtab_table_title`:** Observed vs. expected number of people aged 15 years and over who undertook unpaid caring duties and who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -1976,7 +1989,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Number and percentage of people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander and who undertook unpaid caring duties, NEPHU catchment, by age and sex, 2021
+**`r figtab_figure_title`:** Number and percentage of people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander and who undertook unpaid caring duties, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
 :::
 
 ```{r}
@@ -2000,7 +2013,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Observed vs. expected number of people aged 15 years and over who undertook unpaid caring duties and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
+**`r figtab_figure_title`:** Observed vs. expected number of people aged 15 years and over who undertook unpaid caring duties and who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
 :::
 
 ```{r}
@@ -2020,7 +2033,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Observed vs. expected number of people aged 15 years and over who undertook unpaid caring duties and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
+**`r figtab_table_title`:** Observed vs. expected number of people aged 15 years and over who undertook unpaid caring duties and who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
 :::
 
 ```{r}
@@ -2076,8 +2089,8 @@ table %>%
   - Indicator: Participation in unpaid caring duties
   - Numerator: Number of people who undertook unpaid caring duties
   - Denominator: `r note_denominator_census_population`
-  - Disaggregation: `r note_disaggregation_lga`
-  - Comparison: `r note_comparison_aboriginal`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_lga` and `r note_comparison_aboriginal`
 
 <div style="height: 0.1em;"></div>
 
@@ -2085,8 +2098,8 @@ table %>%
   - Indicator: Participation in unpaid caring duties
   - Numerator: Number of people who undertook unpaid caring duties
   - Denominator: `r note_denominator_census_population`
-  - Disaggregation: `r note_disaggregation_agesex`
-  - Comparison: `r note_comparison_aboriginal`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_agesex` and `r note_comparison_aboriginal`
 
 :::
 

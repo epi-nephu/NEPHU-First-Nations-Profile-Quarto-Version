@@ -166,7 +166,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Highest level of school completed for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+**`r figtab_figure_title`:** Highest level of school completed for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -202,7 +202,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Highest level of school completed for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+**`r figtab_table_title`:** Highest level of school completed for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -245,7 +245,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Highest level of school completed for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
+**`r figtab_figure_title`:** Highest level of school completed for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
 :::
 
 ```{r}
@@ -281,7 +281,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Highest level of school completed for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
+**`r figtab_table_title`:** Highest level of school completed for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
 :::
 
 ```{r}
@@ -361,7 +361,8 @@ table %>%
   - Indicator: Highest level of school completed
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_census_aboriginal`
-  - Disaggregation: `r note_disaggregation_lga`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_lga`
 
 <div style="height: 0.1em;"></div>
 
@@ -369,7 +370,8 @@ table %>%
   - Indicator: Highest level of school completed
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_census_aboriginal`
-  - Disaggregation: `r note_disaggregation_agesex`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_agesex`
 
 :::
 
@@ -496,7 +498,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Percentage of people aged 20-24 years who identified as Aboriginal and/or Torres Strait Islander and who have completed Year 12 or equivalent, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**`r figtab_figure_title`:** Percentage of people aged 20-24 years who have completed Year 12 or equivalent, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_year)` and `r note_comparison_aboriginal`
 :::
 
 ```{r}
@@ -522,7 +524,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Number and percentage of people aged 20-24 years who identified as Aboriginal and/or Torres Strait Islander and who have completed Year 12 or equivalent, Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**`r figtab_table_title`:** Number and percentage of people aged 20-24 years who have completed Year 12 or equivalent, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_year)` and `r note_comparison_aboriginal`
 :::
 
 ```{r}
@@ -559,7 +561,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Number and percentage of people aged 20-24 years who identified as Aboriginal and/or Torres Strait Islander and who have completed Year 12 or equivalent, NEPHU catchment, by LGA, 2021
+**`r figtab_figure_title`:** Number and percentage of people aged 20-24 years who identified as Aboriginal and/or Torres Strait Islander and who have completed Year 12 or equivalent, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -586,7 +588,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Observed vs. expected number of people aged 20-24 years who have completed Year 12 or equivalent and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+**`r figtab_figure_title`:** Observed vs. expected number of people aged 20-24 years who have completed Year 12 or equivalent and who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -606,7 +608,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Observed vs. expected number of people aged 20-24 years who have completed Year 12 or equivalent and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+**`r figtab_table_title`:** Observed vs. expected number of people aged 20-24 years who have completed Year 12 or equivalent and who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -639,7 +641,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Observed vs. expected number of people aged 20-24 years who have completed Year 12 or equivalent and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by sex, 2021
+**`r figtab_table_title`:** Observed vs. expected number of people aged 20-24 years who have completed Year 12 or equivalent and who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_census`
 :::
 
 ```{r}
@@ -681,9 +683,12 @@ table %>%
   - Indicator: Year 12 completion
   - Numerator: Number of people aged 20-24 years who have completed Year 12 or equivalent
   - Denominator: Total number of people aged 20-24 years who completed the Census
-  - Disaggregation: `r note_disaggregation_year`
-  - Comparison: `r note_comparison_aboriginal`
-  - Data were sourced from the Census via the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/)
+  - Geographical area: `r note_geography_victoria`
+  - Comparison: `r note_comparison_year` and `r note_comparison_aboriginal`
+
+<div style="height: 0.1em;"></div>
+
+- Data for Figure 6C-3 and Table 6C-3 were sourced from the Census via the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/).
 
 <div style="height: 0.1em;"></div>
 
@@ -691,8 +696,8 @@ table %>%
   - Indicator: Year 12 completion
   - Numerator: Number of people aged 20-24 years who have completed Year 12 or equivalent
   - Denominator: Total number of people aged 20-24 years who completed the Census
-  - Disaggregation: `r note_disaggregation_lga`
-  - Comparison: `r note_comparison_aboriginal`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_lga` and `r note_comparison_aboriginal`
 
 <div style="height: 0.1em;"></div>
 
@@ -700,8 +705,8 @@ table %>%
   - Indicator: Year 12 completion
   - Numerator: Number of people aged 20-24 years who have completed Year 12 or equivalent
   - Denominator: Total number of people aged 20-24 years who completed the Census
-  - Disaggregation: `r note_disaggregation_sex`
-  - Comparison: `r note_comparison_aboriginal`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_sex` and `r note_comparison_aboriginal`
 
 :::
 
@@ -861,7 +866,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Highest level of education for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+**`r figtab_figure_title`:** Highest level of education for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -899,7 +904,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Highest level of education for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+**`r figtab_table_title`:** Highest level of education for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -945,7 +950,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Highest level of education for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
+**`r figtab_figure_title`:** Highest level of education for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
 :::
 
 ```{r}
@@ -983,7 +988,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Highest level of education for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
+**`r figtab_table_title`:** Highest level of education for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
 :::
 
 ```{r}
@@ -1078,7 +1083,8 @@ table %>%
   - Indicator: Highest level of education
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_census_aboriginal`
-  - Disaggregation: `r note_disaggregation_lga`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_lga`
 
 <div style="height: 0.1em;"></div>
 
@@ -1086,7 +1092,8 @@ table %>%
   - Indicator: Highest level of education
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_census_aboriginal`
-  - Disaggregation: `r note_disaggregation_agesex`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_agesex`
 
 :::
 
@@ -1219,7 +1226,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Percentage of people aged 25-34 years who identified as Aboriginal and/or Torres Strait Islander and who have completed a tertiary qualification (Certificate III and above), Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**`r figtab_figure_title`:** Percentage of people aged 25-34 years who have completed a tertiary qualification (Certificate III and above), `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_year)` and `r note_comparison_aboriginal`
 :::
 
 ```{r}
@@ -1244,7 +1251,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Number and percentage of people aged 25-34 years who identified as Aboriginal and/or Torres Strait Islander and who have completed a tertiary qualification (Certificate III and above), Victoria, by Aboriginal and/or Torres Strait Islander status and year
+**`r figtab_table_title`:** Number and percentage of people aged 25-34 years who have completed a tertiary qualification (Certificate III and above), `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_year)` and `r note_comparison_aboriginal`
 :::
 
 ```{r}
@@ -1281,7 +1288,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Number and percentage of people aged 25-34 years who identified as Aboriginal and/or Torres Strait Islander and who have completed a tertiary qualification (Certificate III and above), NEPHU catchment, by LGA, 2021
+**`r figtab_figure_title`:** Number and percentage of people aged 25-34 years who identified as Aboriginal and/or Torres Strait Islander and who have completed a tertiary qualification (Certificate III and above), `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -1308,7 +1315,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Observed vs. expected number of people aged 25-34 years who have completed a tertiary qualification (Certificate III and above) and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+**`r figtab_figure_title`:** Observed vs. expected number of people aged 25-34 years who have completed a tertiary qualification (Certificate III and above) and who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -1328,7 +1335,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Observed vs. expected number of people aged 25-34 years who have completed a tertiary qualification (Certificate III and above) and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+**`r figtab_table_title`:** Observed vs. expected number of people aged 25-34 years who have completed a tertiary qualification (Certificate III and above) and who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -1361,7 +1368,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Observed vs. expected number of people aged 25-34 years who have completed a tertiary qualification (Certificate III and above) and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by sex, 2021
+**`r figtab_table_title`:** Observed vs. expected number of people aged 25-34 years who have completed a tertiary qualification (Certificate III and above) and who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_census`
 :::
 
 ```{r}
@@ -1403,9 +1410,12 @@ table %>%
   - Indicator: Tertiary qualification completion
   - Numerator: Number of people aged 25-34 years who have completed a tertiary qualification
   - Denominator: Total number of people aged 25-34 years who completed the Census
-  - Disaggregation: `r note_disaggregation_year`
-  - Comparison: `r note_comparison_aboriginal`
-  - Data were sourced from the Census via the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/)
+  - Geographical area: `r note_geography_victoria`
+  - Comparison: `r note_comparison_year` and `r note_comparison_aboriginal`
+
+<div style="height: 0.1em;"></div>
+
+- Data for Figure 6C-8 and Table 6C-8 were sourced from the Census via the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/).
 
 <div style="height: 0.1em;"></div>
 
@@ -1413,8 +1423,8 @@ table %>%
   - Indicator: Tertiary qualification completion
   - Numerator: Number of people aged 25-34 years who have completed a tertiary qualification
   - Denominator: Total number of people aged 25-34 years who completed the Census
-  - Disaggregation: `r note_disaggregation_lga`
-  - Comparison: `r note_comparison_aboriginal`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_lga` and `r note_comparison_aboriginal`
 
 <div style="height: 0.1em;"></div>
 
@@ -1422,8 +1432,8 @@ table %>%
   - Indicator: Tertiary qualification completion
   - Numerator: Number of people aged 25-34 years who have completed a tertiary qualification
   - Denominator: Total number of people aged 25-34 years who completed the Census
-  - Disaggregation: `r note_disaggregation_sex`
-  - Comparison: `r note_comparison_aboriginal`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_sex` and `r note_comparison_aboriginal`
 
 :::
 

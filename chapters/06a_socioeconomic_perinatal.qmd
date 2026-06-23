@@ -126,7 +126,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Number and percentage of women who identified as Aboriginal and/or Torres Strait Islander and who did not attend antenatal care during the first 10 weeks of pregnancy, NEPHU catchment, by IARE, 2019-2021
+**`r figtab_figure_title`:** Number and percentage of women who identified as Aboriginal and/or Torres Strait Islander and who did not attend antenatal care during the first 10 weeks of pregnancy, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_perinatal`
 :::
 
 ```{r}
@@ -153,7 +153,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Number and percentage of women who identified as Aboriginal and/or Torres Strait Islander and who did not attend antenatal care during the first 10 weeks of pregnancy, NEPHU catchment, by IARE, 2019-2021
+**`r figtab_table_title`:** Number and percentage of women who identified as Aboriginal and/or Torres Strait Islander and who did not attend antenatal care during the first 10 weeks of pregnancy, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_perinatal`
 :::
 
 ```{r}
@@ -201,7 +201,8 @@ table %>%
   - Indicator: Antenatal care attendance
   - Numerator: Number of Aboriginal and/or Torres Strait Islander women who did not attend antenatal care during the first 10 weeks of pregnancy
   - Denominator: `r note_denominator_perinatal`
-  - Disaggregation: `r note_disaggregation_iare`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_iare`
 
 :::
 
@@ -262,7 +263,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Number and percentage of women who identified as Aboriginal and/or Torres Strait Islander and who reported smoking during pregnancy, NEPHU catchment, by IARE, 2019-2021
+**`r figtab_figure_title`:** Number and percentage of women who identified as Aboriginal and/or Torres Strait Islander and who reported smoking during pregnancy, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_perinatal`
 :::
 
 ```{r}
@@ -289,7 +290,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Number and percentage of women who identified as Aboriginal and/or Torres Strait Islander and who reported smoking during pregnancy, NEPHU catchment, by IARE, 2019-2021
+**`r figtab_table_title`:** Number and percentage of women who identified as Aboriginal and/or Torres Strait Islander and who reported smoking during pregnancy, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_perinatal`
 :::
 
 ```{r}
@@ -337,7 +338,8 @@ table %>%
   - Indicator: Smoking during pregnancy
   - Numerator: Number of Aboriginal and/or Torres Strait Islander women who reported smoking during pregnancy
   - Denominator: `r note_denominator_perinatal`
-  - Disaggregation: `r note_disaggregation_iare`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_iare`
 
 :::
 
@@ -499,7 +501,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Number and percentage of singleton live births with a birthweight above 2,500g for babies born to women who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 2019-2021
+**`r figtab_figure_title`:** Number and percentage of singleton live births with a birthweight above 2,500g for babies born to women who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_perinatal`
 :::
 
 ```{r}
@@ -527,7 +529,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Number and percentage of singleton live births with a birthweight above 2,500g for babies born to women who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 2019-2021
+**`r figtab_table_title`:** Number and percentage of singleton live births with a birthweight above 2,500g for babies born to women who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_perinatal`
 :::
 
 ```{r}
@@ -565,7 +567,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Percentage of singleton live births with a birthweight below 2,500g, Victoria, by Aboriginal and/or Torres Strait Islander status of mother and year
+**`r figtab_figure_title`:** Percentage of singleton live births with a birthweight below 2,500g, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_year)` and `r note_comparison_aboriginal` of mother
 :::
 
 ```{r}
@@ -586,7 +588,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Percentage of singleton live births with a birthweight below 2,500g, Victoria, by Aboriginal and/or Torres Strait Islander status of mother and year
+**`r figtab_table_title`:** Percentage of singleton live births with a birthweight below 2,500g, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_year)` and `r note_comparison_aboriginal` of mother
 :::
 
 ```{r}
@@ -635,8 +637,12 @@ table %>%
   - Indicator: Birthweight
   - Numerator: Number of singleton live births with a birthweight above 2,500g
   - Denominator: `r note_denominator_perinatal`
-  - Disaggregation: `r note_disaggregation_iare`
-  - Data were sourced from the NPDC via the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases)
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_iare`
+
+<div style="height: 0.1em;"></div>
+
+- Data for Figure 6A-3 and Table 6A-3 were sourced from the NPDC via the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases).
   
 <div style="height: 0.1em;"></div>
 
@@ -644,9 +650,12 @@ table %>%
   - Indicator: Birthweight
   - Numerator: Number of singleton live births with a birthweight below 2,500g
   - Denominator: Total number of singleton live births
-  - Disaggregation: `r note_disaggregation_year`
-  - Comparison: `r note_comparison_aboriginal`
-  - Data were sourced from the NPDC via the [AIHW Aboriginal and Torres Strait Islander Health Performance Framework](https://www.indigenoushpf.gov.au/)
+  - Geographical area: `r note_geography_victoria`
+  - Comparison: `r note_comparison_year` and `r note_comparison_aboriginal` of mother
+
+<div style="height: 0.1em;"></div>
+
+- Data for Figure 6A-4 and Table 6A-4 were sourced from the NPDC via the [AIHW Aboriginal and Torres Strait Islander Health Performance Framework](https://www.indigenoushpf.gov.au/).
 
 :::
 
@@ -746,7 +755,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Breastfeeding duration for children aged 0-2 years, Victoria, by Aboriginal and/or Torres Strait Islander status, 2018-2019
+**`r figtab_figure_title`:** Breastfeeding duration for children aged 0-2 years, `r note_geography_victoria`, by `r note_comparison_aboriginal`
 :::
 
 ```{r}
@@ -795,7 +804,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Breastfeeding duration for children aged 0-2 years, Victoria, by Aboriginal and/or Torres Strait Islander status, 2018-2019
+**`r figtab_table_title`:** Breastfeeding duration for children aged 0-2 years, `r note_geography_victoria`, by `r note_comparison_aboriginal`
 :::
 
 ```{r}
@@ -858,6 +867,7 @@ table %>%
   - Indicator: Duration of breastfeeding
   - Numerator: Number of children aged 0-2 years in each category
   - Denominator: Total number of children aged 0-2 years included in the survey
+  - Geographical area: `r note_geography_victoria`
   - Comparison: `r note_comparison_aboriginal`
 
 :::

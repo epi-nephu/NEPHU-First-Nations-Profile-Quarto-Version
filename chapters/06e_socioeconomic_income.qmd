@@ -128,7 +128,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Weekly income for households with at least one person who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+**`r figtab_figure_title`:** Weekly income for households with at least one person who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -167,7 +167,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Weekly income for households with at least one person who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+**`r figtab_table_title`:** Weekly income for households with at least one person who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -227,7 +227,8 @@ table %>%
   - Indicator: Weekly household income
   - Numerator: Number of Aboriginal and/or Torres Strait Islander households in each category
   - Denominator: Total number of households with at least one Aboriginal and/or Torres Strait Islander member
-  - Disaggregation: `r note_disaggregation_lga`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_lga`
 
 :::
 
@@ -424,7 +425,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Main type of income support payment for people receiving income support and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 01 July 2020 to 30 June 2021
+**`r figtab_figure_title`:** Main type of income support payment for people receiving income support and who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_tax`
 :::
 
 ```{r}
@@ -468,7 +469,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Main type of income support payment for people receiving income support and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 01 July 2020 to 30 June 2021
+**`r figtab_table_title`:** Main type of income support payment for people receiving income support and who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_tax`
 :::
 
 ```{r}
@@ -519,7 +520,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Main type of income support payment for people receiving income support and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 01 July 2020 to 30 June 2021
+**`r figtab_figure_title`:** Main type of income support payment for people receiving income support and who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_tax`
 :::
 
 ```{r}
@@ -563,7 +564,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Main type of income support payment for people receiving income support and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 01 July 2020 to 30 June 2021
+**`r figtab_table_title`:** Main type of income support payment for people receiving income support and who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_tax`
 :::
 
 ```{r}
@@ -666,7 +667,8 @@ table %>%
   - Indicator: Main type of income support payment
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_census_aboriginal`
-  - Disaggregation: `r note_disaggregation_lga`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_lga`
 
 <div style="height: 0.1em;"></div>
 
@@ -674,7 +676,8 @@ table %>%
   - Indicator: Main type of income support payment
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_census_aboriginal`
-  - Disaggregation: `r note_disaggregation_agesex`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_agesex`
 
 :::
 
@@ -762,7 +765,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Whether had days without money for basic living expenses (clothing or bills) during the previous 12 months for people who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**`r figtab_table_title`:** Whether had days without money for basic living expenses (clothing or bills) during the previous 12 months for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -816,6 +819,7 @@ table %>%
   - Indicator: Days without money for basic living expenses
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
+  - Geographical area: `r note_geography_melbourne`
   - Comparison: `r note_comparison_sex`
 
 :::
@@ -897,7 +901,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Whether household members could raise $2,000 in a week in an emergency for people who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**`r figtab_table_title`:** Whether household members could raise $2,000 in a week in an emergency for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -951,6 +955,7 @@ table %>%
   - Indicator: Ability to raise money in an emergency
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
+  - Geographical area: `r note_geography_melbourne`
   - Comparison: `r note_comparison_sex`
 
 :::
@@ -1058,7 +1063,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Level of food security during the previous 12 months for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**`r figtab_figure_title`:** Level of food security during the previous 12 months for survey respondents who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -1091,7 +1096,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Level of food security during the previous 12 months for survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**`r figtab_table_title`:** Level of food security during the previous 12 months for survey respondents who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -1145,6 +1150,7 @@ table %>%
   - Indicator: Food security
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
+  - Geographical area: `r note_geography_melbourne`
   - Comparison: `r note_comparison_sex`
 
 :::

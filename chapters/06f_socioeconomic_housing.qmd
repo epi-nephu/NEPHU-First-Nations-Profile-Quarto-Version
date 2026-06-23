@@ -137,7 +137,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Number and percentage of appropriately sized (not overcrowded) Aboriginal and/or Torres Strait Islander households, NEPHU catchment, by LGA, 2021
+**`r figtab_figure_title`:** Number and percentage of appropriately sized (not overcrowded) Aboriginal and/or Torres Strait Islander households, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -164,7 +164,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Observed vs. expected number of appropriately sized (not overcrowded) Aboriginal and/or Torres Strait Islander households, NEPHU catchment, by LGA, 2021
+**`r figtab_figure_title`:** Observed vs. expected number of appropriately sized (not overcrowded) Aboriginal and/or Torres Strait Islander households, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -184,7 +184,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Observed vs. expected number of appropriately sized (not overcrowded) Aboriginal and/or Torres Strait Islander households, NEPHU catchment, by LGA, 2021
+**`r figtab_table_title`:** Observed vs. expected number of appropriately sized (not overcrowded) Aboriginal and/or Torres Strait Islander households, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -222,8 +222,8 @@ table %>%
   - Indicator: Household overcrowding
   - Numerator: Number of households where extra bedrooms were not required
   - Denominator: Total number of households with at least one Aboriginal and/or Torres Strait Islander member
-  - Disaggregation: `r note_disaggregation_lga`
-  - Comparison: `r note_comparison_aboriginal`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_lga` and `r note_comparison_aboriginal`
 
 :::
 
@@ -568,7 +568,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Whether they were living in a house or dwelling of acceptable standard for people who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**`r figtab_table_title`:** Whether they were living in a house or dwelling of acceptable standard for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -604,7 +604,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Housing quality issues reported by people who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**`r figtab_figure_title`:** Housing quality issues reported by people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -647,7 +647,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Housing quality issues reported by people who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**`r figtab_table_title`:** Housing quality issues reported by people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -726,6 +726,7 @@ table %>%
   - Indicator: Housing quality
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
+  - Geographical area: `r note_geography_melbourne`
   - Comparison: `r note_comparison_sex`
 
 :::
@@ -822,7 +823,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Housing tenure type for Aboriginal and/or Torres Strait Islander households, NEPHU catchment, by LGA, 2021
+**`r figtab_figure_title`:** Housing tenure type for Aboriginal and/or Torres Strait Islander households, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -861,7 +862,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Housing tenure type for Aboriginal and/or Torres Strait Islander households, NEPHU catchment, by LGA, 2021
+**`r figtab_table_title`:** Housing tenure type for Aboriginal and/or Torres Strait Islander households, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -917,7 +918,8 @@ table %>%
   - Indicator: Housing tenure
   - Numerator: Number of Aboriginal and/or Torres Strait Islander households in each category
   - Denominator: Total number of households with at least one Aboriginal and/or Torres Strait Islander member
-  - Disaggregation: `r note_disaggregation_lga`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_lga`
 
 :::
 
@@ -1008,7 +1010,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Number and percentage of Aboriginal and/or Torres Strait Islander households that spent more than 30% of their annual household income on housing costs (mortgage or rent), NEPHU catchment, by LGA, 2021
+**`r figtab_figure_title`:** Number and percentage of Aboriginal and/or Torres Strait Islander households that spent more than 30% of their annual household income on housing costs (mortgage or rent), `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -1034,7 +1036,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander households that spent more than 30% of their annual household income on housing costs (mortgage or rent), NEPHU catchment, by LGA, 2021
+**`r figtab_figure_title`:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander households that spent more than 30% of their annual household income on housing costs (mortgage or rent), `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -1054,7 +1056,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander households that spent more than 30% of their annual household income on housing costs (mortgage or rent), NEPHU catchment, by LGA, 2021
+**`r figtab_table_title`:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander households that spent more than 30% of their annual household income on housing costs (mortgage or rent), `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -1096,8 +1098,8 @@ table %>%
   - Indicator: Housing stress
   - Numerator: Number of households in each category
   - Denominator: Total number of households
-  - Disaggregation: `r note_disaggregation_lga`
-  - Comparison: `r note_comparison_aboriginal`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_lga` and `r note_comparison_aboriginal`
 
 :::
 
@@ -1179,7 +1181,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who were homeless or marginally housed on Census night, NEPHU catchment, by LGA, 2021
+**`r figtab_figure_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who were homeless or marginally housed on Census night, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -1203,7 +1205,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Observed vs. expected number of people who were homeless or marginally housed on Census night and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+**`r figtab_figure_title`:** Observed vs. expected number of people who were homeless or marginally housed on Census night and who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -1223,7 +1225,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Observed vs. expected number of people who were homeless or marginally housed on Census night and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by LGA, 2021
+**`r figtab_table_title`:** Observed vs. expected number of people who were homeless or marginally housed on Census night and who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
@@ -1255,7 +1257,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who were homeless or marginally housed on Census night, NEPHU catchment, by age and sex, 2021
+**`r figtab_figure_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who were homeless or marginally housed on Census night, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
 :::
 
 ```{r}
@@ -1279,7 +1281,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Observed vs. expected number of people who were homeless or marginally housed on Census night and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
+**`r figtab_figure_title`:** Observed vs. expected number of people who were homeless or marginally housed on Census night and who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
 :::
 
 ```{r}
@@ -1299,7 +1301,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Observed vs. expected number of people who were homeless or marginally housed on Census night and who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by age and sex, 2021
+**`r figtab_table_title`:** Observed vs. expected number of people who were homeless or marginally housed on Census night and who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
 :::
 
 ```{r}
@@ -1359,8 +1361,8 @@ table %>%
   - Indicator: Homelessness
   - Numerator: Number of people who who were homeless or marginally housed on Census night
   - Denominator: `r note_denominator_census_population`
-  - Disaggregation: `r note_disaggregation_lga`
-  - Comparison: `r note_comparison_aboriginal`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_lga` and `r note_comparison_aboriginal`
 
 <div style="height: 0.1em;"></div>
 
@@ -1368,8 +1370,8 @@ table %>%
   - Indicator: Homelessness
   - Numerator: Number of people who who were homeless or marginally housed on Census night
   - Denominator: `r note_denominator_census_population`
-  - Disaggregation: `r note_disaggregation_agesex`
-  - Comparison: `r note_comparison_aboriginal`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_agesex` and `r note_comparison_aboriginal`
 
 :::
 
