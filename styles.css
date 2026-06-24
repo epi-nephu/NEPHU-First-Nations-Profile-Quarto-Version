@@ -20,6 +20,7 @@ nav[aria-label="breadcrumb"] {
 .nav-page-text {
   font-family: "Karla";
   font-weight: bold;
+  font-size: 14pt !important;
   color: #2E258D;
 }
 
