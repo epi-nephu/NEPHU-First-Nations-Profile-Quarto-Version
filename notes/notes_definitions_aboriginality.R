@@ -10,8 +10,7 @@ note_aboriginality_air <- glue::glue("
 In the Australian Immunisation Register, Aboriginal and/or Torres Strait Islander peoples were defined as those recorded as Aboriginal and/or Torres Strait Islander based on their Medicare records or as recorded by an immunisation provider.")
 
 note_aboriginality_bowel <- glue::glue("
-For bowel screening data in the National Cancer Screening Register, Aboriginal and/or Torres Strait Islander peoples were defined using the Indigenous Status Ever Identified field which indicates if a screening participant has ever indicated that they were Aboriginal, Torres Strait Islander, or Aboriginal and Torres Strait Islander at the time of bowel screening.
-  - Due to an increase in the number of participants with Indigenous Status Ever Identified when compared with earlier ad-hoc data requests the verification of Indigenous data accuracy is ongoing.")
+For bowel screening data in the National Cancer Screening Register, Aboriginal and/or Torres Strait Islander peoples were defined using the Indigenous Status Ever Identified field which indicates if a screening participant has ever indicated that they were Aboriginal, Torres Strait Islander, or Aboriginal and Torres Strait Islander at the time of bowel screening.")
 
 note_aboriginality_breast <- glue::glue("
 In BreastScreen Victoria data, Aboriginal and/or Torres Strait Islander peoples were defined as those who identified as Aboriginal, Torres Strait Islander, or Aboriginal and Torres Strait Islander at the time of breast screening.")

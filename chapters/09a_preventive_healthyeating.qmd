@@ -175,7 +175,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Estimated number of people and percentage of survey respondents who identified as Aboriginal and/or Torres Strait Islander and who met recommended daily fruit consumption guidelines, Victoria, by sex and age group, 2022-2023
+**`r figtab_figure_title`:** Estimated number of people and percentage of survey respondents who identified as Aboriginal and/or Torres Strait Islander and who met recommended daily fruit consumption guidelines, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -206,7 +206,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Daily fruit consumption for people who identified as Aboriginal and/or Torres Strait Islander, Victoria, by sex and age group, 2022-2023
+**`r figtab_table_title`:** Daily fruit consumption for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -249,7 +249,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Fruit consumption compared to the same time at the previous year for all survey respondents (adults and children) who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**`r figtab_figure_title`:** Fruit consumption compared to the same time at the previous year for all survey respondents (adults and children) who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -280,7 +280,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Fruit consumption compared to the same time at the previous year for all survey respondents (adults and children) who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**`r figtab_table_title`:** Fruit consumption compared to the same time at the previous year for all survey respondents (adults and children) who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -334,7 +334,8 @@ table %>%
   - Indicator: Alignment with fruit consumption guidelines
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
-  - Disaggregation: `r note_disaggregation_agesex`
+  - Geographical area: `r note_geography_victoria`
+  - Comparison: `r note_comparison_agesex`
   
 <div style="height: 0.1em;"></div>
 
@@ -342,7 +343,8 @@ table %>%
   - Indicator: Fruit consumption compared with previous year
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
-  - Disaggregation: `r note_disaggregation_sex`
+  - Geographical area: `r note_geography_melbourne`
+  - Comparison: `r note_comparison_sex`
 
 :::
 
@@ -485,7 +487,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Estimated number of people and percentage of survey respondents who identified as Aboriginal and/or Torres Strait Islander and who met recommended daily vegetable consumption guidelines, Victoria, by sex and age group, 2022-2023
+**`r figtab_figure_title`:** Estimated number of people and percentage of survey respondents who identified as Aboriginal and/or Torres Strait Islander and who met recommended daily vegetable consumption guidelines, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -516,7 +518,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Daily vegetable consumption for people who identified as Aboriginal and/or Torres Strait Islander, Victoria, by sex and age group, 2022-2023
+**`r figtab_table_title`:** Daily vegetable consumption for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -559,7 +561,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Vegetable consumption compared to the same time at the previous year for all survey respondents (adults and children) who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**`r figtab_figure_title`:** Vegetable consumption compared to the same time at the previous year for all survey respondents (adults and children) who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -590,7 +592,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Vegetable consumption compared to the same time at the previous year for all survey respondents (adults and children) who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**`r figtab_table_title`:** Vegetable consumption compared to the same time at the previous year for all survey respondents (adults and children) who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -644,7 +646,8 @@ table %>%
   - Indicator: Alignment with vegetable consumption guidelines
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
-  - Disaggregation: `r note_disaggregation_agesex`
+  - Geographical area: `r note_geography_victoria`
+  - Comparison: `r note_comparison_agesex`
   
 <div style="height: 0.1em;"></div>
 
@@ -652,7 +655,8 @@ table %>%
   - Indicator: Vegetable consumption compared with previous year
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
-  - Disaggregation: `r note_disaggregation_sex`
+  - Geographical area: `r note_geography_melbourne`
+  - Comparison: `r note_comparison_sex`
 
 :::
 
@@ -787,7 +791,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Estimated number of people and percentage of survey respondents who identified as Aboriginal and/or Torres Strait Islander and who consume sugar sweetened drinks at least once per week, Victoria, by sex and age group, 2022-2023
+**`r figtab_figure_title`:** Estimated number of people and percentage of survey respondents who identified as Aboriginal and/or Torres Strait Islander and who consume sugar sweetened drinks at least once per week, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -818,7 +822,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Weekly sugar sweetened drinks consumption for people who identified as Aboriginal and/or Torres Strait Islander, Victoria, by sex and age group, 2022-2023
+**`r figtab_table_title`:** Weekly sugar sweetened drinks consumption for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -862,7 +866,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Daily sugar sweetened drinks consumption for all survey respondents (adults and children) who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**`r figtab_table_title`:** Daily sugar sweetened drinks consumption for all survey respondents (adults and children) who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -916,7 +920,8 @@ table %>%
   - Indicator: Weekly sugar sweetened drinks consumption
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
-  - Disaggregation: `r note_disaggregation_agesex`
+  - Geographical area: `r note_geography_victoria`
+  - Comparison: `r note_comparison_agesex`
   
 <div style="height: 0.1em;"></div>
 
@@ -924,7 +929,8 @@ table %>%
   - Indicator: Daily sugar sweetened drinks consumption
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
-  - Disaggregation: `r note_disaggregation_sex`
+  - Geographical area: `r note_geography_melbourne`
+  - Comparison: `r note_comparison_sex`
 
 :::
 
@@ -1059,7 +1065,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Estimated number of people and percentage of survey respondents who identified as Aboriginal and/or Torres Strait Islander and who consume artificially sweetened drinks at least once per week, Victoria, by sex and age group, 2022-2023
+**`r figtab_figure_title`:** Estimated number of people and percentage of survey respondents who identified as Aboriginal and/or Torres Strait Islander and who consume artificially sweetened drinks at least once per week, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -1090,7 +1096,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Weekly artificially sweetened drinks consumption for people who identified as Aboriginal and/or Torres Strait Islander, Victoria, by sex and age group, 2022-2023
+**`r figtab_table_title`:** Weekly artificially sweetened drinks consumption for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -1134,7 +1140,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Daily artificially sweetened drinks consumption for people who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**`r figtab_table_title`:** Daily artificially sweetened drinks consumption for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -1188,7 +1194,8 @@ table %>%
   - Indicator: Weekly artificially sweetened drinks consumption
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
-  - Disaggregation: `r note_disaggregation_agesex`
+  - Geographical area: `r note_geography_victoria`
+  - Comparison: `r note_comparison_agesex`
   
 <div style="height: 0.1em;"></div>
 
@@ -1196,7 +1203,8 @@ table %>%
   - Indicator: Daily artificially sweetened drinks consumption
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
-  - Disaggregation: `r note_disaggregation_sex`
+  - Geographical area: `r note_geography_melbourne`
+  - Comparison: `r note_comparison_sex`
 
 :::
 

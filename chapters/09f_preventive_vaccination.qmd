@@ -206,7 +206,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Vaccination coverage for children enrolled in Medicare at 1 year of age, Victoria, by Aboriginal and/or Torres Strait Islander status, December 2022
+**`r figtab_figure_title`:** Vaccination coverage for children enrolled in Medicare at 1 year of age, `r note_geography_victoria`, by `r note_comparison_aboriginal`, `r note_time_vaccination`
 :::
 
 ```{r}
@@ -230,7 +230,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Vaccination coverage for children enrolled in Medicare at 1 year of age, Victoria, by Aboriginal and/or Torres Strait Islander status, December 2022
+**`r figtab_table_title`:** Vaccination coverage for children enrolled in Medicare at 1 year of age, `r note_geography_victoria`, by `r note_comparison_aboriginal`, `r note_time_vaccination`
 :::
 
 ```{r}
@@ -274,7 +274,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Vaccination coverage for children enrolled in Medicare at 2 years of age, Victoria, by Aboriginal and/or Torres Strait Islander status, December 2022
+**`r figtab_figure_title`:** Vaccination coverage for children enrolled in Medicare at 2 years of age, `r note_geography_victoria`, by `r note_comparison_aboriginal`, `r note_time_vaccination`
 :::
 
 ```{r}
@@ -298,7 +298,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Vaccination coverage for children enrolled in Medicare at 2 years of age, Victoria, by Aboriginal and/or Torres Strait Islander status, December 2022
+**`r figtab_table_title`:** Vaccination coverage for children enrolled in Medicare at 2 years of age, `r note_geography_victoria`, by `r note_comparison_aboriginal`, `r note_time_vaccination`
 :::
 
 ```{r}
@@ -341,7 +341,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Vaccination coverage for children enrolled in Medicare at 5 years of age, Victoria, by Aboriginal and/or Torres Strait Islander status, December 2022
+**`r figtab_figure_title`:** Vaccination coverage for children enrolled in Medicare at 5 years of age, `r note_geography_victoria`, by `r note_comparison_aboriginal`, `r note_time_vaccination`
 :::
 
 ```{r}
@@ -365,7 +365,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Vaccination coverage for children enrolled in Medicare at 5 years of age, Victoria, by Aboriginal and/or Torres Strait Islander status, December 2022
+**`r figtab_table_title`:** Vaccination coverage for children enrolled in Medicare at 5 years of age, `r note_geography_victoria`, by `r note_comparison_aboriginal`, `r note_time_vaccination`
 :::
 
 ```{r}
@@ -418,6 +418,7 @@ table %>%
   - Indicator: Vaccination coverage at 1 year of age
   - Numerator: `r note_numerator_vaccination`
   - Denominator: `r note_denominator_vaccination`
+  - Geographical area: `r note_geography_victoria`
   - Comparison: `r note_comparison_aboriginal`
   
 <div style="height: 0.1em;"></div>
@@ -426,6 +427,7 @@ table %>%
   - Indicator: Vaccination coverage at 2 years of age
   - Numerator: `r note_numerator_vaccination`
   - Denominator: `r note_denominator_vaccination`
+  - Geographical area: `r note_geography_victoria`
   - Comparison: `r note_comparison_aboriginal`
   
 <div style="height: 0.1em;"></div>
@@ -434,6 +436,7 @@ table %>%
   - Indicator: Vaccination coverage at 5 years of age
   - Numerator: `r note_numerator_vaccination`
   - Denominator: `r note_denominator_vaccination`
+  - Geographical area: `r note_geography_victoria`
   - Comparison: `r note_comparison_aboriginal`
 
 :::
@@ -517,7 +520,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Human papillomavirus (HPV) vaccination coverage (at least one dose received before 15th birthday), Victoria, by Aboriginal and/or Torres Strait Islander status and sex, December 2022
+**`r figtab_table_title`:** Human papillomavirus (HPV) vaccination coverage (at least one dose received before 15th birthday), `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_sex)` and `r note_comparison_aboriginal`, `r note_time_vaccination`
 :::
 
 ```{r}
@@ -564,8 +567,8 @@ table %>%
   - Indicator: Human papillomavirus (HPV) vaccination coverage
   - Numerator: `r note_numerator_vaccination`
   - Denominator: `r note_denominator_vaccination`
-  - Disaggregation: `r note_disaggregation_sex`
-  - Comparison: `r note_comparison_aboriginal`
+  - Geographical area: `r note_geography_victoria`
+  - Comparison: `r note_comparison_sex` and `r note_comparison_aboriginal`
 
 :::
 
@@ -713,7 +716,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Receipt of influenza vaccine for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**`r figtab_figure_title`:** Receipt of influenza vaccine for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -750,7 +753,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Receipt of influenza vaccine for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**`r figtab_table_title`:** Receipt of influenza vaccine for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -786,7 +789,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Receipt of pneumococcal vaccine for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**`r figtab_figure_title`:** Receipt of pneumococcal vaccine for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -823,7 +826,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Receipt of pneumococcal vaccine for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**`r figtab_table_title`:** Receipt of pneumococcal vaccine for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -877,7 +880,8 @@ table %>%
   - Indicator: Receipt of influenza vaccine
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
-  - Disaggregation: `r note_disaggregation_sex`
+  - Geographical area: `r note_geography_melbourne`
+  - Comparison: `r note_comparison_sex`
   
 <div style="height: 0.1em;"></div>
 
@@ -885,7 +889,8 @@ table %>%
   - Indicator: Receipt of pneumococcal vaccine
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
-  - Disaggregation: `r note_disaggregation_sex`
+  - Geographical area: `r note_geography_melbourne`
+  - Comparison: `r note_comparison_sex`
 
 :::
 

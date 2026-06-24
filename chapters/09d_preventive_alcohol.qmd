@@ -217,7 +217,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Alcohol consumption for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**`r figtab_figure_title`:** Alcohol consumption for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -256,7 +256,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Alcohol consumption for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**`r figtab_table_title`:** Alcohol consumption for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -292,7 +292,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Alcohol consumption compared to the same time in the previous year for survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**`r figtab_figure_title`:** Alcohol consumption compared to the same time in the previous year for survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -323,7 +323,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Alcohol consumption compared to the same time in the previous year for survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**`r figtab_table_title`:** Alcohol consumption compared to the same time in the previous year for survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -377,7 +377,8 @@ table %>%
   - Indicator: Alignment with alcohol consumption guidelines
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
-  - Disaggregation: `r note_disaggregation_sex`
+  - Geographical area: `r note_geography_melbourne`
+  - Comparison: `r note_comparison_sex`
   
 <div style="height: 0.1em;"></div>
 
@@ -385,7 +386,8 @@ table %>%
   - Indicator: Alcohol consumption compared with previous year
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
-  - Disaggregation: `r note_disaggregation_sex`
+  - Geographical area: `r note_geography_melbourne`
+  - Comparison: `r note_comparison_sex`
 
 :::
 
@@ -492,7 +494,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Use of substances for non-medical purposes during the 12 months prior to the survey for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Victoria, by sex, 2022-2023
+**`r figtab_table_title`:** Use of substances for non-medical purposes during the 12 months prior to the survey for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -546,7 +548,8 @@ table %>%
   - Indicator: Use of substances for non-medical purposes
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
-  - Disaggregation: `r note_disaggregation_sex`
+  - Geographical area: `r note_geography_victoria`
+  - Comparison: `r note_comparison_sex`
 
 :::
 

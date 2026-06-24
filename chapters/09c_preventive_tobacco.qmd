@@ -143,9 +143,9 @@ smoking_quit <- smoking_quit %>%
 ::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
 - The following questions were asked of all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
   - Do you currently smoke?
-    - Dichotomous (Yes - No)
+    - `r note_response_binary`
   - Have you ever smoked regularly, that is, at least once a day?
-    - Dichotomous (Yes - No)
+    - `r note_response_binary`
   - Have you ever: (Select all that apply)
     - Chewed tobacco
     - Smoked pipes
@@ -153,13 +153,13 @@ smoking_quit <- smoking_quit %>%
     - Smoked other tobacco products (excluding cigarettes)
     - None of the above
   - Have you smoked at least 100 cigarettes in your entire life?
-    - Dichotomous (Yes - No)
+    - `r note_response_binary`
   - Have you smoked pipes, cigars, or other tobacco products (excluding cigarettes) at least 20 times in your entire life?
-    - Dichotomous (Yes - No)
+    - `r note_response_binary`
   - Did you stop smoking regularly, that is, at least once a day, within the last 12 months?
-    - Dichotomous (Yes - No)
+    - `r note_response_binary`
   - In the last 12 months did you attempt to quit smoking?
-    - Dichotomous (Yes - No)
+    - `r note_response_binary`
 
 <div style="height: 0.1em;"></div>
 
@@ -185,7 +185,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Current smoking status for survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**`r figtab_figure_title`:** Current smoking status for survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -216,7 +216,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Current smoking status for survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**`r figtab_table_title`:** Current smoking status for survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -253,7 +253,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Attempts to quit smoking for survey respondents aged 15 years and over who were current smokers and who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**`r figtab_table_title`:** Attempts to quit smoking for survey respondents aged 15 years and over who were current smokers and who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -307,7 +307,8 @@ table %>%
   - Indicator: Current smoking status
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
-  - Disaggregation: `r note_disaggregation_sex`
+  - Geographical area: `r note_geography_melbourne`
+  - Comparison: `r note_comparison_sex`
   
 <div style="height: 0.1em;"></div>
 
@@ -315,7 +316,8 @@ table %>%
   - Indicator: Quit smoking attempts in the past 12 months
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
-  - Disaggregation: `r note_disaggregation_sex`
+  - Geographical area: `r note_geography_melbourne`
+  - Comparison: `r note_comparison_sex`
 
 :::
 
@@ -433,9 +435,9 @@ vaping_current <- vaping_current %>%
 ::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
 - The following questions were asked of all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
   - Have you ever used a vape or e-cigarette?
-    - Dichotomous (Yes - No)
+    - `r note_response_binary`
   - Do you currently vape or use an e-cigarette?
-    - Dichotomous (Yes - No)
+    - `r note_response_binary`
 
 <div style="height: 0.1em;"></div>
 
@@ -458,7 +460,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Lifetime vaping status for survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**`r figtab_table_title`:** Lifetime vaping status for survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -495,7 +497,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Current vaping status for survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+**`r figtab_table_title`:** Current vaping status for survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -549,7 +551,8 @@ table %>%
   - Indicator: Lifetime vaping status
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
-  - Disaggregation: `r note_disaggregation_sex`
+  - Geographical area: `r note_geography_melbourne`
+  - Comparison: `r note_comparison_sex`
   
 <div style="height: 0.1em;"></div>
 
@@ -557,7 +560,8 @@ table %>%
   - Indicator: Current vaping status
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
-  - Disaggregation: `r note_disaggregation_sex`
+  - Geographical area: `r note_geography_melbourne`
+  - Comparison: `r note_comparison_sex`
 
 :::
 

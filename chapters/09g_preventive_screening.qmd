@@ -159,7 +159,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Breast screening participation rate, Victoria, by Aboriginal and/or Torres Strait Islander status and time period
+**`r figtab_figure_title`:** Breast screening participation, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_period)` and `r note_comparison_aboriginal`
 :::
 
 ```{r}
@@ -183,7 +183,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Breast screening participation, Victoria, by Aboriginal and/or Torres Strait Islander status and time period
+**`r figtab_table_title`:** Breast screening participation, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_period)` and `r note_comparison_aboriginal`
 :::
 
 ```{r}
@@ -219,7 +219,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Breast screening participation rate, Victoria, by Aboriginal and/or Torres Strait Islander status and age group, 2019-2020
+**`r figtab_figure_title`:** Breast screening participation, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_age)` and `r note_comparison_aboriginal`, `r note_time_breastage`
 :::
 
 ```{r}
@@ -247,7 +247,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Breast screening participation rate, Victoria, by Aboriginal and/or Torres Strait Islander status and age group, 2019-2020
+**`r figtab_table_title`:** Breast screening participation, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_age)` and `r note_comparison_aboriginal`, `r note_time_breastage`
 :::
 
 ```{r}
@@ -286,11 +286,18 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 9G-1 and Table 9G-1:
-  - Indicator: Breast screening participation rate
+  - Indicator: Breast screening participation
   - Numerator: Number of women aged 50-74 years screened by BreastScreen Victoria in each 2-year reporting period
   - Denominator: [Estimated total number of women](https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071) aged 50-74 years in Victoria for the specified 2-year reporting period
-  - Comparison: `r note_comparison_aboriginal` and reporting period
-  - `r note_data_screening_breast`
+  - Geographical area: `r note_geography_victoria`
+  - Comparison: `r note_comparison_period` and `r note_comparison_aboriginal`
+
+<div style="height: 0.1em;"></div>
+
+- For Figure 9G-1 and Table 9G-1 data from the Breast Screen Victoria (BSV) (Quarterly Data Extract from 05/2024) were provided by the Australian Centre for the Prevention of Cervical Cancer (ACPCC) on behalf of the [Victorian Cancer Screening Framework (VCSF)](https://acpcc.org.au/services/population-health/).
+  - The VCSF is a funding and governance model that guides delivery and investment of cancer screening initiatives in Victoria, Australia and is funded by the Victorian Department of Health.
+  - Participation data includes participants with Victorian residential addresses only and excludes participants who received mammography at a private health service.
+  - Cancer screening data disaggregated by Aboriginal and/or Torres Strait Islander status are not currently publicly available and were provided through the [VCSF Data Access and Release Procedure](https://acpcc.org.au/services/population-health/data-requests/).
   - Due to data quality issues and Indigenous Data Sovereignty/Indigenous Data Governance requirements, the Indigenous data in the VCSF screening program reports are quite dated.
     - Breast screening participation data were released in May 2024.
     - Users of the data should exercise caution when interpreting these data for future planning purposes.
@@ -298,11 +305,15 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 - Figure 9G-2 and Table 9G-2:
-  - Indicator: Breast screening participation rate
+  - Indicator: Breast screening participation
   - Numerator: Number of women aged 40-74 years screened by BreastScreen Victoria during January 2019 to December 2020
   - Denominator: [Estimated total number of women](https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071) aged 40-74 years, based on the average of the 2019 and 2020 [ABS resident population projections](https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071)
-  - Comparison: `r note_comparison_aboriginal` and `r note_comparison_age`
-  - Data were sourced from [BreastScreen Australia](https://www.breastscreen.org.au/) via the [AIHW Aboriginal and Torres Strait Islander Health Performance Framework](https://www.indigenoushpf.gov.au/).
+  - Geographical area: `r note_geography_victoria`
+  - Comparison: `r note_comparison_age` and `r note_comparison_aboriginal`
+
+<div style="height: 0.1em;"></div>
+
+- For Figure 9G-2 and Table 9G-2 data were sourced from [BreastScreen Australia](https://www.breastscreen.org.au/) via the [AIHW Aboriginal and Torres Strait Islander Health Performance Framework](https://www.indigenoushpf.gov.au/).
   - The total rates for the 50-74 years age group were directly age-standardised to the Australian 2001 standard population in 5-year age groups between 50 and 74 years.
 
 :::
@@ -342,21 +353,21 @@ cervical_year <- f_read_vcsf("Cervical Screening Participation (2017-2021) - Cel
 
 <div style="height: 0.1em;"></div>
 
-- Data from the National Cancer Screening Register (NCSR) Victorian Raw Data Extract (September 2022) was provided by the Australian Centre for the Prevention of Cervical Cancer (ACPCC) on behalf of the Victorian Cancer Screening Framework (VCSF).
+- Data from the [National Cancer Screening Register (NCSR)](https://www.ncsr.gov.au/) Victorian Raw Data Extract (September 2022) was provided by the Australian Centre for the Prevention of Cervical Cancer (ACPCC) on behalf of the [Victorian Cancer Screening Framework (VCSF)](https://acpcc.org.au/services/population-health/).
   - The NCSR is Australia's digital platform which supports the implementation of cervical and bowel screening including invitation of eligible participants and storing results of relevant screening and follow-up diagnostic tests. 
   - The VCSF is a funding and governance model that guides delivery and investment of cancer screening initiatives in Victoria, Australia and is funded by the Victorian Department of Health.
-  - Cancer screening data disaggregated by Aboriginal and/or Torres Strait Islander status are not currently publicly available and were provided through the VCSF Data Access and Release Procedure.
-  - Aboriginal and/or Torres Strait Islander peoples were defined using the Indigenous Status Ever Identified field which indicates if a screening participant has ever indicated that they were Aboriginal, Torres Strait Islander, or Aboriginal and Torres Strait Islander at the time of cervical screening.
 
 <div style="height: 0.1em;"></div>
 
-- Due to data quality issues and Indigenous Data Sovereignty/Indigenous Data Governance requirements, the Indigenous data in the VCSF screening program reports are quite dated.  
-  - Cervical screening participation data were released in October 2022. 
-  - Users of the data should exercise caution when interpreting these data for future planning purposes.  
+- Aboriginal and/or Torres Strait Islander peoples were defined using the Indigenous Status Ever Identified field which indicates if a screening participant has ever indicated that they were Aboriginal, Torres Strait Islander, or Aboriginal and Torres Strait Islander at the time of cervical screening.
+  - Cancer screening data disaggregated by Aboriginal and/or Torres Strait Islander status are not currently publicly available and were provided through the [VCSF Data Access and Release Procedure](https://acpcc.org.au/services/population-health/data-requests/).
+  - Due to data quality issues and Indigenous Data Sovereignty/Indigenous Data Governance requirements, the Indigenous data in the VCSF screening program reports are quite dated.  
+    - Cervical screening participation data were released in October 2022. 
+    - Users of the data should exercise caution when interpreting these data for future planning purposes.  
 
 <div style="height: 0.1em;"></div>
 
-- The Cervical Screening Coverage rate was calculated as follows:
+- Cervical screening coverage was calculated as follows:
   - Numerator: Number of participants aged 25-74 years who had at least one human papillomavirus test or cytology test for any reason in Victoria in the five-year reporting period.
   - Denominator: Average of Australian Bureau of Statistics (ABS) [Estimated Resident Population (ERP)](https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071) over five-year reporting periods, adjusted for the number of women who have had a hysterectomy (hysterectomy fraction) and active [Compass trial](https://acpcc.org.au/compass/) participants in Victoria. 
 
@@ -426,10 +437,11 @@ bowel_year <- bowel_year %>%
 ::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
 - Definitions and notes:
   - `r note_aboriginality_bowel`
+    - Due to an increase in the number of participants with Indigenous Status Ever Identified when compared with earlier ad-hoc data requests the verification of Indigenous data accuracy is ongoing.
   - All eligible people are [invited to participate in bowel screening](https://www.health.gov.au/our-work/national-bowel-cancer-screening-program/about-the-national-bowel-cancer-screening-program) every two years from 45-74 years of age.
     - Faecal occult blood test kits (bowel screening kits) are free and mailed out to eligible participants from 50-74 years of age.
     - People aged 45-49 years are able to request a free bowel screening kit through their usual healthcare provider.
-    - Bowel cancer screening activities (e.g. colonoscopy) may also occur outside of the scope of the national screening program and this may affect bowel cancer screening participation rates.
+    - Bowel cancer screening activities (e.g. colonoscopy) may also occur outside of the scope of the national screening program and this may affect bowel cancer screening participation.
 
 :::
 
@@ -444,7 +456,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Bowel screening participation rate, Victoria, by Aboriginal and/or Torres Strait Islander status and time period
+**`r figtab_figure_title`:** Bowel screening participation, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_period)` and `r note_comparison_aboriginal`
 :::
 
 ```{r}
@@ -468,7 +480,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Bowel screening participation rate, Victoria, by Aboriginal and/or Torres Strait Islander status and time period
+**`r figtab_table_title`:** Bowel screening participation, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_period)` and `r note_comparison_aboriginal`
 :::
 
 ```{r}
@@ -526,13 +538,7 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
-- Due to data quality issues and Indigenous Data Sovereignty/Indigenous Data Governance requirements, the Indigenous data in the VCSF screening program reports are quite dated.
-  - Bowel screening participation data were released in December 2021.
-  - Users of the data should exercise caution when interpreting these data for future planning purposes.
-
-<div style="height: 0.1em;"></div>
-
-- Phase 3 of the rollout of the National Bowel Cancer Screening Program was completed in 2019, at which point all eligible participants aged 50–74 years were routinely invited to screen.
+- Phase 3 of the rollout of the [National Bowel Cancer Screening Program](https://www.health.gov.au/our-work/national-bowel-cancer-screening-program) was completed in 2019, at which point all eligible participants aged 50–74 years were routinely invited to screen.
   - It is therefore important to note that the two-year reporting periods quoted in this report (2016–2019) did not include the same age cohorts in each period. This change in eligibility over time may have contributed to differences in participation rates observed over the entire time period. 
 
 <div style="height: 0.1em;"></div>
@@ -545,7 +551,8 @@ table %>%
   - Indicator: Bowel screening participation rate
   - Numerator: Number of persons aged 50-74 years who returned a completed bowel screening test in Victoria within the 2.5-year period (including an additional 6-month period after the end of each 2-year invitation period)
   - Denominator: Number of persons who were invited to screen through the National Bowel Cancer Screening Program (NBCSP) in the two-year reporting period
-  - Comparison: `r note_comparison_aboriginal` and reporting period
+  - Geographical area: `r note_geography_victoria`
+  - Comparison: `r note_comparison_period` and `r note_comparison_aboriginal`
 
 :::
 
