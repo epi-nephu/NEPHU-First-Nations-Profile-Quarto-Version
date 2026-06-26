@@ -1,0 +1,744 @@
+---
+title-block: false
+---
+
+# Living with Disability
+
+```{r}
+#
+source(here::here("setup.R"))
+
+# Set up numbering for figures and tables
+figtab_report_section <- "10B"
+figtab_csv_section    <- "10B"
+
+figtab_table_count  <- 0
+figtab_figure_count <- 0
+```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Living with Disability {.unnumbered}
+
+::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
+`r note_chapter_different_sources`
+
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_comparisons`
+
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_masking`
+
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_obsexp`
+:::
+
+::: {.key-question}
+How many Aboriginal and/or Torres Strait Islander people in the NEPHU catchment identify as living with a disability?
+:::
+
+## Self-Reported Disability Status
+
+```{r}
+# ------------------------------------------------------------------------------
+# Self-assessed disability status
+# Data from ABS National Aboriginal and Torres Strait Islander Health Survey
+# ------------------------------------------------------------------------------
+# Read in NATSIHS data
+disability_status <- f_read_natsihs_sex("Indicator_Vic_Sex_Disability_Status.csv")
+
+# Data wrangling
+disability_status <- disability_status %>% 
+  dplyr::rowwise() %>% 
+  dplyr::mutate(answered_n = sum(across(has_profound_core_activity_limitation_n:has_no_disability_n))) %>% 
+  dplyr::ungroup() %>% 
+  #
+  janitor::adorn_totals(fill = "Total") %>% 
+  #
+  dplyr::rename(profound_n     = has_profound_core_activity_limitation_n,
+                severe_n       = has_severe_core_activity_limitation_n,
+                moderate_n     = has_moderate_core_activity_limitation_n,
+                mild_n         = has_mild_core_activity_limitation_n,
+                restriction_n  = has_a_schooling_employment_restriction_only_n,
+                nolimitation_n = has_no_limitation_or_specific_restriction_n,
+                nodisability_n = has_no_disability_n) %>% 
+  #
+  dplyr::mutate(across(profound_n:nodisability_n,
+                       ~ . / answered_n * 100,
+                       .names = "{.col}_prop"),
+                #
+                answered_prop = answered_n / answered_n * 100) %>% 
+  #
+  dplyr::rename_with(~ stringr::str_replace(., "_n_prop$", "_prop"), ends_with("_n_prop")) %>% 
+  #
+  dplyr::select(sex,
+                starts_with("profound"),
+                starts_with("severe"),
+                starts_with("moderate"),
+                starts_with("mild"),
+                starts_with("restriction"),
+                starts_with("nolimitation"),
+                starts_with("nodisability"),
+                starts_with("answered")) %>% 
+  #
+  tidyr::pivot_longer(!sex,
+                      names_to      = c("answer", ".value"),
+                      names_pattern = "(.+)_(.+)") %>% 
+  #
+  dplyr::mutate(answer = factor(dplyr::recode(answer,
+                                              "profound"     = "Profound limitation",
+                                              "severe"       = "Severe limitation",
+                                              "moderate"     = "Moderate limitation",
+                                              "mild"         = "Mild limitation",
+                                              "restriction"  = "Schooling or work restriction",
+                                              "nolimitation" = "No limitation or restriction",
+                                              "nodisability" = "No disability",
+                                              "answered"     = "Total"),
+                                levels = c("Profound limitation",
+                                           "Severe limitation",
+                                           "Moderate limitation",
+                                           "Mild limitation",
+                                           "Schooling or work restriction",
+                                           "No limitation or restriction",
+                                           "No disability",
+                                           "Total")))
+
+# ------------------------------------------------------------------------------
+# Type of disability
+# Data from ABS National Aboriginal and Torres Strait Islander Health Survey
+# ------------------------------------------------------------------------------
+# Read in NATSIHS data
+disability_type <- f_read_natsihs_sex("Indicator_Vic_Sex_Disability_Type.csv")
+
+# Data wrangling
+disability_type <- disability_type %>% 
+  dplyr::rowwise() %>% 
+  dplyr::mutate(answered_n = total_n - no_disability_n) %>% 
+  dplyr::ungroup() %>% 
+  #
+  janitor::adorn_totals(fill = "Total") %>% 
+  #
+  dplyr::rename(sensory_n    = sensory_and_speech_n,
+                learning_n   = learning_and_understanding_n,
+                physical_n   = physical_restriction_n,
+                headinjury_n = head_injury_stroke_or_acquired_brain_injury_n) %>% 
+  #
+  dplyr::mutate(across(sensory_n:other_n,
+                       ~ . / answered_n * 100,
+                       .names = "{.col}_prop"),
+                #
+                answered_prop = answered_n / answered_n * 100) %>% 
+  #
+  dplyr::rename_with(~ stringr::str_replace(., "_n_prop$", "_prop"), ends_with("_n_prop")) %>% 
+  #
+  dplyr::select(sex,
+                starts_with("sensory"),
+                starts_with("learning"),
+                starts_with("physical"),
+                starts_with("psychosocial"),
+                starts_with("headinjury"),
+                starts_with("other"),
+                starts_with("answered")) %>% 
+  #
+  tidyr::pivot_longer(!sex,
+                      names_to      = c("answer", ".value"),
+                      names_pattern = "(.+)_(.+)") %>% 
+  #
+  dplyr::mutate(answer = factor(dplyr::recode(answer,
+                                              "sensory"      = "Sensory or speech",
+                                              "learning"     = "Learning or understanding",
+                                              "physical"     = "Physical",
+                                              "psychosocial" = "Psychosocial",
+                                              "headinjury"   = "Head injury",
+                                              "other"        = "Other",
+                                              "answered"     = "Total"),
+                                levels = c("Sensory or speech",
+                                           "Learning or understanding",
+                                           "Physical",
+                                           "Psychosocial",
+                                           "Head injury",
+                                           "Other",
+                                           "Total")))
+```
+
+- Data for this topic were obtained from the [2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release).
+
+- Overall, 28% of Aboriginal and/or Torres Strait Islander survey respondents living in Greater Melbourne reported that they were living with a disability that results in specific limitations with any core activities (mobility, communication and self-care). This equates to approximately 11,000 Aboriginal and/or Torres Strait Islander people in Greater Melbourne.
+
+- Males were more likely than females to be living with a disability that results in specific restriction when participating in schooling or work activities (20% vs. 2.8%).
+
+- The most commonly reported disabilities by Aboriginal and/or Torres Strait Islander survey respondents living in Greater Melbourne were physical restrictions (57% of survey respondents who were living with a disability, approximately 9,900 people), and sensory or speech issues (38% of survey respondents who were living with a disability, approximately 6,600 people).
+
+::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
+- The following questions were asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
+  - Can you do any of the following activities? (Select all that apply)
+    - Easily walk 200 metres
+    - Walk up and down stairs without a handrail
+    - Easily bend to pick up an object from the floor
+    - Use public transport without difficulty, help, or supervision
+    - None of the above
+  - Do you have any of these conditions that have lasted, or are expected to last, for six months or longer? (Select all that apply)
+    - Shortness of breath
+    - Chronic or recurring pain
+    - A nervous or emotional condition
+    - Memory problems or periods of confusion
+    - Social or behavioural difficulties
+    - Long term effects as a result of a head injury, stroke, or other brain damage
+    - Receiving treatment or medication for any other long term condition
+    - Any other long term health condition (e.g. arthritis, asthma, heart disease)
+    - None of the above
+  - Do you have any of these conditions that have lasted, or are expected to last, for six months or longer? (Select all that apply)
+    - Sight problems not corrected by glasses or contact lenses
+    - Hearing problems
+    - Speech problems
+    - Blackouts, seizures, or loss of consciousness
+    - Difficulty learning or understanding things
+    - Limited use of arms or fingers
+    - Difficulty gripping things
+    - Limited use of legs or feet
+    - Any condition that restricts physical activity pr physical work (e.g. back problems, migraines)
+    - Any disfigurement or deformity
+    - Any mental illness for which help or supervision is required
+    - None of the above
+  - If yes, are you restricted in your everyday activities because of this condition?
+    - `r note_response_binary`
+  - If yes, do you ever need help, supervision, or aids to help with any of these tasks because of this condition? (Select all that apply)
+    - Bathing or showering
+    - Dressing or undressing
+    - Eating or feeding
+    - Going to the toilet, bladder control, or bowel control
+    - Moving around away from home or moving around at home
+    - Getting in or out of a bed or chair
+    - Understanding or being understood by strangers, friends, or family (including use of sign language or lip reading)
+    - None of the above
+  - If yes, do you have any of the following problems with schooling because of this condition? (Select all that apply)
+    - Not attending school or further study
+    - Needing time off from school or study
+    - Attending special classes or school
+    - Other related difficulties
+    - No difficulty with education
+  - If yes, do you have any of the following problems with work because of this condition? (Select all that apply)
+    - Type of job you can do
+    - Number of hours that can be worked
+    - Finding suitable work
+    - Needing time off work
+    - Permanently unable to work
+    - Other related difficulties
+    - No difficulty with work
+
+<div style="height: 0.1em;"></div>
+
+- Definitions and notes:
+  - `r note_aboriginality_natsihs`
+  - A person was defined as having a disability if they had an impairment which restricts their everyday activities and that has lasted, or is expected to last, for at least six months.
+  - People with disabilities were classified by whether they had:
+    - a specific limitation with any core activities (mobility, communication and self-care),
+    - a specific restriction when participating in schooling or employment activities, or
+    - no specific limitation with core activities or restriction with schooling or employment activities.
+
+:::
+
+:::: {.panel-tabset}
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Self-reported disability status for survey respondents who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
+:::
+
+```{r}
+#
+factor_levels <- stringr::str_wrap(levels(disability_status$answer), width = 17)
+
+figure_number <- disability_status %>% 
+  dplyr::filter(sex != "Total" & !answer %in% c("Total", "No disability")) %>%
+  #
+  dplyr::mutate(answer = factor(stringr::str_wrap(answer, width = 17), levels = factor_levels)) %>%
+  #
+  f_bar_grouped_sex(x_variable = answer,
+                    y_variable = n,
+                    x_angle    = 90)
+
+figure_percent <- disability_status %>% 
+  dplyr::filter(sex != "Total" & !answer %in% c("Total", "No disability")) %>%
+  #
+  dplyr::mutate(answer = factor(stringr::str_wrap(answer, width = 17), levels = factor_levels)) %>%
+  #
+  f_bar_grouped_sex(x_variable = answer,
+                    y_variable = prop,
+                    x_angle    = 90)
+
+f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.35)
+```
+
+
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Self-reported disability status for survey respondents who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
+:::
+
+```{r}
+#
+table <- disability_status %>%
+  f_preptable_grouped_sex(variable_name = "disability_status")
+
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(prop_male   = sprintf("%.1f", prop_male),
+                prop_female = sprintf("%.1f", prop_female),
+                prop_total  = sprintf("%.1f", prop_total)) %>%
+  #
+  f_table_grouped_sex(n_variable  = "estimate",
+                      column_name = "Disability status")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Types of disability for survey respondents with a disability who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
+:::
+
+```{r}
+#
+factor_levels <- stringr::str_wrap(levels(disability_type$answer), width = 15)
+
+figure_number <- disability_type %>% 
+  dplyr::filter(sex != "Total" & answer != "Total") %>%
+  #
+  dplyr::mutate(answer = factor(stringr::str_wrap(answer, width = 15), levels = factor_levels)) %>%
+  #
+  f_bar_grouped_sex(x_variable = answer,
+                    y_variable = n,
+                    x_angle    = 90)
+
+figure_percent <- disability_type %>% 
+  dplyr::filter(sex != "Total" & answer != "Total") %>%
+  #
+  dplyr::mutate(answer = factor(stringr::str_wrap(answer, width = 15), levels = factor_levels)) %>%
+  #
+  f_bar_grouped_sex(x_variable = answer,
+                    y_variable = prop,
+                    x_angle    = 90)
+
+f_bar_grouped_combine(figure_number, figure_percent)
+```
+
+
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Types of disability for survey respondents with a disability who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
+:::
+
+```{r}
+#
+table <- disability_type %>% 
+  f_preptable_grouped_sex(variable_name = "disability_type")
+
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(prop_male   = sprintf("%.1f", prop_male),
+                prop_female = sprintf("%.1f", prop_female),
+                prop_total  = sprintf("%.1f", prop_total)) %>%
+  #
+  f_table_grouped_sex(n_variable  = "estimate",
+                      column_name = "Type of disability")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_natsihs`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_survey_unknown`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_survey_estimate`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_multipleresponse`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 10B-1 and Table 10B-1:
+  - Indicator: Self-reported disability status
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Geographical area: `r note_geography_melbourne`
+  - Comparison: `r note_comparison_sex`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 10B-2 and Table 10B-2:
+  - Indicator: Type of disability
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Geographical area: `r note_geography_melbourne`
+  - Comparison: `r note_comparison_sex`
+
+<div style="height: 0.1em;"></div>
+
+- For Figure 10B-2 and Table 10B-2, *Head injury* includes head injuries, strokes, and/or acquired brain injuries.
+:::
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+
+## Assistance with Core Activities
+
+```{r}
+# ------------------------------------------------------------------------------
+# Assistance with core activities, by LGA
+# Data from ABS Census using TableBuilderPro
+# ------------------------------------------------------------------------------
+# Read in Census data
+assist_lga <- f_read_census_lga("Aboriginal_Disability_Assistance_LGA.csv",
+                                variable = "assist") %>% 
+  #
+  dplyr::filter(assist != "Not stated")
+
+# Data wrangling
+assist_lga <- assist_lga %>%
+  #
+  dplyr::mutate(assist = dplyr::case_when(
+    assist == "Has need for assistance with core activities" ~ "yes",
+    TRUE ~ "no")) %>% 
+  #
+  f_wrangle_census_lga(variable = assist,
+                       level    = "person",
+                       dichot   = "yes")
+
+# ------------------------------------------------------------------------------
+# Assistance with core activities, by age and sex
+# Data from ABS Census using TableBuilderPro
+# ------------------------------------------------------------------------------
+# Read in Census data
+assist_agesex <- f_read_census_agesex("Aboriginal_Disability_Assistance_AgeSex.csv",
+                                      variable = "assist") %>% 
+  #
+  dplyr::filter(assist != "Not stated")
+
+# Data wrangling
+assist_agesex <- assist_agesex %>% 
+  #
+  dplyr::mutate(assist = dplyr::case_when(
+    assist == "Has need for assistance with core activities" ~ "yes",
+    TRUE ~ "no")) %>% 
+  #
+  f_wrangle_census_agesex(variable = assist,
+                          dichot   = "yes")
+```
+
+- Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
+
+- Overall, 9.4% (n = 1,116) of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census required assistance with core activities (mobility, communication, and/or self-care). This was higher than for non-Indigenous people living in the NEPHU catchment (6.0%).
+
+- The number of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who required assistance with core activities ranged from 211 (Hume LGA) to 20 (Nillumbik LGA).
+
+- The gap between the observed number of Aboriginal and/or Torres Strait Islander people who required assistance with core activities and the expected number if the proportion was the same as for non-Indigenous people was biggest for Yarra Ranges and Hume LGAs.
+
+- The percentage of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who required assistance with core activities ranged from 12% (Hume LGA) to 5.4% (Nillumbik LGA).
+
+- The percentage of people who identified as Aboriginal and/or Torres Strait Islander living in the NEPHU catchment who required assistance with core activities increased with increasing age for both males and females.
+
+- The gap between the observed number of Aboriginal and/or Torres Strait Islander people who required assistance with core activities and the expected number if the proportion was the same as for non-Indigenous people was biggest for males aged 10-19 years. 
+
+::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
+- The following questions were asked of all people completing the ABS Census 2021:
+  - Does the person ever need someone to help with, or be with them for, self-care activities?
+    - `r note_response_likert_always`
+  - Does the person ever need someone to help with, or be with them for, body movement activities?
+    - `r note_response_likert_always`
+  - Does the person ever need someone to help with, or be with them for, communication activities?
+    - `r note_response_likert_always`
+  - What are the reasons for the need for assistance or supervision? (Select all that apply)
+    - No need for assistance
+    - Short-term health condition (lasting less than six months)
+    - Long-term health condition (lasting six months or more)
+    - Disability (lasting six months or more)
+    - Old or young age
+    - Difficulty with English language
+    - Other reason
+
+<div style="height: 0.1em;"></div>
+
+- Definitions and notes:
+  - `r note_aboriginality_census`
+  - People requiring assistance with core activities were defined as those needing assistance in their day to day lives in one or more of the three core activity areas of self-care, mobility, and communication because of:
+    - a long-term health condition (lasting six months or more),
+    - a disability (lasting six months or more), or
+    - old age.
+
+:::
+
+:::: {.panel-tabset}
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who require assistance with core activities, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
+:::
+
+```{r}
+#
+figure_number <- assist_lga %>% 
+  f_bar_simple_lga(y_variable = aboriginal_n)
+
+figure_percent <- assist_lga %>% 
+  f_bar_simple_lga(y_variable = aboriginal_prop)
+
+f_bar_simple_combine(figure_number, figure_percent)
+```
+
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who require assistance with core activities, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
+:::
+
+```{r}
+#
+assist_lga %>% 
+  f_bar_obsexp_lga()
+```
+
+
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who require assistance with core activities, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
+:::
+
+```{r}
+#
+table <- assist_lga %>%
+  f_preptable_obsexp_lga()
+
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  f_table_obsexp(column_name = "LGA",
+                 header_name = " ")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who require assistance with core activities, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
+:::
+
+```{r}
+#
+figure_number <- assist_agesex %>% 
+  f_bar_grouped_agesex(y_variable = aboriginal_n)
+
+figure_percent <- assist_agesex %>% 
+  f_bar_grouped_agesex(y_variable = aboriginal_prop)
+
+f_bar_grouped_combine(figure_number, figure_percent)
+```
+
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who require assistance with core activities, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
+:::
+
+```{r}
+#
+assist_agesex %>% 
+  f_bar_obsexp_agesex()
+```
+
+
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who require assistance with core activities, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
+:::
+
+```{r}
+#
+table <- assist_agesex %>%
+  f_preptable_obsexp_agesex()
+
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::filter(sex == "Female") %>%
+  #
+  dplyr::select(-sex) %>% 
+  #
+  f_table_obsexp(total_row   = nrow(table) / 2,
+                 column_name = "Age group",
+                 header_name = "Female")
+
+table %>% 
+  dplyr::filter(sex == "Male") %>%
+  #
+  dplyr::select(-sex) %>% 
+  #
+  f_table_obsexp(total_row   = nrow(table) / 2,
+                 column_name = "Age group",
+                 header_name = "Male")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_census`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 10B-3, Figure 10B-4, and Table 10B-3:
+  - Indicator: Assistance with core activities of daily living
+  - Numerator: Number of people requiring assistance with core activities of daily living
+  - Denominator: `r note_denominator_census_population`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_lga` and `r note_comparison_aboriginal`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 10B-5, Figure 10B-6, and Table 10B-4:
+  - Indicator: Assistance with core activities of daily living
+  - Numerator: Number of people requiring assistance with core activities of daily living
+  - Denominator: `r note_denominator_census_population`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_agesex` and `r note_comparison_aboriginal`
+
+:::
+
