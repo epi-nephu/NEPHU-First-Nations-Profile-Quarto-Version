@@ -7,13 +7,13 @@ title-block: false
 ```{r}
 #
 source(here::here("setup.R"))
-source(here::here("setup_footnotes.R"))
 
-# Set up numbering for exporting tables as .csv
-table_section <- "10C"
-table_count   <- 0
+# Set up numbering for figures and tables
+figtab_report_section <- "10C"
+figtab_csv_section    <- "10C"
 
-figure_count <- 0
+figtab_table_count  <- 0
+figtab_figure_count <- 0
 ```
 
 
@@ -24,17 +24,25 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Arthritis and Musculoskeletal Conditions {.unnumbered}
 
-::: {.caveat-box}
-**A note about the impact of under-identification**
+::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
+`r note_chapter_different_sources`
 
-`r note_box_underidentification`
+<div style="height: 0.1em;"></div>
 
-**A note about interpreting observed vs. expected figures**
+`r note_chapter_comparisons`
 
-`r note_box_obsexp`
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_masking`
+
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_obsexp`
 :::
-
-<div style="height: 2em;"></div>
 
 ::: {.key-question}
 What chronic health conditions are experienced by Aboriginal and/or Torres Strait Islander peoples in the NEPHU catchment?
@@ -89,24 +97,38 @@ arthritis_agesex <- arthritis_agesex %>%
 
 - Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
 
-- Overall, 6.9% (n = 791) of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census have been told by a doctor or nurse that they have arthritis. This was lower than for non-Indigenous people living in the NEPHU catchment (8.0%).
+- Overall, 6.9% (n = 791) of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census have been told by a doctor or nurse that they have arthritis. This was lower than for non-Indigenous people living in the NEPHU catchment (8.0%), largely due to the younger age structure of the Aboriginal and/or Torres Strait Islander population.
 
 - The number of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who have been told by a doctor or nurse that they have arthritis ranged from 134 (Yarra Ranges LGA) to 7 (Manningham LGA).
-
-- The gap between the observed number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have arthritis and the number expected if the rate was the same as for non-Indigenous people was biggest for Whittlesea and Yarra Ranges LGAs.
 
 - The percentage of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who have been told by a doctor or nurse that they have arthritis ranged from 8.9% (Banyule LGA) to 2.4% (Manningham LGA).
 
 - The percentage of people living in the NEPHU catchment who have been told by a doctor or nurse that they have arthritis increased with increasing age for both males and females. However, the number of people who have been told by a doctor or nurse that they have arthritis was highest for people aged 50-59 or 60-69 years.
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-The following question was asked of all people completing the ABS Census 2021.
+- Within each age and sex group, the percentage of people who have been told by a doctor or nurse that they have arthritis was higher for Aboriginal and/or Torres Strait Islander people than for non-Indigenous people.
 
-- Has the person been told by a doctor or nurse that they have any of these long-term health conditions? (Select all that apply)
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people completing the ABS Census 2021.
+
+<div style="height: 0.1em;"></div>
+
+- `r note_aboriginality_census`
+
+<div style="height: 0.1em;"></div>
+
+- People were classified as arthritis if they selected *Arthritis*.
+
+<div style="height: 0.1em;"></div>
+
+- Census respondents may have reported osteoarthritis and/or rheumatoid arthritis.
+:::
+
+::: {.callout-tip title="Census questions for this topic" icon=false collapse=false}
+- Has the person been told by a doctor or nurse that they have any of these long-term health conditions? (*Select all that apply*)
   - Arthritis
   - Asthma
   - Cancer (including remission)
-  - Dementia (including Alzheimer's)
+  - Dementia (including Alzheimer's)  
   - Diabetes (excluding gestational diabetes)
   - Heart disease (including heart attack or angina)
   - Kidney disease
@@ -116,21 +138,25 @@ The following question was asked of all people completing the ABS Census 2021.
   - Any other long-term health condition(s)
   - No long-term health condition
 
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 10C-1
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_10C_1 .fig-tab-title}
-**Figure 10C-1:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who have been told by a doctor or nurse that they have arthritis, NEPHU catchment, by LGA, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who have been told by a doctor or nurse that they have arthritis, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
+
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- arthritis_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_n)
 
@@ -140,37 +166,47 @@ figure_percent <- arthritis_lga %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-#### Figure 10C-2
 
-::: {#fig_10C_2 .fig-tab-title}
-**Figure 10C-2:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have arthritis, NEPHU catchment, by LGA, 2021
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have arthritis, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 arthritis_lga %>% 
   f_bar_obsexp_lga()
 ```
 
-#### Table 10C-1
 
-::: {#tab_10C_1 .fig-tab-title}
-**Table 10C-1:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have arthritis, NEPHU catchment, by LGA, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have arthritis, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- arthritis_lga %>%
   f_preptable_obsexp_lga()
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -181,18 +217,22 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Figure 10C-3
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_10C_3 .fig-tab-title}
-**Figure 10C-3:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who have been told by a doctor or nurse that they have arthritis, NEPHU catchment, by age and sex, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who have been told by a doctor or nurse that they have arthritis, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- arthritis_agesex %>% 
   f_bar_grouped_agesex(y_variable = aboriginal_n)
 
@@ -202,37 +242,47 @@ figure_percent <- arthritis_agesex %>%
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
 
-#### Figure 10C-4
 
-::: {#fig_10C_4 .fig-tab-title}
-**Figure 10C-4:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have arthritis, NEPHU catchment, by age and sex, 2021
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have arthritis, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 arthritis_agesex %>% 
   f_bar_obsexp_agesex()
 ```
 
-#### Table 10C-2
 
-::: {#tab_10C_2 .fig-tab-title}
-**Table 10C-2:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have arthritis, NEPHU catchment, by age and sex, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have arthritis, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- arthritis_agesex %>%
   f_preptable_obsexp_agesex()
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -257,20 +307,39 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_unknown_agesex`
 
-- Census respondents may have reported osteoarthritis and/or rheumatoid arthritis in response to this question.
+<div style="height: 0.1em;"></div>
+
+- Figure 10C-1, Figure 10C-2, and Table 10C-1:
+  - Indicator: Self-reported arthritis
+  - Numerator: Number of people who have been told by a doctor or nurse that they have arthritis
+  - Denominator: `r note_denominator_census_population`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_lga` and `r note_comparison_aboriginal`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 10C-3, Figure 10C-4, and Table 10C-2:
+  - Indicator: Self-reported arthritis
+  - Numerator: Number of people who have been told by a doctor or nurse that they have arthritis
+  - Denominator: `r note_denominator_census_population`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_agesex` and `r note_comparison_aboriginal`
+
 :::
 
 ```{r}
@@ -311,7 +380,7 @@ back_problems <- back_problems %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -329,10 +398,24 @@ back_problems <- back_problems %>%
 
 - Males were more likely to be living with back problems than females (23% vs. 18%).
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-The following questions were asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
-- Do you have any of the following conditions that have lasted, or are expected to last, for six months or longer? (Select all that apply)
+<div style="height: 0.1em;"></div>
+
+- `r note_aboriginality_natsihs`
+
+<div style="height: 0.1em;"></div>
+
+- People were classified as having back problems (dorsopathies) if they selected *Slipped disc or other disc problems* and/or *Back pain or other back problems*.
+
+<div style="height: 0.1em;"></div>
+
+- *Other back problems* include sciatica, disc disorders, curvature of the spine, and back pain or other back problems not elsewhere classified.
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
+- Do you have any of the following conditions that have lasted, or are expected to last, for six months or longer? (*Select all that apply*)
   - Hay fever
   - Sinusitis or sinus allergy
   - Food allergy
@@ -352,45 +435,41 @@ The following questions were asked of all people completing the 2022-23 ABS Nati
   - Back pain or other back problems
   - None of the above
   
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - If yes, were you told that you have this condition by a doctor or nurse?
-  - Yes
-  - No
+  - `r note_response_binary`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - If yes (for slipped disc or other disc problems or back pain or other back problems), what is the main cause of your back pain or back problem?
   - Free text response
 
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
 
-#### Table 10C-3
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
 
-::: {#tab_10C_3 .fig-tab-title}
-**Table 10C-3:** Self-reported back problems (dorsopathies) for people who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Self-reported back problems (dorsopathies) for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+table <- back_problems %>%
+  f_preptable_grouped_sex(variable_name = "back_problem")
 
-table <- back_problems %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(back_problem = answer)
-
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -405,22 +484,38 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_estimate`
 
-- *Back problems (dorsopathies)* includes sciatica, disc disorders, curvature of the spine, and back pain or problems not elsewhere classified.
+<div style="height: 0.1em;"></div>
+
+- Table 10C-3:
+  - Indicator: Self-reported back problems (dorsopathies)
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Geographical area: `r note_geography_melbourne`
+  - Comparison: `r note_comparison_sex`
+
 :::
 
 ```{r}
@@ -462,7 +557,7 @@ osteo <- osteo %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -480,10 +575,32 @@ osteo <- osteo %>%
 
 - Females were more likely to be living with osteoporosis than males (2.3% vs. 0.5%).
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-The following questions were asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
-- Do you have, or have you ever had, any of these conditions? (Select all that apply)
+<div style="height: 0.1em;"></div>
+
+- `r note_aboriginality_natsihs`
+
+<div style="height: 0.1em;"></div>
+
+- People were classified as having osteoporosis if they selected *Osteoporosis* and/or *Osteopenia*.
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
+- Do you have, or have you ever had, any of these conditions? (*Select all that apply*)
+  - Gout
+  - Rheumatism
+  - Osteoarthritis
+  - Rheumatoid arthritis
+  - Other arthritis
+  - Osteoporosis
+  - Osteopenia
+  - None of the above
+
+<div style="height: 0.1em;"></div>
+
+- Do you currently have any of these conditions? (*Select all that apply*)
   - Gout
   - Rheumatism
   - Osteoarthritis
@@ -493,21 +610,9 @@ The following questions were asked of all people completing the 2022-23 ABS Nati
   - Osteopenia
   - None of the above
   
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
-- Do you currently have any of these conditions? (Select all that apply)
-  - Gout
-  - Rheumatism
-  - Osteoarthritis
-  - Rheumatoid arthritis
-  - Other arthritis
-  - Osteoporosis
-  - Osteopenia
-  - None of the above
-  
-<div style="height: 1em;"></div>
-
-- Were you told by a doctor or nurse that you have any of these conditions? (Select all that apply)
+- Were you told by a doctor or nurse that you have any of these conditions? (*Select all that apply*)
   - Osteoarthritis
   - Rheumatoid arthritis
   - Other arthritis
@@ -515,34 +620,31 @@ The following questions were asked of all people completing the 2022-23 ABS Nati
   - Osteopenia
   - None of the above
 
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
 
-#### Table 10C-4
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
 
-::: {#tab_10C_4 .fig-tab-title}
-**Table 10C-4:** Self-reported osteoporosis for people who identified as Aboriginal and/or Torres Strait Islander, Victoria, by sex, 2022-2023
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Self-reported osteoporosis for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- osteo %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(osteoporosis = answer)
+  f_preptable_grouped_sex(variable_name = "osteoporosis")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -557,22 +659,38 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_estimate`
 
-- *Osteoporosis* includes osteoporosis and osteopenia.
+<div style="height: 0.1em;"></div>
+
+- Table 10C-4:
+  - Indicator: Self-reported osteoporosis
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Geographical area: `r note_geography_victoria`
+  - Comparison: `r note_comparison_sex`
+
 :::
 
 ```{r}
@@ -582,7 +700,7 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 
 ## All Musculoskeletal Conditions
 
-### Hospital Admissions
+### Hospital Admissions for Musculoskeletal System and Connective Tissue Diseases
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -600,7 +718,7 @@ hospital_musculo <- hospital_musculo %>%
   dplyr::arrange(iare_name)
 ```
 
-- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases).
+- Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
 
 - During the four-year period 01 July 2017 to 30 June 2021 there were 2,064 hospital admissions for musculoskeletal system and connective tissue diseases for people who identified as Aboriginal and/or Torres Strait Islander living in Greater Melbourne.
 
@@ -610,8 +728,20 @@ hospital_musculo <- hospital_musculo %>%
 
 - 5 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for musculoskeletal system and connective tissue diseases above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Craigieburn/Sunbury, Whitehorse, Melbourne/Port Phillip, Yarra Ranges, and Maroondah IAREs).
 
-::: {.callout-tip title="ICD-10-AM codes and definitions for this topic" icon=false collapse=false}
-Admissions for musculoskeletal system and connective tissue diseases are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- `r note_aboriginality_vaed`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_admissions`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_iare_ratio`
+:::
+
+::: {.callout-tip title="ICD-10-AM codes for this topic" icon=false collapse=false}
+Admissions for musculoskeletal system and connective tissue diseases were defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
 
   - M00-M25: Arthropathies
   - M30-M36: Systemic connective tissue disorders
@@ -620,21 +750,24 @@ Admissions for musculoskeletal system and connective tissue diseases are defined
   - M80-M94: Osteopathies and chondropathies
   - M95-M99: Other disorders of the musculoskeletal system and connective tissue
 
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 10C-5
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_10C_5 .fig-tab-title}
-**Figure 10C-5:** Number and age-standardised rate (per 100,000 population) of hospital admissions for musculoskeletal system and connective tissue diseases for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and age-standardised rate (per 100,000 population) of hospital admissions for musculoskeletal system and connective tissue diseases for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital`
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- hospital_musculo %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
                     hospital   = "admission")
@@ -646,23 +779,28 @@ figure_percent <- hospital_musculo %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-#### Table 10C-5
 
-::: {#tab_10C_5 .fig-tab-title}
-**Table 10C-5:** Hospital admissions for musculoskeletal system and connective tissue diseases for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Hospital admissions for musculoskeletal system and connective tissue diseases for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital`
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- hospital_musculo %>%
   dplyr::select(-iare_name_short)
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -676,31 +814,33 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_phidu_vaed`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_iare_nephu`
 
 <div style="height: 0.1em;"></div>
 
-`r note_caveat_iare_ratio`
+- Figure 10C-5 and Table 10C-5:
+  - Indicator: Hospital admissions for musculoskeletal system and connective tissue diseases
+  - Numerator: `r note_numerator_hospital_aboriginal`
+  - Denominator: `r note_denominator_erp`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_iare`
 
-<div style="height: 1em;"></div>
-
-`r note_caveat_admissions`
-
-<div style="height: 2em;"></div>
 :::
 
-### Emergency Presentations
+### Emergency Presentations for Musculoskeletal System and Connective Tissue Diseases
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -718,7 +858,7 @@ emergency_musculo <- emergency_musculo %>%
   dplyr::arrange(iare_name)
 ```
 
-- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases).
+- Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [AIHW National Non-Admitted Patient Emergency Department Care Database (NNAPEDCD)](https://www.aihw.gov.au/reports/hospitals/non-admitted-patient-emergency-dept-care-nmds/summary).
 
 - Between 01 July 2019 and 30 June 2020 there were 605 emergency department presentations for musculoskeletal system and connective tissue diseases for people who identified as Aboriginal and/or Torres Strait Islander living in Greater Melbourne.
 
@@ -728,8 +868,16 @@ emergency_musculo <- emergency_musculo %>%
 
 - 4 of the 10 IAREs in the NEPHU catchment area had an age-standardised rate of emergency department presentations for musculoskeletal system and connective tissue diseases above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Maroondah,  Northcote/Preston/Whittlesea, and Melbourne North-East IAREs).
 
-::: {.callout-tip title="ICD-10-AM codes and definitions for this topic" icon=false collapse=false}
-Emergency department presentations for musculoskeletal system and connective tissue diseases are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- `r note_aboriginality_vemd`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_iare_ratio`
+:::
+
+::: {.callout-tip title="ICD-10-AM codes for this topic" icon=false collapse=false}
+Emergency department presentations for musculoskeletal system and connective tissue diseases were defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
 
   - M00-M25: Arthropathies
   - M30-M36: Systemic connective tissue disorders
@@ -738,21 +886,24 @@ Emergency department presentations for musculoskeletal system and connective tis
   - M80-M94: Osteopathies and chondropathies
   - M95-M99: Other disorders of the musculoskeletal system and connective tissue
 
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 10C-6
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_10C_6 .fig-tab-title}
-**Figure 10C-6:** Number and age-standardised rate (per 100,000 population) of emergency department presentations for musculoskeletal system and connective tissue diseases for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2019 to 30 June 2020
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and age-standardised rate (per 100,000 population) of emergency department presentations for musculoskeletal system and connective tissue diseases for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_emergency`
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- emergency_musculo %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
                     hospital   = "emergency")
@@ -764,23 +915,28 @@ figure_percent <- emergency_musculo %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-#### Table 10C-6
 
-::: {#tab_10C_6 .fig-tab-title}
-**Table 10C-6:** Emergency department presentations for musculoskeletal system and connective tissue diseases for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2019 to 30 June 2020
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Emergency department presentations for musculoskeletal system and connective tissue diseases for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_emergency`
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- emergency_musculo %>%
   dplyr::select(-iare_name_short)
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -794,23 +950,29 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_phidu_vemd`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_iare_nephu`
 
 <div style="height: 0.1em;"></div>
 
-`r note_caveat_iare_ratio`
+- Figure 10C-6 and Table 10C-6:
+  - Indicator: Emergency presentations for musculoskeletal system and connective tissue diseases
+  - Numerator: `r note_numerator_emergency_aboriginal`
+  - Denominator: `r note_denominator_erp`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_iare`
 
-<div style="height: 2em;"></div>
 :::
 
