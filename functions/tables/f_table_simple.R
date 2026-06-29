@@ -57,7 +57,7 @@ f_table_simple <- function(data, total_row = nrow(table), last_column = ncol(tab
     
     table <- table %>% 
       kableExtra::column_spec(2:last_column,
-                              width = "1.5in")
+                              width = "1.75in")
 
   }
   

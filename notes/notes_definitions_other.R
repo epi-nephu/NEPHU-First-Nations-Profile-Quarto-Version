@@ -6,6 +6,8 @@
 ################################################################################
 note_response_binary <- "Dichotomous (Yes/No)"
 
+note_response_likert_always        <- "Likert scale (Always/Sometimes/No)"
+note_response_likert_excellent     <- "Likert scale (Excellent/Very Good/Good/Fair/Poor)"
 note_response_likert_increased     <- "Likert scale (Increased/Stayed About The Same/Decreased)"
 note_response_likert_often         <- "Likert scale (Often/Sometimes/Never)"
 note_response_likert_veryimportant <- "Likert scale (Very Important/Important/Neutral/Not Very Important/Not At All Important)"
@@ -17,6 +19,9 @@ note_response_likert_verywell      <- "Likert scale (Very Well/Well/Not Well/Not
 ################################################################################
 note_numerator_category_aboriginal <- "Number of Aboriginal and/or Torres Strait Islander people in each category"
 note_numerator_category_population <- "Number of people in each category"
+
+note_numerator_emergency_aboriginal <- "Number of emergency presentations for Aboriginal and/or Torres Strait Islander people"
+note_numerator_hospital_aboriginal  <- "Number of hospital admissions for Aboriginal and/or Torres Strait Islander people"
 
 note_numerator_vaccination <- "Number of people who received the specified vaccine"
 
@@ -46,6 +51,8 @@ note_geography_victoria  <- "Victoria"
 ################################################################################
 note_time_breastage   <- "2019-2020"
 note_time_census      <- "2021"
+note_time_emergency   <- "01 July 2019 to 30 June 2020"
+note_time_hospital    <- "01 July 2017 to 30 June 2021"
 note_time_naplan      <- "2024"
 note_time_natsihs     <- "2022-2023"
 note_time_perinatal   <- "2019-2021"
