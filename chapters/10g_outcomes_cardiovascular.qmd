@@ -1,0 +1,1214 @@
+---
+title-block: false
+---
+
+# Heart and Vascular Disease
+
+```{r}
+#
+source(here::here("setup.R"))
+
+# Set up numbering for figures and tables
+figtab_report_section <- "10G"
+figtab_csv_section    <- "10G"
+
+figtab_table_count  <- 0
+figtab_figure_count <- 0
+```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Heart and Vascular Disease {.unnumbered}
+
+::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
+`r note_chapter_different_sources`
+
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_comparisons`
+
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_masking`
+
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_obsexp`
+:::
+
+::: {.key-question}
+What chronic health conditions are experienced by Aboriginal and/or Torres Strait Islander peoples in the NEPHU catchment?
+:::
+
+## Heart Disease
+
+### Self-Reported Heart Disease
+
+```{r}
+# ------------------------------------------------------------------------------
+# Heart disease, by LGA
+# Data from ABS Census using TableBuilderPro
+# ------------------------------------------------------------------------------
+# Read in Census data
+heart_lga <- f_read_census_lga("Aboriginal_Health_Heart_LGA.csv",
+                               variable = "heart") %>% 
+  #
+  dplyr::filter(heart != "Not stated")
+
+# Data wrangling
+heart_lga <- heart_lga %>%
+  #
+  dplyr::mutate(heart = dplyr::case_when(
+    heart == "Has heart disease (including heart attack or angina)" ~ "yes",
+    TRUE ~ "no")) %>% 
+  #
+  f_wrangle_census_lga(variable = heart,
+                       level    = "person",
+                       dichot   = "yes")
+
+# ------------------------------------------------------------------------------
+# Heart disease, by age and sex
+# Data from ABS Census using TableBuilderPro
+# ------------------------------------------------------------------------------
+# Read in Census data
+heart_agesex <- f_read_census_agesex("Aboriginal_Health_Heart_AgeSex.csv",
+                                     variable = "heart") %>% 
+  #
+  dplyr::filter(heart != "Not stated")
+
+# Data wrangling
+heart_agesex <- heart_agesex %>% 
+  #
+  dplyr::mutate(heart = dplyr::case_when(
+    heart == "Has heart disease (including heart attack or angina)" ~ "yes",
+    TRUE ~ "no")) %>% 
+  #
+  f_wrangle_census_agesex(variable = heart,
+                          dichot   = "yes")
+```
+
+- Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
+
+- Overall, 3.7% (n = 426) of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census have been told by a doctor or nurse that they have heart disease. This was similar to the proportion of non-Indigenous people living in the NEPHU catchment (3.7%), largely due to the younger age structure of the Aboriginal and/or Torres Strait Islander population.
+
+- The number of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who have been told by a doctor or nurse that they have heart disease ranged from 68 (Whittlesea LGA) to 4 (Nillumbik LGA).
+
+- The percentage of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who have been told by a doctor or nurse that they have heart disease ranged from 5.2% (Banyule LGA) to 1.1% (Nillumbik LGA).
+
+- The number of people who have been told by a doctor or nurse that they have heart disease was higher for males than females, and the number and percentage of people who have been told by a doctor or nurse that they have heart disease increased with increasing age for both genders.
+
+- Within almost all age and sex groups, the percentage of people who have been told by a doctor or nurse that they have heart disease was higher for Aboriginal and/or Torres Strait Islander people than for non-Indigenous people.
+
+**Key points from stakeholder consultation**
+
+- At stakeholder consultation during the development of this report, it was noted that a decrease in the number of people with heart disease for higher age groups could be partly due to older people not identifying as Aboriginal and/or Torres Strait Islander in the Census.
+
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people completing the ABS Census 2021.
+
+<div style="height: 0.1em;"></div>
+
+- `r note_aboriginality_census`
+
+<div style="height: 0.1em;"></div>
+
+- People were classified as having heart disease if they selected *Heart disease (including heart attack or angina)*.
+:::
+
+::: {.callout-tip title="Census questions for this topic" icon=false collapse=false}
+- Has the person been told by a doctor or nurse that they have any of these long-term health conditions? (*Select all that apply*)
+  - Arthritis
+  - Asthma
+  - Cancer (including remission)
+  - Dementia (including Alzheimer's)  
+  - Diabetes (excluding gestational diabetes)
+  - Heart disease (including heart attack or angina)
+  - Kidney disease
+  - Lung condition (including COPD or emphysema)
+  - Mental health condition (including depression or anxiety)
+  - Stroke
+  - Any other long-term health condition(s)
+  - No long-term health condition
+
+:::
+
+:::: {.panel-tabset}
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who have been told by a doctor or nurse that they have heart disease, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
+:::
+
+```{r}
+#
+figure_number <- heart_lga %>% 
+  f_bar_simple_lga(y_variable = aboriginal_n)
+
+figure_percent <- heart_lga %>% 
+  f_bar_simple_lga(y_variable = aboriginal_prop)
+
+f_bar_simple_combine(figure_number, figure_percent)
+```
+
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have heart disease, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
+:::
+
+```{r}
+#
+heart_lga %>% 
+  f_bar_obsexp_lga()
+```
+
+
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have heart disease, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
+:::
+
+```{r}
+#
+table <- heart_lga %>%
+  f_preptable_obsexp_lga()
+
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  f_table_obsexp(column_name = "LGA",
+                 header_name = " ")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who have been told by a doctor or nurse that they have heart disease, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
+:::
+
+```{r}
+#
+figure_number <- heart_agesex %>% 
+  f_bar_grouped_agesex(y_variable = aboriginal_n)
+
+figure_percent <- heart_agesex %>% 
+  f_bar_grouped_agesex(y_variable = aboriginal_prop)
+
+f_bar_grouped_combine(figure_number, figure_percent)
+```
+
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have heart disease, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
+:::
+
+```{r}
+#
+heart_agesex %>% 
+  f_bar_obsexp_agesex()
+```
+
+
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have heart disease, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
+:::
+
+```{r}
+#
+table <- heart_agesex %>%
+  f_preptable_obsexp_agesex()
+
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::filter(sex == "Female") %>%
+  #
+  dplyr::select(-sex) %>% 
+  #
+  f_table_obsexp(total_row   = nrow(table) / 2,
+                 column_name = "Age group",
+                 header_name = "Female")
+
+table %>% 
+  dplyr::filter(sex == "Male") %>%
+  #
+  dplyr::select(-sex) %>% 
+  #
+  f_table_obsexp(total_row   = nrow(table) / 2,
+                 column_name = "Age group",
+                 header_name = "Male")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_census`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 10G-1, Figure 10G-2, and Table 10G-1:
+  - Indicator: Self-reported heart disease
+  - Numerator: Number of people who have been told by a doctor or nurse that they have heart disease
+  - Denominator: `r note_denominator_census_population`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_lga` and `r note_comparison_aboriginal`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 10G-3, Figure 10G-4, and Table 10G-2:
+  - Indicator: Self-reported heart disease
+  - Numerator: Number of people who have been told by a doctor or nurse that they have heart disease
+  - Denominator: `r note_denominator_census_population`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_agesex` and `r note_comparison_aboriginal`
+
+:::
+
+### Hospital Admissions for Ischaemic Heart Disease
+
+```{r}
+# ------------------------------------------------------------------------------
+# Hospitalisations - ischaemic heart disease
+# Data from PHIDU Social Health Atlas
+# ------------------------------------------------------------------------------
+# Read in PHIDU data
+hospital_ihd <- f_read_phidu_iare_hospital(data_sheet    = "Admissions_principal_diag",
+                                           column_select = "admissions_for_ischaemic_heart_disease_aboriginal_people")
+
+# Data wrangling
+hospital_ihd <- hospital_ihd %>% 
+  dplyr::mutate(iare_name = factor(iare_name, levels = iare_inc_vic_lvl)) %>% 
+  #
+  dplyr::arrange(iare_name)
+```
+
+- Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
+
+- During the four-year period 01 July 2017 to 30 June 2021 there were 449 hospital admissions for ischaemic heart disease for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
+
+- The number of admissions for ischaemic heart disease for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 76 (Northcote/Preston/Whittlesea IARE) to 5 (Knox IARE).
+
+- The age-standardised rate of admissions for ischaemic heart disease for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 474 per 100,000 population (Northcote/Preston/Whittlesea IARE) to 100 per 100,000 population (Knox IARE).
+
+- 4 of the 9 IAREs in the NEPHU catchment area with data available for reporting had an age-standardised admission rate for ischaemic heart disease above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Northcote/Preston/Whittlesea, Melbourne/Port Phillip, Craigieburn/Sunbury, and Melbourne North-East IAREs).
+
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- `r note_aboriginality_vaed`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_admissions`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_iare_ratio`
+:::
+
+::: {.callout-tip title="ICD-10-AM codes for this topic" icon=false collapse=false}
+Admissions for ischaemic heart disease were defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+
+  - I20: Angina pectoris
+  - I21: Acute myocardial infarction
+  - I22: Subsequent myocardial infarction
+  - I23: Certain current complications following acute myocardial infarction
+  - I24: Other acute ischaemic heart diseases
+  - I25: Chronic ischaemic heart disease
+
+:::
+
+:::: {.panel-tabset}
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and age-standardised rate (per 100,000 population) of hospital admissions for ischaemic heart disease for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital`
+:::
+
+```{r}
+#
+figure_number <- hospital_ihd %>% 
+  f_bar_simple_iare(y_variable = aboriginal_n,
+                    hospital   = "admission")
+
+figure_percent <- hospital_ihd %>% 
+  f_bar_simple_iare(y_variable = aboriginal_rate,
+                    hospital   = "admission")
+
+f_bar_simple_combine(figure_number, figure_percent)
+```
+
+
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Hospital admissions for ischaemic heart disease for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital`
+:::
+
+```{r}
+#
+table <- hospital_ihd %>%
+  dplyr::select(-iare_name_short)
+
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(aboriginal_rate = round(aboriginal_rate, digits = 0),
+                hospital_ratio  = round(hospital_ratio, digits = 0)) %>% 
+  #
+  f_table_simple(iare     = "yes",
+                 hospital = "admission")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_phidu_vaed`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_iare_nephu`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_iare_suppress`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 10G-5 and Table 10G-3:
+  - Indicator: Hospital admissions for ischaemic heart disease
+  - Numerator: `r note_numerator_hospital_aboriginal`
+  - Denominator: `r note_denominator_erp`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_iare`
+
+:::
+
+### Hospital Admissions for Heart Failure
+
+```{r}
+# ------------------------------------------------------------------------------
+# Hospitalisations - heart failure
+# Data from PHIDU Social Health Atlas
+# ------------------------------------------------------------------------------
+# Read in PHIDU data
+hospital_failure <- f_read_phidu_iare_hospital(data_sheet    = "Admissions_principal_diag",
+                                               column_select = "admissions_for_heart_failure_aboriginal_people")
+
+# Data wrangling
+hospital_failure <- hospital_failure %>% 
+  dplyr::mutate(iare_name = factor(iare_name, levels = iare_inc_vic_lvl)) %>% 
+  #
+  dplyr::arrange(iare_name)
+```
+
+- Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
+
+- During the four-year period 01 July 2017 to 30 June 2021 there were 193 hospital admissions for heart failure for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
+
+- The number of admissions for heart failure for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 26 (Northcote/Preston/Whittlesea IARE) to 5 (Melbourne East IARE).
+
+- The age-standardised rate of admissions for heart failure for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 399 per 100,000 population (Maroondah IARE) to 59 per 100,000 population (Melbourne North-East IARE).
+
+- 4 of the 8 IAREs in the NEPHU catchment area with data available for reporting had an age-standardised admission rate for heart failure above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Maroondah, Moreland/Broadmeadows, Craigieburn/Sunbury, and Northcote/Preston/Whittlesea IAREs).
+
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- `r note_aboriginality_vaed`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_admissions`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_iare_ratio`
+:::
+
+::: {.callout-tip title="ICD-10-AM codes for this topic" icon=false collapse=false}
+Admissions for heart failure were defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+
+  - I50: Heart failure
+
+:::
+
+:::: {.panel-tabset}
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and age-standardised rate (per 100,000 population) of hospital admissions for heart failure for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital`
+:::
+
+```{r}
+#
+figure_number <- hospital_failure %>% 
+  f_bar_simple_iare(y_variable = aboriginal_n,
+                    hospital   = "admission")
+
+figure_percent <- hospital_failure %>% 
+  f_bar_simple_iare(y_variable = aboriginal_rate,
+                    hospital   = "admission")
+
+f_bar_simple_combine(figure_number, figure_percent)
+```
+
+
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Hospital admissions for heart failure for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital`
+:::
+
+```{r}
+#
+table <- hospital_failure %>%
+  dplyr::select(-iare_name_short)
+
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(aboriginal_rate = round(aboriginal_rate, digits = 0),
+                hospital_ratio  = round(hospital_ratio, digits = 0)) %>%
+  #
+  f_table_simple(iare     = "yes",
+                 hospital = "admission")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_phidu_vaed`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_iare_nephu`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_iare_suppress`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 10G-6 and Table 10G-4:
+  - Indicator: Hospital admissions for heart failure
+  - Numerator: `r note_numerator_hospital_aboriginal`
+  - Denominator: `r note_denominator_erp`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_iare`
+
+:::
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+
+## Cerebrovascular Disease
+
+### Self-Reported Stroke
+
+```{r}
+# ------------------------------------------------------------------------------
+# Stroke, by LGA
+# Data from ABS Census using TableBuilderPro
+# ------------------------------------------------------------------------------
+# Read in Census data
+stroke_lga <- f_read_census_lga("Aboriginal_Health_Stroke_LGA.csv",
+                                variable = "stroke") %>% 
+  #
+  dplyr::filter(stroke != "Not stated")
+
+# Data wrangling
+stroke_lga <- stroke_lga %>%
+  #
+  dplyr::mutate(stroke = dplyr::case_when(
+    stroke == "Has had a stroke" ~ "yes",
+    TRUE ~ "no")) %>% 
+  #
+  f_wrangle_census_lga(variable = stroke,
+                       level    = "person",
+                       dichot   = "yes")
+
+# ------------------------------------------------------------------------------
+# Stroke, by age and sex
+# Data from ABS Census using TableBuilderPro
+# ------------------------------------------------------------------------------
+# Read in Census data
+stroke_agesex <- f_read_census_agesex("Aboriginal_Health_Stroke_AgeSex.csv",
+                                      variable = "stroke") %>% 
+  #
+  dplyr::filter(stroke != "Not stated")
+
+# Data wrangling
+stroke_agesex <- stroke_agesex %>% 
+  #
+  dplyr::mutate(stroke = dplyr::case_when(
+    stroke == "Has had a stroke" ~ "yes",
+    TRUE ~ "no")) %>%   
+  #
+  f_wrangle_census_agesex(variable = stroke,
+                          dichot   = "yes")
+```
+
+- Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
+
+- Overall, 1.2% (n = 131) of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census have been told by a doctor or nurse that they have had a stroke. This was higher than for non-Indigenous people living in the NEPHU catchment (0.9%).
+
+- The number of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who have been told by a doctor or nurse that they have had a stroke ranged from 23 (Darebin and Hume LGAs) to 0 (Manningham and Yarra LGAs).
+
+- The gap between the observed number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have had a stroke and the expected number if the proportion was the same as for non-Indigenous people was biggest for Darebin and Hume LGAs.
+
+- The percentage of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who have been told by a doctor or nurse that they have had a stroke ranged from 2.1% (Boroondara LGA) to 0.0% (Manningham and Yarra LGAs).
+
+- The number of people who have been told by a doctor or nurse that they have had a stroke was highest for females aged 50-59 years, and this was much higher than the expected number if the proportion was the same as for non-Indigenous women aged 50-59 years. Note that these data should be interpreted with caution due to small numbers and a high proportion of people being excluded due to missing data on age and/or sex.
+
+**Key points from stakeholder consultation**
+
+- At stakeholder consultation during the development of this report, it was noted that the number of people who have been told that they have had a stroke may be an under-estimate due to high case fatality rates for stroke among Aboriginal and/or Torres Strait Islander people.
+
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people completing the ABS Census 2021.
+
+<div style="height: 0.1em;"></div>
+
+- `r note_aboriginality_census`
+
+<div style="height: 0.1em;"></div>
+
+- People were classified as having had a stroke if they selected *Stroke*.
+:::
+
+::: {.callout-tip title="Census questions for this topic" icon=false collapse=false}
+- Has the person been told by a doctor or nurse that they have any of these long-term health conditions? (*Select all that apply*)
+  - Arthritis
+  - Asthma
+  - Cancer (including remission)
+  - Dementia (including Alzheimer's)  
+  - Diabetes (excluding gestational diabetes)
+  - Heart disease (including heart attack or angina)
+  - Kidney disease
+  - Lung condition (including COPD or emphysema)
+  - Mental health condition (including depression or anxiety)
+  - Stroke
+  - Any other long-term health condition(s)
+  - No long-term health condition
+
+:::
+
+:::: {.panel-tabset}
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who have been told by a doctor or nurse that they have had a stroke, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
+:::
+
+```{r}
+#
+figure_number <- stroke_lga %>% 
+  f_bar_simple_lga(y_variable = aboriginal_n)
+
+figure_percent <- stroke_lga %>% 
+  f_bar_simple_lga(y_variable = aboriginal_prop)
+
+f_bar_simple_combine(figure_number, figure_percent)
+```
+
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have had a stroke, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
+:::
+
+```{r}
+#
+stroke_lga %>% 
+  f_bar_obsexp_lga()
+```
+
+
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have had a stroke, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
+:::
+
+```{r}
+#
+table <- stroke_lga %>%
+  f_preptable_obsexp_lga()
+
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  f_table_obsexp(column_name = "LGA",
+                 header_name = " ")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who have been told by a doctor or nurse that they have had a stroke, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
+:::
+
+```{r}
+#
+figure_number <- stroke_agesex %>% 
+  f_bar_grouped_agesex(y_variable = aboriginal_n)
+
+figure_percent <- stroke_agesex %>% 
+  f_bar_grouped_agesex(y_variable = aboriginal_prop)
+
+f_bar_grouped_combine(figure_number, figure_percent)
+```
+
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have had a stroke, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
+:::
+
+```{r}
+#
+stroke_agesex %>% 
+  f_bar_obsexp_agesex()
+```
+
+
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have had a stroke, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
+:::
+
+```{r}
+#
+table <- stroke_agesex %>%
+  f_preptable_obsexp_agesex()
+
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::filter(sex == "Female") %>%
+  #
+  dplyr::select(-sex) %>% 
+  #
+  f_table_obsexp(total_row   = nrow(table) / 2,
+                 column_name = "Age group",
+                 header_name = "Female")
+
+table %>% 
+  dplyr::filter(sex == "Male") %>%
+  #
+  dplyr::select(-sex) %>% 
+  #
+  f_table_obsexp(total_row   = nrow(table) / 2,
+                 column_name = "Age group",
+                 header_name = "Male")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_census`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 10G-7, Figure 10G-8, and Table 10G-5:
+  - Indicator: Self-reported stroke
+  - Numerator: Number of people who have been told by a doctor or nurse that they have had a stroke
+  - Denominator: `r note_denominator_census_population`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_lga` and `r note_comparison_aboriginal`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 10G-9, Figure 10G-10, and Table 10G-6:
+  - Indicator: Self-reported stroke
+  - Numerator: Number of people who have been told by a doctor or nurse that they have had a stroke
+  - Denominator: `r note_denominator_census_population`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_agesex` and `r note_comparison_aboriginal`
+:::
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+
+## All Circulatory System Diseases
+
+### Hospital Admissions for Circulatory System Diseases
+
+```{r}
+# ------------------------------------------------------------------------------
+# Hospitalisations - circulatory system diseases
+# Data from PHIDU Social Health Atlas
+# ------------------------------------------------------------------------------
+# Read in PHIDU data
+hospital_circ <- f_read_phidu_iare_hospital(data_sheet    = "Admissions_principal_diag",
+                                            column_select = "admissions_for_circulatory_system_diseases_aboriginal_people")
+
+# Data wrangling
+hospital_circ <- hospital_circ %>% 
+  dplyr::mutate(iare_name = factor(iare_name, levels = iare_inc_vic_lvl)) %>% 
+  #
+  dplyr::arrange(iare_name)
+```
+
+- Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
+
+- During the four-year period 01 July 2017 to 30 June 2021 there were 1,868 hospital admissions for circulatory system diseases (including ischaemic heart disease, heart failure, and stroke) for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
+
+- The number of admissions for circulatory system diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 284 (Northcote/Preston/Whittlesea IARE) to 26 (Whitehorse IARE).
+
+- The age-standardised rate of admissions for circulatory system diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 1,739 per 100,000 population (Northcote/Preston/Whittlesea IARE) to 738 per 100,000 population (Yarra Ranges IARE).
+
+- 6 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for circulatory system diseases above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Northcote/Preston/Whittlesea, Melbourne/Port Phillip, Craigieburn/Sunbury, Maroondah, Melbourne North-East, and Melbourne North-East IAREs).
+
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- `r note_aboriginality_vaed`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_admissions`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_iare_ratio`
+:::
+
+::: {.callout-tip title="ICD-10-AM codes for this topic" icon=false collapse=false}
+Admissions for circulatory system diseases were defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+
+  - I00-I02: Acute rheumatic fever
+  - I05-I09: Chronic rheumatic heart diseases
+  - I10-I15: Hypertensive diseases
+  - I20-I25: Ischaemic heart diseases
+  - I26-I28: Pulmonary heart disease and diseases of pulmonary circulation
+  - I30-I52: Other forms of heart disease
+  - I60-I69: Cerebrovascular diseases
+  - I70-I79: Diseases of arteries, arterioles, and capillaries
+  - I80-I89: Diseases of veins, lymphatic vessels, and lymph nodes, not elsewhere classified
+  - I95-I99: Other and unspecified disorders of the circulatory system
+
+:::
+
+:::: {.panel-tabset}
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and age-standardised rate (per 100,000 population) of hospital admissions for circulatory system diseases for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital`
+:::
+
+```{r}
+#
+figure_number <- hospital_circ %>% 
+  f_bar_simple_iare(y_variable = aboriginal_n,
+                    hospital   = "admission")
+
+figure_percent <- hospital_circ %>% 
+  f_bar_simple_iare(y_variable = aboriginal_rate,
+                    hospital   = "admission")
+
+f_bar_simple_combine(figure_number, figure_percent)
+```
+
+
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Hospital admissions for circulatory system diseases for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital`
+:::
+
+```{r}
+#
+table <- hospital_circ %>%
+  dplyr::select(-iare_name_short)
+
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(aboriginal_rate = round(aboriginal_rate, digits = 0),
+                hospital_ratio  = round(hospital_ratio, digits = 0)) %>%  
+  #
+  f_table_simple(iare     = "yes",
+                 hospital = "admission")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_phidu_vaed`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_iare_nephu`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 10G-11 and Table 10G-7:
+  - Indicator: Hospital admissions for circulatory system diseases
+  - Numerator: `r note_numerator_hospital_aboriginal`
+  - Denominator: `r note_denominator_erp`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_iare`
+
+:::
+
+### Emergency Presentations for Circulatory System Diseases 
+
+```{r}
+# ------------------------------------------------------------------------------
+# Emergency presentations - circulatory system diseases
+# Data from PHIDU Social Health Atlas
+# ------------------------------------------------------------------------------
+# Read in PHIDU data
+emergency_circ <- f_read_phidu_iare_hospital(data_sheet    = "ED_total",
+                                             column_select = "emergency_department_presentations_total_presentations_for_diseases_of_the_circulatory_system_aboriginal_people")
+
+# Data wrangling
+emergency_circ <- emergency_circ %>% 
+  dplyr::mutate(iare_name = factor(iare_name, levels = iare_inc_vic_lvl)) %>% 
+  #
+  dplyr::arrange(iare_name)
+```
+
+- Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [AIHW National Non-Admitted Patient Emergency Department Care Database (NNAPEDCD)](https://www.aihw.gov.au/reports/hospitals/non-admitted-patient-emergency-dept-care-nmds/summary).
+
+- Between 01 July 2019 and 30 June 2020 there were 363 emergency department presentations for circulatory system diseases (including ischaemic heart disease, heart failure, and stroke) for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
+
+- The number of emergency department presentations for circulatory system diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 45 (Northcote/Preston/Whittlesea IARE) to 7 (Knox and Maroondah IAREs).
+
+- The age-standardised rate of emergency department presentations for circulatory system diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 1,665 per 100,000 population (Yarra Ranges IARE) to 640 per 100,000 population (Melbourne East IARE).
+
+- 6 of the 10 IAREs in the NEPHU catchment area had an age-standardised rate of emergency department presentations for circulatory system diseases above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Yarra Ranges, Melbourne North-East, Moreland/Broadmeadows, Northcote/Preston/Whittlesea, Melbourne/Port Phillip, and Whitehorse IAREs).
+
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- `r note_aboriginality_vemd`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_iare_ratio`
+:::
+
+::: {.callout-tip title="ICD-10-AM codes for this topic" icon=false collapse=false}
+Emergency department presentations for circulatory system diseases were defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+
+  - I00-I02: Acute rheumatic fever
+  - I05-I09: Chronic rheumatic heart diseases
+  - I10-I15: Hypertensive diseases
+  - I20-I25: Ischaemic heart diseases
+  - I26-I28: Pulmonary heart disease and diseases of pulmonary circulation
+  - I30-I52: Other forms of heart disease
+  - I60-I69: Cerebrovascular diseases
+  - I70-I79: Diseases of arteries, arterioles, and capillaries
+  - I80-I89: Diseases of veins, lymphatic vessels, and lymph nodes, not elsewhere classified
+  - I95-I99: Other and unspecified disorders of the circulatory system
+
+:::
+
+:::: {.panel-tabset}
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and age-standardised rate (per 100,000 population) of emergency department presentations for circulatory system diseases for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_emergency`
+:::
+
+```{r}
+#
+figure_number <- emergency_circ %>% 
+  f_bar_simple_iare(y_variable = aboriginal_n,
+                    hospital   = "emergency")
+
+figure_percent <- emergency_circ %>% 
+  f_bar_simple_iare(y_variable = aboriginal_rate,
+                    hospital   = "emergency")
+
+f_bar_simple_combine(figure_number, figure_percent)
+```
+
+
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Emergency department presentations for circulatory system diseases for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_emergency`
+:::
+
+```{r}
+#
+table <- emergency_circ %>%
+  dplyr::select(-iare_name_short)
+
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(aboriginal_rate = round(aboriginal_rate, digits = 0),
+                hospital_ratio  = round(hospital_ratio, digits = 0)) %>% 
+  #
+  f_table_simple(iare     = "yes",
+                 hospital = "emergency")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_phidu_vemd`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_iare_nephu`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 10G-12 and Table 10G-8:
+  - Indicator: Emergency presentations for circulatory system diseases
+  - Numerator: `r note_numerator_emergency_aboriginal`
+  - Denominator: `r note_denominator_erp`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_iare`
+
+:::
+
