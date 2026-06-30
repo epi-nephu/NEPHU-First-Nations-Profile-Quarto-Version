@@ -7,13 +7,13 @@ title-block: false
 ```{r}
 #
 source(here::here("setup.R"))
-source(here::here("setup_footnotes.R"))
 
-# Set up numbering for exporting tables as .csv
-table_section <- "10E"
-table_count   <- 0
+# Set up numbering for figures and tables
+figtab_report_section <- "10E"
+figtab_csv_section    <- "10E"
 
-figure_count <- 0
+figtab_table_count  <- 0
+figtab_figure_count <- 0
 ```
 
 
@@ -24,17 +24,25 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Cancer {.unnumbered}
 
-::: {.caveat-box}
-**A note about the impact of under-identification**
+::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
+`r note_chapter_different_sources`
 
-`r note_box_underidentification`
+<div style="height: 0.1em;"></div>
 
-**A note about interpreting observed vs. expected figures**
+`r note_chapter_comparisons`
 
-`r note_box_obsexp`
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_masking`
+
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_obsexp`
 :::
-
-<div style="height: 2em;"></div>
 
 ::: {.key-question}
 What chronic health conditions are experienced by Aboriginal and/or Torres Strait Islander peoples in the NEPHU catchment?
@@ -110,7 +118,7 @@ testing_cancer <- testing_cancer %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -142,17 +150,25 @@ testing_cancer <- testing_cancer %>%
 
 - Cervical cancer (53%) and breast cancer (26%) were the most common cancer types tested for among females.
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-The following questions were asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
+<div style="height: 0.1em;"></div>
+
+- `r note_aboriginality_natsihs`
+
+<div style="height: 0.1em;"></div>
+
+- People were classified as having been tested for cancer if they stated that they had ever been tested for any type of cancer, had ever been tested for prostate cancer by rectal examination, prostate specific antigen blood test, and/or transrectal ultrasound, ever had a mammogram, and/or ever had a Pap smear.
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
 - Have you ever been tested for any type of cancer?
-  - Yes
-  - No
-  - Don't know
+  - `r note_response_binary`
   
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
-- If yes, what types of cancer have you ever been tested for? (Select all that apply)
+- If yes, what types of cancer have you ever been tested for? (*Select all that apply*)
   - Bowel cancer
   - Breast cancer
   - Cervical cancer
@@ -161,62 +177,53 @@ The following questions were asked of all people completing the 2022-23 ABS Nati
   - Lung cancer
   - Other (please specify)
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
   
 - Have you ever been tested for prostate cancer (rectal examination, prostate specific antigen blood test, or transrectal ultrasound)?
-  - Yes
-  - No
-  - Prefer not to answer
+  - `r note_response_binary`
   
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - Have you ever had a mammogram?
-  - Yes
-  - No
-  - Prefer not to answer
+  - `r note_response_binary`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - Have you ever had a Pap smear test?
-  - Yes
-  - No
-  - Prefer not to answer
+  - `r note_response_binary`
 
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
 
-#### Table 10E-1
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
 
-::: {#tab_10E_1 .fig-tab-title}
-**Table 10E-1:** Types of cancer tested for among survey respondents who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Types of cancer tested for among survey respondents who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- testing_cancer %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(cancer_tested = answer)
+  f_preptable_grouped_sex(variable_name = "cancer_tested")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
 table %>% 
-  dplyr::mutate(prop_male   = sprintf("%.1f", prop_male),
-                prop_female = sprintf("%.1f", prop_female),
-                prop_total  = sprintf("%.1f", prop_total)) %>%
+  dplyr::mutate(prop_male   = round(prop_male, digits = 1),
+                prop_female = round(prop_female, digits = 1),
+                prop_total  = round(prop_total, digits = 1)) %>%
   #
   f_table_grouped_sex(n_variable  = "estimate",
                       column_name = " ")
@@ -224,22 +231,42 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_estimate`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_multipleresponse`
+
+<div style="height: 0.1em;"></div>
+
+- Table 10E-1:
+  - Indicator: Whether ever tested for cancer
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Geographical area: `r note_geography_melbourne`
+  - Comparison: `r note_comparison_sex`
+
 :::
 
 ```{r}
@@ -296,24 +323,38 @@ cancer_agesex <- cancer_agesex %>%
 
 - Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
 
-- Overall, 2.1% (n = 237) of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census have been told by a doctor or nurse that they have cancer. This was lower than for non-Indigenous people living in the NEPHU catchment (2.8%).
+- Overall, 2.1% (n = 237) of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census have been told by a doctor or nurse that they have cancer. This was lower than for non-Indigenous people living in the NEPHU catchment (2.8%), largely due to the younger age structure of the Aboriginal and/or Torres Strait Islander population.
 
 - The number of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who have been told by a doctor or nurse that they have cancer ranged from 41 (Yarra Ranges LGA) to 5 (Nillumbik LGA).
-
-- The gap between the observed number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have cancer and the number expected if the rate was the same as for non-Indigenous people was biggest for Darebin and Yarra Ranges LGAs.
 
 - The percentage of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who have been told by a doctor or nurse that they have cancer ranged from 3.4% (Whitehorse LGA) to 1.3% (Darebin LGA).
 
 - The number of people who have been told by a doctor or nurse that they have cancer was highest for people aged 50-59 or 60-69 years for both males and females, and the percentage of people who have been told by a doctor or nurse that they have cancer increased with increasing age.
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-The following question was asked of all people completing the ABS Census 2021.
+- For people aged 50-69 years, the percentage of people who have been told by a doctor or nurse that they have cancer was higher for Aboriginal and/or Torres Strait Islander people than for non-Indigenous people, particularly for males aged 50-59 years.
 
-- Has the person been told by a doctor or nurse that they have any of these long-term health conditions? (Select all that apply)
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people completing the ABS Census 2021.
+
+<div style="height: 0.1em;"></div>
+
+- `r note_aboriginality_census`
+
+<div style="height: 0.1em;"></div>
+
+- People were classified as having cancer if they selected *Cancer (including remission)*.
+
+<div style="height: 0.1em;"></div>
+
+- Census respondents may have reported malignant and/or benign cancers.
+:::
+
+::: {.callout-tip title="Census questions for this topic" icon=false collapse=false}
+- Has the person been told by a doctor or nurse that they have any of these long-term health conditions? (*Select all that apply*)
   - Arthritis
   - Asthma
   - Cancer (including remission)
-  - Dementia (including Alzheimer's)
+  - Dementia (including Alzheimer's)  
   - Diabetes (excluding gestational diabetes)
   - Heart disease (including heart attack or angina)
   - Kidney disease
@@ -323,21 +364,24 @@ The following question was asked of all people completing the ABS Census 2021.
   - Any other long-term health condition(s)
   - No long-term health condition
 
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 10E-1
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_10E_1 .fig-tab-title}
-**Figure 10E-1:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who have been told by a doctor or nurse that they have cancer, NEPHU catchment, by LGA, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who have been told by a doctor or nurse that they have cancer, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- cancer_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_n)
 
@@ -347,37 +391,47 @@ figure_percent <- cancer_lga %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-#### Figure 10E-2
 
-::: {#fig_10E_2 .fig-tab-title}
-**Figure 10E-2:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have cancer, NEPHU catchment, by LGA, 2021
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have cancer, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 cancer_lga %>% 
   f_bar_obsexp_lga()
 ```
 
-#### Table 10E-2
 
-::: {#tab_10E_2 .fig-tab-title}
-**Table 10E-2:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have cancer, NEPHU catchment, by LGA, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have cancer, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- cancer_lga %>%
   f_preptable_obsexp_lga()
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -388,18 +442,22 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Figure 10E-3
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_10E_3 .fig-tab-title}
-**Figure 10E-3:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who have been told by a doctor or nurse that they have cancer, NEPHU catchment, by age and sex, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who have been told by a doctor or nurse that they have cancer, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- cancer_agesex %>% 
   f_bar_grouped_agesex(y_variable = aboriginal_n)
 
@@ -409,37 +467,47 @@ figure_percent <- cancer_agesex %>%
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
 
-#### Figure 10E-4
 
-::: {#fig_10E_4 .fig-tab-title}
-**Figure 10E-4:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have cancer, NEPHU catchment, by age and sex, 2021
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have cancer, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 cancer_agesex %>% 
   f_bar_obsexp_agesex()
 ```
 
-#### Table 10E-3
 
-::: {#tab_10E_3 .fig-tab-title}
-**Table 10E-3:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have cancer, NEPHU catchment, by age and sex, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have cancer, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- cancer_agesex %>%
   f_preptable_obsexp_agesex()
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -464,20 +532,39 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_unknown_agesex`
 
-- Census respondents may have reported malignant and/or benign cancers in response to this question.
+<div style="height: 0.1em;"></div>
+
+- Figure 10E-1, Figure 10E-2, and Table 10E-2:
+  - Indicator: Self-reported cancer
+  - Numerator: Number of people who have been told by a doctor or nurse that they have cancer
+  - Denominator: `r note_denominator_census_population`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_lga` and `r note_comparison_aboriginal`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 10E-3, Figure 10E-4, and Table 10E-3:
+  - Indicator: Self-reported cancer
+  - Numerator: Number of people who have been told by a doctor or nurse that they have cancer
+  - Denominator: `r note_denominator_census_population`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_agesex` and `r note_comparison_aboriginal`
+
 :::
 
 ### Top 10 Cancer Types
@@ -506,8 +593,18 @@ cancer_type <- readxl::read_excel(file.path(root_folder, subfolder_cancer, "Vic_
 
 - Breast cancer (n = 169) and lung cancer (n = 134) were the most common cancer types diagnosed among females.
 
-::: {.callout-tip title="ICD-10-AM codes and definitions for this topic" icon=false collapse=false}
-Cancer type is recorded in the Victorian Cancer Registry by converting [International Classification of Diseases for Oncology, 3rd Edition (ICD-O-3)](https://www.who.int/standards/classifications/other-classifications/international-classification-of-diseases-for-oncology) medical codes from patient records and cancer notifications to [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs) codes for malignant neoplasms. The Top 10 cancer types are from the following ICD-10-AM categories:
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- `r note_aboriginality_cancer`
+
+<div style="height: 0.1em;"></div>
+
+- Benign neoplasms and recurrent cancers were excluded from these data.
+:::
+
+::: {.callout-tip title="ICD-10-AM codes for this topic" icon=false collapse=false}
+Cancer type is recorded in the Victorian Cancer Registry by converting [International Classification of Diseases for Oncology, 3rd Edition (ICD-O-3)](https://www.who.int/standards/classifications/other-classifications/international-classification-of-diseases-for-oncology) medical codes from patient records and cancer notifications to [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs) codes for malignant neoplasms.
+
+The Top 10 cancer types presented in this report were from the following ICD-10-AM categories:
 
   - Lung: C33-C34
   - Prostate (male only): C61
@@ -520,21 +617,24 @@ Cancer type is recorded in the Victorian Cancer Registry by converting [Internat
   - Pancreas: C25
   - Uterine (female only): C54-C55
 
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 10E-5
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_10E_5 .fig-tab-title}
-**Figure 10E-5:** Top 10 cancer types diagnosed in Aboriginal and/or Torres Strait Islander people, Victoria, 2018-2022
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Top 10 cancer types diagnosed in Aboriginal and/or Torres Strait Islander people, `r note_geography_victoria`, `r note_time_cancer`
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 cancer_type %>% 
   dplyr::filter(cancer_type != "All Top 10" & sex == "Total") %>% 
   #
@@ -546,16 +646,21 @@ cancer_type %>%
                y_title    = "Number of diagnoses")
 ```
 
-#### Figure 10E-6
 
-::: {#fig_10E_6 .fig-tab-title}
-**Figure 10E-6:** Top 10 cancer types diagnosed in Aboriginal and/or Torres Strait Islander females, Victoria, 2018-2022
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Top 10 cancer types diagnosed in Aboriginal and/or Torres Strait Islander females, `r note_geography_victoria`, `r note_time_cancer`
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 cancer_type %>% 
   dplyr::filter(cancer_type != "All Top 10" & sex == "Female" & !is.na(aboriginal_n)) %>%
   #
@@ -567,16 +672,21 @@ cancer_type %>%
                y_title    = "Number of diagnoses")
 ```
 
-#### Figure 10E-7
 
-::: {#fig_10E_7 .fig-tab-title}
-**Figure 10E-7:** Top 10 cancer types diagnosed in Aboriginal and/or Torres Strait Islander males, Victoria, 2018-2022
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Top 10 cancer types diagnosed in Aboriginal and/or Torres Strait Islander males, `r note_geography_victoria`, `r note_time_cancer`
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 cancer_type %>% 
   dplyr::filter(cancer_type != "All Top 10" & sex == "Male" & !is.na(aboriginal_n)) %>%
   #
@@ -588,17 +698,22 @@ cancer_type %>%
                y_title    = "Number of diagnoses")
 ```
 
-#### Table 10E-4
 
-::: {#tab_10E_4 .fig-tab-title}
-**Table 10E-4:** Top 10 cancer types diagnosed in Aboriginal and/or Torres Strait Islander people, Victoria, 2018-2022
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Top 10 cancer types diagnosed in Aboriginal and/or Torres Strait Islander people, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_cancer`
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- cancer_type %>%
   tidyr::pivot_wider(names_from  = "sex",
                      values_from = "aboriginal_n",
@@ -606,9 +721,9 @@ table <- cancer_type %>%
   #
   janitor::clean_names()
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -624,23 +739,28 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
-- Data were obtained from the [Victorian Cancer Registry](https://www.cancervic.org.au/about-cancer/types/statistics).
-  - Cancer type is recorded in the Victorian Cancer Registry by converting [International Classification of Diseases for Oncology, 3rd Edition (ICD-O-3)](https://www.who.int/standards/classifications/other-classifications/international-classification-of-diseases-for-oncology) medical codes from patient records and cancer notifications to [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs) codes for malignant neoplasms.
-  - Aboriginal and/or Torres Strait Islander peoples were defined as those who are recorded as Aboriginal and/or Torres Strait Islander in the Victorian Cancer Registry.
+`r note_data_cancer`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
-- Benign neoplasms and recurrent cancers were excluded.
+<div style="height: 0.1em;"></div>
+
+- Figure 10E-5, Figure 10E-6, Figure 10E-7, and Table 10E-4:
+  - Indicator: Top 10 cancer types
+  - Numerator: `r note_numerator_cancer`
+  - Geographical area: `r note_geography_victoria`
+  - Comparison: `r note_comparison_sex`
+
 :::
 
-### Hospital Admissions
+### Hospital Admissions for Cancer
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -658,7 +778,7 @@ hospital_cancer <- hospital_cancer %>%
   dplyr::arrange(iare_name)
 ```
 
-- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases).
+- Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
 
 - During the four-year period 01 July 2017 to 30 June 2021 there were 1,562 hospital admissions for cancer for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
@@ -668,29 +788,44 @@ hospital_cancer <- hospital_cancer %>%
 
 - 5 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for cancer above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Yarra Ranges, Northcote/Preston/Whittlesea, Whitehorse, and Craigieburn/Sunbury IAREs).
 
-::: {.callout-tip title="ICD-10-AM codes and definitions for this topic" icon=false collapse=false}
-Admissions for cancer are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- `r note_aboriginality_vaed`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_admissions`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_iare_ratio`
+:::
+
+::: {.callout-tip title="ICD-10-AM codes for this topic" icon=false collapse=false}
+Admissions for cancer were defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
 
   - C00-C97: Malignant neoplasms
   - D00-D09: *In-situ* neoplasms
   - D10-D36: Benign neoplasms
   - D37-D48: Neoplasms of uncertain or unknown behaviour
 
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 10E-8
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_10E_8 .fig-tab-title}
-**Figure 10E-8:** Number and age-standardised rate (per 100,000 population) of hospital admissions for cancer for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and age-standardised rate (per 100,000 population) of hospital admissions for cancer for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital`
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- hospital_cancer %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
                     hospital   = "admission")
@@ -702,23 +837,28 @@ figure_percent <- hospital_cancer %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-#### Table 10E-5
 
-::: {#tab_10E_5 .fig-tab-title}
-**Table 10E-5:** Hospital admissions for cancer for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Hospital admissions for cancer for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital`
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- hospital_cancer %>%
   dplyr::select(-iare_name_short)
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -732,27 +872,29 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_phidu_vaed`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_iare_nephu`
 
 <div style="height: 0.1em;"></div>
 
-`r note_caveat_iare_ratio`
+- Figure 10E-8 and Table 10E-5:
+  - Indicator: Hospital admissions for cancer
+  - Numerator: `r note_numerator_hospital_aboriginal`
+  - Denominator: `r note_denominator_erp`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_iare`
 
-<div style="height: 1em;"></div>
-
-`r note_caveat_admissions`
-
-<div style="height: 2em;"></div>
 :::
 
