@@ -7,13 +7,13 @@ title-block: false
 ```{r}
 #
 source(here::here("setup.R"))
-source(here::here("setup_footnotes.R"))
 
-# Set up numbering for exporting tables as .csv
-table_section <- "10I"
-table_count   <- 0
+# Set up numbering for figures and tables
+figtab_report_section <- "10I"
+figtab_csv_section    <- "10I"
 
-figure_count <- 0
+figtab_table_count  <- 0
+figtab_figure_count <- 0
 ```
 
 
@@ -24,17 +24,25 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Respiratory Diseases {.unnumbered}
 
-::: {.caveat-box}
-**A note about the impact of under-identification**
+::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
+`r note_chapter_different_sources`
 
-`r note_box_underidentification`
+<div style="height: 0.1em;"></div>
 
-**A note about interpreting observed vs. expected figures**
+`r note_chapter_comparisons`
 
-`r note_box_obsexp`
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_masking`
+
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_obsexp`
 :::
-
-<div style="height: 2em;"></div>
 
 ::: {.key-question}
 What chronic health conditions are experienced by Aboriginal and/or Torres Strait Islander peoples in the NEPHU catchment?
@@ -93,20 +101,30 @@ lung_agesex <- lung_agesex %>%
 
 - The number of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who have been told by a doctor or nurse that they have a lung condition ranged from 39 (Darebin and Whittlesea LGAs) to 0 (Manningham LGA).
 
-- The gap between the observed number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have a lung condition and the number expected if the rate was the same as for non-Indigenous people was biggest for Darebin and Whittlesea LGAs.
+- The gap between the observed number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have a lung condition and the expected number if the proportion was the same as for non-Indigenous people was biggest for Darebin and Whittlesea LGAs. 
 
 - The percentage of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who have been told by a doctor or nurse that they have a lung condition ranged from 2.8% (Darebin and Maroondah LGAs) to 0.0% (Manningham LGA).
 
 - The number of people who have been told by a doctor or nurse that they have a lung condition was highest for people aged 50-59 or 60-69 years for both males and females, and the percentage of people who have been told by a doctor or nurse that they have a lung condition increased with increasing age for both genders.
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-The following question was asked of all people completing the ABS Census 2021.
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people completing the ABS Census 2021.
 
-- Has the person been told by a doctor or nurse that they have any of these long-term health conditions? (Select all that apply)
+<div style="height: 0.1em;"></div>
+
+- `r note_aboriginality_census`
+
+<div style="height: 0.1em;"></div>
+
+- People were classified as having a lung condition if they selected *Lung condition (including COPD or emphysema)*.
+:::
+
+::: {.callout-tip title="Census questions for this topic" icon=false collapse=false}
+- Has the person been told by a doctor or nurse that they have any of these long-term health conditions? (*Select all that apply*)
   - Arthritis
   - Asthma
   - Cancer (including remission)
-  - Dementia (including Alzheimer's)
+  - Dementia (including Alzheimer's)  
   - Diabetes (excluding gestational diabetes)
   - Heart disease (including heart attack or angina)
   - Kidney disease
@@ -116,21 +134,24 @@ The following question was asked of all people completing the ABS Census 2021.
   - Any other long-term health condition(s)
   - No long-term health condition
 
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 10I-1
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_10I_1 .fig-tab-title}
-**Figure 10I-1:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who have been told by a doctor or nurse that they have a lung condition, NEPHU catchment, by LGA, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who have been told by a doctor or nurse that they have a lung condition, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- lung_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_n)
 
@@ -140,37 +161,47 @@ figure_percent <- lung_lga %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-#### Figure 10I-2
 
-::: {#fig_10I_2 .fig-tab-title}
-**Figure 10I-2:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have a lung condition, NEPHU catchment, by LGA, 2021
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have a lung condition, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 lung_lga %>% 
   f_bar_obsexp_lga()
 ```
 
-#### Table 10I-1
 
-::: {#tab_10I_1 .fig-tab-title}
-**Table 10I-1:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have a lung condition, NEPHU catchment, by LGA, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have a lung condition, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- lung_lga %>%
   f_preptable_obsexp_lga()
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -181,18 +212,22 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Figure 10I-3
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_10I_3 .fig-tab-title}
-**Figure 10I-3:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who have been told by a doctor or nurse that they have a lung condition, NEPHU catchment, by age and sex, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who have been told by a doctor or nurse that they have a lung condition, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- lung_agesex %>% 
   f_bar_grouped_agesex(y_variable = aboriginal_n)
 
@@ -202,37 +237,47 @@ figure_percent <- lung_agesex %>%
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
 
-#### Figure 10I-4
 
-::: {#fig_10I_4 .fig-tab-title}
-**Figure 10I-4:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have a lung condition, NEPHU catchment, by age and sex, 2021
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have a lung condition, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 lung_agesex %>% 
   f_bar_obsexp_agesex()
 ```
 
-#### Table 10I-2
 
-::: {#tab_10I_2 .fig-tab-title}
-**Table 10I-2:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have a lung condition, NEPHU catchment, by age and sex, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have a lung condition, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- lung_agesex %>%
   f_preptable_obsexp_agesex()
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -257,21 +302,42 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 10I-1, Figure 10I-2, and Table 10I-1:
+  - Indicator: Self-reported lung conditions
+  - Numerator: Number of people who have been told by a doctor or nurse that they have a lung condition
+  - Denominator: `r note_denominator_census_population`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_lga` and `r note_comparison_aboriginal`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 10I-3, Figure 10I-4, and Table 10I-2:
+  - Indicator: Self-reported lung conditions
+  - Numerator: Number of people who have been told by a doctor or nurse that they have a lung condition
+  - Denominator: `r note_denominator_census_population`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_agesex` and `r note_comparison_aboriginal`
+
 :::
 
-### Hospital Admissions
+### Hospital Admissions for Respiratory System Diseases
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -289,7 +355,7 @@ hospital_lung <- hospital_lung %>%
   dplyr::arrange(iare_name)
 ```
 
-- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases).
+- Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
 
 - During the four-year period 01 July 2017 to 30 June 2021 there were 2,694 hospital admissions for respiratory system diseases for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
@@ -299,8 +365,20 @@ hospital_lung <- hospital_lung %>%
 
 - 5 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for respiratory system diseases above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Maroondah, Melbourne/Port Phillip, Northcote/Preston/Whittlesea, Craigieburn/Sunbury, and Moreland/Broadmeadows IAREs).
 
-::: {.callout-tip title="ICD-10-AM codes and definitions for this topic" icon=false collapse=false}
-Admissions for respiratory system diseases are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- `r note_aboriginality_vaed`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_admissions`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_iare_ratio`
+:::
+
+::: {.callout-tip title="ICD-10-AM codes for this topic" icon=false collapse=false}
+Admissions for respiratory system diseases were defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
 
   - J00-J06: Acute upper respiratory infections
   - J09-J18: Influenza and pneumonia
@@ -313,21 +391,24 @@ Admissions for respiratory system diseases are defined as those with a principal
   - J90-J94: Other diseases of pleura
   - J95-J99: Other diseases of the respiratory system
 
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 10I-5
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_10I_5 .fig-tab-title}
-**Figure 10I-5:** Number and age-standardised rate (per 100,000 population) of hospital admissions for respiratory system diseases for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and age-standardised rate (per 100,000 population) of hospital admissions for respiratory system diseases for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital`
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- hospital_lung %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
                     hospital   = "admission")
@@ -339,23 +420,28 @@ figure_percent <- hospital_lung %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-#### Table 10I-3
 
-::: {#tab_10I_3 .fig-tab-title}
-**Table 10I-3:** Hospital admissions for respiratory system diseases for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Hospital admissions for respiratory system diseases for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital`
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- hospital_lung %>%
   dplyr::select(-iare_name_short)
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -369,31 +455,33 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_phidu_vaed`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_iare_nephu`
 
 <div style="height: 0.1em;"></div>
 
-`r note_caveat_iare_ratio`
+- Figure 10I-5 and Table 10I-3:
+  - Indicator: Hospital admissions for respiratory system diseases
+  - Numerator: `r note_numerator_hospital_aboriginal`
+  - Denominator: `r note_denominator_erp`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_iare`
 
-<div style="height: 1em;"></div>
-
-`r note_caveat_admissions`
-
-<div style="height: 2em;"></div>
 :::
 
-### Emergency Presentations
+### Emergency Presentations for Respiratory System Diseases
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -411,7 +499,7 @@ emergency_lung <- emergency_lung %>%
   dplyr::arrange(iare_name)
 ```
 
-- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases).
+- Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [AIHW National Non-Admitted Patient Emergency Department Care Database (NNAPEDCD)](https://www.aihw.gov.au/reports/hospitals/non-admitted-patient-emergency-dept-care-nmds/summary).
 
 - Between 01 July 2019 and 30 June 2020 there were 1,073 emergency department presentations for respiratory system diseases for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
@@ -421,8 +509,16 @@ emergency_lung <- emergency_lung %>%
 
 - 4 of the 9 IAREs in the NEPHU catchment area with data available for reporting had an age-standardised rate of emergency department presentations for respiratory system diseases above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Maroondah, Northcote/Preston/Whittlesea, and Melbourne North-East IAREs).
 
-::: {.callout-tip title="ICD-10-AM codes and definitions for this topic" icon=false collapse=false}
-Emergency department presentations for respiratory system diseases are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- `r note_aboriginality_vemd`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_iare_ratio`
+:::
+
+::: {.callout-tip title="ICD-10-AM codes for this topic" icon=false collapse=false}
+Emergency department presentations for respiratory system diseases were defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
 
   - J00-J06: Acute upper respiratory infections
   - J09-J18: Influenza and pneumonia
@@ -435,21 +531,24 @@ Emergency department presentations for respiratory system diseases are defined a
   - J90-J94: Other diseases of pleura
   - J95-J99: Other diseases of the respiratory system
 
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 10I-6
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_10I_6 .fig-tab-title}
-**Figure 10I-6:** Number and age-standardised rate (per 100,000 population) of emergency department presentations for respiratory system diseases for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2019 to 30 June 2020
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and age-standardised rate (per 100,000 population) of emergency department presentations for respiratory system diseases for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_emergency`
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- emergency_lung %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
                     hospital   = "emergency")
@@ -461,23 +560,28 @@ figure_percent <- emergency_lung %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-#### Table 10I-4
 
-::: {#tab_10I_4 .fig-tab-title}
-**Table 10I-4:** Emergency department presentations for respiratory system diseases for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2019 to 30 June 2020
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Emergency department presentations for respiratory system diseases for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_emergency`
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- emergency_lung %>%
   dplyr::select(-iare_name_short)
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -491,26 +595,34 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_phidu_vemd`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_iare_nephu`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_iare_suppress`
 
 <div style="height: 0.1em;"></div>
 
-`r note_caveat_iare_ratio`
+- Figure 10I-6 and Table 10I-4:
+  - Indicator: Emergency presentations for respiratory system diseases
+  - Numerator: `r note_numerator_emergency_aboriginal`
+  - Denominator: `r note_denominator_erp`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_iare`
 
-<div style="height: 2em;"></div>
 :::
 
 ```{r}
@@ -551,7 +663,7 @@ copd <- copd %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -569,10 +681,20 @@ copd <- copd %>%
 
 - Females were more likely to be living with COPD than males (3.9% vs. 2.4%).
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-The following questions were asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
-- Do you have any of the following conditions that have lasted, or are expected to last, for six months or longer? (Select all that apply)
+<div style="height: 0.1em;"></div>
+
+- `r note_aboriginality_natsihs`
+
+<div style="height: 0.1em;"></div>
+
+- People were classified as having chronic obstructive pulmonary disease (COPD) if they selected *Bronchitis*, *Shortness of breath*, or if they specified chronic airflow limitation or emphysema under *Any other long term condition*.
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
+- Do you have any of the following conditions that have lasted, or are expected to last, for six months or longer? (*Select all that apply*)
   - Hay fever
   - Sinusitis or sinus allergy
   - Food allergy
@@ -591,10 +713,10 @@ The following questions were asked of all people completing the 2022-23 ABS Nati
   - Slipped disc or other disc problems
   - Back pain or other back problems
   - None of the above
-  
-<div style="height: 1em;"></div>
 
-- Do you have any of the following conditions that have lasted, or are expected to last, for six months or longer? (Select all that apply)
+<div style="height: 0.1em;"></div>
+
+- Do you have any of the following conditions that have lasted, or are expected to last, for six months or longer? (*Select all that apply*)
   - Shortness of breath
   - Chronic or recurring pain
   - A nervous or emotional condition
@@ -605,40 +727,36 @@ The following questions were asked of all people completing the 2022-23 ABS Nati
   - Any other long term condition (please specify)
   - None of the above
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - If yes, were you told that you have this condition by a doctor or nurse?
-  - Yes
-  - No
+  - `r note_response_binary`
 
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
 
-#### Table 10I-5
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
 
-::: {#tab_10I_5 .fig-tab-title}
-**Table 10I-5:** Self-reported chronic obstructive pulmonary disease (COPD) for people who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Self-reported chronic obstructive pulmonary disease (COPD) for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+table <- copd %>%
+  f_preptable_grouped_sex(variable_name = "copd")
 
-table <- copd %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(copd = answer)
-
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -653,25 +771,41 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_estimate`
 
-- *Chronic obstructive pulmonary disease (COPD)* includes bronchitis (lasting six months or longer), shortness of breath (lasting six months or longer), chronic airflow limitation, and emphysema.
+<div style="height: 0.1em;"></div>
+
+- Table 10I-5:
+  - Indicator: Self-reported chronic obstructive pulmonary disease (COPD)
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Geographical area: `r note_geography_victoria`
+  - Comparison: `r note_comparison_sex`
+
 :::
 
-### Hospital Admissions
+### Hospital Admissions for COPD
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -689,7 +823,7 @@ hospital_copd <- hospital_copd %>%
   dplyr::arrange(iare_name)
 ```
 
-- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases).
+- Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
 
 - During the four-year period 01 July 2017 to 30 June 2021 there were 522 hospital admissions for chronic obstructive pulmonary disease (COPD) for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
@@ -699,8 +833,20 @@ hospital_copd <- hospital_copd %>%
 
 - 5 of the 9 IAREs in the NEPHU catchment area with data available for reporting had an age-standardised admission rate for COPD above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Moreland/Broadmeadows, Craigieburn/Sunbury, Maroondah, Northcote/Preston/Whittlesea, and Melbourne/Port Phillip IAREs).
 
-::: {.callout-tip title="ICD-10-AM codes and definitions for this topic" icon=false collapse=false}
-Admissions for chronic obstructive pulmonary disease (COPD) are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- `r note_aboriginality_vaed`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_admissions`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_iare_ratio`
+:::
+
+::: {.callout-tip title="ICD-10-AM codes for this topic" icon=false collapse=false}
+Admissions for chronic obstructive pulmonary disease (COPD) were defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
 
   - J40: Bronchitis, not specified as acute or chronic
   - J41: Simple and mucopurulent chronic bronchitis
@@ -708,21 +854,24 @@ Admissions for chronic obstructive pulmonary disease (COPD) are defined as those
   - J43: Emphysema
   - J44: Other chronic obstructive pulmonary disease
 
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 10I-7
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_10I_7 .fig-tab-title}
-**Figure 10I-7:** Number and age-standardised rate (per 100,000 population) of hospital admissions for chronic obstructive pulmonary disease (COPD) for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and age-standardised rate (per 100,000 population) of hospital admissions for chronic obstructive pulmonary disease (COPD) for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital`
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- hospital_copd %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
                     hospital   = "admission")
@@ -734,23 +883,28 @@ figure_percent <- hospital_copd %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-#### Table 10I-6
 
-::: {#tab_10I_6 .fig-tab-title}
-**Table 10I-6:** Hospital admissions for chronic obstructive pulmonary disease (COPD) for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Hospital admissions for chronic obstructive pulmonary disease (COPD) for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital`
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- hospital_copd %>%
   dplyr::select(-iare_name_short)
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -764,31 +918,33 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_phidu_vaed`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_iare_nephu`
 
 <div style="height: 0.1em;"></div>
 
-`r note_caveat_iare_ratio`
-
-<div style="height: 1em;"></div>
-
 `r note_caveat_iare_suppress`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
-`r note_caveat_admissions`
+- Figure 10I-7 and Table 10I-6:
+  - Indicator: Hospital admissions for chronic obstructive pulmonary disease (COPD)
+  - Numerator: `r note_numerator_hospital_aboriginal`
+  - Denominator: `r note_denominator_erp`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_iare`
 
-<div style="height: 2em;"></div>
 :::
 
