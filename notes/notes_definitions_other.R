@@ -23,6 +23,8 @@ note_numerator_category_population <- "Number of people in each category"
 note_numerator_emergency_aboriginal <- "Number of emergency presentations for Aboriginal and/or Torres Strait Islander people"
 note_numerator_hospital_aboriginal  <- "Number of hospital admissions for Aboriginal and/or Torres Strait Islander people"
 
+note_numerator_cancer <- "Number of Aboriginal and/or Torres Strait Islander diagnosed with the specified cancer"
+
 note_numerator_vaccination <- "Number of people who received the specified vaccine"
 
 ################################################################################
@@ -50,6 +52,7 @@ note_geography_victoria  <- "Victoria"
 # Commonly used time period definitions
 ################################################################################
 note_time_breastage   <- "2019-2020"
+note_time_cancer      <- "2018-2022"
 note_time_census      <- "2021"
 note_time_emergency   <- "01 July 2019 to 30 June 2020"
 note_time_hospital    <- "01 July 2017 to 30 June 2021"

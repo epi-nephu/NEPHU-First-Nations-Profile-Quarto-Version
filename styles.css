@@ -4,6 +4,14 @@
   margin: auto;
 }
 
+.toc-only {
+  font-size: 0pt;
+  color: #FFFFFF;
+  margin: 0pt;
+  padding: 0pt;
+  border-bottom: none;
+}
+
 nav[aria-label="breadcrumb"] {
   display: none !important;
 }
@@ -71,8 +79,12 @@ body {
 }
 
 li > ul {
-  margin-top: 0pt;
+  margin-top: 2pt;
   margin-bottom: 10pt;
+}
+
+li > ul > li + li {
+  margin-top: 1pt;
 }
 
 .key-question {

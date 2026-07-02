@@ -15,6 +15,9 @@ For bowel screening data in the National Cancer Screening Register, Aboriginal a
 note_aboriginality_breast <- glue::glue("
 In BreastScreen Victoria data, Aboriginal and/or Torres Strait Islander peoples were defined as those who identified as Aboriginal, Torres Strait Islander, or Aboriginal and Torres Strait Islander at the time of breast screening.")
 
+note_aboriginality_cancer <- glue::glue("
+In the Victorian Cancer Registry, Aboriginal and/or Torres Strait Islander peoples were defined as those who were recorded as Aboriginal and/or Torres Strait Islander based on the patient records and cancer notifications provided to the Registry.")
+
 note_aboriginality_census <- glue::glue("
 In the ABS Census, Aboriginal and/or Torres Strait Islander peoples were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander when they completed the Census.")
 

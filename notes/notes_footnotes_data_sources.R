@@ -8,6 +8,13 @@ note_data_aedc <- glue::glue("
   - The Closing the Gap Information Repository brings together data from a wide range of data sources to provide up to date information for each Closing the Gap target, indicator, and contextual factors.
   - The AEDC is a population-based measure of children’s development as they enter their first year of full-time school. It measures five important domains of early childhood development: physical health and wellbeing, social competence, emotional maturity, language and cognitive skills, and communication skills and general knowledge.")
 
+note_data_cancer <- glue::glue("
+- Data were obtained from the [Victorian Cancer Registry](https://www.cancervic.org.au/about-cancer/types/statistics), managed by Cancer Council Victoria on behalf of the Victorian Department of Health.
+  - Cancer is a notifiable condition in Victoria.
+  - Under the *Improving Cancer Outcomes Act 2014*, hospitals, pathology services, and medical practitioners are required to notify all primary malignant neoplasms and selected in situ carcinomas diagnosed in Victorian residents to the Registry.
+  - The full list of notifiable cancers and reporting requirements is available in the [Cancer Registration User Guide](https://www.cancervic.org.au/research/our-research/victoria-cancer-registry/submitting-data).
+  - Cancer type is recorded in the Victorian Cancer Registry by converting [International Classification of Diseases for Oncology, 3rd Edition (ICD-O-3)](https://www.who.int/standards/classifications/other-classifications/international-classification-of-diseases-for-oncology) medical codes from patient records and cancer notifications to [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs) codes for malignant neoplasms.")
+
 note_data_census <- glue::glue("
 - Data were obtained from the [ABS Census 2021](https://www.abs.gov.au/census) and are publicly available at Local Government Area (LGA), ABS Statistical Area Level 2 (SA2), and Indigenous Area of Residence (IARE) level.
   - The 2021 Census was held on the evening of August 10th 2021.")
