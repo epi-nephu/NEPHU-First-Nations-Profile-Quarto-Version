@@ -2,18 +2,18 @@
 title-block: false
 ---
 
-# Other Conditions
+# Ear, Eye, and Oral Conditions
 
 ```{r}
 #
 source(here::here("setup.R"))
-source(here::here("setup_footnotes.R"))
 
-# Set up numbering for exporting tables as .csv
-table_section <- "10J"
-table_count   <- 0
+# Set up numbering for figures and tables
+figtab_report_section <- "10J"
+figtab_csv_section    <- "10J"
 
-figure_count <- 0
+figtab_table_count  <- 0
+figtab_figure_count <- 0
 ```
 
 
@@ -22,15 +22,19 @@ figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Other Conditions {.unnumbered}
+## Ear, Eye, and Oral Conditions {.unnumbered}
 
-::: {.caveat-box}
-**A note about the impact of under-identification**
+::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
+`r note_chapter_different_sources`
 
-`r note_box_underidentification`
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_masking`
 :::
-
-<div style="height: 2em;"></div>
 
 ::: {.key-question}
 What chronic health conditions are experienced by Aboriginal and/or Torres Strait Islander peoples in the NEPHU catchment?
@@ -69,7 +73,7 @@ hearing <- hearing %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -87,10 +91,20 @@ hearing <- hearing %>%
 
 - Males were more likely to have an ear or hearing problem than females (19% vs. 16%).
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-The following question was asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
-- Do you have any hearing problems or problems with your ears that have lasted, or are expected to last, for six months or longer? (Select all that apply)
+<div style="height: 0.1em;"></div>
+
+- `r note_aboriginality_natsihs`
+
+<div style="height: 0.1em;"></div>
+
+- People were classified as having ear or hearing problems if they selected any option other than *No, don't have any hearing problems*.
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
+- Do you have any hearing problems or problems with your ears that have lasted, or are expected to last, for six months or longer? (*Select all that apply*)
   - Total deafness
   - Deaf in one ear
   - Hearing impairment or partially deaf
@@ -98,37 +112,33 @@ The following question was asked of all people completing the 2022-23 ABS Nation
   - Ménière's disease
   - Otitis media, glue ear, or middle ear infection
   - Other (please specify)
-  - Don't know
   - No, don't have any hearing problems
 
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
 
-#### Table 10J-1
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
 
-::: {#tab_10J_1 .fig-tab-title}
-**Table 10J-1:** Self-reported ear or hearing problems for people who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Self-reported ear or hearing problems for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+table <- hearing %>% 
+  f_preptable_grouped_sex(variable_name = "hearing_problem")
 
-table <-  hearing %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(hearing_problem = answer)
-
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -143,23 +153,41 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_estimate`
+
+<div style="height: 0.1em;"></div>
+
+- Table 10J-1:
+  - Indicator: Self-reported ear or hearing problems
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Geographical area: `r note_geography_melbourne`
+  - Comparison: `r note_comparison_sex`
+
 :::
 
-### Hospital Admissions
+### Hospital Admissions for Ear and Mastoid Process Diseases
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -177,7 +205,7 @@ hospital_ear <- hospital_ear %>%
   dplyr::arrange(iare_name)
 ```
 
-- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases).
+- Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
 
 - During the four-year period 01 July 2017 to 30 June 2021 there were 362 hospital admissions for ear and mastoid process diseases for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
@@ -187,29 +215,44 @@ hospital_ear <- hospital_ear %>%
 
 - 6 of the 9 IAREs in the NEPHU catchment area with data available for reporting had an age-standardised admission rate for ear and mastoid process diseases above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Whitehorse, Melbourne/Port Phillip, Yarra Ranges, Northcote/Preston/Whittlesea, Melbourne North-East, and Craigieburn/Sunbury IAREs).
 
-::: {.callout-tip title="ICD-10-AM codes and definitions for this topic" icon=false collapse=false}
-Admissions for ear and mastoid process diseases are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- `r note_aboriginality_vaed`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_admissions`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_iare_ratio`
+:::
+
+::: {.callout-tip title="ICD-10-AM codes for this topic" icon=false collapse=false}
+Admissions for ear and mastoid process diseases were defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
 
   - H60-H62: Diseases of external ear
   - H65-H75: Diseases of middle ear and mastoid
   - H80-H83: Diseases of inner ear
   - H90-H95: Other disorders of ear
 
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 10J-1
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_10J_1 .fig-tab-title}
-**Figure 10J-1:** Number and age-standardised rate (per 100,000 population) of hospital admissions for ear and mastoid process diseases for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and age-standardised rate (per 100,000 population) of hospital admissions for ear and mastoid process diseases for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital`
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- hospital_ear %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
                     hospital   = "admission")
@@ -221,23 +264,28 @@ figure_percent <- hospital_ear %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-#### Table 10J-2
 
-::: {#tab_10J_2 .fig-tab-title}
-**Table 10J-2:** Hospital admissions for ear and mastoid process diseases for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Hospital admissions for ear and mastoid process diseases for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital`
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- hospital_ear %>%
   dplyr::select(-iare_name_short)
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -251,32 +299,34 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_phidu_vaed`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_iare_nephu`
 
 <div style="height: 0.1em;"></div>
 
-`r note_caveat_iare_ratio`
-
-<div style="height: 1em;"></div>
-
 `r note_caveat_iare_suppress`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
-`r note_caveat_admissions`
+- Figure 10J-1 and Table 10J-2:
+  - Indicator: Hospital admissions for ear and mastoid process diseases
+  - Numerator: `r note_numerator_hospital_aboriginal`
+  - Denominator: `r note_denominator_erp`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_iare`
 
-<div style="height: 2em;"></div>
 :::
 
 ```{r}
@@ -286,7 +336,7 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 
 ## Acute Ear, Nose, and Throat Infections
 
-### Hospital Admissions
+### Hospital Admissions for Acute Ear, Nose, and Throat Infections
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -304,7 +354,7 @@ hospital_ent <- hospital_ent %>%
   dplyr::arrange(iare_name)
 ```
 
-- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases).
+- Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
 
 - During the four-year period 01 July 2017 to 30 June 2021 there were 360 hospital admissions for acute ear, nose, and throat infections for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
@@ -314,8 +364,20 @@ hospital_ent <- hospital_ent %>%
 
 - 7 of the 9 IAREs in the NEPHU catchment area with data available for reporting had an age-standardised admission rate for acute ear, nose, and throat infections above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Knox, Moreland/Broadmeadows, Craigieburn/Sunbury, Maroondah, Northcote/Preston/Whittlesea, Melbourne/Port Phillip, and Melbourne North-East IAREs).
 
-::: {.callout-tip title="ICD-10-AM codes and definitions for this topic" icon=false collapse=false}
-Admissions for acute ear, nose, and throat infections are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- `r note_aboriginality_vaed`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_admissions`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_iare_ratio`
+:::
+
+::: {.callout-tip title="ICD-10-AM codes for this topic" icon=false collapse=false}
+Admissions for acute ear, nose, and throat infections were defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
 
   - H66: Suppurative and unspecified otitis media
   - J00: Acute nasopharyngitis
@@ -327,21 +389,24 @@ Admissions for acute ear, nose, and throat infections are defined as those with 
   - J06: Acute upper respiratory infections of multiple and unspecified sites
   - J31.2: Chronic pharyngitis
 
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 10J-2
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_10J_2 .fig-tab-title}
-**Figure 10J-2:** Number and age-standardised rate (per 100,000 population) of hospital admissions for acute ear, nose, and throat infections for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and age-standardised rate (per 100,000 population) of hospital admissions for acute ear, nose, and throat infections for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital`
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- hospital_ent %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
                     hospital   = "admission")
@@ -353,23 +418,28 @@ figure_percent <- hospital_ent %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-#### Table 10J-3
 
-::: {#tab_10J_3 .fig-tab-title}
-**Table 10J-3:** Hospital admissions for acute ear, nose, and throat infections for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Hospital admissions for acute ear, nose, and throat infections for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital`
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- hospital_ent %>%
   dplyr::select(-iare_name_short)
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -383,32 +453,34 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_phidu_vaed`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_iare_nephu`
 
 <div style="height: 0.1em;"></div>
 
-`r note_caveat_iare_ratio`
-
-<div style="height: 1em;"></div>
-
 `r note_caveat_iare_suppress`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
-`r note_caveat_admissions`
+- Figure 10J-2 and Table 10J-3:
+  - Indicator: Hospital admissions for acute ear, nose, and throat infections
+  - Numerator: `r note_numerator_hospital_aboriginal`
+  - Denominator: `r note_denominator_erp`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_iare`
 
-<div style="height: 2em;"></div>
 :::
 
 ```{r}
@@ -449,7 +521,7 @@ eyesight <- eyesight %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -463,25 +535,34 @@ eyesight <- eyesight %>%
 
 - Data for this topic were obtained from the [2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release).
 
-- Overall, 46% of Aboriginal and/or Torres Strait Islander survey respondents living in Greater Melbourne reported that they had an eye or sight problem. This equates to approximately 18,000 Aboriginal and/or Torres Strait Islander people.
+- Overall, 46% of Aboriginal and/or Torres Strait Islander survey respondents living in Greater Melbourne reported that they had an eye or sight problem (including colour blindness). This equates to approximately 18,000 Aboriginal and/or Torres Strait Islander people.
 
 - Females were more likely to have an eye or sight problem than males (48% vs. 45%).
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-The following questions were asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
+<div style="height: 0.1em;"></div>
+
+- `r note_aboriginality_natsihs`
+
+<div style="height: 0.1em;"></div>
+
+- People were classified as having an eye or sight problem if they selected that they were colour blind and/or selected any option other than *No, don't have any sight or eye problems*.
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
 - Are you colour blind?
-  - Yes
-  - No
+  - `r note_response_binary`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
-- Do you have any other sight problems? (Select all that apply)
+- Do you have any other sight problems? (*Select all that apply*)
   - Astigmatism
-  - Short-sightedness, myopia, difficulty seeing objects in the distance, or driving glasses
+  - Short-sightedness, myopia, difficulty seeing objects in the distance, or needing driving glasses
   - Macular degeneration
   - Other age-related sight problems or presbyopia
-  - Long-sightedness, hyperopia, difficulty seeing objects close up, or reading glasses
+  - Long-sightedness, hyperopia, difficulty seeing objects close up, or needing reading glasses
   - Totally blind in both eyes
   - Totally blind in one eye
   - Partially blind in both eyes
@@ -492,36 +573,33 @@ The following questions were asked of all people completing the 2022-23 ABS Nati
   - Lazy eye or strabismus
   - Retinopathy
   - Other (please specify)
-  - Don't know
+  - No, don't have any sight or eye problems
 
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
 
-#### Table 10J-4
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
 
-::: {#tab_10J_4 .fig-tab-title}
-**Table 10J-4:** Self-reported eye or sight problems for people who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Self-reported eye or sight problems for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+table <- eyesight %>%
+  f_preptable_grouped_sex(variable_name = "eye_problem")
 
-table <- eyesight %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(eye_problem = answer)
-
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -536,23 +614,41 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_estimate`
+
+<div style="height: 0.1em;"></div>
+
+- Table 10J-4:
+  - Indicator: Self-reported eye or sight problems
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Geographical area: `r note_geography_melbourne`
+  - Comparison: `r note_comparison_sex`
+
 :::
 
-### Hospital Admissions
+### Hospital Admissions for Eye and Ocular Adnexa Diseases
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -570,7 +666,7 @@ hospital_eye <- hospital_eye %>%
   dplyr::arrange(iare_name)
 ```
 
-- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases).
+- Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
 
 - During the four-year period 01 July 2017 to 30 June 2021 there were 579 hospital admissions for eye and ocular adnexa diseases for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
@@ -580,8 +676,20 @@ hospital_eye <- hospital_eye %>%
 
 - 4 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for eye and ocular adnexa diseases above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne East, Craigieburn/Sunbury, Northcote/Preston/Whittlesea, and Moreland/Broadmeadows IAREs).
 
-::: {.callout-tip title="ICD-10-AM codes and definitions for this topic" icon=false collapse=false}
-Admissions for eye and ocular adnexa diseases are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- `r note_aboriginality_vaed`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_admissions`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_iare_ratio`
+:::
+
+::: {.callout-tip title="ICD-10-AM codes for this topic" icon=false collapse=false}
+Admissions for eye and ocular adnexa diseases were defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
 
   - H00-H06: Disorders of eyelid, lacrimal system, and orbit
   - H10-H13: Disorders of conjunctiva
@@ -595,21 +703,24 @@ Admissions for eye and ocular adnexa diseases are defined as those with a princi
   - H53-H54: Visual disturbances and blindness
   - H55-H59: Other disorders of eye and adnexa
 
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 10J-3
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_10J_3 .fig-tab-title}
-**Figure 10J-3:** Number and age-standardised rate (per 100,000 population) of hospital admissions for eye and ocular adnexa diseases for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and age-standardised rate (per 100,000 population) of hospital admissions for eye and ocular adnexa diseases for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital`
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- hospital_eye %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
                     hospital   = "admission")
@@ -621,23 +732,28 @@ figure_percent <- hospital_eye %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-#### Table 10J-5
 
-::: {#tab_10J_5 .fig-tab-title}
-**Table 10J-5:** Hospital admissions for eye and ocular adnexa diseases for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Hospital admissions for eye and ocular adnexa diseases for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital`
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- hospital_eye %>%
   dplyr::select(-iare_name_short)
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -651,28 +767,30 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_phidu_vaed`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_iare_nephu`
 
 <div style="height: 0.1em;"></div>
 
-`r note_caveat_iare_ratio`
+- Figure 10J-3 and Table 10J-5:
+  - Indicator: Hospital admissions for eye and ocular adnexa diseases
+  - Numerator: `r note_numerator_hospital_aboriginal`
+  - Denominator: `r note_denominator_erp`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_iare`
 
-<div style="height: 1em;"></div>
-
-`r note_caveat_admissions`
-
-<div style="height: 2em;"></div>
 :::
 
 ```{r}
@@ -680,7 +798,7 @@ table %>%
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
 
-## Oral Health
+## Oral and Dental Health
 
 ### Loss of Natural Teeth
 
@@ -717,7 +835,7 @@ teeth <- teeth %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -731,52 +849,56 @@ teeth <- teeth %>%
 
 - Data for this topic were obtained from the [2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release).
 
-- Overall, 53% of Aboriginal and/or Torres Strait Islander survey respondents living in Greater Melbourne had lost one or more of their natural teeth. This equates to approximately 15,400 Aboriginal and/or Torres Strait Islander adults.
+- Overall, 53% of Aboriginal and/or Torres Strait Islander survey respondents living in Greater Melbourne had lost one or more of their natural teeth, including adults who had lost natural teeth or had them removed (excluding wisdom teeth) and children who had had teeth pulled out by a dentist. This equates to approximately 15,400 Aboriginal and/or Torres Strait Islander people.
 
 - Males were more likely to have lost one or more of their natural teeth than females (58% vs. 47%).
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-The following question was asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
+<div style="height: 0.1em;"></div>
+
+- `r note_aboriginality_natsihs`
+
+<div style="height: 0.1em;"></div>
+
+- People were classified as having lost one or more natural teeth if they answered *Yes* to losing any natural teeth or having them taken out (people aged 15 years and over) or answered *Yes* to having any teeth pulled out by the dentist (people aged less than 15 years).
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
 - Have you lost any of your natural teeth or had them taken out, excluding wisdom teeth?
-  - Yes
-  - No
+  - `r note_response_binary`
   
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - Have you had any teeth pulled out by the dentist?
-  - Yes
-  - No
-  - Don't know
+  - `r note_response_binary`
 
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
 
-#### Table 10J-6
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
 
-::: {#tab_10J_6 .fig-tab-title}
-**Table 10J-6:** Loss of one or more natural teeth for people who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Loss of one or more natural teeth for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- teeth %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(loss_natural_teeth = answer)
+  f_preptable_grouped_sex(variable_name = "loss_natural_teeth")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -791,23 +913,41 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_estimate`
+
+<div style="height: 0.1em;"></div>
+
+- Table 10J-6:
+  - Indicator: Loss of one or more natural teeth
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Geographical area: `r note_geography_melbourne`
+  - Comparison: `r note_comparison_sex`
+
 :::
 
-### Hospital Admissions
+### Hospital Admissions for Acute Oral and Dental Conditions
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -825,18 +965,30 @@ hospital_teeth <- hospital_teeth %>%
   dplyr::arrange(iare_name)
 ```
 
-- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases).
+- Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
 
-- During the four-year period 01 July 2017 to 30 June 2021 there were 496 hospital admissions for acute dental conditions for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
+- During the four-year period 01 July 2017 to 30 June 2021 there were 496 hospital admissions for acute oral and dental conditions for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
-- The number of admissions for acute dental conditions for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 84 (Northcote/Preston/Whittlesea IARE) to 8 (Whitehorse IARE).
+- The number of admissions for acute oral and dental conditions for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 84 (Northcote/Preston/Whittlesea IARE) to 8 (Whitehorse IARE).
 
-- The age-standardised rate of admissions for acute dental conditions for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 465 per 100,000 population (Northcote/Preston/Whittlesea IARE) to 228 per 100,000 population (Craigieburn/Sunbury IARE).
+- The age-standardised rate of admissions for acute oral and dental conditions for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 465 per 100,000 population (Northcote/Preston/Whittlesea IARE) to 228 per 100,000 population (Craigieburn/Sunbury IARE).
 
-- 5 of the 9 IAREs in the NEPHU catchment area with data available for reporting had an age-standardised admission rate for acute dental conditions above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Northcote/Preston/Whittlesea, Moreland/Broadmeadows, Melbourne East, Yarra Ranges, and Whitehorse IAREs).
+- 5 of the 9 IAREs in the NEPHU catchment area with data available for reporting had an age-standardised admission rate for acute oral and dental conditions above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Northcote/Preston/Whittlesea, Moreland/Broadmeadows, Melbourne East, Yarra Ranges, and Whitehorse IAREs).
 
-::: {.callout-tip title="ICD-10-AM codes and definitions for this topic" icon=false collapse=false}
-Admissions for acute dental conditions are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- `r note_aboriginality_vaed`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_admissions`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_iare_ratio`
+:::
+
+::: {.callout-tip title="ICD-10-AM codes for this topic" icon=false collapse=false}
+Admissions for acute oral and dental conditions were defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
 
   - K02: Dental caries
   - K03: Other diseases of hard tissues of teeth
@@ -850,21 +1002,24 @@ Admissions for acute dental conditions are defined as those with a principal dia
   - K13: Other diseases of lip and oral mucosa
   - K14.0: Glossitis
 
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 10J-4
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_10J_4 .fig-tab-title}
-**Figure 10J-4:** Number and age-standardised rate (per 100,000 population) of hospital admissions for acute dental conditions for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and age-standardised rate (per 100,000 population) of hospital admissions for acute oral and dental conditions for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital`
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- hospital_teeth %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
                     hospital   = "admission")
@@ -876,23 +1031,28 @@ figure_percent <- hospital_teeth %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-#### Table 10J-7
 
-::: {#tab_10J_7 .fig-tab-title}
-**Table 10J-7:** Hospital admissions for acute dental conditions for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Hospital admissions for acute oral and dental conditions for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital`
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- hospital_teeth %>%
   dplyr::select(-iare_name_short)
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -906,31 +1066,33 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_phidu_vaed`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_iare_nephu`
 
 <div style="height: 0.1em;"></div>
 
-`r note_caveat_iare_ratio`
-
-<div style="height: 1em;"></div>
-
 `r note_caveat_iare_suppress`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
-`r note_caveat_admissions`
+- Figure 10J-4 and Table 10J-7:
+  - Indicator: Hospital admissions for acute oral and dental conditions
+  - Numerator: `r note_numerator_hospital_aboriginal`
+  - Denominator: `r note_denominator_erp`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_iare`
 
-<div style="height: 2em;"></div>
 :::
 
