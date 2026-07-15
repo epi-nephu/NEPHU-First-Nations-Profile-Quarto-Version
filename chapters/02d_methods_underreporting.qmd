@@ -1,0 +1,26 @@
+---
+title-block: false
+---
+
+# Underreporting of Aboriginal and/or Torres Strait Islander Status
+
+```{r}
+#
+source(here::here("setup.R"))
+
+# Set up numbering for figures and tables
+figtab_report_section <- "2D"
+figtab_csv_section    <- "02D"
+
+figtab_table_count  <- 0
+figtab_figure_count <- 0
+```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Underreporting of Aboriginal and/or Torres Strait Islander Status {.unnumbered}
+
