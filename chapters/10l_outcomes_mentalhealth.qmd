@@ -7,13 +7,13 @@ title-block: false
 ```{r}
 #
 source(here::here("setup.R"))
-source(here::here("setup_footnotes.R"))
 
-# Set up numbering for exporting tables as .csv
-table_section <- "10L"
-table_count   <- 0
+# Set up numbering for figures and tables
+figtab_report_section <- "10L"
+figtab_csv_section    <- "10L"
 
-figure_count <- 0
+figtab_table_count  <- 0
+figtab_figure_count <- 0
 ```
 
 
@@ -24,21 +24,25 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Mental Health and Wellbeing {.unnumbered}
 
-::: {.caveat-box}
-**A note about the impact of under-identification**
+::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
+`r note_chapter_different_sources`
 
-`r note_box_underidentification`
+<div style="height: 0.1em;"></div>
 
-**A note about comparing data from different data sources**
+`r note_chapter_comparisons`
 
-`r note_box_different_sources`
+<div style="height: 0.1em;"></div>
 
-**A note about interpreting observed vs. expected figures**
+`r note_chapter_underidentification`
 
-`r note_box_obsexp`
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_masking`
+
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_obsexp`
 :::
-
-<div style="height: 2em;"></div>
 
 ::: {.key-question}
 How do Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment experience emotional wellbeing?
@@ -93,7 +97,7 @@ wellbeing_positive <- wellbeing_positive %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -113,68 +117,58 @@ wellbeing_positive <- wellbeing_positive %>%
 
 - Females were more likely to have a low level of positive wellbeing than males (12% vs. 5.1%).
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-Positive wellbeing was assessed using four questions about the respondent's experience of positive emotional states during the previous four weeks.
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
-The following questions were asked of all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey. The responses to these questions were combined and scaled to produce an overall score between 0 and 100. Overall scores were classified as Low (0 to 25), Medium (26 to 74), or High (75 to 100) positive wellbeing.
+<div style="height: 0.1em;"></div>
 
+- `r note_aboriginality_natsihs`
+
+<div style="height: 0.1em;"></div>
+
+- Positive wellbeing was assessed using four questions about the respondent's experience of positive emotional states during the previous four weeks.
+  - The responses to these questions were combined and scaled to produce an overall score between 0 and 100.
+  - Overall scores were classified as Low (0 to 25), Medium (26 to 74), or High (75 to 100) positive wellbeing.
+
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
 - In the last 4 weeks, about how often did you feel calm and peaceful?
-  - All of the time
-  - Most of the time
-  - Some of the time
-  - A little of the time
-  - None of the time
-  - Don't know
-  - Prefer not to answer
+  - `r note_response_likert_alltime`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - In the last 4 weeks, about how often have you been a happy person?
-  - All of the time
-  - Most of the time
-  - Some of the time
-  - A little of the time
-  - None of the time
-  - Don't know
-  - Prefer not to answer
+  - `r note_response_likert_alltime`
   
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - In the last 4 weeks, about how often did you feel full of life?
-  - All of the time
-  - Most of the time
-  - Some of the time
-  - A little of the time
-  - None of the time
-  - Don't know
-  - Prefer not to answer
+  - `r note_response_likert_alltime`
   
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - In the last 4 weeks, about how often did you have a lot of energy?
-  - All of the time
-  - Most of the time
-  - Some of the time
-  - A little of the time
-  - None of the time
-  - Don't know
-  - Prefer not to answer
+  - `r note_response_likert_alltime`
 
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 10L-1
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_10L_1 .fig-tab-title}
-**Figure 10L-1:** Level of positive wellbeing in the four weeks prior to the survey for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Level of positive wellbeing in the four weeks prior to the survey for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- wellbeing_positive %>% 
   dplyr::filter(sex != "Total" & answer != "Total") %>%
   #
@@ -190,29 +184,28 @@ figure_percent <- wellbeing_positive %>%
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 ```
 
-#### Table 10L-1
 
-::: {#tab_10L_1 .fig-tab-title}
-**Table 10L-1:** Level of positive wellbeing in the four weeks prior to the survey for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Level of positive wellbeing in the four weeks prior to the survey for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+table <- wellbeing_positive %>%
+  f_preptable_grouped_sex(variable_name = "positive_wellbeing_score")
 
-table <- wellbeing_positive %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(positive_wellbeing_score = answer)
-
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -227,20 +220,38 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_estimate`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 10L-1 and Table 10L-1:
+  - Indicator: Self-reported positive wellbeing
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Geographical area: `r note_geography_melbourne`
+  - Comparison: `r note_comparison_sex`
+
 :::
 
 ### Kessler 5 Psychological Distress Score
@@ -278,7 +289,7 @@ wellbeing_kessler <- wellbeing_kessler %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -296,92 +307,70 @@ wellbeing_kessler <- wellbeing_kessler %>%
 
 - Females were more likely to have a very high or high level of psychological distress than males (42% vs. 37%).
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-Psychological distress was assessed using the Kessler 5 Score, a measure of non-specific recent psychological distress.
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
-The following questions were asked of all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey. The responses to these questions were combined and scaled to produce an overall score between 5 and 25. Overall scores were classified as Low/Moderate (5 to 11) or High/Very High (12 to 25) psychological distress.
+<div style="height: 0.1em;"></div>
 
+- `r note_aboriginality_natsihs`
+
+<div style="height: 0.1em;"></div>
+
+- Psychological distress was assessed using the Kessler 5 Score, a measure of non-specific recent psychological distress.
+  - The responses to these questions were combined and scaled to produce an overall score between 5 and 25.
+  - Overall scores were classified as Low/Moderate (5 to 11) or High/Very High (12 to 25) psychological distress.
+
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
 - In the last 4 weeks, about how often did you feel nervous?
-  - All of the time
-  - Most of the time
-  - Some of the time
-  - A little of the time
-  - None of the time
-  - Don't know
-  - Prefer not to answer
+  - `r note_response_likert_alltime`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - In the last 4 weeks, about how often did you feel without hope?
-  - All of the time
-  - Most of the time
-  - Some of the time
-  - A little of the time
-  - None of the time
-  - Don't know
-  - Prefer not to answer
+  - `r note_response_likert_alltime`
   
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - In the last 4 weeks, about how often did you feel restless or jumpy?
-  - All of the time
-  - Most of the time
-  - Some of the time
-  - A little of the time
-  - None of the time
-  - Don't know
-  - Prefer not to answer
+  - `r note_response_likert_alltime`
   
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - In the last 4 weeks, about how often did you feel that everything was an effort?
-  - All of the time
-  - Most of the time
-  - Some of the time
-  - A little of the time
-  - None of the time
-  - Don't know
-  - Prefer not to answer
-  
-<div style="height: 1em;"></div>
+  - `r note_response_likert_alltime`
+
+<div style="height: 0.1em;"></div>
 
 - In the last 4 weeks, about how often did you feel so sad that nothing could cheer you up?
-  - All of the time
-  - Most of the time
-  - Some of the time
-  - A little of the time
-  - None of the time
-  - Don't know
-  - Prefer not to answer
+  - `r note_response_likert_alltime`
 
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
 
-#### Table 10L-2
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
 
-::: {#tab_10L_2 .fig-tab-title}
-**Table 10L-2:** Level of psychological distress (Kessler 5 Score) in the four weeks prior to the survey for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Level of psychological distress (Kessler 5 Score) in the four weeks prior to the survey for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- wellbeing_kessler %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(kessler_5_score = answer)
+  f_preptable_grouped_sex(variable_name = "kessler_5_score")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -396,20 +385,38 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_estimate`
+
+<div style="height: 0.1em;"></div>
+
+- Table 10L-2:
+  - Indicator: Self-reported psychological distress (Kessler 5 Score)
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Geographical area: `r note_geography_melbourne`
+  - Comparison: `r note_comparison_sex`
+
 :::
 
 ### Pearlin Mastery Score
@@ -447,7 +454,7 @@ wellbeing_pearlin <- wellbeing_pearlin %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -465,107 +472,80 @@ wellbeing_pearlin <- wellbeing_pearlin %>%
 
 - Males were more likely to report a high level of control over their life events and outcomes than females (77% vs. 52%).
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-The level of perceived level of control over life events and outcomes was assessed using the Pearlin Mastery Scale, consisting of seven statements about a person's belief in their ability to control their own life.
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
-All people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey were asked how well each of the following statements applied to them. The responses to these statements were combined and scaled to produce an overall score between 7 and 28. Overall scores were classified as a Low (7 to 19) or High (20 to 28) level of control over life events and outcomes.
+<div style="height: 0.1em;"></div>
 
+- `r note_aboriginality_natsihs`
+
+<div style="height: 0.1em;"></div>
+
+- The level of perceived level of control over life events and outcomes was assessed using the Pearlin Mastery Scale, consisting of seven statements about a person's belief in their ability to control their own life.
+  - The responses to these statements were combined and scaled to produce an overall score between 7 and 28.
+  - Overall scores were classified as a Low (7 to 19) or High (20 to 28) level of control over life events and outcomes.
+
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
 - There is really no way I can solve some of the problems I have.
-  - Strongly agree
-  - Agree
-  - Disagree
-  - Strongly disagree
-  - Don't know
-  - Prefer not to answer
+  - `r note_response_likert_strongly`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - Sometimes I feel that I'm being pushed around in life.
-  - Strongly agree
-  - Agree
-  - Disagree
-  - Strongly disagree
-  - Don't know
-  - Prefer not to answer
+  - `r note_response_likert_strongly`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - I have little control over the things that happen to me.
-  - Strongly agree
-  - Agree
-  - Disagree
-  - Strongly disagree
-  - Don't know
-  - Prefer not to answer
+  - `r note_response_likert_strongly`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - I can do just about anything I really set my mind to do.
-  - Strongly agree
-  - Agree
-  - Disagree
-  - Strongly disagree
-  - Don't know
-  - Prefer not to answer
+  - `r note_response_likert_strongly`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
-- I often feel helpless in deaing with the problems of life.
-  - Strongly agree
-  - Agree
-  - Disagree
-  - Strongly disagree
-  - Don't know
-  - Prefer not to answer
+- I often feel helpless in dealing with the problems of life.
+  - `r note_response_likert_strongly`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - What happens to me in the future mostly depends on me.
-  - Strongly agree
-  - Agree
-  - Disagree
-  - Strongly disagree
-  - Don't know
-  - Prefer not to answer
+  - `r note_response_likert_strongly`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - There is little I can do to change many of the important things in my life.
-  - Strongly agree
-  - Agree
-  - Disagree
-  - Strongly disagree
-  - Don't know
-  - Prefer not to answer
+  - `r note_response_likert_strongly`
 
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
 
-#### Table 10L-3
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
 
-::: {#tab_10L_3 .fig-tab-title}
-**Table 10L-3:** Perceived level of control over life events and outcomes (Pearlin Mastery Score) for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Perceived level of control over life events and outcomes (Pearlin Mastery Score) for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- wellbeing_pearlin %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(pearlin_mastery_score = answer)
+  f_preptable_grouped_sex(variable_name = "pearlin_mastery_score")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -580,20 +560,38 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_estimate`
+
+<div style="height: 0.1em;"></div>
+
+- Table 10L-3:
+  - Indicator: Self-reported level of control over life events (Pearlin Mastery Score)
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Geographical area: `r note_geography_melbourne`
+  - Comparison: `r note_comparison_sex`
+
 :::
 
 ### Multidimensional Scale of Perceived Social Support
@@ -633,7 +631,7 @@ wellbeing_mspss <- wellbeing_mspss %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -653,102 +651,68 @@ wellbeing_mspss <- wellbeing_mspss %>%
 
 - Females were more likely to report a high level of social support than males (75% vs. 56%).
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-The level of perceived social support was assessed using the Multidimensional Scale of Perceived Social Support (MSPSS), consisting of six statements about a person's social support from their friends and family.
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
-All people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey were asked how well each of the following statements applied to them. The responses to these statements were combined and scaled to produce an overall score between 1.0 and 7.0. Overall scores were classified as a Low (1.0 to 2.9), Moderate (3.0 to 5.0), or High (5.1 to 7.0) level of social support.
+<div style="height: 0.1em;"></div>
 
+- `r note_aboriginality_natsihs`
+
+<div style="height: 0.1em;"></div>
+
+- The level of perceived social support was assessed using the Multidimensional Scale of Perceived Social Support (MSPSS), consisting of six statements about a person's social support from their friends and family.
+  - The responses to these statements were combined and scaled to produce an overall score between 1.0 and 7.0.
+  - Overall scores were classified as a Low (1.0 to 2.9), Moderate (3.0 to 5.0), or High (5.1 to 7.0) level of social support.
+
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
 - My family really tries to help me.
-  - Very strongly disagree
-  - Strongly disagree
-  - Mildly disagree
-  - Neutral
-  - Mildly agree
-  - Strongly agree
-  - Very strongly agree
-  - Don't know
-  - Prefer not to answer
+  - `r note_response_likert_verystrongly`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - I get the emotional support and help I need from my family.
-  - Very strongly disagree
-  - Strongly disagree
-  - Mildly disagree
-  - Neutral
-  - Mildly agree
-  - Strongly agree
-  - Very strongly agree
-  - Don't know
-  - Prefer not to answer
+  - `r note_response_likert_verystrongly`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - I can talk about my problems with my family.
-  - Very strongly disagree
-  - Strongly disagree
-  - Mildly disagree
-  - Neutral
-  - Mildly agree
-  - Strongly agree
-  - Very strongly agree
-  - Don't know
-  - Prefer not to answer
+  - `r note_response_likert_verystrongly`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - My family is willing to help me make decisions.
-  - Very strongly disagree
-  - Strongly disagree
-  - Mildly disagree
-  - Neutral
-  - Mildly agree
-  - Strongly agree
-  - Very strongly agree
-  - Don't know
-  - Prefer not to answer
+  - `r note_response_likert_verystrongly`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - I can count on my friends when things go wrong.
-  - Very strongly disagree
-  - Strongly disagree
-  - Mildly disagree
-  - Neutral
-  - Mildly agree
-  - Strongly agree
-  - Very strongly agree
-  - Don't know
-  - Prefer not to answer
+  - `r note_response_likert_verystrongly`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - I can talk about my problems with my friends.
-  - Very strongly disagree
-  - Strongly disagree
-  - Mildly disagree
-  - Neutral
-  - Mildly agree
-  - Strongly agree
-  - Very strongly agree
-  - Don't know
-  - Prefer not to answer
+  - `r note_response_likert_verystrongly`
 
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 10L-2
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_10L_2 .fig-tab-title}
-**Figure 10L-2:** Perceived level of social support from friends and family (Multidimensional Scale of Perceived Social Support Score) for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Perceived level of social support from friends and family (Multidimensional Scale of Perceived Social Support Score) for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 factor_levels <- stringr::str_wrap(levels(wellbeing_mspss$answer), width = 15)
 
 figure_number <- wellbeing_mspss %>% 
@@ -770,29 +734,28 @@ figure_percent <- wellbeing_mspss %>%
 f_bar_grouped_combine(figure_number, figure_percent, legend_offset = -0.1)
 ```
 
-#### Table 10L-4
 
-::: {#tab_10L_4 .fig-tab-title}
-**Table 10L-4:** Perceived level of social support from friends and family (Multidimensional Scale of Perceived Social Support Score) for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Perceived level of social support from friends and family (Multidimensional Scale of Perceived Social Support Score) for people aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- wellbeing_mspss %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(social_support_score = answer)
+  f_preptable_grouped_sex(variable_name = "social_support_score")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -807,20 +770,38 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_estimate`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 10L-2 and Table 10L-4:
+  - Indicator: Self-reported level of social support from friends and family (Multidimensional Scale of Perceived Social Support Score)
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Geographical area: `r note_geography_melbourne`
+  - Comparison: `r note_comparison_sex`
+
 :::
 
 ```{r}
@@ -883,6 +864,64 @@ dementia_agesex <- dementia_agesex %>%
 
 - It is not reliable to report on this topic broken down further by LGA or by age and sex due to small numbers.
 
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people completing the ABS Census 2021.
+
+<div style="height: 0.1em;"></div>
+
+- `r note_aboriginality_census`
+
+<div style="height: 0.1em;"></div>
+
+- People were classified as having dementia if they selected *Dementia (including Alzheimer's)*.
+:::
+
+::: {.callout-tip title="Census questions for this topic" icon=false collapse=false}
+- Has the person been told by a doctor or nurse that they have any of these long-term health conditions? (*Select all that apply*)
+  - Arthritis
+  - Asthma
+  - Cancer (including remission)
+  - Dementia (including Alzheimer's)  
+  - Diabetes (excluding gestational diabetes)
+  - Heart disease (including heart attack or angina)
+  - Kidney disease
+  - Lung condition (including COPD or emphysema)
+  - Mental health condition (including depression or anxiety)
+  - Stroke
+  - Any other long-term health condition(s)
+  - No long-term health condition
+
+:::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_census`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
+- Indicator: Self-reported dementia
+  - Numerator: Number of people who have been told by a doctor or nurse that they have dementia
+  - Denominator: `r note_denominator_census_population`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_lga` and `r note_comparison_aboriginal`
+
+<div style="height: 0.1em;"></div>
+
+- Indicator: Self-reported dementia
+  - Numerator: Number of people who have been told by a doctor or nurse that they have dementia
+  - Denominator: `r note_denominator_census_population`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_agesex` and `r note_comparison_aboriginal`
+
+:::
+
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
@@ -937,24 +976,34 @@ mental_agesex <- mental_agesex %>%
 
 - Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
 
-- Overall, 19% (n = 2,156) of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census have been told by a doctor or nurse that they have a mental health condition. This was higher than for non-Indigenous people living in the NEPHU catchment (8.9%).
+- Overall, 19% (n = 2,156) of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census have been told by a doctor or nurse that they have a mental health condition. This was higher than for non-Indigenous people living in the NEPHU catchment (8.9%). Note that this estimate is different to the estimate presented in the Type of Mental Health Condition section of this report, due to differences in data collection methods and survey design (e.g. questions asked, time periods, and inclusion criteria) between the ABS Census 2021 and the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
 - The number of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who have been told by a doctor or nurse that they have a mental health condition ranged from 364 (Whittlesea LGA) to 41 (Manningham LGA).
 
-- The gap between the observed number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have a mental health condition and the number expected if the rate was the same as for non-Indigenous people was biggest for Whittlesea and Hume LGAs.
+- The gap between the observed number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have a mental health condition and the expected number if the proportion was the same as for non-Indigenous people was biggest for Whittlesea and Hume LGAs.
 
 - The percentage of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who have been told by a doctor or nurse that they have a mental health condition ranged from 25% (Yarra LGA) to 13% (Nillumbik LGA).
 
 - The number of people who have been told by a doctor or nurse that they have a mental health condition peaked for people aged 20-29 years, then decreased with increasing age for both genders.
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-The following question was asked of all people completing the ABS Census 2021.
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people completing the ABS Census 2021.
 
-- Has the person been told by a doctor or nurse that they have any of these long-term health conditions? (Select all that apply)
+<div style="height: 0.1em;"></div>
+
+- `r note_aboriginality_census`
+
+<div style="height: 0.1em;"></div>
+
+- People were classified as having a mental health condition if they selected *Mental health condition (including depression or anxiety)*.
+:::
+
+::: {.callout-tip title="Census questions for this topic" icon=false collapse=false}
+- Has the person been told by a doctor or nurse that they have any of these long-term health conditions? (*Select all that apply*)
   - Arthritis
   - Asthma
   - Cancer (including remission)
-  - Dementia (including Alzheimer's)
+  - Dementia (including Alzheimer's)  
   - Diabetes (excluding gestational diabetes)
   - Heart disease (including heart attack or angina)
   - Kidney disease
@@ -964,21 +1013,24 @@ The following question was asked of all people completing the ABS Census 2021.
   - Any other long-term health condition(s)
   - No long-term health condition
 
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 10L-3
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_10L_3 .fig-tab-title}
-**Figure 10L-3:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who have been told by a doctor or nurse that they have a mental health condition, NEPHU catchment, by LGA, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who have been told by a doctor or nurse that they have a mental health condition, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- mental_lga %>% 
   f_bar_simple_lga(y_variable = aboriginal_n)
 
@@ -988,37 +1040,47 @@ figure_percent <- mental_lga %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-#### Figure 10L-4
 
-::: {#fig_10L_4 .fig-tab-title}
-**Figure 10L-4:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have a mental health condition, NEPHU catchment, by LGA, 2021
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have a mental health condition, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 mental_lga %>% 
   f_bar_obsexp_lga()
 ```
 
-#### Table 10L-5
 
-::: {#tab_10L_5 .fig-tab-title}
-**Table 10L-5:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have a mental health condition, NEPHU catchment, by LGA, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have a mental health condition, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- mental_lga %>%
   f_preptable_obsexp_lga()
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -1029,18 +1091,22 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Figure 10L-5
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_10L_5 .fig-tab-title}
-**Figure 10L-5:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who have been told by a doctor or nurse that they have a mental health condition, NEPHU catchment, by age and sex, 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who have been told by a doctor or nurse that they have a mental health condition, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- mental_agesex %>% 
   f_bar_grouped_agesex(y_variable = aboriginal_n)
 
@@ -1050,37 +1116,47 @@ figure_percent <- mental_agesex %>%
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
 
-#### Figure 10L-6
 
-::: {#fig_10L_6 .fig-tab-title}
-**Figure 10L-6:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have a mental health condition, NEPHU catchment, by age and sex, 2021
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have a mental health condition, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 mental_agesex %>% 
   f_bar_obsexp_agesex()
 ```
 
-#### Table 10L-6
 
-::: {#tab_10L_6 .fig-tab-title}
-**Table 10L-6:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have a mental health condition, NEPHU catchment, by age and sex, 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Observed vs. expected number of Aboriginal and/or Torres Strait Islander people who have been told by a doctor or nurse that they have a mental health condition, `r note_geography_nephu`, by `r stringr::str_to_lower(note_comparison_agesex)`, `r note_time_census`
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- mental_agesex %>%
   f_preptable_obsexp_agesex()
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -1105,18 +1181,39 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_census`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 10L-3, Figure 10L-4, and Table 10L-5:
+  - Indicator: Self-reported mental health conditions
+  - Numerator: Number of people who have been told by a doctor or nurse that they have a mental health condition
+  - Denominator: `r note_denominator_census_population`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_lga` and `r note_comparison_aboriginal`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 10L-5, Figure 10L-6, and Table 10L-6:
+  - Indicator: Self-reported mental health conditions
+  - Numerator: Number of people who have been told by a doctor or nurse that they have a mental health condition
+  - Denominator: `r note_denominator_census_population`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_agesex` and `r note_comparison_aboriginal`
+
 :::
 
 ### Type of Mental Health Condition
@@ -1158,7 +1255,7 @@ mental_type <- mental_type %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -1178,7 +1275,7 @@ mental_type <- mental_type %>%
 
 - Data for this topic were obtained from the [2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release).
 
-- Overall, 43% of Aboriginal and/or Torres Strait Islander survey respondents living in Greater Melbourne reported that they had been diagnosed with a mental health condition at any point during their life. This equates to approximately 16,700 Aboriginal and/or Torres Strait Islander people.
+- Overall, 43% of Aboriginal and/or Torres Strait Islander survey respondents living in Greater Melbourne reported that they had been diagnosed with a mental health condition at any point during their life. This equates to approximately 16,700 Aboriginal and/or Torres Strait Islander people. Note that this estimate is different to the estimate presented in the Self-Reported Mental Health Conditions section of this report, due to differences in data collection methods and survey design (e.g. questions asked, time periods, and inclusion criteria) between the ABS Census 2021 and the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
 - Males were more likely than females to have ever been diagnosed with a mental health condition (45% vs. 41%).
 
@@ -1186,39 +1283,56 @@ mental_type <- mental_type %>%
 
 - For people who had ever been diagnosed with a mental health condition, females were more likely to report anxiety (93% vs. 77%) or depression (73% vs. 53%), and males were more likely to report harmful use or dependence on alcohol or other drugs (30% vs. 10%).
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-The following questions were asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
-- Have you ever been told by a doctor, nurse, or other health professional that you have any of these conditions? (Select all that apply)
+<div style="height: 0.1em;"></div>
+
+- `r note_aboriginality_natsihs`
+
+<div style="height: 0.1em;"></div>
+
+- *Anxiety* includes feeling anxious, nervous, or tense; panic disorders; panic attack; phobic anxiety disorders; obsessive compulsive disorder; post traumatic stress disorder; and other anxiety related disorders.
+
+<div style="height: 0.1em;"></div>
+
+- *Depression* includes feeling depressed and postnatal depression.
+
+<div style="height: 0.1em;"></div>
+
+- *Behavioural or emotional problems* includes attention deficit hyperactivity disorder (ADHD); conduct disorders in children, adolescents, and adults; other behavioural and emotional problems with usual onset in childhood or adolescence; personality disorders (all forms); and habit and impulse disorders.
+
+<div style="height: 0.1em;"></div>
+
+- *Other conditions* includes organic mental disorders; other mood (affective) disorders; problems of psychological development; schizophrenia; psychosis; and other mental and behavioural problems.
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
+- Have you ever been told by a doctor, nurse, or other health professional that you have any of these conditions? (*Select all that apply*)
   - Depression
   - Anxiety
   - Harmful use or dependence on alcohol or drugs
   - Behavioural or emotional problems
   - Other mental health condition (please specify)
-  
-<div style="height: 1em;"></div>
 
-- *Anxiety* includes feeling anxious, nervous, or tense; panic disorders; panic attack; phobic anxiety disorders; obsessive compulsive disorder; post traumatic stress disorder; and other anxiety related disorders.
-
-- *Depression* includes feeling depressed and postnatal depression.
-
-- *Behavioural or emotional problems* includes attention deficit hyperactivity disorder (ADHD); conduct disorders in children, adolescents, and adults; other behavioural and emotional problems with usual onset in childhood or adolescence; personality disorders (all forms); and habit and impulse disorders.
-
-- *Other conditions* includes organic mental disorders; other mood (affective) disorders; problems of psychological development; schizophrenia; psychosis; and other mental and behavioural problems.
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 10L-7
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_10L_7 .fig-tab-title}
-**Figure 10L-7:** Mental health conditions reported by people who have ever been diagnosed with a mental health condition who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Mental health conditions reported by people who have ever been diagnosed with a mental health condition who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 factor_levels <- stringr::str_wrap(levels(mental_type$answer), width = 17)
 
 figure_number <- mental_type %>% 
@@ -1242,29 +1356,28 @@ figure_percent <- mental_type %>%
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
 
-#### Table 10L-7
 
-::: {#tab_10L_7 .fig-tab-title}
-**Table 10L-7:** Mental health conditions reported by people who have ever been diagnosed with a mental health condition who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Mental health conditions reported by people who have ever been diagnosed with a mental health condition who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- mental_type %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(mental_health_condition = answer)
+  f_preptable_grouped_sex(variable_name = "mental_health_condition")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -1279,22 +1392,42 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_estimate`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_multipleresponse`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 10L-7 and Table 10L-7:
+  - Indicator: Type of mental health condition
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Geographical area: `r note_geography_melbourne`
+  - Comparison: `r note_comparison_sex`
+
 :::
 
 ### Use of Mental Health Services
@@ -1332,7 +1465,7 @@ mental_status <- mental_status %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -1342,7 +1475,6 @@ mental_status <- mental_status %>%
                                 levels = c("Yes",
                                            "No",
                                            "Total")))
-
 
 # ------------------------------------------------------------------------------
 # Mental health services - type of services used in previous 12 months
@@ -1382,7 +1514,7 @@ mental_service <- mental_service %>%
                 starts_with("answered")) %>% 
   #
   tidyr::pivot_longer(!sex,
-                      names_to = c("answer", ".value"),
+                      names_to      = c("answer", ".value"),
                       names_pattern = "(.+)_(.+)") %>% 
   #
   dplyr::mutate(answer = factor(dplyr::recode(answer,
@@ -1408,28 +1540,31 @@ mental_service <- mental_service %>%
 
 - For Aboriginal and/or Torres Strait Islander survey respondents aged 15 years and over living in Greater Melbourne who had accessed or used health services for their own mental health during the 12 months prior to the survey, the most common services were counselling services (71%, approximately 5,500 people) and general practitioners (56%, approximately 4,300 people).
 
-::: {.callout-tip title="Question/s asked for this topic" icon=false collapse=false}
-The following questions were asked of all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
+<div style="height: 0.1em;"></div>
+
+- `r note_aboriginality_natsihs`
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
 - Have you ever accessed or used health services for a mental health condition?
-  - Yes
-  - No
+  - `r note_response_binary`
   
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 - Have you been to a counselling service for your own health in the last 12 months?
-  - Yes
-  - No
-
-<div style="height: 1em;"></div>
+  - `r note_response_binary`
+  
+<div style="height: 0.1em;"></div>
 
 - In the last 12 months, have you accessed or used any other health services for your own mental health?
-  - Yes
-  - No
+  - `r note_response_binary`
   
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
-- If yes, which of these health services did you seek support from for your own mental health? (Select all that apply)
+- If yes, which of these health services did you seek support from for your own mental health? (*Select all that apply*)
   - General practitioner
   - Aboriginal Medical Service or Community Clinic
   - Psychiatrist or psychologist
@@ -1437,34 +1572,31 @@ The following questions were asked of all people aged 15 years and over completi
   - Traditional healer
   - Other (please specify)
 
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
 
-#### Table 10L-8
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
 
-::: {#tab_10L_8 .fig-tab-title}
-**Table 10L-8:** Whether ever used or accessed health services for mental health conditions for survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Whether ever used or accessed health services for mental health conditions for survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- mental_status %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(ever_used_service = answer)
+  f_preptable_grouped_sex(variable_name = "ever_used_service")
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -1479,18 +1611,22 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
-#### Figure 10L-8
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_10L_8 .fig-tab-title}
-**Figure 10L-8:** Types of health services used by survey respondents aged 15 years and over who had accessed services for their own mental health during the 12 months prior to the survey and who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Types of health services used by survey respondents aged 15 years and over who had accessed services for their own mental health during the 12 months prior to the survey and who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 factor_levels <- stringr::str_wrap(levels(mental_service$answer), width = 15)
 
 figure_number <- mental_service %>% 
@@ -1514,29 +1650,28 @@ figure_percent <- mental_service %>%
 f_bar_grouped_combine(figure_number, figure_percent)
 ```
 
-#### Table 10L-9
 
-::: {#tab_10L_9 .fig-tab-title}
-**Table 10L-9:** Types of health services used by survey respondents aged 15 years and over who had accessed services for their own mental health during the 12 months prior to the survey and who identified as Aboriginal and/or Torres Strait Islander, Greater Melbourne, by sex, 2022-2023
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Types of health services used by survey respondents aged 15 years and over who had accessed services for their own mental health during the 12 months prior to the survey and who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
+table <- mental_service %>%
+  f_preptable_grouped_sex(variable_name = "health_service")
 
-table <- mental_service %>% 
-  tidyr::pivot_wider(names_from  = "sex",
-                     values_from = c("n", "prop"),
-                     names_vary  = "slowest") %>% 
-  #
-  janitor::clean_names() %>% 
-  #
-  dplyr::rename(health_service = answer)
-
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -1551,22 +1686,52 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_natsihs`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
 
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_survey_unknown`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_survey_estimate`
 
+<div style="height: 0.1em;"></div>
+
 `r note_caveat_multipleresponse`
+
+<div style="height: 0.1em;"></div>
+
+- Table 10L-8:
+  - Indicator: Whether ever used or accessed health services for mental health conditions
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Geographical area: `r note_geography_melbourne`
+  - Comparison: `r note_comparison_sex`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 10L-8 and Table 10L-9:
+  - Indicator: Type of health services used for mental health in the previous 12 months
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Geographical area: `r note_geography_melbourne`
+  - Comparison: `r note_comparison_sex`
+
+<div style="height: 0.1em;"></div>
 
 - For Figure 10L-8 and Table 10L-9, *Other services* includes mental health nurses, traditional healers, and other health professionals.
 :::
@@ -1589,7 +1754,7 @@ hospital_mental <- hospital_mental %>%
   dplyr::arrange(iare_name)
 ```
 
-- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases).
+- Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
 
 - During the four-year period 01 July 2017 to 30 June 2021 there were 3,970 hospital admissions for mental and behavioural disorders for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
@@ -1599,8 +1764,20 @@ hospital_mental <- hospital_mental %>%
 
 - 7 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for mental and behavioural disorders above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Whitehorse, Melbourne/Port Phillip, Melbourne East, Melbourne North-East, Northcote/Preston/Whittlesea, Moreland/Broadmeadows, and Maroondah IAREs).
 
-::: {.callout-tip title="ICD-10-AM codes and definitions for this topic" icon=false collapse=false}
-Admissions for mental and behavioural disorders are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- `r note_aboriginality_vaed`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_admissions`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_iare_ratio`
+:::
+
+::: {.callout-tip title="ICD-10-AM codes for this topic" icon=false collapse=false}
+Admissions for mental and behavioural disorders were defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
 
   - F00-F09: Organic, including symptomatic, mental disorders
   - F10-F19: Mental and behavioural disorders due to psychoactive substance use
@@ -1614,21 +1791,24 @@ Admissions for mental and behavioural disorders are defined as those with a prin
   - F90-F98: Behavioural and emotional disorders with onset usually occurring in childhood and adolescence
   - F99: Mental disorder, not otherwise specified
 
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 10L-9
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_10L_9 .fig-tab-title}
-**Figure 10L-9:** Number and age-standardised rate (per 100,000 population) of hospital admissions for mental and behavioural disorders for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and age-standardised rate (per 100,000 population) of hospital admissions for mental and behavioural disorders for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital`
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- hospital_mental %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
                     hospital   = "admission")
@@ -1640,23 +1820,28 @@ figure_percent <- hospital_mental %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-#### Table 10L-10
 
-::: {#tab_10L_10 .fig-tab-title}
-**Table 10L-10:** Hospital admissions for mental and behavioural disorders for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Hospital admissions for mental and behavioural disorders for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital`
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- hospital_mental %>%
   dplyr::select(-iare_name_short)
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -1670,28 +1855,30 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_phidu_vaed`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_iare_nephu`
 
 <div style="height: 0.1em;"></div>
 
-`r note_caveat_iare_ratio`
+- Figure 10L-9 and Table 10L-10:
+  - Indicator: Hospital admissions for mental and behavioural disorders
+  - Numerator: `r note_numerator_hospital_aboriginal`
+  - Denominator: `r note_denominator_erp`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_iare`
 
-<div style="height: 1em;"></div>
-
-`r note_caveat_admissions`
-
-<div style="height: 2em;"></div>
 :::
 
 ### Hospital Admissions for Mood (Affective) Disorders
@@ -1712,7 +1899,7 @@ hospital_mood <- hospital_mood %>%
   dplyr::arrange(iare_name)
 ```
 
-- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases).
+- Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
 
 - During the four-year period 01 July 2017 to 30 June 2021 there were 803 hospital admissions for mood (affective) disorders for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
@@ -1722,8 +1909,20 @@ hospital_mood <- hospital_mood %>%
 
 - 5 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for mood (affective) disorders above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Whitehorse, Melbourne East, Northcote/Preston/Whittlesea, Moreland/Broadmeadows, and Melbourne/Port Phillip IAREs).
 
-::: {.callout-tip title="ICD-10-AM codes and definitions for this topic" icon=false collapse=false}
-Admissions for mood (affective) disorders are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- `r note_aboriginality_vaed`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_admissions`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_iare_ratio`
+:::
+
+::: {.callout-tip title="ICD-10-AM codes for this topic" icon=false collapse=false}
+Admissions for mood (affective) disorders were defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
 
   - F30: Manic episode
   - F31: Bipolar affective disorder
@@ -1733,21 +1932,24 @@ Admissions for mood (affective) disorders are defined as those with a principal 
   - F38: Other mood (affective) disorders
   - F39: Unspecified mood (affective) disorder
 
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 10L-10
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_10L_10 .fig-tab-title}
-**Figure 10L-10:** Number and age-standardised rate (per 100,000 population) of hospital admissions for mood (affective) disorders for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and age-standardised rate (per 100,000 population) of hospital admissions for mood (affective) disorders for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital`
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- hospital_mood %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
                     hospital   = "admission")
@@ -1759,23 +1961,28 @@ figure_percent <- hospital_mood %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-#### Table 10L-11
 
-::: {#tab_10L_11 .fig-tab-title}
-**Table 10L-11:** Hospital admissions for mood (affective) disorders for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2017 to 30 June 2021
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Hospital admissions for mood (affective) disorders for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital`
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- hospital_mood %>%
   dplyr::select(-iare_name_short)
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -1789,31 +1996,33 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_phidu_vaed`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_iare_nephu`
 
 <div style="height: 0.1em;"></div>
 
-`r note_caveat_iare_ratio`
+- Figure 10L-10 and Table 10L-11:
+  - Indicator: Hospital admissions for mood (affective) disorders
+  - Numerator: `r note_numerator_hospital_aboriginal`
+  - Denominator: `r note_denominator_erp`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_iare`
 
-<div style="height: 1em;"></div>
-
-`r note_caveat_admissions`
-
-<div style="height: 2em;"></div>
 :::
 
-### Emergency Presentations
+### Emergency Presentations for Mental and Behavioural Disorders
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -1831,7 +2040,7 @@ emergency_mental <- emergency_mental %>%
   dplyr::arrange(iare_name)
 ```
 
-- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases).
+- Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [AIHW National Non-Admitted Patient Emergency Department Care Database (NNAPEDCD)](https://www.aihw.gov.au/reports/hospitals/non-admitted-patient-emergency-dept-care-nmds/summary).
 
 - Between 01 July 2019 and 30 June 2020 there were 1,142 emergency department presentations for mental and behavioural disorders for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
@@ -1841,8 +2050,16 @@ emergency_mental <- emergency_mental %>%
 
 - 6 of the 10 IAREs in the NEPHU catchment area had an age-standardised rate of emergency department presentations for mental and behavioural disorders above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Northcote/Preston/Whittlesea, Melbourne East, Moreland/Broadmeadows, Melbourne North-East, and Whitehorse IAREs).
 
-::: {.callout-tip title="ICD-10-AM codes and definitions for this topic" icon=false collapse=false}
-Emergency department presentations for mental and behavioural disorders are defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- `r note_aboriginality_vemd`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_iare_ratio`
+:::
+
+::: {.callout-tip title="ICD-10-AM codes for this topic" icon=false collapse=false}
+Emergency department presentations for mental and behavioural disorders were defined as those with a principal diagnosis code in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
 
   - F00-F09: Organic, including symptomatic, mental disorders
   - F10-F19: Mental and behavioural disorders due to psychoactive substance use
@@ -1856,21 +2073,24 @@ Emergency department presentations for mental and behavioural disorders are defi
   - F90-F98: Behavioural and emotional disorders with onset usually occurring in childhood and adolescence
   - F99: Mental disorder, not otherwise specified
 
-<div style="height: 2em;"></div>
 :::
 
 :::: {.panel-tabset}
 
-#### Figure 10L-11
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
 
-::: {#fig_10L_11 .fig-tab-title}
-**Figure 10L-11:** Number and age-standardised rate (per 100,000 population) of emergency department presentations for mental and behavioral disorders for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2019 to 30 June 2020
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and age-standardised rate (per 100,000 population) of emergency department presentations for mental and behavioral disorders for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_emergency`
 :::
 
 ```{r}
 #
-figure_count <- figure_count + 1
-
 figure_number <- emergency_mental %>% 
   f_bar_simple_iare(y_variable = aboriginal_n,
                     hospital   = "emergency")
@@ -1882,23 +2102,28 @@ figure_percent <- emergency_mental %>%
 f_bar_simple_combine(figure_number, figure_percent)
 ```
 
-#### Table 10L-12
 
-::: {#tab_10L_12 .fig-tab-title}
-**Table 10L-12:** Emergency department presentations for mental and behavioural disorders for people who identified as Aboriginal and/or Torres Strait Islander, NEPHU catchment, by IARE, 01 July 2019 to 30 June 2020
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Emergency department presentations for mental and behavioural disorders for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_emergency`
 :::
 
 ```{r}
 #
-table_count  <- table_count + 1
-table_number <- paste0("Table_", table_section, "_", sprintf("%.02d", table_count))
-
 table <- emergency_mental %>%
   dplyr::select(-iare_name_short)
 
-if (!file.exists(paste0(here::here(), "/data/", table_number, ".csv"))) {
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
   
-  write.csv(table, paste0(here::here(), "/data/", table_number, ".csv"), row.names = FALSE)
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
   
 }
 
@@ -1912,23 +2137,29 @@ table %>%
 
 <div style="height: 1em;"></div>
 
-<a href="../data/`r paste0(table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
 `r note_data_phidu_vemd`
 
-<div style="height: 1em;"></div>
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
 
 `r note_caveat_iare_nephu`
 
 <div style="height: 0.1em;"></div>
 
-`r note_caveat_iare_ratio`
+- Figure 10L-11 and Table 10L-12:
+  - Indicator: Emergency presentations for mental and behavioural disorders
+  - Numerator: `r note_numerator_emergency_aboriginal`
+  - Denominator: `r note_denominator_erp`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_iare`
 
-<div style="height: 2em;"></div>
 :::
 
