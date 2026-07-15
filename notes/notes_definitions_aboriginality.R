@@ -42,6 +42,9 @@ In the National Health Survey, Aboriginal and/or Torres Strait Islander peoples 
 note_aboriginality_perinatal <- glue::glue("
 In the National Perinatal Data Collection, Aboriginal and/or Torres Strait Islander mothers were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander at the time of childbirth.")
 
+note_aboriginality_phess <- glue::glue("
+Aboriginal and/or Torres Strait Islander peoples were defined in the Victorian Public Health Event Surveillance System based on the recording of Aboriginal and/or Torres Strait Islander status at the time of initial notification by a pathology service or medical practitioner, or as determined during case management and follow-up by Local Public Health Units or the Victorian Department of Health.")
+
 note_aboriginality_prisoners <- glue::glue("
 In the ABS Prisoners in Australia Dataset, Aboriginal and/or Torres Strait Islander peoples were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander at the time of their contact with a corrective service agency.")
 

@@ -27,6 +27,12 @@ note_caveat_iare_suppress <- glue::glue("
 note_caveat_multipleresponse <- glue::glue("
 - For survey or Census questions where respondents could select multiple options, counts or estimates may not sum to the total displayed and percentages may not sum to 100%.")
 
+note_caveat_esf <- glue::glue("
+- The accuracy of identifying Aboriginal and/or Torres Strait Islander individuals in surveillance datasets is dependent on the data collection methodologies used.
+  - For high-incidence conditions such as Hepatitis B, Hepatitis C, and gonorrhoea, enhanced surveillance has been conducted intermittently over the past decade, depending on available resources.
+  - This has resulted in more comprehensive data and a greater number of notifications for Aboriginal and/or Torres Strait Islander people.
+  - Caution should be exercised when interpreting these data and when looking at trends over time.")
+
 note_caveat_notification_rate <- glue::glue("
 - Notification rates were calculated as the crude rate per 100,000 population, based on population data from the ABS Census 2021.")
 

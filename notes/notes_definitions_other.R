@@ -7,12 +7,16 @@
 note_response_binary <- "Dichotomous (Yes/No)"
 
 note_response_likert_always        <- "Likert scale (Always/Sometimes/No)"
-note_response_likert_excellent     <- "Likert scale (Excellent/Very Good/Good/Fair/Poor)"
 note_response_likert_increased     <- "Likert scale (Increased/Stayed About The Same/Decreased)"
 note_response_likert_often         <- "Likert scale (Often/Sometimes/Never)"
-note_response_likert_veryimportant <- "Likert scale (Very Important/Important/Neutral/Not Very Important/Not At All Important)"
-note_response_likert_verysatisfied <- "Likert scale (Very Satisfied/Satisfied/Neutral/Not Very Satisfied/Not At All Satisfied)"
-note_response_likert_verywell      <- "Likert scale (Very Well/Well/Not Well/Not At All)"
+
+note_response_likert_alltime       <- "5-point Likert scale (*All of the Time* to *None of the Time*)"
+note_response_likert_excellent     <- "5-point Likert scale (*Excellent* to *Poor*)"
+note_response_likert_strongly      <- "4-point Likert scale (*Strongly Agree* to *Strongly Disagree*)"
+note_response_likert_veryimportant <- "5-point Likert scale (*Very Important* to *Not At All Important*)"
+note_response_likert_verysatisfied <- "5-point Likert scale (*Very Satisfied* to *Not At All Satisfied*)"
+note_response_likert_verystrongly  <- "7-point Likert scale (*Very Strongly Disagree* to *Very Strongly Agree*)"
+note_response_likert_verywell      <- "4-point Likert scale (*Very Well* to *Not At All*)"
 
 ################################################################################
 # Commonly used numerator definitions
@@ -24,6 +28,8 @@ note_numerator_emergency_aboriginal <- "Number of emergency presentations for Ab
 note_numerator_hospital_aboriginal  <- "Number of hospital admissions for Aboriginal and/or Torres Strait Islander people"
 
 note_numerator_cancer <- "Number of Aboriginal and/or Torres Strait Islander diagnosed with the specified cancer"
+
+note_numerator_notification <- "Number of notifications for the specified condition"
 
 note_numerator_vaccination <- "Number of people who received the specified vaccine"
 

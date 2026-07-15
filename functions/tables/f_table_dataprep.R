@@ -304,3 +304,22 @@ f_preptable_naplan <- function(data) {
 
 }
 
+################################################################################
+# PHESS data
+################################################################################
+f_preptable_phess <- function(data) {
+  
+  data <- data %>% 
+    dplyr::select(-indigenous_status,
+                  -notnephu_n) %>% 
+    #
+    tidyr::pivot_wider(names_from  = "indigenous_label",
+                       values_from = c("nephu_n", "nephu_rate", "vic_n", "vic_rate"),
+                       names_vary  = "slowest") %>%
+    #
+    janitor::clean_names()
+  
+  return(data)
+
+}
+

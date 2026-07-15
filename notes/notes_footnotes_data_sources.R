@@ -73,9 +73,9 @@ note_data_natsihs <- glue::glue("
 
 note_data_phess <- glue::glue("
 - Data were obtained from the [Victorian Public Health Event Surveillance System (PHESS)](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria).
-  - PHESS contains data on conditions that are legally required to be notified to the Victorian Department of Health by medical practitioners and pathology services (laboratories) under the *Public Health and Wellbeing Act 2008*.
-  - Data presented here are for notifications where Aboriginal and/or Torres Strait Islander status was known. The completeness of data on Aboriginal and/or Torres Strait Islander status varies across conditions and over time, as the percentage of notifications signed out for case management and follow-up varies across conditions and has increased since the transition of case management and follow-up to Local Public Health Units during 2022-2023.
-  - Data broken down by Aboriginal and/or Torres Strait Islander status are publicly available for a [selection of conditions at statewide level](https://www.health.vic.gov.au/infectious-diseases/aboriginal-and-torres-strait-islander-summary-state-wide-victoria). Additional data may be made available upon request to the Victorian Department of Health.")
+  - PHESS contains data on conditions that are legally required to be notified to the Victorian Department of Health by medical practitioners and pathology services (laboratories) under the *Public Health and Wellbeing Act 2008* and *Public Health and Wellbeing Regulations 2019*.
+  - The data presented here are for notifications where Aboriginal and/or Torres Strait Islander status was known, and may not be representative of the true incidence or prevalence of these conditions among Aboriginal and/or Torres Strait Islander people.
+  - The completeness of data on Aboriginal and/or Torres Strait Islander status varies across conditions and over time.")
 
 note_data_phidu_perinatal <- glue::glue("
 - Data were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [National Perinatal Data Collection (NPDC)](https://www.aihw.gov.au/about-our-data/our-data-collections/national-perinatal-data-collection).
