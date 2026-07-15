@@ -4,6 +4,8 @@ title-block: false
 
 # Asthma and Allergies
 
+## Introduction {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,7 +24,7 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Asthma and Allergies {.unnumbered}
+## Asthma and Allergies {.unnumbered .unlisted}
 
 ::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
 `r note_chapter_different_sources`
@@ -587,7 +589,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Self-reported allergic rhinitis (hay fever) for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
+**`r figtab_table_title`:** Self-reported allergic rhinitis (hay fever) for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
 :::
 
 ```{r}
@@ -641,7 +643,7 @@ table %>%
   - Indicator: Self-reported allergic rhinitis (hay fever)
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
-  - Geographical area: `r note_geography_victoria`
+  - Geographical area: `r note_geography_melbourne`
   - Comparison: `r note_comparison_sex`
 
 :::

@@ -116,7 +116,7 @@ arthritis_agesex <- arthritis_agesex %>%
 
 <div style="height: 0.1em;"></div>
 
-- People were classified as arthritis if they selected *Arthritis*.
+- People were classified as having arthritis if they selected *Arthritis*.
 
 <div style="height: 0.1em;"></div>
 
@@ -152,7 +152,6 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 
 ::: {.fig-tab-title}
 **`r figtab_figure_title`:** Number and percentage of people who identified as Aboriginal and/or Torres Strait Islander and who have been told by a doctor or nurse that they have arthritis, `r note_geography_nephu`, by `r note_comparison_lga`, `r note_time_census`
-
 :::
 
 ```{r}

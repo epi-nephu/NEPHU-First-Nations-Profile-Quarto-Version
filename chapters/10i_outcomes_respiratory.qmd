@@ -800,7 +800,7 @@ table %>%
   - Indicator: Self-reported chronic obstructive pulmonary disease (COPD)
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: `r note_denominator_natsihs`
-  - Geographical area: `r note_geography_victoria`
+  - Geographical area: `r note_geography_melbourne`
   - Comparison: `r note_comparison_sex`
 
 :::
