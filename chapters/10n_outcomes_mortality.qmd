@@ -1,0 +1,1267 @@
+---
+title-block: false
+---
+
+# Mortality
+
+```{r}
+#
+source(here::here("setup.R"))
+
+# Set up numbering for figures and tables
+figtab_report_section <- "10N"
+figtab_csv_section    <- "10N"
+
+figtab_table_count  <- 0
+figtab_figure_count <- 0
+```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Mortality {.unnumbered}
+
+::: {.callout-important title="Content warning" icon=true collapse=false}
+The information in this section acknowledges the ongoing impacts of colonisation, intergenerational trauma, and systemic inequities on the health and wellbeing of Aboriginal and/or Torres Strait Islander peoples. While these data speak to loss, it is shared with deep respect for the lives, families, and communities behind each number.
+
+The intent of this section is not only to describe mortality data, but to strengthen collective understanding and inform healing-based public health actions that honour the resilience and strength of Aboriginal and/or Torres Strait Islander people. Behind every number are loved ones, family members, Elders, and community members who have contributed to the strength of the community. These data are shared to honour them, to guide health planning that is culturally safe and community-driven, and to support pathways that enable healing, hope, and self-determination for future generations.
+
+Some topics in this section include references to suicide. This content may bring up strong feelings or memories for readers, particularly Aboriginal and/or Torres Strait Islander people living in metropolitan Melbourne.
+
+Take the time you need and connect with trusted supports, Elders, or loved ones. Your wellbeing matters.
+ 
+If you or someone you know needs support, please consider reaching out to the culturally safe services listed here.
+:::
+
+<div style="height: 0.1em;"></div>
+
+::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
+`r note_chapter_different_sources`
+
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_comparisons`
+
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_masking`
+:::
+
+::: {.key-question}
+What are the most common causes of death for Aboriginal and/or Torres Strait Islander people in the NEPHU catchment?
+:::
+
+## Mortality
+
+```{r}
+# ------------------------------------------------------------------------------
+# Number of deaths - Victoria
+# Data from ABS Technical Report
+# ------------------------------------------------------------------------------
+# Read in ABS data
+mortality_number <- f_read_mortality("ABS_Tech_Report_Aboriginal_Deaths_Ascertainment_Number.xlsx",
+                                     column_select = c("indigenous_status",
+                                                       notenhanced_2022 = "x2022",
+                                                       notenhanced_2023 = "x2023_no_cod_sources_b",
+                                                       enhanced_2023    = "x2023_incl_cod_sources_c")) %>% 
+  #
+  dplyr::filter(!is.na(enhanced_2023))
+
+# ------------------------------------------------------------------------------
+# Age-standardised death rate - Victoria
+# Data from ABS Technical Report
+# ------------------------------------------------------------------------------
+# Read in ABS data
+mortality_rate <- f_read_mortality("ABS_Tech_Report_Aboriginal_Deaths_Ascertainment_Rate.xlsx",
+                                   column_select = c(sex       = "indigenous_status_by_sex",
+                                                     rate_2023 = "x2023_incl_cod_sources_g_4")) %>% 
+  #
+  dplyr::filter(!is.na(rate_2023))
+
+# Data wrangling
+mortality_rate <- mortality_rate %>% 
+  dplyr::mutate(indigenous_status = dplyr::case_when(
+    row_number() %in% 1:3 ~ "rate_aboriginal",
+    row_number() %in% 4:6 ~ "rate_non_aboriginal",
+    TRUE ~ NA_character_)) %>% 
+  #
+  tidyr::pivot_wider(names_from  = "indigenous_status",
+                     values_from = "rate_2023")
+
+# ------------------------------------------------------------------------------
+# Median age at death - Victoria
+# Data from ABS Technical Report
+# ------------------------------------------------------------------------------
+# Read in ABS data
+mortality_age_aboriginal <- f_read_mortality("ABS_Tech_Report_Aboriginal_Deaths_Ascertainment_Age.xlsx",
+                                             column_select = c("sex",
+                                                               median_aboriginal = "x2023_incl_cod_sources_d")) %>% 
+  #
+  dplyr::filter(!is.na(median_aboriginal))
+
+mortality_age_non_aboriginal <- f_read_mortality("ABS_Median_Age_Death_2013_2023.xlsx",
+                                                 skip_rows     = 6,
+                                                 data_sheet    = "Table 1",
+                                                 column_select = c(year = "males",
+                                                                   median_non_aboriginal = "x3")) %>% 
+  #
+  dplyr::filter(year == "2023") %>% 
+  #
+  dplyr::mutate(sex = dplyr::case_when(
+    row_number() == 1 ~ "Males",
+    row_number() == 2 ~ "Females",
+    row_number() == 3 ~ "Persons",
+    TRUE ~ NA_character_))
+  
+# Data wrangling
+mortality_age <- mortality_age_aboriginal %>% 
+  dplyr::left_join(mortality_age_non_aboriginal, by = "sex") %>% 
+  #
+  dplyr::select(sex,
+                median_aboriginal,
+                median_non_aboriginal)
+```
+
+- Data for this topic were obtained from the ABS Technical Note [The impact of using multiple sources for deriving the Indigenous status of deaths in 2023](https://www.abs.gov.au/articles/technical-note-impact-using-multiple-sources-deriving-indigenous-status-deaths-2023-changes-victoria-and-coroner-referred-deaths). Due to changes introduced in the derivation of Aboriginal and/or Torres Strait Islander status for deaths registered from 2023 onwards, data for 2023 cannot be reliably compared to previous years.
+
+- There were 412 deaths registered in 2023 for Aboriginal and/or Torres Strait Islander people in Victoria.
+
+- The median age at death for Aboriginal and/or Torres Strait Islander people in Victoria during 2023 was 64.2 years, compared to 82.7 years for non-Indigenous people.
+
+- Females had an older median age at death than males (66.3 years vs. 63.1 years).
+
+- The age-standardised death rate for Aboriginal and/or Torres Strait Islander people in Victoria during 2023 was 9.5 deaths per 1,000 people, compared to 5.2 deaths per 1,000 people for non-Indigenous people.
+
+- Males had a higher age-standardised death rate than females (10.3 per 1,000 people vs. 8.6 per 1,000 people).
+
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- The ABS has implemented an enhanced process for [ascertaining Aboriginal and/or Torres Strait Islander status](https://www.abs.gov.au/articles/technical-note-impact-using-multiple-sources-deriving-indigenous-status-deaths-2023-changes-victoria-and-coroner-referred-deaths) for deaths registered from 2023 onwards in Victoria.
+  - This enhanced process assigns Aboriginal and/or Torres Strait Islander status based on data from three sources: the Death Registration Statement (completed by the person who notified the death, usually the funeral director or a family member), the Medical Certificate Cause of Death (for deaths that were certified by a doctor), and the National Coronial Information System (for deaths that were referred to the coroner).
+  - If these data sources do not agree, identification on any source is usually given preference over recording the deceased as non-Indigenous.
+
+<div style="height: 0.1em;"></div>
+
+- The death rate was calculated as the total number of deaths per 1,000 population as estimated by the [ABS Estimated Residential Population (ERP)](https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071) for the year.
+  - ERP calculations take into account the known under-reporting of Aboriginal and/or Torres Strait Islander status in the Census.
+  - The death rate has been age-standardised to account for the differences in age structures between the Aboriginal and/or Torres Strait Islander and non-Indigenous populations.
+
+:::
+
+:::: {.panel-tabset}
+
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Median age at death and age-standardised death rate (per 1,000 population), `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_sex)` and `r note_comparison_aboriginal`, `r note_time_mortality`
+:::
+
+```{r}
+#
+table <- mortality_age %>% 
+  dplyr::left_join(mortality_rate, by = "sex") %>%
+  #
+  dplyr::select(sex,
+                median_aboriginal,
+                rate_aboriginal,
+                median_non_aboriginal,
+                rate_non_aboriginal) %>% 
+  #
+  dplyr::mutate(rate_ratio = round(rate_aboriginal / rate_non_aboriginal, digits = 1))
+
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  f_table_grouped_indigenous(n_variable  = "mortality",
+                             column_name = "Sex")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_mortality`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+- Table 10N-1:
+  - Indicator: Median age at death 
+  - Geographical area: `r note_geography_victoria`
+  - Comparison: `r note_comparison_sex` and `r note_comparison_aboriginal`
+
+<div style="height: 0.1em;"></div>
+
+- Table 10N-1:
+  - Indicator: Death rate 
+  - Numerator: Number of deaths
+  - Denominator: `r note_denominator_erp`
+  - Geographical area: `r note_geography_victoria`
+  - Comparison: `r note_comparison_sex` and `r note_comparison_aboriginal`
+
+:::
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+
+## Leading Causes of Death
+
+```{r}
+# ------------------------------------------------------------------------------
+# Leading causes of death - Victoria
+# Data from ABS Technical Report
+# ------------------------------------------------------------------------------
+# Read in ABS data
+mortality_cause <- f_read_mortality("ABS_Tech_Report_Aboriginal_Deaths_Ascertainment_Cause.xlsx",
+                                    skip_rows = 3,
+                                    column_select = c(rank     = "males_7",
+                                                      cause    = "x8",
+                                                      n_deaths = "x9")) %>% 
+  #
+  dplyr::mutate(sex = dplyr::case_when(
+    row_number() %in% 1:12  ~ "Males",
+    row_number() %in% 14:25 ~ "Females",
+    row_number() %in% 27:38 ~ "Persons",
+    TRUE ~ NA_character_)) %>%
+  #
+  dplyr::filter(!is.na(sex))
+
+# Data wrangling
+mortality_cause <- mortality_cause %>% 
+  dplyr::mutate(cause = dplyr::case_when(
+    stringr::str_detect(cause, "(C18-C21, C26.0)")     ~ "Colorectal cancer",
+    stringr::str_detect(cause, "(C22)")                ~ "Liver cancer",
+    stringr::str_detect(cause, "(C25)")                ~ "Pancreatic cancer",
+    stringr::str_detect(cause, "(C50)")                ~ "Breast cancer",
+    stringr::str_detect(cause, "(C33-C34)")            ~ "Lung cancer",
+    stringr::str_detect(cause, "(C33, C34)")           ~ "Lung cancer",
+    stringr::str_detect(cause, "(E10-E14)")            ~ "Diabetes",
+    stringr::str_detect(cause, "(F01, F03, G30)")      ~ "Dementia",
+    stringr::str_detect(cause, "(I20-I25)")            ~ "Ischaemic heart disease",
+    stringr::str_detect(cause, "(I50-I51)")            ~ "Heart failure",
+    stringr::str_detect(cause, "(I60-I69)")            ~ "Cerebrovascular disease",
+    stringr::str_detect(cause, "(J40-J47)")            ~ "Lower respiratory disease",
+    stringr::str_detect(cause, "(K70-K76)")            ~ "Cirrhosis",
+    stringr::str_detect(cause, "(N00-N39)")            ~ "Urinary system disease",
+    stringr::str_detect(cause, "(R00-R99)")            ~ "Ill-defined conditions",
+    stringr::str_detect(cause, "(U07.1-U07.2, U10.9)") ~ "COVID-19",
+    stringr::str_detect(cause, "(X40-X49)")            ~ "Accidental poisoning",
+    stringr::str_detect(cause, "(X60-X84, Y870)")      ~ "Suicide",
+    TRUE ~ NA_character_))
+```
+
+- Data for this topic were obtained from the ABS Technical Note [The impact of using multiple sources for deriving the Indigenous status of deaths in 2023](https://www.abs.gov.au/articles/technical-note-impact-using-multiple-sources-deriving-indigenous-status-deaths-2023-changes-victoria-and-coroner-referred-deaths). Due to changes introduced in the derivation of Aboriginal and/or Torres Strait Islander status for deaths registered from 2023 onwards, data for 2023 cannot be reliably compared to previous years.
+
+- Cause of death data for 2023 are preliminary and are subject to change as additional data become available. The process of coding cause of death data can take up to 2.5 years due to the requirement to wait for coroner cases to be closed and for information from autopsies and toxicology testing to become available for inclusion when death data are coded by the ABS. The next revision of 2023 death data is due to occur in April 2026.
+
+- The top five leading causes of death for Aboriginal and/or Torres Strait Islander people in Victoria during 2023 were ischaemic heart disease (50 deaths), lower respiratory disease (32 deaths), lung cancer (27 deaths), suicide (26 deaths), diabetes (18 deaths), and accidental poisoning (18 deaths).
+
+- The top five leading causes of death for Aboriginal and/or Torres Strait Islander males in Victoria during 2023 were ischaemic heart disease (33 deaths), lung cancer (19 deaths), suicide (18 deaths), lower respiratory disease (17 deaths), and accidental poisoning (10 deaths).
+
+- The top five leading causes of death for Aboriginal and/or Torres Strait Islander females in Victoria during 2023 were ischaemic heart disease (17 deaths), lower respiratory disease (15 deaths), breast cancer (10 deaths), diabetes (10 deaths), and cirrhosis (9 deaths).
+
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- The ABS has implemented an enhanced process for [ascertaining Aboriginal and/or Torres Strait Islander status](https://www.abs.gov.au/articles/technical-note-impact-using-multiple-sources-deriving-indigenous-status-deaths-2023-changes-victoria-and-coroner-referred-deaths) for deaths registered from 2023 onwards in Victoria.
+  - This enhanced process assigns Aboriginal and/or Torres Strait Islander status based on data from three sources: the Death Registration Statement (completed by the person who notified the death, usually the funeral director or a family member), the Medical Certificate Cause of Death (for deaths that were certified by a doctor), and the National Coronial Information System (for deaths that were referred to the coroner).
+  - If these data sources do not agree, identification on any source is usually given preference over recording the deceased as non-Indigenous.
+
+<div style="height: 0.1em;"></div>
+
+- The underlying cause of death was defined as the disease or injury that initiated the train of morbid events leading directly to death.
+  - [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs) codes were assigned to all conditions listed on a Medical Certificate of Cause of Death and the National Coronial Information System and rules applied to select an underlying cause of death for each death.
+  - Detailed information about the methodology used for cause of death coding in Australia can be found on the [ABS website](https://www.abs.gov.au/methodologies/causes-death-australia-methodology).
+
+<div style="height: 0.1em;"></div>
+
+- Cause of death data for 2023 are preliminary and are subject to change as additional data become available.
+  - The process of coding cause of death data can take up to 2.5 years due to the requirement to wait for coroner cases to be closed and for information from autopsies and toxicology testing to become available for inclusion when death data are coded by the ABS.
+
+:::
+
+::: {.callout-tip title="ICD-10-AM codes and definitions for this topic" icon=false collapse=false}
+Deaths due to accidental poisoning were defined as deaths with an underlying cause of death in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+
+  - X40-X49: Accidental poisoning by and exposure to noxious substances
+
+<div style="height: 0.1em;"></div>
+
+Deaths due to breast cancer were defined as deaths with an underlying cause of death in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+
+  - C50: Malignant neoplasm of breast
+
+<div style="height: 0.1em;"></div>
+
+Deaths due to cerebrovascular disease were defined as deaths with an underlying cause of death in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+
+  - I60-I69: Cerebrovascular diseases
+  
+<div style="height: 0.1em;"></div>
+ 
+Deaths due to cirrhosis were defined as deaths with an underlying cause of death in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+
+  - K70: Alcoholic liver disease
+  - K71: Toxic liver disease
+  - K72: Hepatic failure, not elsewhere classified
+  - K73: Chronic hepatitis, not elsewhere classified
+  - K74: Fibrosis and cirrhosis of liver
+  - K75: Other inflammatory liver diseases
+  - K76: Other diseases of liver
+
+<div style="height: 0.1em;"></div>
+
+Deaths due to colorectal cancer were defined as deaths with an underlying cause of death in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+
+  - C18: Malignant neoplasm of colon
+  - C19: Malignant neoplasm of rectosigmoid junction
+  - C20: Malignant neoplasm of rectum
+  - C21: Malignant neoplasm of anus and anal canal
+  - C26.0: Malignant neoplasm of intestinal tract, part unspecified
+  
+<div style="height: 0.1em;"></div>
+
+Deaths due to COVID-19 were defined as deaths with an underlying cause of death in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+
+  - U07.1: COVID-19, virus identified
+  - U07.2: COVID-19, virus not identified
+  - U10.9: Multisystem inflammatory syndrome associated with COVID-19, unspecified
+
+<div style="height: 0.1em;"></div>
+
+Deaths due to dementia were defined as deaths with an underlying cause of death in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+
+  - F01: Vascular dementia
+  - F03: Unspecified dementia
+  - G30: Alzheimer disease
+
+<div style="height: 0.1em;"></div>
+
+Deaths due to diabetes were defined as deaths with an underlying cause of death in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+
+  - E10-E14: Diabetes mellitus
+
+<div style="height: 0.1em;"></div>
+
+Deaths due to heart failure were defined as deaths with an underlying cause of death in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+
+  - I50: Heart failure
+  - I51: Complications and ill-defined descriptions of heart disease
+  
+<div style="height: 0.1em;"></div>
+
+Deaths due to ill-defined conditions were defined as deaths with an underlying cause of death in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+
+  - R00-R09: Symptoms and signs involving the circulatory and respiratory systems
+  - R10-R19: Symptoms and signs involving the digestive system and abdomen
+  - R20-R23: Symptoms and signs involving the skin and subcutaneous tissue
+  - R24-R29: Symptoms and signs involving the nervous and musculoskeletal systems
+  - R30-R39: Symptoms and signs involving the urinary system
+  - R40-R46: Symptoms and signs involving cognition, perception, emotional state, and behaviour
+  - R47-R49: Symptoms and signs involving speech and voice
+  - R50-R69: General symptoms and signs
+  - R70-R79: Abnormal findings on examination of blood, without diagnosis
+  - R80-R82: Abnormal findings on examination of urine, without diagnosis
+  - R83-R89: Abnormal findings on examination of other body fluids, substances and tissues, without diagnosis
+  - R90-R94: Abnormal findings on diagnostic imaging and in function studies, without diagnosis
+  - R95-R99: Ill-defined and unknown causes of mortality
+
+<div style="height: 0.1em;"></div>
+
+Deaths due to ischaemic heart disease were defined as deaths with an underlying cause of death in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+
+  - I20-I25: Ischaemic heart diseases
+  
+<div style="height: 0.1em;"></div>
+
+Deaths due to liver cancer were defined as deaths with an underlying cause of death in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+
+  - C22: Malignant neoplasm of liver and intrahepatic bile ducts
+
+<div style="height: 0.1em;"></div>
+
+Deaths due to lower respiratory disease were defined as deaths with an underlying cause of death in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+
+  - J40-J47: Chronic lower respiratory diseases
+
+<div style="height: 0.1em;"></div>
+
+Deaths due to lung cancer were defined as deaths with an underlying cause of death in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+
+  - C33: Malignant neoplasm of trachea
+  - C34: Malignant neoplasm of bronchus and lung
+
+<div style="height: 0.1em;"></div>
+
+Deaths due to pancreatic cancer were defined as deaths with an underlying cause of death in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+
+  - C25: Malignant neoplasm of pancreas
+
+<div style="height: 0.1em;"></div>
+
+Deaths due to suicide were defined as deaths with an underlying cause of death in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+
+  - X60-X84: Intentional self-harm
+  - Y87.0: Sequelae of intentional self-harm
+
+<div style="height: 0.1em;"></div>
+
+Deaths due to urinary system disease were defined as deaths with an underlying cause of death in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+
+  - N00-N08: Glomerular diseases
+  - N10-N16: Renal tubulo-interstitial diseases
+  - N17-N19: Renal failure
+  - N20-N23: Urolithiasis
+  - N25-N29: Other disorders of kidney and ureter
+  - N30-N39: Other diseases of urinary system
+
+:::
+
+:::: {.panel-tabset}
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Leading causes of death for Aboriginal and/or Torres Strait Islander people, `r note_geography_victoria`, `r note_time_mortality`
+:::
+
+```{r}
+#
+mortality_cause %>% 
+  dplyr::filter(sex == "Persons") %>%
+  #
+  dplyr::rename(aboriginal_n = n_deaths) %>% 
+  #
+  dplyr::mutate(hover_text = paste0(cause, "\n",
+                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>%
+  #
+  f_bar_simple_flip(x_variable = forcats::fct_reorder(cause, desc(aboriginal_n)),
+                    y_variable = aboriginal_n)
+```
+
+
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Leading causes of death for Aboriginal and/or Torres Strait Islander people, `r note_geography_victoria`, `r note_time_mortality`
+:::
+
+```{r}
+#
+table <- mortality_cause %>%
+  dplyr::filter(sex == "Persons") %>% 
+  #
+  dplyr::select(-sex)
+
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  f_table_simple(total_row     = NULL,
+                 cause_death   = "yes",
+                 table_headers = c("Rank",
+                                   "Cause of death",
+                                   "Deaths (n)"))
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Leading causes of death for Aboriginal and/or Torres Strait Islander females, `r note_geography_victoria`, `r note_time_mortality`
+:::
+
+```{r}
+#
+mortality_cause %>% 
+  dplyr::filter(sex == "Females") %>%
+  #
+  dplyr::rename(aboriginal_n = n_deaths) %>% 
+  #
+  dplyr::mutate(hover_text = paste0(cause, "\n",
+                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>%
+  #
+  f_bar_simple_flip(x_variable = forcats::fct_reorder(cause, desc(aboriginal_n)),
+                    y_variable = aboriginal_n)
+```
+
+
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Leading causes of death for Aboriginal and/or Torres Strait Islander females, `r note_geography_victoria`, `r note_time_mortality`
+:::
+
+```{r}
+#
+table <- mortality_cause %>%
+  dplyr::filter(sex == "Females") %>% 
+  #
+  dplyr::select(-sex)
+
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  f_table_simple(total_row     = NULL,
+                 cause_death   = "yes",
+                 table_headers = c("Rank",
+                                   "Cause of death",
+                                   "Deaths (n)"))
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Leading causes of death for Aboriginal and/or Torres Strait Islander males, `r note_geography_victoria`, `r note_time_mortality`
+:::
+
+```{r}
+#
+mortality_cause %>% 
+  dplyr::filter(sex == "Males") %>%
+  #
+  dplyr::rename(aboriginal_n = n_deaths) %>% 
+  #
+  dplyr::mutate(hover_text = paste0(cause, "\n",
+                                    "Count: ", format(aboriginal_n, big.mark = ","))) %>%
+  #
+  f_bar_simple_flip(x_variable = forcats::fct_reorder(cause, desc(aboriginal_n)),
+                    y_variable = aboriginal_n)
+```
+
+
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Leading causes of death for Aboriginal and/or Torres Strait Islander males, `r note_geography_victoria`, `r note_time_mortality`
+:::
+
+```{r}
+#
+table <- mortality_cause %>%
+  dplyr::filter(sex == "Males") %>% 
+  #
+  dplyr::select(-sex)
+
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  f_table_simple(total_row     = NULL,
+                 cause_death   = "yes",
+                 table_headers = c("Rank",
+                                   "Cause of death",
+                                   "Deaths (n)"))
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_mortality`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 10N-1 and Table 10N-2:
+  - Indicator: Leading causes of death for all Aboriginal and/or Torres Strait Islander people
+  - Numerator: Number of deaths due to the specified cause
+  - Geographical area: `r note_geography_victoria`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 10N-2 and Table 10N-3:
+  - Indicator: Leading causes of death for Aboriginal and/or Torres Strait Islander females
+  - Numerator: Number of deaths due to the specified cause
+  - Geographical area: `r note_geography_victoria`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 10N-3 and Table 10N-4:
+  - Indicator: Leading causes of death for Aboriginal and/or Torres Strait Islander males
+  - Numerator: Number of deaths due to the specified cause
+  - Geographical area: `r note_geography_victoria`
+
+:::
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+
+## Suicide
+
+::: {.ctg-box}
+**This topic aligns with [Closing the Gap Outcome Area 14](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/social-and-emotional-wellbeing/): Aboriginal and Torres Strait Islander people enjoy high levels of social and emotional wellbeing**
+
+Target: Significant and sustained reduction in suicide of Aboriginal and Torres Strait Islander people towards zero.
+:::
+
+<div style="height: 1em;"></div>
+
+```{r}
+# ------------------------------------------------------------------------------
+# Suicide rate - Australia, by indigenous status
+# Data from ABS Cause of Death data via CtG Information Repository
+# ------------------------------------------------------------------------------
+# Read in ABS data
+suicide_australia <- f_read_ctg_indigenous("CTG14_Wellbeing_Data_Tables.xlsx",
+                                           data_sheet     = "Table CtG14A.1",
+                                           skip_rows      = 0,
+                                           column_select  = c(indigenous_status = "x4",
+                                                              year = "x5",
+                                                              unit = "x13",
+                                                              vic  = "x14"),
+                                           fill_variables = vars(indigenous_status, year, unit, vic),
+                                           row_select     = c(6:11, 13:18, 21:26, 28:33))
+
+# Data wrangling
+suicide_australia <- suicide_australia %>% 
+  tidyr::pivot_wider(names_from  = "unit",
+                     values_from = "vic") %>%
+  #
+  janitor::clean_names() %>% 
+  #
+  dplyr::mutate(n    = as.numeric(n),
+                rate = as.numeric(rate))
+
+# ------------------------------------------------------------------------------
+# Suicide - Victoria, by indigenous status
+# Data from Coroners Court of Victoria Suicide Report
+# ------------------------------------------------------------------------------
+# Read in Coroners Court data
+suicide_vic <- readxl::read_excel(file.path(root_folder, subfolder_coroner, "vic_coroner_aboriginal.xlsx"),
+                                  sheet = "Comparison counts") %>%
+  janitor::clean_names()
+
+# ------------------------------------------------------------------------------
+# Suicide - Victoria, by age and sex
+# Data from Coroners Court of Victoria Suicide Report
+# ------------------------------------------------------------------------------
+# Read in Coroners Court data
+suicide_agesex <- readxl::read_excel(file.path(root_folder, subfolder_coroner, "vic_coroner_aboriginal.xlsx"),
+                                     sheet = "Annual counts") %>% 
+  janitor::clean_names()
+```
+
+- Data for this topic were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the [ABS Causes of Death data](https://www.abs.gov.au/statistics/health/causes-death) and from the Coroners Court of Victoria [Suicides of Aboriginal and Torres Strait Islander People Report (2018-2023)](https://www.coronerscourt.vic.gov.au/suicides-aboriginal-and-torres-strait-islander-people-victoria-2018-2023).
+
+- The age-standardised suicide rate for Aboriginal and/or Torres Strait Islander people in Australia has increased over time, from 24 per 100,000 people in 2018 to 31 per 100,000 people in 2023. The suicide rate was consistently higher than for non-Indigenous people.
+
+- Between January 2018 and December 2023 there were 134 deaths due to suicide among Aboriginal and/or Torres Strait Islander people in Victoria.
+
+- There was a larger number of suicides each year for Aboriginal and/or Torres Strait Islander males compared to females in Victoria, and the number of suicides per year has increased over time for males.
+
+- 45% of suicides for males and 76% of suicides for females among Aboriginal and/or Torres Strait Islander people in Victoria were among people aged less than 34 years.
+
+- Despite comprising 1.0% of the Victorian population, 3.1% of deaths due to suicide during 2018-2023 in Victoria were among Aboriginal and/or Torres Strait Islander people.
+
+- Further historical and ongoing target context can be found on the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/social-and-emotional-wellbeing/).
+
+**Key points from stakeholder consultation**
+
+- At stakeholder consultations during the development of this report, the importance of having Victorian specific data for this topic was emphasised, along with the importance of having with data broken down by age and sex to make the issue visible.
+
+- High rates of suicide in community were supported by the anecdotal experience of the group.
+
+- It was noted that the suicide rate, particularly for Aboriginal and/or Torres Strait Islander males, was increasing over time rather than decreasing despite the target.
+
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- The ABS has implemented an enhanced process for [ascertaining Aboriginal and/or Torres Strait Islander status](https://www.abs.gov.au/articles/technical-note-impact-using-multiple-sources-deriving-indigenous-status-deaths-2023-changes-victoria-and-coroner-referred-deaths) for deaths registered from 2023 onwards in Victoria.
+  - This enhanced process assigns Aboriginal and/or Torres Strait Islander status based on data from three sources: the Death Registration Statement (completed by the person who notified the death, usually the funeral director or a family member), the Medical Certificate Cause of Death (for deaths that were certified by a doctor), and the National Coronial Information System (for deaths that were referred to the coroner).
+  - If these data sources do not agree, identification on any source is usually given preference over recording the deceased as non-Indigenous.
+  
+<div style="height: 0.1em;"></div>
+
+- The suicide rate was calculated as the total number of deaths due to suicide per 100,000 population as estimated by the [ABS Estimated Residential Population (ERP)](https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071) for the year.
+  - ERP calculations take into account the known under-reporting of Aboriginal and/or Torres Strait Islander status in the Census.
+  - The suicide rate has been age-standardised to account for the differences in age structures between the Aboriginal and/or Torres Strait Islander and non-Indigenous populations.
+
+:::
+
+::: {.callout-tip title="ICD-10-AM codes and definitions for this topic" icon=false collapse=false}
+Deaths due to suicide were defined as deaths with an underlying cause of death in the following list, coded using the [International Statistical Classification of Diseases and Related Health Problems 10th Revision Australian Modification (ICD-10-AM)](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs):
+
+  - X60-X84: Intentional self-harm
+  - Y87.0: Sequelae of intentional self-harm
+
+:::
+
+:::: {.panel-tabset}
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Age-standardised suicide rate (per 100,000 population), `r note_geography_australia`, by `r stringr::str_to_lower(note_comparison_year)` and `r note_comparison_aboriginal`
+:::
+
+```{r}
+#
+suicide_australia %>% 
+  f_line_grouped_indigenous(y_variable = rate,
+                            n_level    = "100,000")
+```
+
+
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Number of suicides and age-standardised suicide rate (per 100,000 population), `r note_geography_australia`, by `r stringr::str_to_lower(note_comparison_year)` and `r note_comparison_aboriginal`
+:::
+
+```{r}
+#
+table <- suicide_australia %>%
+  dplyr::select(-indigenous_status) %>% 
+  #
+  tidyr::pivot_wider(names_from  = "indigenous_label",
+                     names_vary  = "slowest",
+                     values_from = c("n", "rate")) %>% 
+  #
+  janitor::clean_names() %>%
+  #
+  dplyr::mutate(n_total = n_aboriginal + n_non_indigenous) %>% 
+  #
+  dplyr::arrange(year)
+ 
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  f_table_grouped_indigenous(n_variable  = "rate",
+                             column_name = "Year",
+                             total_row   = NULL)
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number of deaths due to suicide for Aboriginal and/or Torres Strait Islander people, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_year)` and `r note_comparison_sex`
+:::
+
+```{r}
+#
+suicide_agesex %>% 
+  dplyr::filter(sex != "Total" & age_group == "Total") %>%
+  #
+  dplyr::select(-age_group,
+                -total) %>%
+  #
+  tidyr::pivot_longer(!sex,
+                      names_to  = "year",
+                      values_to = "n") %>% 
+  #
+  dplyr::mutate(year = stringr::str_remove(year, "x")) %>% 
+  #
+  f_line_grouped_sex(y_variable = n,
+                     n_level    = "deaths")
+```
+
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number of deaths due to suicide for Aboriginal and/or Torres Strait Islander people, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_age)` and `r note_comparison_sex`, `r note_time_coroner`
+:::
+
+```{r}
+#
+suicide_agesex %>% 
+  dplyr::filter(sex != "Total" & age_group != "Total") %>%
+  #
+  f_bar_grouped_sex(x_variable = age_group,
+                    y_variable = total)
+```
+
+
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Number of deaths due to suicide for Aboriginal and/or Torres Strait Islander people, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_age)`, `r stringr::str_to_lower(note_comparison_sex)`, and `r stringr::str_to_lower(note_comparison_year)`
+:::
+
+```{r}
+#
+table <- suicide_agesex %>% 
+  dplyr::filter(sex != "Total") %>% 
+  #
+  tidyr::pivot_longer(!c(sex, age_group),
+                      names_to = c("year")) %>%
+  #
+  tidyr::pivot_wider(names_from   = "age_group",
+                     names_prefix = "n_",
+                     values_from  = "value") %>% 
+  #
+  janitor::clean_names() %>% 
+  #
+  dplyr::mutate(year = stringr::str_remove(year, "x"),
+                year = stringr::str_to_title(year))
+
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::filter(sex == "Female") %>% 
+  #
+  dplyr::select(-sex) %>%
+  #
+  f_table_simple(total_row     = nrow(table) / 2,
+                 last_column   = ncol(table) - 1,
+                 table_headers = c("Year",
+                                   "<18 yrs", "18-24 yrs", "25-34 yrs", "35-44 yrs", 
+                                   "45-54 yrs", "55-64 yrs", "65+ yrs", "Total")) %>% 
+  #
+  kableExtra::add_header_above(c("Female" = 9),
+                               align = "left")
+
+table %>% 
+  dplyr::filter(sex == "Male") %>% 
+  #
+  dplyr::select(-sex) %>%
+  #
+  f_table_simple(total_row     = nrow(table) / 2,
+                 last_column   = ncol(table) - 1,
+                 table_headers = c("Year",
+                                   "<18 yrs", "18-24 yrs", "25-34 yrs", "35-44 yrs", 
+                                   "45-54 yrs", "55-64 yrs", "65+ yrs", "Total")) %>% 
+  #
+  kableExtra::add_header_above(c("Male" = 9),
+                               align = "left")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 10N-4 and Table 10N-5:
+  - Indicator: Suicide rate
+  - Numerator: Number of deaths due to suicide
+  - Denominator: `r note_denominator_erp`
+  - Geographical area: `r note_geography_australia`
+  - Comparison: `r note_comparison_year`
+
+<div style="height: 0.1em;"></div>
+
+- Data for Figure 10N-4 and Table 10N-5 were sourced from the [ABS Causes of Death data](https://www.abs.gov.au/statistics/health/causes-death) via the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/).
+  - *Australia* includes NSW, Victoria, Queensland, Western Australia, South Australia, and the Northern Territory.
+
+<div style="height: 0.1em;"></div>
+
+- Figure 10N-5, Figure 10N-6, and Table 10N-6:
+  - Indicator: Deaths due to suicide
+  - Numerator: Number of deaths due to suicide
+  - Geographical area: `r note_geography_victoria`
+  - Comparison: `r note_comparison_age`, `r stringr::str_to_lower(note_comparison_sex)`, and `r stringr::str_to_lower(note_comparison_year)`
+
+<div style="height: 0.1em;"></div>
+
+- Data for Figure 10N-5, Figure 10N-6, and Table 10N-6 were sourced from the Coroners Court of Victoria [Suicides of Aboriginal and Torres Strait Islander People Report (2018-2023)](https://www.coronerscourt.vic.gov.au/suicides-aboriginal-and-torres-strait-islander-people-victoria-2018-2023).
+  - This report is updated annually and provides an overview of suicides during the preceding five-year period, compiled from information recorded in the [Victorian Suicide Register](https://findanexpert.unimelb.edu.au/project/18927-the-victorian-suicide-register).
+  - The Victorian Suicide Register contains detailed information on suicides in Victoria, including information on demographics and potential contributing factors and stressors.
+
+:::
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+
+## Life Expectancy
+
+::: {.ctg-box}
+**This topic aligns with [Closing the Gap Outcome Area 1](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/long-and-healthy-lives/): Aboriginal and Torres Strait Islander people enjoy long and healthy lives**
+
+Target: Close the Gap in life expectancy within a generation, by 2031.
+:::
+
+<div style="height: 1em;"></div>
+
+```{r}
+# ------------------------------------------------------------------------------
+# Life expectancy at birth - Australia
+# Data from ABS Life Tables via CtG Information Repository
+# ------------------------------------------------------------------------------
+# Read in ABS data
+mortality_life <- f_read_ctg_indigenous("CTG01_Healthy_Lives_Data_Tables.xlsx",
+                                        data_sheet     = "Table CtG1A.1",
+                                        column_select  = c(indigenous_status = "x1",
+                                                           year = "x3",
+                                                           sex = "x4",
+                                                           "unit",
+                                                           vic = "aust_b"),
+                                        fill_variables = vars(indigenous_status, year),
+                                        row_select     = 1:32) %>% 
+  dplyr::filter(!is.na(sex)) %>% 
+  #
+  dplyr::rename(life_expectancy = vic) %>% 
+  #
+  dplyr::mutate(sex = stringr::str_sub(sex, end = -2))
+
+# Data wrangling
+mortality_diff <- mortality_life %>%
+  dplyr::select(-indigenous_status,
+                -unit) %>% 
+  #
+  tidyr::pivot_wider(names_from  = "indigenous_label",
+                     values_from = "life_expectancy") %>% 
+  #
+  janitor::clean_names() %>% 
+  #
+  dplyr::mutate(difference = non_indigenous - aboriginal)
+```
+
+- Data for this topic were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the [ABS Aboriginal and Torres Strait Islander Life Expectancy Report](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/aboriginal-and-torres-strait-islander-life-expectancy/2020-2022).
+
+- Life expectancy data were only publicly available at an aggregate level for Australia. Data on life expectancy were not reported separately for Victoria, but Victorian data were included in the Australian data.
+
+- Life expectancy at birth has increased over time for Aboriginal and/or Torres Strait Islander people in Australia, for both males (from 68 years in 2005-07 to 72 years in 2020-22) and females (from 73 years in 2005-07 to 76 years in 2020-22).
+
+- Life expectancy at birth for babies born in 2020-22 was higher for Aboriginal and/or Torres Strait Islander females (76 years) than males (72 years).
+
+- The gap in life expectancy at birth between Aboriginal and/or Torres Strait Islander and non-Indigenous people has improved, but remains at 8.7 years for males and 8.2 years for females.
+
+- Further historical and ongoing target context can be found on the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/long-and-healthy-lives/).
+
+**Key points from stakeholder consultation**
+
+- At stakeholder consultations during the development of this report, stakeholders highlighted the absence of Victorian specific life expectancy data as a significant gap.
+
+- It was noted that this makes it difficult to compare outcomes across jurisdictions and to make informed decisions for program and service planning.
+
+- The ABS have introduced changes in the methods used to [ascertain Aboriginal and/or Torres Strait Islander status](https://www.abs.gov.au/articles/technical-note-impact-using-multiple-sources-deriving-indigenous-status-deaths-2023-changes-victoria-and-coroner-referred-deaths) for deaths registered in Victoria from 2023 onwards, which may increase data quality and allow for the calculation of life tables and life expectancy estimates for Victoria in future years.
+
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- The ABS has implemented an enhanced process for [ascertaining Aboriginal and/or Torres Strait Islander status](https://www.abs.gov.au/articles/technical-note-impact-using-multiple-sources-deriving-indigenous-status-deaths-2023-changes-victoria-and-coroner-referred-deaths) for deaths registered from 2023 onwards in Victoria.
+  - This enhanced process assigns Aboriginal and/or Torres Strait Islander status based on data from three sources: the Death Registration Statement (completed by the person who notified the death, usually the funeral director or a family member), the Medical Certificate Cause of Death (for deaths that were certified by a doctor), and the National Coronial Information System (for deaths that were referred to the coroner).
+  - If these data sources do not agree, identification on any source is usually given preference over recording the deceased as non-Indigenous.
+  
+<div style="height: 0.1em;"></div>
+
+- Life expectancy is defined as the average number of years that a newborn baby could expect to live, if they experienced the age and sex specific death rates that applied at their birth throughout their entire lifetime.
+
+:::
+
+:::: {.panel-tabset}
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Life expectancy at birth (years), `r note_geography_australia`, by `r stringr::str_to_lower(note_comparison_yearbirth)`, `r stringr::str_to_lower(note_comparison_sex)`, and `r note_comparison_aboriginal`
+:::
+
+```{r}
+#
+figure_life <- mortality_life %>% 
+  dplyr::mutate(hover_text = paste0(year, "\n",
+                                    sex, "\n",
+                                    indigenous_label, "\n",
+                                    "Life expectancy (years): ", sprintf("%.1f", life_expectancy))) %>%
+  #
+  ggplot(aes(x = year, y = life_expectancy, col = fct_rev(indigenous_status), group = fct_rev(indigenous_status), text = hover_text)) +
+  #
+  geom_line(linewidth = 1.5) +
+  #
+  scale_y_continuous(limits = c(0, NA),
+                     breaks = scales::breaks_width(10),
+                     expand = expansion(add = c(0, 10)),
+                     labels = scales::comma_format(big.mark = ",")) +
+  #
+  scale_color_manual(values = c(colour_nonaboriginal, colour_aboriginal),
+                     name   = NULL) +
+  #
+  labs(x = NULL,
+       y = NULL) +
+  #
+  theme_classic() +
+  #
+  facet_wrap(.~ sex,
+             scale          = "free_x",
+             strip.position = "bottom")
+
+figure_life %>% 
+  plotly::ggplotly(tooltip = "text") %>%
+  #
+  plotly::layout(hovermode = "x",
+                 #
+                 yaxis = list(title = list(text     = "Life expectancy at birth (years)",
+                                           font     = list(size = 13, family = "Arial"),
+                                           standoff = 10)),
+                 #
+                 legend = list(x = 0.5,
+                               y = -0.1,
+                               #
+                               orientation = "h",
+                               traceorder  = "reversed",
+                               xanchor     = "center"))
+```
+
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Difference in life expectancy at birth for Aboriginal and/or Torres Strait Islander children and non-Indigenous children, `r note_geography_australia`, by `r stringr::str_to_lower(note_comparison_yearbirth)` and `r stringr::str_to_lower(note_comparison_sex)`
+:::
+
+```{r}
+#
+mortality_diff %>% 
+  f_line_grouped_sex(y_variable = difference,
+                     n_level    = "life expectancy at birth (years)")
+```
+
+
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Life expectancy at birth (years), Australia, by Aboriginal and/or Torres Strait Islander status, sex, and year of birth
+:::
+
+```{r}
+#
+table <- mortality_diff %>% 
+  tidyr::pivot_wider(names_from  = "sex",
+                     names_vary  = "slowest",
+                     values_from = c("aboriginal", "non_indigenous", "difference")) %>%
+  #
+  janitor::clean_names() %>% 
+  #
+  dplyr::arrange(year)
+  
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>%
+  dplyr::select(year,
+                ends_with("_female")) %>% 
+  #
+  f_table_simple(total_row     = NULL,
+                 last_column   = ncol(table) - 3,
+                 table_headers = c("Year",
+                                   "Identified as Aboriginal\nand/or Torres Strait Islander", 
+                                   "Did not identify as Aboriginal\nand/or Torres Strait Islander",
+                                   "Difference in life expectancy")) %>% 
+  #
+  kableExtra::column_spec(2:(ncol(table) - 4),
+                          width = "1.65in") %>%
+  #
+  kableExtra::column_spec((ncol(table) - 3),
+                          width = "1.3in") %>% 
+  #
+  kableExtra::add_header_above(c("Female" = 4),
+                               align = "left")
+
+table %>%
+  dplyr::select(year,
+                ends_with("_male")) %>% 
+  #
+  f_table_simple(total_row     = NULL,
+                 last_column   = ncol(table) - 3,
+                 table_headers = c("Year",
+                                   "Identified as Aboriginal\nand/or Torres Strait Islander", 
+                                   "Did not identify as Aboriginal\nand/or Torres Strait Islander",
+                                   "Difference in life expectancy")) %>% 
+  #
+  kableExtra::column_spec(2:(ncol(table) - 4),
+                          width = "1.65in") %>%
+  #
+  kableExtra::column_spec((ncol(table) - 3),
+                          width = "1.3in") %>% 
+  #
+  kableExtra::add_header_above(c("Male" = 4),
+                               align = "left")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+- Data were obtained from the [ABS Aboriginal and Torres Strait Islander Life Expectancy Report](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/aboriginal-and-torres-strait-islander-life-expectancy/2020-2022).
+  - Life expectancy estimates were calculated taking age-specific identification rates into account.
+
+<div style="height: 0.1em;"></div>
+
+- *Australia* includes NSW, Victoria, Queensland, Western Australia, South Australia, Northern Territory, Tasmania, and the Australian Capital Territory.
+  - Life expectancy estimates for Aboriginal and/or Torres Strait Islander people are currently only available at a statewide level for New South Wales, Queensland, Western Australia, and the Northern Territory. These four jurisdictions have acceptable data quality for Aboriginal and/or Torres Strait Islander status in death data to allow for the construction of state-specific reliable life expectancy estimates.
+  - The ABS have introduced changes in the methods used to [ascertain Aboriginal and/or Torres Strait Islander status](https://www.abs.gov.au/articles/technical-note-impact-using-multiple-sources-deriving-indigenous-status-deaths-2023-changes-victoria-and-coroner-referred-deaths) for deaths registered in Victoria from 2023 onwards, which may increase data quality and allow for the calculation of life tables and life expectancy estimates for Victoria in future years.  
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 10N-7 and Table 10N-7:
+  - Indicator: Life expectancy at birth
+  - Numerator: Life expectancy at birth (years)
+  - Geographical area: `r note_geography_australia`
+  - Comparison: `r note_comparison_year` and `r stringr::str_to_lower(note_comparison_sex)`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 10N-8 and Table 10N-7:
+  - Indicator: Difference in life expectancy at birth
+  - Numerator: Difference in life expectancy at birth (years)
+  - Geographical area: `r note_geography_australia`
+  - Comparison: `r note_comparison_aboriginal`, `r stringr::str_to_lower(note_comparison_year)` and `r stringr::str_to_lower(note_comparison_sex)`
+
+:::
+
