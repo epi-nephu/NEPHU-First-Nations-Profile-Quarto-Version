@@ -5,7 +5,8 @@
 # Table type: simple (univariate) tables
 
 f_table_simple <- function(data, total_row = nrow(table), last_column = ncol(table), 
-                           table_headers, iare = "no", hospital = "no", column_width = "1in") {
+                           table_headers, iare = "no", hospital = "no", cause_death = "no",
+                           column_width = "1in") {
   
   if (hospital == "admission") {
     
@@ -59,6 +60,19 @@ f_table_simple <- function(data, total_row = nrow(table), last_column = ncol(tab
       kableExtra::column_spec(2:last_column,
                               width = "1.75in")
 
+  }
+
+  if (cause_death == "yes") {
+    
+    table <- table %>% 
+      kableExtra::column_spec(1,
+                              width = "1in") %>% 
+      #
+      kableExtra::column_spec(2,
+                              width         = "1.75in",
+                              include_thead = TRUE,
+                              extra_css     = "text-align: left")
+    
   }
   
   return(table)
