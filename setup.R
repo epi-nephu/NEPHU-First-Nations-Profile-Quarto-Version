@@ -28,6 +28,7 @@ pacman::p_load(here,
                knitr,
                kableExtra,
                colorRamps,
+               RColorBrewer,
                extrafont,
                ggnewscale,
                plotly,
@@ -39,13 +40,6 @@ options(knitr.kable.NA = '--')
 # Data folders
 # ------------------------------------------------------------------------------
 root_folder <- str_extract(getwd(), "^.+Epidemiology")
-
-# NEPHU map objects
-load(file.path(root_folder, "Population Health Data/NEPHU Maps", "NEPHU_basemaps_sf.RData"))
-
-# Convert from GRS80 to WGS84 coordinate system for leaflet maps
-nephu_lga.sf <- st_transform(nephu_lga.sf, crs = 4326)
-nephu_sa2.sf <- st_transform(nephu_sa2.sf, crs = 4326)
 
 # ABS Census 2021
 census_lga_data_subfolder <- "Population Health Data/ABS Census Population Housing 2021 (GCP)/Data/LGA/VIC"
@@ -97,6 +91,7 @@ source(here::here("functions", "graphs", "f_bar_stacked.R"))
 source(here::here("functions", "graphs", "f_line_grouped.R"))
 source(here::here("functions", "graphs", "f_line_simple.R"))
 source(here::here("functions", "graphs", "f_map_density.R"))
+source(here::here("functions", "graphs", "f_map_simple.R"))
 source(here::here("functions", "graphs", "f_pyramid.R"))
 
 source(here::here("functions", "tables", "f_table_dataprep.R"))
@@ -113,6 +108,77 @@ lphu_assign <- readxl::read_xlsx(file.path(root_folder, "Population Health Data/
   #
   dplyr::mutate(lga_name      = stringr::str_to_title(lga_name),
                 LGA_CODE_2021 = paste0("LGA", lga_id))
+
+# ------------------------------------------------------------------------------
+# Shape file data for maps
+# ------------------------------------------------------------------------------
+# NEPHU map objects
+load(file.path(root_folder, "Population Health Data/NEPHU Maps", "NEPHU_basemaps_sf.RData"))
+
+# All Victorian LGAs mapped to LPHUs
+vic_lga.sf <- sf::st_read(here::here("Data/LGA_2022_AUST_GDA2020_SHP/LGA_2022_AUST_GDA2020.shp"),
+                          quiet = TRUE) %>% 
+  #
+  dplyr::select(-STE_CODE21, 
+                -AUS_CODE21, 
+                -AUS_NAME21, 
+                -LOCI_URI21,
+                -LGA_NAME22) %>% 
+  #
+  dplyr::rename(lga_code   = LGA_CODE22,
+                ste_name   = STE_NAME21,
+                areasqkm   = AREASQKM,
+                shp_length = SHAPE_Leng, 
+                shp_area   = SHAPE_Area) %>% 
+  #
+  dplyr::mutate(lga_code = as.numeric(lga_code)) %>% 
+  #
+  dplyr::filter(ste_name == "Victoria" & lga_code < 29000) %>% 
+  #
+  dplyr::left_join(lphu_assign, by = c("lga_code" = "lga_id")) %>% 
+  #
+  dplyr::mutate(
+    lphu_short = dplyr::case_when(
+      lphu_short == "GPHU"    ~ "GRPHU",
+      lphu_short == "GWSMPHU" ~ "GPHU",
+      TRUE ~ as.character(lphu_short)),
+    #
+    lphu_long = dplyr::case_when(
+      lphu_short == "NEPHU"  ~ "North Eastern",
+      lphu_short == "SEPHU"  ~ "South Eastern",
+      lphu_short == "WPHU"   ~ "Western",
+      lphu_short == "BSWPHU" ~ "Barwon South West",
+      lphu_short == "LMPHU"  ~ "Loddon Mallee",
+      lphu_short == "GRPHU"  ~ "Gippsland",
+      lphu_short == "GVPHU"  ~ "Goulburn Valley",
+      lphu_short == "GPHU"   ~ "Grampians",
+      lphu_short == "OMPHU"  ~ "Ovens Murray",
+      TRUE ~ NA_character_))
+
+# All Victorian IAREs
+vic_iare.sf <- sf::st_read(here::here("Data/IARE_2021_AUST_GDA2020_SHP/IARE_2021_AUST_GDA2020.shp"),
+                           quiet = TRUE) %>% 
+  # 
+  dplyr::select(iare_code   = IAR_CODE21,
+                iare_name   = IAR_NAME21,
+                region_name = IRE_NAME21,
+                ste_name   = STE_NAME21,
+                areasqkm   = AREASQKM21,
+                shp_length = SHAPE_Leng, 
+                shp_area   = SHAPE_Area,
+                geometry) %>% 
+  #
+  dplyr::filter(ste_name == "Victoria" & iare_code < 29000) %>% 
+  #
+  dplyr::mutate(region_name = dplyr::case_when(
+    region_name == "Melbourne" ~ "Greater Melbourne",
+    TRUE ~ as.character(region_name)))
+
+# Convert from GRS80 to WGS84 coordinate system for leaflet maps
+nephu_lga.sf <- st_transform(nephu_lga.sf, crs = 4326)
+nephu_sa2.sf <- st_transform(nephu_sa2.sf, crs = 4326)
+vic_lga.sf   <- st_transform(vic_lga.sf, crs = 4326)
+vic_iare.sf  <- st_transform(vic_iare.sf, crs = 4326)
 
 # ------------------------------------------------------------------------------
 # Constants
