@@ -180,72 +180,99 @@ disability_type <- disability_type %>%
 
 - The most commonly reported disabilities by Aboriginal and/or Torres Strait Islander survey respondents living in Greater Melbourne were physical restrictions (57% of survey respondents who were living with a disability, approximately 9,900 people), and sensory or speech issues (38% of survey respondents who were living with a disability, approximately 6,600 people).
 
-::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
-- The following questions were asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
-  - Can you do any of the following activities? (Select all that apply)
-    - Easily walk 200 metres
-    - Walk up and down stairs without a handrail
-    - Easily bend to pick up an object from the floor
-    - Use public transport without difficulty, help, or supervision
-    - None of the above
-  - Do you have any of these conditions that have lasted, or are expected to last, for six months or longer? (Select all that apply)
-    - Shortness of breath
-    - Chronic or recurring pain
-    - A nervous or emotional condition
-    - Memory problems or periods of confusion
-    - Social or behavioural difficulties
-    - Long term effects as a result of a head injury, stroke, or other brain damage
-    - Receiving treatment or medication for any other long term condition
-    - Any other long term health condition (e.g. arthritis, asthma, heart disease)
-    - None of the above
-  - Do you have any of these conditions that have lasted, or are expected to last, for six months or longer? (Select all that apply)
-    - Sight problems not corrected by glasses or contact lenses
-    - Hearing problems
-    - Speech problems
-    - Blackouts, seizures, or loss of consciousness
-    - Difficulty learning or understanding things
-    - Limited use of arms or fingers
-    - Difficulty gripping things
-    - Limited use of legs or feet
-    - Any condition that restricts physical activity pr physical work (e.g. back problems, migraines)
-    - Any disfigurement or deformity
-    - Any mental illness for which help or supervision is required
-    - None of the above
-  - If yes, are you restricted in your everyday activities because of this condition?
-    - `r note_response_binary`
-  - If yes, do you ever need help, supervision, or aids to help with any of these tasks because of this condition? (Select all that apply)
-    - Bathing or showering
-    - Dressing or undressing
-    - Eating or feeding
-    - Going to the toilet, bladder control, or bowel control
-    - Moving around away from home or moving around at home
-    - Getting in or out of a bed or chair
-    - Understanding or being understood by strangers, friends, or family (including use of sign language or lip reading)
-    - None of the above
-  - If yes, do you have any of the following problems with schooling because of this condition? (Select all that apply)
-    - Not attending school or further study
-    - Needing time off from school or study
-    - Attending special classes or school
-    - Other related difficulties
-    - No difficulty with education
-  - If yes, do you have any of the following problems with work because of this condition? (Select all that apply)
-    - Type of job you can do
-    - Number of hours that can be worked
-    - Finding suitable work
-    - Needing time off work
-    - Permanently unable to work
-    - Other related difficulties
-    - No difficulty with work
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
 <div style="height: 0.1em;"></div>
 
-- Definitions and notes:
-  - `r note_aboriginality_natsihs`
-  - A person was defined as having a disability if they had an impairment which restricts their everyday activities and that has lasted, or is expected to last, for at least six months.
-  - People with disabilities were classified by whether they had:
-    - a specific limitation with any core activities (mobility, communication and self-care),
-    - a specific restriction when participating in schooling or employment activities, or
-    - no specific limitation with core activities or restriction with schooling or employment activities.
+- `r note_aboriginality_natsihs`
+
+<div style="height: 0.1em;"></div>
+
+- A person was defined as having a disability if they had an impairment which restricts their everyday activities and that has lasted, or is expected to last, for at least six months.
+
+<div style="height: 0.1em;"></div>
+
+- People with disabilities were classified by whether they had:
+  - a specific limitation with any core activities (mobility, communication and self-care),
+  - a specific restriction when participating in schooling or employment activities, or
+  - no specific limitation with core activities or restriction with schooling or employment activities.
+
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
+- Can you do any of the following activities? (*Select all that apply*)
+  - Easily walk 200 metres
+  - Walk up and down stairs without a handrail
+  - Easily bend to pick up an object from the floor
+  - Use public transport without difficulty, help, or supervision
+  - None of the above
+
+<div style="height: 0.1em;"></div>
+
+- Do you have any of these conditions that have lasted, or are expected to last, for six months or longer? (*Select all that apply*)
+  - Shortness of breath
+  - Chronic or recurring pain
+  - A nervous or emotional condition
+  - Memory problems or periods of confusion
+  - Social or behavioural difficulties
+  - Long term effects as a result of a head injury, stroke, or other brain damage
+  - Receiving treatment or medication for any other long term condition
+  - Any other long term health condition (e.g. arthritis, asthma, heart disease)
+  - None of the above
+
+<div style="height: 0.1em;"></div>
+
+- Do you have any of these conditions that have lasted, or are expected to last, for six months or longer? (*Select all that apply*)
+  - Sight problems not corrected by glasses or contact lenses
+  - Hearing problems
+  - Speech problems
+  - Blackouts, seizures, or loss of consciousness
+  - Difficulty learning or understanding things
+  - Limited use of arms or fingers
+  - Difficulty gripping things
+  - Limited use of legs or feet
+  - Any condition that restricts physical activity pr physical work (e.g. back problems, migraines)
+  - Any disfigurement or deformity
+  - Any mental illness for which help or supervision is required
+  - None of the above  
+
+<div style="height: 0.1em;"></div>
+
+- If yes, are you restricted in your everyday activities because of this condition?
+  - `r note_response_binary`
+
+<div style="height: 0.1em;"></div>
+
+- If yes, do you ever need help, supervision, or aids to help with any of these tasks because of this condition? (Select all that apply)
+  - Bathing or showering
+  - Dressing or undressing
+  - Eating or feeding
+  - Going to the toilet, bladder control, or bowel control
+  - Moving around away from home or moving around at home
+  - Getting in or out of a bed or chair
+  - Understanding or being understood by strangers, friends, or family (including use of sign language or lip reading)
+  - None of the above
+
+<div style="height: 0.1em;"></div>
+
+- If yes, do you have any of the following problems with schooling because of this condition? (Select all that apply)
+  - Not attending school or further study
+  - Needing time off from school or study
+  - Attending special classes or school
+  - Other related difficulties
+  - No difficulty with education
+
+<div style="height: 0.1em;"></div>
+  
+- If yes, do you have any of the following problems with work because of this condition? (Select all that apply)
+  - Type of job you can do
+  - Number of hours that can be worked
+  - Finding suitable work
+  - Needing time off work
+  - Permanently unable to work
+  - Other related difficulties
+  - No difficulty with work
 
 :::
 
@@ -511,33 +538,48 @@ assist_agesex <- assist_agesex %>%
 
 - The percentage of people who identified as Aboriginal and/or Torres Strait Islander living in the NEPHU catchment who required assistance with core activities increased with increasing age for both males and females.
 
-- The gap between the observed number of Aboriginal and/or Torres Strait Islander people who required assistance with core activities and the expected number if the proportion was the same as for non-Indigenous people was biggest for males aged 10-19 years. 
+- The gap between the observed number of Aboriginal and/or Torres Strait Islander people who required assistance with core activities and the expected number if the proportion was the same as for non-Indigenous people was biggest for males aged 10-19 years.
 
-::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
-- The following questions were asked of all people completing the ABS Census 2021:
-  - Does the person ever need someone to help with, or be with them for, self-care activities?
-    - `r note_response_likert_always`
-  - Does the person ever need someone to help with, or be with them for, body movement activities?
-    - `r note_response_likert_always`
-  - Does the person ever need someone to help with, or be with them for, communication activities?
-    - `r note_response_likert_always`
-  - What are the reasons for the need for assistance or supervision? (Select all that apply)
-    - No need for assistance
-    - Short-term health condition (lasting less than six months)
-    - Long-term health condition (lasting six months or more)
-    - Disability (lasting six months or more)
-    - Old or young age
-    - Difficulty with English language
-    - Other reason
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people completing the ABS Census 2021.
 
 <div style="height: 0.1em;"></div>
 
-- Definitions and notes:
-  - `r note_aboriginality_census`
-  - People requiring assistance with core activities were defined as those needing assistance in their day to day lives in one or more of the three core activity areas of self-care, mobility, and communication because of:
-    - a long-term health condition (lasting six months or more),
-    - a disability (lasting six months or more), or
-    - old age.
+- `r note_aboriginality_census`
+
+<div style="height: 0.1em;"></div>
+
+- People requiring assistance with core activities were defined as those needing assistance in their day to day lives in one or more of the three core activity areas of self-care, mobility, and communication because of:
+  - a long-term health condition (lasting six months or more),
+  - a disability (lasting six months or more), or
+  - old age.
+
+:::
+
+::: {.callout-tip title="Census questions for this topic" icon=false collapse=false}
+- Does the person ever need someone to help with, or be with them for, self-care activities?
+  - `r note_response_likert_always`
+
+<div style="height: 0.1em;"></div>
+
+- Does the person ever need someone to help with, or be with them for, body movement activities?
+  - `r note_response_likert_always`
+
+<div style="height: 0.1em;"></div>
+
+- Does the person ever need someone to help with, or be with them for, communication activities?
+  - `r note_response_likert_always`
+
+<div style="height: 0.1em;"></div>
+
+- What are the reasons for the need for assistance or supervision? (Select all that apply)
+  - No need for assistance
+  - Short-term health condition (lasting less than six months)
+  - Long-term health condition (lasting six months or more)
+  - Disability (lasting six months or more)
+  - Old or young age
+  - Difficulty with English language
+  - Other reason
 
 :::
 

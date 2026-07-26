@@ -87,6 +87,11 @@ li > ul > li + li {
   margin-top: 1pt;
 }
 
+.ctg-table {
+  font-family: "Karla";
+  font-size: 10pt;  
+}
+
 .key-question {
   font-family: "Karla";
   font-style: italic;

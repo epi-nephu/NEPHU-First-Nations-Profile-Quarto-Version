@@ -16,7 +16,7 @@ f_map_simple <- function(data, geo_variable) {
     addPolygons(fillColor   = pal(data[[geo_variable]]),
                 color       = colour_black,
                 weight      = 0.75,
-                fillOpacity = 0.5,
+                fillOpacity = 0.25,
                 #
                 label        = lapply(data$hover_text, htmltools::HTML),
                 labelOptions = labelOptions(direction = "auto",
@@ -25,7 +25,7 @@ f_map_simple <- function(data, geo_variable) {
                 #
                 highlightOptions = highlightOptions(weight       = 2,
                                                     color        = "#666",
-                                                    fillOpacity  = 0.9,
+                                                    fillOpacity  = 0.5,
                                                     bringToFront = TRUE))
   
   return(figure)

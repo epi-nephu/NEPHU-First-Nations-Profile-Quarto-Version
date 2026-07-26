@@ -2,18 +2,33 @@ project:
   type: book
 
 book:
-  title: "Gumunatj Ngarrngatj:<br>The NEPHU First Nations Population Profile"
+  search: false
+  title: "Gumunatj Ngarrngatj:<br>Population Profile of the First Nations Population Living within the NEPHU Catchment"
   chapters:
     - index.qmd
     - part: "1. Introduction"
-    - part: "2. Methods - Data Analysis"
-    - part: "3. Methods - Consultation"
+      chapters: 
+        - chapters/01a_intro_foreward.qmd
+        - chapters/01b_intro_context.qmd
+        - chapters/01c_intro_artwork.qmd
+        - chapters/01d_intro_glossary.qmd
+        - chapters/01e_intro_services.qmd
+    - part: "2. Data Analysis Methods"
+      chapters:
+        - chapters/02a_methods_analysis.qmd
+        - chapters/02b_methods_sources.qmd
+        - chapters/02c_methods_underreporting.qmd
+    - part: "3. Consultation Process"
+      chapters:
+        - chapters/03a_consultation_datasovereignty.qmd
+        - chapters/03b_consultation_process.qmd
+        - chapters/03c_consultation_acknowledgements.qmd
     - part: "4. Population"
       chapters: 
         - chapters/04a_population_size.qmd
         - chapters/04b_population_growth.qmd
     - part: "5. Demographics"
-      chapters: 
+      chapters:
         - chapters/05a_demographics_agesex.qmd
         - chapters/05b_demographics_language.qmd
     - part: "6. Socioeconomic Determinants of Health"
@@ -25,7 +40,7 @@ book:
         - chapters/06e_socioeconomic_income.qmd
         - chapters/06f_socioeconomic_housing.qmd
     - part: "7. Cultural Determinants of Health"
-      chapters: 
+      chapters:
         - chapters/07a_cultural_connection.qmd
         - chapters/07b_cultural_country.qmd
     - part: "8. Other Determinants of Health"
@@ -34,7 +49,6 @@ book:
         - chapters/08b_other_familysafety.qmd
         - chapters/08c_other_discrimination.qmd
         - chapters/08d_other_digitalinclusion.qmd
-        - chapters/08e_other_healthservices.qmd
     - part: "9. Health and Wellbeing"
       chapters: 
         - chapters/09a_preventive_healthyeating.qmd
@@ -46,20 +60,25 @@ book:
         - chapters/09g_preventive_screening.qmd
     - part: "10. Health Outcomes"
       chapters:
-        - chapters/10a_consequences_general.qmd
-        - chapters/10b_consequences_disability.qmd
-        - chapters/10c_consequences_arthritis.qmd
-        - chapters/10d_consequences_asthma.qmd
-        - chapters/10e_consequences_cancer.qmd
-        - chapters/10f_consequences_diabetes.qmd
-        - chapters/10g_consequences_cardiovascular.qmd
-        - chapters/10h_consequences_kidney.qmd
-        - chapters/10i_consequences_lung.qmd
-        - chapters/10j_consequences_other.qmd
-        - chapters/10k_consequences_infectious.qmd
-        - chapters/10l_consequences_mentalhealth.qmd
-        - chapters/10m_consequences_injury.qmd
-        - chapters/10n_consequences_mortality.qmd
+        - chapters/10a_outcomes_general.qmd
+        - chapters/10b_outcomes_disability.qmd
+        - chapters/10c_outcomes_arthritis.qmd
+        - chapters/10d_outcomes_asthma.qmd
+        - chapters/10e_outcomes_cancer.qmd
+        - chapters/10f_outcomes_diabetes.qmd
+        - chapters/10g_outcomes_cardiovascular.qmd
+        - chapters/10h_outcomes_kidney.qmd
+        - chapters/10i_outcomes_respiratory.qmd
+        - chapters/10j_outcomes_sensory.qmd
+        - chapters/10k_outcomes_infectious.qmd
+        - chapters/10l_outcomes_mentalhealth.qmd
+        - chapters/10m_outcomes_injury.qmd
+        - chapters/10n_outcomes_mortality.qmd
+    - part: "11. Health Service Utilisation"
+      chapters:
+        - chapters/11a_hsu_primary.qmd
+        - chapters/11b_hsu_hospital.qmd
+        - chapters/11c_hsu_emergency.qmd
     - references.qmd
 
 bibliography: references.bib
@@ -72,7 +91,7 @@ format:
     fig-align: center
     fig-cap-location: top
     grid: 
-      body-width: 1000px
+      body-width: 900px
     number-sections: false
     anchor-sections: false
     toc: true

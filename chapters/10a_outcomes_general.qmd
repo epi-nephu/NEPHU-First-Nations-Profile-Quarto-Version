@@ -109,15 +109,17 @@ health_status <- health_status %>%
 
 - Males were more likely to report an excellent level of health than females (18% vs. 6%), while females were more likely to report a poor level of health than males (10% vs. 1.4%).
 
-::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
-- The following question was asked of all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
-  - In general, would you say that your health is excellent, very good, good, fair, or poor?
-    - `r note_response_likert_excellent`
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
 <div style="height: 0.1em;"></div>
 
-- Definitions and notes:
-  - `r note_aboriginality_natsihs`
+- `r note_aboriginality_natsihs`
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
+- In general, would you say that your health is excellent, very good, good, fair, or poor?
+  - `r note_response_likert_excellent`
 
 :::
 
@@ -286,27 +288,32 @@ condition_agesex <- condition_agesex %>%
 
 - The gap between the observed number of Aboriginal and/or Torres Strait Islander people who were living with one or more long-term health conditions and the expected number if the proportion was the same as for non-Indigenous people was biggest for younger people for both males and females.
 
-::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
-- The following question was asked of all people completing the ABS Census 2021:
-  - Has the person been told by a doctor or nurse that they have any of these long-term health conditions? (Select all that apply)
-    - Arthritis
-    - Asthma
-    - Cancer (including remission)
-    - Dementia (including Alzheimer's)
-    - Diabetes (including gestational diabetes)
-    - Heart disease (including heart attack or angina)
-    - Kidney disease
-    - Lung condition (including COPD or emphysema)
-    - Mental health condition (including depression or anxiety)
-    - Stroke
-    - Any other long-term health condition(s)
-    - No long-term health condition
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people completing the ABS Census 2021.
 
 <div style="height: 0.1em;"></div>
 
-- Definitions and notes:
-  - `r note_aboriginality_census`
-  - People were classified as living with a long-term health condition if they have ever been told by a doctor or nurse that they have one or more of these specified conditions.
+- `r note_aboriginality_census`
+
+<div style="height: 0.1em;"></div>
+
+- People were classified as living with a long-term health condition if they have ever been told by a doctor or nurse that they have one or more of these specified conditions.
+:::
+
+::: {.callout-tip title="Census questions for this topic" icon=false collapse=false}
+- Has the person been told by a doctor or nurse that they have any of these long-term health conditions? (*Select all that apply*)
+  - Arthritis
+  - Asthma
+  - Cancer (including remission)
+  - Dementia (including Alzheimer's)  
+  - Diabetes (excluding gestational diabetes)
+  - Heart disease (including heart attack or angina)
+  - Kidney disease
+  - Lung condition (including COPD or emphysema)
+  - Mental health condition (including depression or anxiety)
+  - Stroke
+  - Any other long-term health condition(s)
+  - No long-term health condition
 
 :::
 
