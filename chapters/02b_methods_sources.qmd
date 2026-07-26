@@ -1,0 +1,258 @@
+---
+title-block: false
+---
+
+# Data Sources
+
+```{r}
+#
+source(here::here("setup.R"))
+
+# Set up numbering for figures and tables
+figtab_report_section <- "2B"
+figtab_csv_section    <- "02B"
+
+figtab_table_count  <- 0
+figtab_figure_count <- 0
+```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Data Sources {.unnumbered}
+
+This report collates data from a wide range of publicly available data sources.
+
+[**Aboriginal and Torres Strait Islander Social Health Atlas of Australia**](https://phidu.torrens.edu.au/social-health-atlases)
+
+- The Aboriginal and Torres Strait Islander Social Health Atlas of Australia is a compendium of demographic, social, health status, and health service utilisation indicators compiled by Torrens University Australia from a wide range of national, jurisdictional, and regional data sources.
+
+<div style="height: 0.1em;"></div>
+
+[**ABS Aboriginal and Torres Strait Islander Life Expectancy Report**](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/aboriginal-and-torres-strait-islander-life-expectancy/2020-2022)
+
+- The ABS Aboriginal and Torres Strait Islander Life Expectancy Report provides life expectancy estimates for Aboriginal and/or Torres Strait Islander people for Australia and selected geographic areas.
+
+- Due to data limitations, data specific for Victoria were not available. However, Victorian data were included when calculating life expectancy estimates for Australia.
+
+<div style="height: 0.1em;"></div>
+
+[**ABS Causes of Death Data**](https://www.abs.gov.au/statistics/health/causes-death)
+
+- The ABS Causes of Death Data provides information on the number of deaths, by sex, selected age groups, and cause of death classified to the International Classification of Diseases (ICD).
+
+- These data include all deaths that occurred and were registered in Australia, including deaths of persons whose place of usual residence was overseas.
+
+<div style="height: 0.1em;"></div>
+
+[**ABS Census**](https://www.abs.gov.au/census)
+
+- The Census is a survey that counts every person and household in Australia every five years.
+
+- The 2021 Census was held on the evening of August 10th 2021.
+
+<div style="height: 0.1em;"></div>
+
+[**ABS National Aboriginal and Torres Strait Islander Health Survey**](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release)
+
+- The ABS National Aboriginal and Torres Strait Islander Health Survey collected information from Aboriginal and/or Torres Strait Islander people of all ages in non-remote and remote areas of Australia, including discrete Aboriginal and/or Torres Strait Islander communities. 
+
+- Data were collected through face-to-face interviews with survey respondents or their parent/guardian.
+
+- The survey was designed to collect a range of information about the health of Aboriginal and/or Torres Strait Islander Australians, including prevalence of long-term health conditions, health risk factors, use of health services, demographic characteristics, and socioeconomic characteristics.
+
+- The 2018-19 ABS National Aboriginal and Torres Strait Islander Health Survey was conducted between July 2018 and April 2019.
+
+- The 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey was conducted between August 2022 and April 2024.
+
+<div style="height: 0.1em;"></div>
+
+[**ABS National Health Survey**](https://www.abs.gov.au/statistics/health/health-conditions-and-risks/national-health-survey/latest-release)
+
+- The ABS National Health Survey collected information from Australian residents of all ages living in private dwellings in both urban and rural areas of all Australian states and territories, including very remote communities and discrete Aboriginal and/or Torres Strait Islander communities.
+
+- Data were collected through face-to-face interviews with survey respondents or their parent/guardian.
+
+- The survey was designed to collect a range of information about the health of Australians, including prevalence of long-term health conditions, health risk factors, use of health services, demographic characteristics, and socioeconomic characteristics.
+
+- The 2017-18 ABS National Health Survey was conducted between July 2017 and June 2018.
+  
+<div style="height: 0.1em;"></div>
+
+[**ABS Population Estimates and Projections**](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/estimates-and-projections-australian-aboriginal-and-torres-strait-islander-population/latest-release)
+
+- The ABS Population Estimates and Projections calculate the number of Aboriginal and/or Torres Strait Islander people living in Australia based on responses to the most recent Census.
+
+- Projection estimates are based on assumptions based on past demographic trends (e.g. birth rate, life expectancy at birth), in conjunction with consultation with various experts and government department representative at the national and state/territory level.
+
+- These data are used to project how many Aboriginal and/or Torres Strait Islander people are expected to live in Australia at various time points over the next ten years.
+
+<div style="height: 0.1em;"></div>
+
+[**ABS Prisoners in Australia Dataset**](https://www.abs.gov.au/statistics/people/crime-and-justice/prisoners-australia/latest-release)
+
+- The ABS Prisoners in Australia Dataset includes all persons remanded or sentenced to adult custodial corrective services agencies in each Australian state and territory.
+
+<div style="height: 0.1em;"></div>
+
+[**ABS Technical Note (Mortality)**](https://www.abs.gov.au/articles/technical-note-impact-using-multiple-sources-deriving-indigenous-status-deaths-2023-changes-victoria-and-coroner-referred-deaths) 
+
+- This report describes the implementation of an enhanced process for ascertaining Aboriginal and/or Torres Strait Islander status for deaths registered from 2023 onwards in Victoria.
+
+- This enhanced process assigns Aboriginal and/or Torres Strait Islander status based on data from three sources: the Death Registration Statement (completed by the person who notified the death, usually the funeral director or a family member), the Medical Certificate Cause of Death (for deaths that were certified by a doctor), and the National Coronial Information System (for deaths that were referred to the coroner). If these data sources do not agree, identification on any source is usually given preference over recording the deceased as non-Indigenous.
+
+<div style="height: 0.1em;"></div>
+
+[**AIHW Aboriginal and Torres Strait Islander Health Performance Framework**](https://www.indigenoushpf.gov.au/)
+
+- The AIHW Aboriginal and Torres Strait Islander Health Performance Framework brings together information from a wide range of national, jurisdictional, and regional data sources to report on determinants of health, health outcomes, and health system performance for Aboriginal and/or Torres Strait Islander peoples.
+
+<div style="height: 0.1em;"></div>
+
+[**AIHW Child Protection National Minimum Dataset**](https://www.aihw.gov.au/about-our-data/our-data-collections/child-protection-national-minimum-data-set)
+
+- The AIHW Child Protection National Minimum Dataset includes information about children who come into contact with State and Territory departments responsible for child protection.
+
+<div style="height: 0.1em;"></div>
+
+[**AIHW Mothers and Babies Report**](https://www.aihw.gov.au/reports/mothers-babies/australias-mothers-babies/contents/summary)
+
+- The AIHW collates data from the National Perinatal Data Collection, the National Maternal Mortality Data Collection, the National Perinatal Mortality Data Collection and State and Territory perinatal data collections to produce the Australia’s Mothers and Babies Report.
+
+- This report contains data at state level on pregnancy, childbirth and key outcomes for babies at the time of birth.
+
+<div style="height: 0.1em;"></div>
+
+[**AIHW National Non-Admitted Patient Emergency Department Care Database (NNAPEDCD)**](https://www.aihw.gov.au/reports/hospitals/non-admitted-patient-emergency-dept-care-nmds/summary)
+
+- The NNAPEDCD provides information on care provided to non-admitted patients in public hospital emergency departments in each state and territory in Australia.
+
+<div style="height: 0.1em;"></div>
+
+[**AIHW Youth Justice National Minimum Dataset**](https://www.aihw.gov.au/about-our-data/our-data-collections/youth-justice)
+
+- The AIHW Youth Justice National Minimum Dataset includes information about young people in Australia who were under youth justice supervision in each Australian state and territory.
+
+<div style="height: 0.1em;"></div>
+
+[**Australian Early Development Census (AEDC)**](https://www.aedc.gov.au/)
+
+- The AEDC is a population-based measure of children’s development as they enter their first year of full-time school.
+
+- It measures five important domains of early childhood development: physical health and wellbeing, social competence, emotional maturity, language and cognitive skills, and communication skills and general knowledge.
+
+<div style="height: 0.1em;"></div>
+
+[**Australian Immunisation Register (AIR)**](https://www.servicesaustralia.gov.au/australian-immunisation-register)
+
+- The AIR records all vaccines given to people in Australia and includes vaccines given under the National Immunisation Program, through school programs, and privately (e.g. travel-related vaccines).
+
+<div style="height: 0.1em;"></div>
+
+[**Australian Reconciliation Barometer**](https://www.reconciliation.org.au/reconciliation/australian-reconciliation-barometer/)
+
+- The Australian Reconciliation Barometer is a national survey undertaken every two years since 2008, and aims to measure the progress of reconciliation between Aboriginal and/or Torres Strait Islander and non-Indigenous peoples.")
+
+<div style="height: 0.1em;"></div>
+
+[**BreastScreen Australia**](https://www.breastscreen.org.au/)
+
+- BreastScreen Australia collates data on breast screening services and outcomes for screening offered under the national BreastScreen Australia program.
+
+<div style="height: 0.1em;"></div>
+
+[**Closing the Gap Information Repository**](https://www.pc.gov.au/closing-the-gap-data/)
+
+- The Closing the Gap Information Repository brings together data from a wide range of data sources to provide up to date information for each Closing the Gap target, indicator, and contextual factors.
+ 
+<div style="height: 0.1em;"></div>
+
+[**National Assessment Program — Literacy and Numeracy (NAPLAN) Program**](https://www.acara.edu.au/reporting/national-report-on-schooling-in-australia/naplan-national-results)
+
+- NAPLAN is a national assessment administered by the Australian Curriculum, Assessment, and Reporting Authority (ACARA).
+  
+- The program tests students’ ability in three domains of literacy (reading, writing, and language conventions) and in numeracy during Term 1 of Years 3, 5, 7, and 9.
+
+<div style="height: 0.1em;"></div>
+
+[**National Cancer Screening Register**](https://www.ncsr.gov.au/)
+
+- The NCSR is Australia's digital platform which supports the implementation of cervical and bowel screening including invitation of eligible participants and storing results of relevant screening and follow-up diagnostic tests.
+
+<div style="height: 0.1em;"></div>
+
+[**National Early Childhood Education and Care Collection (NECECC)**](https://www.abs.gov.au/statistics/people/education/preschool-education/latest-release)
+
+- The NECECC collates data on preschool enrollments, attendance, and service providers from the Australian Government, state and territory education departments, and the Catholic Education Office of the Archdiocese of Canberra and Goulburn.
+
+- The NECEEC conducts an annual census on the first Friday in August, with the reference week for data collection being the week before the census date.
+
+<div style="height: 0.1em;"></div>
+
+[**National Native Title Tribunal Geospatial Data Model**](https://www.nntt.gov.au/assistance/Geospatial/Pages/Spatial-aata.aspx)
+
+- The National Native Title Tribunal Geospatial Data Model brings together information about native title claimant applications, native title determinations, Indigenous estates, registered and notified Indigenous Land Use Agreements, and registered native title bodies corporate.
+
+<div style="height: 0.1em;"></div>
+
+[**National Perinatal Data Collection (NPDC)**](https://www.aihw.gov.au/about-our-data/our-data-collections/national-perinatal-data-collection)
+
+- The NPDC collates data about births reported by midwives and other birth attendants to the perinatal data collections in each state and territory in Australia.
+
+<div style="height: 0.1em;"></div>
+
+[**Person Level Integrated Data Asset (PLIDA)**](https://www.abs.gov.au/about/data-services/data-integration/integrated-data/person-level-integrated-data-asset-plida)
+
+- PLIDA is a secure linked data asset maintained by the ABS that brings together information on health, education, government payments, income and taxation, employment, and population demographics.
+ 
+<div style="height: 0.1em;"></div>
+
+[**Suicides of Aboriginal and Torres Strait Islander People Report**](https://www.coronerscourt.vic.gov.au/suicides-aboriginal-and-torres-strait-islander-people-victoria-2018-2023)
+
+- This report is produced by the Coroners Court of Victoria and updated annually.
+
+- It provides an overview of suicides during the preceding five-year period, compiled from information recorded in the [Victorian Suicide Register](https://findanexpert.unimelb.edu.au/project/18927-the-victorian-suicide-register).
+
+- The Victorian Suicide Register contains detailed information on suicides in Victoria, including information on demographics and potential contributing factors and stressors.
+
+<div style="height: 0.1em;"></div>
+
+[**Victorian Admitted Episodes Dataset (VAED)**](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset)
+
+- The VAED includes data from all Victorian public and private hospitals, including rehabilitation centres, extended care facilities, and day procedure centres.
+
+<div style="height: 0.1em;"></div>
+
+[**Victorian Cancer Registry**](https://www.cancervic.org.au/about-cancer/types/statistics)
+
+- The Victorian Cancer Registry is managed by Cancer Council Victoria on behalf of the Victorian Department of Health.
+
+- Cancer is a notifiable condition in Victoria.
+
+- Under the *Improving Cancer Outcomes Act 2014*, hospitals, pathology services, and medical practitioners are required to notify all primary malignant neoplasms and selected in situ carcinomas diagnosed in Victorian residents to the Registry.
+
+- The full list of notifiable cancers and reporting requirements is available in the [Cancer Registration User Guide](https://www.cancervic.org.au/research/our-research/victoria-cancer-registry/submitting-data).
+
+<div style="height: 0.1em;"></div>
+
+[**Victorian Child and Adolescent Monitoring System (VCAMS)**](https://www.vic.gov.au/victorian-child-and-adolescent-monitoring-system-vcams)
+
+- VCAMS brings together data from a wide range of sources about early childhood, family functioning, and communities to monitor and report against the indicators in the VCAMS Outcomes Framework.
+
+<div style="height: 0.1em;"></div>
+
+[**Victorian Crime Statistics Agency**](https://www.crimestatistics.vic.gov.au/crime-statistics/latest-aboriginal-crime-data/family-incidents-by-aboriginal-and-torres-strait)
+
+- The Victorian Crime Statistics Agency collates information about crimes reported to Victoria Police and recorded in the Law Enforcement Assistance Program (LEAP) database.
+
+- For a record to be made in LEAP, a person needs to make a victim report or Victoria Police needs to detect that a crime has occurred.
+
+<div style="height: 0.1em;"></div>
+
+[**Victorian Public Health Event Surveillance System (PHESS)**](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria)
+
+- PHESS contains data on conditions that are legally required to be notified to the Victorian Department of Health by medical practitioners and pathology services (laboratories) under the *Public Health and Wellbeing Act 2008* and *Public Health and Wellbeing Regulations 2019*.
+

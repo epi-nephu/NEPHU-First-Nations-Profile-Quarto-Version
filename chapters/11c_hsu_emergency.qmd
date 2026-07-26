@@ -1,0 +1,295 @@
+---
+title-block: false
+---
+
+# Emergency Department Presentations
+
+```{r}
+#
+source(here::here("setup.R"))
+
+# Set up numbering for figures and tables
+figtab_report_section <- "11C"
+figtab_csv_section    <- "11C"
+
+figtab_table_count  <- 0
+figtab_figure_count <- 0
+```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Emergency Department Presentations {.unnumbered}
+
+::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
+`r note_chapter_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_masking`
+:::
+
+::: {.key-question}
+What external factors influence health and wellbeing for Aboriginal and/or Torres Strait Islander people and families in the NEPHU catchment, including in supporting children and strong families?
+:::
+
+## All Presentations
+
+```{r}
+# ------------------------------------------------------------------------------
+# ED presentations - all presentations
+# Data from PHIDU Social Health Atlas
+# ------------------------------------------------------------------------------
+# Read in PHIDU data
+emergency_total <- f_read_phidu_iare_hospital(data_sheet    = "ED_total",
+                                              column_select = "emergency_department_presentations_total_presentations_aboriginal_people")
+
+# Data wrangling
+emergency_total <- emergency_total %>% 
+  dplyr::mutate(iare_name = factor(iare_name, levels = iare_inc_vic_lvl)) %>%
+  #
+  dplyr::arrange(iare_name)
+```
+
+- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [AIHW National Non-Admitted Patient Emergency Department Care Database (NNAPEDCD)](https://www.aihw.gov.au/reports/hospitals/non-admitted-patient-emergency-dept-care-nmds/summary).
+
+- Between 01 July 2019 and 30 June 2020 there were 14,308 emergency department presentations for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
+
+- The number of emergency department presentations for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 2,098 (Northcote/Preston/Whittlesea IARE) to 175 (Whitehorse IARE).
+
+- The age-standardised rate of emergency department presentations for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 57,485 per 100,000 population (Melbourne/Port Phillip IARE) to 33,003 per 100,000 population (Melbourne East IARE).
+
+- 4 of the 10 IAREs in the NEPHU catchment area had an age-standardised rate of emergency department presentations above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Northcote/Preston/Whittlesea, Melbourne North-East, and Moreland/Broadmeadows IAREs).
+
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- `r note_aboriginality_vemd`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_iare_ratio`
+:::
+
+:::: {.panel-tabset}
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and age-standardised rate (per 100,000 population) of emergency department presentations for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_emergency`
+:::
+
+```{r}
+#
+figure_number <- emergency_total %>% 
+  f_bar_simple_iare(y_variable = aboriginal_n,
+                    hospital   = "emergency")
+
+figure_percent <- emergency_total %>% 
+  f_bar_simple_iare(y_variable = aboriginal_rate,
+                    hospital   = "emergency")
+
+f_bar_simple_combine(figure_number, figure_percent)
+```
+
+
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Emergency department presentations for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_emergency`
+:::
+
+```{r}
+#
+table <- emergency_total %>%
+  dplyr::select(-iare_name_short)
+
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(aboriginal_rate = round(aboriginal_rate, digits = 0),
+                hospital_ratio  = round(hospital_ratio, digits = 0)) %>% 
+  #
+  f_table_simple(iare     = "yes",
+                 hospital = "emergency")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_phidu_vemd`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_iare_nephu`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 11C-1 and Table 11C-1:
+  - Indicator: All-cause emergency department presentations
+  - Numerator: `r note_numerator_emergency_aboriginal`
+  - Denominator: `r note_denominator_erp`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_iare`
+
+:::
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+
+## Urgent Presentations
+
+```{r}
+# ------------------------------------------------------------------------------
+# ED presentations - urgent presentations
+# Data from PHIDU Social Health Atlas
+# ------------------------------------------------------------------------------
+# Read in PHIDU data
+emergency_urgent <- f_read_phidu_iare_hospital(data_sheet    = "ED_urgent",
+                                               column_select = "emergency_department_presentations_total_urgent_presentations_aboriginal_people")
+
+# Data wrangling
+emergency_urgent <- emergency_urgent %>% 
+  dplyr::mutate(iare_name = factor(iare_name, levels = iare_inc_vic_lvl)) %>%
+  #
+  dplyr::arrange(iare_name)
+```
+
+- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [AIHW National Non-Admitted Patient Emergency Department Care Database (NNAPEDCD)](https://www.aihw.gov.au/reports/hospitals/non-admitted-patient-emergency-dept-care-nmds/summary).
+
+- Between 01 July 2019 and 30 June 2020 there were 6,139 urgent emergency department presentations for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne. Urgent emergency presentations are defined as those with a triage category of urgent (requiring treatment within 30 minutes of arrival).
+
+- The number of urgent emergency department presentations for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 954 (Northcote/Preston/Whittlesea IARE) to 90 (Whitehorse IARE).
+
+- The age-standardised rate of urgent emergency department presentations for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 25,679 per 100,000 population (Melbourne/Port Phillip IARE) to 14,616 per 100,000 population (Melbourne East IARE).
+
+- 4 of the 10 IAREs in the NEPHU catchment area had an age-standardised rate of urgent emergency department presentations above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Northcote/Preston/Whittlesea, Melbourne North-East, and Moreland/Broadmeadows IAREs).
+
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- `r note_aboriginality_vemd`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_iare_ratio`
+
+<div style="height: 0.1em;"></div>
+
+- *Urgent emergency presentations* were defined as those with a triage category of urgent (requiring treatment within 30 minutes of arrival). 
+:::
+
+:::: {.panel-tabset}
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Number and age-standardised rate (per 100,000 population) of urgent emergency department presentations for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_emergency`
+:::
+
+```{r}
+#
+figure_number <- emergency_urgent %>% 
+  f_bar_simple_iare(y_variable = aboriginal_n,
+                    hospital   = "emergency")
+
+figure_percent <- emergency_urgent %>% 
+  f_bar_simple_iare(y_variable = aboriginal_rate,
+                    hospital   = "emergency")
+
+f_bar_simple_combine(figure_number, figure_percent)
+```
+
+
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Urgent emergency department presentations for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_emergency`
+:::
+
+```{r}
+#
+table <- emergency_urgent %>%
+  dplyr::select(-iare_name_short)
+
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(aboriginal_rate = round(aboriginal_rate, digits = 0),
+                hospital_ratio  = round(hospital_ratio, digits = 0)) %>% 
+  #
+  f_table_simple(iare     = "yes",
+                 hospital = "emergency")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_phidu_vemd`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_iare_nephu`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 11C-2 and Table 11C-2:
+  - Indicator: Urgent emergency department presentations
+  - Numerator: `r note_numerator_emergency_aboriginal`
+  - Denominator: `r note_denominator_erp`
+  - Geographical area: `r note_geography_nephu`
+  - Comparison: `r note_comparison_iare`
+
+:::
+

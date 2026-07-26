@@ -24,6 +24,24 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Acknowledgements {.unnumbered}
 
+The North Eastern Public Health Unit (NEPHU) acknowledges the Traditional Custodians of the land on which we work, live, and play.
+
+We pay our deepest respects to their Elders, past and present. We recognise and honour the enduring connection that Aboriginal and Torres Strait Islander peoples have to this land, water and community.
+
+NEPHU would like to acknowledge the contribution of the following teams in preparing this report: 
+
+- Medical and Epidemiology Branch, NEPHU
+
+- Population Health Branch, NEPHU
+
+- Business Operations Branch, NEPHU
+
+- Branch Leadership Group, NEPHU
+
+We would also like to thank the many stakeholders who contributed their time, knowledge, and stories during the development of this report.  
+
+This includes a large number of organisations and individuals:
+
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "acknowledgements.png"))

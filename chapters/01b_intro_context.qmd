@@ -1,0 +1,233 @@
+---
+title-block: false
+---
+
+# Introduction and Context
+
+```{r}
+#
+source(here::here("setup.R"))
+
+# Set up numbering for figures and tables
+figtab_report_section <- "1B"
+figtab_csv_section    <- "01B"
+
+figtab_table_count  <- 0
+figtab_figure_count <- 0
+```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Introduction and Context {.unnumbered}
+
+## Purpose of This Report
+
+***Gumunatj Ngarrngatj: Population Profile of the First Nations Population Living within the NEPHU Catchment*** shares the story of the Aboriginal and/or Torres Strait Islander peoples who live within the catchment area of the North Eastern Public Health Unit (NEPHU). It aims to build a deeper understanding of First Nations communities, their strengths, diversity, health, and wellbeing while recognising the importance of culture, connection to Country, and self-determination.
+
+The purpose of this report (and the preceding [*Population Profile of the NEPHU Catchment Area*](https://nephu.org.au/reports-and-publications/nephu-population-profile-general-report-2025/)) is to provide an understanding of the demographics, social determinants, health behaviors, and health status of the NEPHU catchment population. This in turn allows:
+
+- Tailoring of health programs and interventions that reflect community priorities and cultural contexts.
+
+- Celebrating community strengths and successes to inform and inspire approaches across the broader health sector.
+
+*Gumunatj Ngarrngatj* has been developed as a technical and community-informed report, drawing upon publicly available and other accessible data sources. Narrative is also included to contextualise these data, based on extensive consultations with First Nations stakeholders who were involved with the report’s development. It provides an overview of the health and wellbeing of Aboriginal and/or Torres Strait Islander peoples living within the NEPHU catchment.
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+
+## The North Eastern Public Health Unit (NEPHU)
+
+The [North Eastern Public Health Unit (NEPHU)](https://nephu.org.au/) is one of nine Local Public Health Units (LPHUs) that cover metropolitan and regional Victoria. NEPHU is funded by the Victorian Government and works closely with the Victorian Department of Health. Public health functions were decentralised in Victoria in 2020 with the establishment of the LPHU network and a vision that public health responses can be more tailored and relevant to local populations and contexts, and therefore ultimately more effective.
+
+The NEPHU team is made up of public health and infectious diseases doctors, population health and prevention officers, environmental health officers, infection prevention and control nurses, epidemiologists, and communication and engagement specialists. The purpose of NEPHU is to work collaboratively to improve the health and wellbeing of the population of north-east metropolitan Melbourne through evidence-informed approaches, reflecting the diverse needs across the region it serves. This work covers both Health Protection functions, focused on the management and control of more than 80 notifiable conditions, and Population Health functions, focused on the promotion of health and wellbeing and the prevention of chronic diseases such as cancer and diabetes.
+
+More information about the role of LPHUs and their catchments can be found on the [Victorian Department of Health website](https://www.health.vic.gov.au/local-public-health-units).
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Victorian Local Public Health Units (LPHUs)
+:::
+
+```{r}
+#
+pal <- colorFactor(palette = "Paired",
+                   domain  = vic_lga.sf$lphu_short)
+
+vic_lga.sf %>%
+  dplyr::mutate(hover_text = paste0(lga_name, " LGA", "<br>",
+                                    lphu_long, " LPHU", "<br>",
+                                    lphu_short)) %>% 
+  #
+  f_map_simple(geo_variable = lphu_short)
+```
+
+<div style="height: 0.1em;"></div>
+
+NEPHU serves the northern and north-eastern metropolitan region of Melbourne, from the inner northern and eastern suburbs, extending north to include the Hume and Whittlesea Local Government Areas (LGAs), and north-east to include Nillumbik and the Yarra Ranges. As of the 2021 census, NEPHU serves a population of approximately 1.8 million people (approximately 25% of the Victorian population), residing across 12 LGAs, 214 suburbs, and 118 postcodes.
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Local Government Areas (LGAs) within the NEPHU catchment area
+:::
+
+```{r}
+#
+pal <- colorFactor(palette = "Paired",
+                   domain  = nephu_lga.sf$lga_name)
+
+nephu_lga.sf %>%
+  dplyr::mutate(hover_text = paste0(lga_name, " LGA")) %>% 
+  #
+  f_map_simple(geo_variable = lga_name)
+```
+
+<div style="height: 0.1em;"></div>
+
+The Greater Melbourne Indigenous Region covers 20 Indigenous Areas of Residence (IAREs) across metropolitan Melbourne. An IARE (Indigenous Area) is a custom-drawn statistical neighborhood used by the Australian Bureau of Statistics (ABS) to better understand and support Aboriginal and/or Torres Strait Islander communities. Unlike standard postcodes or Local Government Area (LGA) boundaries, these specific zones are designed around cultural ties, language groups, and local community connections. They are larger than a single suburb but small enough to capture distinct local needs, grouping together enough residents so that personal privacy is protected when data are published.
+
+Because IARE boundaries do not exactly align with LGA boundaries, there are IAREs that are only partially within the North Eastern Public Health nit (NEPHU) catchment area. For example, the Melbourne - East IARE includes suburbs in the NEPHU catchment area (e.g. Kew, Hawthorn) and the South Eastern Public Health Unit (SEPHU) catchment area (e.g. Brighton, Ormond).
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Indigenous Areas of Residence (IAREs) within the Greater Melbourne area
+:::
+
+```{r}
+#
+pal <- colorFactor(palette = qualitative_hcl(20, palette = "Dark 3"),
+                   domain  = vic_iare.sf$iare_name)
+
+vic_iare.sf %>%
+  dplyr::filter(region_name == "Greater Melbourne") %>% 
+  dplyr::mutate(hover_text = paste0(iare_name, " IARE")) %>% 
+  #
+  f_map_simple(geo_variable = iare_name)
+```
+
+<div style="height: 0.1em;"></div>
+
+NEPHU covers the traditional lands of the Wurundjeri Woiworung People as well as part of the lands of the Boonwurrung people. NEPHU respectfully acknowledges the traditional owners of these lands and thanks them for their custodianship, deep connections to land and waters, and ongoing care of the precious lands and waterways on which we live.
+
+A comprehensive and interactive map of the language, social, or nation groups of Aboriginal Australia can be found on the [Map of Indigenous Australia website](https://aiatsis.gov.au/explore/map-indigenous-australia).
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+
+## Population Profile of the NEPHU Catchment Area – General Report
+
+*Gumunatj Ngarrngatj* builds on the [*Population Profile of the NEPHU Catchment Area – General Report*](https://nephu.org.au/reports-and-publications/nephu-population-profile-general-report-2025/), released in February 2025, by offering a dedicated focus on Aboriginal and/or Torres Strait Islander peoples who live within the NEPHU catchment area. This report has been developed in partnership with community members and organisations to ensure that the presentation and interpretation of data are guided by culture, community voice, and Indigenous data sovereignty principles.
+
+*Gumunatj Ngarrngatj* aims to:
+
+- Provide baseline insights into the social, cultural, and health determinants impacting Aboriginal and/or Torres Strait Islander peoples who live within the NEPHU catchment area.
+
+- Support culturally responsive public health planning and collaboration.
+
+- Promote better understanding of the strengths and priorities that underpin health and wellbeing across our communities.
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+
+## Data Presentation and Cultural Lens
+
+This report draws primarily on publicly available data and existing datasets relevant to Aboriginal and/or Torres Strait Islander peoples who live within the NEPHU catchment area.
+
+While these data are presented in tables and figures, interpretation and commentary have been approached with care and cultural awareness, ensuring that the information is accessible, meaningful, and reflective of community priorities.
+
+Short commentary has been included for specific indicators that were discussed through consultation sessions with Aboriginal and/or Torres Strait Islander stakeholders. These sessions guided how data have been interpreted and presented, ensuring it is relevant, strengths-based, and culturally appropriate. Please refer to [the Consultation Process section]() for more detail on the consultation process used in the development of this report.
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+
+## Closing the Gap
+
+### National Agreement on Closing the Gap
+
+The [National Agreement on Closing the Gap](https://www.closingthegap.gov.au/national-agreement), released in July 2020, was developed in partnership between Australian Governments and the Coalition of Aboriginal and Torres Strait Islander Peak Organisations to enable all parties to work together to overcome the inequity experienced by Aboriginal and Torres Strait Islander people, and achieve life outcomes equal to all Australians.
+
+The National Agreement has been built around four Priority Reforms that are central to changing the way that governments work with Aboriginal and Torres Strait Islander people and communities. These include:
+
+- Formal Partnerships and Shared Decision Making
+  
+- Building the Community-Controlled Sector
+  
+- Transforming Government Organisations
+  
+- Shared Access to Data and Information at a Regional Level
+
+The outcome for Priority Reform 4 is for *Aboriginal and/or Torres Strait Islander people have access to, and the capability to use, locally-relevant data and information to set and monitor the implementation of efforts to close the gap, their priorities and drive their own development*. By providing access to Aboriginal and/or Torres Strait Islander data analysed at the local level of the NEPHU catchment area, *Gumunatj Ngarrngatj* fits well within Priority Reform 4. This report may also impact on the other Priority Reform areas as well.
+
+### Closing the Gap Targets and Outcomes
+
+The National Agreement on Closing the Gap outlines [19 socioeconomic targets](https://www.closingthegap.gov.au/national-agreement/targets) across 17 outcome areas that impact on life outcomes for Aboriginal and/or Torres Strait Islander peoples. [Progress against these targets](https://www.pc.gov.au/closing-the-gap-data/dashboard/) is monitored by the Productivity Commission.
+
+*Gumunatj Ngarrngatj* contains a broad set of health and demographic indicators across a wide range of domains that have been analysed specifically for the Aboriginal and/or Torres Strait Islander population who live within the NEPHU catchment area. This includes the indicators being used to measure the Closing the Gap targets. Rather than including these indicators as a stand-alone section of the report, detail is included under the relevant topic subheadings throughout the report and is summarised in the table below.
+
+It is noted that many of the Closing the Gap indicators contain data that are sensitive and demonstrates stark disparities between Aboriginal and/or Torres Strait Islander and non-Indigenous people which can be distressing. Aboriginal and/or Torres Strait Islander stakeholders consulted in the development of this report emphasised that it is important to include these data in the report, given the impact these topics have on health disparities and the need to call this out to effectively address underlying causes. However, consultation feedback also stressed the importance of ensuring commentary is included to accurately reflect the context of the data and to link these indicators back to how they impact on health and closing the gap.
+
+### Overview of Closing the Gap Indicators in NEPHU
+
+::: {.ctg-table}
+| Outcome Area                       | Data availability | Progress in NEPHU/VIC | Section                                   |
+|:-----------------------------------|:------------------|:----------------------|:------------------------------------------|
+| 1. Long and healthy lives          | Australia         | Data not available    | [Mortality]()                             |  
+| 2. Born healthy and strong         | Greater Melbourne | Meeting target        | [Perinatal Factors]()                     |
+| 3. Early childhood education       | Victoria          | Meeting target        | [Early Childhood]()                       |
+| 4. Children thriving               | Victoria          | Not meeting target    | [Early Childhood]()                       |
+| 5. Student learning potential      | LGA               | Not meeting target    | [Education]()                             |
+| 6. Further education pathways      | LGA               | Not meeting target    | [Education]()                             |
+| 7. Youth engagement                | LGA               | Meeting target        | [Employment]()                            |
+| 8. Economic participation          | LGA               | Meeting target        | [Employment]()                            |
+| 9. Housing                         | LGA               | Meeting target        | [Housing]()                               |
+| 10. Criminal justice               | Victoria          | Meeting target        | [Criminal Justice]()                      |
+| 11. Youth justice                  | Victoria          | Meeting target        | [Criminal Justice]()                      |
+| 12. Child protection               | Victoria          | Not meeting target    | [Family Safety and Wellbeing]()           |
+| 13. Family safety                  | Victoria          | Data not available    | [Family Safety and Wellbeing]()           |
+| 14. Social and emotional wellbeing | Victoria          | Not meeting target    | [Mortality]()                             |
+| 15. Land and waters                | Victoria          | Meeting target        | [Connection to Country]()                 |
+| 16. Culture and languages          | LGA               | Data not available    | [Language]()                              |
+| 17. Access to information          | Victoria          | Data not available    | [Connection Through Digital Technology]() |
+
+: {tbl-colwidths="[30,20,20,30]"}
+:::
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+
+## Providing Feedback
+
+Community voices are central to this work.
+
+If you would like to share feedback or reflections on this report, please email [NEPHU@austin.org.au](NEPHU@austin.org.au).
+
+Your input will help ensure that this work continues to reflect community perspectives, priorities, and aspirations for health and wellbeing.
+

@@ -1,0 +1,83 @@
+---
+title-block: false
+---
+
+# Data Analysis Methods
+
+```{r}
+#
+source(here::here("setup.R"))
+
+# Set up numbering for figures and tables
+figtab_report_section <- "2A"
+figtab_csv_section    <- "02A"
+
+figtab_table_count  <- 0
+figtab_figure_count <- 0
+```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Data Analysis Methods {.unnumbered}
+
+## Important Information For Reading This Report
+
+This report provides a single point of access to a wide range of population health data relevant to Aboriginal and/or Torres Strait Islander peoples who live in the North Eastern Public Health Unit (NEPHU) catchment area. As a technical report, it is not designed to be read end-to-end but to instead serve as a resource that can be used to explore specific topics of interest.
+
+Most of the data included in this report have been sourced from publicly available datasets. Information about each of the data sources and external links used in the report are provided in this section. Each topic and indicator in the report includes information about the data sources used, definitions, and caveats/limitations to provide important contextual information. These data notes should be read alongside the figures, tables, and narrative text summaries for each topic to ensure accurate interpretation of the data.
+
+Different data sources (e.g. ABS Census 2021 and 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey) may include data on the same or similar topics. However, data from these different data sources should not be directly compared, as the people included in each data collection, data collection methods, and survey or data collection design may differ substantially between different data sources.
+
+Comparisons between Aboriginal and/or Torres Strait Islanders and non-Indigenous people in this report are provided as a rough guide only and should be interpreted with caution. Where different data sources have been used to provide comparisons, data may not be directly comparable due to differences in data collection, geographical areas, definitions, and analysis methods between data sources.
+
+Where possible, data have been presented at a Local Government (LGA) or Indigenous Area of Residence (IARE) level. However, there are many topics and indicators where this level of granularity is not available in publicly available data. In these situations, data are presented for the Greater Melbourne area, Victoria, or Australia.
+
+Similarly, where possible data have been presented broken down by sex and 10-year age groups. For situations where this level of granularity are not available, data are presented for adults compared to children or for the population as a whole. It is also acknowledged that not all individuals identify with the binary (male and female) categories presented in this report, however data availability limits the presentation of data in this report to these binary categories.
+
+The exact numbers presented in this report should be interpreted with caution. Organisations that release publicly available data employ techniques to manage the risk of reidentification of individuals included in these datasets, which can result in the exact numbers being presented in tables or figures being close to, but not the same as, the true value.
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+
+## Indicator Development
+
+The topics and indicators included in this report have been selected based on a review of the indicators included in the [*Population Profile of the NEPHU Catchment Area – General Report*](https://nephu.org.au/reports-and-publications/nephu-population-profile-general-report-2025/), review of the [Closing the Gap outcome areas](https://www.closingthegap.gov.au/national-agreement/targets), review of the indicators included in the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), review of the indicators included in the [Aboriginal and Torres Strait Islander Health Performance Framework](https://www.indigenoushpf.gov.au/), and feedback from participants in the consultation sessions held during the development of this report.
+
+Topics and indicators were prioritised for inclusion according to geography, representativeness, data collection methods, and year of data collection. Data available at an Local Government Area (LGA) or Indigenous Area of Residence (IARE) level were prioritised as these data could be mapped to the NEPHU catchment area. Small surveys or research projects were not included due to limitations with representativeness and reliability; a small sample size leads to high variability which may lead to bias depending on the sampling method. Data collected in the last five years were prioritised, however if no data in this time frame were available, the most recent year of data was included.
+
+Most of the data sources used in this report are publicly available. Data that are not publicly available but have been made available to the Local Public Health Units (LPHUs) include data on bowel, breast, and cervical cancer screening provided by the [Australian Centre for the Prevention of Cervical Cancer (ACPCC)](https://acpcc.org.au/), and data on notifiable conditions from the [Victorian Public Health Event Surveillance System (PHESS)](https://www.health.vic.gov.au/infectious-diseases/notification-procedures-for-infectious-diseases) that LPHUs have access to for the purpose of routine Health Protection work. While these data sources are not publicly available, requests for access to these data can be made via the links provided in the Data Sources section.
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+
+## Statistical Methods
+
+All data were downloaded from the relevant data source as .xlsx or .csv files and imported into the R statistical program which was used for data cleaning, manipulation and to produce all figures and tables. This report has been produced entirely within R and outputted as a Quarto Book format. This allows for the inclusion of interactive charts, embedded links, and direct downloading of the figures (.png files) and supporting data tables (.csv files) from within the report.
+
+Descriptive analyses were conducted with no statistical significance testing for differences between groups. 
+
+Data are presented as counts, percentages/proportions, rates, and/or ratios depending on the indicator. The percentages/proportions, rates,a dn ratios for the NEPHU catchment area as a single geographical area were generally not provided in the original data sources. Therefore, these have been calculated if both numerator and denominator values were available from the individual LGA-level or IARE-level data.
+
+The observed vs. expected charts and tables compare what we see in the data (the observed number) with what we would see if there was no gap or difference between Aboriginal and/or Torres Strait Islander people and non-Aboriginal and/or Torres Strait Islander people in each LGA or sex/age group (the expected number) for a particular indicator. These differences should be understood in the context of historical and ongoing impacts of colonisation, as well as social and structural factors that influence health and wellbeing.
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+
+## Data Notes
+
+Each section of the report starts with a *General notes and caveats for this topic* box, which contains important information about data caveats and limitations that apply to the indicators included in that section.
+
+Detailed information about definitions and other contextual notes about the topic can be found in the *Definitions and notes about this topic*, *Census questions and definitions for this topic*, *Survey questions and definitions for this topic*, and *ICD-10-AM codes for this topic* boxes.
+
+The *Data notes* boxes for each topic include information about the data source, numerator, denominator, geographical area, and comparisons along with specific notes and caveats applicable to the figures and tables presented for the topic.
+

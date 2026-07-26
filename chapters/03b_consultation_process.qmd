@@ -24,3 +24,162 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Consultation Process {.unnumbered}
 
+## Introduction
+
+This report brings together a collation of data relevant to Aboriginal and/or Torres Strait Islander peoples living within the catchment of the North Eastern Public Health Unit (NEPHU). While data are important to describe population characteristics and  provide useful insights, it is recognised that data presented without context can be misunderstood, misused, or cause harm. For this reason, First Nations stakeholder engagement was an essential component in the development of this report.
+
+Consultation with First Nations stakeholders was undertaken to ensure that data interpretation, representation, and framing were culturally informed, respectful, and meaningful for the communities to whom the data relate. This process supported the inclusion of lived experience, storytelling, and local knowledge to provide context that data alone cannot capture.
+
+The consultation process informed the development of the report at each stage from conceptualisation, selection of data sources, data analysis, data interpretation, and presentation. Without this engagement, the report would not reflect community perspectives, priorities, or interpretations and would not have been culturally appropriate to produce.
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+
+## Internal Consultation
+
+The conceptualisation of *Gumunatj Ngarrngatj* occurred during development of the general NEPHU Population Profile in 2024. Internal consultation was undertaken with NEPHU stakeholders to support identification of key indicators and to inform how data would be used and adapted for the report. This internal consultation focused on ensuring alignment with public health priorities, analytical consistency, and appropriate use of available data. The general NEPHU Population Profile and more information about its development can be found on the [NEPHU website](https://nephu.org.au/reports-and-publications/nephu-population-profile-general-report-2025/).
+
+During the development of the general NEPHU Population Profile, it was identified that separate analyses of First Nations data were required to enable more appropriate contextualisation and interpretation. As a result, this dedicated NEPHU First Nations Population Profile, *Gumunatj Ngarrngatj*, was developed to ensure the data more accurately reflected the experiences and contexts of Aboriginal and/or Torres Strait Islander peoples living within the NEPHU catchment area.
+
+Throughout the development of *Gumunatj Ngarrngatj*, the presentation of data, narrative framing, and selection of data points were reviewed by the NEPHU First Nations Engagement Officer to ensure cultural appropriateness and alignment with cultural safety principles. Trauma-informed considerations, including the use of trigger warnings, were incorporated where appropriate. This internal review process was undertaken prior to any external review and did not replace or supersede First Nations community consultation.
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+
+## External Consultation
+
+*Gumunatj Ngarrngatj* presents analysis of a broad range of indicators for the First Nations population which has incorporated feedback from external First Nations stakeholder consultation to ensure community voices have informed interpretation. This approach has supported the inclusion of relevant contextual factors and ensured the narrative remained strengths-based and culturally informed.
+
+External consultation was undertaken through an iterative and relationship-based approach, allowing flexibility in timelines to support participation by stakeholders over time and enable repeat engagements where appropriate. This approach recognised differing workloads, commitments, and priorities, and ensured sufficient time for stakeholder input to be meaningfully reflected in the profile. Consultation occurred over an eight-month period, supporting responsiveness to community and sector availability and enabling the NEPHU team to appropriately incorporate feedback.
+
+### Consultation Approach
+
+The consultation approach was informed by qualitative research principles, including Indigenous storytelling and yarning methodologies. All engagement was led by NEPHU’s Aboriginal and Torres Strait Islander Health Lead. Established health sector and community networks with First Nations peoples were utilised to build on existing trust and relationships, recognising their importance in time-limited consultation processes.
+
+The final report was reviewed by NEPHU’s Aboriginal and Torres Strait Islander Health Lead and external stakeholders identified through this process.
+
+### Consultation Waves
+
+Participation in consultation was open to local First Nations stakeholders, including local Aboriginal Community Controlled Health Organisations (ACCHOs), Aboriginal Community Controlled Organisations (ACCOs), First Nations departments of mainstream health services, NEPHU partner organisations, and other relevant stakeholders working with local First Nations community.
+
+Invitations to participate were extended through existing relationships and networks, with flexibility for stakeholders to engage at any stage of the process and in their preferred format. Consultation was undertaken in waves, beginning with face-to-face engagement, followed by additional online consultations for each wave as required. New participant involvement was welcomed throughout the consultation period. To ensure new participants felt prepared for consultation sessions and understood feedback and progress to date NEPHU completed ‘introduction to the project’ sessions, recognising that engagement occurred at different times for different organisations and participants.
+
+Three waves of consultation were conducted between October 2024 and June 2025. Engagement occurred through a combination of online and face-to-face yarning sessions, hosted across multiple locations including Austin Health meeting rooms and Barbunin Beek Aboriginal Gathering Place. Across the consultation waves, 25 external stakeholders participated, representing 14 organisations. Participation increased over time, reflecting the strength of relationships built through the process and growing trust, interest, and collective support for the project among First Nations stakeholders.
+
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Consultation stakeholders
+:::
+
+|                                 | Wave One | Wave Two | Wave Three | All Waves |
+|:--------------------------------|:---------|:---------|:-----------|:----------|
+| Number of external stakeholders | 7        | 10       | 20         | 25        |  
+| Number of organisations         | 6        | 8        | 13         | 14        |
+
+: {tbl-colwidths="[40,15,15,15,15]"}
+
+### Consultation Format
+
+These consultation sessions provided an opportunity for First Nations peoples to share stories, knowledge, and community-led context to support interpretation of the data presented. Sessions were designed to centre lived experience and ensure that data were understood within their broader social, cultural, and historical contexts as they relate to community.
+
+Each session aimed to deepen understanding of contextual factors influencing new datasets, build on narratives and considerations raised in earlier consultations, and test interpreted narratives to ensure they reflected the perspectives and experiences shared by participants.
+
+### Overview of Consultation Sessions
+
+Consultation sessions generally included the following components: 
+
+1. Introductions, including role, organisation, and identification as Aboriginal and/or Torres Strait Islander or deidentification, as participants felt comfortable to share.
+
+2. Background and framing, including an overview of the report and its alignment with Closing the Gap targets. As consultation progressed, feedback from earlier sessions was incorporated, and later waves included discussion on Indigenous Data Sovereignty and the impacts of identification on data representativeness.
+
+3. Overview of data sources, with guided questions to support shared review and discussion of the data.
+
+4. Presentation of a selected set of indicators with data analysed for the First Nations population, prioritising indicators relevant to Closing the Gap targets.
+
+5. Yarning and discussion of the data, including accessibility and understandability of data presentation, appropriateness of data sources, participant perspectives, contextual factors, lived experiences that support or challenge the narrative, and acknowledged data limitations.
+
+6. Next steps, including how feedback would be incorporated and how participants would continue to be informed. 
+
+### Cultural and Emotional Safety Considerations
+
+Some of the data presented in this report and discussed during consultation sessions reflects significant inequities between Aboriginal and/or Torres Strait Islander peoples and non-Indigenous Australians. These inequities highlight the ongoing impacts of colonisation, systemic disadvantage, and intergenerational trauma. For many participants, the data reflected lived and personal experiences, and discussion of certain indicators, particularly those related to Closing the Gap, was recognised as sensitive and potentially confronting.
+
+To support cultural and emotional safety, discussions of sensitive data were preceded by trigger warnings. Participants were provided time to absorb and reflect on the information and were encouraged to take breaks as needed. The timing, pacing, and sequencing of data presentation were carefully considered as part of session planning to allow for break periods after discussions around confronting data.
+
+Participants consistently noted that while engaging with these data can be confronting, transparent and respectful presentation is important to acknowledge lived realities, support accountability, and inform meaningful improvements in systems, services, and outcomes.
+
+### Engagement Principles
+
+To ensure a culturally safe, respectful, and supportive environment for consultation participants, engagement was grounded in relationship-based and strengths-focused approaches. Priority was given to creating culturally safe spaces where First Nations peoples felt supported to share knowledge, experiences, and perspectives, and where participation occurred on their terms.
+
+Consultation sessions were designed to support shared understanding and collective interpretation of data, informed by best-practice engagement principles, including:
+
+*Transparency*: NEPHU staff clearly communicated the purpose of each session, how information shared would be used, the roles of staff present, and how feedback would inform the project. Regular updates on project progress were provided to support accountability and trust.
+
+*Accessibility*: Data were presented in plain language and explained by NEPHU staff in ways that supported shared understanding, recognising the diverse experiences and familiarity with data among participants. Presentations were adapted in response to participant feedback to improve clarity, accessibility, and usability, ensuring all participants could engage meaningfully regardless of prior experience.
+
+*Flexibility*: Engagement was responsive to participant preferences and availability. Sessions were held both online and in person, with timing and formats adjusted to accommodate competing priorities, community events, and periods of Sorry Business.
+
+*Genuine listening*: While discussion points were prepared to support data interpretation, conversations were guided by participants. Space was intentionally created for yarning, reflection, and participant-led discussion, with NEPHU staff listening deeply, seeking clarification where appropriate, and valuing community knowledge as central to interpretation.
+
+*Trust and truth-telling*: Engagement was underpinned by a commitment to building and maintaining trust through openness, respect, and honesty. This included NEPHU staff acknowledging contextual and data limitations, and supporting truth-telling through lived experience, professional practice, and personal stories shared by participants.
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+
+## Outcomes
+
+Overall, First Nations peoples provided important community-led context and interpretation of the social, economic, and health indicators presented in this report. This included storytelling and the sharing of common experiences of living within the NEPHU catchment. Participants supported the inclusion of these narratives to ensure the data were grounded in lived experience and local context.
+
+The appropriateness, limitations, and interpretation of available data were discussed throughout consultation, with data caveats incorporated into the report where required. Participants also identified additional data sources that could strengthen future iterations of the profile where available.
+
+The narrative accompanying the data throughout this report reflects the knowledge, perspectives, and interpretations shared by First Nations stakeholders across multiple consultation waves. While historical context including the ongoing and intergenerational impacts of colonisation on Aboriginal and/or Torres Strait Islander peoples was consistently recognised as a key determinant influencing the data, this context is not restated in detail within the written narrative, as it is addressed within the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/). Instead, the narrative focuses on locally relevant interpretation and themes raised through consultation.
+
+Key themes discussed throughout consultation included the importance of data, gaps and limitations within available data, the impacts of underidentification, and the application of Indigenous Data Sovereignty principles.
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+
+## Importance of Data
+
+Participants consistently emphasised the importance of data in telling the stories of Aboriginal and/or Torres Strait Islander peoples, when data is interpreted respectfully and situated within cultural, historical, and community contexts. While limitations within available data were acknowledged and the need for transparency was emphasised, participants identified that bringing together existing data in one place through this report creates a valuable resource to support research, planning, service design, and advocacy led by and for Aboriginal and/or Torres Strait Islander peoples and organisations.
+
+### Gaps in Data
+
+Throughout consultation, participants identified gaps in publicly available data and raised concerns regarding data accessibility, including instances where data had been collected but were not readily available for use by community or services. It was acknowledged that, due to relatively small population numbers, more granular data at local geographic levels is not always possible within existing datasets. Participants highlighted the need for improved data collection, access, and governance processes to better support local decision-making over time.
+
+### Impact of Underidentification
+
+The impact of underidentification was discussed frequently during consultation as a key factor contributing to potential underestimation of Aboriginal and/or Torres Strait Islander populations within available data. Participants noted that underidentification reflects broader systemic and cultural safety issues within data collection environments, rather than individual choice alone. This has implications for data accuracy, visibility, and service planning.
+
+More information about the impact of underidentification on this report can be found [here]().
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+
+## Indigenous Data Sovereignty
+
+Indigenous Data Sovereignty was upheld as a core ethical requirement in the development of this report. Through consultation, it was clearly articulated that Aboriginal and/or Torres Strait Islander peoples must retain governance over how data relating to their communities are interpreted, shared, and used.
+
+As a result, maintaining First Nations governance over the dissemination of this report was a deliberate and necessary decision. The report is not intended for unrestricted public release, as open access without appropriate cultural, contextual, and governance controls poses a risk of misuse, misinterpretation, and harm. Decisions regarding access to and use of this report are guided by Indigenous Data Sovereignty principles and community accountability, rather than default institutional practices.
+
+More information about Indigenous Data Sovereignty and how it relates to this report can be found [here]().
+

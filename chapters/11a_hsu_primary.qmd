@@ -1,0 +1,1279 @@
+---
+title-block: false
+---
+
+# Primary Health Services
+
+```{r}
+#
+source(here::here("setup.R"))
+
+# Set up numbering for figures and tables
+figtab_report_section <- "11A"
+figtab_csv_section    <- "11A"
+
+figtab_table_count  <- 0
+figtab_figure_count <- 0
+```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Primary Health Services {.unnumbered}
+
+::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
+`r note_chapter_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+`r note_chapter_masking`
+:::
+
+::: {.key-question}
+What external factors influence health and wellbeing for Aboriginal and/or Torres Strait Islander people and families in the NEPHU catchment, including in supporting children and strong families?
+:::
+
+## Usual Health Care Provider
+
+```{r}
+# ------------------------------------------------------------------------------
+# Usual health service
+# Data from ABS Aboriginal and Torres Strait Islander Health Survey
+# ------------------------------------------------------------------------------
+# Read in NATSIHS data
+hsu_usual <- f_read_natsihs_sex("Indicator_Vic_Sex_HSU_Usual.csv")
+
+# Data wrangling
+hsu_usual <- hsu_usual %>% 
+  dplyr::rowwise() %>% 
+  dplyr::mutate(other_n    = hospital_n + traditional_healer_n + other_n,
+                answered_n = sum(across(aboriginal_medical_service_community_clinic_n:no_usual_place_n))) %>% 
+  dplyr::ungroup() %>% 
+  #
+  janitor::adorn_totals(fill = "Total") %>% 
+  #
+  dplyr::rename(ams_n     = aboriginal_medical_service_community_clinic_n,
+                gp_n      = doctor_gp_other_than_from_aboriginal_medical_service_n,
+                nousual_n = no_usual_place_n) %>% 
+  #
+  dplyr::mutate(across(ams_n:nousual_n,
+                       ~ . / answered_n * 100,
+                       .names = "{.col}_prop"),
+                #
+                answered_prop = answered_n / answered_n * 100) %>% 
+  #
+  dplyr::rename_with(~ stringr::str_replace(., "_n_prop$", "_prop"), ends_with("_n_prop")) %>% 
+  #
+  dplyr::select(sex,
+                starts_with("gp"),
+                starts_with("ams"),
+                starts_with("other"),
+                starts_with("nousual"),
+                starts_with("answered")) %>% 
+  #
+  tidyr::pivot_longer(!sex,
+                      names_to      = c("answer", ".value"),
+                      names_pattern = "(.+)_(.+)") %>% 
+  #
+  dplyr::mutate(answer = factor(dplyr::recode(answer,
+                                              "gp"       = "General practitioner",
+                                              "ams"      = "AMS or Community Clinic",
+                                              "other"    = "Other",
+                                              "nousual"  = "No usual place",
+                                              "answered" = "Total"),
+                                levels = c("General practitioner",
+                                           "AMS or Community Clinic",
+                                           "Other",
+                                           "No usual place",
+                                           "Total")))
+
+# ------------------------------------------------------------------------------
+# Actions taken for health in previous two weeks
+# Data from ABS Aboriginal and Torres Strait Islander Health Survey
+# ------------------------------------------------------------------------------
+# Read in NATSIHS data
+hsu_actions <- f_read_natsihs_sex("Indicator_Vic_Sex_HSU_Actions.csv")
+
+# Data wrangling
+hsu_actions <- hsu_actions %>% 
+  dplyr::rowwise() %>% 
+  dplyr::mutate(hospital_n = discharged_from_hospital_inpatient_episode_n + visited_casualty_emergency_outpatients_day_clinic_n,
+                other_n    = consulted_an_alcohol_and_drug_worker_n + consulted_a_nurse_n + consulted_a_social_worker_welfare_officer_n + consulted_a_traditional_healer_n + consulted_an_other_health_professional_n,
+                answered_n = total_n) %>% 
+  dplyr::ungroup() %>% 
+  #
+  janitor::adorn_totals(fill = "Total") %>% 
+  #
+  dplyr::rename(gp_n      = consulted_a_gp_n,
+                dentist_n = consulted_a_dentist_2_years_n,
+                ahw_n     = consulted_an_aboriginal_health_worker_n,
+                none_n    = no_actions_taken_in_last_2_weeks_n) %>% 
+  #
+  dplyr::mutate(across(gp_n:other_n,
+                       ~ . / answered_n * 100,
+                       .names = "{.col}_prop"),
+                #
+                answered_prop = answered_n / answered_n * 100) %>% 
+  #
+  dplyr::rename_with(~ stringr::str_replace(., "_n_prop$", "_prop"), ends_with("_n_prop")) %>% 
+  #
+  dplyr::select(sex,
+                starts_with("gp"),
+                starts_with("dentist"),
+                starts_with("ahw"),
+                starts_with("hospital"),
+                starts_with("other"),
+                starts_with("none"),
+                starts_with("answered")) %>% 
+  #
+  tidyr::pivot_longer(!sex,
+                      names_to      = c("answer", ".value"),
+                      names_pattern = "(.+)_(.+)") %>% 
+  #
+  dplyr::mutate(answer = factor(dplyr::recode(answer,
+                                              "gp"       = "General practitioner",
+                                              "dentist"  = "Dentist",
+                                              "ahw"      = "Aboriginal Health Worker",
+                                              "hospital" = "Hospital",
+                                              "other"    = "Other",
+                                              "none"     = "None",
+                                              "answered" = "Total"),
+                                levels = c("General practitioner",
+                                           "Dentist",
+                                           "Aboriginal Health Worker",
+                                           "Hospital",
+                                           "Other",
+                                           "None",
+                                           "Total")))
+
+# ------------------------------------------------------------------------------
+# Private health insurance
+# Data from ABS Aboriginal and Torres Strait Islander Health Survey
+# ------------------------------------------------------------------------------
+# Read in NATSIHS data
+hsu_insurance <- f_read_natsihs_sex("Indicator_Vic_Sex_HSU_Insurance.csv")
+
+# Data wrangling
+hsu_insurance <- hsu_insurance %>% 
+  dplyr::rowwise() %>% 
+  dplyr::mutate(answered_n = sum(across(with_private_health_insurance_n:without_private_health_insurance_n))) %>% 
+  dplyr::ungroup() %>% 
+  #
+  janitor::adorn_totals(fill = "Total") %>% 
+  #
+  dplyr::rename(insurance_n   = with_private_health_insurance_n,
+                noinsurance_n = without_private_health_insurance_n) %>% 
+  #
+  dplyr::mutate(across(insurance_n:noinsurance_n,
+                       ~ . / answered_n * 100,
+                       .names = "{.col}_prop"),
+                #
+                answered_prop = answered_n / answered_n * 100) %>% 
+  #
+  dplyr::rename_with(~ stringr::str_replace(., "_n_prop$", "_prop"), ends_with("_n_prop")) %>% 
+  #
+  dplyr::select(sex,
+                starts_with("insurance"),
+                starts_with("noinsurance"),
+                starts_with("answered")) %>% 
+  #
+  tidyr::pivot_longer(!sex,
+                      names_to      = c("answer", ".value"),
+                      names_pattern = "(.+)_(.+)") %>% 
+  #
+  dplyr::mutate(answer = factor(dplyr::recode(answer,
+                                              "insurance"   = "Yes",
+                                              "noinsurance" = "No",
+                                              "answered"    = "Total"),
+                                levels = c("Yes",
+                                           "No",
+                                           "Total")))
+```
+
+- Data for this topic were obtained from the [2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release).
+
+- 83% (approximately 31,900 people) of Aboriginal and/or Torres Strait Islander survey respondents living in Greater Melbourne reported that they usually visited a general practitioner when they had a problem with their health, and a further 9.3% (approximately 3,600 people) visited an Aboriginal Medical Service or Community Clinic.
+
+- 5.7% (approximately 2,200 people) did not have a usual healthcare provider that they went to when they had a problem with their health, and males were more likely to not have a usual health care provider than females (7.1% vs. 4.0%).
+
+- During the two weeks prior to the survey 24% (approximately 9,200 people) of survey respondents living in Greater Melbourne consulted a general practitioner for health-related reasons.
+
+- Overall, 29% of Aboriginal and/or Torres Strait Islander survey respondents aged 15 years and over living in Greater Melbourne were covered by private health insurance. This equates to approximately 8,000 Aboriginal and/or Torres Strait Islander people.
+
+- Females were more likely to be covered by private health insurance than males (46% vs. 12%).
+
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+
+<div style="height: 0.1em;"></div>
+
+- `r note_aboriginality_natsihs`
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
+- Is there a place or person where you usually go when you are sick or need advice about your health?
+  - `r note_response_binary`
+    
+<div style="height: 0.1em;"></div>
+
+- If yes, what kind of place or person is it?
+  - Aboriginal Medical Service or Community Clinic
+  - Hospital
+  - Doctor or general practitioner (other than from Aboriginal Medical Service or hospital)
+  - Traditional healer
+  - Maternal and child health centre
+  - Chemist
+  - Relative or other community person
+  - Other
+
+<div style="height: 0.1em;"></div>
+
+- In the last two weeks, have you been to the outpatients section of a hospital for your own health?
+  - `r note_response_binary`
+    
+<div style="height: 0.1em;"></div>
+
+- Were you discharged from hospital in the last two weeks?
+    - `r note_response_binary`
+    
+<div style="height: 0.1em;"></div>
+
+- Excluding times resulting in you being admitted to hospital, in the last two weeks have you been to a casualty or emergency ward for your own health?
+  - `r note_response_binary`
+    
+<div style="height: 0.1em;"></div>
+
+- Apart from your visits to outpatients and casualty or emergency, in the last two weeks have you been to a day clinic for minor surgery or diagnostic tests (other than x-rays) for your own health?
+  - `r note_response_binary`
+    
+<div style="height: 0.1em;"></div>
+
+- In the last two weeks, have you seen a nurse, sister, or Aboriginal Health Worker for your own health?
+  - `r note_response_binary`
+    
+<div style="height: 0.1em;"></div>
+
+- In the last two weeks, have you seen a general practitioner for your own health?
+  - `r note_response_binary`
+    
+<div style="height: 0.1em;"></div>
+
+- In the last two weeks, have you seen a specialist for your own health?
+  - `r note_response_binary`
+    
+<div style="height: 0.1em;"></div>
+
+- In the last two weeks, have you been to the dentist, doctor, or nurse about your teeth, gums, or false teeth?
+  - `r note_response_binary`
+    
+<div style="height: 0.1em;"></div>
+
+- In the last two weeks, have you seen any other health workers about your own health?
+  - `r note_response_binary`
+    
+<div style="height: 0.1em;"></div>
+
+- Apart from Medicare, do you have private health insurance? (*People aged 15 years and over only*)
+  - `r note_response_binary`
+
+:::
+
+:::: {.panel-tabset}
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Usual health care provider people go to when they have a problem with their health for survey respondents who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
+:::
+
+```{r}
+#
+factor_levels <- stringr::str_wrap(levels(hsu_usual$answer), width = 10)
+
+figure_number <- hsu_usual %>% 
+  dplyr::filter(sex != "Total" & answer != "Total") %>%
+  #
+  dplyr::mutate(answer = factor(stringr::str_wrap(answer, width = 10), levels = factor_levels)) %>% 
+  #
+  f_bar_grouped_sex(x_variable = answer,
+                    y_variable = n,
+                    x_angle    = 90)
+
+figure_percent <- hsu_usual %>% 
+  dplyr::filter(sex != "Total" & answer != "Total") %>%
+  #
+  dplyr::mutate(answer = factor(stringr::str_wrap(answer, width = 10), levels = factor_levels)) %>% 
+  #
+  f_bar_grouped_sex(x_variable = answer,
+                    y_variable = prop,
+                    x_angle    = 90)
+
+f_bar_grouped_combine(figure_number, figure_percent)
+```
+
+
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Usual health care provider people go to when they have a problem with their health for survey respondents who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
+:::
+
+```{r}
+#
+table <- hsu_usual %>% 
+  f_preptable_grouped_sex(variable_name = "health_service")
+
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(prop_male   = sprintf("%.1f", prop_male),
+                prop_female = sprintf("%.1f", prop_female),
+                prop_total  = sprintf("%.1f", prop_total)) %>%
+  #
+  f_table_grouped_sex(n_variable  = "estimate",
+                      column_name = "Health service")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Types of health professionals consulted for health-related reasons in the two weeks prior to the survey for survey respondents who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
+:::
+
+```{r}
+#
+factor_levels <- stringr::str_wrap(levels(hsu_actions$answer), width = 15)
+
+figure_number <- hsu_actions %>% 
+  dplyr::filter(sex != "Total" & answer != "Total") %>%
+  #
+  dplyr::mutate(answer = factor(stringr::str_wrap(answer, width = 15), levels = factor_levels)) %>% 
+  #
+  f_bar_grouped_sex(x_variable = answer,
+                    y_variable = n,
+                    x_angle    = 90)
+
+figure_percent <- hsu_actions %>% 
+  dplyr::filter(sex != "Total" & answer != "Total") %>%
+  #
+  dplyr::mutate(answer = factor(stringr::str_wrap(answer, width = 15), levels = factor_levels)) %>% 
+  #
+  f_bar_grouped_sex(x_variable = answer,
+                    y_variable = prop,
+                    x_angle    = 90)
+
+f_bar_grouped_combine(figure_number, figure_percent)
+```
+
+
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Types of health professionals consulted for health-related reasons in the two weeks prior to the survey for survey respondents who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
+:::
+
+```{r}
+#
+table <- hsu_actions %>% 
+  f_preptable_grouped_sex(variable_name = "health_professional")
+
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(prop_male   = sprintf("%.1f", prop_male),
+                prop_female = sprintf("%.1f", prop_female),
+                prop_total  = sprintf("%.1f", prop_total)) %>%
+  #
+  f_table_grouped_sex(n_variable  = "estimate",
+                      column_name = "Health professional consulted")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Private health insurance coverage for survey respondents aged 15 years and over who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
+:::
+
+```{r}
+#
+table <- hsu_insurance %>% 
+  f_preptable_grouped_sex(variable_name = "health_insurance")
+
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(prop_male   = sprintf("%.1f", prop_male),
+                prop_female = sprintf("%.1f", prop_female),
+                prop_total  = sprintf("%.1f", prop_total)) %>%
+  #
+  f_table_grouped_sex(n_variable  = "estimate",
+                      column_name = "Private health<br>insurance")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_natsihs`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_survey_unknown`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_survey_estimate`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_multipleresponse`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 11A-1 and Table 11A-1:
+  - Indicator: Usual health care provider people go to when they have a problem with their health
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Geographical area: `r note_geography_melbourne`
+  - Comparison: `r note_comparison_sex`
+
+<div style="height: 0.1em;"></div>
+
+- For Figure 11A-1 and Table 11A-1, *Other* includes hospitals, traditional healers, and other health service providers.
+
+<div style="height: 0.1em;"></div>
+
+- Figure 11A-2 and Table 11A-2:
+  - Indicator: Types of health professionals consulted for health-related reasons in the two weeks prior to the survey
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Geographical area: `r note_geography_melbourne`
+  - Comparison: `r note_comparison_sex`
+
+<div style="height: 0.1em;"></div>
+
+- For Figure 11A-2 and Table 11A-2, *Dentist* includes consultations with dentists, doctors, and/or nurses about teeth, gums, or false teeth.
+
+<div style="height: 0.1em;"></div>
+
+- For Figure 11A-2 and Table 11A-2, *Hospital* includes hospital admissions, emergency department presentations, outpatient clinic visits, and day clinic visits.
+
+<div style="height: 0.1em;"></div>
+
+- For Figure 11A-2 and Table 11A-2, *Other* includes consultations with nurses, alcohol and drug workers, social workers, welfare officers, traditional healers, and other health professionals.
+
+<div style="height: 0.1em;"></div>
+
+- Table 11A-3:
+  - Indicator: Private health insurance coverage
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Geographical area: `r note_geography_melbourne`
+  - Comparison: `r note_comparison_sex`
+
+:::
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+
+## General Practitioners and Health Professionals
+
+```{r}
+# ------------------------------------------------------------------------------
+# GP visits - time since last consultation
+# Data from ABS Aboriginal and Torres Strait Islander Health Survey
+# ------------------------------------------------------------------------------
+# Read in NATSIHS data
+gp_status <- f_read_natsihs_sex("Indicator_Vic_Sex_GP_Status.csv")
+
+# Data wrangling
+gp_status <- gp_status %>% 
+  dplyr::rowwise() %>% 
+  dplyr::mutate(week2_n    = saw_gp_in_last_2_weeks_n + saw_specialist_in_last_2_weeks_but_not_a_gp_n,
+                answered_n = sum(across(saw_gp_in_last_2_weeks_n:saw_gp_more_than_12_months_ago_n))) %>% 
+  dplyr::ungroup() %>% 
+  #
+  janitor::adorn_totals(fill = "Total") %>% 
+  #
+  dplyr::rename(month3_n     = saw_gp_more_than_2_weeks_to_less_than_3_months_ago_n,
+                month6_n     = saw_gp_3_months_to_less_than_6_months_ago_n,
+                month12_n    = saw_gp_6_months_to_less_than_12_months_ago_n,
+                yearormore_n = saw_gp_more_than_12_months_ago_n) %>% 
+  #
+  dplyr::mutate(across(month3_n:week2_n,
+                       ~ . / answered_n * 100,
+                       .names = "{.col}_prop"),
+                #
+                answered_prop = answered_n / answered_n * 100) %>% 
+  #
+  dplyr::rename_with(~ stringr::str_replace(., "_n_prop$", "_prop"), ends_with("_n_prop")) %>% 
+  #
+  dplyr::select(sex,
+                starts_with("week2"),
+                starts_with("month3"),
+                starts_with("month6"),
+                starts_with("month12"),
+                starts_with("yearormore"),
+                starts_with("answered")) %>% 
+  #
+  tidyr::pivot_longer(!sex,
+                      names_to      = c("answer", ".value"),
+                      names_pattern = "(.+)_(.+)") %>% 
+  #
+  dplyr::mutate(answer = factor(dplyr::recode(answer,
+                                              "week2"      = "Less than 2 weeks",
+                                              "month3"     = "2 weeks to 3 months",
+                                              "month6"     = "3 to 6 months",
+                                              "month12"    = "6 to 12 months",
+                                              "yearormore" = "More than 12 months",
+                                              "answered"   = "Total"),
+                                levels = c("Less than 2 weeks",
+                                           "2 weeks to 3 months",
+                                           "3 to 6 months",
+                                           "6 to 12 months",
+                                           "More than 12 months",
+                                           "Total")))
+
+# ------------------------------------------------------------------------------
+# GP visits - lifestyle topics
+# Data from ABS Aboriginal and Torres Strait Islander Health Survey
+# ------------------------------------------------------------------------------
+# Read in NATSIHS data
+gp_topics <- f_read_natsihs_sex("Indicator_Vic_Sex_GP_Topics.csv")
+
+# Data wrangling
+gp_topics <- gp_topics %>% 
+  dplyr::rowwise() %>% 
+  dplyr::mutate(sexual_n   = family_planning_n + safe_sexual_practices_n,
+                answered_n = total_n - not_applicable_n - did_not_discuss_not_known_if_discussed_health_lifestyle_issues_in_last_12_months_n) %>% 
+  dplyr::ungroup() %>% 
+  #
+  janitor::adorn_totals(fill = "Total") %>% 
+  #
+  dplyr::rename(smoking_n  = reducing_or_quitting_smoking_n,
+                alcohol_n  = drinking_alcohol_in_moderation_n,
+                drug_n     = drug_use_n,
+                weight_n   = reaching_a_healthy_weight_n,
+                activity_n = increasing_physical_activity_n,
+                diet_n     = eating_healthy_food_or_improving_diet_n) %>% 
+  #
+  dplyr::mutate(across(smoking_n:sexual_n,
+                       ~ . / answered_n * 100,
+                       .names = "{.col}_prop"),
+                #
+                answered_prop = answered_n / answered_n * 100) %>% 
+  #
+  dplyr::rename_with(~ stringr::str_replace(., "_n_prop$", "_prop"), ends_with("_n_prop")) %>% 
+  #
+  dplyr::select(sex,
+                starts_with("smoking"),
+                starts_with("alcohol"),
+                starts_with("drug"),
+                starts_with("weight"),
+                starts_with("activity"),
+                starts_with("diet"),
+                starts_with("sexual"),
+                starts_with("other"),
+                starts_with("answered")) %>% 
+  #
+  tidyr::pivot_longer(!sex,
+                      names_to      = c("answer", ".value"),
+                      names_pattern = "(.+)_(.+)") %>% 
+  #
+  dplyr::mutate(answer = factor(dplyr::recode(answer,
+                                              "smoking"  = "Smoking",
+                                              "alcohol"  = "Alcohol use",
+                                              "drug"     = "Substance use",
+                                              "weight"   = "Healthy weight",
+                                              "activity" = "Physical activity",
+                                              "diet"     = "Healthy eating",
+                                              "sexual"   = "Sexual health",
+                                              "other"    = "Other",
+                                              "answered" = "Total"),
+                                levels = c("Smoking",
+                                           "Alcohol use",
+                                           "Substance use",
+                                           "Healthy weight",
+                                           "Physical activity",
+                                           "Healthy eating",
+                                           "Sexual health",
+                                           "Other",
+                                           "Total")))
+```
+
+- Data for this topic were obtained from the [2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release).
+
+- Overall, 51% of Aboriginal and/or Torres Strait Islander survey respondents living in Greater Melbourne reported that they had visited a general practitioner or specialist during the three months prior to the survey. This equates to approximately 20,200 Aboriginal and/or Torres Strait Islander people.
+
+- Females were more likely than males to have last visited a general practitioner or specialist more than 12 months prior to the survey (17% vs. 11%).
+
+- For people who had visited a general practitioner or health professional during the 12 months prior to the survey and who had discussed a lifestyle issue, the most common lifestyle issues discussed were increasing physical activity (56%, approximately 5,700 people), reaching a healthy weight (50%, approximately 5,000 people), and healthy eating (35%, approximately 3,500 people).
+
+- For people who had discussed lifestyle issues with a general practitioner or health professional, males were more likely than females to have discussed reducing or quitting smoking (38% vs. 21%), drinking alcohol in moderation (40% vs. 13%), or substance use (37% vs. 21%), while females were more likely to have discussed reaching a healthy weight (55% vs.46%), healthy eating (53% vs. 24%), or sexual health (including family planning) (45% vs. 9.5%).
+
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+
+<div style="height: 0.1em;"></div>
+
+- `r note_aboriginality_natsihs`
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
+- In the last two weeks, have you seen a general practitioner for your own health?
+  - `r note_response_binary`
+
+<div style="height: 0.1em;"></div>
+
+- When was the last time you saw a general practitioner about your own health?
+  - Less than three months ago
+  - Three months to less than six months age
+  - Six months to less than 12 months ago
+  - More than 12 months ago
+  - Never consulted a general practitioner
+
+<div style="height: 0.1em;"></div>
+
+- Have you discussed any lifestyle issues with a general practitioner, nurse, or Aboriginal Health Worker in the last 12 months?
+  - `r note_response_binary`
+
+<div style="height: 0.1em;"></div>
+
+- If yes, which lifestyle issues did you discuss? (*Select all that apply*)
+  - Reducing or quitting smoking
+  - Drinking alcohol in moderation
+  - Drug use
+  - Reaching a healthy weight
+  - Increasing physical activity
+  - Eating healthy food or improving diet
+  - Family planning
+  - Safe sexual practices
+  - Other
+
+:::
+
+:::: {.panel-tabset}
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Time since last consultation with a general practitioner or specialist for survey respondents who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
+:::
+
+```{r}
+#
+factor_levels <- stringr::str_wrap(levels(gp_status$answer), width = 10)
+
+figure_number <- gp_status %>% 
+  dplyr::filter(sex != "Total" & answer != "Total") %>%
+  #
+  dplyr::mutate(answer = factor(stringr::str_wrap(answer, width = 10), levels = factor_levels)) %>% 
+  #
+  f_bar_grouped_sex(x_variable = answer,
+                    y_variable = n,
+                    x_angle    = 90)
+
+figure_percent <- gp_status %>% 
+  dplyr::filter(sex != "Total" & answer != "Total") %>%
+  #
+  dplyr::mutate(answer = factor(stringr::str_wrap(answer, width = 10), levels = factor_levels)) %>% 
+  #
+  f_bar_grouped_sex(x_variable = answer,
+                    y_variable = prop,
+                    x_angle    = 90)
+
+f_bar_grouped_combine(figure_number, figure_percent)
+```
+
+
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Time since last consultation with a general practitioner or specialist for survey respondents who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
+:::
+
+```{r}
+#
+table <- gp_status %>% 
+  f_preptable_grouped_sex(variable_name = "last_consultation")
+
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(prop_male   = sprintf("%.1f", prop_male),
+                prop_female = sprintf("%.1f", prop_female),
+                prop_total  = sprintf("%.1f", prop_total)) %>%
+  #
+  f_table_grouped_sex(n_variable  = "estimate",
+                      column_name = "Time since last consultation")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Lifestyle issues discussed during consultation for survey respondents who discussed lifestyle issues with a general practitioner or health professional during the 12 months prior to the survey and who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
+:::
+
+```{r}
+#
+figure_number <- gp_topics %>% 
+  dplyr::filter(sex != "Total" & answer != "Total") %>%
+  #
+  f_bar_grouped_sex(x_variable = answer,
+                    y_variable = n,
+                    x_angle    = 90)
+
+figure_percent <- gp_topics %>% 
+  dplyr::filter(sex != "Total" & answer != "Total") %>%
+  #
+  f_bar_grouped_sex(x_variable = answer,
+                    y_variable = prop,
+                    x_angle    = 90)
+
+f_bar_grouped_combine(figure_number, figure_percent)
+```
+
+
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Lifestyle issues discussed during consultation for survey respondents who discussed lifestyle issues with a general practitioner or health professional during the 12 months prior to the survey and who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
+:::
+
+```{r}
+#
+table <- gp_topics %>% 
+  f_preptable_grouped_sex(variable_name = "lifestyle_issue")
+
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(prop_male   = sprintf("%.1f", prop_male),
+                prop_female = sprintf("%.1f", prop_female),
+                prop_total  = sprintf("%.1f", prop_total)) %>%
+  #
+  f_table_grouped_sex(n_variable  = "estimate",
+                      column_name = "Lifestyle issue")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_natsihs`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_survey_unknown`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_survey_estimate`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_multipleresponse`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 11A-3 and Table 11A-4:
+  - Indicator: Time since last consultation with a general practitioner or specialist
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Geographical area: `r note_geography_melbourne`
+  - Comparison: `r note_comparison_sex`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 11A-4 and Table 11A-5:
+  - Indicator: Lifestyle issues discussed during consultation
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Geographical area: `r note_geography_melbourne`
+  - Comparison: `r note_comparison_sex`
+
+<div style="height: 0.1em;"></div>
+
+- For Figure 11A-4 and Table 11A-5, *Sexual health* includes discussion of safe sexual practices and family planning.
+:::
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+
+## Dentists and Dental Professionals
+
+```{r}
+# ------------------------------------------------------------------------------
+# Dentist visits - time since last consultation
+# Data from ABS Aboriginal and Torres Strait Islander Health Survey
+# ------------------------------------------------------------------------------
+# Read in NATSIHS data
+dentist_status <- f_read_natsihs_sex("Indicator_Vic_Sex_Dentist_Status.csv")
+
+# Data wrangling
+dentist_status <- dentist_status %>% 
+  dplyr::rowwise() %>% 
+  dplyr::mutate(answered_n = sum(across(last_2_weeks_n:never_seen_health_professional_about_teeth_n))) %>% 
+  dplyr::ungroup() %>% 
+  #
+  janitor::adorn_totals(fill = "Total") %>% 
+  #
+  dplyr::rename(week2_n     = last_2_weeks_n,
+                month3_n    = more_than_2_weeks_to_less_than_3_months_ago_n,
+                month6_n    = x3_months_to_less_than_6_months_ago_n,
+                month12_n   = x6_months_to_less_than_12_months_ago_n,
+                year2_n     = x12_months_to_less_than_2_years_ago_n,
+                moreyear2_n = x2_years_ago_or_more_n,
+                never_n     = never_seen_health_professional_about_teeth_n) %>% 
+  #
+  dplyr::mutate(across(week2_n:never_n,
+                       ~ . / answered_n * 100,
+                       .names = "{.col}_prop"),
+                #
+                answered_prop = answered_n / answered_n * 100) %>% 
+  #
+  dplyr::rename_with(~ stringr::str_replace(., "_n_prop$", "_prop"), ends_with("_n_prop")) %>% 
+  #
+  dplyr::select(sex,
+                starts_with("week2"),
+                starts_with("month3"),
+                starts_with("month6"),
+                starts_with("month12"),
+                starts_with("year2"),
+                starts_with("moreyear2"),
+                starts_with("never"),
+                starts_with("answered")) %>% 
+  #
+  tidyr::pivot_longer(!sex,
+                      names_to      = c("answer", ".value"),
+                      names_pattern = "(.+)_(.+)") %>% 
+  #
+  dplyr::mutate(answer = factor(dplyr::recode(answer,
+                                              "week2"      = "Less than 2 weeks",
+                                              "month3"     = "2 weeks to 3 months",
+                                              "month6"     = "3 to 6 months",
+                                              "month12"    = "6 to 12 months",
+                                              "year2"      = "12 months to 2 years",
+                                              "moreyear2"  = "More than 2 years",
+                                              "never"      = "Never",
+                                              "answered"   = "Total"),
+                                levels = c("Less than 2 weeks",
+                                           "2 weeks to 3 months",
+                                           "3 to 6 months",
+                                           "6 to 12 months",
+                                           "12 months to 2 years",
+                                           "More than 2 years",
+                                           "Never",
+                                           "Total")))
+
+# ------------------------------------------------------------------------------
+# Dentist visits - location of last consultation
+# Data from ABS Aboriginal and Torres Strait Islander Health Survey
+# ------------------------------------------------------------------------------
+# Read in NATSIHS data
+dentist_type <- f_read_natsihs_sex("Indicator_Vic_Sex_Dentist_Type.csv")
+
+# Data wrangling
+dentist_type <- dentist_type %>% 
+  dplyr::rowwise() %>% 
+  dplyr::mutate(answered_n = sum(across(private_dental_clinic_including_specialist_n:other_n))) %>% 
+  dplyr::ungroup() %>% 
+  #
+  janitor::adorn_totals(fill = "Total") %>% 
+  #
+  dplyr::rename(private_n    = private_dental_clinic_including_specialist_n,
+                government_n = government_dental_clinic_including_dental_hospital_n,
+                school_n     = school_dental_clinic_n,
+                ams_n        = dentist_at_aboriginal_or_torres_strait_islander_medical_service_or_community_clinic_n) %>% 
+  #
+  dplyr::mutate(across(private_n:other_n,
+                       ~ . / answered_n * 100,
+                       .names = "{.col}_prop"),
+                #
+                answered_prop = answered_n / answered_n * 100) %>% 
+  #
+  dplyr::rename_with(~ stringr::str_replace(., "_n_prop$", "_prop"), ends_with("_n_prop")) %>% 
+  #
+  dplyr::select(sex,
+                starts_with("private"),
+                starts_with("government"),
+                starts_with("school"),
+                starts_with("ams"),
+                starts_with("other"),
+                starts_with("answered")) %>% 
+  #
+  tidyr::pivot_longer(!sex,
+                      names_to      = c("answer", ".value"),
+                      names_pattern = "(.+)_(.+)") %>% 
+  #
+  dplyr::mutate(answer = factor(dplyr::recode(answer,
+                                              "private"    = "Private clinic",
+                                              "government" = "Government clinic or dental hospital",
+                                              "school"     = "School clinic",
+                                              "ams"        = "AMS or Community Clinic",
+                                              "other"      = "Other",
+                                              "answered"   = "Total"),
+                                levels = c("Private clinic",
+                                           "Government clinic or dental hospital",
+                                           "School clinic",
+                                           "AMS or Community Clinic",
+                                           "Other",
+                                           "Total")))
+```
+
+- Data for this topic were obtained from the [2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release).
+
+- Overall, 40% of Aboriginal and/or Torres Strait Islander survey respondents living in Greater Melbourne reported that they had visited a dentist or dental professional during the six months prior to the survey. This equates to approximately 15,000 Aboriginal and/or Torres Strait Islander people.
+
+- Males were more likely than females to have never seen a dentist or dental professional (5.4% vs. 2.9%).
+
+- For Aboriginal and/or Torres Strait Islander survey respondents living in Greater Melbourne who had ever visited a dentist or dental professional, 54% (approximately 19,300 people) attended their most recent consultation at a private dental clinic, and a further 23% (approximately 8,200 people) attended a government clinic or dental hospital.
+
+- Males were more likely than females to have attended an Aboriginal Medical Service (AMS) or Community Clinic for their most recent dental consultation (13% vs. 7.7%).
+
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+
+<div style="height: 0.1em;"></div>
+
+- `r note_aboriginality_natsihs`
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
+- In the last two weeks, have you been to the dentist, doctor, or nurse about your teeth, gums, or false teeth?
+  - `r note_response_binary`
+
+<div style="height: 0.1em;"></div>
+
+- When was the last time you went to the dentist?
+  - Less than three months ago
+  - Three months to less than six months age
+  - Six months to less than 12 months ago
+  - 12 months to less than 2 years ago
+  - 2 years ago or more
+  - Never seen health professional about teeth
+
+<div style="height: 0.1em;"></div>
+
+- Where did you last go to see the dentist?
+  - Private dental clinic (including specialist)
+  - Government dental clinic (including dental hospital)
+  - School dental clinic
+  - Aboriginal Medical Service or Community Clinic
+  - Other
+
+:::
+
+:::: {.panel-tabset}
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Time since last consultation with a dentist or dental professional for survey respondents who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
+:::
+
+```{r}
+#
+factor_levels <- stringr::str_wrap(levels(dentist_status$answer), width = 10)
+
+figure_number <- dentist_status %>% 
+  dplyr::filter(sex != "Total" & answer != "Total") %>%
+  #
+  dplyr::mutate(answer = factor(stringr::str_wrap(answer, width = 10), levels = factor_levels)) %>% 
+  #
+  f_bar_grouped_sex(x_variable = answer,
+                    y_variable = n,
+                    x_angle    = 90)
+
+figure_percent <- dentist_status %>% 
+  dplyr::filter(sex != "Total" & answer != "Total") %>%
+  #
+  dplyr::mutate(answer = factor(stringr::str_wrap(answer, width = 10), levels = factor_levels)) %>% 
+  #
+  f_bar_grouped_sex(x_variable = answer,
+                    y_variable = prop,
+                    x_angle    = 90)
+
+f_bar_grouped_combine(figure_number, figure_percent)
+```
+
+
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Time since last consultation with a dentist or dental professional for survey respondents who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
+:::
+
+```{r}
+#
+table <- dentist_status %>% 
+  f_preptable_grouped_sex(variable_name = "last_consultation")
+
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(prop_male   = sprintf("%.1f", prop_male),
+                prop_female = sprintf("%.1f", prop_female),
+                prop_total  = sprintf("%.1f", prop_total)) %>%
+  #
+  f_table_grouped_sex(n_variable  = "estimate",
+                      column_name = "Time since last consultation")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+```{r}
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+#### `r figtab_figure_title`
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Place of last consultation with a dentist or dental professional for survey respondents who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
+:::
+
+```{r}
+#
+factor_levels <- stringr::str_wrap(levels(dentist_type$answer), width = 15)
+
+figure_number <- dentist_type %>% 
+  dplyr::filter(sex != "Total" & answer != "Total") %>%
+  #
+  dplyr::mutate(answer = factor(stringr::str_wrap(answer, width = 15), levels = factor_levels)) %>% 
+  #
+  f_bar_grouped_sex(x_variable = answer,
+                    y_variable = n,
+                    x_angle    = 90)
+
+figure_percent <- dentist_type %>% 
+  dplyr::filter(sex != "Total" & answer != "Total") %>%
+  #
+  dplyr::mutate(answer = factor(stringr::str_wrap(answer, width = 15), levels = factor_levels)) %>% 
+  #
+  f_bar_grouped_sex(x_variable = answer,
+                    y_variable = prop,
+                    x_angle    = 90)
+
+f_bar_grouped_combine(figure_number, figure_percent)
+```
+
+
+```{r}
+#
+figtab_table_count  <- figtab_table_count + 1
+figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_table_count)
+figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
+```
+
+#### `r figtab_table_title`
+
+::: {.fig-tab-title}
+**`r figtab_table_title`:** Place of last consultation with a dentist or dental professional for survey respondents who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_melbourne`, by `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_natsihs`
+:::
+
+```{r}
+#
+table <- dentist_type %>% 
+  f_preptable_grouped_sex(variable_name = "place_consultation")
+
+if (!file.exists(paste0(here::here(), "/data/", figtab_table_number, ".csv"))) {
+  
+  write.csv(table, paste0(here::here(), "/data/", figtab_table_number, ".csv"), row.names = FALSE)
+  
+}
+
+table %>% 
+  dplyr::mutate(prop_male   = sprintf("%.1f", prop_male),
+                prop_female = sprintf("%.1f", prop_female),
+                prop_total  = sprintf("%.1f", prop_total)) %>%
+  #
+  f_table_grouped_sex(n_variable  = "estimate",
+                      column_name = "Place of last consultation")
+```
+
+<div style="height: 1em;"></div>
+
+<a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
+
+::::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+`r note_data_natsihs`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_unknown_agesex`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_survey_unknown`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_survey_estimate`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 11A-5 and Table 11A-6:
+  - Indicator: Time since last consultation with a dentist or dental professional
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Geographical area: `r note_geography_melbourne`
+  - Comparison: `r note_comparison_sex`
+
+<div style="height: 0.1em;"></div>
+
+- Figure 11A-6 and Table 11A-7:
+  - Indicator: Place of last consultation with a dentist or dental professional
+  - Numerator: `r note_numerator_category_aboriginal`
+  - Denominator: `r note_denominator_natsihs`
+  - Geographical area: `r note_geography_melbourne`
+  - Comparison: `r note_comparison_sex`
+
+:::
+

@@ -1,0 +1,110 @@
+---
+title-block: false
+---
+
+# Support Services
+
+```{r}
+#
+source(here::here("setup.R"))
+
+# Set up numbering for figures and tables
+figtab_report_section <- "1E"
+figtab_csv_section    <- "01E"
+
+figtab_table_count  <- 0
+figtab_figure_count <- 0
+```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Support Services {.unnumbered}
+
+This report contains data across a wide range of topics. While all efforts have been made to present these data in respectful, non-stigmatising ways, it is acknowledged that certain topics can be sensitive and distressing.
+
+Take the time you need and connect with trusted supports, Elders, or loved ones. Your wellbeing matters.
+ 
+If you or someone you know needs support, please consider reaching out to the culturally safe services listed here.
+
+**13 YARN – National Aboriginal & Torres Strait Islander Crisis Line**
+
+📱 Phone: 13 92 76 (24/7)
+
+🌐 Website: [www.13yarn.org.au](www.13yarn.org.au)
+
+A free, confidential crisis support line staffed by Aboriginal and/or Torres Strait Islander people.
+
+<div style="height: 0.1em;"></div>
+
+**Victorian Aboriginal Legal Service (VALS)**
+
+📱 Phone: 1800 064 865 (24/7 legal help line) or (03) 9418 5999
+
+🌐 Website: [www.vals.org.au](www.vals.org.au)
+
+Legal advice, representation, and support services across criminal, family, and civil law.
+
+<div style="height: 0.1em;"></div>
+
+**Djirra – Supporting Aboriginal Women’s Safety and Wellbeing**
+
+📱 Phone: 1800 105 303
+
+🌐 Website: [www.djirra.org.au](www.djirra.org.au)
+
+Legal and non-legal support for Aboriginal women, particularly around family violence and wellbeing.
+
+<div style="height: 0.1em;"></div>
+
+**Healing Foundation – Stolen Generations Healing Support**
+
+📱 Phone: (02) 6272 7500
+
+🌐 Website: [www.healingfoundation.org.au](www.healingfoundation.org.au)
+
+Trauma-informed resources and support for healing from the impacts of past and present injustice.
+
+<div style="height: 0.1em;"></div>
+
+**Victorian Aboriginal Health Service (VAHS) – Social and Emotional Wellbeing**
+
+📱 Phone: (03) 9419 3000
+
+🌐 Website: [www.vahs.org.au](www.vahs.org.au)
+
+Mental health and suicide prevention programs that are culturally safe and community-led.
+
+<div style="height: 0.1em;"></div>
+
+**Victorian Aboriginal Health Service (VAHS) – Yarning Safe ‘n’ Strong**
+
+📱 Phone: 1800 959 563
+
+🌐 Website: [https://www.vahs.org.au/yarning-safenstrong/](https://www.vahs.org.au/yarning-safenstrong/)
+
+A free and confidential counselling service for Aboriginal and/or Torres Strait Islander Peoples. Yarning Safe 'n' Strong (YSNS) is available to people and families who need to have a yarn with someone about their wellbeing.
+
+<div style="height: 0.1em;"></div>
+
+**VACCHO – Victorian Aboriginal Community Controlled Health Organisation**
+
+📱 Phone: (03) 9411 9411
+
+🌐 Website: [www.vaccho.org.au](www.vaccho.org.au)
+
+Support and connection to local Aboriginal health services across the state.
+
+<div style="height: 0.1em;"></div>
+
+**Brother to Brother 24 Hour Crisis Line**
+
+📱 Phone: 1800 435 799 (24/7)
+
+🌐 [https://dardimunwurro.com.au/brother-to-brother-crisis-line/](https://dardimunwurro.com.au/brother-to-brother-crisis-line/) 
+
+Phone support for Aboriginal men who need someone to talk to about relationship issues, family violence, parenting, drug and alcohol issues, or who are struggling to cope for other reasons. The line is staffed by Aboriginal men, including Elders, who have a lived experience in the issues that the line offers support for.
+

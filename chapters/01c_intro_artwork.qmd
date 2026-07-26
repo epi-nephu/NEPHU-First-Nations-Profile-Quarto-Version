@@ -1,0 +1,86 @@
+---
+title-block: false
+---
+
+# Report Naming and Artwork
+
+```{r}
+#
+source(here::here("setup.R"))
+
+# Set up numbering for figures and tables
+figtab_report_section <- "1C"
+figtab_csv_section    <- "01C"
+
+figtab_table_count  <- 0
+figtab_figure_count <- 0
+```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Report Naming and Artwork {.unnumbered}
+
+## Name of the Report
+
+This report has been named ***Gumunatj Ngarrngatj*** (*GOO-moo-nahtch NGARRN-gahtch*) which means ‘weave knowledge’. This name is aligned with the purpose of the report to collate and bring together data for the Aboriginal and/or Torres Strait Islander population in order to inform and support knowledge generation.
+
+The report was named by Wurundjeri Elder, Aunty Gail Smith, who collaborated with linguist Andrew Tanner from the [Wurundjeri Woi-wurrung Cultural Heritage Aboriginal Corporation](https://www.wurundjeri.com.au/).
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+
+## Artwork
+
+The artwork on the cover page and used throughout this report was created by Stephanie Thompson from [Kirrae Gunditj Art](https://www.facebook.com/KirraeGunditjArt/).
+
+The name of the artwork is: ***Strong Paths Strong Country***. This artwork represents the deep connections between people, place, and wellbeing within the NEPHU catchment. It reflects the understanding that health for Aboriginal and Torres Strait Islander peoples is holistic — shaped not only by the physical body, but also by cultural identity, community, spirituality, and the health of Country itself.
+
+At the centre of the painting, the large tones of yellow circles symbolise the central gathering place — the heart of community. It is where knowledge is shared, support is strengthened, and identity is grounded. This central space represents cultural safety, belonging, and the strength that comes from coming together as one mob. 
+
+Radiating outward from the centre are the brown/maroon pathways, each representing the journeys of individuals, families, and communities across the NEPHU region. The intricate linework within these paths reflects the interwoven nature of life — the complexity, resilience, and adaptability carried by Aboriginal and Torres Strait Islander peoples as they navigate changing environments, challenges, and experiences. These pathways show that although each person walks their own track, they remain connected through shared history, kinship, and Country.
+
+Running horizontally through the artwork, the warm orange band represents Country’s lifelines — the land, waterways, and food sources that sustain the community. The textured patterns within this band symbolise the richness of the environment, as well as the ongoing relationship between people and the places that provide nourishment, healing, and continuity.
+
+Surrounding the pathways are maroon and white patterns that echo the rhythms of life and the protective layers of community. These shapes represent families, Elders, service providers, and knowledge holders who support health and wellbeing across generations. They also reflect the ebb and flow of rivers — a reminder that wellbeing is nurtured through relationship, movement, and consistent connection.
+
+Across the outer areas of the painting, the blue and white patterned Men Women, boomerangs Spears, coolomons and Leafs - illustrating movement, presence, and the ongoing cultural journey of community members within the catchment. These shapes honour the diversity of stories held by those who live, work, and travel across the region.
+
+In each corner, the green and blue forms represent the broader catchment and its distinct landscapes. These areas symbolise the wider environment that holds community — showing that while each place is unique, all are connected through shared responsibility, culture, and respect for Country.
+
+Together, every element in this artwork tells a unified story: that health and wellbeing are created through connection — to land, to culture, to each other, and to the past, present, and future. It is a reminder that strong communities grow from strong Country, and that healing and resilience are carried forward when people walk their paths together.
+
+### Artist Biography
+
+**Stephanie Thompson – Kirrae Gunditj Art Gunditjmara / Kirrae Wurrong Artist**
+
+:::: {.columns}
+
+::: {.column width="70%"}
+Stephanie Thompson ([Kirrae Gunditj Art](https://www.facebook.com/KirraeGunditjArt/)) is a proud Gunditjmara and Kirrae Wurrong artist whose creative practice bridges Aboriginal traditional art and contemporary expression. Drawing deep inspiration from her ancestral Country in south-west Victoria, Stephanie’s work reflects a lived connection to land, culture, stories, and community that honours both ancient lore and modern artistic voices.
+
+Her art seamlessly weaves traditional symbols, patterns, and cultural narratives with bold contemporary aesthetic, creating pieces that speak to identity, resilience, belonging, and the ongoing story of her people. Through colour, form, and storytelling, Stephanie invites viewers to engage with Country and culture in ways that are both personal and universal.
+:::
+
+::: {.column width="5%"}
+
+:::
+
+::: {.column width="25%"}
+```{r}
+#
+knitr::include_graphics(here::here("images", "intro_artist.png"))
+```
+:::
+
+::::
+
+Stephanie’s practice is rooted in a responsibility to preserve and celebrate First Nations culture while expanding the visual language of Aboriginal art in today’s world. Her works — ranging from richly detailed canvases to dynamic mixed media pieces — are celebrated for their vibrancy, cultural depth, and emotional resonance.
+
+Kirrae Gunditj Art is more than art — it is cultural expression, connection to Country, and the voice of an emerging First Nations artist forging her own path.
+

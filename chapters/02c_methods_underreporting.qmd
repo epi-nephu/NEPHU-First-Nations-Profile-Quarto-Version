@@ -1,0 +1,91 @@
+---
+title-block: false
+---
+
+# Underreporting of Aboriginal and/or Torres Strait Islander Status
+
+```{r}
+#
+source(here::here("setup.R"))
+
+# Set up numbering for figures and tables
+figtab_report_section <- "2C"
+figtab_csv_section    <- "02C"
+
+figtab_table_count  <- 0
+figtab_figure_count <- 0
+```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Underreporting of Aboriginal and/or Torres Strait Islander Status {.unnumbered}
+
+## Introduction and Context
+
+This report focuses on data pertaining to the Aboriginal and/or Torres Strait Islander population who live within the NEPHU catchment area. It is a collation of publicly available data that has been analysed according to *Aboriginal and/or Torres Strait Islander status*, as recorded in each publicly available dataset. Therefore, the information contained within this report is only as accurate as the accuracy of the collection and recording of Aboriginal and/or Torres Strait Islander status within each of the included datasets, which have known limitations.
+
+Collection of Aboriginal and/or Torres Strait Islander status has two important purposes within health data. Firstly, it facilitates the linking of patients to appropriate cultural supports and services that enable culturally safe healthcare. In addition, it supports the administrative process of service system assessment and monitoring, to measure the effectiveness of services towards removing barriers to Aboriginal and/or Torres Strait Islander peoples access and engagement, that if effectively addressed will contribute to closing the gap. Without collecting the data, it is difficult to know whether programs are effective and have been successful.
+
+The underreporting of Aboriginal and/or Torres Strait Islander people in health-related data collections is [well recognised](https://www.aihw.gov.au/reports/indigenous-australians/data-stocktake-for-the-national-health-plan/contents/data-quality). This occurs when Aboriginal and/or Torres Strait Islander status is not appropriately collected or accurately recorded for all clients, which in turn impacts on the representativeness of the data, introduces biases, and the ability to draw meaningful conclusions from the data. Moreover, the degree of underidentification [can vary across datasets](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/understanding-change-counts-aboriginal-and-torres-strait-islander-australians-census/2021), time periods, jurisdictions, sectors, and organisations, which impacts on comparability of these datasets. For example, Aboriginal and/or Torres Strait Islander people have been found to be [more likely to identify](https://www.sciencedirect.com/science/article/pii/S1326020023008488) if they live in more regional areas, are younger, or are female. 
+
+The implications of underidentification are important, as this impacts on the ability to use routinely collected data to assess health need, understand health service access, and to evaluate the effectiveness of health programs developed to improve the health and wellbeing outcomes of Aboriginal and/or Torres Strait Islander people.
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+
+## Reasons for Underreporting
+
+There are multiple reasons that contribute to the underreporting of Aboriginal and/or Torres Strait Islander status, but two key issues include inconsistency in asking the question (where it is not asked or not asked in a culturally appropriate and informative way), and hesitancy by Aboriginal and/or Torres Strait Islander people to self-identify.
+
+Inconsistency in asking the question of whether someone identifies as an Aboriginal and/or Torres Strait Islander person is explored in the [AIHW National Best Practice Guidelines](https://www.aihw.gov.au/reports/indigenous-australians/national-guidelines-collecting-health-data-sets/summary) for collecting Indigenous status in health datasets. This inconsistency can be due to perceptions by health service staff that there is limited utility in asking the question, and that differentiation goes against the concept of equal treatment in healthcare. Furthermore, use of the standard question can be inconsistent, with assumptions being made based on appearance, or expecting that a patient will disclose their status without being asked.
+
+Even if the question of identification as an Aboriginal and/or Torres Strait Islander person is asked, people may or may not choose to identify. There can be variability in whether someone identifies in different circumstances, influenced by numerous factors in different contexts and over the life course. Examples that impact on whether someone chooses to identify as an Aboriginal and/or Torres Strait Islander person include whether they feel the organisation asking the question is welcoming and trusted (culturally safe), and the circumstances under which the question is being asked. For example, there may be a reluctance to identify during health encounters related to pregnancy and/or childbirth due to fears of unwarranted child protection involvement and past traumas of child removals.
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+
+## Impact of Underreporting
+
+The consultations held with First Nations stakeholders during the development of this report have highlighted that the data collated will be significantly impacted by underidentification of the status of Aboriginal and/or Torres Strait Islander peoples. This report is a collation of data collected by other agencies, and there will be variation in how the question was asked and differences in cultural safety across settings.
+
+Therefore, it is acknowledged that numbers presented in this report will be underestimated to varying degrees, which may underestimate Aboriginal and/or Torres Strait Islander health needs and should be interpreted with caution. There are risks in presenting data which can imply a level of precision that is misleading. For example, the number of people who identify as an Aboriginal and/or Torres Strait Islander person in the Census could be interpreted as the total number of Aboriginal and/or Torres Strait Islander people rather than only those who identified in that particular survey. Furthermore, as there are some relatively small population numbers at the LGA or IARE level presented in this report, variations in identification can have large impacts on the results.
+
+Despite these limitations in the data, First Nations stakeholders have supported the need to undertake this report, to collate the data as a starting point that can then be built on. This report aligns with Priority Reform Four of the [National Agreement on Closing the Gap](https://www.closingthegap.gov.au/national-agreement/priority-reforms) by supporting access for Aboriginal and/or Torres Strait Islander people to locally-relevant data. However, it is important that the limitations of the data are made explicit, and therefore data notes and caveats on the likelihood of underidentification and the impact of underidentification is included at the start of every section and along with each figure and table presented in this report.
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+
+## Improving Data Collection
+
+There is evidence that the collection and completeness of Aboriginal and/or Torres Strait Islander status is [increasing over time for the ABS Census](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/understanding-change-counts-aboriginal-and-torres-strait-islander-australians-census/2021). The non-response rate for Indigenous status in the ABS Census data has decreased from 6.0% in 2016 to 4.9% in 2021, the number of people identifying as Aboriginal and/or Torres Strait Islander in Australia has increased by 25% from 649,171 people in 2016 to 812,728 in 2021, and the percentage of people identifying as Aboriginal and/or Torres Strait Islander has increased from 2.5% in 2011 and 2.8% in 2016 to 3.2% in 2021.
+
+Enhanced data collection methods have been recently developed and implemented to enhance the reporting of Aboriginal and/or Torres Strait Islander status in [mortality and cause of death data](https://www.abs.gov.au/articles/technical-note-impact-using-multiple-sources-deriving-indigenous-status-deaths-2023-changes-victoria-and-coroner-referred-deaths) in Victoria.
+
+Data linkage techniques have also been found to improve identification of Aboriginal and/or Torres Strait Islander status in linked [notifiable diseases](https://www.sciencedirect.com/science/article/pii/S1326020023012207), [mortality](https://pmc.ncbi.nlm.nih.gov/articles/PMC3413579/), and [cancer](https://pubmed.ncbi.nlm.nih.gov/31888495/) data. However, conducting data linkage was beyond the scope of this report.
+
+Ideally, improvements will occur at the point of data collection. In order to facilitate improvements in identification and collection of Aboriginal and/or Torres Strait Islander status in data collections, there are two main things that organisations can do:
+
+- Develop a welcoming, inclusive, and culturally safe service and staff model and regularly evaluate how the service is performing, including whether there has been an increase in Aboriginal and/or Torres Strait Islander people identifying over time.
+
+- Ask the question in a culturally safe way at every interaction and every time.
+
+To support this process, the Australian Institute of Health and Welfare (AIHW) have developed [National Best Practice Guidelines](https://www.aihw.gov.au/reports/indigenous-australians/national-guidelines-collecting-health-data-sets/summary) for collecting Indigenous status in health data sets. These Guidelines suggest key principles that organisations should follow when collecting data:
+
+- Consistent adherence to national standards
+
+- Self-reporting is the most accurate approach
+
+- Asking a standard question in a standard way
+
+- Use of standard response options
+
