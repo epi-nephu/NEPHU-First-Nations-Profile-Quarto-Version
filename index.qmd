@@ -2,7 +2,7 @@
 page-navigation: false
 ---
 
-# Cover Page {.unnumbered}
+# Cover Page {.unnumbered .unlisted}
 
 ```{r}
 #| column: screen-inset-right
