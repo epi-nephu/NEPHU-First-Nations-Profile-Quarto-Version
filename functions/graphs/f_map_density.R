@@ -11,7 +11,10 @@ f_map_density <- function(data) {
                       na.color = colour_white)
   
   figure <- leaflet(options = leafletOptions(zoomControl = TRUE)) %>%
-    addProviderTiles("CartoDB.Positron") %>% 
+    #
+    addTiles(
+      urlTemplate = paste0("https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png?key=", api_carto),
+      attribution = '&copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors &copy; <a href="https://carto.com">CARTO</a>') %>%
     #
     addPolygons(data = data,
                 #

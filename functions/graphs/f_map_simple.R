@@ -11,7 +11,9 @@ f_map_simple <- function(data, geo_variable) {
   figure <- data %>% 
     leaflet(options = leafletOptions(zoomControl = TRUE)) %>%
     #
-    addProviderTiles("CartoDB.Positron") %>% 
+    addTiles(
+      urlTemplate = paste0("https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png?key=", api_carto),
+      attribution = '&copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors &copy; <a href="https://carto.com">CARTO</a>') %>% 
     #
     addPolygons(fillColor   = pal(data[[geo_variable]]),
                 color       = colour_black,

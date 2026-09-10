@@ -61,6 +61,10 @@ note_data_mortality <- glue::glue("
   - If these data sources do not agree, identification on any source is usually given preference over recording the deceased as non-Indigenous.
   - Prior to 2023, Aboriginal and/or Torres Strait Islander status was assigned based on the Death Registration Statement only in Victoria. Data for 2023 onwards cannot be reliably compared to data from previous years.")
 
+note_data_mothers <- glue::glue("
+- The AIHW collates data from the National Perinatal Data Collection, the National Maternal Mortality Data Collection, the National Perinatal Mortality Data Collection, and State and Territory perinatal data collections to produce the Australia’s Mothers and Babies Report.
+  - This report contains data at state level on pregnancy, childbirth and key outcomes for babies at the time of birth.")
+
 note_data_naplan <- glue::glue("
 - Data were obtained from the [National Assessment Program — Literacy and Numeracy (NAPLAN) program](https://www.acara.edu.au/reporting/national-report-on-schooling-in-australia/naplan-national-results), administered by the Australian Curriculum, Assessment, and Reporting Authority (ACARA).
   - NAPLAN is a national assessment that tests students’ ability in three domains of literacy (reading, writing, and language conventions) and in numeracy. Students sit NAPLAN tests in Term 1 of Years 3, 5, 7, and 9.
