@@ -4,6 +4,8 @@ title-block: false
 
 # Population Size and Distribution
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,7 +24,7 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Population Size and Distribution {.unnumbered}
+## Population Size and Distribution {.unnumbered .unlisted}
 
 ::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
 `r note_chapter_underidentification`
@@ -157,9 +159,19 @@ population_lphu <- aboriginal_lga %>%
 
 - The proportion of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander was lower than the proportion of people living in Victoria who identified as Aboriginal and/or Torres Strait Islander (n = 65,639, 1.0% of the state population). 
 
-::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-- Definitions and notes:
-  - `r note_aboriginality_census`
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people completing the ABS Census 2021.
+
+<div style="height: 0.1em;"></div>
+
+- `r note_aboriginality_census`
+:::
+
+::: {.callout-tip title="Census questions for this topic" icon=false collapse=false}
+- Is the person of Aboriginal or Torres Strait Islander origin? (*Select all that apply*)
+  - No
+  - Yes, Aboriginal
+  - Yes, Torres Strait Islander
 
 :::
 
@@ -229,7 +241,7 @@ table %>%
                                    "Percent of Victorian Aboriginal and/or Torres Strait Islander population"))
 ```
 
-<div style="height: 1em;"></div>
+<div style="height: 0.5em;"></div>
 
 <a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
@@ -388,9 +400,19 @@ density_sa2 <- dplyr::left_join(nephu_sa2.sf,
 
 - Despite having a smaller number of residents who identified as Aboriginal and/or Torres Strait Islander, these residents were concentrated in the SA2s of Collingwood (55 people per km^2^), Reservoir - North East (52 people per km^2^), Reservoir - South East (44 people per km^2^), and Fitzroy (41 people per km^2^).
 
-::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-- Definitions and notes:
-  - `r note_aboriginality_census`
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people completing the ABS Census 2021.
+
+<div style="height: 0.1em;"></div>
+
+- `r note_aboriginality_census`
+:::
+
+::: {.callout-tip title="Census questions for this topic" icon=false collapse=false}
+- Is the person of Aboriginal or Torres Strait Islander origin? (*Select all that apply*)
+  - No
+  - Yes, Aboriginal
+  - Yes, Torres Strait Islander
 
 :::
 
@@ -452,14 +474,14 @@ table %>%
   dplyr::mutate(aboriginal_prop         = sprintf("%.1f", aboriginal_prop),
                 aboriginal_prop_per_lga = sprintf("%.1f", aboriginal_prop_per_lga)) %>% 
   #
-  f_table_simple(column_width  = "2.5in",
+  f_table_simple(column_width  = "2in",
                  table_headers = c("LGA",
                                    "Number of Aboriginal and/or Torres Strait Islander people",
                                    "Percent of total LGA population",
                                    "Percent of NEPHU Aboriginal and/or Torres Strait Islander population"))
 ```
 
-<div style="height: 1em;"></div>
+<div style="height: 0.5em;"></div>
 
 <a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
@@ -501,14 +523,14 @@ table %>%
   dplyr::arrange(desc(aboriginal_n)) %>% 
   #
   f_table_simple(total_row     = NULL,
-                 column_width  = "2.5in",
+                 column_width  = "2in",
                  table_headers = c("SA2",
                                    "Number of Aboriginal and/or Torres Strait Islander people",
                                    "Percent of total SA2 population",
                                    "Percent of NEPHU Aboriginal and/or Torres Strait Islander population"))
 ```
 
-<div style="height: 1em;"></div>
+<div style="height: 0.5em;"></div>
 
 <a href="../data/`r paste0(figtab_table_number, '.csv')`" download class="btn btn-primary download-link">Download table data as CSV</a>
 
@@ -526,10 +548,23 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 
 ```{r}
 #
-density_lga %>% 
+map_name <- "map_density_lga"
+
+map <- density_lga %>% 
   f_map_density()
+
+if (!file.exists(paste0(here::here(), "/maps/", map_name, ".html"))) {
+  
+  htmlwidgets::saveWidget(map, file = paste0(here::here(), "/maps/", map_name, ".html"), selfcontained = TRUE)
+
+}
+
+map
 ```
 
+<div style="height: 1em;"></div>
+
+<a href="../maps/`r paste0(map_name, '.html')`" download class="btn btn-primary download-link">Display map in a new tab</a>
 
 ```{r}
 #
@@ -545,9 +580,23 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 
 ```{r}
 #
-density_sa2 %>% 
+map_name <- "map_density_sa2"
+
+map <- density_sa2 %>% 
   f_map_density()
+
+if (!file.exists(paste0(here::here(), "/maps/", map_name, ".html"))) {
+  
+  htmlwidgets::saveWidget(map, file = paste0(here::here(), "/maps/", map_name, ".html"), selfcontained = TRUE)
+
+}
+
+map
 ```
+
+<div style="height: 1em;"></div>
+
+<a href="../maps/`r paste0(map_name, '.html')`" download class="btn btn-primary download-link">Display map in a new tab</a>
 
 ::::
 
