@@ -4,6 +4,8 @@ title-block: false
 
 # Underreporting of Aboriginal and/or Torres Strait Islander Status
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,7 +24,7 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Underreporting of Aboriginal and/or Torres Strait Islander Status {.unnumbered}
+## Underreporting of Aboriginal and/or Torres Strait Islander Status {.unnumbered .unlisted}
 
 ## Introduction and Context
 

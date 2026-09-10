@@ -4,6 +4,8 @@ title-block: false
 
 # Data Analysis Methods
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,7 +24,7 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Data Analysis Methods {.unnumbered}
+## Data Analysis Methods {.unnumbered .unlisted}
 
 ## Important Information For Reading This Report
 
@@ -64,9 +66,9 @@ All data were downloaded from the relevant data source as .xlsx or .csv files an
 
 Descriptive analyses were conducted with no statistical significance testing for differences between groups. 
 
-Data are presented as counts, percentages/proportions, rates, and/or ratios depending on the indicator. The percentages/proportions, rates,a dn ratios for the NEPHU catchment area as a single geographical area were generally not provided in the original data sources. Therefore, these have been calculated if both numerator and denominator values were available from the individual LGA-level or IARE-level data.
+Data are presented as counts, percentages/proportions, rates, and/or ratios depending on the indicator. The percentages/proportions, rates, and ratios for the NEPHU catchment area as a single geographical area were generally not provided in the original data sources. Therefore, these have been calculated if both numerator and denominator values were available from the individual LGA-level or IARE-level data.
 
-The observed vs. expected charts and tables compare what we see in the data (the observed number) with what we would see if there was no gap or difference between Aboriginal and/or Torres Strait Islander people and non-Aboriginal and/or Torres Strait Islander people in each LGA or sex/age group (the expected number) for a particular indicator. These differences should be understood in the context of historical and ongoing impacts of colonisation, as well as social and structural factors that influence health and wellbeing.
+The observed vs. expected charts and tables compare what we see in the data (the observed number) with what we would see if there was no gap or difference between Aboriginal and/or Torres Strait Islander people and non-Indigenous people in each LGA or sex/age group (the expected number) for a particular indicator. These differences should be understood in the context of historical and ongoing impacts of colonisation, as well as social and structural factors that influence health and wellbeing.
 
 ```{r}
 #| out-width: "100%"
@@ -75,9 +77,9 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 
 ## Data Notes
 
-Each section of the report starts with a *General notes and caveats for this topic* box, which contains important information about data caveats and limitations that apply to the indicators included in that section.
+Each section of the report starts with a *'General notes and caveats for this topic'* box, which contains important information about data caveats and limitations that apply to the indicators included in that section.
 
-Detailed information about definitions and other contextual notes about the topic can be found in the *Definitions and notes about this topic*, *Census questions and definitions for this topic*, *Survey questions and definitions for this topic*, and *ICD-10-AM codes for this topic* boxes.
+Detailed information about definitions and other contextual notes about the topic can be found in the *'Definitions and notes about this topic'*, *'Census questions and definitions for this topic'*, *'Survey questions and definitions for this topic'*, and *'ICD-10-AM codes for this topic'* boxes.
 
-The *Data notes* boxes for each topic include information about the data source, numerator, denominator, geographical area, and comparisons along with specific notes and caveats applicable to the figures and tables presented for the topic.
+The *'Data notes'* boxes for each topic include information about the data source, numerator, denominator, geographical area, and comparisons along with specific notes and caveats applicable to the figures and tables presented for the topic.
 

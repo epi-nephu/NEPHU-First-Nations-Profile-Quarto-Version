@@ -4,6 +4,8 @@ title-block: false
 
 # Consultation Process
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,7 +24,7 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Consultation Process {.unnumbered}
+## Consultation Process {.unnumbered .unlisted}
 
 ## Introduction
 
@@ -77,8 +79,6 @@ figtab_table_title  <- paste0("Table", " ", figtab_report_section, "-", figtab_t
 figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d", figtab_table_count))
 ```
 
-#### `r figtab_table_title`
-
 ::: {.fig-tab-title}
 **`r figtab_table_title`:** Consultation stakeholders
 :::
@@ -89,6 +89,8 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 | Number of organisations         | 6        | 8        | 13         | 14        |
 
 : {tbl-colwidths="[40,15,15,15,15]"}
+
+<div style="height: 0.1em;"></div>
 
 ### Consultation Format
 
@@ -126,15 +128,15 @@ To ensure a culturally safe, respectful, and supportive environment for consulta
 
 Consultation sessions were designed to support shared understanding and collective interpretation of data, informed by best-practice engagement principles, including:
 
-*Transparency*: NEPHU staff clearly communicated the purpose of each session, how information shared would be used, the roles of staff present, and how feedback would inform the project. Regular updates on project progress were provided to support accountability and trust.
+**Transparency**: NEPHU staff clearly communicated the purpose of each session, how information shared would be used, the roles of staff present, and how feedback would inform the project. Regular updates on project progress were provided to support accountability and trust.
 
-*Accessibility*: Data were presented in plain language and explained by NEPHU staff in ways that supported shared understanding, recognising the diverse experiences and familiarity with data among participants. Presentations were adapted in response to participant feedback to improve clarity, accessibility, and usability, ensuring all participants could engage meaningfully regardless of prior experience.
+**Accessibility**: Data were presented in plain language and explained by NEPHU staff in ways that supported shared understanding, recognising the diverse experiences and familiarity with data among participants. Presentations were adapted in response to participant feedback to improve clarity, accessibility, and usability, ensuring all participants could engage meaningfully regardless of prior experience.
 
-*Flexibility*: Engagement was responsive to participant preferences and availability. Sessions were held both online and in person, with timing and formats adjusted to accommodate competing priorities, community events, and periods of Sorry Business.
+**Flexibility**: Engagement was responsive to participant preferences and availability. Sessions were held both online and in person, with timing and formats adjusted to accommodate competing priorities, community events, and periods of Sorry Business.
 
-*Genuine listening*: While discussion points were prepared to support data interpretation, conversations were guided by participants. Space was intentionally created for yarning, reflection, and participant-led discussion, with NEPHU staff listening deeply, seeking clarification where appropriate, and valuing community knowledge as central to interpretation.
+**Genuine listening**: While discussion points were prepared to support data interpretation, conversations were guided by participants. Space was intentionally created for yarning, reflection, and participant-led discussion, with NEPHU staff listening deeply, seeking clarification where appropriate, and valuing community knowledge as central to interpretation.
 
-*Trust and truth-telling*: Engagement was underpinned by a commitment to building and maintaining trust through openness, respect, and honesty. This included NEPHU staff acknowledging contextual and data limitations, and supporting truth-telling through lived experience, professional practice, and personal stories shared by participants.
+**Trust and truth-telling**: Engagement was underpinned by a commitment to building and maintaining trust through openness, respect, and honesty. This included NEPHU staff acknowledging contextual and data limitations, and supporting truth-telling through lived experience, professional practice, and personal stories shared by participants.
 
 ```{r}
 #| out-width: "100%"

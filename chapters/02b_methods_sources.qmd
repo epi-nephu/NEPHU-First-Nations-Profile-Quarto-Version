@@ -4,6 +4,8 @@ title-block: false
 
 # Data Sources
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,7 +24,7 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Data Sources {.unnumbered}
+## Data Sources {.unnumbered .unlisted}
 
 This report collates data from a wide range of publicly available data sources.
 
@@ -36,7 +38,7 @@ This report collates data from a wide range of publicly available data sources.
 
 - The ABS Aboriginal and Torres Strait Islander Life Expectancy Report provides life expectancy estimates for Aboriginal and/or Torres Strait Islander people for Australia and selected geographic areas.
 
-- Due to data limitations, data specific for Victoria were not available. However, Victorian data were included when calculating life expectancy estimates for Australia.
+- Due to data limitations, data specific for Victoria were not available. However, life expectancy estimates for Australia include data from people living in Victoria.
 
 <div style="height: 0.1em;"></div>
 
@@ -154,7 +156,7 @@ This report collates data from a wide range of publicly available data sources.
 
 [**Australian Reconciliation Barometer**](https://www.reconciliation.org.au/reconciliation/australian-reconciliation-barometer/)
 
-- The Australian Reconciliation Barometer is a national survey undertaken every two years since 2008, and aims to measure the progress of reconciliation between Aboriginal and/or Torres Strait Islander and non-Indigenous peoples.")
+- The Australian Reconciliation Barometer is a national survey undertaken every two years since 2008, and aims to measure the progress of reconciliation between Aboriginal and/or Torres Strait Islander and non-Indigenous peoples.
 
 <div style="height: 0.1em;"></div>
 
@@ -178,7 +180,7 @@ This report collates data from a wide range of publicly available data sources.
 
 <div style="height: 0.1em;"></div>
 
-[**National Cancer Screening Register**](https://www.ncsr.gov.au/)
+[**National Cancer Screening Register (NCSR)**](https://www.ncsr.gov.au/)
 
 - The NCSR is Australia's digital platform which supports the implementation of cervical and bowel screening including invitation of eligible participants and storing results of relevant screening and follow-up diagnostic tests.
 

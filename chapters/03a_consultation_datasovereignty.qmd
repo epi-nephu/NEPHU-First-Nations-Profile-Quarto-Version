@@ -4,6 +4,8 @@ title-block: false
 
 # Indigenous Data Sovereignty
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,7 +24,7 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Indigenous Data Sovereignty {.unnumbered}
+## Indigenous Data Sovereignty {.unnumbered .unlisted}
 
 ## Indigenous Data
 
@@ -56,11 +58,11 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 
 ## Indigenous Data Governance
 
-Indigenous Data Governance refers to the right of Indigenous peoples to autonomously decide what, how, and why Indigenous Data are collected, accessed, and used. It ensures that data on or about Indigenous peoples reflects priorities, values, cultures, worldviews, and diversity. =
+Indigenous Data Governance refers to the right of Indigenous peoples to autonomously decide what, how, and why Indigenous Data are collected, accessed, and used. It ensures that data on or about Indigenous peoples reflects priorities, values, cultures, worldviews, and diversity.
 
 In keeping with the principles of Indigenous Data Sovereignty that data about Aboriginal and/or Torres Strait Islander people should be controlled by Aboriginal and/or Torres Strait Islander people, this report has been developed with community and for community.
 
-To respect these principles, the full report will not be made publicly available online. To ensure Aboriginal and/or Torres Strait Islander governance over access and dissemination, the report will be provided to all Aboriginal Community Controlled Organisations (ACCOs) within the NEPHU region, but made accessible to non-Indigenous organisations only upon request under an Expression of Interest application process that will be developed and overseen by Aboriginal and/or Torres Strait Islander governance. Access to non-Indigenous organisations will be on the condition of alignment with the principles of Indigenous Data Sovereignty. Details about the process for requesting access can be found on the [NEPHU website](https://nephu.org.au/).
+To respect these principles, the full report will not be made publicly available online. To ensure Aboriginal and/or Torres Strait Islander governance over access and dissemination, the report will be provided to all Aboriginal Community Controlled Organisations (ACCOs) within the NEPHU region, but made accessible to non-Indigenous organisations only upon request under an Expression of Interest application process developed and overseen by Aboriginal and/or Torres Strait Islander governance. Access to non-Indigenous organisations will be on the condition of alignment with the principles of Indigenous Data Sovereignty. Details about the process for requesting access will be available on the [NEPHU website](https://nephu.org.au/).
 
 By developing this report with and making it accessible for Aboriginal and/or Torres Strait Islander stakeholders in a relevant format, it is hoped that Indigenous Data Governance will be supported by allowing use of the data to enable self-determination and decision-making for the benefit of the community.
 
