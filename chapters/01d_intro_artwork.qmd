@@ -4,13 +4,15 @@ title-block: false
 
 # Report Naming and Artwork
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
 
 # Set up numbering for figures and tables
-figtab_report_section <- "1C"
-figtab_csv_section    <- "01C"
+figtab_report_section <- "1D"
+figtab_csv_section    <- "01D"
 
 figtab_table_count  <- 0
 figtab_figure_count <- 0
@@ -22,7 +24,7 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Report Naming and Artwork {.unnumbered}
+## Report Naming and Artwork {.unnumbered .unlisted}
 
 ## Name of the Report
 
@@ -49,7 +51,7 @@ Running horizontally through the artwork, the warm orange band represents Countr
 
 Surrounding the pathways are maroon and white patterns that echo the rhythms of life and the protective layers of community. These shapes represent families, Elders, service providers, and knowledge holders who support health and wellbeing across generations. They also reflect the ebb and flow of rivers — a reminder that wellbeing is nurtured through relationship, movement, and consistent connection.
 
-Across the outer areas of the painting, the blue and white patterned Men Women, boomerangs Spears, coolomons and Leafs - illustrating movement, presence, and the ongoing cultural journey of community members within the catchment. These shapes honour the diversity of stories held by those who live, work, and travel across the region.
+Across the outer areas of the painting, the blue and white patterned men, women, boomerangs, spears, coolomons and leafs - illustrating movement, presence, and the ongoing cultural journey of community members within the catchment. These shapes honour the diversity of stories held by those who live, work, and travel across the region.
 
 In each corner, the green and blue forms represent the broader catchment and its distinct landscapes. These areas symbolise the wider environment that holds community — showing that while each place is unique, all are connected through shared responsibility, culture, and respect for Country.
 
@@ -57,21 +59,27 @@ Together, every element in this artwork tells a unified story: that health and w
 
 ### Artist Biography
 
-**Stephanie Thompson – Kirrae Gunditj Art Gunditjmara / Kirrae Wurrong Artist**
+**Stephanie Thompson – Kirrae Gunditj Art**
+
+**Gunditjmara / Kirrae Wurrong Artist**
 
 :::: {.columns}
 
-::: {.column width="70%"}
+::: {.column width="85%"}
 Stephanie Thompson ([Kirrae Gunditj Art](https://www.facebook.com/KirraeGunditjArt/)) is a proud Gunditjmara and Kirrae Wurrong artist whose creative practice bridges Aboriginal traditional art and contemporary expression. Drawing deep inspiration from her ancestral Country in south-west Victoria, Stephanie’s work reflects a lived connection to land, culture, stories, and community that honours both ancient lore and modern artistic voices.
 
 Her art seamlessly weaves traditional symbols, patterns, and cultural narratives with bold contemporary aesthetic, creating pieces that speak to identity, resilience, belonging, and the ongoing story of her people. Through colour, form, and storytelling, Stephanie invites viewers to engage with Country and culture in ways that are both personal and universal.
+
+Stephanie’s practice is rooted in a responsibility to preserve and celebrate First Nations culture while expanding the visual language of Aboriginal art in today’s world. Her works — ranging from richly detailed canvases to dynamic mixed media pieces — are celebrated for their vibrancy, cultural depth, and emotional resonance.
+
+Kirrae Gunditj Art is more than art — it is cultural expression, connection to Country, and the voice of an emerging First Nations artist forging her own path.
 :::
 
 ::: {.column width="5%"}
 
 :::
 
-::: {.column width="25%"}
+::: {.column width="10%"}
 ```{r}
 #
 knitr::include_graphics(here::here("images", "intro_artist.png"))
@@ -79,8 +87,4 @@ knitr::include_graphics(here::here("images", "intro_artist.png"))
 :::
 
 ::::
-
-Stephanie’s practice is rooted in a responsibility to preserve and celebrate First Nations culture while expanding the visual language of Aboriginal art in today’s world. Her works — ranging from richly detailed canvases to dynamic mixed media pieces — are celebrated for their vibrancy, cultural depth, and emotional resonance.
-
-Kirrae Gunditj Art is more than art — it is cultural expression, connection to Country, and the voice of an emerging First Nations artist forging her own path.
 

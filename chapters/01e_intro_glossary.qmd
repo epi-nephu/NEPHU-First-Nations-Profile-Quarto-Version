@@ -1,0 +1,67 @@
+---
+title-block: false
+---
+
+# Acronyms and Abbreviations
+
+## Top of Page {.toc-only}
+
+```{r}
+#
+source(here::here("setup.R"))
+
+# Set up numbering for figures and tables
+figtab_report_section <- "1E"
+figtab_csv_section    <- "01E"
+
+figtab_table_count  <- 0
+figtab_figure_count <- 0
+```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Acronyms and Abbreviations {.unnumbered .unlisted}
+
+| Acronym    | Description                                                |
+|:-----------|:-----------------------------------------------------------|
+| ABS        | Australian Bureau of Statistics                            |  
+| ACARA      | Australian Curriculum, Assessment, and Reporting Authority | 
+| AEDC       | Australian Early Development Census                        | 
+| AIHW       | Australian Institute of Health and Welfare                 | 
+| AIR        | Australian Immunisation Register                           | 
+| ACPCC      | Australian Centre for the Prevention of Cervical Cancer    | 
+| BSWPHU     | Barwon South West Public Health Unit                       | 
+| COPD       | Chronic Obstructive Pulmonary Disease                      | 
+| CtG        | Closing the Gap                                            | 
+| ERP        | Estimated Residential Population                           | 
+| GPHU       | Grampians Public Health Unit                               | 
+| GRPHU      | Gippsland Public Health Unit                               | 
+| GVPHU      | Goulburn Valley Public Health Unit                         | 
+| IARE       | Indigenous Area of Residence                               | 
+| ICD        | International Classification of Diseases                   | 
+| LEAP       | Law Enforcement Assistance Program                         | 
+| LGA        | Local Government Area                                      | 
+| LMPHU      | Loddon Mallee Public Health Unit                           | 
+| LPHU       | Local Public Health Unit                                   | 
+| NAPLAN     | National Assessment Program – Literacy and Numeracy        | 
+| NCSR       | National Cancer Screening Register                         | 
+| NECECC     | National Early Childhood Education and Care Collection     | 
+| NEPHU      | North Eastern Public Health Unit                           | 
+| NIP        | National Immunisation Program                              | 
+| NPDC       | National Perinatal Data Collection                         | 
+| OMPHU      | Ovens Murray Public Health Unit                            | 
+| PHESS      | Public Health Event Surveillance System                    | 
+| PHIDU      | Public Health Information Development Unit                 | 
+| PLIDA      | Person Level Integrated Data Asset                         | 
+| SA2        | Statistical Area Level 2                                   | 
+| SEPHU      | South Eastern Public Health Unit                           | 
+| VCAMS      | Victorian Child and Adolescent Monitoring System           |
+| VAED       | Victorian Admitted Episodes Dataset                        |
+| WPHU       | Western Public Health Unit                                 |
+
+: {tbl-colwidths="[20,80]"}
+

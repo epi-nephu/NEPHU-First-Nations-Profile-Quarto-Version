@@ -1,0 +1,41 @@
+---
+title-block: false
+---
+
+# Acknowledgements
+
+## Top of Page {.toc-only}
+
+```{r}
+#
+source(here::here("setup.R"))
+
+# Set up numbering for figures and tables
+figtab_report_section <- "1B"
+figtab_csv_section    <- "1B"
+
+figtab_table_count  <- 0
+figtab_figure_count <- 0
+```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Acknowledgements {.unnumbered .unlisted}
+
+The North Eastern Public Health Unit (NEPHU) acknowledges the Traditional Custodians of the land on which we work, live, and play.
+
+We pay our deepest respects to their Elders, past and present. We recognise and honour the enduring connection that Aboriginal and Torres Strait Islander peoples have to this land, water and community.
+
+NEPHU would like to acknowledge the many internal and external stakeholders who contributed to this report. In particular, NEPHU would like to sincerely thank members of the First Nations community who generously contributed their time, knowledge, and stories during the development of this report, and have supported its development.  
+
+These contributors include a large number of organisations and individuals:
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "acknowledgements.png"))
+```
+

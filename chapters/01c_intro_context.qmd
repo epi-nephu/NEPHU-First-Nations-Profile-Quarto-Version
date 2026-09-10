@@ -4,13 +4,15 @@ title-block: false
 
 # Introduction and Context
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
 
 # Set up numbering for figures and tables
-figtab_report_section <- "1B"
-figtab_csv_section    <- "01B"
+figtab_report_section <- "1C"
+figtab_csv_section    <- "01C"
 
 figtab_table_count  <- 0
 figtab_figure_count <- 0
@@ -22,19 +24,19 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Introduction and Context {.unnumbered}
+## Introduction and Context {.unnumbered .unlisted}
 
-## Purpose of This Report
+## Purpose of this Report
 
-***Gumunatj Ngarrngatj: Population Profile of the First Nations Population Living within the NEPHU Catchment*** shares the story of the Aboriginal and/or Torres Strait Islander peoples who live within the catchment area of the North Eastern Public Health Unit (NEPHU). It aims to build a deeper understanding of First Nations communities, their strengths, diversity, health, and wellbeing while recognising the importance of culture, connection to Country, and self-determination.
+***Gumunatj Ngarrngatj: Population Profile of the First Nations Population Living within the NEPHU Catchment*** is a collation of data that describes the Aboriginal and/or Torres Strait Islander peoples who live within the catchment area of the North Eastern Public Health Unit (NEPHU) in north-eastern Melbourne. It aims to support a deeper understanding of First Nations communities, their strengths, diversity, health, and wellbeing while recognising the importance of culture, connection to Country, and self-determination.
 
-The purpose of this report (and the preceding [*Population Profile of the NEPHU Catchment Area*](https://nephu.org.au/reports-and-publications/nephu-population-profile-general-report-2025/)) is to provide an understanding of the demographics, social determinants, health behaviors, and health status of the NEPHU catchment population. This in turn allows:
+The purpose of this report (and the preceding [*Population Profile of the NEPHU Catchment Area*](https://nephu.org.au/reports-and-publications/nephu-population-profile-general-report-2025/)) is to provide an understanding of the demographics, social determinants, health behaviors, and health status of people who live within the NEPHU catchment. This in turn allows:
 
 - Tailoring of health programs and interventions that reflect community priorities and cultural contexts.
 
 - Celebrating community strengths and successes to inform and inspire approaches across the broader health sector.
 
-*Gumunatj Ngarrngatj* has been developed as a technical and community-informed report, drawing upon publicly available and other accessible data sources. Narrative is also included to contextualise these data, based on extensive consultations with First Nations stakeholders who were involved with the report’s development. It provides an overview of the health and wellbeing of Aboriginal and/or Torres Strait Islander peoples living within the NEPHU catchment.
+*Gumunatj Ngarrngatj* has been developed as a technical and community-informed report, drawing upon publicly available and other accessible data sources. Narrative is also included to contextualise these data, based on extensive consultations with First Nations stakeholders who were involved with the report’s development. These are combined to provide an overview of the health and wellbeing of Aboriginal and/or Torres Strait Islander peoples living within the NEPHU catchment where the data are not considered in isolation, but in conjunction with its context.
 
 ```{r}
 #| out-width: "100%"
@@ -43,11 +45,11 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 
 ## The North Eastern Public Health Unit (NEPHU)
 
-The [North Eastern Public Health Unit (NEPHU)](https://nephu.org.au/) is one of nine Local Public Health Units (LPHUs) that cover metropolitan and regional Victoria. NEPHU is funded by the Victorian Government and works closely with the Victorian Department of Health. Public health functions were decentralised in Victoria in 2020 with the establishment of the LPHU network and a vision that public health responses can be more tailored and relevant to local populations and contexts, and therefore ultimately more effective.
+The North Eastern Public Health Unit (NEPHU) is one of nine Local Public Health Units (LPHUs) that cover metropolitan and regional Victoria. NEPHU is funded by the Victorian Government and works closely with the Victorian Department of Health. Public health functions were decentralised in Victoria in 2020 with the establishment of the LPHU network and a vision that public health responses can be more tailored and relevant to local populations and contexts, and therefore ultimately more effective.
 
-The NEPHU team is made up of public health and infectious diseases doctors, population health and prevention officers, environmental health officers, infection prevention and control nurses, epidemiologists, and communication and engagement specialists. The purpose of NEPHU is to work collaboratively to improve the health and wellbeing of the population of north-east metropolitan Melbourne through evidence-informed approaches, reflecting the diverse needs across the region it serves. This work covers both Health Protection functions, focused on the management and control of more than 80 notifiable conditions, and Population Health functions, focused on the promotion of health and wellbeing and the prevention of chronic diseases such as cancer and diabetes.
+The NEPHU team is made up of a multi-disciplinary team of public health professionals. The purpose of NEPHU is to work collaboratively to improve the health and wellbeing of the population of north-east metropolitan Melbourne through evidence-informed approaches, reflecting the diverse needs across the region it serves. This work covers both Health Protection functions, focused on the management and control of more than 80 notifiable conditions, and Population Health functions, focused on the promotion of health and wellbeing and the prevention of chronic diseases such as cancer and diabetes.
 
-More information about the role of LPHUs and their catchments can be found on the [Victorian Department of Health website](https://www.health.vic.gov.au/local-public-health-units).
+More information about NEPHU can be found on the [NEPHU website](https://nephu.org.au/), and more information about the role of LPHUs and their catchments can be found on the [Victorian Department of Health website](https://www.health.vic.gov.au/local-public-health-units).
 
 ```{r}
 #
@@ -61,16 +63,30 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 
 ```{r}
 #
+map_name <- "map_vic_lphu"
+
 pal <- colorFactor(palette = "Paired",
                    domain  = vic_lga.sf$lphu_short)
 
-vic_lga.sf %>%
+map <- vic_lga.sf %>%
   dplyr::mutate(hover_text = paste0(lga_name, " LGA", "<br>",
                                     lphu_long, " LPHU", "<br>",
                                     lphu_short)) %>% 
   #
   f_map_simple(geo_variable = lphu_short)
+
+if (!file.exists(paste0(here::here(), "/maps/", map_name, ".html"))) {
+  
+  htmlwidgets::saveWidget(map, file = paste0(here::here(), "/maps/", map_name, ".html"), selfcontained = TRUE)
+
+}
+
+map
 ```
+
+<div style="height: 0.25em;"></div>
+
+<a href="../maps/`r paste0(map_name, '.html')`" download class="btn btn-primary download-link">Display map in a new tab</a>
 
 <div style="height: 0.1em;"></div>
 
@@ -88,20 +104,34 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 
 ```{r}
 #
+map_name <- "map_nephu_lga"
+
 pal <- colorFactor(palette = "Paired",
                    domain  = nephu_lga.sf$lga_name)
 
-nephu_lga.sf %>%
+map <- nephu_lga.sf %>%
   dplyr::mutate(hover_text = paste0(lga_name, " LGA")) %>% 
   #
   f_map_simple(geo_variable = lga_name)
+
+if (!file.exists(paste0(here::here(), "/maps/", map_name, ".html"))) {
+  
+  htmlwidgets::saveWidget(map, file = paste0(here::here(), "/maps/", map_name, ".html"), selfcontained = TRUE)
+
+}
+
+map
 ```
+
+<div style="height: 0.25em;"></div>
+
+<a href="../maps/`r paste0(map_name, '.html')`" download class="btn btn-primary download-link">Display map in a new tab</a>
 
 <div style="height: 0.1em;"></div>
 
 The Greater Melbourne Indigenous Region covers 20 Indigenous Areas of Residence (IAREs) across metropolitan Melbourne. An IARE (Indigenous Area) is a custom-drawn statistical neighborhood used by the Australian Bureau of Statistics (ABS) to better understand and support Aboriginal and/or Torres Strait Islander communities. Unlike standard postcodes or Local Government Area (LGA) boundaries, these specific zones are designed around cultural ties, language groups, and local community connections. They are larger than a single suburb but small enough to capture distinct local needs, grouping together enough residents so that personal privacy is protected when data are published.
 
-Because IARE boundaries do not exactly align with LGA boundaries, there are IAREs that are only partially within the North Eastern Public Health nit (NEPHU) catchment area. For example, the Melbourne - East IARE includes suburbs in the NEPHU catchment area (e.g. Kew, Hawthorn) and the South Eastern Public Health Unit (SEPHU) catchment area (e.g. Brighton, Ormond).
+Because IARE boundaries do not exactly align with LGA boundaries, there are IAREs that are only partially within the North Eastern Public Health Unit (NEPHU) catchment area. For example, the Melbourne - East IARE includes suburbs in the NEPHU catchment area (e.g. Kew, Hawthorn) and the South Eastern Public Health Unit (SEPHU) catchment area (e.g. Brighton, Ormond).
 
 ```{r}
 #
@@ -115,15 +145,29 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 
 ```{r}
 #
+map_name <- "map_vic_iare"
+
 pal <- colorFactor(palette = qualitative_hcl(20, palette = "Dark 3"),
                    domain  = vic_iare.sf$iare_name)
 
-vic_iare.sf %>%
+map <- vic_iare.sf %>%
   dplyr::filter(region_name == "Greater Melbourne") %>% 
   dplyr::mutate(hover_text = paste0(iare_name, " IARE")) %>% 
   #
   f_map_simple(geo_variable = iare_name)
+
+if (!file.exists(paste0(here::here(), "/maps/", map_name, ".html"))) {
+  
+  htmlwidgets::saveWidget(map, file = paste0(here::here(), "/maps/", map_name, ".html"), selfcontained = TRUE)
+
+}
+
+map
 ```
+
+<div style="height: 0.25em;"></div>
+
+<a href="../maps/`r paste0(map_name, '.html')`" download class="btn btn-primary download-link">Display map in a new tab</a>
 
 <div style="height: 0.1em;"></div>
 
@@ -136,9 +180,9 @@ A comprehensive and interactive map of the language, social, or nation groups of
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
 
-## Population Profile of the NEPHU Catchment Area – General Report
+## Population Profile of the NEPHU Catchment Area – General Report and *Gumunatj Ngarrngatj*
 
-*Gumunatj Ngarrngatj* builds on the [*Population Profile of the NEPHU Catchment Area – General Report*](https://nephu.org.au/reports-and-publications/nephu-population-profile-general-report-2025/), released in February 2025, by offering a dedicated focus on Aboriginal and/or Torres Strait Islander peoples who live within the NEPHU catchment area. This report has been developed in partnership with community members and organisations to ensure that the presentation and interpretation of data are guided by culture, community voice, and Indigenous data sovereignty principles.
+The [*Population Profile of the NEPHU Catchment Area – General Report*](https://nephu.org.au/reports-and-publications/nephu-population-profile-general-report-2025/) was released in February 2025, and is a collation of data that describes the total population living within the NEPHU catchment. *Gumunatj Ngarrngatj* builds on the *General Report* by offering a dedicated focus on Aboriginal and/or Torres Strait Islander peoples who live within the NEPHU catchment area. This report has been developed in partnership with community members and organisations to ensure that the presentation and interpretation of data are guided by culture, community voice, and Indigenous data sovereignty principles.
 
 *Gumunatj Ngarrngatj* aims to:
 

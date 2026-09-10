@@ -2,7 +2,9 @@
 title-block: false
 ---
 
-# Foreward
+# Foreword
+
+## Top of Page {.toc-only}
 
 ```{r}
 #
@@ -22,5 +24,5 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Foreward {.unnumbered}
+## Foreword {.unnumbered .unlisted}
 
