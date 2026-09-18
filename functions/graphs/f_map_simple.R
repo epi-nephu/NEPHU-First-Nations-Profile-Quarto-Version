@@ -22,7 +22,8 @@ f_map_simple <- function(data, geo_variable) {
                 #
                 label        = lapply(data$hover_text, htmltools::HTML),
                 labelOptions = labelOptions(direction = "auto",
-                                            style     = list("font-size"   = "11px",
+                                            style     = list("font-family" = "Karla",
+                                                             "font-size"   = "11px",
                                                              "font-weight" = "normal")),
                 #
                 highlightOptions = highlightOptions(weight       = 2,

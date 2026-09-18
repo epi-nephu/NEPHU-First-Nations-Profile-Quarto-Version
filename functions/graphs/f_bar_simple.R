@@ -52,16 +52,16 @@ f_bar_simple <- function(data, x_variable, y_variable, y_title = "Number of peop
   figure <- figure %>% 
     plotly::ggplotly(tooltip = "text") %>%
     #
-    plotly::layout(hovermode = "x",
+    plotly::style(hoverlabel = list(font = list(family = "Karla"))) %>%
+    #
+    plotly::layout(font = list(family = "Karla"),
+                   #
+                   hovermode = "x",
                    #
                    modebar = list(orientation = 'v'),
                    #
-                   xaxis = list(tickfont = list(family = "Karla")),
-                   #
-                   yaxis = list(tickfont = list(family = "Karla"),
-                                #
-                                title = list(text     = y_title,
-                                             font     = list(size = 13, family = "Karla"),
+                   yaxis = list(title = list(text     = y_title,
+                                             font     = list(size = 13),
                                              standoff = 10)))
   
   return(figure)
@@ -100,16 +100,16 @@ f_bar_simple_flip <- function(data, x_variable, y_variable, x_title = "Number of
   figure <- figure %>% 
     plotly::ggplotly(tooltip = "text") %>%
     #
-    plotly::layout(hovermode = "y",
+    plotly::style(hoverlabel = list(font = list(family = "Karla"))) %>%
+    #
+    plotly::layout(font = list(family = "Karla"),
+                   #
+                   hovermode = "y",
                    #
                    modebar = list(orientation = 'v'),
                    #
-                   yaxis = list(tickfont = list(family = "Karla")),
-                   #
-                   xaxis = list(tickfont = list(family = "Karla"),
-                                #
-                                title = list(text     = x_title,
-                                             font     = list(size = 13, family = "Karla"),
+                   xaxis = list(title = list(text     = x_title,
+                                             font     = list(size = 13),
                                              standoff = 10)))
   
   return(figure)
@@ -190,16 +190,16 @@ f_bar_simple_lga <- function(data, y_variable, n_level = "people", ctg_target = 
   figure <- figure %>% 
     plotly::ggplotly(tooltip = "text") %>%
     #
-    plotly::layout(hovermode = "x",
+    plotly::style(hoverlabel = list(font = list(family = "Karla"))) %>%
+    #
+    plotly::layout(font = list(family = "Karla"),
+                   #
+                   hovermode = "x",
                    #
                    modebar = list(orientation = 'v'),
                    #
-                   xaxis = list(tickfont = list(family = "Karla")),
-                   #
-                   yaxis = list(tickfont = list(family = "Karla"),
-                                #
-                                title = list(text     = y_title,
-                                             font     = list(size = 13, family = "Karla"),
+                   yaxis = list(title = list(text     = y_title,
+                                             font     = list(size = 13),
                                              standoff = 10)))
   
   return(figure)
@@ -345,16 +345,16 @@ f_bar_simple_iare <- function(data, y_variable, n_level = "people", ctg_target =
   figure <- figure %>% 
     plotly::ggplotly(tooltip = "text") %>%
     #
-    plotly::layout(hovermode = "x",
+    plotly::style(hoverlabel = list(font = list(family = "Karla"))) %>%
+    #
+    plotly::layout(font = list(family = "Karla"),
+                   #
+                   hovermode = "x",
                    #
                    modebar = list(orientation = 'v'),
                    #
-                   xaxis = list(tickfont = list(family = "Karla")),
-                   #
-                   yaxis = list(tickfont = list(family = "Karla"),
-                                #
-                                title = list(text     = y_title,
-                                             font     = list(size = 13, family = "Karla"),
+                   yaxis = list(title = list(text     = y_title,
+                                             font     = list(size = 13),
                                              standoff = 10)))
   
   return(figure)
@@ -370,10 +370,12 @@ f_bar_simple_combine <- function(figure_number, figure_percent, legend_offset = 
                             titleY = TRUE,
                             margin = 0.05) %>% 
     #
-    plotly::layout(legend = list(x = 0.775,
+    plotly::style(hoverlabel = list(font = list(family = "Karla"))) %>% 
+    #
+    plotly::layout(font = list(family = "Karla"),
+                   #
+                   legend = list(x = 0.775,
                                  y = legend_offset,
-                                 #
-                                 font = list(family = "Karla"),
                                  #
                                  orientation = "h",
                                  xanchor     = "center"))

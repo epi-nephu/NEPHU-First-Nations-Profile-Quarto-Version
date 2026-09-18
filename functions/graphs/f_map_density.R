@@ -25,7 +25,8 @@ f_map_density <- function(data) {
                 #
                 label        = ~density_text,
                 labelOptions = labelOptions(direction = "auto",
-                                            style     = list("font-size"   = "11px", 
+                                            style     = list("font-family" = "Karla",
+                                                             "font-size"   = "11px", 
                                                              "font-weight" = "normal")),
                 #
                 highlightOptions = highlightOptions(weight       = 2,

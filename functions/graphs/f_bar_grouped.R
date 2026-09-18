@@ -37,22 +37,20 @@ f_bar_grouped <- function(data, x_variable, y_variable, fill_variable, fill_valu
   figure <- figure %>% 
     plotly::ggplotly(tooltip = "text") %>%
     #
-    plotly::layout(hovermode = "x",
+    plotly::style(hoverlabel = list(font = list(family = "Karla"))) %>%
+    #
+    plotly::layout(font = list(family = "Karla"),
+                   #
+                   hovermode = "x",
                    #
                    modebar = list(orientation = 'v'),
                    #
-                   xaxis = list(tickfont = list(family = "Karla")),
-                   #
-                   yaxis = list(tickfont = list(family = "Karla"),
-                                #
-                                title = list(text     = y_title,
-                                             font     = list(size = 13, family = "Karla"),
+                   yaxis = list(title = list(text     = y_title,
+                                             font     = list(size = 13),
                                              standoff = 10)),
                    #
                    legend = list(x = 0.5,
                                  y = legend_offset,
-                                 #
-                                 font = list(family = "Karla"),
                                  #
                                  orientation = "h",
                                  xanchor     = "center"))
@@ -64,7 +62,7 @@ f_bar_grouped <- function(data, x_variable, y_variable, fill_variable, fill_valu
 ################################################################################
 # By age and sex
 ################################################################################
-f_bar_grouped_agesex <- function(data, y_variable, n_level = "people") {
+f_bar_grouped_agesex <- function(data, y_variable, n_level = "people", legend_offset = -0.2) {
   
   y_variable <- rlang::enquo(y_variable)
   
@@ -124,22 +122,20 @@ f_bar_grouped_agesex <- function(data, y_variable, n_level = "people") {
   figure <- figure %>% 
     plotly::ggplotly(tooltip = "text") %>%
     #
-    plotly::layout(hovermode = "x",
+    plotly::style(hoverlabel = list(font = list(family = "Karla"))) %>%
+    #
+    plotly::layout(font = list(family = "Karla"),
+                   #
+                   hovermode = "x",
                    #
                    modebar = list(orientation = 'v'),
                    #
-                   xaxis = list(tickfont = list(family = "Karla")),
-                   #
-                   yaxis = list(tickfont = list(family = "Karla"),
-                                #
-                                title = list(text     = y_title,
-                                             font     = list(size = 13, family = "Karla"),
+                   yaxis = list(title = list(text     = y_title,
+                                             font     = list(size = 13),
                                              standoff = 10)),
                    #
                    legend = list(x = 0.5,
-                                 y = -0.3,
-                                 #
-                                 font = list(family = "Karla"),
+                                 y = legend_offset,
                                  #
                                  orientation = "h",
                                  xanchor     = "center"))
@@ -224,22 +220,20 @@ f_bar_grouped_sex <- function(data, x_variable, y_variable, y_title, x_angle = 0
   figure <- figure %>% 
     plotly::ggplotly(tooltip = "text") %>%
     #
-    plotly::layout(hovermode = "x",
+    plotly::style(hoverlabel = list(font = list(family = "Karla"))) %>%
+    #
+    plotly::layout(font = list(family = "Karla"),
+                   #
+                   hovermode = "x",
                    #
                    modebar = list(orientation = 'v'),
                    #
-                   xaxis = list(tickfont = list(family = "Karla")),
-                   #
-                   yaxis = list(tickfont = list(family = "Karla"),
-                                #
-                                title = list(text     = y_title,
-                                             font     = list(size = 13, family = "Karla"),
+                   yaxis = list(title = list(text     = y_title,
+                                             font     = list(size = 13),
                                              standoff = 10)),
                    #
                    legend = list(x = 0.5,
                                  y = legend_offset,
-                                 #
-                                 font = list(family = "Karla"),
                                  #
                                  orientation = "h",
                                  xanchor     = "center"))
@@ -324,22 +318,20 @@ f_bar_grouped_indigenous <- function(data, x_variable, y_variable, n_level = "pe
   figure <- figure %>% 
     plotly::ggplotly(tooltip = "text") %>%
     #
-    plotly::layout(hovermode = "x",
+    plotly::style(hoverlabel = list(font = list(family = "Karla"))) %>%
+    #
+    plotly::layout(font = list(family = "Karla"),
+                   #
+                   hovermode = "x",
                    #
                    modebar = list(orientation = 'v'),
                    #
-                   xaxis = list(tickfont = list(family = "Karla")),
-                   #
-                   yaxis = list(tickfont = list(family = "Karla"),
-                                #
-                                title = list(text     = y_title,
-                                             font     = list(size = 13, family = "Karla"),
+                   yaxis = list(title = list(text     = y_title,
+                                             font     = list(size = 13),
                                              standoff = 10)),
                    #
                    legend = list(x = 0.5,
                                  y = legend_offset,
-                                 #
-                                 font = list(family = "Karla"),
                                  #
                                  orientation = "h",
                                  xanchor     = "center"))
@@ -351,16 +343,18 @@ f_bar_grouped_indigenous <- function(data, x_variable, y_variable, n_level = "pe
 ################################################################################
 # Combine count and percentage charts into two-panel figure
 ################################################################################
-f_bar_grouped_combine <- function(figure_number, figure_percent, legend_offset = -0.3) {
+f_bar_grouped_combine <- function(figure_number, figure_percent, legend_offset = -0.2) {
   
   figure <- plotly::subplot(figure_number, figure_percent,
                             titleY = TRUE,
                             margin = 0.05) %>% 
     #
-    plotly::layout(legend = list(x = 0.5,
+    plotly::style(hoverlabel = list(font = list(family = "Karla"))) %>%
+    #
+    plotly::layout(font = list(family = "Karla"),
+                   #
+                   legend = list(x = 0.5,
                                  y = legend_offset,
-                                 #
-                                 font = list(family = "Karla"),
                                  #
                                  orientation = "h",
                                  xanchor     = "center"))
