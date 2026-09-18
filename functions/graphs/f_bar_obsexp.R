@@ -64,22 +64,20 @@ f_bar_obsexp_lga <- function(data, n_level = "people") {
   figure <- figure %>% 
     plotly::ggplotly(tooltip = "text") %>%
     #
-    plotly::layout(hovermode = "x",
+    plotly::style(hoverlabel = list(font = list(family = "Karla"))) %>%
+    #
+    plotly::layout(font = list(family = "Karla"),
+                   #
+                   hovermode = "x",
                    #
                    modebar = list(orientation = 'v'),
                    #
-                   xaxis = list(tickfont = list(family = "Karla")),
-                   #
-                   yaxis = list(tickfont = list(family = "Karla"),
-                                #
-                                title = list(text     = paste0("Number of ", n_level),
-                                             font     = list(size = 13, family = "Karla"),
+                   yaxis = list(title = list(text     = paste0("Number of ", n_level),
+                                             font     = list(size = 13),
                                              standoff = 10)),
                    #
                    legend = list(x = 0.5,
                                  y = -0.3,
-                                 #
-                                 font = list(family = "Karla"),
                                  #
                                  orientation = "h",
                                  xanchor     = "center"))
@@ -153,18 +151,20 @@ f_bar_obsexp_agesex <- function(data, n_level = "people") {
   figure <- figure %>% 
     plotly::ggplotly(tooltip = "text") %>%
     #
-    plotly::layout(hovermode = "x",
+    plotly::style(hoverlabel = list(font = list(family = "Karla"))) %>%
+    #
+    plotly::layout(font = list(family = "Karla"),
+                   #
+                   hovermode = "x",
                    #
                    modebar = list(orientation = 'v'),
                    #
                    yaxis = list(title = list(text     = paste0("Number of ", n_level),
-                                             font     = list(size = 13, family = "Karla"),
+                                             font     = list(size = 13),
                                              standoff = 10)),
                    #
                    legend = list(x = 0.5,
                                  y = -0.3,
-                                 #
-                                 font = list(family = "Karla"),
                                  #
                                  orientation = "h",
                                  xanchor     = "center"))

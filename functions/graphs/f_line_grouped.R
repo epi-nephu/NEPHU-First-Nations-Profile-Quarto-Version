@@ -75,21 +75,19 @@ f_line_grouped <- function(data, y_variable, fill_variable, fill_values, y_max =
   }
 
   figure <- figure %>% 
-    plotly::layout(hovermode = "x",
+    plotly::style(hoverlabel = list(font = list(family = "Karla"))) %>%
+    #
+    plotly::layout(font = list(family = "Karla"),
+                   #
+                   hovermode = "x",
                    #
                    modebar = list(orientation = 'v'),
                    #
-                   xaxis = list(tickfont = list(family = "Karla")),
-                   #
-                   yaxis = list(tickfont = list(family = "Karla"),
-                                #
-                                title = list(text     = y_title,
-                                             font     = list(size = 13, family = "Karla"),
+                   yaxis = list(title = list(text     = y_title,
+                                             font     = list(size = 13),
                                              standoff = 10)),
                    #
                    legend = list(x = 0.5,
-                                 #
-                                 font = list(family = "Karla"),
                                  #
                                  orientation = "h",
                                  xanchor     = "center"))
@@ -214,21 +212,19 @@ f_line_grouped_indigenous <- function(data, y_variable, n_level = "people", ctg_
   }
   
   figure <- figure %>% 
-    plotly::layout(hovermode = "x",
+    plotly::style(hoverlabel = list(font = list(family = "Karla"))) %>%
+    #
+    plotly::layout(font = list(family = "Karla"),
+                   #
+                   hovermode = "x",
                    #
                    modebar = list(orientation = 'v'),
                    #
-                   xaxis = list(tickfont = list(family = "Karla")),
-                   #
-                   yaxis = list(tickfont = list(family = "Karla"),
-                                #
-                                title = list(text     = y_title,
-                                             font     = list(size = 13, family = "Karla"),
+                   yaxis = list(title = list(text     = y_title,
+                                             font     = list(size = 13),
                                              standoff = 10)),
                    #
                    legend = list(x = 0.5,
-                                 #
-                                 font = list(family = "Karla"),
                                  #
                                  orientation = "h",
                                  xanchor     = "center"))
@@ -366,21 +362,19 @@ f_line_grouped_sex <- function(data, y_variable, n_level = "people", ctg_target 
   }
   
   figure <- figure %>% 
-    plotly::layout(hovermode = "x",
+    plotly::style(hoverlabel = list(font = list(family = "Karla"))) %>%
+    #
+    plotly::layout(font = list(family = "Karla"),
+                   #
+                   hovermode = "x",
                    #
                    modebar = list(orientation = 'v'),
                    #
-                   xaxis = list(tickfont = list(family = "Karla")),
-                   #
-                   yaxis = list(tickfont = list(family = "Karla"),
-                                #
-                                title = list(text     = y_title,
-                                             font     = list(size = 13, family = "Karla"),
+                   yaxis = list(title = list(text     = y_title,
+                                             font     = list(size = 13),
                                              standoff = 10)),
                    #
                    legend = list(x = 0.5,
-                                 #
-                                 font = list(family = "Karla"),
                                  #
                                  orientation = "h",
                                  xanchor     = "center"))

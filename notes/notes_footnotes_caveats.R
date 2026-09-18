@@ -58,5 +58,6 @@ note_caveat_underidentification <- glue::glue("
 - Reported counts and percentages are a likely underestimate of the true population value due to variable reporting of Aboriginal and/or Torres Strait Islander status and the likely under-identification of Aboriginal and/or Torres Strait Islander people in the data source for this indicator.")
 
 note_caveat_unknown_agesex <- glue::glue("
-- People with an unknown or not stated age and/or sex have been excluded from age/sex breakdowns.")
+- People with an unknown or not stated age and/or sex have been excluded from age/sex breakdowns.
+  - It is also acknowledged that not all individuals identify with the binary (male and female) categories presented in this report, however data availability limits the presentation of data in this report to these binary categories.")
 

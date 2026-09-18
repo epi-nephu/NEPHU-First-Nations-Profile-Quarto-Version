@@ -51,7 +51,8 @@ f_bar_stacked <- function(data, total_data = stacked_total, x_variable, y_variab
     #
     theme_classic() +
     #
-    theme(axis.text.x = element_text(angle = x_angle))
+    theme(axis.text.x = element_text(angle = x_angle),
+          strip.text  = element_text(size = 11, family = "Karla", margin = margin(t = 5)))
   
   if (facet_wrap == "yes") {
       
@@ -65,22 +66,20 @@ f_bar_stacked <- function(data, total_data = stacked_total, x_variable, y_variab
   figure <- figure %>% 
     plotly::ggplotly(tooltip = "text") %>%
     #
-    plotly::layout(hovermode = "x",
+    plotly::style(hoverlabel = list(font = list(family = "Karla"))) %>%
+    #
+    plotly::layout(font = list(family = "Karla"),
+                   #
+                   hovermode = "x",
                    #
                    modebar = list(orientation = 'v'),
                    #
-                   xaxis = list(tickfont = list(family = "Karla")),
-                   #
-                   yaxis = list(tickfont = list(family = "Karla"),
-                                #
-                                title = list(text     = y_title,
-                                             font     = list(size = 13, family = "Karla"),
+                   yaxis = list(title = list(text     = y_title,
+                                             font     = list(size = 13),
                                              standoff = 10)),
                    #
                    legend = list(x = 0.5,
                                  y = legend_offset,
-                                 #
-                                 font = list(family = "Karla"),
                                  #
                                  orientation = "h",
                                  xanchor     = "center",
@@ -129,22 +128,20 @@ f_bar_stacked_lga <- function(data, fill_values, n_level, legend_order = "normal
   figure <- figure %>% 
     plotly::ggplotly(tooltip = "text") %>%
     #
-    plotly::layout(hovermode = "x",
+    plotly::style(hoverlabel = list(font = list(family = "Karla"))) %>%
+    #
+    plotly::layout(font = list(family = "Karla"),
+                   #
+                   hovermode = "x",
                    #
                    modebar = list(orientation = 'v'),
                    #
-                   xaxis = list(tickfont = list(family = "Karla")),
-                   #
-                   yaxis = list(tickfont = list(family = "Karla"),
-                                #
-                                title = list(text     = y_title,
-                                             font     = list(size = 13, family = "Karla"),
+                   yaxis = list(title = list(text     = y_title,
+                                             font     = list(size = 13),
                                              standoff = 10)),
                    #
                    legend = list(x = 0.5,
                                  y = -0.3,
-                                 #
-                                 font = list(family = "Karla"),
                                  #
                                  orientation = "h",
                                  xanchor     = "center",
@@ -189,7 +186,8 @@ f_bar_stacked_agesex <- function(data, fill_values, n_level, legend_order = "nor
     #
     theme_classic() +
     #
-    theme(axis.text.x = element_text(angle = 90)) +
+    theme(axis.text.x = element_text(angle = 90),
+          strip.text  = element_text(size = 11, family = "Karla", margin = margin(t = 5))) +
     #
     facet_wrap(.~ sex,
                scale          = "free_x",
@@ -198,22 +196,20 @@ f_bar_stacked_agesex <- function(data, fill_values, n_level, legend_order = "nor
   figure <- figure %>% 
     plotly::ggplotly(tooltip = "text") %>%
     #
-    plotly::layout(hovermode = "x",
+    plotly::style(hoverlabel = list(font = list(family = "Karla"))) %>%
+    #
+    plotly::layout(font = list(family = "Karla"),
+                   #
+                   hovermode = "x",
                    #
                    modebar = list(orientation = 'v'),
                    #
-                   xaxis = list(tickfont = list(family = "Karla")),
-                   #
-                   yaxis = list(tickfont = list(family = "Karla"),
-                                #
-                                title = list(text     = y_title,
-                                             font     = list(size = 13, family = "Karla"),
+                   yaxis = list(title = list(text     = y_title,
+                                             font     = list(size = 13),
                                              standoff = 10)),
                    #
                    legend = list(x = 0.5,
                                  y = -0.2,
-                                 #
-                                 font = list(family = "Karla"),
                                  #
                                  orientation = "h",
                                  xanchor     = "center",
@@ -281,21 +277,19 @@ f_bar_stacked_phess <- function(data, legend_order = "reversed") {
   figure <- figure %>% 
     plotly::ggplotly(tooltip = "text") %>%
     #
-    plotly::layout(hovermode = "x",
+    plotly::style(hoverlabel = list(font = list(family = "Karla"))) %>%
+    #
+    plotly::layout(font = list(family = "Karla"),
+                   #
+                   hovermode = "x",
                    #
                    modebar = list(orientation = 'v'),
                    #
-                   xaxis = list(tickfont = list(family = "Karla")),
-                   #
-                   yaxis = list(tickfont = list(family = "Karla"),
-                                #
-                                title = list(text     = "Number of notifications",
-                                             font     = list(size = 13, family = "Karla"),
+                   yaxis = list(title = list(text     = "Number of notifications",
+                                             font     = list(size = 13),
                                              standoff = 10)),
                    #
                    legend = list(x = 0.5,
-                                 #
-                                 font = list(family = "Karla"),
                                  #
                                  orientation = "h",
                                  traceorder  = legend_order,

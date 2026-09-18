@@ -74,16 +74,16 @@ f_line_simple <- function(data, y_variable, n_level = "people", ctg_target = NA)
   figure <- figure %>%
     plotly::ggplotly(tooltip = "text") %>%
     #
-    plotly::layout(hovermode = "x",
+    plotly::style(hoverlabel = list(font = list(family = "Karla"))) %>%
+    #
+    plotly::layout(font = list(family = "Karla"),
+                   #
+                   hovermode = "x",
                    #
                    modebar = list(orientation = 'v'),
                    #
-                   xaxis = list(tickfont = list(family = "Karla")),
-                   #
-                   yaxis = list(tickfont = list(family = "Karla"),
-                                #
-                                title = list(text     = y_title,
-                                             font     = list(size = 13, family = "Karla"),
+                   yaxis = list(title = list(text     = y_title,
+                                             font     = list(size = 13),
                                              standoff = 10)))
   
   return(figure)
@@ -99,9 +99,11 @@ f_line_simple_combine <- function(figure_number, figure_percent) {
                             titleY = TRUE,
                             margin = 0.05) %>% 
     #
-    plotly::layout(legend = list(x = 0.775,
-                                 #
-                                 font = list(family = "Karla"),
+    plotly::style(hoverlabel = list(font = list(family = "Karla"))) %>%
+    #
+    plotly::layout(font = list(family = "Karla"),
+                   #
+                   legend = list(x = 0.775,
                                  #
                                  orientation = "h",
                                  xanchor     = "center"))
