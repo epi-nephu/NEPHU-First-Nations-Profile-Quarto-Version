@@ -221,7 +221,7 @@ aboriginal_birthrate_iare <- aboriginal_birthrate_iare %>%
   dplyr::arrange(iare_name, indigenous_status)
 ```
 
-- Data for this topic were obtained from the [AIHW Mothers and Babies Report](https://www.aihw.gov.au/reports/mothers-babies/australias-mothers-babies/contents/summary), compiled from the National Perinatal Data Collection and State and Territory perinatal data collections.
+- Data for this topic were obtained from the [AIHW Aboriginal and Torres Strait Islander Mothers and Babies Report](https://www.aihw.gov.au/reports/mothers-babies/indigenous-mothers-babies/contents/summary), compiled from the National Perinatal Data Collection and State and Territory perinatal data collections.
 
 - Birth rate is calculated as the total number of births per 1,000 population as estimated by [ABS Estimated Residential Population](https://www.abs.gov.au/statistics/people/population) calculations. ERP calculations take into account the known under-reporting of Aboriginal and/or Torres Strait Islander status in the Census.
 
