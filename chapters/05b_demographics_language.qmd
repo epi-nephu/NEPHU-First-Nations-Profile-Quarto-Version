@@ -4,6 +4,8 @@ title-block: false
 
 # Language
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,7 +24,7 @@ figtab_figure_count  <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Language {.unnumbered}
+## Language {.unnumbered .unlisted}
 
 ::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
 `r note_chapter_underidentification`
@@ -144,23 +146,28 @@ language_specific <- language_specific %>%
 
 - The Fourth [National Indigenous Languages Surveys (NILS)](https://aiatsis.gov.au/research/languages/national-indigenous-languages-surveys) is currently underway, with data collection completed in February 2026. This survey has been co-designed with over 150 Aboriginal and Torres Strait Islander language representatives across Australia, from every state and territory.
 
-::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
-- The following question was asked of all people completing the ABS Census 2021:
-  - Does the person use a language other than English at home?
-    - No, English only
-    - Yes, Mandarin
-    - Yes, Arabic
-    - Yes, Cantonese
-    - Yes, Vietnamese
-    - Yes, Italian
-    - Yes, Greek
-    - Yes, other language (please specify)
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people completing the ABS Census 2021.
 
 <div style="height: 0.1em;"></div>
 
-- Definitions and notes:
-  - `r note_aboriginality_census`
-  - When a person listed more than one language, responses were accepted in the order they appeared on the Census form. The first response was included in the data and any extra responses were rejected. This may lead to underreporting of Aboriginal and/or Torres Strait Islander languages, as these responses were recorded as 'Yes, other languages (please specify)' and would not be included for people who also selected another language higher up on the list.
+- `r note_aboriginality_census`
+
+<div style="height: 0.1em;"></div>
+
+- When a person listed more than one language, responses were accepted in the order they appeared on the Census form. The first response was included in the data and any extra responses were rejected. This may lead to underreporting of Aboriginal and/or Torres Strait Islander languages, as these responses were recorded as 'Yes, other languages (please specify)' and would not be included for people who also selected another language higher up on the list.
+:::
+
+::: {.callout-tip title="Census questions for this topic" icon=false collapse=false}
+- Does the person use a language other than English at home? (*Select all that apply*)
+  - No, English only
+  - Yes, Mandarin
+  - Yes, Arabic
+  - Yes, Cantonese
+  - Yes, Vietnamese
+  - Yes, Italian
+  - Yes, Greek
+  - Yes, other language (please specify)
 
 :::
 
@@ -445,23 +452,28 @@ language_other <- language_other %>%
 
 - 27 people reporting using Auslan at home.
 
-::: {.callout-tip title="Census questions and definitions for this topic " icon=false collapse=false}
-- The following question was asked of all people completing the ABS Census 2021:
-  - Does the person use a language other than English at home?
-    - No, English only
-    - Yes, Mandarin
-    - Yes, Arabic
-    - Yes, Cantonese
-    - Yes, Vietnamese
-    - Yes, Italian
-    - Yes, Greek
-    - Yes, other language (please specify)
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people completing the ABS Census 2021.
 
 <div style="height: 0.1em;"></div>
 
-- Definitions and notes:
-  - `r note_aboriginality_census`
-  - When a person listed more than one language, responses were accepted in the order they appeared on the Census form. The first response was included in the data and any extra responses were rejected. This may lead to underreporting of languages that are not explicitly listed in the question, as these responses were recorded as 'Yes, other languages (please specify)' and would not be included for people who also selected another language higher up on the list.
+- `r note_aboriginality_census`
+
+<div style="height: 0.1em;"></div>
+
+- When a person listed more than one language, responses were accepted in the order they appeared on the Census form. The first response was included in the data and any extra responses were rejected. This may lead to underreporting of Aboriginal and/or Torres Strait Islander languages, as these responses were recorded as 'Yes, other languages (please specify)' and would not be included for people who also selected another language higher up on the list.
+:::
+
+::: {.callout-tip title="Census questions for this topic" icon=false collapse=false}
+- Does the person use a language other than English at home? (*Select all that apply*)
+  - No, English only
+  - Yes, Mandarin
+  - Yes, Arabic
+  - Yes, Cantonese
+  - Yes, Vietnamese
+  - Yes, Italian
+  - Yes, Greek
+  - Yes, other language (please specify)
 
 :::
 
@@ -539,10 +551,6 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
-`r note_caveat_unknown_agesex`
-
-<div style="height: 0.1em;"></div>
-
 - Figure 5B-4 and Table 5B-4:
   - Indicator: Language spoken at home (other languages)
   - Numerator: Number of Aboriginal and/or Torres Strait Islander people who speak the specified language at home
@@ -613,25 +621,33 @@ english_agesex <- english_agesex %>%
 
 - This pattern was seen across all LGAs, for both males and females, and across all age groups.
 
-::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
-- The following questions were asked of all people completing the ABS Census 2021:
-  - Does the person use a language other than English at home?
-    - No, English only
-    - Yes, Mandarin
-    - Yes, Arabic
-    - Yes, Cantonese
-    - Yes, Vietnamese
-    - Yes, Italian
-    - Yes, Greek
-    - Yes, other language (please specify)
-  - How well does the person speak English?
-    - `r note_response_likert_verywell`
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people completing the ABS Census 2021.
 
 <div style="height: 0.1em;"></div>
 
-- Definitions and notes:
-  - `r note_aboriginality_census`
-  - When a person listed more than one language, responses were accepted in the order they appeared on the Census form. The first response was included in the data and any extra responses were rejected. This may lead to underreporting of languages that are not explicitly listed in the question, as these responses were recorded as 'Yes, other languages (please specify)' and would not be included for people who also selected another language higher up on the list.
+- `r note_aboriginality_census`
+
+<div style="height: 0.1em;"></div>
+
+- When a person listed more than one language, responses were accepted in the order they appeared on the Census form. The first response was included in the data and any extra responses were rejected. This may lead to underreporting of Aboriginal and/or Torres Strait Islander languages, as these responses were recorded as 'Yes, other languages (please specify)' and would not be included for people who also selected another language higher up on the list.
+:::
+
+::: {.callout-tip title="Census questions for this topic" icon=false collapse=false}
+- Does the person use a language other than English at home? (*Select all that apply*)
+  - No, English only
+  - Yes, Mandarin
+  - Yes, Arabic
+  - Yes, Cantonese
+  - Yes, Vietnamese
+  - Yes, Italian
+  - Yes, Greek
+  - Yes, other language (please specify)
+
+<div style="height: 0.1em;"></div>
+
+- How well does the person speak English?
+  - `r note_response_likert_verywell`
 
 :::
 

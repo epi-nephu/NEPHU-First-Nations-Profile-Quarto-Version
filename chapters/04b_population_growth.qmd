@@ -24,7 +24,7 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Population Growth {.unnumbered}
+## Population Growth {.unnumbered .unlisted}
 
 ::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
 `r note_chapter_different_sources`
@@ -88,6 +88,8 @@ aboriginal_projections_iare <- aboriginal_projections_iare %>%
 - The Aboriginal and/or Torres Strait Islander population in the Greater Melbourne area is expected to grow from 2021-2031 at a rate of 1.9% per year, increasing from an estimated population of 38,217 in 2021 to 46,017 in 2031. 
 
 - This projected growth rate is slightly lower than the projected growth rate for Aboriginal and/or Torres Strait Islander people living in the rest of Victoria (2.3% per year) and Victoria overall (2.1% per year), but slightly higher than the projected growth rate for Aboriginal and/or Torres Strait Islander people living in Australia (1.8% per year).
+
+- The Victorian Aboriginal Community Controlled Health Organisation (VACCHO) have commissioned the development of an [Aboriginal and Torres Strait Islander Population Growth Model for Victoria](https://www.vaccho.org.au/aboriginal-and-torres-strait-islander-population-growth-model/). This model predicts that the Aboriginal and/or Torres Strait Islander population will grow from 2021-2037 at a higher rate (3.8% per year) than predicted by the ABS (2.1% per year).
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - Data for this topic were collected from all people completing the ABS Census 2021.

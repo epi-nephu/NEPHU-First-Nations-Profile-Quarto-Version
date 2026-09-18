@@ -4,6 +4,8 @@ title-block: false
 
 # Age and Sex
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,7 +24,7 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Age and Sex {.unnumbered}
+## Age and Sex {.unnumbered .unlisted}
 
 ::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
 `r note_chapter_comparisons` 
@@ -37,7 +39,11 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 <div style="height: 0.1em;"></div>
 
-`r note_chapter_olderage` 
+`r note_chapter_olderage`
+
+<div style="height: 0.1em;"></div>
+
+- It is acknowledged that not all individuals identify with the binary (male and female) categories presented in this report, however data availability limits the presentation of data in this report to these binary categories.
 :::
 
 ::: {.key-question}
@@ -264,9 +270,26 @@ rm(i, results)
 
 - While patterns vary across LGAs, Aboriginal and/or Torres Strait Islander communities consistently show younger age profiles across the NEPHU catchment.
 
-::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-- Definitions and notes:
-  - `r note_aboriginality_census`
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people completing the ABS Census 2021.
+
+<div style="height: 0.1em;"></div>
+
+- `r note_aboriginality_census`
+:::
+
+::: {.callout-tip title="Census questions for this topic" icon=false collapse=false}
+- Is the person of Aboriginal or Torres Strait Islander origin? (*Select all that apply*)
+  - No
+  - Yes, Aboriginal
+  - Yes, Torres Strait Islander
+
+<div style="height: 0.1em;"></div>
+
+- Is the person:
+  - Male
+  - Female
+  - Non-binary sex (*please specify*)
 
 :::
 
@@ -780,14 +803,36 @@ women_lga <- census_agesex %>%
 
 - Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
 
-- 51% of women living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander were of reproductive age (15 to 49 years), compared to 47% of women living in the NEPHU catchment who did not identify as Aboriginal and/or Torres Strait Islander. 
+- Women of reproductive age is a commonly used public health indicator, because the health status of women in this age group directly [predicts maternal and child survival](https://www.who.int/data/gho/data/themes/topics/sdg-target-3-1-maternal-mortality), reflects [community access to reproductive health services](https://www.who.int/data/gho/data/indicators/indicator-details/GHO/proportion-of-women-of-reproductive-age-who-have-their-need-for-family-planning-satisfied-with-modern-methods), and acts as a proxy measure for [wellbeing and gender equity](https://pmc.ncbi.nlm.nih.gov/articles/PMC12754999/) across the wider population.
+
+- 51% of women living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander were of reproductive age (15 to 49 years), compared to 47% of women living in the NEPHU catchment who did not identify as Aboriginal and/or Torres Strait Islander.
 
 - The LGAs in the NEPHU catchment with the largest number of women who identify as Aboriginal and/or Torres Strait Islander who were of reproductive age were Whittlesea (n = 565), Hume (n = 453), and Darebin (n = 419).
 
-::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-- Definitions and notes:
-  - `r note_aboriginality_census`
-  - Women of reproductive age were defined as women aged between 15 and 49 years.
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people completing the ABS Census 2021.
+
+<div style="height: 0.1em;"></div>
+
+- `r note_aboriginality_census`
+
+<div style="height: 0.1em;"></div>
+
+- Women of reproductive age were defined as women aged between 15 and 49 years.
+:::
+
+::: {.callout-tip title="Census questions for this topic" icon=false collapse=false}
+- Is the person of Aboriginal or Torres Strait Islander origin? (*Select all that apply*)
+  - No
+  - Yes, Aboriginal
+  - Yes, Torres Strait Islander
+
+<div style="height: 0.1em;"></div>
+
+- Is the person:
+  - Male
+  - Female
+  - Non-binary sex (*please specify*)
 
 :::
 
