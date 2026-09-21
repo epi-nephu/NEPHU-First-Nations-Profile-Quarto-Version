@@ -227,6 +227,7 @@ f_line_grouped_indigenous <- function(data, y_variable, n_level = "people", ctg_
                    legend = list(x = 0.5,
                                  #
                                  orientation = "h",
+                                 entrywidth  = 200,
                                  xanchor     = "center"))
   
   return(figure)

@@ -92,7 +92,7 @@ f_bar_stacked <- function(data, total_data = stacked_total, x_variable, y_variab
 ################################################################################
 # By LGA 
 ################################################################################
-f_bar_stacked_lga <- function(data, fill_values, n_level, legend_order = "normal") {
+f_bar_stacked_lga <- function(data, fill_values, n_level, legend_order = "normal", legend_offset = -0.3) {
   
   data <- data %>% 
     dplyr::mutate(hover_text = paste0(lga_name, " LGA", "\n",
@@ -141,7 +141,7 @@ f_bar_stacked_lga <- function(data, fill_values, n_level, legend_order = "normal
                                              standoff = 10)),
                    #
                    legend = list(x = 0.5,
-                                 y = -0.3,
+                                 y = legend_offset,
                                  #
                                  orientation = "h",
                                  xanchor     = "center",
@@ -154,7 +154,7 @@ f_bar_stacked_lga <- function(data, fill_values, n_level, legend_order = "normal
 ################################################################################
 # By age and sex 
 ################################################################################
-f_bar_stacked_agesex <- function(data, fill_values, n_level, legend_order = "normal") {
+f_bar_stacked_agesex <- function(data, fill_values, n_level, legend_order = "normal", legend_offset = -0.25) {
   
   data <- data %>% 
     dplyr::mutate(hover_text = paste0(sex, "\n",
@@ -209,7 +209,7 @@ f_bar_stacked_agesex <- function(data, fill_values, n_level, legend_order = "nor
                                              standoff = 10)),
                    #
                    legend = list(x = 0.5,
-                                 y = -0.2,
+                                 y = legend_offset,
                                  #
                                  orientation = "h",
                                  xanchor     = "center",

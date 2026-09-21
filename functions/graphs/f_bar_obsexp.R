@@ -7,7 +7,7 @@
 ################################################################################
 # By LGA
 ################################################################################
-f_bar_obsexp_lga <- function(data, n_level = "people") {
+f_bar_obsexp_lga <- function(data, n_level = "people", legend_offset = -0.4) {
   
   data <- data %>% 
     dplyr::filter(lga_name %in% nephu_lga)
@@ -31,11 +31,11 @@ f_bar_obsexp_lga <- function(data, n_level = "people") {
         TRUE ~ NA_character_),
       #
       comparison = factor(dplyr::case_when(
-        comparison == "aboriginal_n"       ~ "Observed number identifying as Aboriginal and/or Torres Strait Islander",
-        comparison == "aboriginal_exp_non" ~ "Expected number based on NEPHU non-Indigenous population",
+        comparison == "aboriginal_n"       ~ "Observed number identifying as\nAboriginal and/or Torres Strait Islander",
+        comparison == "aboriginal_exp_non" ~ "Expected number based on NEPHU\nnon-Indigenous population",
         TRUE ~ NA_character_),
-        levels = c("Observed number identifying as Aboriginal and/or Torres Strait Islander", 
-                   "Expected number based on NEPHU non-Indigenous population"))) %>% 
+        levels = c("Observed number identifying as\nAboriginal and/or Torres Strait Islander", 
+                   "Expected number based on NEPHU\nnon-Indigenous population"))) %>% 
     #
     dplyr::mutate(hover_text = paste0(lga_name, " LGA", "\n",
                                       comparison_label, "\n",
@@ -77,7 +77,7 @@ f_bar_obsexp_lga <- function(data, n_level = "people") {
                                              standoff = 10)),
                    #
                    legend = list(x = 0.5,
-                                 y = -0.3,
+                                 y = legend_offset,
                                  #
                                  orientation = "h",
                                  xanchor     = "center"))
@@ -89,7 +89,7 @@ f_bar_obsexp_lga <- function(data, n_level = "people") {
 ################################################################################
 # By age and sex
 ################################################################################
-f_bar_obsexp_agesex <- function(data, n_level = "people") {
+f_bar_obsexp_agesex <- function(data, n_level = "people", legend_offset = -0.3) {
   
   data <- data %>% 
     dplyr::filter(age_group %in% age_group_lvl)
@@ -113,11 +113,11 @@ f_bar_obsexp_agesex <- function(data, n_level = "people") {
         TRUE ~ NA_character_),
       #
       comparison = factor(dplyr::case_when(
-        comparison == "aboriginal_n"       ~ "Observed number identifying as Aboriginal and/or Torres Strait Islander",
-        comparison == "aboriginal_exp_non" ~ "Expected number based on NEPHU non-Indigenous population",
+        comparison == "aboriginal_n"       ~ "Observed number identifying as\nAboriginal and/or Torres Strait Islander",
+        comparison == "aboriginal_exp_non" ~ "Expected number based on NEPHU\nnon-Indigenous population",
         TRUE ~ NA_character_),
-        levels = c("Observed number identifying as Aboriginal and/or Torres Strait Islander", 
-                   "Expected number based on NEPHU non-Indigenous population"))) %>% 
+        levels = c("Observed number identifying as\nAboriginal and/or Torres Strait Islander", 
+                   "Expected number based on NEPHU\nnon-Indigenous population"))) %>% 
     #
     dplyr::mutate(hover_text = paste0(sex, "\n",
                                       age_group, "\n",
@@ -142,7 +142,8 @@ f_bar_obsexp_agesex <- function(data, n_level = "people") {
     #
     theme_classic() +
     #
-    theme(axis.text.x = element_text(angle = 90)) +
+    theme(axis.text.x = element_text(angle = 90),
+          strip.text  = element_text(size = 11, family = "Karla", margin = margin(t = 5))) +
     #
     facet_wrap(.~ sex,
                scale          = "free_x",
@@ -164,7 +165,7 @@ f_bar_obsexp_agesex <- function(data, n_level = "people") {
                                              standoff = 10)),
                    #
                    legend = list(x = 0.5,
-                                 y = -0.3,
+                                 y = legend_offset,
                                  #
                                  orientation = "h",
                                  xanchor     = "center"))

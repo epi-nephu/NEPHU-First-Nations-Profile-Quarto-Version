@@ -334,6 +334,7 @@ f_bar_grouped_indigenous <- function(data, x_variable, y_variable, n_level = "pe
                                  y = legend_offset,
                                  #
                                  orientation = "h",
+                                 entrywidth  = 200,
                                  xanchor     = "center"))
   
   return(figure)

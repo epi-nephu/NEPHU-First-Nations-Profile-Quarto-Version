@@ -30,11 +30,14 @@ f_read_naplan <- function(data, data_sheet) {
                   vic)
   
   data <- data %>% 
-    dplyr::mutate(achievement = factor(achievement,
+    dplyr::mutate(achievement = dplyr::case_when(achievement == "Needs additional support" ~ "Additional support",
+                                                 TRUE ~ achievement),
+                  #
+                  achievement = factor(achievement,
                                        levels = c("Exceeding",
                                                   "Strong",
                                                   "Developing",
-                                                  "Needs additional support",
+                                                  "Additional support",
                                                   "Exempt")))
   
   return(data)
