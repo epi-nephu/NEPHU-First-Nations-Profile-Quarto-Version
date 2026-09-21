@@ -4,6 +4,8 @@ title-block: false
 
 # Income and Food Security
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,7 +24,7 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Income and Food Security {.unnumbered}
+## Income and Food Security {.unnumbered .unlisted}
 
 ::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
 `r note_chapter_different_sources`
@@ -103,17 +105,25 @@ household_lga <- household %>%
 
 - The percentage of households in different LGAs within the NEPHU catchment with at least one member who identified as Aboriginal and/or Torres Strait Islander with a weekly income of less than \$500 ranged from 26% (Darebin LGA) to 10% (Boroondara and Nillumbik LGAs).
 
-::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
-- The following question was asked of all people aged 15 years and over completing the ABS Census 2021:
-  - What is the total of all income the person usually receives?
-    - Free text response
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people aged 15 years and over completing the ABS Census 2021.
 
 <div style="height: 0.1em;"></div>
 
-- Definitions and notes:
-  - `r note_aboriginality_census`
-  - Responses for each household member were summed to calculate the total weekly household income.
-  -  Income can come from a range of sources, including employment, investments, businesses, government benefits, and government allowances.
+- `r note_aboriginality_census`
+
+<div style="height: 0.1em;"></div>
+
+- Responses for each household member were summed to calculate the total weekly household income.
+
+<div style="height: 0.1em;"></div>
+
+- Income can come from a range of sources, including employment, investments, businesses, government benefits, and government allowances.
+:::
+
+::: {.callout-tip title="Census questions for this topic" icon=false collapse=false}
+- What is the total of all income the person usually receives?
+  - Free text response
 
 :::
 
@@ -400,17 +410,22 @@ benefit_agesex <- benefit_agesex %>%
 
 - At stakeholder consultations during the development of this report it was mentioned that Aboriginal and/or Torres Strait Islander people often encounter barriers when trying to access income support payments.
 
-::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-- Definitions and notes:
-  - `r note_aboriginality_census`
-  - This indicator measures the main type of income support payment received. People may have received more than one type of income support payment.
-  - The types of income support payments were classified as:
-    - Carer support (Carer Allowance, Carer Payment)
-    - Disability support (Disability Support Pension, Mobility Allowance)
-    - Family and parenting (Dad and Partner Pay, Family Tax Benefits, Paid Parental Leave Payment, Parenting Payment)
-    - Older Australians (Age Pension, Widow Allowance)
-    - Work and study (Austudy/Abstudy, Newstart Allowance and Jobseeker, Youth Allowance)
-    - Other payments (Future Flexible Support Payment, Special Benefit, other government pensions and allowances)
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- `r note_aboriginality_census`
+
+<div style="height: 0.1em;"></div>
+
+- This indicator measures the main type of income support payment received. People may have received more than one type of income support payment.
+
+<div style="height: 0.1em;"></div>
+
+- The types of income support payments were classified as:
+  - Carer support (Carer Allowance, Carer Payment)
+  - Disability support (Disability Support Pension, Mobility Allowance)
+  - Family and parenting (Dad and Partner Pay, Family Tax Benefits, Paid Parental Leave Payment, Parenting Payment)
+  - Older Australians (Age Pension, Widow Allowance)
+  - Work and study (Austudy/Abstudy, Newstart Allowance and Jobseeker, Youth Allowance)
+  - Other payments (Future Flexible Support Payment, Special Benefit, other government pensions and allowances)
 
 :::
 
@@ -547,10 +562,11 @@ benefit_agesex %>%
                "Carer support",
                "Other payments"))) %>% 
   #
-  f_bar_stacked_agesex(fill_values  = c(colour_stack6, colour_stack5, colour_stack4,
-                                        colour_stack3, colour_stack2, colour_stack1),
-                       n_level      = "people",
-                       legend_order = "reversed")
+  f_bar_stacked_agesex(fill_values   = c(colour_stack6, colour_stack5, colour_stack4,
+                                         colour_stack3, colour_stack2, colour_stack1),
+                       n_level       = "people",
+                       legend_order  = "reversed",
+                       legend_offset = -0.3)
 ```
 
 
@@ -741,15 +757,17 @@ financial_expenses <- financial_expenses %>%
 
 - Females were more likely to report having at least one day where they did not have money for basic living expenses (clothing or bills) than males (49% vs. 38%).
 
-::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
-- The following question was asked of a representative for each household completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
-  - In the last 12 months were there any days when you or other people in your household ran out of money for clothing or bills?
-    - `r note_response_binary`
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from a representative for each household completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
 <div style="height: 0.1em;"></div>
 
-- Definitions and notes:
-  - `r note_aboriginality_natsihs`
+- `r note_aboriginality_natsihs`
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
+- In the last 12 months were there any days when you or other people in your household ran out of money for clothing or bills?
+  - `r note_response_binary`
 
 :::
 
@@ -877,15 +895,17 @@ financial_emergency <- financial_emergency %>%
 
 - Females were more likely to report that their household would be able to raise emergency funds than males (64% vs. 58%).
 
-::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
-- The following question was asked of a representative for each household completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
-  - We know that \$2,000 is a lot of money, but if all of a sudden you or the people who live in this household had to get \$2,000 for something important, could you or they get it within a week?
-    - `r note_response_binary`
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from a representative for each household completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
 <div style="height: 0.1em;"></div>
 
-- Definitions and notes:
-  - `r note_aboriginality_natsihs`
+- `r note_aboriginality_natsihs`
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
+- We know that \$2,000 is a lot of money, but if all of a sudden you or the people who live in this household had to get \$2,000 for something important, could you or they get it within a week?
+  - `r note_response_binary`
 
 :::
 
@@ -1021,14 +1041,37 @@ financial_foodsecurity <- financial_foodsecurity %>%
 
 - Males were more likely to report being food secure than females (62% vs. 55%).
 
-::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
-- The following questions were asked of a representative for each household completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
-  - In the last 12 months, how often did you or other people in your household worry about whether food would run out before you got money to buy more?
-    - `r note_response_likert_often`
-  - In the last 12 months, how often was the food that you bought not enough for everyone in the household and you didn't have money to buy more?
-    - `r note_response_likert_often`
+- Data relating to healthy eating can be found in the [Healthy Eating section](09a_preventive_healthyeating.qmd) of this report.
+
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from a representative for each household completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+
+<div style="height: 0.1em;"></div>
+
+- `r note_aboriginality_natsihs`
+
+<div style="height: 0.1em;"></div>
+
+- [Food security](https://aifs.gov.au/resources/policy-and-practice-papers/understanding-food-insecurity-australia) is generally characterised as having enough food and/or money to buy food needed for an active, healthy life at all times during the previous 12 months.
+  - *Marginal food insecurity* is generally characterised by worrying about running out of food or experiencing a lack of selection of food due to a lack of money for food.
+  - *Moderate food insecurity* is generally characterised by compromising on the quality and/or quantity of food due to a lack of money for food.
+  - *Severe food insecurity* is generally characterised by missing meals or reducing food intake due to a lack of money for food.
+
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
+- In the last 12 months, how often did you or other people in your household worry about whether food would run out before you got money to buy more?
+  - `r note_response_likert_often`
+
+<div style="height: 0.1em;"></div>
+
+- In the last 12 months, how often was the food that you bought not enough for everyone in the household and you didn't have money to buy more?
+  - `r note_response_likert_often`
+
+<div style="height: 0.1em;"></div>
+
   - In the last 12 months, how often were you or other people in your household not able to afford to eat healthy or nutritious meals?
-    - `r note_response_likert_often`
+  - `r note_response_likert_often`
 
 <div style="height: 0.1em;"></div>
 
@@ -1040,15 +1083,6 @@ financial_foodsecurity <- financial_foodsecurity %>%
   - In the last 12 months, did you lose weight without trying to because there wasn't enough money to buy food?
   - In the last 12 months, did you or other adults in your household not eat for a whole day because there wasn't enough money for food?
   - If yes, how often did this happen?
-
-<div style="height: 0.1em;"></div>
-
-- Definitions and notes:
-  - `r note_aboriginality_natsihs`
-  - Food security is generally characterised as having enough food and/or money to buy food needed for an active, healthy life at all times during the previous 12 months.
-    - *Marginal food insecurity* is generally characterised by worrying about running out of food or experiencing a lack of selection of food due to a lack of money for food.
-    - *Moderate food insecurity* is generally characterised by compromising on the quality and/or quantity of food due to a lack of money for food.
-    - *Severe food insecurity* is generally characterised by missing meals or reducing food intake due to a lack of money for food.
 
 :::
 

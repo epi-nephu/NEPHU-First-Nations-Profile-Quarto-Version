@@ -4,6 +4,8 @@ title-block: false
 
 # Early Childhood
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,7 +24,7 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Early Childhood {.unnumbered}
+## Early Childhood {.unnumbered .unlisted}
 
 ::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
 `r note_chapter_different_sources`
@@ -89,7 +91,7 @@ childhood_attendance <- f_read_ctg_indigenous("CTG03_Childhood_Education_Data_Ta
                                                                  "vic",
                                                                  "unit"),
                                               fill_variables = vars(value, indigenous_status, year, attendance),
-                                              row_select     = 1:128) %>% 
+                                              row_select     = 1:160) %>% 
   #
   dplyr::mutate(attendance = factor(dplyr::case_when(
     attendance == "Did not attend"            ~ "Did not attend",
@@ -107,7 +109,7 @@ childhood_attendance <- f_read_ctg_indigenous("CTG03_Childhood_Education_Data_Ta
 
 - In 2022, 100% of Aboriginal and/or Torres Strait Islander children in Victoria who were in the year before full-time schooling age cohort attended a funded kindergarten/preschool program. This is above the Closing the Gap target of 95%.
 
-- The percentage of enrolled children who attended for 15 or more hours in a week increased from 64% in 2016 to 75% in 2023.
+- The percentage of enrolled children who attended for 15 or more hours in a week increased from 64% in 2016 to 77% in 2025.
 
 - Further historical and ongoing target context can be found on the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/early-childhood-education/).
 
@@ -117,11 +119,12 @@ childhood_attendance <- f_read_ctg_indigenous("CTG03_Childhood_Education_Data_Ta
 
 - The importance of and impact of improvements in cultural safety by educators was also discussed as a potential contributing factor to this increase.
 
-::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-- Definitions and notes:
-  - `r note_aboriginality_vcams`
-  - `r note_aboriginality_nececc`
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- `r note_aboriginality_vcams`
 
+<div style="height: 0.1em;"></div>
+
+- `r note_aboriginality_nececc`
 :::
 
 :::: {.panel-tabset}
@@ -369,9 +372,9 @@ childhood_develop <- f_read_ctg_indigenous("CTG04_Early_Years_Data_Tables.xlsx",
                                                               "vic",
                                                               "unit"),
                                            fill_variables = vars(indigenous_status, year),
-                                           row_select     = 1:10) %>% 
+                                           row_select     = 1:12) %>% 
   #
-  dplyr::mutate(year = dplyr::case_when(year == "2009 (b)" ~ "2009",
+  dplyr::mutate(year = dplyr::case_when(stringr::str_detect(year, "2009") ~ "2009",
                                         TRUE ~ year)) %>% 
   #
   dplyr::rename(prop = vic)
@@ -379,9 +382,9 @@ childhood_develop <- f_read_ctg_indigenous("CTG04_Early_Years_Data_Tables.xlsx",
 
 - Data for this topic were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the [Australian Early Development Census (AEDC)](https://www.aedc.gov.au/).
 
-- In 2021, 36% of Aboriginal and/or Torres Strait Islander children in Victoria who were assessed during their first year of school were developmentally on track for all five AEDC domains, compared to 32% in 2009.   
+- In 2024, 36% of Aboriginal and/or Torres Strait Islander children in Victoria who were assessed during their first year of school were developmentally on track for all five AEDC domains, compared to 32% in 2009.   
 
-- This is below the Closing the Gap target of 55%, and is lower than for non-Indigenous children in 2021 (58%).
+- This is below the Closing the Gap target of 55%, and is lower than for non-Indigenous children in 2024 (54%).
 
 - Further historical and ongoing target context can be found on the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/children-thriving/).
 
@@ -391,9 +394,17 @@ childhood_develop <- f_read_ctg_indigenous("CTG04_Early_Years_Data_Tables.xlsx",
 
 - For example, whilst a very high proportion of Aboriginal and/or Torres Strait Islander babies have their hearing screened at birth, middle ear infections and associated hearing problems are a [common childhood issue](https://www.aihw.gov.au/reports/indigenous-australians/ear-hearing-health-indigenous-2024/contents/screening-and-diagnosis/neonatal-hearing-screening) for First Nations children.
 
-::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-- Definitions and notes:
-  - `r note_aboriginality_aedc`
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- `r note_aboriginality_aedc`
+
+<div style="height: 0.1em;"></div>
+
+- Children are assessed as developmentally on track if they are on track for each of these domains:
+  - Physical health and wellbeing
+  - Social competence
+  - Emotional maturity
+  - Language and cognitive skills
+  - Communication skills and general knowledge
 
 :::
 
@@ -520,17 +531,16 @@ naplan_numeracy <- f_read_naplan(data_sheet = "Table SE5c.3")
 
 - In 2024, 75% of Victorian Aboriginal and/or Torres Strait Islander children in Year 3, 75% of children in Year 5, 72% of children in Year 7, and 69% of children in Year 9 were at or above the NAPLAN numeracy minimum standard (exceeding, strong, or developing). This was lower than for non-Indigenous children at each year level (Year 3 = 91%, Year 5 = 92%, Year 7 = 91%, Year 9 = 90%).
 
-::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-- Definitions and notes:
-  - `r note_aboriginality_naplan`
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- `r note_aboriginality_naplan`
 
 <div style="height: 0.1em;"></div>
 
-  - The NAPLAN proficiencies include four levels for each assessment area at each year level:
-    - Exceeding: the student’s result exceeds expectations at the time of testing.
-    - Strong: the student’s result meets challenging but reasonable expectations at the time of testing.
-    - Developing: the student’s result indicates that they are working towards expectations at the time of testing.
-    - Needs additional support: the student’s result indicates that they are not achieving the learning outcomes expected at the time of testing. They are likely to need additional support to progress satisfactorily.
+- The NAPLAN proficiencies include four levels for each assessment area at each year level:
+  - Exceeding: The student’s result exceeds expectations at the time of testing
+  - Strong: The student’s result meets challenging but reasonable expectations at the time of testing
+  - Developing: The student’s result indicates that they are working towards expectations at the time of testing
+  - Needs additional support: The student’s result indicates that they are not achieving the learning outcomes expected at the time of testing, they are likely to need additional support to progress satisfactorily
 
 :::
 
