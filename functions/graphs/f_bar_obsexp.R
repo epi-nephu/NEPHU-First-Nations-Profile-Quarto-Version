@@ -80,6 +80,7 @@ f_bar_obsexp_lga <- function(data, n_level = "people", legend_offset = -0.4) {
                                  y = legend_offset,
                                  #
                                  orientation = "h",
+                                 entrywidth  = 200,
                                  xanchor     = "center"))
   
   return(figure)
@@ -168,6 +169,7 @@ f_bar_obsexp_agesex <- function(data, n_level = "people", legend_offset = -0.3) 
                                  y = legend_offset,
                                  #
                                  orientation = "h",
+                                 entrywidth  = 200,
                                  xanchor     = "center"))
   
   return(figure)
