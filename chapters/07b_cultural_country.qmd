@@ -4,6 +4,8 @@ title-block: false
 
 # Connection to Country
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,7 +24,7 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Connection to Country {.unnumbered}
+## Connection to Country {.unnumbered .unlisted}
 
 ::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
 `r note_chapter_different_sources`
@@ -93,15 +95,17 @@ homeland <- homeland %>%
 
 - Males and females were equally likely to recognise an area as their traditional Country (68% vs. 68%).
 
-::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
-- The following question was asked of all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
-  - Do you recognise an area as your homeland or traditional Country?
-    - `r note_response_binary`
-    
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+
 <div style="height: 0.1em;"></div>
 
-- Definitions and notes:
-  - `r note_aboriginality_natsihs`
+- `r note_aboriginality_natsihs`
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
+- Do you recognise an area as your homeland or traditional Country?
+  - `r note_response_binary`
 
 :::
 
@@ -243,25 +247,33 @@ visit <- visit %>%
 
 - Females were more likely to visit their traditional Country several times per year than males (18% vs. 9.3%).
 
-::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
-- The following questions were asked of all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
-  - Do you recognise an area as your homeland or traditional Country?
-    - `r note_response_binary`
-  - If yes, do you currently live there?
-    - `r note_response_binary`
-  - If you do not currently live there, how often do you visit?
-    - At least once a week
-    - At least once a fortnight
-    - At least once a month
-    - Several times per year
-    - Once per year
-    - Less frequently than once per year
-    - Never
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
 <div style="height: 0.1em;"></div>
 
-- Definitions and notes:
-  - `r note_aboriginality_natsihs`
+- `r note_aboriginality_natsihs`
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
+- Do you recognise an area as your homeland or traditional Country?
+  - `r note_response_binary`
+
+<div style="height: 0.1em;"></div>
+
+- If yes, do you currently live there?
+  - `r note_response_binary`
+
+<div style="height: 0.1em;"></div>
+
+- If you do not currently live there, how often do you visit?
+  - At least once a week
+  - At least once a fortnight
+  - At least once a month
+  - Several times per year
+  - Once per year
+  - Less frequently than once per year
+  - Never
 
 :::
 
@@ -301,7 +313,8 @@ figure_percent <- visit %>%
                     y_variable = prop,
                     x_angle    = 90)
 
-f_bar_grouped_combine(figure_number, figure_percent)
+f_bar_grouped_combine(figure_number, figure_percent,
+                      legend_offset = -0.25)
 ```
 
 
@@ -414,7 +427,9 @@ nativetitle_land <- readxl::read_excel(file.path(root_folder, subfolder_ctg, "CT
   #
   dplyr::select(value,
                 year,
-                vic)
+                vic) %>% 
+  #
+  dplyr::filter(row_number() %in% 1:12)
 
 # Data wrangling
 nativetitle_land <- nativetitle_land %>% 
@@ -447,11 +462,13 @@ nativetitle_sea <- readxl::read_excel(file.path(root_folder, subfolder_ctg, "CTG
   tidyr::fill(value, type) %>% 
   #
   dplyr::filter(value == "Actual") %>%
-  dplyr::filter(year %in% c("2020", "2021", "2022", "2023", "2024")) %>% 
+  dplyr::filter(year %in% c("2020", "2021", "2022", "2023", "2024", "2025")) %>% 
   #
   dplyr::select(value = type,
                 year,
-                vic = vic_b)
+                vic = vic_b) %>% 
+  #
+  dplyr::filter(row_number() %in% 1:12)
 
 # Data wrangling
 nativetitle_sea <- nativetitle_sea %>% 
@@ -474,20 +491,22 @@ native_title <- nativetitle_land %>%
 
 - Data for this topic were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the [National Native Title Tribunal Geospatial Data Model](https://www.nntt.gov.au/assistance/Geospatial/Pages/Spatial-aata.aspx).
 
-- In 2024, 7.2% of Victoria’s land mass (approximately 16,351km^2^) was subject to Aboriginal and/or Torres Strait Islander people’s legal rights or interests, an increase from 6.6% (approximately 14,934km^2^) in 2020. This was below the Closing the Gap target of 7.6% (approximately 17,174km^2^).
+- In 2025, 7.2% of Victoria’s land mass (approximately 16,350km^2^) was subject to Aboriginal and/or Torres Strait Islander people’s legal rights or interests, an increase from 6.6% (approximately 14,934km^2^) in 2020. This was below the Closing the Gap target of 7.6% (approximately 17,174km^2^).
 
-- In 2024, 2.9% of Victoria’s sea area (approximately 295km^2^) was subject to Aboriginal and/or Torres Strait Islander people’s legal rights or interests, an increase from 2.6% (approximately 265km^2^) in 2020. This was below the Closing the Gap target of 3.0% (approximately 305km^2^).
+- In 2025, 2.9% of Victoria’s sea area (approximately 295km^2^) was subject to Aboriginal and/or Torres Strait Islander people’s legal rights or interests, an increase from 2.6% (approximately 265km^2^) in 2020. This was below the Closing the Gap target of 3.0% (approximately 305km^2^).
 
 - Detailed maps of areas covered by native title claimant applications, native title determinations, and Indigenous Land Use Agreements can be found on the [National Native Title Tribunal website](https://www.nntt.gov.au/assistance/Geospatial/Pages/Maps.aspx).
 
 - Further historical and ongoing target context can be found on the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/land-and-waters/).
 
-::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-- Definitions and notes:
-  - Total land mass, total sea area, and the percentage subject to Aboriginal and/or Torres Strait Islander people’s legal rights or interests are calculated based on jurisdictional boundaries sourced from Geoscience Australia.
-  - Land mass subject to Aboriginal and/or Torres Strait Islander people’s legal rights or interests includes:
-    - Determinations of native title (land subject to a determination that native title exists exclusive or non-exclusive)
-    - Indigenous estates (land grants under various land rights regimes of the states and territories and the Commonwealth)
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Total land mass, total sea area, and the percentage subject to Aboriginal and/or Torres Strait Islander people’s [legal rights or interests](https://www.ilsc.gov.au/) are calculated based on jurisdictional boundaries sourced from [Geoscience Australia](https://www.ga.gov.au/).
+
+<div style="height: 0.1em;"></div>
+
+- Land mass subject to Aboriginal and/or Torres Strait Islander people’s legal rights or interests includes:
+  - Determinations of native title (land subject to a determination that native title exists exclusive or non-exclusive)
+  - Indigenous estates (land grants under various land rights regimes of the states and territories and the Commonwealth)
 
 :::
 
@@ -556,10 +575,14 @@ figure_percent <- native_title %>%
 figure_percent %>% 
   plotly::ggplotly(tooltip = "text") %>% 
   #
-  plotly::layout(hovermode = "x",
+  plotly::style(hoverlabel = list(font = list(family = "Karla"))) %>% 
+  #
+  plotly::layout(font = list(family = "Karla"),
+                 #
+                 hovermode = "x",
                  #
                  yaxis = list(title = list(text     = "Percentage of land mass or sea area",
-                                           font     = list(size = 13, family = "Arial"),
+                                           font     = list(size = 13),
                                            standoff = 10)),
                  #
                  legend = list(x = 0.5,

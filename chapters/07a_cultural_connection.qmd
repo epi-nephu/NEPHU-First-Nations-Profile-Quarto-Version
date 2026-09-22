@@ -4,6 +4,8 @@ title-false: false
 
 # Strength and Belonging
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,7 +24,7 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Strength and Belonging {.unnumbered}
+## Strength and Belonging {.unnumbered .unlisted}
 
 ::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
 `r note_chapter_underidentification`
@@ -192,15 +194,17 @@ knowledge_2018 <- knowledge_2018 %>%
 
 - It was also noted that how questions about cultural knowledge are asked and how the terms ‘culture’ and ‘community’ are interpreted can impact on how it is answered, including how individuals interact with community groups and how active they are within the community in which they live. Interpretation can also be influenced by age and stage of life, and trends over time could provide useful insights.
 
-::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
-- The following question was asked of all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
-  - How satisfied are you with your knowledge of your culture?
-    - `r note_response_likert_verysatisfied`
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
 <div style="height: 0.1em;"></div>
 
-- Definitions and notes:
-  - `r note_aboriginality_natsihs`
+- `r note_aboriginality_natsihs`
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
+- How satisfied are you with your knowledge of your culture?
+  - `r note_response_likert_verysatisfied`
 
 :::
 
@@ -377,15 +381,17 @@ pride <- pride %>%
 
 - It was also noted that pride in culture does not necessarily correlate with connection to culture, and this relationship has more complexity than what may be displayed in these data. It is important to consider how these questions have been asked, how the survey was conducted, and how representative these data are as a result.
 
-::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
-- The following question was asked of all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
-  - Are you proud of being Aboriginal and/or Torres Strait Islander?
-    - `r note_response_binary`
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
 <div style="height: 0.1em;"></div>
 
-- Definitions and notes:
-  - `r note_aboriginality_natsihs`
+- `r note_aboriginality_natsihs`
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
+- Are you proud of being Aboriginal and/or Torres Strait Islander?
+  - `r note_response_binary`
 
 :::
 
@@ -542,20 +548,22 @@ identification <- identification %>%
 
 - Possible reasons for this lack of representativeness were: the purpose of this question may not have been clear to survey respondents, the wording of the question was not considered to culturally safe, and the mandatory nature of the survey would impact on the responses provided. Furthermore, these data would be heavily influenced by the ongoing impacts of the stolen generations.
 
-::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
-- The following question was asked of all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
-  - Do you identify with any of these? (Select all that apply)
-    - A tribal group
-    - A language group
-    - A clan
-    - A mission
-    - An Aboriginal and/or Torres Strait Islander regional group
-    - None of the above
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
 <div style="height: 0.1em;"></div>
 
-- Definitions and notes:
-  - `r note_aboriginality_natsihs`
+- `r note_aboriginality_natsihs`
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
+- Do you identify with any of these? (*Select all that apply*)
+  - A tribal group
+  - A language group
+  - A clan
+  - A mission
+  - An Aboriginal and/or Torres Strait Islander regional group
+  - None of the above
 
 :::
 
@@ -589,7 +597,8 @@ figure_percent <- identification %>%
                     y_variable = prop,
                     x_angle    = 90)
 
-f_bar_grouped_combine(figure_number, figure_percent)
+f_bar_grouped_combine(figure_number, figure_percent,
+                      legend_offset = -0.25)
 ```
 
 
@@ -724,15 +733,17 @@ acceptance <- acceptance %>%
 
 - Males were more likely to report that they felt accepted by other members of the Aboriginal and/or Torres Strait Islander Community than females (82% vs. 65%).
 
-::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
-- The following question was asked of all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
-  - Do you feel accepted by other Aboriginal and/or Torres Strait Islander people?
-    - `r note_response_binary`
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
 <div style="height: 0.1em;"></div>
 
-- Definitions and notes:
-  - `r note_aboriginality_natsihs`
+- `r note_aboriginality_natsihs`
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
+- Do you feel accepted by other Aboriginal and/or Torres Strait Islander people?
+  - `r note_response_binary`
 
 :::
 
@@ -875,15 +886,17 @@ recognition <- recognition %>%
 
 - Females were more likely to report that it was not at all important that they were recognised as Aboriginal and/or Torres Strait Islander than males (10%% vs. 4.6%).
 
-::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
-- The following question was asked of all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
-  - How important is it to you to be recognised as an Aboriginal and/or Torres Strait Islander person?
-    - `r note_response_likert_veryimportant`
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
 <div style="height: 0.1em;"></div>
 
-- Definitions and notes:
-  - `r note_aboriginality_natsihs`
+- `r note_aboriginality_natsihs`
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
+- How important is it to you to be recognised as an Aboriginal and/or Torres Strait Islander person?
+  - `r note_response_likert_veryimportant`
 
 :::
 
