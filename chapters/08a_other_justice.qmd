@@ -4,6 +4,8 @@ title-false: false
 
 # Criminal Justice
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,16 +24,16 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Criminal Justice {.unnumbered}
+## Criminal Justice {.unnumbered .unlisted}
 
 ::: {.callout-important title="Content warning" icon=true collapse=false}
-The following section contains information about the criminal justice system, adult incarceration rates, and youth detention rates for Aboriginal and/or Torres Strait Islander peoples.
+The following section contains information about the criminal justice system, adult incarceration rates, and youth detention rates for Aboriginal and/or Torres Strait Islander peoples. This content aligns with Closing the Gap [Target 10](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/criminal-justice/) and [Target 11](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/youth-justice/) and addresses systemic issues that may be distressing or triggering, especially for those with lived or family experiences of incarceration, over-policing, or justice system harm.
+ 
+We acknowledge the ongoing impacts of colonisation and systemic injustice on Aboriginal and/or Torres Strait Islander communities, and the strength of those who continue to advocate for truth, justice, and self-determination. Experiences of interpersonal, institutional, and systemic racism continue to influence health, social, and justice outcomes for Aboriginal and/or Torres Strait Islander peoples. Racism can contribute to inequitable interactions with education, housing, health, and justice systems, and remains an important determinant of wellbeing.
 
-- This content aligns with Closing the Gap [Target 10](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/criminal-justice/) and [Target 11](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/youth-justice/) and addresses systemic issues that may be distressing or triggering, especially for those with lived or family experiences of incarceration, over-policing, or justice system harm.
+Aboriginal and/or Torres Strait Islander peoples have maintained strong cultures, kinship systems, and systems of law and governance for tens of thousands of years. Contemporary overrepresentation in the criminal justice system reflects the ongoing impacts of colonisation, dispossession, structural racism, and inequitable social determinants of health rather than any inherent characteristic of First Nations peoples. While this section presents available justice-related indicators, it is important to recognise the strength, resilience, and leadership of Aboriginal and/or Torres Strait Islander communities in advocating for healing, justice reform, and self-determination.
  
-We acknowledge the ongoing impacts of colonisation and systemic injustice on Aboriginal and/or Torres Strait Islander communities, and the strength of those who continue to advocate for truth, justice, and self-determination. 
- 
-If you or someone you know needs support, please consider reaching out to the culturally safe services listed here.
+We encourage readers to take care while engaging with this material and to seek support from trusted family members, community, Elders, Aboriginal Community Controlled Organisations, or other culturally safe support services if needed. If you or someone you know needs support, please consider reaching out to the culturally safe services [listed here](01f_intro_services.qmd).
 :::
 
 <div style="height: 0.1em;"></div>
@@ -53,7 +55,7 @@ If you or someone you know needs support, please consider reaching out to the cu
 :::
 
 ::: {.key-question}
-What external factors influence health and wellbeing for Aboriginal and/or Torres Strait Islander people and families in the NEPHU catchment, including in supporting children and strong families?
+What factors within Community and broader systems influence the ability of Aboriginal and/or Torres Strait Islander families in the NEPHU catchment to maintain wellbeing, care for children, keep families connected, and exercise self-determination? 
 :::
 
 ## Adult Incarceration
@@ -74,14 +76,14 @@ Target: By 2031, reduce the rate of Aboriginal and Torres Strait Islander adults
 # Read in ABS data
 incarceration_adult <- readxl::read_excel(file.path(root_folder, subfolder_corrective, "Prisoners_In_Australia_State_Data.xlsx"),
                                           skip  = 4,
-                                          sheet = "Table_18") %>%
+                                          sheet = "Table 18") %>%
   janitor::clean_names() %>%
   #
   dplyr::rename(year = indigenous_status_and_reference_period) %>%
   #
   dplyr::mutate(indigenous_status = dplyr::case_when(
-    row_number() %in% 2:12  ~ "aboriginal",
-    row_number() %in% 14:24 ~ "non_aboriginal",
+    row_number() %in% 2:11  ~ "aboriginal",
+    row_number() %in% 13:22 ~ "non_aboriginal",
     TRUE ~ NA_character_)) %>% 
   #
   dplyr::filter(!is.na(indigenous_status))
@@ -93,6 +95,10 @@ incarceration_adult <- incarceration_adult %>%
                 rate = vic) %>% 
   #
   dplyr::mutate(
+    year = dplyr::case_when(
+      year == "2016 (d)" ~ "2016",
+      TRUE ~ year),
+    #
     indigenous_label = dplyr::case_when(
       indigenous_status == "aboriginal"     ~ "Aboriginal",
       indigenous_status == "non_aboriginal" ~ "Non-Indigenous",
@@ -108,27 +114,38 @@ incarceration_adult <- incarceration_adult %>%
 
 - Data for this topic were obtained from the [ABS Prisoners in Australia Dataset](https://www.abs.gov.au/statistics/people/crime-and-justice/prisoners-australia/latest-release).
 
-- The age-standardised incarceration rate for Aboriginal and/or Torres Strait Islander adults in Victoria was 1,778 per 100,000 population in 2023. This was higher than for non-Indigenous Victorian adults (110 per 100,000 population).
+- The age-standardised incarceration rate for Aboriginal and/or Torres Strait Islander adults in Victoria was 1,705 per 100,000 population in 2025. This was higher than for non-Indigenous Victorian adults (99 per 100,000 population).
 
-- The age-standardised incarceration rate for Aboriginal and/or Torres Strait Islander adults in Victoria shows an improvement compared to the 2019 Closing the Gap baseline rate, but has worsened compared to the rates for 2013-2017.
+- While the incarceration rate has decreased compared with the 2019 Closing the Gap baseline year, Aboriginal and/or Torres Strait Islander adults remain substantially overrepresented in the Victorian criminal justice system, with an incarceration rate approximately 17 times that of non-Indigenous Victorian adults.
 
 - Further historical and ongoing target context can be found on the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/criminal-justice/).
 
 **Key points from stakeholder consultation**
 
-- At stakeholder consultation during the development of this report, challenges in accessing affordable and suitable housing were cited as a possible contributor to prolonged incarceration and further harm.
+- At stakeholder consultation during the development of this report, challenges in accessing [affordable and suitable housing](06f_socioeconomic_housing.qmd) were cited as a possible contributor to prolonged incarceration and further harm.
 
-- First Nations people in prison may also have complex health and wellbeing needs which require culturally appropriate care.
+- Substantial inequities remain and continued action on the structural drivers of incarceration is required to achieve equitable outcomes for Aboriginal and/or Torres Strait Islander peoples.
 
-- The Torch’s [Statewide Indigenous Art in Prisons and Community Program](https://thetorch.org.au/) run in Victorian correctional facilities was discussed as an intervention which is creating positive change through art and cultural learning. The In Prison program employs Indigenous Art Officers to support incarcerated First Nations men and women to learn more about their culture and country, providing support with art skills development and the earning of income from art sales. 
+- First Nations people in prison may have complex health and wellbeing needs which require culturally appropriate care.
 
-::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-- Definitions and notes:
-  - `r note_aboriginality_prisoners`
-  - Adults were defined as people aged 18 years and over.
-  - The incarceration rate was calculated as the total number of incarcerations per 100,000 population as estimated by the [ABS Estimated Residential Population (ERP)](https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071) for the year.
-    - ERP calculations take into account the known under-reporting of Aboriginal and/or Torres Strait Islander status in the Census.
-    - The incarceration rate has been age-standardised to account for the differences in age structures between the Aboriginal and/or Torres Strait Islander and non-Indigenous populations.
+- Stakeholders also highlighted the important role of Aboriginal Community Controlled Organisations, culturally grounded healing programs, diversion initiatives, and justice reinvestment approaches in supporting positive outcomes for Aboriginal and/or Torres Strait Islander peoples. These approaches recognise the protective role of culture, connection to Community, family and Country, and support self-determination in addressing the underlying drivers of justice system involvement.
+
+- Community-led responses that strengthen cultural identity, promote healing, and maintain family and community connections were identified as important protective factors that can contribute to improved wellbeing and reduced contact with the justice system.
+
+- The Torch’s [Statewide Indigenous Art in Prisons and Community Program](https://thetorch.org.au/) run in Victorian correctional facilities was discussed as an intervention which is creating positive change through art and cultural learning. The In Prison program employs Indigenous Art Officers to support incarcerated First Nations men and women to learn more about their culture and country, providing support with art skills development and the earning of income from art sales.
+
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- `r note_aboriginality_prisoners`
+
+<div style="height: 0.1em;"></div>
+
+- Adults were defined as people aged 18 years and over.
+
+<div style="height: 0.1em;"></div>
+
+- The incarceration rate was calculated as the total number of incarcerations per 100,000 population as estimated by the [ABS Estimated Residential Population (ERP)](https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071) for the year.
+  - ERP calculations take into account the known under-reporting of Aboriginal and/or Torres Strait Islander status in the Census.
+  - The incarceration rate has been age-standardised to account for the differences in age structures between the Aboriginal and/or Torres Strait Islander and non-Indigenous populations.
 
 :::
 
@@ -148,7 +165,11 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 
 ```{r}
 #
-ctg_target <- incarceration_adult$rate[7] * 0.85 
+baseline_rate <- incarceration_adult %>% 
+  dplyr::filter(year == "2019" & indigenous_label == "Aboriginal") %>% 
+  pull(rate)
+
+ctg_target <- baseline_rate * 0.85
 
 incarceration_adult %>%
   f_line_grouped_indigenous(y_variable = rate,
@@ -208,8 +229,8 @@ table %>%
 
 - Figure 8A-1 and Table 8A-1:
   - Indicator: Adult incarceration rate
-  - Numerator: Number of incarcerations
-  - Denominator: `r note_denominator_erp`
+  - Numerator: Number of adults who were incarcerated
+  - Denominator: Estimated total number of adults in the population for the specified year
   - Geographical area: `r note_geography_victoria`
   - Comparison: `r note_comparison_year` and `r note_comparison_aboriginal`
 
@@ -225,7 +246,7 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 ::: {.ctg-box}
 **This topic aligns with [Closing the Gap Outcome Area 11](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/youth-justice/): Aboriginal and Torres Strait Islander young people are not overrepresented in the criminal justice system**
 
-Target: By 2031, reduce the rate of Aboriginal and Torres Strait Islander young people (10–⁠17 years) in detention by at least 30% (compared to the baseline year of 2018-19).
+Target: By 2031, reduce the rate of Aboriginal and Torres Strait Islander young people (10–17 years) in detention by at least 30% (compared to the baseline year of 2018-19).
 :::
 
 <div style="height: 1em;"></div>
@@ -241,7 +262,7 @@ incarceration_youth <- readxl::read_excel(file.path(root_folder, subfolder_corre
                                           sheet = "Table S83") %>%
   janitor::clean_names() %>%
   #
-  dplyr::filter(row_number() %in% 1:30) %>% 
+  dplyr::filter(row_number() %in% 1:27) %>% 
   dplyr::filter(indigenous_status != "Total") %>% 
   #
   dplyr::mutate(
@@ -275,9 +296,9 @@ incarceration_youth <- incarceration_youth %>%
 
 - Data for this topic were obtained from the [AIHW Youth Justice National Minimum Dataset](https://www.aihw.gov.au/about-our-data/our-data-collections/youth-justice).
 
-- The detention rate for Aboriginal and/or Torres Strait Islander young people in Victoria on an average day was 9.1 per 10,000 population in 2022-23. This was higher than for non-Indigenous young Victorians (1.0 per 10,000 population).
+- The detention rate for Aboriginal and/or Torres Strait Islander young people in Victoria on an average day was 8.1 per 10,000 population in 2024-25. This was higher than for non-Indigenous young Victorians (1.0 per 10,000 population).
 
-- The detention rate for Aboriginal and/or Torres Strait Islander young people in Victoria shows an improvement compared to the 2018-19 Closing the Gap baseline rate.
+- While the detention rate has decreased compared with the 2018-19 Closing the Gap baseline year, Aboriginal and/or Torres Strait Islander young people remain significantly overrepresented in the youth justice system, with a detention rate approximately eight times that of non-Indigenous young Victorians.
 
 - Further historical and ongoing target context can be found on the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/youth-justice/).
 
@@ -285,14 +306,21 @@ incarceration_youth <- incarceration_youth %>%
 
 - At stakeholder consultation during the development of this report, it was discussed how Aboriginal and/or Torres Strait Islander young people are often over-policed and criminalised for minor offences.
 
-- The significant intergenerational impacts of colonisation and forced removal of Aboriginal and/or Torres Strait Islander children from their families were also noted in reference to this topic.
+- Stakeholders emphasised that contact with the youth justice system often occurs alongside broader social and structural challenges, including housing insecurity, experiences of racism, family disruption, barriers to accessing culturally safe services, and the ongoing impacts of intergenerational trauma and forced removal of Aboriginal and/or Torres Strait Islander children from their families.
 
-::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-- Definitions and notes:
-  - `r note_aboriginality_youthjustice`
-  - Young people were defined as persons aged 10-17 years.
-  - The detention rate was calculated as the total number of detentions on an average day per 10,000 population as estimated by the [ABS Estimated Residential Population (ERP)](https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071) for the year.
-    - ERP calculations take into account the known under-reporting of Aboriginal and/or Torres Strait Islander status in the Census.
+- Participants highlighted the importance of early intervention, culturally responsive support services, community-led diversion programs, and initiatives that strengthen cultural identity, family connections, and connection to Country. These approaches were identified as important protective factors that can support the wellbeing of Aboriginal and/or Torres Strait Islander young people and help reduce contact with the justice system.
+
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- `r note_aboriginality_youthjustice`
+
+<div style="height: 0.1em;"></div>
+
+- Young people were defined as persons aged 10-17 years.
+
+<div style="height: 0.1em;"></div>
+
+- The detention rate was calculated as the total number of detentions on an average day per 10,000 population as estimated by the [ABS Estimated Residential Population (ERP)](https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071) for the year.
+  - ERP calculations take into account the known under-reporting of Aboriginal and/or Torres Strait Islander status in the Census.
 
 :::
 
@@ -312,7 +340,11 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 
 ```{r}
 #
-ctg_target <- incarceration_youth$rate[11] * 0.7
+baseline_rate <- incarceration_youth %>% 
+  dplyr::filter(year == "2018–19" & indigenous_label == "Aboriginal") %>% 
+  pull(rate)
+
+ctg_target <- incarceration_youth$rate[5] * 0.7
 
 incarceration_youth %>% 
   f_line_grouped_indigenous(y_variable = rate,
@@ -373,7 +405,7 @@ table %>%
 - Figure 8A-2 and Table 8A-2:
   - Indicator: Youth detention rate
   - Numerator: Number of young people in detention on June 30th
-  - Denominator: `r note_denominator_erp`
+  - Denominator: Estimated total number of young people in the population for the specified year
   - Geographical area: `r note_geography_victoria`
   - Comparison: `r note_comparison_year` and `r note_comparison_aboriginal`
 

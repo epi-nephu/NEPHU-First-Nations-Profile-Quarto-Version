@@ -4,6 +4,8 @@ title-block: false
 
 # Connection Through Digital Technology
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,7 +24,7 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Connection Through Digital Technology {.unnumbered}
+## Connection Through Digital Technology {.unnumbered .unlisted}
 
 ::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
 `r note_chapter_underidentification`
@@ -33,7 +35,7 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 :::
 
 ::: {.key-question}
-What external factors influence health and wellbeing for Aboriginal and/or Torres Strait Islander people and families in the NEPHU catchment, including in supporting children and strong families?
+What community, cultural, and systemic factors influence the ability of Aboriginal and/or Torres Strait Islander people and families in the NEPHU catchment to thrive, exercise self-determination, and access culturally safe environments free from racism and discrimination?
 :::
 
 ## Internet Use for Connection and Everyday Life
@@ -178,28 +180,36 @@ digital_reason <- digital_reason %>%
 
 - Further historical and ongoing target context can be found on the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/access-information/).
 
-::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
-- The following questions were asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
-  - Have you personally used the internet in the last three months? This could have been through devices such as mobile phones, smart watches, laptops, computers, tablets, game consoles, or internet enabled televisions.
-    - `r note_response_binary`
-  - In the last three months, did you use the internet for any of these reasons? (Select all that apply)
-    - Social networking (e.g. Facebook, Twitter, Skype)
-    - Purchasing or ordering goods or services online (e.g. travel, tickets, accommodation, computer software, clothes, food, movies, music, books)
-    - Paying bills or banking online
-    - Entertainment (e.g. playing or downloading games, music, movies, television)
-    - Health services (e.g. Telehealth, making medical appointments)
-    - None of the above
-  - In the last three months, did you use the internet for any of these reasons? (Select all that apply)
-    - Work purposes
-    - Formal education activities
-    - Accessing government services or information about government services (e.g. tax, benefits payments, licences)
-    - Volunteering or participating in community groups
-    - None of the above
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
 <div style="height: 0.1em;"></div>
 
-- Definitions and notes:
-  - `r note_aboriginality_natsihs`
+- `r note_aboriginality_natsihs`
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
+- Have you personally used the internet in the last three months? This could have been through devices such as mobile phones, smart watches, laptops, computers, tablets, game consoles, or internet enabled televisions.
+  - `r note_response_binary`
+
+<div style="height: 0.1em;"></div>
+
+- In the last three months, did you use the internet for any of these reasons? (*Select all that apply*)
+  - Social networking (e.g. Facebook, Twitter, Skype)
+  - Purchasing or ordering goods or services online (e.g. travel, tickets, accommodation, computer software, clothes, food, movies, music, books)
+  - Paying bills or banking online
+  - Entertainment (e.g. playing or downloading games, music, movies, television)
+  - Health services (e.g. Telehealth, making medical appointments)
+  - None of the above
+
+<div style="height: 0.1em;"></div>
+
+- In the last three months, did you use the internet for any of these reasons? (*Select all that apply*)
+  - Work purposes
+  - Formal education activities
+  - Accessing government services or information about government services (e.g. tax, benefits payments, licences)
+  - Volunteering or participating in community groups
+  - None of the above
 
 :::
 

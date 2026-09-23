@@ -4,6 +4,8 @@ title-block: false
 
 # Family Safety and Wellbeing
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,16 +24,20 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Family Safety and Wellbeing {.unnumbered}
+## Family Safety and Wellbeing {.unnumbered .unlisted}
 
 ::: {.callout-important title="Content warning" icon=true collapse=false}
-The following section contains information about family safety and wellbeing involving Aboriginal and/or Torres Strait Islander children, families, and communities. This content may bring up strong emotions or memories, particularly for those who have lived experience of child removal, family separation, or the ongoing impacts of colonisation and government policies.
+The following section contains information about family safety and wellbeing involving Aboriginal and/or Torres Strait Islander children, individuals, families, and communities. This content aligns with Closing the Gap [Target 12](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/child-protection/) and [Target 13](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/family-safety/) and may bring up strong emotions or memories, particularly for those who have lived experience of child removal, family separation, violence, abuse, coercive control, or the ongoing impacts of colonisation and government policies.
 
-We encourage readers to look after themselves while engaging with this material. Please take breaks if needed, and seek support from trusted family, community, or professional services if the content causes distress. 
+Aboriginal and/or Torres Strait Islander families, kinship systems, and communities have long been sources of strength, safety, care, and wellbeing. Strong family relationships, connection to culture, Community, and Country continue to be important foundations for health and wellbeing.
 
-As you read, please remember to lean on your strengths, your community, and your supports. This knowledge is shared with deep respect, care, and understanding.
+Family violence is not a part of Aboriginal and/or Torres Strait Islander culture. Contemporary experiences of family violence should be understood within the broader context of colonisation, dispossession, intergenerational trauma, racism, and ongoing social and economic inequities that continue to affect many Aboriginal and/or Torres Strait Islander individuals, families, and communities.
 
-If you or someone you know needs support, please consider reaching out to the culturally safe services listed here.
+Similarly, the overrepresentation of Aboriginal and/or Torres Strait Islander children in child protection systems reflects the ongoing impacts of colonisation, dispossession, forced child removal, systemic racism, and broader social inequities, rather than any deficit in Aboriginal and/or Torres Strait Islander children, families, or communities.
+
+While this section presents available data relating to child protection, family violence, and family safety, it is important to recognise the leadership of Aboriginal and/or Torres Strait Islander peoples, communities, and organisations in promoting safety, supporting healing and strengthening family wellbeing through culturally grounded and community-led approaches.
+
+We encourage readers to take care while engaging with this material and to seek support from trusted family members, community, Elders, Aboriginal Community Controlled Organisations, or other culturally safe support services if needed. If you or someone you know needs support, please consider reaching out to the culturally safe services [listed here](01f_intro_services.qmd).
 :::
 
 <div style="height: 0.1em;"></div>
@@ -53,7 +59,7 @@ If you or someone you know needs support, please consider reaching out to the cu
 :::
 
 ::: {.key-question}
-What external factors influence health and wellbeing for Aboriginal and/or Torres Strait Islander people and families in the NEPHU catchment, including in supporting children and strong families?
+What factors within Community and broader systems influence the ability of Aboriginal and/or Torres Strait Islander families in the NEPHU catchment to maintain wellbeing, care for children, keep families connected, and exercise self-determination?
 :::
 
 ## Out-of-Home Care
@@ -72,35 +78,37 @@ Target: By 2031, reduce the rate of overrepresentation of Aboriginal and Torres 
 # Data from AIHW Child Protection National Minimum Dataset
 # ------------------------------------------------------------------------------
 # Read in AIHW data
-outofhome <- readxl::read_excel(file.path(root_folder, subfolder_protection, "Child_Protection_National_Minimum_Dataset.xlsx"),
-                                skip  = 2,
-                                sheet = "T3") %>%
+outofhome <- readxl::read_excel(file.path(root_folder, subfolder_ctg, "CTG12_Child_Protection_Data_Tables.xlsx"),
+                                skip  = 1,
+                                sheet = "Table CtG12A.1") %>%
   janitor::clean_names() %>%
   #
-  dplyr::mutate(
-    indigenous_status = dplyr::case_when(
-      row_number() %in% c(3:7, 58:62)  ~ "aboriginal",
-      row_number() %in% c(9:13, 64:68) ~ "non_aboriginal",
-      TRUE ~ NA_character_),
-    #
-    unit = dplyr::case_when(
-      row_number() %in% c(3:7, 9:13)    ~ "n",
-      row_number() %in% c(58:62, 64:68) ~ "rate",
-      TRUE ~ NA_character_)) %>% 
+  dplyr::rename(indigenous_status = x4,
+                year = x5) %>%
   #
-  dplyr::filter(!is.na(indigenous_status))
+  tidyr::fill(indigenous_status, year) %>% 
+  #
+  dplyr::filter(!is.na(vic)) %>% 
+  dplyr::filter(row_number() %in% c(1:14, 29:42))
 
 # Data wrangling
-outofhome <- outofhome %>%
+outofhome <- outofhome %>% 
   dplyr::select(year,
                 indigenous_status,
                 unit,
-                vic) %>%
+                vic) %>% 
   #
   dplyr::mutate(
+    vic = as.numeric(vic),
+    #
+    unit = dplyr::case_when(
+      unit == "no."  ~ "n",
+      unit == "rate" ~ "rate",
+      TRUE ~ NA_character_),
+    #
     indigenous_label = dplyr::case_when(
-      indigenous_status == "aboriginal"     ~ "Aboriginal",
-      indigenous_status == "non_aboriginal" ~ "Non-Indigenous",
+      stringr::str_detect(indigenous_status, "Aboriginal")     ~ "Aboriginal",
+      stringr::str_detect(indigenous_status, "Non-Indigenous") ~ "Non-Indigenous",
       TRUE ~ NA_character_),
     #
     indigenous_status = factor(dplyr::case_when(
@@ -170,30 +178,47 @@ relationship <- relationship %>%
                                                  "Other arrangements")))
 ```
 
-- Data for this topic were obtained from the [AIHW Child Protection National Minimum Dataset](https://www.aihw.gov.au/about-our-data/our-data-collections/child-protection-national-minimum-data-set).
+- Data for this topic were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the [AIHW Child Protection National Minimum Dataset](https://www.aihw.gov.au/about-our-data/our-data-collections/child-protection-national-minimum-data-set).
 
-- The out-of-home care rate for Aboriginal and/or Torres Strait Islander children in Victoria on June 30th 2023 was 103 per 1,000 population. This was higher than for non-Indigenous children in Victorian (4.6 per 1,000 population).
+- The out-of-home care rate for Aboriginal and/or Torres Strait Islander children in Victoria on June 30^th^ 2025 was 96 per 1,000 population. This was higher than for non-Indigenous children in Victorian (4.4 per 1,000 population). Aboriginal and/or Torres Strait Islander children were approximately 21 times more likely to be living in out-of-home care than non-Indigenous children in Victoria. 
 
-- The out-of-home care rate for Aboriginal and/or Torres Strait Islander children in Victoria has worsened compared to the 2019 Closing the Gap baseline rate.
+- The out-of-home care rate has increased since the 2019 Closing the Gap baseline year. Aboriginal and/or Torres Strait Islander children continue to be substantially overrepresented in out-of-home care, highlighting the importance of sustained action to address the structural and systemic factors that contribute to child protection system involvement.
 
-- On June 30th 2024, 82% (n = 2,365) of Aboriginal and/or Torres Strait Islander children in Victoria who were in out-of-home care had been placed with Aboriginal and/or Torres Strait Islander relatives, non-Indigenous relatives, or other Aboriginal and/or Torres Strait Islander carers.
+- On June 30^th^ 2025, 83% (n = 2,524) of Aboriginal and/or Torres Strait Islander children in Victoria who were in out-of-home care had been placed with Aboriginal and/or Torres Strait Islander relatives, non-Indigenous relatives, or other Aboriginal and/or Torres Strait Islander carers.
+
+- The high proportion of children placed with relatives, kin, or Aboriginal and/or Torres Strait Islander carers reflects ongoing efforts to support cultural connection and uphold the [Aboriginal Child Placement Principle](https://www.vacca.org/page/about/aboriginal-child-placement-principle).
+
+- Maintaining connections to family, kinship networks, Community, Culture, and identity is recognised as a critical protective factor for Aboriginal and/or Torres Strait Islander children. Kinship and culturally connected placements can help children maintain important relationships and cultural connections while separated from their parents.
 
 - Further historical and ongoing target context can be found on the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/child-protection/).
 
 **Key points from stakeholder consultation**
 
+- The National Agreement on Closing the Gap recognises that sustainable improvements in child and family wellbeing are supported through Aboriginal and/or Torres Strait Islander leadership, self-determination, and community-controlled solutions. Efforts to reduce overrepresentation in the child protection system are strengthened when Aboriginal and/or Torres Strait Islander communities are empowered to lead decisions, services, and supports affecting children and families.
+
 - At stakeholder consultation during the development of this report, the continued over-representation of Aboriginal and/or Torres Strait Islander children in out-of-home care was discussed as a significant barrier to self-identifying at healthcare services.
 
 - Gaps in data relating to the avoidance of healthcare settings following child protection involvement was also called out.
 
-- The importance of eliminating racism and discrimination in child protection was discussed, with self-determination and service provision that is led by Aboriginal and/or Torres Strait Islander peoples being critical in addressing this issue. This includes support for pre-birth interventions.
+- The importance of [eliminating racism and discrimination in child protection](https://www.childsafety.gov.au/what-we-do/lead-national-principles-child-safe-organisations/keeping-our-kids-safe) was discussed, with self-determination and service provision that is led by Aboriginal and/or Torres Strait Islander peoples being critical in addressing this issue. This includes support for pre-birth interventions.
 
-::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-- Definitions and notes:
-  - `r note_aboriginality_childprotection`
-  - Children were defined as persons aged 0-17 years.
-  - The out-of-home care rate was calculated as the total number of children in out-of-home care per 1,000 population on June 30th of each year as estimated by the [ABS Estimated Residential Population (ERP)](https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071) for the year.
-    - ERP calculations take into account the known under-reporting of Aboriginal and/or Torres Strait Islander status in the Census.
+- Stakeholders highlighted that Aboriginal Community Controlled Organisations such as the [Victorian Aboriginal Child and Community Agency (VACCA)](https://www.vacca.org/) play a critical role in supporting children and families through culturally safe, strengths-based, and family-centred approaches. Community-led models were identified as important mechanisms for strengthening families, supporting cultural connection, and improving child and family wellbeing outcomes.
+
+- Participants also discussed the importance of Aboriginal and/or Torres Strait Islander leadership in decisions affecting children and families. [Self-determination, shared decision-making, and investment](https://www.snaicc.org.au/resources/aboriginal-and-torres-strait-islander-family-led-decision-making-summary-evidence-review/) in Aboriginal-led solutions were identified as key factors in reducing child protection system involvement and improving long-term outcomes for children, families, and communities.
+
+- These approaches recognise the strengths of Aboriginal and/or Torres Strait Islander families and communities and seek to prevent child protection involvement wherever possible by addressing challenges early and by supporting families to remain safely together and connected to Culture, Community, and Country.
+
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- `r note_aboriginality_childprotection`
+
+<div style="height: 0.1em;"></div>
+
+- Children were defined as persons aged 0-17 years.
+
+<div style="height: 0.1em;"></div>
+
+- The out-of-home care rate was calculated as the total number of children in out-of-home care per 1,000 population on June 30^th^ of each year as estimated by the [ABS Estimated Residential Population (ERP)](https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071) for the year.
+  - ERP calculations take into account the known under-reporting of Aboriginal and/or Torres Strait Islander status in the Census.
 
 :::
 
@@ -208,12 +233,16 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Out-of-home care rate (per 1,000 population) on June 30th, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_year)` and `r note_comparison_aboriginal`
+**`r figtab_figure_title`:** Out-of-home care rate (per 1,000 population) on June 30^th^, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_year)` and `r note_comparison_aboriginal`
 :::
 
 ```{r}
 #
-ctg_target <- outofhome$vic[11] * 0.55
+baseline_rate <- outofhome %>% 
+  dplyr::filter(year == "2019" & indigenous_label == "Aboriginal" & unit == "rate") %>% 
+  pull(vic)
+
+ctg_target <- baseline_rate * 0.55
 
 outofhome %>% 
   dplyr::filter(unit == "rate") %>% 
@@ -236,7 +265,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Number of children in out-of-home care and out-of-home care rate (per 1,000 population) on June 30th, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_year)` and `r note_comparison_aboriginal`
+**`r figtab_table_title`:** Number of children in out-of-home care and out-of-home care rate (per 1,000 population) on June 30^th^, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_year)` and `r note_comparison_aboriginal`
 :::
 
 ```{r}
@@ -374,15 +403,15 @@ table %>%
 
 - Figure 8B-1 and Table 8B-1:
   - Indicator: Out-of-home care rate
-  - Numerator: Number of children in out-of-home care on June 30th
-  - Denominator: `r note_denominator_erp`
+  - Numerator: Number of children in out-of-home care on June 30^th^
+  - Denominator: Estimated total number of children in the population for the specified year
   - Geographical area: `r note_geography_victoria`
   - Comparison: `r note_comparison_year` and `r note_comparison_aboriginal`
 
 <div style="height: 0.1em;"></div>
 
 - Figure 8B-2 and Table 8B-2:
-  - Indicator: Relationship to carer for children in Out-of-home care
+  - Indicator: Relationship to carer for children in out-of-home care
   - Numerator: `r note_numerator_category_aboriginal`
   - Denominator: Total number of children in out-of-home care
   - Geographical area: `r note_geography_victoria`
@@ -444,7 +473,9 @@ violence_women <- violence_women %>%
 
 - During 2018-2019, 7.5% of Aboriginal and/or Torres Strait Islander female survey respondents aged 15 years or over living in Victoria reported that they had experienced domestic physical or face-to-face threatened physical harm during the 12 months prior to the survey.
 
-- More recent data are not available, as this question was not included in the [2022-2023 National Aboriginal and/or Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release).
+- More recent data are not available, as this question was not included in the [2022-2023 ABS National Aboriginal and/or Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release).
+
+- Family violence can have significant impacts on physical health, social and emotional wellbeing, housing security, financial wellbeing, connection to family and Community, and access to essential services.
 
 - Further historical and ongoing target context can be found on the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/family-safety/).
 
@@ -452,24 +483,59 @@ violence_women <- violence_women %>%
 
 - At stakeholder consultation during the development of this report, these data were thought to be an underestimate and not a true reflection of the safety of households.
 
+- Experiences of violence should be [understood within the broader context](https://humanrights.gov.au/resource-hub/by-resource-type/publications/aboriginal-and-torres-strait-islander-peoples/first-nations/ending-family-violence-and-abuse-in-aboriginal-and-torres-strait-islander-communities-key-issues-2006) of colonisation, dispossession, intergenerational trauma, racism, and social inequities that continue to affect many Aboriginal and/or Torres Strait Islander individuals, families, and communities.
+
+- [Supporting family safety](https://fnaafv.org.au/) requires approaches that strengthen healing, cultural connection, self-determination, and access to culturally safe services and supports.
+
 - It was discussed that women may be scared to report family violence for a variety of reasons, including concerns about potential child removal.
 
-- It was also discussed that perpetrators of family violence are often incorrectly assumed to be Aboriginal and/or Torres Strait Islander men, when in reality perpetrators of family violence against Aboriginal and/or Torres Strait Islander women and children are more commonly non-Indigenous men.
+- It was also discussed that [perpetrators of family violence](https://safeandequal.org.au/working-in-family-violence/tailored-inclusive-support/aboriginal-and-torres-strait-islander-people/) are often incorrectly assumed to be Aboriginal and/or Torres Strait Islander men, when in reality perpetrators of family violence against Aboriginal and/or Torres Strait Islander women and children are more commonly non-Indigenous men.
 
-::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
-- The following questions were asked of all people aged 15 years and over completing the 2018-19 ABS National Aboriginal and Torres Strait Islander Health Survey:
-  - In the last 12 months, has anyone, including people you know well, physically hurt or harmed you on purpose? Please include physical fights.
-    - `r note_response_binary`
-  - In the last 12 months, has anyone, including people you know well, threatened to physically hurt or harm you?
-    - Yes, face-to-face
-    - Yes, non face-to-face (e.g. phone, text message, Facebook, Twitter)
-    - Yes, both face-to-face and non face-to-face
-    - No
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
 <div style="height: 0.1em;"></div>
 
-- Definitions and notes:
-  - `r note_aboriginality_natsihs`
+- `r note_aboriginality_natsihs`
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
+- In the last 12 months, has anyone, including people you know well, physically hurt or harmed you on purpose? Please include physical fights.
+  - `r note_response_binary`
+
+<div style="height: 0.1em;"></div>
+
+- In the last 12 months, has anyone, including people you know well, threatened to physically hurt or harm you?
+  - Yes, face-to-face
+  - Yes, non face-to-face (e.g. phone, text message, Facebook, Twitter)
+  - Yes, both face-to-face and non face-to-face
+  - No
+
+:::
+
+::: {.callout-note title="Data notes" icon=false collapse=false}
+- Data were obtained from the [2018-19 ABS National Aboriginal and Torres Strait Islander Health Survey](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release).
+  - The 2018-19 ABS National Aboriginal and Torres Strait Islander Health Survey collected information from Aboriginal and/or Torres Strait Islander people of all ages in non-remote and remote areas of Australia, including discrete Aboriginal and/or Torres Strait Islander communities.
+  - Data were collected through face-to-face interviews with survey respondents or their parent/guardian.
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_underidentification`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_survey_estimate`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_survey_unknown`
+
+<div style="height: 0.1em;"></div>
+
+- Indicator: Experience of domestic physical or face-to-face threatened physical harm
+  - Numerator: Number of women aged 15 years and over who experienced domestic physical or face-to-face threatened physical harm
+  - Denominator: Total number of female survey respondents aged 15 years and over
+  - Geographical area: `r note_geography_victoria`
 
 :::
 
@@ -486,7 +552,7 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 # Data from Crime Statistics Agency
 # ------------------------------------------------------------------------------
 # Read in Crime Statistics Agency data
-violence_incidents <- readxl::read_excel(file.path(root_folder, subfolder_crime, "Indigenous_Data_Tables_Family_Incidents_Visualisation_Year_Ending_December_2023.xlsx"),
+violence_incidents <- readxl::read_excel(file.path(root_folder, subfolder_crime, "Indigenous_Data_Tables_Family_Incidents_Visualisation_Year_Ending_December_2025.xlsx"),
                                          sheet = "Table 01") %>%
   janitor::clean_names()
 
@@ -517,20 +583,37 @@ violence_incidents <- violence_incidents %>%
 
 - Data for this topic were obtained from the [Victorian Crime Statistics Agency](https://www.crimestatistics.vic.gov.au/crime-statistics/latest-aboriginal-crime-data/family-incidents-by-aboriginal-and-torres-strait).
 
-- The number of family violence incidents reported by affected Aboriginal and/or Torres Strait Islander family members living in Victoria increased from 4,696 in 2019 to 5,687 in 2023.
+- The number of family violence incidents reported by affected Aboriginal and/or Torres Strait Islander family members living in Victoria increased from 5,411 in 2021 to 6,982 in 2025.
 
 - Family violence incidents were more commonly reported by females than by males.
 
-- The number of family violence incidents reported increased each year for both males and females.
+- The number of family violence incidents reported increased each year between 2021 and 2024 for both males and females.
 
-::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-- Definitions and notes:
-  - `r note_aboriginality_crime`
-  - Family violence is not limited to physical violence and definitions can be found on the [Victorian government website](https://www.vic.gov.au/what-family-violence).
-    - Family violence incidents were defined as those where a Victoria Police Risk Assessment and Risk Management Report (also known as an L17 form) was completed and recorded on LEAP.
-  - An affected family member is the individual who is deemed to be affected by events occurring during a family incident.
-    - The other individual involved in a family incident is referred to as the ‘other party’.
-    - The other party could be a current partner, former partner, or a family member.
+- Changes in reported family violence incidents over time may reflect multiple factors, including changes in the prevalence of violence, awareness of family violence, willingness to report incidents, trust in police and support services, and access to culturally safe pathways for seeking help.
+
+- Reported incidents are therefore not a direct measure of the true prevalence of family violence. Caution should be exercised when interpreting trends over time, particularly given concerns that family violence remains substantially underreported within Aboriginal and/or Torres Strait Islander communities.
+
+**Key points from stakeholder consultation**
+
+- At stakeholder consultation for development of this report, participants noted that available family violence data are likely to underestimate the true extent of violence experienced by Aboriginal and/or Torres Strait Islander individuals and families and may not fully reflect experiences of family safety and wellbeing.
+
+- Stakeholders discussed how concerns about child protection involvement and child removal may influence decisions to seek help or report family violence. Previous experiences of [racism, discrimination, and negative interactions](https://safeandequal.org.au/working-in-family-violence/tailored-inclusive-support/aboriginal-and-torres-strait-islander-people/) with services were also identified as factors that may affect trust in service systems and reporting behaviours.
+
+- These factors can create [barriers to accessing support](https://www.aihw.gov.au/family-domestic-and-sexual-violence/population-groups/aboriginal-and-torres-strait-islander-people) and may contribute to underreporting of family violence, highlighting the importance of culturally safe, trauma-informed, and Aboriginal-led responses.
+
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- `r note_aboriginality_crime`
+
+<div style="height: 0.1em;"></div>
+
+- Family violence is not limited to physical violence and definitions can be found on the [Victoria Police website](https://www.police.vic.gov.au/what-is-family-violence).
+  - Family violence incidents were defined as those where a Victoria Police Risk Assessment and Risk Management Report (also known as an L17 form) was completed and recorded on LEAP.
+
+<div style="height: 0.1em;"></div>
+
+- An affected family member is the individual who is deemed to be affected by events occurring during a family incident.
+  - The other individual involved in a family incident is referred to as the ‘other party’.
+  - The other party could be a current partner, former partner, or a family member.
 
 :::
 

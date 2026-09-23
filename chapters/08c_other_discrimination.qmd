@@ -4,6 +4,8 @@ title-block: false
 
 # Racism and Discrimination
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,7 +24,7 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Racism and Discrimination {.unnumbered}
+## Racism and Discrimination {.unnumbered .unlisted}
 
 ::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
 `r note_chapter_different_sources`
@@ -41,8 +43,20 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 :::
 
 ::: {.key-question}
-What external factors influence health and wellbeing for Aboriginal and/or Torres Strait Islander people and families in the NEPHU catchment, including in supporting children and strong families?
+What community, cultural, and systemic factors influence the ability of Aboriginal and/or Torres Strait Islander people and families in the NEPHU catchment to thrive, exercise self-determination, and access culturally safe environments free from racism and discrimination?
 :::
+
+**Key points from stakeholder consultation**
+
+- Aboriginal and/or Torres Strait Islander peoples have maintained strong cultures, identities, languages, and connections to Community and Country despite the ongoing impacts of colonisation and racism. These strengths continue to support health, wellbeing, and resilience across generations.
+
+- Experiences of racism and discrimination are not a reflection of Aboriginal and/or Torres Strait Islander peoples or cultures. Rather, they arise from historical and contemporary systems and attitudes that continue to [create inequitable outcomes](https://www.aihw.gov.au/reports/indigenous-mental-health-suicide-prevention/racism-and-indigenous-wellbeing-mental-health-and/abstract) across many areas of life.
+
+- Understanding experiences of racism is important because racism can affect social and emotional wellbeing, participation in education and employment, access to healthcare and other services, and overall quality of life. While this section presents available data on racism and discrimination, it is important to recognise the [strength, leadership, and advocacy](https://aida.org.au/) of Aboriginal and/or Torres Strait Islander peoples in [driving change](https://www.lowitjajournal.org.au/article/S2949-8406(25)00031-2/fulltext) and advancing cultural safety, equity, and self-determination.
+
+- Racism is recognised as a [significant social determinant of health](https://www.racgp.org.au/clinical-resources/clinical-guidelines/key-racgp-guidelines/national-guide/health-impacts-of-racism) for Aboriginal and/or Torres Strait Islander peoples. Experiences of racism can affect social and emotional wellbeing, physical health, educational participation, employment opportunities, and access to services, including healthcare.
+
+- Racism can occur at interpersonal, institutional, and systemic levels. The cumulative impacts of racism may contribute to stress, reduced trust in services, and barriers to accessing care, which can in turn influence health and wellbeing outcomes.
 
 ## Experience of Racism
 
@@ -69,7 +83,7 @@ discrimination_prejudice <- readxl::read_excel(file.path(root_folder, subfolder_
 discrimination_prejudice <- discrimination_prejudice %>%
   dplyr::select(year,
                 indigenous_status,
-                unit = type,
+                unit,
                 vic) %>%
   #
   dplyr::mutate(
@@ -77,7 +91,7 @@ discrimination_prejudice <- discrimination_prejudice %>%
     #
     indigenous_label = dplyr::case_when(
       indigenous_status == "Aboriginal and Torres Strait Islander people" ~ "Aboriginal",
-      indigenous_status == "General community"                            ~ "Non-Indigenous",
+      indigenous_status == "Non-Indigenous people"                        ~ "Non-Indigenous",
       TRUE ~ NA_character_),
     #
     indigenous_status = factor(dplyr::case_when(
@@ -88,32 +102,44 @@ discrimination_prejudice <- discrimination_prejudice %>%
                  "Did not identify as Aboriginal\nand/or Torres Strait Islander")),
     #
     unit = dplyr::case_when(
-      unit == "Proportion (b)"             ~ "prop",
-      unit == "Number (weighted estimate)" ~ "n",
-      TRUE ~ NA_character_))
+      unit == "%"   ~ "prop",
+      unit == "no." ~ "n",
+      TRUE ~ NA_character_)) %>% 
+  #
+  dplyr::filter(!is.na(indigenous_label))
 ```
 
 - Data for this topic were obtained from the [Australian Reconciliation Barometer](https://www.reconciliation.org.au/reconciliation/australian-reconciliation-barometer/).
 
-- In 2022, 60% of Aboriginal and/or Torres Strait Islander survey respondents living in Victoria reported that they had personally experienced at least one form of racial prejudice during the previous six months. This had increased compared to 2018 (51%) but was lower than for 2020 (71%).
+- In 2024, 57% of Aboriginal and/or Torres Strait Islander survey respondents living in Victoria reported that they had personally experienced at least one form of racial prejudice during the previous six months. This had increased compared to 2018 (51%) but was lower than for 2020 (71%) and 2022 (60%).
 
-- The percentage of people who had experienced racial prejudice was higher for Aboriginal and/or Torres Strait Islander people than for non-Indigenous people at each time point.
+- The proportion reporting racial prejudice was consistently higher among Aboriginal and/or Torres Strait Islander respondents than non-Indigenous respondents across all reporting years. In 2024, Aboriginal and Torres Strait Islander respondents were more than twice as likely to report experiencing racial prejudice than non-Indigenous respondents (57% compared with 23%).
 
-::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
-- The following question was asked of all people completing the Australian Reconciliation Barometer surveys:
-  - Have you personally experienced any of these forms of prejudice in the past six months on the basis of your race? (Select all that apply)
-    - Verbal abuse
-    - Social media abuse (e.g. Facebook)
-    - Physical violence
-    - Prevented from renting or buying a property
-    - Refused service in a shop
-    - Refused entry to a venue
-    - Other
+**Key points from stakeholder consultation**
+
+- Experiences of racism occur at interpersonal, institutional, and systemic levels. While individual experiences of racism can directly affect wellbeing, broader forms of racism can also influence outcomes through policies, practices, and systems that create unequal access to opportunities, resources, and services.
+
+- Institutional and systemic racism may affect access to healthcare, education, housing, employment, and justice systems, and can contribute to ongoing inequities experienced by Aboriginal and/or Torres Strait Islander peoples. These experiences can reduce trust in services and create barriers to accessing support when needed.
+
+- These findings highlight the ongoing prevalence of racism experienced by Aboriginal and/or Torres Strait Islander peoples and demonstrate that racial prejudice remains a significant challenge despite ongoing efforts to advance reconciliation and equity.
+
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people completing the Australian Reconciliation Barometer survey.
 
 <div style="height: 0.1em;"></div>
 
-- Definitions and notes:
-  - `r note_aboriginality_reconciliation`
+- `r note_aboriginality_reconciliation`
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
+- Have you personally experienced any of these forms of prejudice in the past six months on the basis of your race? (*Select all that apply*)
+  - Verbal abuse
+  - Social media abuse (e.g. Facebook)
+  - Physical violence
+  - Prevented from renting or buying a property
+  - Refused service in a shop
+  - Refused entry to a venue
+  - Other
 
 :::
 
@@ -313,36 +339,53 @@ discimination_avoid <- discimination_avoid %>%
 
 - Males were more likely to have avoided situations due to previous experiences of unfair treatment than females (16% vs. 8.0%).
 
-::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
-- The following questions were asked of all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
-  - In the last 12 months, have you had any of the following experiences because you are Aboriginal and/or Torres Strait Islander? (Select all that apply)
-    - Called names, teased, or sworn at
-    - Heard racial comments or jokes
-    - Ignored or served last while accessing services or buying something
-    - Not trusted
-    - Unfairly arrested or charged
-    - Told are less intelligent
-    - Left out, refused entry, or told don’t belong
-    - Spat at or had something thrown at
-    - Any other experience that was unfair
-    - Have not had an unfair experience
-  - In the last 12 months, did you avoid any of these situations because you feel you have been treated unfairly in the past because you are Aboriginal and/or Torres Strait Islander? (Select all that apply)
-    - Applying for work or going to a job
-    - School, university, training course, or other educational setting
-    - Doing any sport, recreational, or leisure activities
-    - The police, security people, lawyers, or in a court of law
-    - Doctors, nurses, or other staff at hospitals or doctors' surgeries
-    - Looking for property to rent or buy
-    - When accessing government services
-    - Seeking any other services
-    - Members of the public
-    - Other situations
-    - Did not avoid any situation
+**Key points from stakeholder consultation**
+
+- Avoidance of situations due to [experiences of racism and discrimination](https://www.beyondblue.org.au/mental-health/first-nations-peoples/effects-of-racism-on-first-nation-peoples) may affect participation in healthcare, education, employment, social and community activities, and access to other important services. These experiences can contribute to reduced trust in institutions and create barriers to accessing support when needed.
+
+- Creating culturally safe, welcoming, and inclusive environments is an important part of [reducing barriers to participation](https://www.aihw.gov.au/reports/indigenous-australians/cultural-safety-health-care-framework/contents/summary) and supporting equitable access to services for Aboriginal and/or Torres Strait Islander peoples.
+
+- Despite ongoing experiences of racism and discrimination, Aboriginal and/or Torres Strait Islander peoples continue to draw strength from culture, family, Community, and connection to Country. These connections are important protective factors that support wellbeing, resilience, and positive health outcomes.
+
+- Aboriginal Community Controlled Organisations, cultural programs, community networks, and culturally safe services play an important role in supporting Aboriginal and/or Torres Strait Islander peoples to access care, maintain cultural identity, and strengthen community connections.
+
+- Initiatives that [promote cultural safety, address racism, and support self-determination](https://www.firstpeoplesrelations.vic.gov.au/victorian-government-aboriginal-affairs-report-2022) can help create environments where Aboriginal and/or Torres Strait Islander peoples feel respected, safe, and able to fully participate in health, education, employment, and community life.
+
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
 <div style="height: 0.1em;"></div>
 
-- Definitions and notes:
-  - `r note_aboriginality_natsihs`
+- `r note_aboriginality_natsihs`
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
+- In the last 12 months, have you had any of the following experiences because you are Aboriginal and/or Torres Strait Islander? (*Select all that apply*)
+  - Called names, teased, or sworn at
+  - Heard racial comments or jokes
+  - Ignored or served last while accessing services or buying something
+  - Not trusted
+  - Unfairly arrested or charged
+  - Told are less intelligent
+  - Left out, refused entry, or told don’t belong
+  - Spat at or had something thrown at
+  - Any other experience that was unfair
+  - Have not had an unfair experience
+
+<div style="height: 0.1em;"></div>
+
+- In the last 12 months, did you avoid any of these situations because you feel you have been treated unfairly in the past because you are Aboriginal and/or Torres Strait Islander? (*Select all that apply*)
+  - Applying for work or going to a job
+  - School, university, training course, or other educational setting
+  - Doing any sport, recreational, or leisure activities
+  - The police, security people, lawyers, or in a court of law
+  - Doctors, nurses, or other staff at hospitals or doctors' surgeries
+  - Looking for property to rent or buy
+  - When accessing government services
+  - Seeking any other services
+  - Members of the public
+  - Other situations
+  - Did not avoid any situation
 
 :::
 
