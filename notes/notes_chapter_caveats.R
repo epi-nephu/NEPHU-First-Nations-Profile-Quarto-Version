@@ -12,8 +12,8 @@ note_chapter_different_sources <- glue::glue("
 note_chapter_masking <- glue::glue("
 - Organisations that release publicly available data employ techniques to manage the risk of reidentification of individuals included in these datasets.
   - Commonly used techniques for masking of small numbers include:
-    - Suppression: all counts and percentages below a certain threshold, usually 5, are reported as <5. The actual value could be any number between 0 and 5.
-    - Pertubation: when counts or percentages below a certain threshold, usually 5, are present in a figure or table small, random adjustments are made to some or all of the values in the figure or table so that the overall totals remain accurate but individual values are masked.
+    - *Suppression*: all counts and percentages below a certain threshold, usually 5, are reported as less than 5 (<5). The actual value could be any number between 0 and 5.
+    - *Pertubation*: when counts or percentages below a certain threshold, usually 5, are present in a figure or table small, random adjustments are made to some or all of the values in the figure or table so that the overall totals remain accurate but individual values are masked.
   - For tables and figures where small numbers are reported, these small numbers should be interpreted with caution.
   - The column and/or row totals presented in a table or figure may not be equal to the sum of the values across the row or table.")
 

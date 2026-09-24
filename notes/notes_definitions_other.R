@@ -4,11 +4,11 @@
 ################################################################################
 # Commonly used response options
 ################################################################################
-note_response_binary <- "Dichotomous (Yes/No)"
+note_response_binary <- "Dichotomous (*Yes*/*No*)"
 
-note_response_likert_always        <- "Likert scale (Always/Sometimes/No)"
-note_response_likert_increased     <- "Likert scale (Increased/Stayed About The Same/Decreased)"
-note_response_likert_often         <- "Likert scale (Often/Sometimes/Never)"
+note_response_likert_always        <- "Likert scale (*Always*/*Sometimes*/*No*)"
+note_response_likert_increased     <- "Likert scale (*Increased*/*Stayed About The Same*/*Decreased*)"
+note_response_likert_often         <- "Likert scale (*Often*/*Sometimes*/*Never*)"
 
 note_response_likert_alltime       <- "5-point Likert scale (*All of the Time* to *None of the Time*)"
 note_response_likert_excellent     <- "5-point Likert scale (*Excellent* to *Poor*)"
