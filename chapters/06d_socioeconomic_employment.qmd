@@ -982,11 +982,11 @@ status_agesex <- status_agesex %>%
 
 <div style="height: 0.1em;"></div>
 
-- Employed people were defined as those who were employed full-time (35 hours or more per week), part-time (less than 35 hours per week), or on leave from work in the week prior to Census night.
+- *Employed people* were defined as those who were employed full-time (35 hours or more per week), part-time (less than 35 hours per week), or on leave from work in the week prior to Census night.
 
 <div style="height: 0.1em;"></div>
 
-- Unemployed people were defined as people who were not currently employed and were actively looking for work (either part-time or full-time) or people who were not part of the labour force.
+- *Unemployed people* were defined as people who were not currently employed and were actively looking for work (either part-time or full-time) or people who were not part of the labour force.
 :::
 
 ::: {.callout-tip title="Census questions for this topic" icon=false collapse=false}
@@ -1352,11 +1352,11 @@ status_working_sex <- status_working %>%
 
 <div style="height: 0.1em;"></div>
 
-- Employed people were defined as those who were employed full-time (35 hours or more per week), part-time (less than 35 hours per week), or on leave from work in the week prior to Census night.
+- *Employed people* were defined as those who were employed full-time (35 hours or more per week), part-time (less than 35 hours per week), or on leave from work in the week prior to Census night.
 
 <div style="height: 0.1em;"></div>
 
-- Unemployed people were defined as people who were not currently employed and were actively looking for work (either part-time or full-time) or people who were not part of the labour force.
+- *Unemployed people* were defined as people who were not currently employed and were actively looking for work (either part-time or full-time) or people who were not part of the labour force.
 :::
 
 ::: {.callout-tip title="Census questions for this topic" icon=false collapse=false}

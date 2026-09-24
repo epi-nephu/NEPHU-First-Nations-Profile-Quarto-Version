@@ -1070,7 +1070,7 @@ financial_foodsecurity <- financial_foodsecurity %>%
 
 <div style="height: 0.1em;"></div>
 
-  - In the last 12 months, how often were you or other people in your household not able to afford to eat healthy or nutritious meals?
+- In the last 12 months, how often were you or other people in your household not able to afford to eat healthy or nutritious meals?
   - `r note_response_likert_often`
 
 <div style="height: 0.1em;"></div>

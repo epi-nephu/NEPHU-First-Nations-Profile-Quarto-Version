@@ -167,7 +167,7 @@ language_specific <- language_specific %>%
   - Yes, Vietnamese
   - Yes, Italian
   - Yes, Greek
-  - Yes, other language (please specify)
+  - Yes, other language (*please specify*)
 
 :::
 
@@ -473,7 +473,7 @@ language_other <- language_other %>%
   - Yes, Vietnamese
   - Yes, Italian
   - Yes, Greek
-  - Yes, other language (please specify)
+  - Yes, other language (*please specify*)
 
 :::
 
@@ -642,7 +642,7 @@ english_agesex <- english_agesex %>%
   - Yes, Vietnamese
   - Yes, Italian
   - Yes, Greek
-  - Yes, other language (please specify)
+  - Yes, other language (*please specify*)
 
 <div style="height: 0.1em;"></div>
 
