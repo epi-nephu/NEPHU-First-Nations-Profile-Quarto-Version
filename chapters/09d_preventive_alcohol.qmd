@@ -4,6 +4,8 @@ title-block: false
 
 # Alcohol and Other Drugs
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,7 +24,7 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Alcohol and Other Drugs {.unnumbered}
+## Alcohol and Other Drugs {.unnumbered .unlisted}
 
 ::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
 `r note_chapter_underidentification`
@@ -148,61 +150,91 @@ alcohol_increase <- alcohol_increase %>%
 
 - Males were more likely to have decreased their alcohol consumption compared to the same time in the previous year than females (38% vs. 24%).
 
-::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
-- The following questions were asked of all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
-  - How long ago did you last drink alcohol?
-    - 7 days or less
-    - More than 7 days to less than 2 weeks
-    - 2 weeks to less than 1 month
-    - 1 month to less than 3 months
-    - 3 months to less than 12 months
-    - 12 months
-    - More than 12 months
-    - Never consumed alcohol
-  - On which days in the past week did you drink alcohol? (Select all that apply)
-    - Monday
-    - Tuesday
-    - Wednesday
-    - Thursday
-    - Friday
-    - Saturday
-    - Sunday
-    - None
-  - For each day in the past week when you drank alcohol, how many standard drinks of each of the following types of alcohol did you consume?
-    - Beer (cider, light beer, mid strength beer, full strength beer, unknown strength beer)
-    - Wine (white wine, red wine, low alcohol wine, champagne, sparkling wine)
-    - Pre-mixed or ready to drink cans or bottles
-    - Liqueurs, spirits, or fortified wines
-    - Cocktails
-    - Other alcoholic drinks
-  - How often did you drink any alcohol in the last 12 months?
-    - Every day
-    - 5 to 6 days a week
-    - 3 to 4 days a week
-    - 1 to 2 days a week
-    - 2 to 3 days a month
-    - About 1 day a month
-    - Less often than one day a month
-    - Never
-  - How often in the last 12 months have you had five or more standard alcoholic drinks in a day?
-    - Daily
-    - Numeric response (1-6) days per week
-    - Numeric response (1-30) days per month
-    - Numeric response (1-365) days per year
-    - Never
-  - Has the amount of alcohol that you usually drink increased, decreased, or stayed about the same since this time last year?
-    - `r note_response_likert_increased`
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
 <div style="height: 0.1em;"></div>
 
-- Definitions and notes:
-  - `r note_aboriginality_natsihs`
-  - Alcohol consumption was assessed using the [Australian Alcohol Guidelines 2020](https://www.health.gov.au/news/australian-alcohol-guidelines-revised).
-    - The Guidelines provide advice about the health risks of drinking alcohol to allow people to make informed decisions about alcohol consumption.
-    - The Guidelines recommend that people aged 18 years and under should not drink alcohol. In the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey, people aged 15 to 17 years were assessed against the Adult Guidelines to provide an estimate of the level of risk for this age group.
-  - People were considered to have exceeded the Guidelines if they had consumed:
-    - More than 10 standard drinks during the week prior to the survey and/or
-    - Five or more standard drinks on at least 12 days during the 12 months prior to the survey.
+- `r note_aboriginality_natsihs`
+
+<div style="height: 0.1em;"></div>
+
+- Alcohol consumption was assessed using the [Australian Alcohol Guidelines 2020](https://www.health.gov.au/news/australian-alcohol-guidelines-revised).
+  - The Guidelines provide advice about the health risks of drinking alcohol to allow people to make informed decisions about alcohol consumption.
+  - The Guidelines recommend that people aged 18 years and under should not drink alcohol. In the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey, people aged 15 to 17 years were assessed against the Adult Guidelines to provide an estimate of the level of risk for this age group.
+
+<div style="height: 0.1em;"></div>
+
+- People were considered to have exceeded the Guidelines if they had consumed:
+  - More than 10 standard drinks during the week prior to the survey and/or
+  - Five or more standard drinks on at least 12 days during the 12 months prior to the survey.
+
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
+- How long ago did you last drink alcohol?
+  - 7 days or less
+  - More than 7 days to less than 2 weeks
+  - 2 weeks to less than 1 month
+  - 1 month to less than 3 months
+  - 3 months to less than 12 months
+  - 12 months
+  - More than 12 months
+  - Never consumed alcohol
+
+<div style="height: 0.1em;"></div>
+
+- On which days in the past week did you drink alcohol? (*Select all that apply*)
+  - Monday
+  - Tuesday
+  - Wednesday
+  - Thursday
+  - Friday
+  - Saturday
+  - Sunday
+  - None
+
+<div style="height: 0.1em;"></div>
+
+- For each day in the past week when you drank alcohol, how many standard drinks of each of the following types of alcohol did you consume? (*Select all that apply*)
+  - Beer (cider, light beer, mid strength beer, full strength beer, unknown strength beer)
+    - Numeric response
+  - Wine (white wine, red wine, low alcohol wine, champagne, sparkling wine)
+    - Numeric response
+  - Pre-mixed or ready to drink cans or bottles
+    - Numeric response
+  - Liqueurs, spirits, or fortified wines
+    - Numeric response
+  - Cocktails
+    - Numeric response
+  - Other alcoholic drinks
+    - Numeric response
+  
+<div style="height: 0.1em;"></div>
+
+- How often did you drink any alcohol in the last 12 months?
+  - Every day
+  - 5 to 6 days a week
+  - 3 to 4 days a week
+  - 1 to 2 days a week
+  - 2 to 3 days a month
+  - About 1 day a month
+  - Less often than one day a month
+  - Never
+
+<div style="height: 0.1em;"></div>
+
+- How often in the last 12 months have you had five or more standard alcoholic drinks in a day?
+  - Daily
+  - Numeric response (1-6) days per week
+  - Numeric response (1-30) days per month
+  - Numeric response (1-365) days per year
+  - Never
+
+<div style="height: 0.1em;"></div>
+
+- Has the amount of alcohol that you usually drink increased, decreased, or stayed about the same since this time last year?
+  - `r note_response_likert_increased`
 
 :::
 
@@ -242,7 +274,8 @@ figure_percent <- alcohol_guidelines %>%
                     y_variable = prop,
                     x_angle    = 90)
 
-f_bar_grouped_combine(figure_number, figure_percent)
+f_bar_grouped_combine(figure_number, figure_percent,
+                      legend_offset = -0.3)
 ```
 
 
@@ -449,36 +482,59 @@ illicit_status <- illicit_status %>%
 
 - Males were more likely to have used substances for non-medical purposes than females (34% vs. 14%).
 
-::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
-- The following questions were asked of all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
-  - Have you used pain killers or analgesics when you were not sick or for non-medical purposes in the last 12 months?
-    - `r note_response_binary`
-  - Have you used tranquilisers or sleeping pills when you were not sick or for non-medical purposes in the last 12 months?
-    - `r note_response_binary`
-  - Have you used marijuana, hashish, or cannabis resin in the last 12 months?
-    - `r note_response_binary`
-  - Have you used methadone when you were not sick or for non-medical purposes in the last 12 months?
-    - `r note_response_binary`
-  - Have you sniffed petrol in the last 12 months?
-    - `r note_response_binary`
-  - Have you sniffed glue, solvents, paint thinners, aerosols, or anything else in the last 12 months?
-    - `r note_response_binary`
-  - Have you used kava in the last 12 months?
-    - `r note_response_binary`
-  - Have you used any of these in the last 12 months? (Select all that apply)
-    - Amphetamines, ice, or speed
-    - Heroin
-    - Cocaine
-    - LSD or synthetic hallucinogens
-    - Naturally occurring hallucinogens
-    - Ecstasy or designer drugs
-    - Other (please specify)
-    - None used in the last 12 months
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
 <div style="height: 0.1em;"></div>
 
-- Definitions and notes:
-  - `r note_aboriginality_natsihs`
+- `r note_aboriginality_natsihs`
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
+- Have you used pain killers or analgesics when you were not sick or for non-medical purposes in the last 12 months?
+  - `r note_response_binary`
+
+<div style="height: 0.1em;"></div>
+
+- Have you used tranquilisers or sleeping pills when you were not sick or for non-medical purposes in the last 12 months?
+  - `r note_response_binary`
+
+<div style="height: 0.1em;"></div>
+
+- Have you used marijuana, hashish, or cannabis resin in the last 12 months?
+  - `r note_response_binary`
+
+<div style="height: 0.1em;"></div>
+
+- Have you used methadone when you were not sick or for non-medical purposes in the last 12 months?
+  - `r note_response_binary`
+
+<div style="height: 0.1em;"></div>
+
+- Have you sniffed petrol in the last 12 months?
+  - `r note_response_binary`
+
+<div style="height: 0.1em;"></div>
+
+- Have you sniffed glue, solvents, paint thinners, aerosols, or anything else in the last 12 months?
+  - `r note_response_binary`
+
+<div style="height: 0.1em;"></div>
+
+- Have you used kava in the last 12 months?
+  - `r note_response_binary`
+
+<div style="height: 0.1em;"></div>
+
+- Have you used any of these in the last 12 months? (*Select all that apply*)
+  - Amphetamines, ice, or speed
+  - Heroin
+  - Cocaine
+  - LSD or synthetic hallucinogens
+  - Naturally occurring hallucinogens
+  - Ecstasy or designer drugs
+  - Other (*please specify*)
+  - None used in the last 12 months
 
 :::
 

@@ -4,6 +4,8 @@ title-block: false
 
 # Healthy Eating
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,7 +24,7 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Healthy Eating {.unnumbered}
+## Healthy Eating {.unnumbered .unlisted}
 
 ::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
 `r note_chapter_underidentification`
@@ -38,9 +40,15 @@ What health and wellbeing practices are Aboriginal and/or Torres Strait Islander
 
 **Key points from stakeholder consultation**
 
-- At stakeholder consultation during the development of this report the cost of living crisis was identified as a significant factor influencing these data, with concerns raised about vegetables being too expensive, while sugary drinks were relatively cheap.
+- Food plays an important role in the health, wellbeing, and cultural identity of Aboriginal and/or Torres Strait Islander peoples. For tens of thousands of years, Aboriginal and/or Torres Strait Islander communities maintained sophisticated food knowledge systems, including caring for Country, harvesting, sharing, and preparing foods that supported individual, family, and community wellbeing.
 
-- The data on sugary drinks was also likely to be an underestimation, with anecdotal reports of many people consuming them daily. In addition to being affordable, sugary drinks were seen as easily accessible enjoyment that is positive for wellbeing.
+- Food choices and eating patterns are influenced by a range of factors beyond individual preference, including affordability, food availability, housing, transport, time, cultural connections, and access to healthy food. 
+
+- At stakeholder consultation during the development of this report the cost of living crisis was identified as a significant factor influencing these data, with concerns raised about vegetables being too expensive, while sugary drinks were relatively cheap. Data relating to food security can be found in the [Income and Food Security section](06e_socioeconomic_income.qmd) of this report.
+
+- The data on sugary drinks presented in this report are likely to be an underestimation, with stakeholders providing anecdotal reports of many people consuming sugary drinks daily. In addition to being affordable, sugary drinks were seen as easily accessible enjoyment that is positive for wellbeing.
+
+- While this section presents information about dietary behaviours, it is important to recognise the strengths of Aboriginal and/or Torres Strait Islander families and communities in supporting food security, sharing food, maintaining cultural knowledge, and creating opportunities for healthy eating through community-led initiatives.
 
 - An example of a local program addressing access to fruit and vegetables is the [Foodshare program](https://www.barrbuninbeek.org/programs) run by Barrbunin Beek Aboriginal Gathering Place, which provides weekly boxes of fruit and vegetables for pick-up.
 
@@ -145,22 +153,34 @@ fruit_increase <- fruit_increase %>%
 
 - Males were more likely to have increased their fruit consumption compared to the same time in the previous year than females (22% vs. 14%).
 
-::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
-- The following questions were asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
-  - How many serves of fruit (including fresh, dried, frozen, and tinned) do you usually eat each day?
-    - Numeric response (1-20)
-  - Since this time last year, has the amount of fruit you usually consume increased, decreased, or stayed about the same?
-    - `r note_response_likert_increased`
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
 <div style="height: 0.1em;"></div>
 
-- Definitions and notes:
-  - `r note_aboriginality_natsihs`
-  - `r note_definition_survey_agegroups`
-  - Fruit consumption was assessed using the National Health and Medical Research Council’s [2013 Australian Dietary Guidelines](https://www.nhmrc.gov.au/adg).
-    - The Guidelines recommend a minimum number of daily serves based on a person’s age and sex.
-    - A serve of fruit is approximately 150 grams of fresh fruit or 30 grams of dried fruit.
-    - All drinks, beverages and juices were excluded.
+- `r note_aboriginality_natsihs`
+
+<div style="height: 0.1em;"></div>
+
+- `r note_definition_survey_agegroups`
+
+<div style="height: 0.1em;"></div>
+
+- Fruit consumption was assessed using the National Health and Medical Research Council’s [2013 Australian Dietary Guidelines](https://www.nhmrc.gov.au/adg).
+  - The Guidelines recommend a minimum number of daily serves based on a person’s age and sex.
+  - A serve of fruit is approximately 150 grams of fresh fruit or 30 grams of dried fruit.
+  - All drinks, beverages and juices were excluded.
+
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
+- How many serves of fruit (including fresh, dried, frozen, and tinned) do you usually eat each day?
+  - Numeric response (1-20)
+    
+<div style="height: 0.1em;"></div>   
+    
+- Since this time last year, has the amount of fruit you usually consume increased, decreased, or stayed about the same?
+  - `r note_response_likert_increased`
 
 :::
 
@@ -456,23 +476,35 @@ vege_increase <- vege_increase %>%
 
 - Males were more likely to have increased their vegetable consumption compared to the same time in the previous year than females (18% vs. 10%).
 
-::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
-- The following questions were asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
-  - How many serves of vegetables (including fresh, frozen, and tinned) do you usually eat each day?
-    - Numeric response (1-20)
-  - Since this time last year, has the amount of vegetables you usually consume increased, decreased, or stayed about the same?
-    - `r note_response_likert_increased`
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
 <div style="height: 0.1em;"></div>
 
-- Definitions and notes:
-  - `r note_aboriginality_natsihs`
-  - `r note_definition_survey_agegroups`
-  - Vegetable consumption was assessed using the National Health and Medical Research Council’s [2013 Australian Dietary Guidelines](https://www.nhmrc.gov.au/adg).
-    - The Guidelines recommend a minimum number of daily serves based on a person’s age and sex.
-    - A serve of vegetables is approximately half a cup of cooked vegetables (including legumes) or one cup of salad vegetables (equivalent to approximately 75 grams).
-    - Cooked vegetables, salad vegetables, tomatoes, and legumes were included.
-    - All drinks, beverages and juices were excluded.
+- `r note_aboriginality_natsihs`
+
+<div style="height: 0.1em;"></div>
+
+- `r note_definition_survey_agegroups`
+
+<div style="height: 0.1em;"></div>
+
+- Vegetable consumption was assessed using the National Health and Medical Research Council’s [2013 Australian Dietary Guidelines](https://www.nhmrc.gov.au/adg).
+  - The Guidelines recommend a minimum number of daily serves based on a person’s age and sex.
+  - A serve of vegetables is approximately half a cup of cooked vegetables (including legumes) or one cup of salad vegetables (equivalent to approximately 75 grams).
+  - Cooked vegetables, salad vegetables, tomatoes, and legumes were included.
+  - All drinks, beverages and juices were excluded.
+
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
+- How many serves of vegetables (including fresh, frozen, and tinned) do you usually eat each day?
+  - Numeric response (1-20)
+    
+<div style="height: 0.1em;"></div>   
+    
+- Since this time last year, has the amount of vegetables you usually consume increased, decreased, or stayed about the same?
+  - `r note_response_likert_increased`
 
 :::
 
@@ -766,17 +798,26 @@ sugar_daily <- sugar_daily %>%
 
 - Males were more likely to consume sugar sweetened drinks daily than females (30% vs. 13%).
 
-::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
-- The following question was asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
-  - On average, on how many days per week do you usually drink soft drink, cordials, sports drinks, or caffeinated energy drinks?
-    - Numeric response (0-7)
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
 <div style="height: 0.1em;"></div>
 
-- Definitions and notes:
-  - `r note_aboriginality_natsihs`
-  - `r note_definition_survey_agegroups`
-  - Alcoholic drinks, fruit juices, vegetable juices, flavoured milks, tea, and coffee were excluded.
+- `r note_aboriginality_natsihs`
+
+<div style="height: 0.1em;"></div>
+
+- `r note_definition_survey_agegroups`
+
+<div style="height: 0.1em;"></div>
+
+- Alcoholic drinks, fruit juices, vegetable juices, flavoured milks, tea, and coffee were excluded.
+
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
+- On average, on how many days per week do you usually drink soft drink, cordials, sports drinks, or caffeinated energy drinks?
+  - Numeric response (0-7)
 
 :::
 
@@ -939,7 +980,7 @@ table %>%
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
 
-## Artifically Sweetened Drinks Consumption
+## Artificially Sweetened Drinks Consumption
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -1040,17 +1081,26 @@ diet_daily <- diet_daily %>%
 
 - Females were more likely to consume artificially sweetened drinks daily than males (12% vs. 4.9%).
 
-::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
-- The following question was asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
-  - On average, on how many days per week do you usually drink diet soft drink, cordials, sports drinks, or caffeinated energy drinks? These are drinks that have artificial sweeteners (e.g. saccharin, aspartame, sucralose) added to them rather than sugar.
-    - Numeric response (0-7)
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
 <div style="height: 0.1em;"></div>
 
-- Definitions and notes:
-  - `r note_aboriginality_natsihs`
-  - `r note_definition_survey_agegroups`
-  - Fruit juices, vegetable juices, flavoured milks, tea, and coffee were excluded.
+- `r note_aboriginality_natsihs`
+
+<div style="height: 0.1em;"></div>
+
+- `r note_definition_survey_agegroups`
+
+<div style="height: 0.1em;"></div>
+
+- Fruit juices, vegetable juices, flavoured milks, tea, and coffee were excluded.
+
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
+- On average, on how many days per week do you usually drink diet soft drink, cordials, sports drinks, or caffeinated energy drinks? These are drinks that have artificial sweeteners (e.g. saccharin, aspartame, sucralose) added to them rather than sugar.
+  - Numeric response (0-7)
 
 :::
 

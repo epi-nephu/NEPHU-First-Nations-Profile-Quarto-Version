@@ -4,6 +4,8 @@ title-block: false
 
 # Tobacco and Vaping
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,7 +24,7 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Tobacco and Vaping {.unnumbered}
+## Tobacco and Vaping {.unnumbered .unlisted}
 
 ::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
 `r note_chapter_underidentification`
@@ -140,37 +142,64 @@ smoking_quit <- smoking_quit %>%
 
 - Males were more likely to have attempted to quit smoking in the previous 12 months than females (60% vs. 48%).
 
-::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
-- The following questions were asked of all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
-  - Do you currently smoke?
-    - `r note_response_binary`
-  - Have you ever smoked regularly, that is, at least once a day?
-    - `r note_response_binary`
-  - Have you ever: (Select all that apply)
-    - Chewed tobacco
-    - Smoked pipes
-    - Smoked cigars
-    - Smoked other tobacco products (excluding cigarettes)
-    - None of the above
-  - Have you smoked at least 100 cigarettes in your entire life?
-    - `r note_response_binary`
-  - Have you smoked pipes, cigars, or other tobacco products (excluding cigarettes) at least 20 times in your entire life?
-    - `r note_response_binary`
-  - Did you stop smoking regularly, that is, at least once a day, within the last 12 months?
-    - `r note_response_binary`
-  - In the last 12 months did you attempt to quit smoking?
-    - `r note_response_binary`
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
 <div style="height: 0.1em;"></div>
 
-- Definitions and notes:
-  - `r note_aboriginality_natsihs`
-  - *Smoking* includes the use of manufactured (packet) cigarettes, roll-your-own cigarettes, pipes, cigars, and other smoked tobacco products.
+- `r note_aboriginality_natsihs`
+
+<div style="height: 0.1em;"></div>
+
+- Smoking includes the use of manufactured (packet) cigarettes, roll-your-own cigarettes, pipes, cigars, and other smoked tobacco products.
   - Chewing tobacco and smoking of non-tobacco products (e.g. marijuana) were excluded.
-  - Smoking status was classified as:
-    - Current smoker: a person who reported they currently smoked cigarettes, pipes, cigars or other tobacco products.
-    - Former smoker: a person who reported they did not currently smoke but had either previously regularly smoked daily, smoked at least 100 cigarettes in their lifetime, or smoked pipes, cigars or other tobacco products at least 20 times in their lifetime.
-    - Non smoker: a person who reported they had never regularly smoked daily, smoked less than 100 cigarettes in their lifetime, and smoked pipes, cigars or other tobacco products less than 20 times in their lifetime. 
+
+<div style="height: 0.1em;"></div>
+
+- Smoking status was classified as:
+  - *Current smoker*: a person who reported they currently smoked cigarettes, pipes, cigars or other tobacco products.
+  - *Former smoker*: a person who reported they did not currently smoke but had either previously regularly smoked daily, smoked at least 100 cigarettes in their lifetime, or smoked pipes, cigars or other tobacco products at least 20 times in their lifetime.
+  - *Non smoker*: a person who reported they had never regularly smoked daily, smoked less than 100 cigarettes in their lifetime, and smoked pipes, cigars or other tobacco products less than 20 times in their lifetime.
+
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
+- Do you currently smoke?
+  - `r note_response_binary`
+
+<div style="height: 0.1em;"></div>
+
+- Have you ever smoked regularly, that is, at least once a day?
+  - `r note_response_binary`
+
+<div style="height: 0.1em;"></div>
+
+- Have you ever: (*Select all that apply*)
+  - Chewed tobacco
+  - Smoked pipes
+  - Smoked cigars
+  - Smoked other tobacco products (excluding cigarettes)
+  - None of the above
+
+<div style="height: 0.1em;"></div>
+
+- Have you smoked at least 100 cigarettes in your entire life?
+  - `r note_response_binary`
+
+<div style="height: 0.1em;"></div>
+
+- Have you smoked pipes, cigars, or other tobacco products (excluding cigarettes) at least 20 times in your entire life?
+  - `r note_response_binary`
+
+<div style="height: 0.1em;"></div>
+
+- Did you stop smoking regularly, that is, at least once a day, within the last 12 months?
+  - `r note_response_binary`
+
+<div style="height: 0.1em;"></div>
+
+- In the last 12 months did you attempt to quit smoking?
+  - `r note_response_binary`
 
 :::
 
@@ -432,19 +461,28 @@ vaping_current <- vaping_current %>%
 
 - It was also discussed how the prevalence of vaping may have in turn increased smoking as well. Although limited publicly available data are available, concerns were raised regarding high vaping rates among young people.
 
-::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
-- The following questions were asked of all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
-  - Have you ever used a vape or e-cigarette?
-    - `r note_response_binary`
-  - Do you currently vape or use an e-cigarette?
-    - `r note_response_binary`
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
 <div style="height: 0.1em;"></div>
 
-- Definitions and notes:
-  - `r note_aboriginality_natsihs`
-  - *Vaping* includes the use of either e-cigarettes or vaping devices containing nicotine, cannabis, cannabis/tobacco combinations, or non-nicotine products (e.g. menthol, other flavoured products).
-  - Devices that contain other illicit substances were excluded. 
+- `r note_aboriginality_natsihs`
+
+<div style="height: 0.1em;"></div>
+
+- Vaping includes the use of either e-cigarettes or vaping devices containing nicotine, cannabis, cannabis/tobacco combinations, or non-nicotine products (e.g. menthol, other flavoured products).
+  - Devices that contain other illicit substances were excluded.
+
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
+- Have you ever used a vape or e-cigarette?
+  - `r note_response_binary`
+  
+<div style="height: 0.1em;"></div>
+
+- Do you currently vape or use an e-cigarette?
+  - `r note_response_binary`
 
 :::
 

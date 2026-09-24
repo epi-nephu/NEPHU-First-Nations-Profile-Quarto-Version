@@ -4,6 +4,8 @@ title-block: false
 
 # Physical Activity
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,7 +24,7 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Physical Activity {.unnumbered}
+## Physical Activity {.unnumbered .unlisted}
 
 ::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
 `r note_chapter_different_sources`
@@ -171,34 +173,46 @@ activity_type <- activity_type %>%
 
 - At stakeholder consultation during the development of this report, it was noted that only a small percentage of people were not engaging in any activity at all. This was thought to be due to a strong culture of community participation in sport, such as regular sporting carnivals.
 
-- Of particular note within the NEPHU catchment was the [Fitzroy Stars Football and Netball Club](https://aal.org.au/the-fitzroy-stars-football-netball-club-fsfnc/), a community based organization that utilises sport to engage the local Aboriginal community. Participation in this club, and in sport more broadly, was discussed as providing not only health benefits but also social and cultural benefits.
+- Of particular note within the NEPHU catchment is the [Fitzroy Stars Football and Netball Club](https://aal.org.au/the-fitzroy-stars-football-netball-club-fsfnc/), a community based organization that utilises sport to engage the local Aboriginal community. Participation in this club, and in sport more broadly, was discussed as providing not only health benefits but also social and cultural benefits.
 
 - Competing priorities such as carer responsibilities were discussed as a contributing factor for people who were not engaging in physical activity.
 
-::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
-- The following questions were asked of all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
-  - What types of physical activity did you do last week?
-    - Walking continuously for ten minutes or more
-    - Moderate activity
-    - Vigorous activity
-    - None of the above
-  - What types of walking, moderate, or vigorous activity did you do continuously for ten minutes or more last week? (select all that apply)
-    - Walking for exercise, recreation, or sport
-    - Walking to get to places
-    - Moderate activity for exercise
-    - Moderate activity while working
-    - Vigorous activity for exercise
-    - Vigorous activity while working
-  - Did you do any strength and toning activities last week?
-    - `r note_response_binary`
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
 <div style="height: 0.1em;"></div>
 
-- Definitions and notes:
-  - `r note_aboriginality_natsihs`
-  - Physical activity was assessed using the [2014 Australian Physical Activity and Sedentary Behaviour Guidelines](https://www.health.gov.au/topics/physical-activity-and-exercise/physical-activity-and-exercise-guidelines-for-all-australians).
-    - The Guidelines recommend a minimum level of physical activity during the week based on age and the types of activity undertaken. 
-    - The moderate and vigorous intensity categories include physical activity undertaken both at work and outside of work.
+- `r note_aboriginality_natsihs`
+
+<div style="height: 0.1em;"></div>
+
+- Physical activity was assessed using the [2014 Australian Physical Activity and Sedentary Behaviour Guidelines](https://www.health.gov.au/topics/physical-activity-and-exercise/physical-activity-and-exercise-guidelines-for-all-australians).
+  - The Guidelines recommend a minimum level of physical activity during the week based on age and the types of activity undertaken. 
+  - The moderate and vigorous intensity categories include physical activity undertaken both at work and outside of work.
+
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
+- What types of physical activity did you do last week? (*Select all that apply*)
+  - Walking continuously for ten minutes or more
+  - Moderate activity
+  - Vigorous activity
+  - None of the above
+
+<div style="height: 0.1em;"></div>
+
+- What types of walking, moderate, or vigorous activity did you do continuously for ten minutes or more last week? (*Select all that apply*)
+  - Walking for exercise, recreation, or sport
+  - Walking to get to places
+  - Moderate activity for exercise
+  - Moderate activity while working
+  - Vigorous activity for exercise
+  - Vigorous activity while working
+
+<div style="height: 0.1em;"></div>
+
+- Did you do any strength and toning activities last week?
+  - `r note_response_binary`
 
 :::
 
@@ -465,9 +479,20 @@ transport_agesex <- transport_agesex %>%
 
 - Younger people were more likely to use an active mode of transport or public transport.
 
-::: {.callout-tip title="Census questions and definitions for this topic" icon=false collapse=false}
-- The following question was asked of all people aged 15 years and over completing the ABS Census 2021:
-  - How did the person get to work on Tuesday 10 August 2021? (Select all that apply)
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people aged 15 years and over completing the ABS Census 2021.
+
+<div style="height: 0.1em;"></div>
+
+- `r note_aboriginality_census`
+
+<div style="height: 0.1em;"></div>
+
+- In cases where the combination of responses contained *Did not go to work*, *Worked at home*, or *Walked only*, then these unique responses override any others.
+:::
+
+::: {.callout-tip title="Census questions for this topic" icon=false collapse=false}
+- How did the person get to work on Tuesday 10 August 2021? (*Select all that apply*)
     - Train
     - Bus
     - Ferry
@@ -479,15 +504,9 @@ transport_agesex <- transport_agesex %>%
     - Motorbike or motor scooter
     - Bicycle
     - Walked only
-    - Other (please specify)
+    - Other (*please specify*)
     - Worked at home
     - Did not go to work
-
-<div style="height: 0.1em;"></div>
-
-- Definitions and notes:
-  - `r note_aboriginality_census`
-  - In cases where the combination of responses contained ‘Did not go to work’, ‘Worked at home’, or ‘Walked only’, then these unique responses override any others.
 
 :::
 
