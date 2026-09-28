@@ -4,6 +4,8 @@ title-block: false
 
 # Vaccination
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,7 +24,7 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Vaccination {.unnumbered}
+## Vaccination {.unnumbered .unlisted}
 
 ::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
 `r note_chapter_different_sources`
@@ -161,37 +163,48 @@ childhood_year5 <- childhood_year5 %>%
 
 - Data for this topic were obtained from the [AIHW Aboriginal and Torres Strait Islander Health Performance Framework](https://www.indigenoushpf.gov.au/), compiled from the [Australian Immunisation Register (AIR)](https://www.servicesaustralia.gov.au/australian-immunisation-register).
 
-- 92% of Aboriginal and/or Torres Strait Islander children living in Victoria were fully immunised at 1 year of age, compared to 94% of non-Indigenous children.
+- 92% of Aboriginal and/or Torres Strait Islander children living in Victoria during 2022 were fully immunised at 1 year of age, compared to 94% of non-Indigenous children.
 
-- 90% of Aboriginal and/or Torres Strait Islander children living in Victoria were fully immunised at 2 years of age, compared to 93% of non-Indigenous children.
+- 90% of Aboriginal and/or Torres Strait Islander children living in Victoria during 2022 were fully immunised at 2 years of age, compared to 93% of non-Indigenous children.
 
-- 96% of Aboriginal and/or Torres Strait Islander children living in Victoria were fully immunised at 5 years of age, compared to 95% of non-Indigenous children.
+- 96% of Aboriginal and/or Torres Strait Islander children living in Victoria during 2022 were fully immunised at 5 years of age, compared to 95% of non-Indigenous children.
 
-::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-- Definitions and notes:
-  - `r note_aboriginality_air`
-  - The aspirational national target for vaccination coverage is for 95% of children to be fully immunised at each age point (1 year, 2 years, and 5 years).
-    - The 1 year milestone is assessed for children aged 12-15 months at the time of reporting.
-    - The 2 year milestone is assessed for children aged 24-27 months at the time of reporting.
-    - The 5 year milestone is assessed for children aged 60-63 months at the time of reporting.
-  - Children fully immunised for age at 1 year have received all of the following vaccines (due at 6 months of age):
-    - [Diphtheria](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/diphtheria), [tetanus](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/tetanus), and [pertussis](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/pertussis-whooping-cough) (DTP)
-    - [Hepatitis B](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/hepatitis-b)
-    - [Haemophilus influenzae type B](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/haemophilus-influenzae-type-b-hib) (HiB)
-    - [Pneumococcal disease](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/pneumococcal-disease)
-    - [Poliomyelitis](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/poliomyelitis)
-  - Children fully immunised for age at 2 years have received all of the 1-year vaccines listed above, as well as all of the following vaccines (due at 12 and 18 months of age):
-    - [Diphtheria](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/diphtheria), [tetanus](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/tetanus), and [pertussis](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/pertussis-whooping-cough) (DTP)
-    - [Hepatitis B](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/hepatitis-b)
-    - [Haemophilus influenzae type B](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/haemophilus-influenzae-type-b-hib) (HiB)
-    - [Meningococcal C](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/meningococcal-disease) (Men C)
-    - [Measles](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/measles), [mumps](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/mumps), and [rubella](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/rubella) (MMR)
-    - [Pneumococcal disease](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/pneumococcal-disease)
-    - [Poliomyelitis](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/poliomyelitis)
-    - [Varicella zoster](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/varicella-chickenpox)
-  - Children fully immunised for age at 5 years have received all of the following vaccines, due at 48 months of age:
-    - [Diphtheria](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/diphtheria), [tetanus](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/tetanus), and [pertussis](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/pertussis-whooping-cough) (DTP)
-    - [Poliomyelitis](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/poliomyelitis)
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- `r note_aboriginality_air`
+
+<div style="height: 0.1em;"></div>
+
+- The [aspirational national target](https://www.cdc.gov.au/resources/publications/national-immunisation-strategy-australia-2025-2030) for vaccination coverage is for 95% of children to be fully immunised at each age point (1 year, 2 years, and 5 years):
+  - The 1-year milestone is assessed for children aged 12-15 months at the time of reporting
+  - The 2-year milestone is assessed for children aged 24-27 months at the time of reporting
+  - The 5-year milestone is assessed for children aged 60-63 months at the time of reporting
+
+<div style="height: 0.1em;"></div>
+
+- Children fully immunised for age at 1 year have received all of the following vaccines (due at 6 months of age):
+  - [Diphtheria](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/diphtheria), [tetanus](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/tetanus), and [pertussis](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/pertussis-whooping-cough) (DTP)
+  - [Hepatitis B](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/hepatitis-b)
+  - [Haemophilus influenzae type B](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/haemophilus-influenzae-type-b-hib) (HiB)
+  - [Pneumococcal disease](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/pneumococcal-disease)
+  - [Poliomyelitis](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/poliomyelitis)
+
+<div style="height: 0.1em;"></div>
+
+- Children fully immunised for age at 2 years have received all of the 1-year vaccines listed above, as well as all of the following vaccines (due at 12 and 18 months of age):
+  - [Diphtheria](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/diphtheria), [tetanus](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/tetanus), and [pertussis](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/pertussis-whooping-cough) (DTP)
+  - [Hepatitis B](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/hepatitis-b)
+  - [Haemophilus influenzae type B](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/haemophilus-influenzae-type-b-hib) (HiB)
+  - [Meningococcal C](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/meningococcal-disease) (Men C)
+  - [Measles](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/measles), [mumps](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/mumps), and [rubella](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/rubella) (MMR)
+  - [Pneumococcal disease](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/pneumococcal-disease)
+  - [Poliomyelitis](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/poliomyelitis)
+  - [Varicella zoster](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/varicella-chickenpox)
+
+<div style="height: 0.1em;"></div>
+
+- Children fully immunised for age at 5 years have received all of the following vaccines, due at 48 months of age:
+  - [Diphtheria](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/diphtheria), [tetanus](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/tetanus), and [pertussis](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/pertussis-whooping-cough) (DTP)
+  - [Poliomyelitis](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/poliomyelitis)
 
 :::
 
@@ -446,7 +459,7 @@ table %>%
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
 
-## Adolescent Vaccination for HPV
+## Adolescent Vaccination for Human Papillomavirus (HPV)
 
 ```{r}
 # ---------------------------------------------------------------------------------
@@ -497,15 +510,16 @@ adolescent <- adolescent %>%
 
 - Data for this topic were obtained from the [AIHW Aboriginal and Torres Strait Islander Health Performance Framework](https://www.indigenoushpf.gov.au/), compiled from the [Australian Immunisation Register (AIR)](https://www.servicesaustralia.gov.au/australian-immunisation-register).
 
-- 83% of Aboriginal and/or Torres Strait Islander adolescent females living in Victoria had received at least one HPV vaccine dose before their 15th birthday, compared to 87% of non-Indigenous adolescent females.
+- 83% of Aboriginal and/or Torres Strait Islander adolescent females living in Victoria during 2022 had received at least one human papillomavirus (HPV) vaccine dose before their 15th birthday, compared to 87% of non-Indigenous adolescent females.
 
-- 79% of Aboriginal and/or Torres Strait Islander adolescent males living in Victoria had received at least one HPV vaccine dose before their 15th birthday, compared to 84% of non-Indigenous adolescent males.
+- 79% of Aboriginal and/or Torres Strait Islander adolescent males living in Victoria during 2022 had received at least one HPV vaccine dose before their 15th birthday, compared to 84% of non-Indigenous adolescent males.
 
-::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-- Definitions and notes:
-  - `r note_aboriginality_air`
-  - The first dose of [HPV vaccination](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/human-papillomavirus-hpv) is offered through school immunisation programs in Year 7 (ages 12-13 years).
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- `r note_aboriginality_air`
 
+<div style="height: 0.1em;"></div>
+
+- The first dose of [human papillomavirus (HPV) vaccination](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/human-papillomavirus-hpv) is offered through school immunisation programs in Year 7 (ages 12-13 years).
 :::
 
 :::: {.panel-tabset}
@@ -685,23 +699,40 @@ adult_pneumo <- adult_pneumo %>%
 
 - Males were more likely to have received a pneumococcal vaccine in the last 5 years than females (17% vs. 5.5%).
 
-::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
-- The following questions were asked of all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
-  - Have you ever had a flu shot?
-    - `r note_response_binary`
-  - Did you have a flu shot in the last 12 months?
-    - `r note_response_binary`
-  - Have you ever had a pneumonia shot?
-    - `r note_response_binary`
-  - Did you have a pneumonia shot in the last five years?
-    - `r note_response_binary`
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people aged 15 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
 
 <div style="height: 0.1em;"></div>
 
-- Definitions and notes:
-  - `r note_aboriginality_natsihs`
-  - [Annual influenza vaccination](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/influenza-flu) is recommended and free for all Aboriginal and/or Torres Strait Islander people [aged 6 months and over](https://www.health.gov.au/topics/immunisation/when-to-get-vaccinated/immunisation-for-aboriginal-and-torres-strait-islander-people).
-  - [Pneumococcal vaccination](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/pneumococcal-disease) is recommended and free for all Aboriginal and/or Torres Strait Islander people [aged 50 years and over](https://www.health.gov.au/topics/immunisation/when-to-get-vaccinated/immunisation-for-aboriginal-and-torres-strait-islander-people).
+- `r note_aboriginality_natsihs`
+
+<div style="height: 0.1em;"></div>
+
+- [Annual influenza vaccination](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/influenza-flu) is recommended and free for all Aboriginal and/or Torres Strait Islander people [aged 6 months and over](https://www.health.gov.au/topics/immunisation/when-to-get-vaccinated/immunisation-for-aboriginal-and-torres-strait-islander-people).
+
+<div style="height: 0.1em;"></div>
+
+- [Pneumococcal vaccination](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/pneumococcal-disease) is recommended and free for all Aboriginal and/or Torres Strait Islander people [aged 50 years and over](https://www.health.gov.au/topics/immunisation/when-to-get-vaccinated/immunisation-for-aboriginal-and-torres-strait-islander-people).
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
+- Have you ever had a flu shot?
+  - `r note_response_binary`
+
+<div style="height: 0.1em;"></div>
+
+- Did you have a flu shot in the last 12 months?
+  - `r note_response_binary`
+
+<div style="height: 0.1em;"></div>
+
+- Have you ever had a pneumonia shot?
+  - `r note_response_binary`
+
+<div style="height: 0.1em;"></div>
+
+- Did you have a pneumonia shot in the last five years?
+  - `r note_response_binary`
 
 :::
 

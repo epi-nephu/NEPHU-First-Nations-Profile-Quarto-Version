@@ -4,6 +4,8 @@ title-block: false
 
 # Cancer Screening
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,9 +24,13 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Cancer Screening {.unnumbered}
+## Cancer Screening {.unnumbered .unlisted}
 
 ::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
+`r note_chapter_different_sources`
+
+<div style="height: 0.1em;"></div>
+
 `r note_chapter_comparisons`
 
 <div style="height: 0.1em;"></div>
@@ -96,13 +102,13 @@ breast_year <- breast_year %>%
 breast_age <- f_read_hpf("304-Early-detection.xlsx",
                          data_sheet    = "D3.04.9",
                          skip_rows     = 1,
-                         row_select    = c(3:13, 15:22),
+                         row_select    = c(3:7, 15, 18:22, 30),
                          column_select = c(age_group = "age_group_years",
                                            prop      = "vic")) %>% 
   #
   dplyr::mutate(indigenous_status = dplyr::case_when(
-    row_number() %in% 1:11  ~ "aboriginal",
-    row_number() %in% 12:19 ~ "non_aboriginal",
+    row_number() %in% 1:6  ~ "aboriginal",
+    row_number() %in% 7:12 ~ "non_aboriginal",
     TRUE ~ NA_character_))
 
 # Data wrangling
@@ -126,26 +132,28 @@ breast_age <- breast_age %>%
                                         age_group == "60–69" ~ "60-69 yrs",
                                         age_group == "70–74" ~ "70-74 yrs",
                                         age_group == "75+"   ~ "75+ yrs",
-                                        age_group == "50–74 years (age-standardised rate)(d)" ~ "Total (50-74 yrs)",
-                                        TRUE ~ age_group))) %>%
-  #
-  dplyr::filter(!str_detect(age_group, "rate"))
+                                        age_group == "50–74 years(d)" ~ "Total (50-74 yrs)",
+                                        TRUE ~ age_group)))
 ```
 
-- Data for this topic were obtained from [Victorian Cancer Screening Framework](https://acpcc.org.au/services/population-health/) and the [AIHW Aboriginal and Torres Strait Islander Health Performance Framework](https://www.indigenoushpf.gov.au/), compiled from [BreastScreen Australia](https://www.breastscreen.org.au/).
+- Data for this topic were obtained from [Victorian Cancer Screening Framework (VCSF)](https://acpcc.org.au/services/population-health/) and the [AIHW Aboriginal and Torres Strait Islander Health Performance Framework](https://www.indigenoushpf.gov.au/), compiled from [BreastScreen Australia](https://www.breastscreen.org.au/).
 
 - Participation in breast screening for eligible Aboriginal and/or Torres Strait Islander women aged 50-74 years in Victoria increased from 32% in 2015-2017 to 37% in 2021-2023. Participation was lower than for non-Indigenous women at each time period.
 
-- 33% of Aboriginal and/or Torres Strait Islander women aged 50-74 years living in Victoria participated in breast screening during 2019-2020, compared to 46% of non-Indigenous women.
+- 34% of Aboriginal and/or Torres Strait Islander women aged 50-74 years living in Victoria participated in breast screening during 2022-2023, compared to 49% of non-Indigenous women.
 
-- Participation of Aboriginal and/or Torres Strait Islander women in breast screening was highest for the 60-69 year (35%) and 70-74 year (36%) age groups.
+- Participation of Aboriginal and/or Torres Strait Islander women in breast screening during 2022-2023 was highest for the 70-74 year (37%) and 60-69 year (34%) age groups.
 
-::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-- Definitions and notes:
-  - `r note_aboriginality_breast`
-  - Although screening is recommended for women and trans and gender diverse people every two years from the age of 50-74 years, as a priority group in the community, it is recommended that Aboriginal and/or Torres Strait Islander women commence breast screening every two years [from the age of 40 years](https://bsv.sfo2.cdn.digitaloceanspaces.com/public/Documents/BSV_Client-Resource-Fact-Sheet-for-Aboriginal-and-Torres-Strait-Islander-Women-Nov2024_V3.pdf).
-  - Breast screening that occurs outside of the BreastScreen Victoria program (e.g. private mammography) will not be captured by these data.
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- `r note_aboriginality_breast`
 
+<div style="height: 0.1em;"></div>
+
+- Although screening is recommended for women and trans and gender diverse people every two years from the age of 50-74 years, as a priority group in the community, it is recommended that Aboriginal and/or Torres Strait Islander women commence breast screening every two years [from the age of 40 years](https://bsv.sfo2.cdn.digitaloceanspaces.com/public/Documents/BSV_Client-Resource-Fact-Sheet-for-Aboriginal-and-Torres-Strait-Islander-Women-Nov2024_V3.pdf).
+
+<div style="height: 0.1em;"></div>
+
+- Breast screening that occurs outside of the BreastScreen Victoria program (e.g. private mammography) will not be captured by these data.
 :::
 
 :::: {.panel-tabset}
@@ -306,8 +314,8 @@ table %>%
 
 - Figure 9G-2 and Table 9G-2:
   - Indicator: Breast screening participation
-  - Numerator: Number of women aged 40-74 years screened by BreastScreen Victoria during January 2019 to December 2020
-  - Denominator: [Estimated total number of women](https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071) aged 40-74 years, based on the average of the 2019 and 2020 [ABS resident population projections](https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071)
+  - Numerator: Number of women aged 40-74 years screened by BreastScreen Victoria during January 2022 to December 2023
+  - Denominator: [Estimated total number of women](https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071) aged 40-74 years, based on the average of the 2022 and 2023 [ABS resident population projections](https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071)
   - Geographical area: `r note_geography_victoria`
   - Comparison: `r note_comparison_age` and `r note_comparison_aboriginal`
 
@@ -341,39 +349,47 @@ cervical_year <- f_read_vcsf("Cervical Screening Participation (2017-2021) - Cel
                                                participation_year5 = "participation_13"))
 ```
 
-- Data for this topic were obtained from [Victorian Cancer Screening Framework](https://acpcc.org.au/services/population-health/), compiled from the [National Cancer Screening Register](https://www.ncsr.gov.au/).
+- Data for this topic were obtained from [Victorian Cancer Screening Framework (VCSF)](https://acpcc.org.au/services/population-health/), compiled from the [National Cancer Screening Register (NCSR)](https://www.ncsr.gov.au/).
+
+<div style="height: 0.1em;"></div>
+
+- During the five-year period 2017-2021 68% of Victorian Aboriginal and/or Torres Strait Islander women and people with a cervix aged 25-74 years had at least one cervical screening test (human papillomavirus (HPV) test or cervical cytology), compared to 72% of all women and people with a cervix aged 25-74 years living in Victoria.
+
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Aboriginal and/or Torres Strait Islander peoples were defined using the Indigenous Status Ever Identified field which indicates if a screening participant has ever indicated that they were Aboriginal, Torres Strait Islander, or Aboriginal and Torres Strait Islander at the time of cervical screening.
 
 <div style="height: 0.1em;"></div>
 
 - A cervical screening test is [recommended every five years](https://www.health.gov.au/our-work/national-cervical-screening-program) for all women and people with a cervix from 25-74 years of age.
+:::
 
-<div style="height: 0.1em;"></div>
-
-- During the five-year period 2017-2021 68% of Victorian Aboriginal and/or Torres Strait Islander women and people with a cervix aged 25-74 years had at least one cervical screening test (human papillomavirus test or cervical cytology), compared to 72% of all women and people with a cervix aged 25-74 years living in Victoria.
-
-<div style="height: 0.1em;"></div>
-
-- Data from the [National Cancer Screening Register (NCSR)](https://www.ncsr.gov.au/) Victorian Raw Data Extract (September 2022) was provided by the Australian Centre for the Prevention of Cervical Cancer (ACPCC) on behalf of the [Victorian Cancer Screening Framework (VCSF)](https://acpcc.org.au/services/population-health/).
+::: {.callout-note title="Data notes" icon=false collapse=false}
+- Data from the [National Cancer Screening Register (NCSR)](https://www.ncsr.gov.au/) Victorian Raw Data Extract (September 2022) were provided by the Australian Centre for the Prevention of Cervical Cancer (ACPCC) on behalf of the [Victorian Cancer Screening Framework (VCSF)](https://acpcc.org.au/services/population-health/).
   - The NCSR is Australia's digital platform which supports the implementation of cervical and bowel screening including invitation of eligible participants and storing results of relevant screening and follow-up diagnostic tests. 
   - The VCSF is a funding and governance model that guides delivery and investment of cancer screening initiatives in Victoria, Australia and is funded by the Victorian Department of Health.
 
 <div style="height: 0.1em;"></div>
 
-- Aboriginal and/or Torres Strait Islander peoples were defined using the Indigenous Status Ever Identified field which indicates if a screening participant has ever indicated that they were Aboriginal, Torres Strait Islander, or Aboriginal and Torres Strait Islander at the time of cervical screening.
-  - Cancer screening data disaggregated by Aboriginal and/or Torres Strait Islander status are not currently publicly available and were provided through the [VCSF Data Access and Release Procedure](https://acpcc.org.au/services/population-health/data-requests/).
-  - Due to data quality issues and Indigenous Data Sovereignty/Indigenous Data Governance requirements, the Indigenous data in the VCSF screening program reports are quite dated.  
-    - Cervical screening participation data were released in October 2022. 
-    - Users of the data should exercise caution when interpreting these data for future planning purposes.  
+- Cancer screening data disaggregated by Aboriginal and/or Torres Strait Islander status are not currently publicly available and were provided through the [VCSF Data Access and Release Procedure](https://acpcc.org.au/services/population-health/data-requests/).
 
 <div style="height: 0.1em;"></div>
 
-- Cervical screening coverage was calculated as follows:
-  - Numerator: Number of participants aged 25-74 years who had at least one human papillomavirus test or cytology test for any reason in Victoria in the five-year reporting period.
-  - Denominator: Average of Australian Bureau of Statistics (ABS) [Estimated Resident Population (ERP)](https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071) over five-year reporting periods, adjusted for the number of women who have had a hysterectomy (hysterectomy fraction) and active [Compass trial](https://acpcc.org.au/compass/) participants in Victoria. 
+- Due to data quality issues and Indigenous Data Sovereignty/Indigenous Data Governance requirements, the Indigenous data in the VCSF screening program reports are quite dated.  
+  - Cervical screening participation data were released in October 2022. 
+  - Users of the data should exercise caution when interpreting these data for future planning purposes. 
+
+<div style="height: 0.1em;"></div>
+
+- Indicator: Cervical screening coverage
+  - Numerator: Number of participants aged 25-74 years who had at least one human papillomavirus test or cytology test for any reason during the five-year reporting period.
+  - Denominator: Average of Australian Bureau of Statistics (ABS) [Estimated Resident Population (ERP)](https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071) over five-year reporting periods, adjusted for the number of women who have had a hysterectomy (hysterectomy fraction) and active [Compass trial](https://acpcc.org.au/compass/) participants
+  - Geographical area: `r note_geography_victoria`
+  - Comparison: `r note_comparison_aboriginal`
 
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_pandemic_screening`
+:::
 
 ```{r}
 #| out-width: "100%"
@@ -430,18 +446,23 @@ bowel_year <- bowel_year %>%
   dplyr::arrange(period)
 ```
 
-- Data for this topic were obtained from [Victorian Cancer Screening Framework](https://acpcc.org.au/services/population-health/), compiled from the [National Cancer Screening Register](https://www.ncsr.gov.au/).
+- Data for this topic were obtained from [Victorian Cancer Screening Framework (VCSF)](https://acpcc.org.au/services/population-health/), compiled from the [National Cancer Screening Register (NCSR)](https://www.ncsr.gov.au/).
 
 - Participation in bowel screening increased for invited Aboriginal and/or Torres Strait Islander people aged 50-74 years from 23% in 2016-2017 to 37% in 2018-2019. Participation was lower than for all people aged 50-74 years at each time period.
 
-::: {.callout-tip title="Definitions for this topic" icon=false collapse=false}
-- Definitions and notes:
-  - `r note_aboriginality_bowel`
-    - Due to an increase in the number of participants with Indigenous Status Ever Identified when compared with earlier ad-hoc data requests the verification of Indigenous data accuracy is ongoing.
-  - All eligible people are [invited to participate in bowel screening](https://www.health.gov.au/our-work/national-bowel-cancer-screening-program/about-the-national-bowel-cancer-screening-program) every two years from 45-74 years of age.
-    - Faecal occult blood test kits (bowel screening kits) are free and mailed out to eligible participants from 50-74 years of age.
-    - People aged 45-49 years are able to request a free bowel screening kit through their usual healthcare provider.
-    - Bowel cancer screening activities (e.g. colonoscopy) may also occur outside of the scope of the national screening program and this may affect bowel cancer screening participation.
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- `r note_aboriginality_bowel`
+
+<div style="height: 0.1em;"></div>
+
+- Due to an increase in the number of participants with Indigenous Status Ever Identified when compared with earlier ad-hoc data requests the verification of Indigenous data accuracy is ongoing.
+
+<div style="height: 0.1em;"></div>
+
+- All eligible people are [invited to participate in bowel screening](https://www.health.gov.au/our-work/national-bowel-cancer-screening-program/about-the-national-bowel-cancer-screening-program) every two years from 45-74 years of age.
+  - Faecal occult blood test kits (bowel screening kits) are free and mailed out to eligible participants from 50-74 years of age.
+  - People aged 45-49 years are able to request a free bowel screening kit through their usual healthcare provider.
+  - Bowel cancer screening activities (e.g. colonoscopy) may also occur outside of the scope of the national screening program and this may affect bowel cancer screening participation.
 
 :::
 
@@ -534,7 +555,19 @@ table %>%
 ::::
 
 ::: {.callout-note title="Data notes" icon=false collapse=false}
-`r note_data_screening_bowel`
+- Data from the [National Cancer Screening Register (NCSR)](https://www.ncsr.gov.au/) Victorian Raw Data Extract (October 2021) was provided by the Australian Centre for the Prevention of Cervical Cancer (ACPCC) on behalf of the [Victorian Cancer Screening Framework (VCSF)](https://acpcc.org.au/services/population-health/).
+  - The NCSR is Australia's digital platform which supports the implementation of cervical and bowel screening including invitation of eligible participants and storing results of relevant screening and follow-up diagnostic tests.
+  - The VCSF is a funding and governance model that guides delivery and investment of cancer screening initiatives in Victoria, Australia and is funded by the Victorian Department of Health.
+
+<div style="height: 0.1em;"></div>
+
+- Cancer screening data disaggregated by Aboriginal and/or Torres Strait Islander status are not currently publicly available and were provided through the [VCSF Data Access and Release Procedure](https://acpcc.org.au/services/population-health/data-requests/).
+
+<div style="height: 0.1em;"></div>
+
+- Due to data quality issues and Indigenous Data Sovereignty/Indigenous Data Governance requirements, the Indigenous data in the VCSF screening program reports are quite dated.
+  - Bowel screening participation data were released in December 2021.
+  - Users of the data should exercise caution when interpreting these data for future planning purposes.")
 
 <div style="height: 0.1em;"></div>
 
@@ -550,7 +583,7 @@ table %>%
 - Figure 9G-3 and Table 9G-3:
   - Indicator: Bowel screening participation rate
   - Numerator: Number of persons aged 50-74 years who returned a completed bowel screening test in Victoria within the 2.5-year period (including an additional 6-month period after the end of each 2-year invitation period)
-  - Denominator: Number of persons who were invited to screen through the National Bowel Cancer Screening Program (NBCSP) in the two-year reporting period
+  - Denominator: Number of persons who were invited to screen through the National Bowel Cancer Screening Program in the two-year reporting period
   - Geographical area: `r note_geography_victoria`
   - Comparison: `r note_comparison_period` and `r note_comparison_aboriginal`
 

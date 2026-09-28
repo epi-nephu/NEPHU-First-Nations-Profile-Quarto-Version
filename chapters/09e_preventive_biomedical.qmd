@@ -4,6 +4,8 @@ title-block: false
 
 # Biomedical Factors
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,7 +24,7 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Biomedical Factors {.unnumbered}
+## Biomedical Factors {.unnumbered .unlisted}
 
 ::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
 `r note_chapter_underidentification`
@@ -148,21 +150,31 @@ bp_test <- bp_test %>%
 
 - Females were more likely to have had their blood pressure checked in the last two years than males (87% vs. 81%).
 
-::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
-- The following question was asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
-  - Have you had your blood pressure checked in the last two years?
-    - `r note_response_binary`
-    
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+
 <div style="height: 0.1em;"></div>
 
-- Definitions and notes:
-  - Blood pressure measurements were voluntarily provided by people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey. Measurements were not provided by respondents who advised they were pregnant.
-  - Measured blood pressure was categorised as:
-    - Normal: <120/80
-    - Normal-high: from 120/80 to <140/90
-    - High: from 140/90 to <160/100
-    - Very high: from 160/100 to <180/110
-    - Severe: from 180/100
+- `r note_aboriginality_natsihs`
+
+<div style="height: 0.1em;"></div>
+
+- Blood pressure measurements were voluntarily provided by people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey. Measurements were not provided by respondents who advised they were pregnant.
+
+<div style="height: 0.1em;"></div>
+
+- Measured blood pressure was categorised as:
+  - Normal: <120/80
+  - Normal-high: from 120/80 to <140/90
+  - High: from 140/90 to <160/100
+  - Very high: from 160/100 to <180/110
+  - Severe: from 180/100
+
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
+- Have you had your blood pressure checked in the last two years?
+  - `r note_response_binary`
 
 :::
 
@@ -445,25 +457,46 @@ obesity_waist <- obesity_waist %>%
 
 - Females were more likely to be at a substantially increased risk of developing chronic disease than males (77% vs. 32%).
 
-::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
-- Definitions and notes:
-  - `r note_aboriginality_natsihs`
-  - Height and weight measurements were voluntarily provided by people aged 2 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey. Measurements were not provided by respondents who advised they were pregnant.
-  - Body mass index (BMI) was calculated from a person’s height and weight, using the formula weight (measured in kilograms) divided by the square of height (measured in metres).
-    - For adults (aged 18 years and over), BMI was categorised as:
-      - Underweight: Less than 18.50
-      - Normal: 18.50 to 24.99
-      - Overweight: 25.00 to 29.99
-      - Obese Class 1: 30.00 to 34.99
-      - Obese Class 2: 35.00 to 39.99
-      - Obese Class 3: 40.00 and above
-    - For children (aged 2 to 17 years), BMI was calculated in a similar manner but also took the age and sex of the child into account.
-      - Children were categorised as underweight/normal, overweight, or obese.
-  - Waist circumference measurements were voluntarily provided by people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey. Measurements were not provided by respondents who advised they were pregnant.
-  - Waist circumference was classified by the [risk of developing chronic disease](https://www.who.int/publications/i/item/9789241501491).
-    - Lowered risk: less than 94cm for males, less than 80cm for females
-    - Increased risk: 94cm to 102cm for males, 80cm to 88cm for females
-    - Substantially increased risk: 102cm or more for males, 88cm or more for females
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+
+<div style="height: 0.1em;"></div>
+
+- `r note_aboriginality_natsihs`
+
+<div style="height: 0.1em;"></div>
+
+- Height and weight measurements were voluntarily provided by people aged 2 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey. Measurements were not provided by respondents who advised they were pregnant.
+
+<div style="height: 0.1em;"></div>
+
+- [Body mass index (BMI)](https://www.who.int/en/news-room/fact-sheets/detail/obesity-and-overweight) was calculated from a person’s height and weight, using the formula weight (measured in kilograms) divided by the square of height (measured in metres).
+
+<div style="height: 0.1em;"></div>
+
+- For adults (aged 18 years and over), BMI was categorised as:
+  - *Underweight*: Less than 18.50
+  - *Normal*: 18.50 to 24.99
+  - *Overweight*: 25.00 to 29.99
+  - *Obese Class 1*: 30.00 to 34.99
+  - *Obese Class 2*: 35.00 to 39.99
+  - *Obese Class 3*: 40.00 and above
+  
+<div style="height: 0.1em;"></div>
+
+- For children (aged 2 to 17 years), BMI was calculated in a similar manner but also took the age and sex of the child into account.
+  - Children were categorised as underweight/normal, overweight, or obese.
+
+<div style="height: 0.1em;"></div>
+
+- Waist circumference measurements were voluntarily provided by people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey. Measurements were not provided by respondents who advised they were pregnant.
+
+<div style="height: 0.1em;"></div>
+
+- Waist circumference was classified by the [risk of developing chronic disease](https://www.who.int/publications/i/item/9789241501491):
+  - *Lowered risk*: less than 94cm for males, less than 80cm for females
+  - *Increased risk*: 94cm to 102cm for males, 80cm to 88cm for females
+  - *Substantially increased risk*: 102cm or more for males, 88cm or more for females
 
 :::
 
@@ -497,7 +530,8 @@ figure_percent <- obesity_bmi %>%
                     y_variable = prop,
                     x_angle    = 90)
 
-f_bar_grouped_combine(figure_number, figure_percent)
+f_bar_grouped_combine(figure_number, figure_percent,
+                      legend_offset = -0.25)
 ```
 
 
@@ -712,17 +746,22 @@ biochem_cholesterol <- biochem_cholesterol %>%
 
 - Males and females were equally likely to have had their cholesterol checked in the last five years (87% vs. 88%).
 
-::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
-- The following questions were asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
-  - Have you ever been told by a doctor or a nurse that you have any heart or blood pressure problems?
-    - `r note_response_binary`
-  - Have you had your cholesterol checked in the last five years?
-    - `r note_response_binary`
-  
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people aged 18 years and over completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+
 <div style="height: 0.1em;"></div>
 
-- Definitions and notes:
-  - `r note_aboriginality_natsihs`
+- `r note_aboriginality_natsihs`
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
+- Have you ever been told by a doctor or a nurse that you have any heart or blood pressure problems?
+  - `r note_response_binary`
+
+<div style="height: 0.1em;"></div>
+
+- Have you had your cholesterol checked in the last five years?
+  - `r note_response_binary`
 
 :::
 
@@ -850,20 +889,31 @@ biochem_glucose <- biochem_glucose %>%
 
 - Females were more likely to have had their blood glucose checked than males (34% vs. 17%).
 
-::: {.callout-tip title="Survey questions and definitions for this topic" icon=false collapse=false}
-- The following questions were asked of all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey:
-  - Have you ever been told by a doctor or a nurse that you have diabetes?
-    - `r note_response_binary`
-  - Have you ever been told by a doctor or a nurse that you have sugar problems or high sugar levels in your blood or urine?
-    - `r note_response_binary`
-  - Have you been tested for diabetes or sugar problems in the last three years?
-    - `r note_response_binary`
-  
+::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
+- Data for this topic were collected from all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
+
 <div style="height: 0.1em;"></div>
 
-- Definitions and notes:
-  - `r note_aboriginality_natsihs`
-  - People who had been previously diagnosed with diabetes, high blood sugar levels, or high urine sugar levels were excluded.
+- `r note_aboriginality_natsihs`
+
+<div style="height: 0.1em;"></div>
+
+- People who had been previously diagnosed with diabetes, high blood sugar levels, or high urine sugar levels were excluded.
+:::
+
+::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
+- Have you ever been told by a doctor or a nurse that you have diabetes?
+  - `r note_response_binary`
+
+<div style="height: 0.1em;"></div>
+
+- Have you ever been told by a doctor or a nurse that you have sugar problems or high sugar levels in your blood or urine?
+  - `r note_response_binary`
+
+<div style="height: 0.1em;"></div>
+
+- Have you been tested for diabetes or sugar problems in the last three years?
+  - `r note_response_binary`
 
 :::
 
