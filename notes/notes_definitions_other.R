@@ -57,7 +57,7 @@ note_geography_victoria  <- "Victoria"
 ################################################################################
 # Commonly used time period definitions
 ################################################################################
-note_time_breastage   <- "2019-2020"
+note_time_breastage   <- "2022-2023"
 note_time_cancer      <- "2018-2022"
 note_time_census      <- "2021"
 note_time_emergency   <- "01 July 2019 to 30 June 2020"
@@ -69,7 +69,7 @@ note_time_perinatal   <- "2019-2021"
 note_time_projections <- "2021-2031"
 note_time_coroner     <- "2018-2023"
 note_time_tax         <- "01 July 2020 to 30 June 2021"
-note_time_vaccination <- "December 2022"
+note_time_vaccination <- "2022"
 
 ################################################################################
 # Commonly used comparison definitions
