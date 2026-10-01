@@ -4,6 +4,8 @@ title-block: false
 
 # Living with Disability
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,7 +24,7 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Living with Disability {.unnumbered}
+## Living with Disability {.unnumbered .unlisted}
 
 ::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
 `r note_chapter_different_sources`
@@ -244,7 +246,7 @@ disability_type <- disability_type %>%
 
 <div style="height: 0.1em;"></div>
 
-- If yes, do you ever need help, supervision, or aids to help with any of these tasks because of this condition? (Select all that apply)
+- If yes, do you ever need help, supervision, or aids to help with any of these tasks because of this condition? (*Select all that apply*)
   - Bathing or showering
   - Dressing or undressing
   - Eating or feeding
@@ -256,7 +258,7 @@ disability_type <- disability_type %>%
 
 <div style="height: 0.1em;"></div>
 
-- If yes, do you have any of the following problems with schooling because of this condition? (Select all that apply)
+- If yes, do you have any of the following problems with schooling because of this condition? (*Select all that apply*)
   - Not attending school or further study
   - Needing time off from school or study
   - Attending special classes or school
@@ -265,7 +267,7 @@ disability_type <- disability_type %>%
 
 <div style="height: 0.1em;"></div>
   
-- If yes, do you have any of the following problems with work because of this condition? (Select all that apply)
+- If yes, do you have any of the following problems with work because of this condition? (*Select all that apply*)
   - Type of job you can do
   - Number of hours that can be worked
   - Finding suitable work
@@ -387,7 +389,8 @@ figure_percent <- disability_type %>%
                     y_variable = prop,
                     x_angle    = 90)
 
-f_bar_grouped_combine(figure_number, figure_percent)
+f_bar_grouped_combine(figure_number, figure_percent,
+                      legend_offset = -0.25)
 ```
 
 
@@ -572,7 +575,7 @@ assist_agesex <- assist_agesex %>%
 
 <div style="height: 0.1em;"></div>
 
-- What are the reasons for the need for assistance or supervision? (Select all that apply)
+- What are the reasons for the need for assistance or supervision? (*Select all that apply*)
   - No need for assistance
   - Short-term health condition (lasting less than six months)
   - Long-term health condition (lasting six months or more)

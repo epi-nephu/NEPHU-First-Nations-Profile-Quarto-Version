@@ -4,6 +4,8 @@ title-block: false
 
 # General Health
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,7 +24,7 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## General Health {.unnumbered}
+## General Health {.unnumbered .unlisted}
 
 ::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
 `r note_chapter_different_sources`
@@ -297,7 +299,7 @@ condition_agesex <- condition_agesex %>%
 
 <div style="height: 0.1em;"></div>
 
-- People were classified as living with a long-term health condition if they have ever been told by a doctor or nurse that they have one or more of these specified conditions.
+- People were classified as living with a long-term health condition if they have ever been told by a doctor or nurse that they have one or more of the specified conditions.
 :::
 
 ::: {.callout-tip title="Census questions for this topic" icon=false collapse=false}

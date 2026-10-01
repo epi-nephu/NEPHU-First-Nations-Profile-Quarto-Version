@@ -4,6 +4,8 @@ title-block: false
 
 # Arthritis and Musculoskeletal Conditions
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,7 +24,7 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Arthritis and Musculoskeletal Conditions {.unnumbered}
+## Arthritis and Musculoskeletal Conditions {.unnumbered .unlisted}
 
 ::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
 `r note_chapter_different_sources`
@@ -719,13 +721,13 @@ hospital_musculo <- hospital_musculo %>%
 
 - Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
 
-- During the four-year period 01 July 2017 to 30 June 2021 there were 2,064 hospital admissions for musculoskeletal system and connective tissue diseases for people who identified as Aboriginal and/or Torres Strait Islander living in Greater Melbourne.
+- During the four-year period 01 July 2019 to 30 June 2023 there were 2,563 hospital admissions for musculoskeletal system and connective tissue diseases for people who identified as Aboriginal and/or Torres Strait Islander living in Greater Melbourne.
 
-- The number of admissions for musculoskeletal system and connective tissue diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 221 (Northcote/Preston/Whittlesea IARE) to 40 (Whitehorse IARE).
+- The number of admissions for musculoskeletal system and connective tissue diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 301 (Northcote/Preston/Whittlesea IARE) to 38 (Maroondah IARE).
 
-- The age-standardised rate of admissions for musculoskeletal system and connective tissue diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 1,743 per 100,000 population (Craigieburn/Sunbury IARE) to 921 per 100,000 population (Knox IARE).
+- The age-standardised rate of admissions for musculoskeletal system and connective tissue diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 2,578 per 100,000 population (Craigieburn/Sunbury IARE) to 1,046 per 100,000 population (Maroondah IARE).
 
-- 5 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for musculoskeletal system and connective tissue diseases above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Craigieburn/Sunbury, Whitehorse, Melbourne/Port Phillip, Yarra Ranges, and Maroondah IAREs).
+- 4 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for musculoskeletal system and connective tissue diseases above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Craigieburn/Sunbury, Melbourne/Port Phillip, Whitehorse, and Northcote/Preston/Whittlesea IAREs).
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - `r note_aboriginality_vaed`
@@ -847,8 +849,8 @@ table %>%
 # Data from PHIDU Social Health Atlas
 # ------------------------------------------------------------------------------
 # Read in PHIDU data
-emergency_musculo <- f_read_phidu_iare_hospital(data_sheet    = "ED_total",
-                                                column_select = "emergency_department_presentations_total_presentations_for_diseases_of_the_musculoskeletal_system_and_connective_tissue_aboriginal_people")
+emergency_musculo <- f_read_phidu_iare_hospital(data_sheet    = "ED_principal_diag_total",
+                                                column_select = "emergency_department_presentations_presentations_for_diseases_of_the_musculoskeletal_system_and_connective_tissue_aboriginal_persons")
 
 # Data wrangling
 emergency_musculo <- emergency_musculo %>% 
@@ -859,13 +861,13 @@ emergency_musculo <- emergency_musculo %>%
 
 - Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [AIHW National Non-Admitted Patient Emergency Department Care Database (NNAPEDCD)](https://www.aihw.gov.au/reports/hospitals/non-admitted-patient-emergency-dept-care-nmds/summary).
 
-- Between 01 July 2019 and 30 June 2020 there were 605 emergency department presentations for musculoskeletal system and connective tissue diseases for people who identified as Aboriginal and/or Torres Strait Islander living in Greater Melbourne.
+- Between 01 July 2022 and 30 June 2023 there were 700 emergency department presentations for musculoskeletal system and connective tissue diseases for people who identified as Aboriginal and/or Torres Strait Islander living in Greater Melbourne.
 
-- The number of emergency department presentations for musculoskeletal system and connective tissue diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 80 (Northcote/Preston/Whittlesea IARE) to 7 (Whitehorse IARE).
+- The number of emergency department presentations for musculoskeletal system and connective tissue diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 82 (Northcote/Preston/Whittlesea IARE) to 8 (Whitehorse IARE).
 
-- The age-standardised rate of emergency department presentations for musculoskeletal system and connective tissue diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 2,307 per 100,000 population (Melbourne/Port Phillip IARE) to 1,079 per 100,000 population (Melbourne East IARE).
+- The age-standardised rate of emergency department presentations for musculoskeletal system and connective tissue diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 2,164 per 100,000 population (Melbourne/Port Phillip IARE) to 872 per 100,000 population (Craigieburn/Sunbury IARE).
 
-- 4 of the 10 IAREs in the NEPHU catchment area had an age-standardised rate of emergency department presentations for musculoskeletal system and connective tissue diseases above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Maroondah,  Northcote/Preston/Whittlesea, and Melbourne North-East IAREs).
+- 5 of the 10 IAREs in the NEPHU catchment area had an age-standardised rate of emergency department presentations for musculoskeletal system and connective tissue diseases above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Melbourne East, Knox, Northcote/Preston/Whittlesea, and Moreland/Broadmeadows IAREs).
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - `r note_aboriginality_vemd`
