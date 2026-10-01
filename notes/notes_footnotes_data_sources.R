@@ -82,13 +82,13 @@ note_data_phidu_perinatal <- glue::glue("
 - Data were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [National Perinatal Data Collection (NPDC)](https://www.aihw.gov.au/about-our-data/our-data-collections/national-perinatal-data-collection).
   - The Aboriginal and Torres Strait Islander Social Health Atlas of Australia is a compendium of demographic, social, health status, and health service utilisation indicators compiled by Torrens University Australia from a wide range of national, jurisdictional, and regional data sources.
   - The NPDC collates data about births reported by midwives and other birth attendants to the perinatal data collections in each state and territory in Australia.
-  - Data were aggregated for a three-year period (January 2019 to December 2021).")
+  - Data were aggregated for a three-year period.")
 
 note_data_phidu_vaed <- glue::glue("
 - Data were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
   - The Aboriginal and Torres Strait Islander Social Health Atlas of Australia is a compendium of demographic, social, health status, and health service utilisation indicators compiled by Torrens University Australia from a wide range of national, jurisdictional, and regional data sources.
   - The VAED includes data from all Victorian public and private hospitals, including rehabilitation centres, extended care facilities, and day procedure centres.
-  - Data were aggregated for a four-year period (July 2017 to June 2021).")
+  - Data were aggregated for a four-year period.")
 
 note_data_phidu_vemd <- glue::glue("
 - Data were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [AIHW National Non-Admitted Patient Emergency Department Care Database (NNAPEDCD)](https://www.aihw.gov.au/reports/hospitals/non-admitted-patient-emergency-dept-care-nmds/summary).

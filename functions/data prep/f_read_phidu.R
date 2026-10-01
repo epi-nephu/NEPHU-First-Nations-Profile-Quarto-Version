@@ -11,11 +11,11 @@
 # ------------------------------------------------------------------------------
 f_read_phidu_iare <- function(data_sheet, column_select) {
   
-  data <- readxl::read_xls(file.path(root_folder, subfolder_phidu, "phidu_atsi_data_ia_aust.xls"),
-                           sheet        = data_sheet,
-                           skip         = 4,
-                           trim_ws      = TRUE,
-                           .name_repair = "universal_quiet") %>%
+  data <- readxl::read_xlsx(file.path(root_folder, subfolder_phidu, "phidu_atsi_data_ia_aust.xlsx"),
+                            sheet        = data_sheet,
+                            skip         = 4,
+                            trim_ws      = TRUE,
+                            .name_repair = "universal_quiet") %>%
     #
     janitor::clean_names() %>%
     #
@@ -73,10 +73,10 @@ f_read_phidu_iare <- function(data_sheet, column_select) {
 # ------------------------------------------------------------------------------
 f_read_phidu_iare_hospital <- function(data_sheet, column_select) {
   
-  data <- readxl::read_xls(file.path(root_folder, subfolder_phidu, "phidu_atsi_data_ia_aust.xls"),
-                           sheet        = data_sheet,
-                           trim_ws      = TRUE,
-                           .name_repair = "minimal") %>%
+  data <- readxl::read_xlsx(file.path(root_folder, subfolder_phidu, "phidu_atsi_data_ia_aust.xlsx"),
+                            sheet        = data_sheet,
+                            trim_ws      = TRUE,
+                            .name_repair = "minimal") %>%
     #
     janitor::clean_names() %>%
     #
