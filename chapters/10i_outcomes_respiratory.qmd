@@ -4,6 +4,8 @@ title-block: false
 
 # Respiratory Diseases
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,7 +24,7 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Respiratory Diseases {.unnumbered}
+## Respiratory Diseases {.unnumbered .unlisted}
 
 ::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
 `r note_chapter_different_sources`
@@ -357,13 +359,13 @@ hospital_lung <- hospital_lung %>%
 
 - Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
 
-- During the four-year period 01 July 2017 to 30 June 2021 there were 2,694 hospital admissions for respiratory system diseases for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
+- During the four-year period 01 July 2019 to 30 June 2023 there were 2,921 hospital admissions for respiratory system diseases for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
-- The number of admissions for respiratory system diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 402 (Northcote/Preston/Whittlesea IARE) to 16 (Whitehorse IARE).
+- The number of admissions for respiratory system diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 418 (Northcote/Preston/Whittlesea IARE) to 27 (Whitehorse IARE).
 
-- The age-standardised rate of admissions for respiratory system diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 2,490 per 100,000 population (Maroondah IARE) to 692 per 100,000 population (Whitehorse IARE).
+- The age-standardised rate of admissions for respiratory system diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 2,666 per 100,000 population (Melbourne/Port Phillip IARE) to 1,092 per 100,000 population (Yarra Ranges IARE).
 
-- 5 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for respiratory system diseases above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Maroondah, Melbourne/Port Phillip, Northcote/Preston/Whittlesea, Craigieburn/Sunbury, and Moreland/Broadmeadows IAREs).
+- 5 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for respiratory system diseases above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Craigieburn/Sunbury, Northcote/Preston/Whittlesea, Moreland/Broadmeadows, and Maroondah IAREs).
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - `r note_aboriginality_vaed`
@@ -489,8 +491,8 @@ table %>%
 # Data from PHIDU Social Health Atlas
 # ------------------------------------------------------------------------------
 # Read in PHIDU data
-emergency_lung <- f_read_phidu_iare_hospital(data_sheet    = "ED_total",
-                                             column_select = "emergency_department_presentations_total_presentations_for_diseases_of_the_respiratory_system_aboriginal_people")
+emergency_lung <- f_read_phidu_iare_hospital(data_sheet    = "ED_principal_diag_total",
+                                             column_select = "emergency_department_presentations_presentations_for_diseases_of_the_respiratory_system_aboriginal_persons")
 
 # Data wrangling
 emergency_lung <- emergency_lung %>% 
@@ -501,13 +503,13 @@ emergency_lung <- emergency_lung %>%
 
 - Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [AIHW National Non-Admitted Patient Emergency Department Care Database (NNAPEDCD)](https://www.aihw.gov.au/reports/hospitals/non-admitted-patient-emergency-dept-care-nmds/summary).
 
-- Between 01 July 2019 and 30 June 2020 there were 1,073 emergency department presentations for respiratory system diseases for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
+- Between 01 July 2022 and 30 June 2023 there were 1,447 emergency department presentations for respiratory system diseases for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
-- The number of emergency department presentations for respiratory system diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 156 (Northcote/Preston/Whittlesea IARE) to 29 (Melbourne East IARE).
+- The number of emergency department presentations for respiratory system diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 197 (Northcote/Preston/Whittlesea IARE) to 14 (Whitehorse IARE).
 
-- The age-standardised rate of emergency department presentations for respiratory system diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 4,211 per 100,000 population (Melbourne/Port Phillip IARE) to 2,211 per 100,000 population (Yarra Ranges IARE).
+- The age-standardised rate of emergency department presentations for respiratory system diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 4,847 per 100,000 population (Craigieburn/Sunbury IARE) to 1,983 per 100,000 population (Melbourne East IARE).
 
-- 4 of the 9 IAREs in the NEPHU catchment area with data available for reporting had an age-standardised rate of emergency department presentations for respiratory system diseases above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Maroondah, Northcote/Preston/Whittlesea, and Melbourne North-East IAREs).
+- 4 of the 10 IAREs in the NEPHU catchment area had an age-standardised rate of emergency department presentations for respiratory system diseases above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Craigieburn/Sunbury, Moreland/Broadmeadows, Northcote/Preston/Whittlesea, and Melbourne/Port Phillip IAREs).
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - `r note_aboriginality_vemd`
@@ -609,10 +611,6 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_iare_nephu`
-
-<div style="height: 0.1em;"></div>
-
-`r note_caveat_iare_suppress`
 
 <div style="height: 0.1em;"></div>
 
@@ -723,8 +721,8 @@ copd <- copd %>%
   - Memory problems or periods of confusion
   - Social or behavioural difficulties
   - Long term effects as a result of a head injury, stroke, or other brain damage
-  - Receiving treatment or medication for any other long term health condition (please specify)
-  - Any other long term condition (please specify)
+  - Receiving treatment or medication for any other long term health condition (*please specify*)
+  - Any other long term condition (*please specify*)
   - None of the above
 
 <div style="height: 0.1em;"></div>
@@ -825,13 +823,13 @@ hospital_copd <- hospital_copd %>%
 
 - Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
 
-- During the four-year period 01 July 2017 to 30 June 2021 there were 522 hospital admissions for chronic obstructive pulmonary disease (COPD) for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
+- During the four-year period 01 July 2019 to 30 June 2023 there were 592 hospital admissions for chronic obstructive pulmonary disease (COPD) for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
-- The number of admissions for COPD for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 84 (Northcote/Preston/Whittlesea IARE) to 11 (Melbourne East IARE).
+- The number of admissions for COPD for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 106 (Northcote/Preston/Whittlesea IARE) to 9 (Knox IARE).
 
-- The age-standardised rate of admissions for COPD for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 589 per 100,000 population (Moreland/Broadmeadows IARE) to 152 per 100,000 population (Melbourne East IARE).
+- The age-standardised rate of admissions for COPD for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 673 per 100,000 population (Northcote/Preston/Whittlesea IARE) to 174 per 100,000 population (Melbourne North-East IARE).
 
-- 5 of the 9 IAREs in the NEPHU catchment area with data available for reporting had an age-standardised admission rate for COPD above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Moreland/Broadmeadows, Craigieburn/Sunbury, Maroondah, Northcote/Preston/Whittlesea, and Melbourne/Port Phillip IAREs).
+- 4 of the 9 IAREs in the NEPHU catchment area with data available for reporting had an age-standardised admission rate for COPD above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Northcote/Preston/Whittlesea, Melbourne/Port Phillip, Maroondah, and Moreland/Broadmeadows IAREs).
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - `r note_aboriginality_vaed`

@@ -4,6 +4,8 @@ title-block: false
 
 # Kidney Disease
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,7 +24,7 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Kidney Disease {.unnumbered}
+## Kidney Disease {.unnumbered .unlisted}
 
 ::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
 `r note_chapter_different_sources`
@@ -252,7 +254,7 @@ kidney_agesex <- kidney_agesex %>%
 
 **Key points from stakeholder consultation**
 
-- At stakeholder consultation during the development of this report, the often late diagnosis of kidney disease was discussed as an issue affecting Aboriginal and/or Torres Strait Islander people.
+- At stakeholder consultation during the development of this report, the [often late diagnosis](https://www.aihw.gov.au/reports/chronic-kidney-disease/chronic-kidney-disease-indigenous-australians/summary) of kidney disease was discussed as an issue affecting Aboriginal and/or Torres Strait Islander people.
 
 - In addition, the term ‘kidney disease’ may have been misunderstood and not responded to accurately in the Census.
 
@@ -506,13 +508,13 @@ hospital_kidney <- hospital_kidney %>%
 
 - Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
 
-- During the four-year period 01 July 2017 to 30 June 2021 there were 293 hospital admissions for chronic kidney disease for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
+- During the four-year period 01 July 2019 to 30 June 2023 there were 336 hospital admissions for chronic kidney disease for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
-- The number of admissions for chronic kidney disease for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 55 (Northcote/Preston/Whittlesea IARE) to 5 (Whitehorse and Yarra Ranges IAREs).
+- The number of admissions for chronic kidney disease for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 50 (Northcote/Preston/Whittlesea IARE) to 11 (Craigieburn/Sunbury and Yarra Ranges IAREs).
 
-- The age-standardised rate of admissions for chronic kidney disease for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 395 per 100,000 population (Maroondah IARE) to 58 per 100,000 population (Yarra Ranges IARE).
+- The age-standardised rate of admissions for chronic kidney disease for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 294 per 100,000 population (Northcote/Preston/Whittlesea IARE) to 127 per 100,000 population (Yarra Ranges IARE).
 
-- 6 of the 8 IAREs in the NEPHU catchment area with data available for reporting had an age-standardised admission rate for chronic kidney disease above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Maroondah, Northcote/Preston/Whittlesea, Melbourne East, Whitehorse, Moreland/Broadmeadows, and Melbourne/Port Phillip IAREs).
+- 4 of the 7 IAREs in the NEPHU catchment area with data available for reporting had an age-standardised admission rate for chronic kidney disease above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Northcote/Preston/Whittlesea, Moreland/Broadmeadows, Melbourne North-East, and Melbourne/Port Phillip IAREs).
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - `r note_aboriginality_vaed`
@@ -657,13 +659,13 @@ hospital_dialysis <- hospital_dialysis %>%
 
 - Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
 
-- During the four-year period 01 July 2017 to 30 June 2021 there were 9,786 same day hospital admissions for dialysis for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
+- During the four-year period 01 July 2019 to 30 June 2023 there were 10,391 same day hospital admissions for dialysis for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
-- The number of same day hospital admissions for dialysis for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 1,652 (Northcote/Preston/Whittlesea IARE) to 91 (Yarra Ranges IARE).
+- The number of same day hospital admissions for dialysis for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 2,381 (Northcote/Preston/Whittlesea IARE) to 129 (Knox IARE).
 
-- The age-standardised rate of same day hospital admissions for dialysis for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 13,438 per 100,000 population (Melbourne/Port Phillip IARE) to 990 per 100,000 population (Yarra Ranges IARE).
+- The age-standardised rate of same day hospital admissions for dialysis for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 14,782 per 100,000 population (Northcote/Preston/Whittlesea IARE) to 2,585 per 100,000 population (Knox IARE).
 
-- 3 of the 7 IAREs in the NEPHU catchment area with data available for reporting had an age-standardised same day admission rate for dialysis above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Northcote/Preston/Whittlesea, and Craigieburn/Sunbury IAREs).
+- 2 of the 7 IAREs in the NEPHU catchment area with data available for reporting had an age-standardised same day admission rate for dialysis above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Northcote/Preston/Whittlesea and Melbourne/Port Phillip IAREs).
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - `r note_aboriginality_vaed`

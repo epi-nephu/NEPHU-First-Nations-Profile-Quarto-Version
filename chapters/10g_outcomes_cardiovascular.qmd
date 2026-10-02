@@ -4,6 +4,8 @@ title-block: false
 
 # Heart and Vascular Disease
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,7 +24,7 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Heart and Vascular Disease {.unnumbered}
+## Heart and Vascular Disease {.unnumbered .unlisted}
 
 ::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
 `r note_chapter_different_sources`
@@ -361,13 +363,13 @@ hospital_ihd <- hospital_ihd %>%
 
 - Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
 
-- During the four-year period 01 July 2017 to 30 June 2021 there were 449 hospital admissions for ischaemic heart disease for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
+- During the four-year period 01 July 2019 to 30 June 2023 there were 515 hospital admissions for ischaemic heart disease for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
-- The number of admissions for ischaemic heart disease for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 76 (Northcote/Preston/Whittlesea IARE) to 5 (Knox IARE).
+- The number of admissions for ischaemic heart disease for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 63 (Northcote/Preston/Whittlesea IARE) to 6 (Maroondah and Whitehorse IAREs).
 
-- The age-standardised rate of admissions for ischaemic heart disease for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 474 per 100,000 population (Northcote/Preston/Whittlesea IARE) to 100 per 100,000 population (Knox IARE).
+- The age-standardised rate of admissions for ischaemic heart disease for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 517 per 100,000 population (Craigieburn/Sunbury IARE) to 162 per 100,000 population (Maroondah IARE).
 
-- 4 of the 9 IAREs in the NEPHU catchment area with data available for reporting had an age-standardised admission rate for ischaemic heart disease above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Northcote/Preston/Whittlesea, Melbourne/Port Phillip, Craigieburn/Sunbury, and Melbourne North-East IAREs).
+- 3 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for ischaemic heart disease above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Craigieburn/Sunbury, Moreland/Broadmeadows, and Northcote/Preston/Whittlesea IAREs).
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - `r note_aboriginality_vaed`
@@ -472,10 +474,6 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
-`r note_caveat_iare_suppress`
-
-<div style="height: 0.1em;"></div>
-
 - Figure 10G-5 and Table 10G-3:
   - Indicator: Hospital admissions for ischaemic heart disease
   - Numerator: `r note_numerator_hospital_aboriginal`
@@ -505,13 +503,13 @@ hospital_failure <- hospital_failure %>%
 
 - Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
 
-- During the four-year period 01 July 2017 to 30 June 2021 there were 193 hospital admissions for heart failure for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
+- During the four-year period 01 July 2019 to 30 June 2023 there were 231 hospital admissions for heart failure for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
-- The number of admissions for heart failure for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 26 (Northcote/Preston/Whittlesea IARE) to 5 (Melbourne East IARE).
+- The number of admissions for heart failure for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 29 (Northcote/Preston/Whittlesea IARE) to 6 (Knox IARE).
 
-- The age-standardised rate of admissions for heart failure for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 399 per 100,000 population (Maroondah IARE) to 59 per 100,000 population (Melbourne North-East IARE).
+- The age-standardised rate of admissions for heart failure for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 257 per 100,000 population (Whitehorse IARE) to 109 per 100,000 population (Melbourne East IARE).
 
-- 4 of the 8 IAREs in the NEPHU catchment area with data available for reporting had an age-standardised admission rate for heart failure above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Maroondah, Moreland/Broadmeadows, Craigieburn/Sunbury, and Northcote/Preston/Whittlesea IAREs).
+- 5 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for heart failure above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Whitehorse, Maroondah, Craigieburn/Sunbury, Moreland/Broadmeadows, and Northcote/Preston/Whittlesea IAREs).
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - `r note_aboriginality_vaed`
@@ -611,10 +609,6 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
-`r note_caveat_iare_suppress`
-
-<div style="height: 0.1em;"></div>
-
 - Figure 10G-6 and Table 10G-4:
   - Indicator: Hospital admissions for heart failure
   - Numerator: `r note_numerator_hospital_aboriginal`
@@ -690,7 +684,7 @@ stroke_agesex <- stroke_agesex %>%
 
 **Key points from stakeholder consultation**
 
-- At stakeholder consultation during the development of this report, it was noted that the number of people who have been told that they have had a stroke may be an under-estimate due to high case fatality rates for stroke among Aboriginal and/or Torres Strait Islander people.
+- At stakeholder consultation during the development of this report, it was noted that the number of people who have been told that they have had a stroke may be an under-estimate due to [high case fatality rates](https://www.aihw.gov.au/reports/heart-stroke-vascular-diseases/hsvd-facts/contents/first-nations-australians) for stroke among Aboriginal and/or Torres Strait Islander people.
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - Data for this topic were collected from all people completing the ABS Census 2021.
@@ -948,13 +942,13 @@ hospital_circ <- hospital_circ %>%
 
 - Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
 
-- During the four-year period 01 July 2017 to 30 June 2021 there were 1,868 hospital admissions for circulatory system diseases (including ischaemic heart disease, heart failure, and stroke) for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
+- During the four-year period 01 July 2019 to 30 June 2023 there were 2,158 hospital admissions for circulatory system diseases (including ischaemic heart disease, heart failure, and stroke) for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
-- The number of admissions for circulatory system diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 284 (Northcote/Preston/Whittlesea IARE) to 26 (Whitehorse IARE).
+- The number of admissions for circulatory system diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 295 (Northcote/Preston/Whittlesea IARE) to 41 (Whitehorse IARE).
 
-- The age-standardised rate of admissions for circulatory system diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 1,739 per 100,000 population (Northcote/Preston/Whittlesea IARE) to 738 per 100,000 population (Yarra Ranges IARE).
+- The age-standardised rate of admissions for circulatory system diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 1,940 per 100,000 population (Moreland/Broadmeadows IARE) to 707 per 100,000 population (Melbourne East IARE).
 
-- 6 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for circulatory system diseases above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Northcote/Preston/Whittlesea, Melbourne/Port Phillip, Craigieburn/Sunbury, Maroondah, Melbourne North-East, and Melbourne North-East IAREs).
+- 5 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for circulatory system diseases above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Moreland/Broadmeadows, Northcote/Preston/Whittlesea, Craigieburn/Sunbury, Melbourne/Port Phillip, and Whitehorse IAREs).
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - `r note_aboriginality_vaed`
@@ -1080,8 +1074,8 @@ table %>%
 # Data from PHIDU Social Health Atlas
 # ------------------------------------------------------------------------------
 # Read in PHIDU data
-emergency_circ <- f_read_phidu_iare_hospital(data_sheet    = "ED_total",
-                                             column_select = "emergency_department_presentations_total_presentations_for_diseases_of_the_circulatory_system_aboriginal_people")
+emergency_circ <- f_read_phidu_iare_hospital(data_sheet    = "ED_principal_diag_total",
+                                             column_select = "emergency_department_presentations_presentations_for_diseases_of_the_circulatory_system_aboriginal_persons")
 
 # Data wrangling
 emergency_circ <- emergency_circ %>% 
@@ -1092,13 +1086,13 @@ emergency_circ <- emergency_circ %>%
 
 - Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [AIHW National Non-Admitted Patient Emergency Department Care Database (NNAPEDCD)](https://www.aihw.gov.au/reports/hospitals/non-admitted-patient-emergency-dept-care-nmds/summary).
 
-- Between 01 July 2019 and 30 June 2020 there were 363 emergency department presentations for circulatory system diseases (including ischaemic heart disease, heart failure, and stroke) for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
+- Between 01 July 2022 and 30 June 2023 there were 440 emergency department presentations for circulatory system diseases (including ischaemic heart disease, heart failure, and stroke) for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
-- The number of emergency department presentations for circulatory system diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 45 (Northcote/Preston/Whittlesea IARE) to 7 (Knox and Maroondah IAREs).
+- The number of emergency department presentations for circulatory system diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 59 (Northcote/Preston/Whittlesea IARE) to 10 (Whitehorse IARE).
 
-- The age-standardised rate of emergency department presentations for circulatory system diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 1,665 per 100,000 population (Yarra Ranges IARE) to 640 per 100,000 population (Melbourne East IARE).
+- The age-standardised rate of emergency department presentations for circulatory system diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 1,639 per 100,000 population (Moreland/Broadmeadows IARE) to 646 per 100,000 population (Melbourne North-East IARE).
 
-- 6 of the 10 IAREs in the NEPHU catchment area had an age-standardised rate of emergency department presentations for circulatory system diseases above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Yarra Ranges, Melbourne North-East, Moreland/Broadmeadows, Northcote/Preston/Whittlesea, Melbourne/Port Phillip, and Whitehorse IAREs).
+- 7 of the 8 IAREs in the NEPHU catchment area with data available for reporting had an age-standardised rate of emergency department presentations for circulatory system diseases above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Moreland/Broadmeadows, Whitehorse, Craigieburn/Sunbury, Northcote/Preston/Whittlesea, Knox, Yarra Ranges, and Melbourne/Port Phillip IAREs).
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - `r note_aboriginality_vemd`
@@ -1200,6 +1194,10 @@ table %>%
 <div style="height: 0.1em;"></div>
 
 `r note_caveat_iare_nephu`
+
+<div style="height: 0.1em;"></div>
+
+`r note_caveat_iare_suppress`
 
 <div style="height: 0.1em;"></div>
 
