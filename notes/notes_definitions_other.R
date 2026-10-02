@@ -58,7 +58,7 @@ note_geography_victoria  <- "Victoria"
 # Commonly used time period definitions
 ################################################################################
 note_time_breastage   <- "2022-2023"
-note_time_cancer      <- "2018-2022"
+note_time_cancer      <- "2019-2023"
 note_time_census      <- "2021"
 note_time_emergency   <- "01 July 2022 to 30 June 2023"
 note_time_hospital    <- "01 July 2019 to 30 June 2023"
