@@ -4,6 +4,8 @@ title-block: false
 
 # Cancer
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,7 +24,7 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Cancer {.unnumbered}
+## Cancer {.unnumbered .unlisted}
 
 ::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
 `r note_chapter_different_sources`
@@ -50,9 +52,9 @@ What chronic health conditions are experienced by Aboriginal and/or Torres Strai
 
 **Key points from stakeholder consultation**
 
-- At stakeholder consultation during the development of this report, the discussion included reflections that Aboriginal and/or Torres Strait Islander people may be diagnosed with cancer at a later stage of disease or at a younger age than non-Indigenous people, which may impact on recorded cancer rates and survivability.
+- At stakeholder consultation during the development of this report, the discussion included reflections that Aboriginal and/or Torres Strait Islander people may be diagnosed with cancer at a [later stage of disease](https://www.mja.com.au/journal/2015/202/4/are-aboriginal-people-more-likely-be-diagnosed-more-advanced-cancer) or at a [younger age](https://www.sciencedirect.com/science/article/abs/pii/S1877782119300244) than non-Indigenous people, which may impact on recorded cancer rates and survivability.
 
-- Different types of cancers may also be more frequent among Aboriginal and/or Torres Strait Islander people compared to non-Indigenous people.
+- [Different types of cancers, including rarer cancers](https://www.aihw.gov.au/reports/cancer/cancer-data-in-australia/contents/about) may also be more frequent among Aboriginal and/or Torres Strait Islander people compared to non-Indigenous people.
 
 ## Testing for Cancer
 
@@ -159,7 +161,7 @@ testing_cancer <- testing_cancer %>%
 
 <div style="height: 0.1em;"></div>
 
-- People were classified as having been tested for cancer if they stated that they had ever been tested for any type of cancer, had ever been tested for prostate cancer by rectal examination, prostate specific antigen blood test, and/or transrectal ultrasound, ever had a mammogram, and/or ever had a Pap smear.
+- People were classified as having been tested for cancer if they stated that they had ever been tested for any type of cancer, had ever been tested for prostate cancer by rectal examination, prostate specific antigen blood test, and/or transrectal ultrasound, had ever had a mammogram, and/or had ever had a Pap smear.
 :::
 
 ::: {.callout-tip title="Survey questions for this topic" icon=false collapse=false}
@@ -175,7 +177,7 @@ testing_cancer <- testing_cancer %>%
   - Prostate cancer
   - Skin cancer
   - Lung cancer
-  - Other (please specify)
+  - Other (*please specify*)
 
 <div style="height: 0.1em;"></div>
   
@@ -585,13 +587,13 @@ cancer_type <- readxl::read_excel(file.path(root_folder, subfolder_cancer, "Vic_
 
 - Data for this indicator were obtained from the [Victorian Cancer Registry](https://www.cancervic.org.au/about-cancer/types/statistics).
 
-- Between January 2018 and December 2022 the most common cancers diagnosed in people who identified as Aboriginal and/or Torres Strait Islander living in Victoria were lung cancer (n = 260), prostate cancer (n = 172), bowel cancer (n = 171), and breast cancer (n = 170).
+- Between January 2019 and December 2023 the most common cancers diagnosed in people who identified as Aboriginal and/or Torres Strait Islander living in Victoria were lung cancer (n = 339), prostate cancer (n = 245), breast cancer (n = 221), and bowel cancer (n = 203).
 
-- In comparison, during 2023 the most common cancer types diagnosed among all people living in Victoria were prostate cancer (n = 6,378), breast cancer (n = 5,197), bowel cancer (n = 3,779), and lung cancer (n = 3,435).
+- Breast cancer (n = 219) and lung cancer (n = 173) were the most common cancer types diagnosed among Victorian Aboriginal and/or Torres Strait Islander females.
 
-- Prostate cancer (n = 172) and lung cancer (n = 126) were the most common cancer types diagnosed among males.
+- Prostate cancer (n = 245) and lung cancer (n = 166) were the most common cancer types diagnosed among Victorian Aboriginal and/or Torres Strait Islander males.
 
-- Breast cancer (n = 169) and lung cancer (n = 134) were the most common cancer types diagnosed among females.
+- In comparison, during 2024 the most common cancer types diagnosed among all people living in Victoria were prostate cancer (n = 6,890), breast cancer (n = 5,490), bowel cancer (n = 3,780), lung cancer (n = 3,421), and melanoma (n = 3,179).
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - `r note_aboriginality_cancer`
@@ -780,13 +782,13 @@ hospital_cancer <- hospital_cancer %>%
 
 - Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
 
-- During the four-year period 01 July 2017 to 30 June 2021 there were 1,562 hospital admissions for cancer for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
+- During the four-year period 01 July 2019 to 30 June 2023 there were 1,929 hospital admissions for cancer for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
-- The number of admissions for cancer for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 207 (Northcote/Preston/Whittlesea IARE) to 28 (Maroondah IARE).
+- The number of admissions for cancer for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 225 (Northcote/Preston/Whittlesea IARE) to 30 (Whitehorse IARE).
 
-- The age-standardised rate of admissions for cancer for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 1,418 per 100,000 population (Melbourne/Port Phillip IARE) to 767 per 100,000 population (Maroondah IARE).
+- The age-standardised rate of admissions for cancer for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 1,621 per 100,000 population (Melbourne/Port Phillip IARE) to 956 per 100,000 population (Maroondah IARE).
 
-- 5 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for cancer above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Yarra Ranges, Northcote/Preston/Whittlesea, Whitehorse, and Craigieburn/Sunbury IAREs).
+- 4 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for cancer above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Moreland/Broadmeadows, Yarra Ranges, and Northcote/Preston/Whittlesea IAREs).
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - `r note_aboriginality_vaed`

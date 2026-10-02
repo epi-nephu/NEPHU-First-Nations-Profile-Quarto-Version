@@ -4,7 +4,7 @@ title-block: false
 
 # Asthma and Allergies
 
-## Introduction {.toc-only}
+## Top of Page {.toc-only}
 
 ```{r}
 #
@@ -108,6 +108,8 @@ asthma_agesex <- asthma_agesex %>%
 - The percentage of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who have been told by a doctor or nurse that they have asthma ranged from 18% (Maroondah, Whittlesea, and Hume LGAs) to 8.8% (Manningham LGA).
 
 - The number of people who have been told by a doctor or nurse that they have asthma was highest for people aged 20-29 years for both males and females.
+
+- Data relating to other chronic respiratory conditions can be found in the [Respiratory Diseases section](10i_outcomes_respiratory.qmd) of this report.
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - Data for this topic were collected from all people completing the ABS Census 2021.
@@ -358,13 +360,15 @@ hospital_asthma <- hospital_asthma %>%
 
 - Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
 
-- During the four-year period 01 July 2017 to 30 June 2021 there were 292 hospital admissions for asthma for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
+- During the four-year period 01 July 2019 to 30 June 2023 there were 262 hospital admissions for asthma for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
-- The number of admissions for asthma for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 51 (Northcote/Preston/Whittlesea IARE) to 6 (Melbourne East IARE).
+- The number of admissions for asthma for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 38 (Northcote/Preston/Whittlesea IARE) to 6 (Knox IARE).
 
-- The age-standardised rate of admissions for asthma for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 287 per 100,000 population (Northcote/Preston/Whittlesea IARE) to 93 per 100,000 population (Melbourne East IARE).
+- The age-standardised rate of admissions for asthma for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 224 per 100,000 population (Craigieburn/Sunbury IARE) to 86 per 100,000 population (Yarra Ranges IARE).
 
-- 3 of the 8 IAREs in the NEPHU catchment area with data available for reporting had an age-standardised admission rate for asthma above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Northcote/Preston/Whittlesea, Yarra Ranges, and Moreland/Broadmeadows IAREs).
+- 4 of the 7 IAREs in the NEPHU catchment area with data available for reporting had an age-standardised admission rate for asthma above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Craigieburn/Sunbury, Northcote/Preston/Whittlesea, Moreland/Broadmeadows, and Melbourne/Port Phillip IAREs).
+
+- Data relating to other chronic respiratory conditions can be found in the [Respiratory Diseases section](10i_outcomes_respiratory.qmd) of this report.
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - `r note_aboriginality_vaed`
@@ -536,6 +540,8 @@ allergy <- allergy %>%
 - Overall, 37% of Aboriginal and/or Torres Strait Islander survey respondents living in Greater Melbourne reported that they were living with allergic rhinitis (hay fever). This equates to approximately 14,200 Aboriginal and/or Torres Strait Islander people.
 
 - The percentage of people living with allergic rhinitis (hay fever) was similar for males and females (36% vs. 37%).
+
+- Data relating to other chronic respiratory conditions can be found in the [Respiratory Diseases section](10i_outcomes_respiratory.qmd) of this report.
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - Data for this topic were collected from all people completing the 2022-23 ABS National Aboriginal and Torres Strait Islander Health Survey.
