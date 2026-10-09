@@ -4,6 +4,8 @@ title-block: false
 
 # Mental Health and Wellbeing
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,7 +24,19 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Mental Health and Wellbeing {.unnumbered}
+## Mental Health and Wellbeing {.unnumbered .unlisted}
+
+::: {.callout-important title="Content warning" icon=true collapse=false}
+The following section contains information about social and emotional wellbeing, mental health conditions, and the use of health services for mental health conditions. This content aligns with Closing the Gap [Socio-Economic Outcome Area 14](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/social-and-emotional-wellbeing/) and may bring up strong emotions or memories, particularly for those who have lived or family experience of mental health and wellbeing concerns.
+
+Mental health conditions are one aspect of social and emotional wellbeing. Experiences of social and emotional wellbeing are shaped by a range of factors including cultural identity, family and community connections, housing, education, employment, experiences of racism, and the ongoing impacts of colonisation and intergenerational trauma. 
+
+Despite ongoing challenges, Aboriginal and/or Torres Strait Islander peoples continue to demonstrate strength, resilience, and leadership through cultural connection, community support, healing practices, and collective approaches to wellbeing. While this section presents available information relating to mental health conditions and service use, it is important to recognise the strengths and protective factors that support social and emotional wellbeing across Aboriginal and Torres Strait Islander communities.
+ 
+We encourage readers to take care while engaging with this material and to seek support from trusted family members, community, Elders, Aboriginal Community Controlled Organisations, or other culturally safe support services if needed. If you or someone you know needs support, please consider reaching out to the culturally safe services [listed here](01f_intro_services.qmd).
+:::
+
+<div style="height: 0.1em;"></div>
 
 ::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
 `r note_chapter_different_sources`
@@ -45,18 +59,20 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 :::
 
 ::: {.key-question}
-How do Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment experience emotional wellbeing?
+What factors influence the social and emotional wellbeing and mental health of Aboriginal and/or Torres Strait Islander peoples living in the NEPHU catchment?
 :::
 
 **Key points from stakeholder consultation**
 
-- At stakeholder consultation during the development of this report, the significant challenges Aboriginal and/or Torres Strait Islander people face in accessing mental health support was discussed, especially finding and accessing services that are affordable and culturally appropriate.
+- Aboriginal and/or Torres Strait Islander understandings of health and wellbeing are holistic and encompass social, emotional, cultural, and spiritual wellbeing. Social and emotional wellbeing recognises the importance of connections to body, mind and emotions, family and kinship, Community, culture, Country, and spirituality.
 
-- An increase in mental health conditions and help seeking in young males was also anecdotally noted and discussed.
+- At stakeholder consultation for the development of this report, participants discussed the significant challenges Aboriginal and/or Torres Strait Islander people face in accessing mental health support, particularly services that are affordable, culturally safe, and responsive to community needs. An increase in mental health concerns and help-seeking among young males had also been anecdotally observed, which stakeholders felt was reflected in the available data.
 
-- The impact of mental health issues and sorry business on the broader community was also discussed, and flow on effects for community wellbeing.
+- Stakeholders highlighted that social and emotional wellbeing is closely connected to culture, family, Community, and Country. The impact of mental health challenges and sorry business on the broader community was discussed, including flow-on effects for family and community wellbeing. 
 
-- Other barriers to accessing mental health services that were discussed included drug/substance use and stigma, limits to the number of sessions accessible under funding arrangements, and over-subscribed mental health services that are unable to cope with demand.
+- Barriers to accessing mental health support included stigma, alcohol and other drug use, affordability, transport, workforce shortages, long waiting periods, and limitations on the number of sessions available under existing funding arrangements. Participants noted that oversubscribed services were often unable to meet current levels of demand.
+
+- Stakeholders also emphasised the importance of Aboriginal-led and culturally safe social and emotional wellbeing services. Building trust, strengthening cultural connection, and increasing access to Aboriginal health workers, Aboriginal mental health practitioners, and community-led models of care were identified as important strategies for supporting wellbeing.
 
 ## Cultural Strengths and Emotional Wellbeing
 
@@ -316,7 +332,7 @@ wellbeing_kessler <- wellbeing_kessler %>%
 
 <div style="height: 0.1em;"></div>
 
-- Psychological distress was assessed using the Kessler 5 Score, a measure of non-specific recent psychological distress.
+- Psychological distress was assessed using the [Kessler 5 Score](https://novopsych.com/assessments/depression/kessler-psychological-distress-scale-5/), a measure of non-specific recent psychological distress.
   - The responses to these questions were combined and scaled to produce an overall score between 5 and 25.
   - Overall scores were classified as Low/Moderate (5 to 11) or High/Very High (12 to 25) psychological distress.
 
@@ -481,7 +497,7 @@ wellbeing_pearlin <- wellbeing_pearlin %>%
 
 <div style="height: 0.1em;"></div>
 
-- The level of perceived level of control over life events and outcomes was assessed using the Pearlin Mastery Scale, consisting of seven statements about a person's belief in their ability to control their own life.
+- The level of perceived level of control over life events and outcomes was assessed using the [Pearlin Mastery Scale](https://www.jstor.org/stable/2136319), consisting of seven statements about a person's belief in their ability to control their own life.
   - The responses to these statements were combined and scaled to produce an overall score between 7 and 28.
   - Overall scores were classified as a Low (7 to 19) or High (20 to 28) level of control over life events and outcomes.
 
@@ -660,7 +676,7 @@ wellbeing_mspss <- wellbeing_mspss %>%
 
 <div style="height: 0.1em;"></div>
 
-- The level of perceived social support was assessed using the Multidimensional Scale of Perceived Social Support (MSPSS), consisting of six statements about a person's social support from their friends and family.
+- The level of perceived social support was assessed using the [Multidimensional Scale of Perceived Social Support (MSPSS)](https://www.tandfonline.com/doi/abs/10.1207/s15327752jpa5201_2), consisting of six statements about a person's social support from their friends and family.
   - The responses to these statements were combined and scaled to produce an overall score between 1.0 and 7.0.
   - Overall scores were classified as a Low (1.0 to 2.9), Moderate (3.0 to 5.0), or High (5.1 to 7.0) level of social support.
 
@@ -1313,7 +1329,7 @@ mental_type <- mental_type %>%
   - Anxiety
   - Harmful use or dependence on alcohol or drugs
   - Behavioural or emotional problems
-  - Other mental health condition (please specify)
+  - Other mental health condition (*please specify*)
 
 :::
 
@@ -1353,7 +1369,8 @@ figure_percent <- mental_type %>%
                     y_variable = prop,
                     x_angle    = 90)
 
-f_bar_grouped_combine(figure_number, figure_percent)
+f_bar_grouped_combine(figure_number, figure_percent,
+                      legend_offset = -0.3)
 ```
 
 
@@ -1570,7 +1587,7 @@ mental_service <- mental_service %>%
   - Psychiatrist or psychologist
   - Mental health nurse
   - Traditional healer
-  - Other (please specify)
+  - Other (*please specify*)
 
 :::
 
@@ -1647,7 +1664,8 @@ figure_percent <- mental_service %>%
                     y_variable = prop,
                     x_angle    = 90)
 
-f_bar_grouped_combine(figure_number, figure_percent)
+f_bar_grouped_combine(figure_number, figure_percent,
+                      legend_offset = -0.25)
 ```
 
 
@@ -1756,13 +1774,21 @@ hospital_mental <- hospital_mental %>%
 
 - Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
 
-- During the four-year period 01 July 2017 to 30 June 2021 there were 3,970 hospital admissions for mental and behavioural disorders for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
+- During the four-year period 01 July 2019 to 30 June 2023 there were 4,690 hospital admissions for mental and behavioural disorders for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
-- The number of admissions for mental and behavioural disorders for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 589 (Northcote/Preston/Whittlesea IARE) to 55 (Craigieburn/Sunbury IARE).
+- The number of admissions for mental and behavioural disorders for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 681 (Melbourne/Port Phillip IARE) to 89 (Craigieburn/Sunbury and Whitehorse IAREs).
 
-- The age-standardised rate of admissions for mental and behavioural disorders for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 5,712 per 100,000 population (Whitehorse IARE) to 907 per 100,000 population (Craigieburn/Sunbury IARE).
+- The age-standardised rate of admissions for mental and behavioural disorders for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 5,417 per 100,000 population (Melbourne/Port Phillip IARE) to 1,159 per 100,000 population (Yarra Ranges IARE).
 
-- 7 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for mental and behavioural disorders above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Whitehorse, Melbourne/Port Phillip, Melbourne East, Melbourne North-East, Northcote/Preston/Whittlesea, Moreland/Broadmeadows, and Maroondah IAREs).
+- 6 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for mental and behavioural disorders above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Melbourne East, Moreland/Broadmeadows, Northcote/Preston/Whittlesea, Whitehorse, and Melbourne North-East IAREs).
+
+**Key points from stakeholder consultation**
+
+- Hospital admissions for mental health related conditions may reflect a range of factors, including the severity of mental health needs, access to early intervention and community-based supports, availability of culturally safe services, and broader barriers to care. 
+
+- Hospital admission data should be interpreted within the broader context of social and emotional wellbeing, recognising the impacts of colonisation, racism, intergenerational trauma, and other social determinants that can influence both wellbeing outcomes and access to support.
+
+- Higher rates of hospitalisation do not necessarily indicate poorer individual wellbeing, but may also reflect unmet support needs, delayed access to care, or a lack of culturally appropriate community-based services.
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - `r note_aboriginality_vaed`
@@ -1890,7 +1916,7 @@ table %>%
 # ------------------------------------------------------------------------------
 # Read in PHIDU data
 hospital_mood <- f_read_phidu_iare_hospital(data_sheet    = "Admissions_principal_diag",
-                                            column_select = "admissions_for_mood_affective_disorders_aboriginal_people")
+                                            column_select = "admissions_for_affective_mood_disorders_aboriginal_people")
 
 # Data wrangling
 hospital_mood <- hospital_mood %>% 
@@ -1901,13 +1927,13 @@ hospital_mood <- hospital_mood %>%
 
 - Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
 
-- During the four-year period 01 July 2017 to 30 June 2021 there were 803 hospital admissions for mood (affective) disorders for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
+- During the four-year period 01 July 2019 to 30 June 2023 there were 886 hospital admissions for mood (affective) disorders for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
-- The number of admissions for mood (affective) disorders for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 101 (Northcote/Preston/Whittlesea IARE) to 12 (Craigieburn/Sunbury IARE).
+- The number of admissions for mood (affective) disorders for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 104 (Northcote/Preston/Whittlesea IARE) to 9 (Maroondah IARE).
 
-- The age-standardised rate of admissions for mood (affective) disorders for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 1,928 per 100,000 population (Whitehorse IARE) to 201 per 100,000 population (Craigieburn/Sunbury IARE).
+- The age-standardised rate of admissions for mood (affective) disorders for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 1,204 per 100,000 population (Melbourne East IARE) to 206 per 100,000 population (Yarra Ranges IARE).
 
-- 5 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for mood (affective) disorders above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Whitehorse, Melbourne East, Northcote/Preston/Whittlesea, Moreland/Broadmeadows, and Melbourne/Port Phillip IAREs).
+- 5 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for mood (affective) disorders above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne East, Melbourne/Port Phillip, Moreland/Broadmeadows, Whitehorse, and Northcote/Preston/Whittlesea IAREs).
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - `r note_aboriginality_vaed`
@@ -2030,8 +2056,8 @@ table %>%
 # Data from PHIDU Social Health Atlas
 # ------------------------------------------------------------------------------
 # Read in PHIDU data
-emergency_mental <- f_read_phidu_iare_hospital(data_sheet    = "ED_total",
-                                               column_select = "emergency_department_presentations_total_presentations_for_mental_and_behavioural_disorders_aboriginal_people")
+emergency_mental <- f_read_phidu_iare_hospital(data_sheet    = "ED_principal_diag_total",
+                                               column_select = "emergency_department_presentations_presentations_for_mental_and_behavioural_disorders_aboriginal_persons")
 
 # Data wrangling
 emergency_mental <- emergency_mental %>% 
@@ -2042,13 +2068,21 @@ emergency_mental <- emergency_mental %>%
 
 - Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [AIHW National Non-Admitted Patient Emergency Department Care Database (NNAPEDCD)](https://www.aihw.gov.au/reports/hospitals/non-admitted-patient-emergency-dept-care-nmds/summary).
 
-- Between 01 July 2019 and 30 June 2020 there were 1,142 emergency department presentations for mental and behavioural disorders for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
+- Between 01 July 2022 and 30 June 2023 there were 1,420 emergency department presentations for mental and behavioural disorders for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
-- The number of emergency department presentations for mental and behavioural disorders for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 182 (Northcote/Preston/Whittlesea IARE) to 15 (Maroondah IARE).
+- The number of emergency department presentations for mental and behavioural disorders for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 221 (Melbourne/Port Phillip IARE) to 16 (Whitehorse IARE).
 
-- The age-standardised rate of presentations for mental and behavioural disorders for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 7,086 per 100,000 population (Melbourne/Port Phillip IARE) to 1,265 per 100,000 population (Yarra Ranges IARE).
+- The age-standardised rate of emergency department presentations for mental and behavioural disorders for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 7,143 per 100,000 population (Melbourne/Port Phillip IARE) to 1,822 per 100,000 population (Craigieburn/Sunbury IARE).
 
-- 6 of the 10 IAREs in the NEPHU catchment area had an age-standardised rate of emergency department presentations for mental and behavioural disorders above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Northcote/Preston/Whittlesea, Melbourne East, Moreland/Broadmeadows, Melbourne North-East, and Whitehorse IAREs).
+- 4 of the 10 IAREs in the NEPHU catchment area had an age-standardised rate of emergency department presentations for mental and behavioural disorders above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Moreland/Broadmeadows, Northcote/Preston/Whittlesea, and Melbourne North-East IAREs).
+
+**Key points from stakeholder consultation**
+
+- Emergency department presentations may occur when social and emotional wellbeing concerns reach crisis point, or when appropriate community-based supports are difficult to access.
+
+- Emergency department presentation rates are therefore not solely an indicator of mental health burden, but may also reflect barriers to accessing culturally safe care, affordability of services, long wait times, and unmet support needs.
+
+- Strengthening access to culturally safe, trauma-informed, and Aboriginal-led social and emotional wellbeing services may support earlier intervention and reduce the need for emergency care.
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - `r note_aboriginality_vemd`

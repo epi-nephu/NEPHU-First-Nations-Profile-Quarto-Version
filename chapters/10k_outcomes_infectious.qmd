@@ -4,6 +4,8 @@ title-block: false
 
 # Infectious Diseases
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,7 +24,7 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Infectious Diseases {.unnumbered}
+## Infectious Diseases {.unnumbered .unlisted}
 
 ::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
 `r note_chapter_different_sources`
@@ -54,7 +56,7 @@ What infectious diseases affect Aboriginal and/or Torres Strait Islander people 
 # Data from PHESS
 #-------------------------------------------------------------------------------
 # Read in PHESS data
-cases_all <- read.csv(paste0(here::here(), "/data", "/PHAR_Extract_2015_2024.csv"))
+cases_all <- read.csv(paste0(here::here(), "/data", "/PHAR_Extract_2016_2025.csv"))
 
 # Data wrangling
 cases_all <- cases_all %>% 
@@ -111,17 +113,29 @@ cases_all <- cases_all %>%
 #-------------------------------------------------------------------------------
 pertussis <- cases_all %>% 
   f_wrangle_phess(condition_name = "Pertussis")
+
+table <- pertussis %>% 
+  f_preptable_phess() %>% 
+  #
+  janitor::adorn_totals() %>% 
+  #
+  dplyr::filter(year == "Total") %>%
+  #
+  dplyr::mutate(nephu_rate_aboriginal     = (nephu_n_aboriginal / (population_nephu_aboriginal * 10)) * 100000,
+                vic_rate_aboriginal       = (vic_n_aboriginal / (population_vic_aboriginal * 10)) * 100000,
+                nephu_rate_non_indigenous = (nephu_n_non_indigenous / (population_nephu_nonaboriginal * 10)) * 100000,
+                vic_rate_non_indigenous   = (vic_n_non_indigenous / (population_vic_nonaboriginal * 10)) * 100000)
 ```
 
-- Data for this topic were obtained from the [Victorian Public Health Event Surveillance System](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria), collected under the *Public Health and Wellbeing Act 2008* and *Public Health and Wellbeing Regulations 2019*.
+- Data for this topic were obtained from the [Victorian Public Health Event Surveillance System (PHESS)](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria), collected under the *Public Health and Wellbeing Act 2008* and *Public Health and Wellbeing Regulations 2019*.
 
-- During 2015 to 2024, there were 52 pertussis notifications for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment and 261 notifications for Aboriginal and/or Torres Strait Islander people living in Victoria.
+- During 2016 to 2025, there were 54 pertussis notifications for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment and 336 notifications for Aboriginal and/or Torres Strait Islander people living in Victoria.
 
-- The notification rate for Aboriginal and/or Torres Strait Islander people was higher than for non-Indigenous people living in the NEPHU catchment (43 per 100,000 people compared to 23 per 100,000 people).
+- The notification rate for Aboriginal and/or Torres Strait Islander people was higher than for non-Indigenous people living in the NEPHU catchment (45 per 100,000 people compared to 22 per 100,000 people).
 
-- The notification rate for people living in the NEPHU catchment was higher than for all people living in Victoria, with this same pattern seen for both Aboriginal and/or Torres Strait Islander people (43 per 100,000 people compared to 40 per 100,000) and non-Indigenous people (23 per 100,000 people compared to 22 per 100,000 people).
+- The notification rate for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment was lower than for all Aboriginal and/or Torres Strait Islander people living in Victoria (45 per 100,000 people compared to 51 per 100,000 people).
 
-- The number and rate of pertussis (whooping cough) notifications decreased during the COVID-19 pandemic and rebounded significantly during 2024. 
+- The number and rate of pertussis notifications decreased during the COVID-19 pandemic and rebounded significantly during 2024. 
 
 - This increase in 2024 was seen for both Aboriginal and/or Torres Strait Islander people and non-Indigenous people in both the NEPHU catchment and Victoria, and similar increases were seen across all other Australian states and territories.
 
@@ -274,19 +288,29 @@ table %>%
 #-------------------------------------------------------------------------------
 imd <- cases_all %>% 
   f_wrangle_phess(condition_name = "IMD")
+
+table <- imd %>% 
+  f_preptable_phess() %>% 
+  #
+  janitor::adorn_totals() %>% 
+  #
+  dplyr::filter(year == "Total") %>%
+  #
+  dplyr::mutate(nephu_rate_aboriginal     = (nephu_n_aboriginal / (population_nephu_aboriginal * 10)) * 100000,
+                vic_rate_aboriginal       = (vic_n_aboriginal / (population_vic_aboriginal * 10)) * 100000,
+                nephu_rate_non_indigenous = (nephu_n_non_indigenous / (population_nephu_nonaboriginal * 10)) * 100000,
+                vic_rate_non_indigenous   = (vic_n_non_indigenous / (population_vic_nonaboriginal * 10)) * 100000)
 ```
 
-- Data for this topic were obtained from the [Victorian Public Health Event Surveillance System](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria), collected under the *Public Health and Wellbeing Act 2008* and *Public Health and Wellbeing Regulations 2019*.
+- Data for this topic were obtained from the [Victorian Public Health Event Surveillance System (PHESS)](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria), collected under the *Public Health and Wellbeing Act 2008* and *Public Health and Wellbeing Regulations 2019*.
 
-- During 2015 to 2024, there was 1 IMD notification for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment and 10 notifications for Aboriginal and/or Torres Strait Islander people living in Victoria.
+- During 2016 to 2025, there was 1 invasive meningococcal disease (IMD) notification for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment and 8 notifications for Aboriginal and/or Torres Strait Islander people living in Victoria.
 
-- The most recent notification of invasive meningococcal disease (IMD) for an Aboriginal and/or Torres Strait Islander resident of the NEPHU catchment was in 2018.
+- The most recent notification of IMD for an Aboriginal and/or Torres Strait Islander resident of the NEPHU catchment was in 2018.
 
-- The notification rate for Aboriginal and/or Torres Strait Islander people was higher than for non-Indigenous people living in the NEPHU catchment (0.83 per 100,000 people compared to 0.55 per 100,000 people).
+- The notification rate for Aboriginal and/or Torres Strait Islander people was higher than for non-Indigenous people living in the NEPHU catchment (0.83 per 100,000 people compared to 0.48 per 100,000 people).
 
-- The notification rate for people living in the NEPHU catchment was lower than for all people living in Victoria, with this same pattern seen for both Aboriginal and/or Torres Strait Islander people (0.83 per 100,000 people compared to 1.5 per 100,000) and non-Indigenous people (0.55 per 100,000 people compared to 0.58 per 100,000 people).
-
-- For Victoria overall, the number of notifications and notification rates for IMD have decreased in the years following the COVID-19 pandemic, however the rates of IMD remain higher for Aboriginal and/or Torres Strait Islander people compared to non-Indigenous people.
+- The notification rate for people living in the NEPHU catchment was lower than for all people living in Victoria, with this same pattern seen for both Aboriginal and/or Torres Strait Islander people (0.83 per 100,000 people compared to 1.2 per 100,000) and non-Indigenous people (0.48 per 100,000 people compared to 0.53 per 100,000 people).
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - `r note_aboriginality_phess`
@@ -370,7 +394,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Number of invasive meningococcal disease notifications and notification rate (per 100,000 population), `r note_geography_nephu` and `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_year)` and `r note_comparison_aboriginal`
+**`r figtab_table_title`:** Number of invasive meningococcal disease (IMD) notifications and notification rate (per 100,000 population), `r note_geography_nephu` and `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_year)` and `r note_comparison_aboriginal`
 :::
 
 ```{r}
@@ -430,15 +454,29 @@ table %>%
 #-------------------------------------------------------------------------------
 ipd <- cases_all %>% 
   f_wrangle_phess(condition_name = "IPD")
+
+table <- ipd %>% 
+  f_preptable_phess() %>% 
+  #
+  janitor::adorn_totals() %>% 
+  #
+  dplyr::filter(year == "Total") %>%
+  #
+  dplyr::mutate(nephu_rate_aboriginal     = (nephu_n_aboriginal / (population_nephu_aboriginal * 10)) * 100000,
+                vic_rate_aboriginal       = (vic_n_aboriginal / (population_vic_aboriginal * 10)) * 100000,
+                nephu_rate_non_indigenous = (nephu_n_non_indigenous / (population_nephu_nonaboriginal * 10)) * 100000,
+                vic_rate_non_indigenous   = (vic_n_non_indigenous / (population_vic_nonaboriginal * 10)) * 100000)
 ```
 
-- Data for this topic were obtained from the [Victorian Public Health Event Surveillance System](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria), collected under the *Public Health and Wellbeing Act 2008* and *Public Health and Wellbeing Regulations 2019*.
+- Data for this topic were obtained from the [Victorian Public Health Event Surveillance System (PHESS)](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria), collected under the *Public Health and Wellbeing Act 2008* and *Public Health and Wellbeing Regulations 2019*.
 
-- During 2015 to 2024, there were 13 IPD notifications for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment and 97 notifications for Aboriginal and/or Torres Strait Islander people living in Victoria.
+- During 2016 to 2025, there were 18 invasive pneumococcal disease (IPD) notifications for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment and 122 notifications for Aboriginal and/or Torres Strait Islander people living in Victoria.
 
-- The notification rate for Aboriginal and/or Torres Strait Islander people was higher than for non-Indigenous people living in the NEPHU catchment (11 per 100,000 people compared to 4.9 per 100,000 people).
+- The notification rate for Aboriginal and/or Torres Strait Islander people was higher than for non-Indigenous people living in the NEPHU catchment (15 per 100,000 people compared to 5.4 per 100,000 people).
 
-- The notification rate for people living in the NEPHU catchment was lower than for all people living in Victoria, with this same pattern seen for both Aboriginal and/or Torres Strait Islander people (11 per 100,000 people compared to 15 per 100,000) and non-Indigenous people (4.9 per 100,000 people compared to 5.7 per 100,000 people).
+- The notification rate for people living in the NEPHU catchment was lower than for all people living in Victoria, with this same pattern seen for both Aboriginal and/or Torres Strait Islander people (15 per 100,000 people compared to 19 per 100,000) and non-Indigenous people (5.4 per 100,000 people compared to 6.3 per 100,000 people).
+
+- The number and rate of IPD notifications decreased during the COVID-19 pandemic and have rebounded significantly from 2022 onwards. 
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - `r note_aboriginality_phess`
@@ -452,7 +490,7 @@ ipd <- cases_all %>%
 - [Invasive pneumococcal disease (IPD)](https://www.health.vic.gov.au/infectious-diseases/invasive-pneumococcal-disease) is an uncommon but serious bacterial disease caused by *Streptococcus pneumoniae*.
   - IPD is spread via respiratory droplets and commonly presents as septicaemia, meningitis, and/or pneumonia.
   - Young children, older people, and people with impaired immune systems are at the highest risk of severe disease.
-  - The National Immunisation Program [funds vaccines](https://immunisationhandbook.health.gov.au/pneumococcal-disease) to protect those at highest risk of invasive pneumococcal disease.
+  - The National Immunisation Program (NIP) [funds vaccines](https://immunisationhandbook.health.gov.au/pneumococcal-disease) to protect those at highest risk of invasive pneumococcal disease.
   - Monitoring cases allows for changes in the population at risk of disease to be understood, the early detection of outbreaks, the implementation of targeted public health interventions, and assessment of the effectiveness of vaccination programs.
 
 :::
@@ -582,17 +620,29 @@ table %>%
 #-------------------------------------------------------------------------------
 varicella <- cases_all %>% 
   f_wrangle_phess(condition_name = "VZV")
+
+table <- varicella %>% 
+  f_preptable_phess() %>% 
+  #
+  janitor::adorn_totals() %>% 
+  #
+  dplyr::filter(year == "Total") %>%
+  #
+  dplyr::mutate(nephu_rate_aboriginal     = (nephu_n_aboriginal / (population_nephu_aboriginal * 10)) * 100000,
+                vic_rate_aboriginal       = (vic_n_aboriginal / (population_vic_aboriginal * 10)) * 100000,
+                nephu_rate_non_indigenous = (nephu_n_non_indigenous / (population_nephu_nonaboriginal * 10)) * 100000,
+                vic_rate_non_indigenous   = (vic_n_non_indigenous / (population_vic_nonaboriginal * 10)) * 100000)
 ```
 
-- Data for this topic were obtained from the [Victorian Public Health Event Surveillance System](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria), collected under the *Public Health and Wellbeing Act 2008* and *Public Health and Wellbeing Regulations 2019*.
+- Data for this topic were obtained from the [Victorian Public Health Event Surveillance System (PHESS)](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria), collected under the *Public Health and Wellbeing Act 2008* and *Public Health and Wellbeing Regulations 2019*.
 
-- During 2015 to 2024, there were 77 Varicella Zoster (chickenpox and/or shingles) notifications for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment and 266 notifications for Aboriginal and/or Torres Strait Islander people living in Victoria.
+- During 2016 to 2025, there were 71 Varicella Zoster (chickenpox and/or shingles) notifications for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment and 266 notifications for Aboriginal and/or Torres Strait Islander people living in Victoria.
 
-- The notification rate for Aboriginal and/or Torres Strait Islander people was higher than for non-Indigenous people living in the NEPHU catchment (64 per 100,000 people compared to 51 per 100,000 people).
+- The notification rate for Aboriginal and/or Torres Strait Islander people was higher than for non-Indigenous people living in the NEPHU catchment (59 per 100,000 people compared to 51 per 100,000 people).
 
-- The notification rate for people living in the NEPHU catchment was higher than for all people living in Victoria, with this same pattern seen for both Aboriginal and/or Torres Strait Islander people (64 per 100,000 people compared to 41 per 100,000) and non-Indigenous people (51 per 100,000 people compared to 46 per 100,000 people).
+- The notification rate for people living in the NEPHU catchment was higher than for all people living in Victoria, with this same pattern seen for both Aboriginal and/or Torres Strait Islander people (59 per 100,000 people compared to 41 per 100,000) and non-Indigenous people (51 per 100,000 people compared to 46 per 100,000 people).
 
-- The number of notifications and notification rate have rebounded to pre-pandemic levels for both Aboriginal and/or Torres Strait Islander people and non-Indigenous people in Victoria.
+- The number of notifications and notification rate decreased during the COVID-19 pandemic and have started to rebound to pre-pandemic levels for both Aboriginal and/or Torres Strait Islander people and non-Indigenous people in Victoria.
 
 - These data are a likely underestimate of true disease incidence in the community, as cases may be mild, self-limiting, and managed at home without medical attention being sought.
 
@@ -610,7 +660,7 @@ varicella <- cases_all %>%
   - Shingles typically occurs when a previous chickenpox infection reactivates after a prolonged dormant period, often in older adults following a chickenpox infection when they were children.
   - Shingles causes a skin rash characterised by pain and blistering that usually appears on one side of the face or body.
   - Shingles is not as contagious as chickenpox but can cause severe disease, particularly when the eyes, ears, or face are affected.
-  - Vaccination is available for both [chickenpox](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/varicella-chickenpox) and [shingles](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/zoster-herpes-zoster), and is funded under the National Immunisation Program for high risk groups.
+  - Vaccination is available for both [chickenpox](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/varicella-chickenpox) and [shingles](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/zoster-herpes-zoster), and is funded under the National Immunisation Program (NIP) for high risk groups.
   - Monitoring cases allows for changes in the population at risk of disease to be understood, the early detection of outbreaks, the implementation of targeted public health interventions, and assessment of the effectiveness of vaccination programs.
 
 :::
@@ -768,13 +818,13 @@ table <- hepb %>%
                 vic_rate_non_indigenous   = (vic_n_non_indigenous / (population_vic_nonaboriginal * 10)) * 100000)
 ```
 
-- Data for this topic were obtained from the [Victorian Public Health Event Surveillance System](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria), collected under the *Public Health and Wellbeing Act 2008* and *Public Health and Wellbeing Regulations 2019*.
+- Data for this topic were obtained from the [Victorian Public Health Event Surveillance System (PHESS)](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria), collected under the *Public Health and Wellbeing Act 2008* and *Public Health and Wellbeing Regulations 2019*.
 
-- During 2015 to 2024, there were 5 Hepatitis B (HBV) notifications for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment and 49 notifications for Aboriginal and/or Torres Strait Islander people living in Victoria.
+- During 2016 to 2025, there were 7 Hepatitis B (HBV) notifications for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment and 59 notifications for Aboriginal and/or Torres Strait Islander people living in Victoria.
 
-- The notification rate for Aboriginal and/or Torres Strait Islander people was lower than for non-Indigenous people living in the NEPHU catchment (4.1 per 100,000 people compared to 14 per 100,000 people).
+- The notification rate for Aboriginal and/or Torres Strait Islander people was lower than for non-Indigenous people living in the NEPHU catchment (5.8 per 100,000 people compared to 14 per 100,000 people).
 
-- The notification rate for people living in the NEPHU catchment was lower than for all people living in Victoria, with this same pattern seen for both Aboriginal and/or Torres Strait Islander people (4.1 per 100,000 people compared to 7.5 per 100,000) and non-Indigenous people (7.5 per 100,000 people compared to 14 per 100,000 people).
+- The notification rate for people living in the NEPHU catchment was lower than for all Aboriginal and/or Torres Strait Islander people living in Victoria (5.8 per 100,000 people compared to 9.0 per 100,000).
 
 - These data are a likely underestimate of true disease incidence in the community, as HBV cases are often asymptomatic and may not be diagnosed until severe symptoms such as cirrhosis and liver cancer develop later in life.
 
@@ -793,7 +843,7 @@ table <- hepb %>%
   - Less than 10% of children and less than 50% of adults with acute HBV infections will have symptomatic disease.
   - The risk of developing chronic HBV after an acute infection varies depending on age, with children at the highest risk.
   - Chronic HBV infection can persist for life and lead to severe or fatal disease, including cirrhosis, hepatic necrosis, and liver cancer (hepatocellular carcinoma).
-  - [Vaccination against HBV](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/hepatitis-b) is funded by the National Immunisation Program for all babies at birth and for high risk children and adults by state and territory vaccination programs.
+  - [Vaccination against HBV](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/hepatitis-b) is funded by the National Immunisation Program (NIP) for all babies at birth and for high risk children and adults by state and territory vaccination programs.
   - Monitoring cases allows for changes in the population at risk of disease to be understood, the early detection of outbreaks, the implementation of targeted public health interventions, and assessment of the effectiveness of vaccination programs.
 
 :::
@@ -869,13 +919,13 @@ table <- hepc %>%
                 vic_rate_non_indigenous   = (vic_n_non_indigenous / (population_vic_nonaboriginal * 10)) * 100000)
 ```
 
-- Data for this topic were obtained from the [Victorian Public Health Event Surveillance System](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria), collected under the *Public Health and Wellbeing Act 2008* and *Public Health and Wellbeing Regulations 2019*.
+- Data for this topic were obtained from the [Victorian Public Health Event Surveillance System (PHESS)](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria), collected under the *Public Health and Wellbeing Act 2008* and *Public Health and Wellbeing Regulations 2019*.
 
-- During 2015 to 2024, there were 71 Hepatitis C (HCV) notifications for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment and 745 notifications for Aboriginal and/or Torres Strait Islander people living in Victoria.
+- During 2016 to 2025, there were 73 Hepatitis C (HCV) notifications for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment and 767 notifications for Aboriginal and/or Torres Strait Islander people living in Victoria.
 
-- The notification rate for Aboriginal and/or Torres Strait Islander people was higher than for non-Indigenous people living in the NEPHU catchment (59 per 100,000 people compared to 7.4 per 100,000 people).
+- The notification rate for Aboriginal and/or Torres Strait Islander people was higher than for non-Indigenous people living in the NEPHU catchment (61 per 100,000 people compared to 7.7 per 100,000 people).
 
-- The notification rate for people living in the NEPHU catchment was lower than for all people living in Victoria, with this same pattern seen for both Aboriginal and/or Torres Strait Islander people (59 per 100,000 people compared to 113 per 100,000) and non-Indigenous people (7.4 per 100,000 people compared to 11 per 100,000 people).
+- The notification rate for people living in the NEPHU catchment was lower than for all people living in Victoria, with this same pattern seen for both Aboriginal and/or Torres Strait Islander people (61 per 100,000 people compared to 117 per 100,000) and non-Indigenous people (7.7 per 100,000 people compared to 12 per 100,000 people).
 
 - These data are a likely underestimate of true disease incidence in the community, as HCV cases are often asymptomatic and may not be diagnosed until severe symptoms such as cirrhosis and liver cancer develop later in life.
 
@@ -900,7 +950,7 @@ table <- hepc %>%
 :::
 
 ::: {.callout-tip title="Notification and follow-up requirements" icon=false collapse=false}
-- Hepatitis C is a routine notifiable condition. Cases must be notified by medical practitioners and pathology services in writing to the Department of Health within five days of diagnosis.
+- Hepatitis C (HCV) is a routine notifiable condition. Cases must be notified by medical practitioners and pathology services in writing to the Department of Health within five days of diagnosis.
 
 - *Hepatitis C* includes newly acquired and unspecified notifications.
 
@@ -968,13 +1018,13 @@ table <- hiv %>%
                 vic_rate_non_indigenous   = (vic_n_non_indigenous / (population_vic_nonaboriginal * 10)) * 100000)
 ```
 
-- Data for this topic were obtained from the [Victorian Public Health Event Surveillance System](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria), collected under the *Public Health and Wellbeing Act 2008* and *Public Health and Wellbeing Regulations 2019*.
+- Data for this topic were obtained from the [Victorian Public Health Event Surveillance System (PHESS)](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria), collected under the *Public Health and Wellbeing Act 2008* and *Public Health and Wellbeing Regulations 2019*.
 
-- During 2015 to 2024, there were 6 Human Immunodeficiency Virus (HIV) notifications for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment and 39 notifications for Aboriginal and/or Torres Strait Islander people living in Victoria.
+- During 2016 to 2025, there were 9 Human Immunodeficiency Virus (HIV) notifications for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment and 36 notifications for Aboriginal and/or Torres Strait Islander people living in Victoria.
 
-- The notification rate for Aboriginal and/or Torres Strait Islander people was higher than for non-Indigenous people living in the NEPHU catchment (5.0 per 100,000 people compared to 2.9 per 100,000 people).
+- The notification rate for Aboriginal and/or Torres Strait Islander people was higher than for non-Indigenous people living in the NEPHU catchment (7.5 per 100,000 people compared to 2.7 per 100,000 people).
 
-- The notification rate for people living in the NEPHU catchment was lower than for all people living in Victoria, with this same pattern seen for both Aboriginal and/or Torres Strait Islander people (5.0 per 100,000 people compared to 5.9 per 100,000) and non-Indigenous people (2.9 per 100,000 people compared to 3.7 per 100,000 people).
+- The notification rate for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment was higher than for all Aboriginal and/or Torres Strait Islander people living in Victoria (7.5 per 100,000 people compared to 5.5 per 100,000 people).
 
 - These data are a likely underestimate of true disease incidence in the community, as HIV cases are often asymptomatic and may not be diagnosed until the development of AIDS-defining illnesses and cancers many years later.
 
@@ -1045,15 +1095,27 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 #-------------------------------------------------------------------------------
 gono <- cases_all %>% 
   f_wrangle_phess(condition_name = "Gonococcal")
+
+table <- gono %>% 
+  f_preptable_phess() %>% 
+  #
+  janitor::adorn_totals() %>% 
+  #
+  dplyr::filter(year == "Total") %>%
+  #
+  dplyr::mutate(nephu_rate_aboriginal     = (nephu_n_aboriginal / (population_nephu_aboriginal * 10)) * 100000,
+                vic_rate_aboriginal       = (vic_n_aboriginal / (population_vic_aboriginal * 10)) * 100000,
+                nephu_rate_non_indigenous = (nephu_n_non_indigenous / (population_nephu_nonaboriginal * 10)) * 100000,
+                vic_rate_non_indigenous   = (vic_n_non_indigenous / (population_vic_nonaboriginal * 10)) * 100000)
 ```
 
-- Data for this topic were obtained from the [Victorian Public Health Event Surveillance System](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria), collected under the *Public Health and Wellbeing Act 2008* and *Public Health and Wellbeing Regulations 2019*.
+- Data for this topic were obtained from the [Victorian Public Health Event Surveillance System (PHESS)](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria), collected under the *Public Health and Wellbeing Act 2008* and *Public Health and Wellbeing Regulations 2019*.
 
-- During 2015 to 2024, there were 186 gonorrhoea notifications for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment and 909 notifications for Aboriginal and/or Torres Strait Islander people living in Victoria.
+- During 2016 to 2025, there were 210 gonorrhoea notifications for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment and 1,069 notifications for Aboriginal and/or Torres Strait Islander people living in Victoria.
 
-- The notification rate for Aboriginal and/or Torres Strait Islander people was higher than for non-Indigenous people living in the NEPHU catchment (154 per 100,000 people compared to 66 per 100,000 people).
+- The notification rate for Aboriginal and/or Torres Strait Islander people was higher than for non-Indigenous people living in the NEPHU catchment (174 per 100,000 people compared to 72 per 100,000 people).
 
-- The notification rate for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment was higher than for all Aboriginal and/or Torres Strait Islander people living in Victoria (154 per 100,000 people compared to 138 per 100,000 people).
+- The notification rate for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment was higher than for all Aboriginal and/or Torres Strait Islander people living in Victoria (174 per 100,000 people compared to 163 per 100,000 people).
 
 - The number and rate of gonorrhoea notifications decreased for Aboriginal and/or Torres Strait Islander people during the COVID-19 pandemic and have since rebounded to higher than pre-pandemic levels.
 
@@ -1253,19 +1315,25 @@ table_congential <- syphilis_congenital %>%
                 vic_rate_non_indigenous   = (vic_n_non_indigenous / (population_vic_nonaboriginal * 10)) * 100000)
 ```
 
-- Data for this topic were obtained from the [Victorian Public Health Event Surveillance System](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria), collected under the *Public Health and Wellbeing Act 2008* and *Public Health and Wellbeing Regulations 2019*.
+- Data for this topic were obtained from the [Victorian Public Health Event Surveillance System (PHESS)](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria), collected under the *Public Health and Wellbeing Act 2008* and *Public Health and Wellbeing Regulations 2019*.
 
-- During 2015 to 2024, there were 82 infectious syphilis (less than two years duration) notifications for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment and 406 notifications for Aboriginal and/or Torres Strait Islander people living in Victoria.
+- During 2016 to 2025, there were 86 infectious syphilis (less than two years duration) notifications for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment and 449 notifications for Aboriginal and/or Torres Strait Islander people living in Victoria.
 
-- The infectious syphilis notification rate for Aboriginal and/or Torres Strait Islander people was higher than for non-Indigenous people living in the NEPHU catchment (68 per 100,000 people compared to 16 per 100,000 people).
+- The infectious syphilis notification rate for Aboriginal and/or Torres Strait Islander people was higher than for non-Indigenous people living in the NEPHU catchment (71 per 100,000 people compared to 17 per 100,000 people).
 
-- During 2015 to 2024, there were 31 late syphilis (two years or more, or unknown duration) notifications for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment and 167 notifications for Aboriginal and/or Torres Strait Islander people living in Victoria.
+- The notification rate for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment was higher than for all Aboriginal and/or Torres Strait Islander people living in Victoria (71 per 100,000 people compared to 68 per 100,000 people).
 
-- The late syphilis notification rate for Aboriginal and/or Torres Strait Islander people was higher than for non-Indigenous people living in the NEPHU catchment (26 per 100,000 people compared to 5.8 per 100,000 people).
+- During 2016 to 2025, there were 37 late syphilis (two years or more, or unknown duration) notifications for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment and 190 notifications for Aboriginal and/or Torres Strait Islander people living in Victoria.
 
-- During 2015 to 2024, there was 1 congenital syphilis notification for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment and 7 notifications for Aboriginal and/or Torres Strait Islander people living in Victoria.
+- The late syphilis notification rate for Aboriginal and/or Torres Strait Islander people was higher than for non-Indigenous people living in the NEPHU catchment (31 per 100,000 people compared to 6.3 per 100,000 people).
 
-- The congenital syphilis notification rate for Aboriginal and/or Torres Strait Islander people was higher than for non-Indigenous people living in the NEPHU catchment (0.8 per 100,000 people compared to 0.03 per 100,000 people).
+- The notification rate for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment was higher than for all Aboriginal and/or Torres Strait Islander people living in Victoria (31 per 100,000 people compared to 29 per 100,000 people).
+
+- During 2016 to 2025, there was 1 congenital syphilis notification for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment and 6 notifications for Aboriginal and/or Torres Strait Islander people living in Victoria.
+
+- The congenital syphilis notification rate for Aboriginal and/or Torres Strait Islander people was higher than for non-Indigenous people living in the NEPHU catchment (0.83 per 100,000 people compared to 0.03 per 100,000 people).
+
+- The notification rate for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment was lower than for all Aboriginal and/or Torres Strait Islander people living in Victoria (0.83 per 100,000 people compared to 0.91 per 100,000 people).
 
 - These data are a likely underestimate of true disease incidence in the community as cases may be asymptomatic, particularly in women.
 
@@ -1369,7 +1437,7 @@ igas <- cases_all %>%
   #
   mutate(across(where(is.numeric), ~ replace(.x, as.character(year) %in% as.character(2015:2021), NA)))
 
-table_igas <- igas %>% 
+table <- igas %>% 
   f_preptable_phess() %>% 
   #
   janitor::adorn_totals() %>% 
@@ -1382,13 +1450,17 @@ table_igas <- igas %>%
                 vic_rate_non_indigenous   = (vic_n_non_indigenous / (population_vic_nonaboriginal * (34/36 * 3))) * 100000)
 ```
 
-- Data for this topic were obtained from the [Victorian Public Health Event Surveillance System](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria), collected under the *Public Health and Wellbeing Act 2008* and *Public Health and Wellbeing Regulations 2019*.
+- Data for this topic were obtained from the [Victorian Public Health Event Surveillance System (PHESS)](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria), collected under the *Public Health and Wellbeing Act 2008* and *Public Health and Wellbeing Regulations 2019*.
 
 - Invasive Group A *Streptococcus* (iGAS) became notifiable in Victoria in February 2022.
 
-- There were 5 iGAS notifications for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment and 27 notifications for Aboriginal and/or Torres Strait Islander people living in Victoria between February 2022 and December 2024.
+- There were 10 iGAS notifications for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment and 43 notifications for Aboriginal and/or Torres Strait Islander people living in Victoria between February 2022 and December 2025.
 
-- The iGAS notification rate for Aboriginal and/or Torres Strait Islander people was higher than for non-Indigenous people living in the NEPHU catchment (15 per 100,000 people compared to 5.8 per 100,000 people) and in Victoria (15 per 100,000 people compared to 6.0 per 100,000 people).
+- The iGAS notification rate for Aboriginal and/or Torres Strait Islander people was higher than for non-Indigenous people living in the NEPHU catchment (29 per 100,000 people compared to 7.5 per 100,000 people) and in Victoria (23 per 100,000 people compared to 8.0 per 100,000 people).
+
+- The notification rate for Aboriginal and/or Torres Strait Islander people living in the NEPHU catchment was higher than for all Aboriginal and/or Torres Strait Islander people living in Victoria (29 per 100,000 people compared to 23 per 100,000 people).
+
+- It is not reliable to report on this topic broken down further by year due to small numbers.
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - `r note_aboriginality_phess`
@@ -1486,15 +1558,17 @@ table_rhd <- rhd %>%
                 vic_rate_non_indigenous   = (vic_n_non_indigenous / (population_vic_nonaboriginal * (29/36 * 3))) * 100000)
 ```
 
-- Data for this topic were obtained from the [Victorian Public Health Event Surveillance System](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria), collected under the *Public Health and Wellbeing Act 2008* and *Public Health and Wellbeing Regulations 2019*.
+- Data for this topic were obtained from the [Victorian Public Health Event Surveillance System (PHESS)](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria), collected under the *Public Health and Wellbeing Act 2008* and *Public Health and Wellbeing Regulations 2019*.
 
 - Acute Rheumatic Fever (ARF) and Rheumatic Heart Disease (RHD) became notifiable in Victoria in July 2023.
 
 - There have been no notifications of ARF or RHD for Aboriginal and/or Torres Strait Islander residents of the NEPHU catchment since these conditions became notifiable.
 
-- There were 5 ARF notifications for Aboriginal and/or Torres Strait Islander people living in Victoria between July 2023 and December 2024. The ARF notification rate for Aboriginal and/or Torres Strait Islander people was higher than for non-Indigenous people living in Victoria (3.2 per 100,000 people compared to 0.18 per 100,000 people).
+- There were 5 ARF notifications for Aboriginal and/or Torres Strait Islander people living in Victoria between July 2023 and December 2025. The ARF notification rate for Aboriginal and/or Torres Strait Islander people was higher than for non-Indigenous people living in Victoria (3.15 per 100,000 people compared to 0.24 per 100,000 people).
 
-- There were 2 RHD notifications for Aboriginal and/or Torres Strait Islander people living in Victoria between July 2023 and December 2024. The RHD notification rate for Aboriginal and/or Torres Strait Islander people was higher than for non-Indigenous people living in Victoria (1.3 per 100,000 people compared to 0.31 per 100,000 people).
+- There were 3 RHD notifications for Aboriginal and/or Torres Strait Islander people living in Victoria between July 2023 and December 2025. The RHD notification rate for Aboriginal and/or Torres Strait Islander people was higher than for non-Indigenous people living in Victoria (1.89 per 100,000 people compared to 0.35 per 100,000 people).
+
+- It is not reliable to report on this topic broken down further by year due to small numbers.
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - `r note_aboriginality_phess`
@@ -1581,13 +1655,13 @@ hospital_infectious <- hospital_infectious %>%
 
 - Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
 
-- During the four-year period 01 July 2017 to 30 June 2021 there were 1,090 hospital admissions for infectious and parasitic diseases for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
+- During the four-year period 01 July 2019 to 30 June 2023 there were 1,220 hospital admissions for infectious and parasitic diseases for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
-- The number of admissions for infectious and parasitic diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 129 (Northcote/Preston/Whittlesea IARE) to 10 (Whitehorse IARE).
+- The number of admissions for infectious and parasitic diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 137 (Northcote/Preston/Whittlesea IARE) to 15 (Whitehorse IARE).
 
-- The age-standardised rate of admissions for infectious and parasitic diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 1,306 per 100,000 population (Melbourne/Port Phillip IARE) to 326 per 100,000 population (Melbourne East IARE).
+- The age-standardised rate of admissions for infectious and parasitic diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 1,340 per 100,000 population (Melbourne/Port Phillip IARE) to 412 per 100,000 population (Melbourne East IARE).
 
-- 6 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for infectious and parasitic diseases above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Knox, Craigieburn/Sunbury, Moreland/Broadmeadows, Melbourne North-East, and Northcote/Preston/Whittlesea IAREs).
+- 5 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for infectious and parasitic diseases above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Knox, Craigieburn/Sunbury, Moreland/Broadmeadows, and Northcote/Preston/Whittlesea IAREs).
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - `r note_aboriginality_vaed`
@@ -1724,8 +1798,8 @@ table %>%
 # Data from PHIDU Social Health Atlas
 # ------------------------------------------------------------------------------
 # Read in PHIDU data
-emergency_infectious <- f_read_phidu_iare_hospital(data_sheet    = "ED_total",
-                                                   column_select = "emergency_department_presentations_total_presentations_for_certain_infectious_and_parasitic_diseases_aboriginal_people")
+emergency_infectious <- f_read_phidu_iare_hospital(data_sheet    = "ED_principal_diag_total",
+                                                   column_select = "emergency_department_presentations_presentations_for_certain_infectious_and_parasitic_diseases_aboriginal_persons")
 
 # Data wrangling
 emergency_infectious <- emergency_infectious %>% 
@@ -1736,13 +1810,13 @@ emergency_infectious <- emergency_infectious %>%
 
 - Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [AIHW National Non-Admitted Patient Emergency Department Care Database (NNAPEDCD)](https://www.aihw.gov.au/reports/hospitals/non-admitted-patient-emergency-dept-care-nmds/summary).
 
-- Between 01 July 2019 and 30 June 2020 there were 812 emergency department presentations for infectious and parasitic diseases for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
+- Between 01 July 2022 and 30 June 2023 there were 1,062 emergency department presentations for infectious and parasitic diseases for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
-- The number of emergency department presentations for infectious and parasitic diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 108 (Northcote/Preston/Whittlesea IARE) to 8 (Whitehorse IARE).
+- The number of emergency department presentations for infectious and parasitic diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 131 (Northcote/Preston/Whittlesea IARE) to 11 (Maroondah IARE).
 
-- The age-standardised rate of emergency department presentations for infectious and parasitic diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 3,905 per 100,000 population (Melbourne/Port Phillip IARE) to 1,708 per 100,000 population (Melbourne East IARE).
+- The age-standardised rate of emergency department presentations for infectious and parasitic diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 3,325 per 100,000 population (Craigieburn/Sunbury IARE) to 1,446 per 100,000 population (Maroondah IARE).
 
-- 5 of the 10 IAREs in the NEPHU catchment area had an age-standardised rate of emergency department presentations for infectious and parasitic diseases above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Melbourne North-East, Maroondah, Northcote/Preston/Whittlesea, and Moreland/Broadmeadows IAREs).
+- 6 of the 10 IAREs in the NEPHU catchment area had an age-standardised rate of emergency department presentations for infectious and parasitic diseases above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Craigieburn/Sunbury, Moreland/Broadmeadows, Melbourne North-East, Melbourne/Port Phillip, Whitehorse, and Northcote/Preston/Whittlesea IAREs).
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - `r note_aboriginality_vemd`

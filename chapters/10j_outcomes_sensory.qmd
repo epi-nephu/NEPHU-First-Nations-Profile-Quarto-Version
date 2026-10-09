@@ -4,6 +4,8 @@ title-block: false
 
 # Ear, Eye, and Oral Conditions
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,7 +24,7 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Ear, Eye, and Oral Conditions {.unnumbered}
+## Ear, Eye, and Oral Conditions {.unnumbered .unlisted}
 
 ::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
 `r note_chapter_different_sources`
@@ -111,7 +113,7 @@ hearing <- hearing %>%
   - Tinnitus (ringing in your ears)
   - Ménière's disease
   - Otitis media, glue ear, or middle ear infection
-  - Other (please specify)
+  - Other (*please specify*)
   - No, don't have any hearing problems
 
 :::
@@ -207,13 +209,13 @@ hospital_ear <- hospital_ear %>%
 
 - Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
 
-- During the four-year period 01 July 2017 to 30 June 2021 there were 362 hospital admissions for ear and mastoid process diseases for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
+- During the four-year period 01 July 2019 to 30 June 2023 there were 369 hospital admissions for ear and mastoid process diseases for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
-- The number of admissions for ear and mastoid process diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 44 (Northcote/Preston/Whittlesea IARE) to 7 (Knox and Whitehorse IAREs).
+- The number of admissions for ear and mastoid process diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 39 (Northcote/Preston/Whittlesea IARE) to 6 (Maroondah IAREs).
 
-- The age-standardised rate of admissions for ear and mastoid process diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 325 per 100,000 population (Whitehorse IARE) to 164 per 100,000 population (Knox IARE).
+- The age-standardised rate of admissions for ear and mastoid process diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 433 per 100,000 population (Melbourne/Port Phillip IARE) to 171 per 100,000 population (Moreland/Broadmeadows IARE).
 
-- 6 of the 9 IAREs in the NEPHU catchment area with data available for reporting had an age-standardised admission rate for ear and mastoid process diseases above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Whitehorse, Melbourne/Port Phillip, Yarra Ranges, Northcote/Preston/Whittlesea, Melbourne North-East, and Craigieburn/Sunbury IAREs).
+- 5 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for ear and mastoid process diseases above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Melbourne North-East, Whitehorse, Craigieburn/Sunbury, and Knox IAREs).
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - `r note_aboriginality_vaed`
@@ -316,10 +318,6 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
-`r note_caveat_iare_suppress`
-
-<div style="height: 0.1em;"></div>
-
 - Figure 10J-1 and Table 10J-2:
   - Indicator: Hospital admissions for ear and mastoid process diseases
   - Numerator: `r note_numerator_hospital_aboriginal`
@@ -345,7 +343,7 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 # ------------------------------------------------------------------------------
 # Read in PHIDU data
 hospital_ent <- f_read_phidu_iare_hospital(data_sheet    = "Admissions_acute_prev",
-                                           column_select = "admissions_for_acute_ear_nose_and_throat_infections_aboriginal_people")
+                                           column_select = "admissions_for_potentially_preventable_conditions_acute_ear_nose_and_throat_infections_aboriginal_people")
 
 # Data wrangling
 hospital_ent <- hospital_ent %>% 
@@ -402,7 +400,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Number and age-standardised rate (per 100,000 population) of hospital admissions for acute ear, nose, and throat infections for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital`
+**`r figtab_figure_title`:** Number and age-standardised rate (per 100,000 population) of hospital admissions for acute ear, nose, and throat infections for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital_prevent`
 :::
 
 ```{r}
@@ -429,7 +427,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Hospital admissions for acute ear, nose, and throat infections for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital`
+**`r figtab_table_title`:** Hospital admissions for acute ear, nose, and throat infections for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital_prevent`
 :::
 
 ```{r}
@@ -572,7 +570,7 @@ eyesight <- eyesight %>%
   - Trachoma
   - Lazy eye or strabismus
   - Retinopathy
-  - Other (please specify)
+  - Other (*please specify*)
   - No, don't have any sight or eye problems
 
 :::
@@ -668,13 +666,13 @@ hospital_eye <- hospital_eye %>%
 
 - Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
 
-- During the four-year period 01 July 2017 to 30 June 2021 there were 579 hospital admissions for eye and ocular adnexa diseases for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
+- During the four-year period 01 July 2019 to 30 June 2023 there were 682 hospital admissions for eye and ocular adnexa diseases for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
-- The number of admissions for eye and ocular adnexa diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 78 (Northcote/Preston/Whittlesea IARE) to 9 (Knox IARE).
+- The number of admissions for eye and ocular adnexa diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 71 (Northcote/Preston/Whittlesea IARE) to 8 (Maroondah IARE).
 
-- The age-standardised rate of admissions for eye and ocular adnexa diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 533 per 100,000 population (Melbourne East IARE) to 188 per 100,000 population (Knox IARE).
+- The age-standardised rate of admissions for eye and ocular adnexa diseases for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 592 per 100,000 population (Melbourne East IARE) to 214 per 100,000 population (Maroondah IARE).
 
-- 4 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for eye and ocular adnexa diseases above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne East, Craigieburn/Sunbury, Northcote/Preston/Whittlesea, and Moreland/Broadmeadows IAREs).
+- 3 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for eye and ocular adnexa diseases above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne East, Craigieburn/Sunbury, and Melbourne/Port Phillip IAREs).
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - `r note_aboriginality_vaed`
@@ -956,7 +954,7 @@ table %>%
 # ------------------------------------------------------------------------------
 # Read in PHIDU data
 hospital_teeth <- f_read_phidu_iare_hospital(data_sheet    = "Admissions_acute_prev",
-                                             column_select = "admissions_for_acute_dental_conditions_aboriginal_people")
+                                             column_select = "admissions_for_potentially_preventable_conditions_acute_dental_conditions_aboriginal_people")
 
 # Data wrangling
 hospital_teeth <- hospital_teeth %>% 
@@ -1015,7 +1013,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Number and age-standardised rate (per 100,000 population) of hospital admissions for acute oral and dental conditions for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital`
+**`r figtab_figure_title`:** Number and age-standardised rate (per 100,000 population) of hospital admissions for acute oral and dental conditions for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital_prevent`
 :::
 
 ```{r}
@@ -1042,7 +1040,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Hospital admissions for acute oral and dental conditions for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital`
+**`r figtab_table_title`:** Hospital admissions for acute oral and dental conditions for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital_prevent`
 :::
 
 ```{r}
