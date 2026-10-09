@@ -4,6 +4,8 @@ title-block: false
 
 # Injury
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,14 +24,14 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Injury {.unnumbered}
+## Injury {.unnumbered .unlisted}
 
 ::: {.callout-important title="Content warning" icon=true collapse=false}
 Some topics in this section include references to assault and self-harm. This content may bring up strong feelings or memories for readers, particularly Aboriginal and/or Torres Strait Islander peoples living in metropolitan Melbourne.
 
 Take the time you need and connect with trusted supports, Elders, or loved ones. Your wellbeing matters.
  
-If you or someone you know needs support, please consider reaching out to the culturally safe services listed here.
+We encourage readers to take care while engaging with this material and to seek support from trusted family members, community, Elders, Aboriginal Community Controlled Organisations, or other culturally safe support services if needed. If you or someone you know needs support, please consider reaching out to the culturally safe services [listed here](01f_intro_services.qmd).
 :::
 
 <div style="height: 0.1em;"></div>
@@ -72,13 +74,13 @@ hospital_anyinjury <- hospital_anyinjury %>%
 
 - Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
 
-- During the four-year period 01 July 2017 to 30 June 2021 there were 4,675 hospital admissions for injuries, poisoning, and selected other external causes of morbidity and mortality for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
+- During the four-year period 01 July 2019 to 30 June 2023 there were 5,536 hospital admissions for injuries, poisoning, and selected other external causes of morbidity and mortality for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
-- The number of admissions for injuries, poisoning, and selected other external causes of morbidity and mortality for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 608 (Northcote/Preston/Whittlesea IARE) to 71 (Whitehorse IARE).
+- The number of admissions for injuries, poisoning, and selected other external causes of morbidity and mortality for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 684 (Northcote/Preston/Whittlesea IARE) to 84 (Whitehorse IARE).
 
-- The age-standardised rate of admissions for injuries, poisoning, and selected other external causes of morbidity and mortality for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 3,641 per 100,000 population (Moreland/Broadmeadows IARE) to 2,061 per 100,000 population (Yarra Ranges IARE).
+- The age-standardised rate of admissions for injuries, poisoning, and selected other external causes of morbidity and mortality for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 4,633 per 100,000 population (Melbourne/Port Phillip IARE) to 2,300 per 100,000 population (Yarra Ranges IARE).
 
-- 4 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for injuries, poisoning, and selected other external causes of morbidity and mortality above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Moreland/Broadmeadows, Melbourne/Port Phillip, Northcote/Preston/Whittlesea, and Maroondah IAREs).
+- 4 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for injuries, poisoning, and selected other external causes of morbidity and mortality above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Moreland/Broadmeadows, Northcote/Preston/Whittlesea, and Melbourne East IAREs).
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - `r note_aboriginality_vaed`
@@ -206,8 +208,8 @@ table %>%
 # Data from PHIDU Social Health Atlas
 # ------------------------------------------------------------------------------
 # Read in PHIDU data
-emergency_anyinjury <- f_read_phidu_iare_hospital(data_sheet    = "ED_total",
-                                                  column_select = "emergency_department_presentations_total_presentations_for_injury_poisoning_and_certain_other_consequences_of_external_causes_aboriginal_people")
+emergency_anyinjury <- f_read_phidu_iare_hospital(data_sheet    = "ED_principal_diag_total",
+                                                  column_select = "emergency_department_presentations_presentations_for_injury_poisoning_and_certain_other_external_causes_aboriginal_persons")
 
 # Data wrangling
 emergency_anyinjury <- emergency_anyinjury %>% 
@@ -218,13 +220,13 @@ emergency_anyinjury <- emergency_anyinjury %>%
 
 - Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [AIHW National Non-Admitted Patient Emergency Department Care Database (NNAPEDCD)](https://www.aihw.gov.au/reports/hospitals/non-admitted-patient-emergency-dept-care-nmds/summary).
 
-- Between 01 July 2019 and 30 June 2020 there were 3,218 emergency department presentations for injuries, poisoning, and selected other external causes of morbidity and mortality for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
+- Between 01 July 2022 and 30 June 2023 there were 4,285 emergency department presentations for injuries, poisoning, and selected other external causes of morbidity and mortality for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
-- The number of presentations for injuries, poisoning, and selected other external causes of morbidity and mortality for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 450 (Northcote/Preston/Whittlesea IARE) to 34 (Whitehorse IARE).
+- The number of presentations for injuries, poisoning, and selected other external causes of morbidity and mortality for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 528 (Northcote/Preston/Whittlesea IARE) to 62 (Whitehorse IARE).
 
-- The age-standardised rate of presentations for injuries, poisoning, and selected other external causes of morbidity and mortality for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 12,325 per 100,000 population (Moreland/Broadmeadows IARE) to 6,644 per 100,000 population (Melbourne East IARE).
+- The age-standardised rate of presentations for injuries, poisoning, and selected other external causes of morbidity and mortality for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 14,839 per 100,000 population (Moreland/Broadmeadows IARE) to 8,095 per 100,000 population (Maroondah IARE).
 
-- 3 of the 10 IAREs in the NEPHU catchment area had an age-standardised rate of emergency department presentations for injuries, poisoning, and selected other external causes of morbidity and mortality above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Moreland/Broadmeadows, Northcote/Preston/Whittlesea, and Melbourne/Port Phillip IAREs).
+- 6 of the 10 IAREs in the NEPHU catchment area had an age-standardised rate of emergency department presentations for injuries, poisoning, and selected other external causes of morbidity and mortality above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Moreland/Broadmeadows, Melbourne/Port Phillip, Northcote/Preston/Whittlesea, Melbourne North-East, Craigieburn/Sunbury and Knox IAREs).
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - `r note_aboriginality_vemd`
@@ -367,13 +369,13 @@ hospital_falls <- hospital_falls %>%
 
 - Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
 
-- During the four-year period 01 July 2017 to 30 June 2021 there were 1,067 hospital admissions for falls for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
+- During the four-year period 01 July 2019 to 30 June 2023 there were 1,243 hospital admissions for falls for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
-- The number of admissions for falls for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 117 (Northcote/Preston/Whittlesea IARE) to 19 (Whitehorse IARE).
+- The number of admissions for falls for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 128 (Melbourne/Port Phillip IARE) to 14 (Whitehorse IARE).
 
-- The age-standardised rate of admissions for falls for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 1,120 per 100,000 population (Melbourne/Port Phillip IARE) to 365 per 100,000 population (Yarra Ranges IARE).
+- The age-standardised rate of admissions for falls for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 1,503 per 100,000 population (Melbourne/Port Phillip IARE) to 457 per 100,000 population (Yarra Ranges IARE).
 
-- 5 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for falls above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Moreland/Broadmeadows, Craigieburn/Sunbury, Melbourne East, and Whitehorse IAREs).
+- 4 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate for falls above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Moreland/Broadmeadows, Melbourne East, and Craigieburn/Sunbury IAREs).
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - `r note_aboriginality_vaed`
@@ -528,13 +530,13 @@ hospital_transport <- hospital_transport %>%
 
 - Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
 
-- During the four-year period 01 July 2017 to 30 June 2021 there were 424 hospital admissions for transport crash injuries for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
+- During the four-year period 01 July 2019 to 30 June 2023 there were 492 hospital admissions for transport crash injuries for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
-- The number of admissions for transport crash injuries for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 52 (Northcote/Preston/Whittlesea IARE) to 7 (Maroondah IARE).
+- The number of admissions for transport crash injuries for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 70 (Northcote/Preston/Whittlesea IARE) to 9 (Maroondah IARE).
 
-- The age-standardised rate of admissions for transport crash injuries for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 400 per 100,000 population (Moreland/Broadmeadows IARE) to 103 per 100,000 population (Melbourne East IARE).
+- The age-standardised rate of admissions for transport crash injuries for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 426 per 100,000 population (Moreland/Broadmeadows IARE) to 194 per 100,000 population (Melbourne North-East IARE).
 
-- 4 of the 9 IAREs in the NEPHU catchment area with data available for reporting had an age-standardised admission rate for transport crash injuries above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Moreland/Broadmeadows, Northcote/Preston/Whittlesea, Knox, and Yarra Ranges IAREs).
+- 3 of the 9 IAREs in the NEPHU catchment area with data available for reporting had an age-standardised admission rate for transport crash injuries above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Moreland/Broadmeadows, Northcote/Preston/Whittlesea, and Craigieburn/Sunbury IAREs).
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - `r note_aboriginality_vaed`
@@ -685,11 +687,11 @@ hospital_assault <- hospital_assault %>%
 
 - Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
 
-- During the four-year period 01 July 2017 to 30 June 2021 there were 388 hospital admissions for assault for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
+- During the four-year period 01 July 2019 to 30 June 2023 there were 487 hospital admissions for assault for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
-- The number of admissions for assault for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 65 (Northcote/Preston/Whittlesea IARE) to 6 (Knox IARE).
+- The number of admissions for assault for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 88 (Melbourne/Port Phillip IARE) to 7 (Knox IARE).
 
-- The age-standardised rate of admissions for assault for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 399 per 100,000 population (Melbourne/Port Phillip IARE) to 89 per 100,000 population (Yarra Ranges IARE).
+- The age-standardised rate of admissions for assault for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 654 per 100,000 population (Melbourne/Port Phillip IARE) to 102 per 100,000 population (Yarra Ranges IARE).
 
 - 4 of the 9 IAREs in the NEPHU catchment area with data available for reporting had an age-standardised admission rate for assault above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Northcote/Preston/Whittlesea, Whitehorse, and Moreland/Broadmeadows IAREs).
 
@@ -855,13 +857,15 @@ hospital_harm <- hospital_harm %>%
 
 - Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
 
-- During the four-year period 01 July 2017 to 30 June 2021 there were 375 hospital admissions for intentional self-harm for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
+- During the four-year period 01 July 2019 to 30 June 2023 there were 462 hospital admissions for intentional self-harm for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
-- The number of admissions for intentional self-harm for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 51 (Northcote/Preston/Whittlesea IARE) to 6 (Whitehorse IARE).
+- The number of admissions for intentional self-harm for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 53 (Moreland/Broadmeadows IARE) to 6 (Knox IARE).
 
-- The age-standardised rate of admissions for intentional self-harm for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 519 per 100,000 population (Maroondah IARE) to 100 per 100,000 population (Yarra Ranges IARE).
+- The age-standardised rate of admissions for intentional self-harm for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 605 per 100,000 population (Moreland/Broadmeadows IARE) to 110 per 100,000 population (Craigieburn/Sunbury IARE).
 
-- 7 of the 9 IAREs in the NEPHU catchment area with data available for reporting had an age-standardised admission rate for intentional self-harm above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Maroondah, Melbourne East, Moreland/Broadmeadows, Melbourne/Port Phillip, Northcote/Preston/Whittlesea, Melbourne North-East, and Whitehorse IAREs).
+- 6 of the 8 IAREs in the NEPHU catchment area with data available for reporting had an age-standardised admission rate for intentional self-harm above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Moreland/Broadmeadows, Melbourne East, Melbourne/Port Phillip, Melbourne North-East, Whitehorse, and Northcote/Preston/Whittlesea IAREs).
+
+- Data relating to mental health conditions, use of mental health services, and wellbeing can be found in the [Mental Health and Wellbeing section](10l_outcomes_mentalhealth.qmd) of this report.
 
 **Key points from stakeholder consultation**
 

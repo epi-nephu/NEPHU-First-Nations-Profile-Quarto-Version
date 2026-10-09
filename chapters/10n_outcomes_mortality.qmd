@@ -4,6 +4,8 @@ title-block: false
 
 # Mortality
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,18 +24,16 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Mortality {.unnumbered}
+## Mortality {.unnumbered .unlisted}
 
 ::: {.callout-important title="Content warning" icon=true collapse=false}
-The information in this section acknowledges the ongoing impacts of colonisation, intergenerational trauma, and systemic inequities on the health and wellbeing of Aboriginal and/or Torres Strait Islander peoples. While these data speak to loss, it is shared with deep respect for the lives, families, and communities behind each number.
+Some topics in this section include references to suicide. This content may bring up strong feelings or memories for readers, particularly Aboriginal and/or Torres Strait Islander people living in metropolitan Melbourne.
 
 The intent of this section is not only to describe mortality data, but to strengthen collective understanding and inform healing-based public health actions that honour the resilience and strength of Aboriginal and/or Torres Strait Islander people. Behind every number are loved ones, family members, Elders, and community members who have contributed to the strength of the community. These data are shared to honour them, to guide health planning that is culturally safe and community-driven, and to support pathways that enable healing, hope, and self-determination for future generations.
 
-Some topics in this section include references to suicide. This content may bring up strong feelings or memories for readers, particularly Aboriginal and/or Torres Strait Islander people living in metropolitan Melbourne.
+The information in this section acknowledges the ongoing impacts of colonisation, intergenerational trauma, and systemic inequities on the health and wellbeing of Aboriginal and/or Torres Strait Islander peoples. While these data speak to loss, it is shared with deep respect for the lives, families, and communities behind each number.
 
-Take the time you need and connect with trusted supports, Elders, or loved ones. Your wellbeing matters.
- 
-If you or someone you know needs support, please consider reaching out to the culturally safe services listed here.
+We encourage readers to take care while engaging with this material and to seek support from trusted family members, community, Elders, Aboriginal Community Controlled Organisations, or other culturally safe support services if needed. If you or someone you know needs support, please consider reaching out to the culturally safe services [listed here](01f_intro_services.qmd).
 :::
 
 <div style="height: 0.1em;"></div>
@@ -140,6 +140,12 @@ mortality_age <- mortality_age_aboriginal %>%
 - The age-standardised death rate for Aboriginal and/or Torres Strait Islander people in Victoria during 2023 was 9.5 deaths per 1,000 people, compared to 5.2 deaths per 1,000 people for non-Indigenous people.
 
 - Males had a higher age-standardised death rate than females (10.3 per 1,000 people vs. 8.6 per 1,000 people).
+
+**Key points from stakeholder consultation**
+
+- It is important to recognise that differences in mortality outcomes are not reflective of Aboriginal and/or Torres Strait Islander peoples themselves, but of the ongoing impacts of colonisation, systemic racism, social and economic inequities, and barriers to accessing culturally safe healthcare.
+
+- These structural factors continue to influence health outcomes across the life course and contribute to the mortality gap observed today. 
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - The ABS has implemented an enhanced process for [ascertaining Aboriginal and/or Torres Strait Islander status](https://www.abs.gov.au/articles/technical-note-impact-using-multiple-sources-deriving-indigenous-status-deaths-2023-changes-victoria-and-coroner-referred-deaths) for deaths registered from 2023 onwards in Victoria.
@@ -277,13 +283,19 @@ mortality_cause <- mortality_cause %>%
 
 - Data for this topic were obtained from the ABS Technical Note [The impact of using multiple sources for deriving the Indigenous status of deaths in 2023](https://www.abs.gov.au/articles/technical-note-impact-using-multiple-sources-deriving-indigenous-status-deaths-2023-changes-victoria-and-coroner-referred-deaths). Due to changes introduced in the derivation of Aboriginal and/or Torres Strait Islander status for deaths registered from 2023 onwards, data for 2023 cannot be reliably compared to previous years.
 
-- Cause of death data for 2023 are preliminary and are subject to change as additional data become available. The process of coding cause of death data can take up to 2.5 years due to the requirement to wait for coroner cases to be closed and for information from autopsies and toxicology testing to become available for inclusion when death data are coded by the ABS. The next revision of 2023 death data is due to occur in April 2026.
+- Cause of death data for 2023 are preliminary and are subject to change as additional data become available. The process of coding cause of death data can take up to 2.5 years due to the requirement to wait for coroner cases to be closed and for information from autopsies and toxicology testing to become available for inclusion when death data are coded by the ABS.
 
 - The top five leading causes of death for Aboriginal and/or Torres Strait Islander people in Victoria during 2023 were ischaemic heart disease (50 deaths), lower respiratory disease (32 deaths), lung cancer (27 deaths), suicide (26 deaths), diabetes (18 deaths), and accidental poisoning (18 deaths).
 
 - The top five leading causes of death for Aboriginal and/or Torres Strait Islander males in Victoria during 2023 were ischaemic heart disease (33 deaths), lung cancer (19 deaths), suicide (18 deaths), lower respiratory disease (17 deaths), and accidental poisoning (10 deaths).
 
 - The top five leading causes of death for Aboriginal and/or Torres Strait Islander females in Victoria during 2023 were ischaemic heart disease (17 deaths), lower respiratory disease (15 deaths), breast cancer (10 deaths), diabetes (10 deaths), and cirrhosis (9 deaths).
+
+**Key points from stakeholder consultation**
+
+- While these mortality patterns identify important areas for health system action, they should be understood within the broader context of colonisation, social and economic inequities, and barriers to culturally safe care.
+
+- Evidence demonstrates that Aboriginal-led health initiatives and community-controlled services [play a critical role](https://doi.org/10.1071/AH16149) in improving health outcomes and supporting longer, healthier lives.
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - The ABS has implemented an enhanced process for [ascertaining Aboriginal and/or Torres Strait Islander status](https://www.abs.gov.au/articles/technical-note-impact-using-multiple-sources-deriving-indigenous-status-deaths-2023-changes-victoria-and-coroner-referred-deaths) for deaths registered from 2023 onwards in Victoria.
@@ -698,7 +710,7 @@ suicide_australia <- f_read_ctg_indigenous("CTG14_Wellbeing_Data_Tables.xlsx",
                                                               unit = "x13",
                                                               vic  = "x14"),
                                            fill_variables = vars(indigenous_status, year, unit, vic),
-                                           row_select     = c(6:11, 13:18, 21:26, 28:33))
+                                           row_select     = c(6:12, 14:20, 23:29, 31:37))
 
 # Data wrangling
 suicide_australia <- suicide_australia %>% 
@@ -729,21 +741,25 @@ suicide_agesex <- readxl::read_excel(file.path(root_folder, subfolder_coroner, "
   janitor::clean_names()
 ```
 
-- Data for this topic were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the [ABS Causes of Death data](https://www.abs.gov.au/statistics/health/causes-death) and from the Coroners Court of Victoria [Suicides of Aboriginal and Torres Strait Islander People Report (2018-2023)](https://www.coronerscourt.vic.gov.au/suicides-aboriginal-and-torres-strait-islander-people-victoria-2018-2023).
+- Data for this topic were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the [ABS Causes of Death data](https://www.abs.gov.au/statistics/health/causes-death) and from the Coroners Court of Victoria [Suicides of Aboriginal and Torres Strait Islander People in Victoria Report (2020-2024)](https://www.coronerscourt.vic.gov.au/sites/default/files/2025-03/Coroners%20Court%20of%20Victoria%20-%20Suicides%20of%20Aboriginal%20and%20Torres%20Strait%20Islander%20people%20in%20Victoria%2C%202020-2024.pdf).
 
-- The age-standardised suicide rate for Aboriginal and/or Torres Strait Islander people in Australia has increased over time, from 24 per 100,000 people in 2018 to 31 per 100,000 people in 2023. The suicide rate was consistently higher than for non-Indigenous people.
+- The age-standardised suicide rate for Aboriginal and/or Torres Strait Islander people in Australia has increased over time, from 24 per 100,000 people in 2018 to 34 per 100,000 people in 2024. The suicide rate was consistently higher than for non-Indigenous people.
 
-- Between January 2018 and December 2023 there were 134 deaths due to suicide among Aboriginal and/or Torres Strait Islander people in Victoria.
+- Between January 2020 and December 2024 there were 122 deaths due to suicide among Aboriginal and/or Torres Strait Islander people in Victoria.
 
-- There was a larger number of suicides each year for Aboriginal and/or Torres Strait Islander males compared to females in Victoria, and the number of suicides per year has increased over time for males.
+- There was a larger number of suicides each year for Aboriginal and/or Torres Strait Islander males compared to females in Victoria, and the number of suicides per year has increased over time for males, with a large peak in 2021.
 
-- 45% of suicides for males and 76% of suicides for females among Aboriginal and/or Torres Strait Islander people in Victoria were among people aged less than 34 years.
+- 48% of suicides for males and 79% of suicides for females among Aboriginal and/or Torres Strait Islander people in Victoria were among people aged less than 34 years.
 
-- Despite comprising 1.0% of the Victorian population, 3.1% of deaths due to suicide during 2018-2023 in Victoria were among Aboriginal and/or Torres Strait Islander people.
+- Despite comprising 1.0% of the Victorian population, 3.3% of deaths due to suicide during 2020-2024 in Victoria were among Aboriginal and/or Torres Strait Islander people.
 
 - Further historical and ongoing target context can be found on the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/social-and-emotional-wellbeing/).
 
+- Data relating to mental health conditions, use of mental health services, and wellbeing can be found in the [Mental Health and Wellbeing section](10l_outcomes_mentalhealth.qmd) of this report.
+
 **Key points from stakeholder consultation**
+
+- Suicide among Aboriginal and/or Torres Strait Islander peoples must be understood within the broader context of colonisation, intergenerational trauma, experiences of racism, social exclusion and disruption of cultural connection. While these factors can increase vulnerability, connection to culture, Country, family and community remain important protective factors that support social and emotional wellbeing and healing. 
 
 - At stakeholder consultations during the development of this report, the importance of having Victorian specific data for this topic was emphasised, along with the importance of having with data broken down by age and sex to make the issue visible.
 
@@ -847,7 +863,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Number of deaths due to suicide for Aboriginal and/or Torres Strait Islander people, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_year)` and `r note_comparison_sex`
+**`r figtab_figure_title`:** Number of deaths due to suicide for Aboriginal and/or Torres Strait Islander people, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_year)` and `r stringr::str_to_lower(note_comparison_sex)`
 :::
 
 ```{r}
@@ -878,7 +894,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Number of deaths due to suicide for Aboriginal and/or Torres Strait Islander people, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_age)` and `r note_comparison_sex`, `r note_time_coroner`
+**`r figtab_figure_title`:** Number of deaths due to suicide for Aboriginal and/or Torres Strait Islander people, `r note_geography_victoria`, by `r stringr::str_to_lower(note_comparison_age)` and `r stringr::str_to_lower(note_comparison_sex)`, `r note_time_coroner`
 :::
 
 ```{r}
@@ -989,7 +1005,7 @@ table %>%
 
 <div style="height: 0.1em;"></div>
 
-- Data for Figure 10N-5, Figure 10N-6, and Table 10N-6 were sourced from the Coroners Court of Victoria [Suicides of Aboriginal and Torres Strait Islander People Report (2018-2023)](https://www.coronerscourt.vic.gov.au/suicides-aboriginal-and-torres-strait-islander-people-victoria-2018-2023).
+- Data for Figure 10N-5, Figure 10N-6, and Table 10N-6 were sourced from the Coroners Court of Victoria [Suicides of Aboriginal and Torres Strait Islander People in Victoria Report (2020-2024)](https://www.coronerscourt.vic.gov.au/sites/default/files/2025-03/Coroners%20Court%20of%20Victoria%20-%20Suicides%20of%20Aboriginal%20and%20Torres%20Strait%20Islander%20people%20in%20Victoria%2C%202020-2024.pdf).
   - This report is updated annually and provides an overview of suicides during the preceding five-year period, compiled from information recorded in the [Victorian Suicide Register](https://findanexpert.unimelb.edu.au/project/18927-the-victorian-suicide-register).
   - The Victorian Suicide Register contains detailed information on suicides in Victoria, including information on demographics and potential contributing factors and stressors.
 
@@ -1057,6 +1073,8 @@ mortality_diff <- mortality_life %>%
 - Further historical and ongoing target context can be found on the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/long-and-healthy-lives/).
 
 **Key points from stakeholder consultation**
+
+- Life expectancy differences reflect the cumulative impacts of historical and contemporary disadvantage, including unequal access to the social determinants of health such as housing, education, employment, income, and culturally safe healthcare. Continued progress requires investment in Aboriginal-led solutions and strengthening self-determination across health systems.
 
 - At stakeholder consultations during the development of this report, stakeholders highlighted the absence of Victorian specific life expectancy data as a significant gap.
 
