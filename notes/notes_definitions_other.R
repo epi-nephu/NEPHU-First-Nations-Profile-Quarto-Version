@@ -57,19 +57,20 @@ note_geography_victoria  <- "Victoria"
 ################################################################################
 # Commonly used time period definitions
 ################################################################################
-note_time_breastage   <- "2022-2023"
-note_time_cancer      <- "2019-2023"
-note_time_census      <- "2021"
-note_time_emergency   <- "01 July 2022 to 30 June 2023"
-note_time_hospital    <- "01 July 2019 to 30 June 2023"
-note_time_mortality   <- "2023"
-note_time_naplan      <- "2024"
-note_time_natsihs     <- "2022-2023"
-note_time_perinatal   <- "2019-2021"
-note_time_projections <- "2021-2031"
-note_time_coroner     <- "2018-2023"
-note_time_tax         <- "01 July 2020 to 30 June 2021"
-note_time_vaccination <- "2022"
+note_time_breastage        <- "2022-2023"
+note_time_cancer           <- "2019-2023"
+note_time_census           <- "2021"
+note_time_emergency        <- "01 July 2022 to 30 June 2023"
+note_time_hospital         <- "01 July 2019 to 30 June 2023"
+note_time_hospital_prevent <- "01 July 2017 to 30 June 2021"
+note_time_mortality        <- "2023"
+note_time_naplan           <- "2024"
+note_time_natsihs          <- "2022-2023"
+note_time_perinatal        <- "2019-2021"
+note_time_projections      <- "2021-2031"
+note_time_coroner          <- "2018-2023"
+note_time_tax              <- "01 July 2020 to 30 June 2021"
+note_time_vaccination      <- "2022"
 
 ################################################################################
 # Commonly used comparison definitions
