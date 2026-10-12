@@ -33,7 +33,7 @@ The intent of this section is not only to describe mortality data, but to streng
 
 The information in this section acknowledges the ongoing impacts of colonisation, intergenerational trauma, and systemic inequities on the health and wellbeing of Aboriginal and/or Torres Strait Islander peoples. While these data speak to loss, it is shared with deep respect for the lives, families, and communities behind each number.
 
-We encourage readers to take care while engaging with this material and to seek support from trusted family members, community, Elders, Aboriginal Community Controlled Organisations, or other culturally safe support services if needed. If you or someone you know needs support, please consider reaching out to the culturally safe services [listed here](01f_intro_services.qmd).
+We encourage readers to take care while engaging with this material and to seek support from trusted family members, community, Elders, Aboriginal Community Controlled Organisations, or other culturally safe support services if needed. If you or someone you know needs support, please consider reaching out to the culturally safe services [listed here](01g_intro_services.qmd).
 :::
 
 <div style="height: 0.1em;"></div>

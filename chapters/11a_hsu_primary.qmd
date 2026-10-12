@@ -4,6 +4,8 @@ title-block: false
 
 # Primary Health Services
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,7 +24,7 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Primary Health Services {.unnumbered}
+## Primary Health Services {.unnumbered .unlisted}
 
 ::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
 `r note_chapter_underidentification`
@@ -33,7 +35,7 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 :::
 
 ::: {.key-question}
-What external factors influence health and wellbeing for Aboriginal and/or Torres Strait Islander people and families in the NEPHU catchment, including in supporting children and strong families?
+What community, cultural, and systemic factors influence the ability of Aboriginal and/or Torres Strait Islander people and families in the NEPHU catchment to thrive, exercise self-determination, and access culturally safe environments to support their health and wellbeing?
 :::
 
 ## Usual Health Care Provider
@@ -392,7 +394,8 @@ figure_percent <- hsu_actions %>%
                     y_variable = prop,
                     x_angle    = 90)
 
-f_bar_grouped_combine(figure_number, figure_percent)
+f_bar_grouped_combine(figure_number, figure_percent,
+                      legend_offset = -0.25)
 ```
 
 
@@ -826,7 +829,8 @@ figure_percent <- gp_topics %>%
                     y_variable = prop,
                     x_angle    = 90)
 
-f_bar_grouped_combine(figure_number, figure_percent)
+f_bar_grouped_combine(figure_number, figure_percent,
+                      legend_offset = -0.3)
 ```
 
 
@@ -1195,7 +1199,8 @@ figure_percent <- dentist_type %>%
                     y_variable = prop,
                     x_angle    = 90)
 
-f_bar_grouped_combine(figure_number, figure_percent)
+f_bar_grouped_combine(figure_number, figure_percent,
+                      legend_offset = -0.3)
 ```
 
 

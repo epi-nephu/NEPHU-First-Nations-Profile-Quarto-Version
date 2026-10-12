@@ -33,7 +33,7 @@ We acknowledge the ongoing impacts of colonisation and systemic injustice on Abo
 
 Aboriginal and/or Torres Strait Islander peoples have maintained strong cultures, kinship systems, and systems of law and governance for tens of thousands of years. Contemporary overrepresentation in the criminal justice system reflects the ongoing impacts of colonisation, dispossession, structural racism, and inequitable social determinants of health rather than any inherent characteristic of First Nations peoples. While this section presents available justice-related indicators, it is important to recognise the strength, resilience, and leadership of Aboriginal and/or Torres Strait Islander communities in advocating for healing, justice reform, and self-determination.
  
-We encourage readers to take care while engaging with this material and to seek support from trusted family members, community, Elders, Aboriginal Community Controlled Organisations, or other culturally safe support services if needed. If you or someone you know needs support, please consider reaching out to the culturally safe services [listed here](01f_intro_services.qmd).
+We encourage readers to take care while engaging with this material and to seek support from trusted family members, community, Elders, Aboriginal Community Controlled Organisations, or other culturally safe support services if needed. If you or someone you know needs support, please consider reaching out to the culturally safe services [listed here](01g_intro_services.qmd).
 :::
 
 <div style="height: 0.1em;"></div>

@@ -4,6 +4,8 @@ title-block: false
 
 # Emergency Department Presentations
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,7 +24,7 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Emergency Department Presentations {.unnumbered}
+## Emergency Department Presentations {.unnumbered .unlisted}
 
 ::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
 `r note_chapter_underidentification`
@@ -33,10 +35,10 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 :::
 
 ::: {.key-question}
-What external factors influence health and wellbeing for Aboriginal and/or Torres Strait Islander people and families in the NEPHU catchment, including in supporting children and strong families?
+What community, cultural, and systemic factors influence the ability of Aboriginal and/or Torres Strait Islander people and families in the NEPHU catchment to thrive, exercise self-determination, and access culturally safe environments to support their health and wellbeing?
 :::
 
-## All Presentations
+## All Emergency Department Presentations
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -44,8 +46,8 @@ What external factors influence health and wellbeing for Aboriginal and/or Torre
 # Data from PHIDU Social Health Atlas
 # ------------------------------------------------------------------------------
 # Read in PHIDU data
-emergency_total <- f_read_phidu_iare_hospital(data_sheet    = "ED_total",
-                                              column_select = "emergency_department_presentations_total_presentations_aboriginal_people")
+emergency_total <- f_read_phidu_iare_hospital(data_sheet    = "ED_sex",
+                                              column_select = "emergency_department_presentations_total_aboriginal_presentations")
 
 # Data wrangling
 emergency_total <- emergency_total %>% 
@@ -54,15 +56,25 @@ emergency_total <- emergency_total %>%
   dplyr::arrange(iare_name)
 ```
 
-- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [AIHW National Non-Admitted Patient Emergency Department Care Database (NNAPEDCD)](https://www.aihw.gov.au/reports/hospitals/non-admitted-patient-emergency-dept-care-nmds/summary).
+- Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [AIHW National Non-Admitted Patient Emergency Department Care Database (NNAPEDCD)](https://www.aihw.gov.au/reports/hospitals/non-admitted-patient-emergency-dept-care-nmds/summary).
 
-- Between 01 July 2019 and 30 June 2020 there were 14,308 emergency department presentations for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
+- Between 01 July 2022 and 30 June 2023 there were 19,955 emergency department presentations for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
-- The number of emergency department presentations for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 2,098 (Northcote/Preston/Whittlesea IARE) to 175 (Whitehorse IARE).
+- The number of emergency department presentations for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 2,715 (Northcote/Preston/Whittlesea IARE) to 308 (Whitehorse IARE).
 
-- The age-standardised rate of emergency department presentations for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 57,485 per 100,000 population (Melbourne/Port Phillip IARE) to 33,003 per 100,000 population (Melbourne East IARE).
+- The age-standardised rate of emergency department presentations for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 64,492 per 100,000 population (Melbourne/Port Phillip IARE) to 38,434 per 100,000 population (Melbourne East IARE).
 
-- 4 of the 10 IAREs in the NEPHU catchment area had an age-standardised rate of emergency department presentations above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Northcote/Preston/Whittlesea, Melbourne North-East, and Moreland/Broadmeadows IAREs).
+- 6 of the 10 IAREs in the NEPHU catchment area had an age-standardised rate of emergency department presentations above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Moreland/Broadmeadows, Northcote/Preston/Whittlesea, Melbourne North-East, Whitehorse, and Craigieburn/Sunbury IAREs).
+
+<div style="height: 0.1em;"></div>
+
+- Data relating to emergency department presentations for specific conditions can be found in the relevant sections of this report:
+  - [Arthritis and Musculoskeletal Conditions](10c_outcomes_arthritis.qmd)
+  - [Circulatory System Diseases](10g_outcomes_cardiovascular.qmd)
+  - [Respiratory System Diseases](10i_outcomes_respiratory.qmd)
+  - [Infectious and Parasitic Diseases](10k_outcomes_infectious.qmd)
+  - [Mental and Behavioural Disorders](10l_outcomes_mentalhealth.qmd)
+  - [Injuries, Poisoning, and Selected Other External Causes of Morbidity and Mortality](10m_outcomes_injury.qmd)
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - `r note_aboriginality_vemd`
@@ -165,7 +177,7 @@ table %>%
 knitr::include_graphics(here::here("images", "banner_separator.png"))
 ```
 
-## Urgent Presentations
+## Urgent Emergency Department Presentations
 
 ```{r}
 # ------------------------------------------------------------------------------
@@ -173,8 +185,8 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 # Data from PHIDU Social Health Atlas
 # ------------------------------------------------------------------------------
 # Read in PHIDU data
-emergency_urgent <- f_read_phidu_iare_hospital(data_sheet    = "ED_urgent",
-                                               column_select = "emergency_department_presentations_total_urgent_presentations_aboriginal_people")
+emergency_urgent <- f_read_phidu_iare_hospital(data_sheet    = "ED_total_triage_category",
+                                               column_select = "emergency_department_presentations_urgent_presentations_aboriginal_people")
 
 # Data wrangling
 emergency_urgent <- emergency_urgent %>% 
@@ -183,15 +195,15 @@ emergency_urgent <- emergency_urgent %>%
   dplyr::arrange(iare_name)
 ```
 
-- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [AIHW National Non-Admitted Patient Emergency Department Care Database (NNAPEDCD)](https://www.aihw.gov.au/reports/hospitals/non-admitted-patient-emergency-dept-care-nmds/summary).
+- Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [AIHW National Non-Admitted Patient Emergency Department Care Database (NNAPEDCD)](https://www.aihw.gov.au/reports/hospitals/non-admitted-patient-emergency-dept-care-nmds/summary).
 
-- Between 01 July 2019 and 30 June 2020 there were 6,139 urgent emergency department presentations for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne. Urgent emergency presentations are defined as those with a triage category of urgent (requiring treatment within 30 minutes of arrival).
+- Between 01 July 2022 and 30 June 2023 there were 9,030 urgent emergency department presentations for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
-- The number of urgent emergency department presentations for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 954 (Northcote/Preston/Whittlesea IARE) to 90 (Whitehorse IARE).
+- The number of urgent emergency department presentations for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 1,179 (Northcote/Preston/Whittlesea IARE) to 121 (Whitehorse IARE).
 
-- The age-standardised rate of urgent emergency department presentations for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 25,679 per 100,000 population (Melbourne/Port Phillip IARE) to 14,616 per 100,000 population (Melbourne East IARE).
+- The age-standardised rate of urgent emergency department presentations for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 29,774 per 100,000 population (Melbourne/Port Phillip IARE) to 17,045 per 100,000 population (Melbourne East IARE).
 
-- 4 of the 10 IAREs in the NEPHU catchment area had an age-standardised rate of urgent emergency department presentations above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Northcote/Preston/Whittlesea, Melbourne North-East, and Moreland/Broadmeadows IAREs).
+- 5 of the 10 IAREs in the NEPHU catchment area had an age-standardised rate of urgent emergency department presentations above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Moreland/Broadmeadows, Northcote/Preston/Whittlesea, Melbourne North-East, and Craigieburn/Sunbury IAREs).
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - `r note_aboriginality_vemd`

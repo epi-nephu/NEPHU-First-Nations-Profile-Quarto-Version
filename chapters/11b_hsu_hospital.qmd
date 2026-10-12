@@ -4,6 +4,8 @@ title-block: false
 
 # Hospital Admissions
 
+## Top of Page {.toc-only}
+
 ```{r}
 #
 source(here::here("setup.R"))
@@ -22,7 +24,7 @@ figtab_figure_count <- 0
 knitr::include_graphics(here::here("images", "banner_header.png"))
 ```
 
-## Hospital Admissions {.unnumbered}
+## Hospital Admissions {.unnumbered .unlisted}
 
 ::: {.callout-warning title="General notes and caveats for this topic" icon=false collapse=false}
 `r note_chapter_underidentification`
@@ -33,7 +35,7 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 :::
 
 ::: {.key-question}
-What external factors influence health and wellbeing for Aboriginal and/or Torres Strait Islander people and families in the NEPHU catchment, including in supporting children and strong families?
+What community, cultural, and systemic factors influence the ability of Aboriginal and/or Torres Strait Islander people and families in the NEPHU catchment to thrive, exercise self-determination, and access culturally safe environments to support their health and wellbeing?
 :::
 
 ## All Admissions
@@ -54,15 +56,41 @@ hospital_total <- hospital_total %>%
   dplyr::arrange(iare_name)
 ```
 
-- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
+- Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
 
-- During the four-year period 01 July 2017 to 30 June 2021 there were 44,104 hospital admissions for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
+- During the four-year period 01 July 2019 to 30 June 2023 there were 51,317 hospital admissions for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne.
 
-- The number of admissions for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 5,874 (Northcote/Preston/Whittlesea IARE) to 733 (Whitehorse IARE).
+- The number of admissions for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 6,833 (Northcote/Preston/Whittlesea IARE) to 805 (Whitehorse IARE).
 
-- The age-standardised rate of admissions for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 34,280 per 100,000 population (Melbourne/Port Phillip IARE) to 21,370 per 100,000 population (Knox IARE).
+- The age-standardised rate of admissions for Aboriginal and/or Torres Strait Islander people living in different IAREs within the NEPHU catchment ranged from 39,079 per 100,000 population (Melbourne/Port Phillip IARE) to 24,033 per 100,000 population (Knox IARE).
 
-- 5 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Northcote/Preston/Whittlesea, Moreland/Broadmeadows, Craigieburn/Sunbury, and Whitehorse IAREs).
+- 5 of the 10 IAREs in the NEPHU catchment area had an age-standardised admission rate above the average rate for all Aboriginal and/or Torres Strait Islander people living in Greater Melbourne (Melbourne/Port Phillip, Northcote/Preston/Whittlesea, Craigieburn/Sunbury, Moreland/Broadmeadows, and Whitehorse IAREs).
+
+<div style="height: 0.1em;"></div>
+
+- Data relating to hospital admissions for specific conditions can be found in the relevant sections of this report:
+  - [Arthritis and Musculoskeletal Conditions](10c_outcomes_arthritis.qmd)
+  - [Asthma](10d_outcomes_asthma.qmd)
+  - [Cancer](10e_outcomes_cancer.qmd)
+  - [Ischaemic Heart Disease](10g_outcomes_cardiovascular.qmd)
+  - [Heart Failure](10g_outcomes_cardiovascular.qmd)
+  - [Circulatory System Diseases](10g_outcomes_cardiovascular.qmd)
+  - [Chronic Kidney Disease](10h_outcomes_kidney.qmd)
+  - [Dialysis](10h_outcomes_kidney.qmd)
+  - [Respiratory System Diseases](10i_outcomes_respiratory.qmd)
+  - [Chronic Obstructive Pulmonary Disease (COPD)](10i_outcomes_respiratory.qmd)
+  - [Ear and Mastoid Process Diseases](10j_outcomes_sensory.qmd)
+  - [Acute Ear, Nose, and Throat Infections](10j_outcomes_sensory.qmd)
+  - [Eye and Ocular Adnexa Diseases](10j_outcomes_sensory.qmd)
+  - [Acute Oral and Dental Conditions](10j_outcomes_sensory.qmd)
+  - [Infectious and Parasitic Diseases](10k_outcomes_infectious.qmd)
+  - [Mental and Behavioural Disorders](10l_outcomes_mentalhealth.qmd)
+  - [Mood (Affective) Disorders](10l_outcomes_mentalhealth.qmd)
+  - [Injuries, Poisoning, and Selected Other External Causes of Morbidity and Mortality](10m_outcomes_injury.qmd)
+  - [Falls](10m_outcomes_injury.qmd)
+  - [Transport Crash Injuries](10m_outcomes_injury.qmd)
+  - [Assault](10m_outcomes_injury.qmd)
+  - [Intentional Self-Harm](10m_outcomes_injury.qmd)
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - `r note_aboriginality_vaed`
@@ -182,7 +210,7 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 # ------------------------------------------------------------------------------
 # Read in PHIDU data
 hospital_acute <- f_read_phidu_iare_hospital(data_sheet    = "Admissions_acute_prev",
-                                             column_select = "admissions_for_total_acute_conditions_aboriginal_people")
+                                             column_select = "admissions_for_potentially_preventable_conditions_total_acute_conditions_aboriginal_people")
 
 # Data wrangling
 hospital_acute <- hospital_acute %>% 
@@ -191,7 +219,7 @@ hospital_acute <- hospital_acute %>%
   dplyr::arrange(iare_name)
 ```
 
-- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
+- Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
 
 - During the four-year period 01 July 2017 to 30 June 2021 there were 2,247 hospital admissions for acute potentially preventable conditions for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne. Acute potentially preventable conditions includes conditions such as cellulitis, acute convulsions and epilepsy, dental conditions, ear nose and throat infections, eclampsia, gangrene, pelvic inflammatory disease, perforated/bleeding ulcers, pneumonia, and urinary tract infections.
 
@@ -240,7 +268,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Number and age-standardised rate (per 100,000 population) of hospital admissions for acute potentially preventable conditions for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital`
+**`r figtab_figure_title`:** Number and age-standardised rate (per 100,000 population) of hospital admissions for acute potentially preventable conditions for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital_prevent`
 :::
 
 ```{r}
@@ -267,7 +295,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Hospital admissions for acute potentially preventable conditions for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital`
+**`r figtab_table_title`:** Hospital admissions for acute potentially preventable conditions for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital_prevent`
 :::
 
 ```{r}
@@ -331,7 +359,7 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 # ------------------------------------------------------------------------------
 # Read in PHIDU data
 hospital_chronic <- f_read_phidu_iare_hospital(data_sheet    = "Admissions_chronic_prev",
-                                               column_select = "admissions_for_total_chronic_conditions_aboriginal_people")
+                                               column_select = "admissions_for_potentially_preventable_conditions_total_chronic_conditions_aboriginal_people")
 
 # Data wrangling
 hospital_chronic <- hospital_chronic %>% 
@@ -340,7 +368,7 @@ hospital_chronic <- hospital_chronic %>%
   dplyr::arrange(iare_name)
 ```
 
-- Data for this topic were obtained from the [PHIDU Social Health Atlas](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
+- Data for this topic were obtained from the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), compiled from the [Victorian Admitted Episodes Dataset (VAED)](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset).
 
 - During the four-year period 01 July 2017 to 30 June 2021 there were 2,096 hospital admissions for chronic potentially preventable conditions for Aboriginal and/or Torres Strait Islander people living in Greater Melbourne. Chronic potentially preventable conditions include chronic heart conditions, chronic lung conditions, diabetes, nutritional deficiencies, and hypertension.
 
@@ -389,7 +417,7 @@ figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_
 #### `r figtab_figure_title`
 
 ::: {.fig-tab-title}
-**`r figtab_figure_title`:** Number and age-standardised rate (per 100,000 population) of hospital admissions for chronic potentially preventable conditions for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital`
+**`r figtab_figure_title`:** Number and age-standardised rate (per 100,000 population) of hospital admissions for chronic potentially preventable conditions for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital_prevent`
 :::
 
 ```{r}
@@ -416,7 +444,7 @@ figtab_table_number <- paste0("Table_", figtab_csv_section, "_", sprintf("%.02d"
 #### `r figtab_table_title`
 
 ::: {.fig-tab-title}
-**`r figtab_table_title`:** Hospital admissions for chronic potentially preventable conditions for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital`
+**`r figtab_table_title`:** Hospital admissions for chronic potentially preventable conditions for people who identified as Aboriginal and/or Torres Strait Islander, `r note_geography_nephu`, by `r note_comparison_iare`, `r note_time_hospital_prevent`
 :::
 
 ```{r}

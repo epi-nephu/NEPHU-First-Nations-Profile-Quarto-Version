@@ -37,7 +37,7 @@ Similarly, the overrepresentation of Aboriginal and/or Torres Strait Islander ch
 
 While this section presents available data relating to child protection, family violence, and family safety, it is important to recognise the leadership of Aboriginal and/or Torres Strait Islander peoples, communities, and organisations in promoting safety, supporting healing and strengthening family wellbeing through culturally grounded and community-led approaches.
 
-We encourage readers to take care while engaging with this material and to seek support from trusted family members, community, Elders, Aboriginal Community Controlled Organisations, or other culturally safe support services if needed. If you or someone you know needs support, please consider reaching out to the culturally safe services [listed here](01f_intro_services.qmd).
+We encourage readers to take care while engaging with this material and to seek support from trusted family members, community, Elders, Aboriginal Community Controlled Organisations, or other culturally safe support services if needed. If you or someone you know needs support, please consider reaching out to the culturally safe services [listed here](01g_intro_services.qmd).
 :::
 
 <div style="height: 0.1em;"></div>
@@ -599,7 +599,9 @@ violence_incidents <- violence_incidents %>%
 
 - Stakeholders discussed how concerns about child protection involvement and child removal may influence decisions to seek help or report family violence. Previous experiences of [racism, discrimination, and negative interactions](https://safeandequal.org.au/working-in-family-violence/tailored-inclusive-support/aboriginal-and-torres-strait-islander-people/) with services were also identified as factors that may affect trust in service systems and reporting behaviours.
 
-- These factors can create [barriers to accessing support](https://www.aihw.gov.au/family-domestic-and-sexual-violence/population-groups/aboriginal-and-torres-strait-islander-people) and may contribute to underreporting of family violence, highlighting the importance of culturally safe, trauma-informed, and Aboriginal-led responses.
+- Stakeholders also highlighted concerns regarding the misidentification of Aboriginal and/or Torres Strait Islander affected family members as users of violence. Misidentification can occur when the person experiencing violence is incorrectly identified by service systems as the perpetrator, particularly in the context of coercive control, complex trauma, racism, and systemic bias. This can create additional barriers to safety, support seeking, and engagement with services, while potentially obscuring the true nature and extent of family violence experienced by Aboriginal and/or Torres Strait Islander individuals, families, and communities.
+
+- These factors create [barriers to accessing support](https://www.aihw.gov.au/family-domestic-and-sexual-violence/population-groups/aboriginal-and-torres-strait-islander-people) and may contribute to underreporting of family violence, highlighting the importance of culturally safe, trauma-informed, and Aboriginal-led responses.
 
 ::: {.callout-tip title="Definitions and notes about this topic" icon=false collapse=false}
 - `r note_aboriginality_crime`

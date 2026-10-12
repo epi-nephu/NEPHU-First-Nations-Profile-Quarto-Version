@@ -33,7 +33,7 @@ Mental health conditions are one aspect of social and emotional wellbeing. Exper
 
 Despite ongoing challenges, Aboriginal and/or Torres Strait Islander peoples continue to demonstrate strength, resilience, and leadership through cultural connection, community support, healing practices, and collective approaches to wellbeing. While this section presents available information relating to mental health conditions and service use, it is important to recognise the strengths and protective factors that support social and emotional wellbeing across Aboriginal and Torres Strait Islander communities.
  
-We encourage readers to take care while engaging with this material and to seek support from trusted family members, community, Elders, Aboriginal Community Controlled Organisations, or other culturally safe support services if needed. If you or someone you know needs support, please consider reaching out to the culturally safe services [listed here](01f_intro_services.qmd).
+We encourage readers to take care while engaging with this material and to seek support from trusted family members, community, Elders, Aboriginal Community Controlled Organisations, or other culturally safe support services if needed. If you or someone you know needs support, please consider reaching out to the culturally safe services [listed here](01g_intro_services.qmd).
 :::
 
 <div style="height: 0.1em;"></div>

@@ -31,7 +31,7 @@ Some topics in this section include references to assault and self-harm. This co
 
 Take the time you need and connect with trusted supports, Elders, or loved ones. Your wellbeing matters.
  
-We encourage readers to take care while engaging with this material and to seek support from trusted family members, community, Elders, Aboriginal Community Controlled Organisations, or other culturally safe support services if needed. If you or someone you know needs support, please consider reaching out to the culturally safe services [listed here](01f_intro_services.qmd).
+We encourage readers to take care while engaging with this material and to seek support from trusted family members, community, Elders, Aboriginal Community Controlled Organisations, or other culturally safe support services if needed. If you or someone you know needs support, please consider reaching out to the culturally safe services [listed here](01g_intro_services.qmd).
 :::
 
 <div style="height: 0.1em;"></div>
