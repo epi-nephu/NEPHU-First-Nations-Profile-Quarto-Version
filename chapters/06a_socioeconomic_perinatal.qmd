@@ -86,8 +86,8 @@ childhood_antenatal <- childhood_iare %>%
   dplyr::select(iare_name,
                 iare_name_short,
                 aboriginal_n = antenatal_n,
-                aboriginal_prop = antenatal_prop,
-                aboriginal_total = antenatal_total) %>% 
+                aboriginal_total = antenatal_total,
+                aboriginal_prop = antenatal_prop) %>% 
   #
   dplyr::mutate(iare_name = factor(iare_name, levels = iare_inc_vic_lvl)) %>% 
   #
@@ -226,8 +226,8 @@ childhood_smoking <- childhood_iare %>%
   dplyr::select(iare_name,
                 iare_name_short,
                 aboriginal_n = smoking_n,
-                aboriginal_prop = smoking_prop,
-                aboriginal_total = smoking_total) %>% 
+                aboriginal_total = smoking_total,
+                aboriginal_prop = smoking_prop) %>% 
   #
   dplyr::mutate(iare_name = factor(iare_name, levels = iare_inc_vic_lvl)) %>% 
   #

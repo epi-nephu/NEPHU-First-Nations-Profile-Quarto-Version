@@ -325,7 +325,7 @@ cancer_agesex <- cancer_agesex %>%
 
 - Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
 
-- Overall, 2.1% (n = 237) of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census have been told by a doctor or nurse that they have cancer. This was lower than for non-Indigenous people living in the NEPHU catchment (2.8%), largely due to the younger age structure of the Aboriginal and/or Torres Strait Islander population.
+- Overall, 2.1% (n = 237) of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census have been told by a doctor or nurse that they have cancer. This was lower than for non-Indigenous people living in the NEPHU catchment (2.8%), which may be partly due to the younger age structure of the Aboriginal and/or Torres Strait Islander population.
 
 - The number of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who have been told by a doctor or nurse that they have cancer ranged from 41 (Yarra Ranges LGA) to 5 (Nillumbik LGA).
 

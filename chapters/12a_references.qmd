@@ -1,0 +1,252 @@
+---
+title-block: false
+---
+
+# References
+
+## Top of Page {.toc-only}
+
+```{r}
+#
+source(here::here("setup.R"))
+
+# Set up numbering for figures and tables
+figtab_report_section <- "12A"
+figtab_csv_section    <- "012A"
+
+figtab_table_count  <- 0
+figtab_figure_count <- 0
+```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## References {.unnumbered .unlisted}
+
+1.	Aboriginal and Torres Strait Islander Social Justice Commissioner. Ending Family Violence and Abuse in Aboriginal and Torres Strait Islander Communities. Canberra; 2006. Available from: [https://humanrights.gov.au/resource-hub/by-resource-type/publications/aboriginal-and-torres-strait-islander-peoples/first-nations/ending-family-violence-and-abuse-in-aboriginal-and-torres-strait-islander-communities-key-issues-2006](https://humanrights.gov.au/resource-hub/by-resource-type/publications/aboriginal-and-torres-strait-islander-peoples/first-nations/ending-family-violence-and-abuse-in-aboriginal-and-torres-strait-islander-communities-key-issues-2006).
+
+2.	Australian Bureau of Statistics. Causes of Death, Australia: Methodology [updated 14/11/2025]. Available from: [https://www.abs.gov.au/methodologies/causes-death-australia-methodology/2024](https://www.abs.gov.au/methodologies/causes-death-australia-methodology/2024).
+
+3.	Australian Bureau of Statistics. Population Projections, Australia [updated 23/11/2023]. Available from: [https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071](https://www.abs.gov.au/statistics/people/population/population-projections-australia/2022-base-2071).
+
+4.	Australian Bureau of Statistics. Understanding Change in Counts of Aboriginal and Torres Strait Islander Australians: Census  [updated 04/04/2023]. Available from: [https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/understanding-change-counts-aboriginal-and-torres-strait-islander-australians-census/2021](https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/understanding-change-counts-aboriginal-and-torres-strait-islander-australians-census/2021).
+
+5.	Australian Centre for Disease Control. National Immunisation Strategy for Australia 2025 to 2030. Canberra; 2025. Available from: [https://www.cdc.gov.au/resources/publications/national-immunisation-strategy-australia-2025-2030](https://www.cdc.gov.au/resources/publications/national-immunisation-strategy-australia-2025-2030).
+
+6.	Australian Centre for the Prevention of Cervical Cancer. Compass: Future Directions in Cervical Screening [updated 12/08/2024]. Available from: [https://acpcc.org.au/compass/](https://acpcc.org.au/compass/).
+
+7.	Australian Centre for the Prevention of Cervical Cancer. Victorian Cancer Screening Annual Statistical Report. Melbourne; 2025. Available from: [https://acpcc.org.au/services/population-health/annual-statistical-report/](https://acpcc.org.au/services/population-health/annual-statistical-report/).
+
+8.	Australian Government Department of Education. Australian Qualifications Framework. Available from: [https://www.aqf.edu.au/](https://www.aqf.edu.au/).
+
+9.	Australian Government Department of Health Disability and Aging. 24-hour Movement Guidelines for all Australians. Canberra; 2026. Available from: [https://www.health.gov.au/topics/physical-activity/24-hour-movement-guidelines-for-all-australians](https://www.health.gov.au/topics/physical-activity/24-hour-movement-guidelines-for-all-australians).
+
+10.	Australian Government Department of Health Disability and Aging. Australian Immunisation Handbook: Diphtheria [updated 30/09/2026]. Available from: [https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/diphtheria](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/diphtheria).
+
+11.	Australian Government Department of Health Disability and Aging. Australian Immunisation Handbook: Haemophilus influenzae type b (Hib) [updated 30/09/2026]. Available from: [https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/haemophilus-influenzae-type-b-hib](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/haemophilus-influenzae-type-b-hib).
+
+12.	Australian Government Department of Health Disability and Aging. Australian Immunisation Handbook: Hepatitis B [updated 30/09/2026]. Available from: [https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/hepatitis-b](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/hepatitis-b).
+
+13.	Australian Government Department of Health Disability and Aging. Australian Immunisation Handbook: Human Papillomavirus (HPV) [updated 19/01/2026]. Available from: [https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/human-papillomavirus-hpv](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/human-papillomavirus-hpv).
+
+14.	Australian Government Department of Health Disability and Aging. Australian Immunisation Handbook: Influenza (Flu) [updated 30/09/2026]. Available from: [https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/influenza-flu](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/influenza-flu).
+
+15.	Australian Government Department of Health Disability and Aging. Australian Immunisation Handbook: Measles [updated 30/09/2026]. Available from: [https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/measles](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/measles).
+
+16.	Australian Government Department of Health Disability and Aging. Australian Immunisation Handbook: Meningococcal Disease [updated 30/09/2026]. Available from: [https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/meningococcal-disease](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/meningococcal-disease).
+
+17.	Australian Government Department of Health Disability and Aging. Australian Immunisation Handbook: Mumps [updated 30/09/2026]. Available from: [https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/mumps](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/mumps).
+
+18.	Australian Government Department of Health Disability and Aging. Australian Immunisation Handbook: Pertussis (Whooping Cough) [updated 30/09/2026]. Available from: [https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/pertussis-whooping-cough](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/pertussis-whooping-cough).
+
+19.	Australian Government Department of Health Disability and Aging. Australian Immunisation Handbook: Pneumococcal Disease [updated 30/09/2026]. Available from: [https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/pneumococcal-disease](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/pneumococcal-disease).
+
+20.	Australian Government Department of Health Disability and Aging. Australian Immunisation Handbook: Poliomyelitis [updated 30/09/2026]. Available from: [https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/poliomyelitis](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/poliomyelitis).
+
+21.	Australian Government Department of Health Disability and Aging. Australian Immunisation Handbook: Rubella [updated 30/09/2026]. Available from: [https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/rubella](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/rubella).
+
+22.	Australian Government Department of Health Disability and Aging. Australian Immunisation Handbook: Tetanus [updated 30/09/2026]. Available from: [https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/tetanus](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/tetanus).
+
+23.	Australian Government Department of Health Disability and Aging. Australian Immunisation Handbook: Varicella (Chickenpox) [updated 30/09/2026]. Available from: [https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/varicella-chickenpox](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/varicella-chickenpox).
+
+24.	Australian Government Department of Health Disability and Aging. Australian Immunisation Handbook: Zoster (Herpes Zoster) [updated 30/09/2026]. Available from: [https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/zoster-herpes-zoster](https://immunisationhandbook.health.gov.au/contents/vaccine-preventable-diseases/zoster-herpes-zoster).
+
+25.	Australian Government Department of Health Disability and Aging. Chief Medical Officer’s Statement Declaring Syphilis a Communicable Disease Incident of National Significance [updated 07/08/2025]. Available from: [https://www.health.gov.au/news/cmo-statement-syphilis-cdins](https://www.health.gov.au/news/cmo-statement-syphilis-cdins).
+
+26.	Australian Government Department of Health Disability and Aging. Immunisation for Aboriginal and Torres Strait Islander People [updated 01/10/2026]. Available from: [https://www.health.gov.au/topics/immunisation/when-to-get-vaccinated/immunisation-for-aboriginal-and-torres-strait-islander-people](https://www.health.gov.au/topics/immunisation/when-to-get-vaccinated/immunisation-for-aboriginal-and-torres-strait-islander-people).
+
+27.	Australian Government Department of Health Disability and Aging. National Bowel Cancer Screening Program [updated 04/08/2026]. Available from: [https://www.health.gov.au/our-work/national-bowel-cancer-screening-program](https://www.health.gov.au/our-work/national-bowel-cancer-screening-program).
+
+28.	Australian Government Department of Health Disability and Aging. National Cervical Screening Program [updated 01/10/2026]. Available from: [https://www.health.gov.au/our-work/national-cervical-screening-program](https://www.health.gov.au/our-work/national-cervical-screening-program).
+
+29.	Australian Government Productivity Commission. Closing the Gap Information Repository: Socio-economic Outcome Area 1 - Aboriginal and Torres Strait Islander people enjoy long and healthy lives [updated 29/07/2026]. Available from: [https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/long-and-healthy-lives/](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/long-and-healthy-lives/).
+
+30.	Australian Government Productivity Commission. Closing the Gap Information Repository: Socio-economic Outcome Area 2 - Aboriginal and Torres Strait Islander children are born healthy and strong [updated 29/07/2026]. Available from: [https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/born-healthy-and-strong/](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/born-healthy-and-strong/).
+
+31.	Australian Government Productivity Commission. Closing the Gap Information Repository: Socio-economic Outcome Area 3 - Aboriginal and Torres Strait Islander children are engaged in high quality, culturally appropriate early childhood education in their early years [updated 29/07/2026]. Available from: [https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/early-childhood-education/](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/early-childhood-education/).
+
+32.	Australian Government Productivity Commission. Closing the Gap Information Repository: Socio-economic Outcome Area 4 - Aboriginal and Torres Strait Islander children thrive in their early years [updated 29/07/2026]. Available from: [https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/children-thriving/](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/children-thriving/).
+
+33.	Australian Government Productivity Commission. Closing the Gap Information Repository: Socio-economic Outcome Area 5 - Aboriginal and Torres Strait Islander students achieve their full learning potential [updated 29/07/2026]. Available from: [https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/student-learning-potential/](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/student-learning-potential/).
+
+34.	Australian Government Productivity Commission. Closing the Gap Information Repository: Socio-economic Outcome Area 6 - Aboriginal and Torres Strait Islander students reach their full potential through further education pathways [updated 29/07/2026]. Available from: [https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/further-education-pathways/](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/further-education-pathways/).
+
+35.	Australian Government Productivity Commission. Closing the Gap Information Repository: Socio-economic Outcome Area 7 - Aboriginal and Torres Strait Islander youth are engaged in employment or education [updated 29/07/2026]. Available from: [https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/youth-engagement/](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/youth-engagement/).
+
+36.	Australian Government Productivity Commission. Closing the Gap Information Repository: Socio-economic Outcome Area 8 - Strong economic participation and development of Aboriginal and Torres Strait Islander people and communities [updated 29/07/2026]. Available from: [https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/economic-participation/](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/economic-participation/).
+
+37.	Australian Government Productivity Commission. Closing the Gap Information Repository: Socio-economic Outcome Area 9 - Aboriginal and Torres Strait Islander people secure appropriate, affordable housing that is aligned with their priorities and need [updated 29/07/2026]. Available from: [https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/housing/](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/housing/).
+
+38.	Australian Government Productivity Commission. Closing the Gap Information Repository: Socio-economic Outcome Area 10 - Aboriginal and Torres Strait Islander adults are not overrepresented in the criminal justice system [updated 29/07/2026]. Available from: [https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/criminal-justice/](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/criminal-justice/).
+
+39.	Australian Government Productivity Commission. Closing the Gap Information Repository: Socio-economic Outcome Area 11 - Aboriginal and Torres Strait Islander young people are not overrepresented in the criminal justice system [updated 29/07/2026]. Available from: [https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/youth-justice/](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/youth-justice/).
+
+40.	Australian Government Productivity Commission. Closing the Gap Information Repository: Socio-economic Outcome Area 12 - Aboriginal and Torres Strait Islander children are not overrepresented in the child protection system [updated 29/07/2026]. Available from: [https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/child-protection/](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/child-protection/).
+
+41.	Australian Government Productivity Commission. Closing the Gap Information Repository: Socio-economic Outcome Area 13 - Aboriginal and Torres Strait Islander families and households are safe [updated 29/07/2026]. Available from: [https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/family-safety/](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/family-safety/).
+
+42.	Australian Government Productivity Commission. Closing the Gap Information Repository: Socio-economic Outcome Area 14 - Aboriginal and Torres Strait Islander people enjoy high levels of social and emotional wellbeing [updated 29/07/2026]. Available from: [https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/social-and-emotional-wellbeing/](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/social-and-emotional-wellbeing/).
+
+43.	Australian Government Productivity Commission. Closing the Gap Information Repository: Socio-economic Outcome Area 15 - Aboriginal and Torres Strait Islander people maintain a distinctive cultural, spiritual, physical and economic relationship with their land and waters [updated 29/07/2026]. Available from: [https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/land-and-waters/](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/land-and-waters/).
+
+44.	Australian Government Productivity Commission. Closing the Gap Information Repository: Socio-economic Outcome Area 16 - Aboriginal and Torres Strait Islander cultures and languages are strong, supported and flourishing [updated 29/07/2026]. Available from: [https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/culture-and-languages/](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/culture-and-languages/).
+
+45.	Australian Government Productivity Commission. Closing the Gap Information Repository: Socio-economic Outcome Area 17 - Aboriginal and Torres Strait Islander people have access to information and services enabling participation in informed decision-making regarding their own lives [updated 29/07/2026]. Available from: [https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/access-information/](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/access-information/).
+
+46.	Australian Government Productivity Commission. National Agreement on Closing the Gap. Available from: [https://www.closingthegap.gov.au/national-agreement](https://www.closingthegap.gov.au/national-agreement).
+
+47.	Australian Government Productivity Commission. Priority Reforms. Available from: [https://www.closingthegap.gov.au/national-agreement/priority-reforms](https://www.closingthegap.gov.au/national-agreement/priority-reforms).
+
+48.	Australian Housing and Urban Research Institute. Mortgage Stress, Rental Stress, Housing Affordability Stress: What’s the Difference? [updated 27/02/2019]. Available from: [https://www.ahuri.edu.au/analysis/brief/mortgage-stress-rental-stress-housing-affordability-stress-whats-difference](https://www.ahuri.edu.au/analysis/brief/mortgage-stress-rental-stress-housing-affordability-stress-whats-difference).
+
+49.	Australian Indigenous Doctors' Association. Supporting Aboriginal and Torres Strait Islander Medical Students and Doctors. Available from: [https://aida.org.au/](https://aida.org.au/).
+
+50.	Australian Institute of Aboriginal and Torres Strait Islander Studies. National Indigenous Languages Surveys [updated 15/10/2026]. Available from: [https://aiatsis.gov.au/research/languages/national-indigenous-languages-surveys](https://aiatsis.gov.au/research/languages/national-indigenous-languages-surveys).
+
+51.	Australian Institute of Family Studies. Understanding Food Insecurity in Australia. Melbourne; 2020. Available from: [https://aifs.gov.au/resources/policy-and-practice-papers/understanding-food-insecurity-australia](https://aifs.gov.au/resources/policy-and-practice-papers/understanding-food-insecurity-australia).
+
+52.	Australian Institute of Health and Welfare. Australia's Mothers and Babies. Canberra; 2026. Available from: [https://www.aihw.gov.au/reports/mothers-babies/australias-mothers-babies/contents/about](https://www.aihw.gov.au/reports/mothers-babies/australias-mothers-babies/contents/about).
+
+53.	Australian Institute of Health and Welfare. Cancer Data in Australia. Canberra; 2026. Available from: [https://www.aihw.gov.au/reports/cancer/cancer-data-in-australia/contents/about](https://www.aihw.gov.au/reports/cancer/cancer-data-in-australia/contents/about).
+
+54.	Australian Institute of Health and Welfare. Chronic Kidney Disease in Aboriginal and Torres Strait Islander People. Canberra; 2011. Available from: [https://www.aihw.gov.au/reports/chronic-kidney-disease/chronic-kidney-disease-indigenous-australians/summary](https://www.aihw.gov.au/reports/chronic-kidney-disease/chronic-kidney-disease-indigenous-australians/summary).
+
+55.	Australian Institute of Health and Welfare. Cultural Safety in Health Care for Indigenous Australians: Monitoring Framework. Canberra; 2023. Available from: [https://www.aihw.gov.au/reports/indigenous-australians/cultural-safety-health-care-framework/contents/about](https://www.aihw.gov.au/reports/indigenous-australians/cultural-safety-health-care-framework/contents/about).
+
+56.	Australian Institute of Health and Welfare. Data Landscape for the National Aboriginal and Torres Strait Islander Health Plan 2021–2031. Canberra; 2024. Available from: [https://www.aihw.gov.au/reports/indigenous-australians/data-stocktake-for-the-national-health-plan/contents/data-quality](https://www.aihw.gov.au/reports/indigenous-australians/data-stocktake-for-the-national-health-plan/contents/data-quality).
+
+57.	Australian Institute of Health and Welfare. Ear and Hearing Health of Aboriginal and Torres Strait Islander People. Canberra; 2025. Available from: [https://www.aihw.gov.au/reports/indigenous-australians/ear-hearing-health-indigenous-2025/contents/about](https://www.aihw.gov.au/reports/indigenous-australians/ear-hearing-health-indigenous-2025/contents/about).
+
+58.	Australian Institute of Health and Welfare. Heart, Stroke and Vascular Disease: Australian Facts - First Nations People. Canberra; 2026. Available from: [https://www.aihw.gov.au/reports/heart-stroke-vascular-diseases/hsvd-facts/contents/first-nations-australians](https://www.aihw.gov.au/reports/heart-stroke-vascular-diseases/hsvd-facts/contents/first-nations-australians).
+
+59.	Australian Institute of Health and Welfare. METEOR (Metadata Online Registry): Canadian National Occupancy Standard. Available from: [https://meteor.aihw.gov.au/content/386254](https://meteor.aihw.gov.au/content/386254).
+
+60.	Australian Institute of Health and Welfare. National Best Practice Guidelines for Collecting Indigenous Status in Health Data Sets. Canberra; 2010. Available from: [https://www.aihw.gov.au/reports/indigenous-australians/national-guidelines-collecting-health-data-sets/summary](https://www.aihw.gov.au/reports/indigenous-australians/national-guidelines-collecting-health-data-sets/summary).
+
+61.	Australian Institute of Health and Welfare. Older Australians: Older Aboriginal and Torres Strait Islander People. Canberra; 2024. Available from: [https://www.aihw.gov.au/reports/older-people/older-australians/contents/population-groups-of-interest/indigenous-australians](https://www.aihw.gov.au/reports/older-people/older-australians/contents/population-groups-of-interest/indigenous-australians).
+
+62.	Australian Institute of Health and Welfare. Racism and Indigenous Wellbeing, Mental Health and Suicide. Canberra; 2023. Available from: [https://www.aihw.gov.au/reports/indigenous-mental-health-suicide-prevention/racism-and-indigenous-wellbeing-mental-health-and/abstract](https://www.aihw.gov.au/reports/indigenous-mental-health-suicide-prevention/racism-and-indigenous-wellbeing-mental-health-and/abstract).
+
+63.	Australian Living Evidence Collaboration. Australian Pregnancy Care Guidelines. Melbourne; 2026. Available from: [https://livingevidence.org.au/living-guidelines/leapp/](https://livingevidence.org.au/living-guidelines/leapp/).
+
+64.	Beyond Blue. First Nations Communities and Social and Emotional Wellbeing. Available from: [https://www.beyondblue.org.au/mental-health/first-nations-peoples](https://www.beyondblue.org.au/mental-health/first-nations-peoples).
+
+65.	BreastScreen Victoria. Breast Cancer Fact Sheet for Aboriginal and Torres Strait Islander Women. Melbourne; 2024. Available from: [https://bsv.sfo2.cdn.digitaloceanspaces.com/public/Documents/BSV_Client-Resource-Fact-Sheet-for-Aboriginal-and-Torres-Strait-Islander-Women-Nov2024_V3.pdf](https://bsv.sfo2.cdn.digitaloceanspaces.com/public/Documents/BSV_Client-Resource-Fact-Sheet-for-Aboriginal-and-Torres-Strait-Islander-Women-Nov2024_V3.pdf).
+
+66.	Campbell MA, Hunt J, Scrimgeour DJ, Davey M, Jones V. Contribution of Aboriginal Community-Controlled Health Services to improving Aboriginal health: an evidence review. Australian Health Review. 2017;42(2):218-26. Available from: [https://doi.org/10.1071/AH16149](https://doi.org/10.1071/AH16149).
+
+67.	Cancer Council Victoria. Victorian Cancer Registry: Submitting Data. Available from: [https://www.cancervic.org.au/research/our-research/victoria-cancer-registry/submitting-data](https://www.cancervic.org.au/research/our-research/victoria-cancer-registry/submitting-data).
+
+68.	First Peoples - State Relations. Victorian Government Aboriginal Affairs Report. Melbourne; 2023. Available from: [https://www.firstpeoplesrelations.vic.gov.au/victorian-government-aboriginal-affairs-report-2022](https://www.firstpeoplesrelations.vic.gov.au/victorian-government-aboriginal-affairs-report-2022).
+
+69.	Gibberd A, Supramaniam R, Dillon A, Armstrong BK, O'Connell DL. Are Aboriginal people more likely to be diagnosed with more advanced cancer? Med J Aust. 2015;202(4):195-9. Available from: [https://doi.org/10.5694/mja14.00701](https://doi.org/10.5694/mja14.00701).
+
+70.	Independent Health and Aged Care Pricing Authority. ICD-10-AM/ACHI/ACS Classification System  [updated 06/10/2026]. Available from: [https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs](https://www.ihacpa.gov.au/health-care/classification/icd-10-amachiacs).
+
+71.	Maiam nayri Wingara Indigenous Data Sovereignty Collective and the Australian Indigenous Governance Institute. Indigenous Data Sovereignty. Canberra; 2018. Available from: [https://static1.squarespace.com/static/5b3043afb40b9d20411f3512/t/63ed934fe861fa061ebb9202/1676514134724/Communique-Indigenous-Data-Sovereignty-Summit.pdf](https://static1.squarespace.com/static/5b3043afb40b9d20411f3512/t/63ed934fe861fa061ebb9202/1676514134724/Communique-Indigenous-Data-Sovereignty-Summit.pdf).
+
+72.	Mei R, Tan M, Liu M, Lin L. Gender equity and sustainable development through the lens of fertility intentions among highly educated women: a systematic review and meta-analysis. BMC Public Health. 2025;25(1):4427. Available from: [https://doi.org/10.1186/s12889-025-25842-y](https://doi.org/10.1186/s12889-025-25842-y).
+
+73.	National Aboriginal Community Controlled Health Organisation and The Royal Australian College of General Practitioners. National Guide to Preventive Healthcare for Aboriginal and Torres Strait Islander People. Melbourne; 2024. Available from: [https://www.racgp.org.au/clinical-resources/clinical-guidelines/key-racgp-guidelines/national-guide](https://www.racgp.org.au/clinical-resources/clinical-guidelines/key-racgp-guidelines/national-guide).
+
+74.	National Health and Medical Research Council. Australian Dietary Guidelines. Canberra; 2013. Available from: [https://www.nhmrc.gov.au/adg](https://www.nhmrc.gov.au/adg).
+
+75.	National Health and Medical Research Council. Australian Guidelines to Reduce Health Risks from Drinking Alcohol. Canberra; 2020. Available from: [https://www.nhmrc.gov.au/health-advice/alcohol](https://www.nhmrc.gov.au/health-advice/alcohol).
+
+76.	National Health and Medical Research Council. Infant Feeding Guidelines: Information for Health Workers. Canberra; 2012. Available from: [https://www.nhmrc.gov.au/about-us/publications/infant-feeding-guidelines-information-health-workers](https://www.nhmrc.gov.au/about-us/publications/infant-feeding-guidelines-information-health-workers).
+
+77.	National Office for Child Safety. Building Cultural Safety. Available from: [https://www.childsafety.gov.au/what-we-do/lead-national-principles-child-safe-organisations/keeping-our-kids-safe](https://www.childsafety.gov.au/what-we-do/lead-national-principles-child-safe-organisations/keeping-our-kids-safe).
+
+78.	North Eastern Public Health Unit. Population Profile of the NEPHU Catchment Area - General Report. Melbourne; 2025. Available from: [https://nephu.org.au/reports-and-publications/nephu-population-profile-general-report-2025/](https://nephu.org.au/reports-and-publications/nephu-population-profile-general-report-2025/).
+
+79.	North Eastern Public Health Unit. Whooping Cough (Pertussis). Available from: [https://nephu.org.au/health-topics/pertussis-whooping-cough/](https://nephu.org.au/health-topics/pertussis-whooping-cough/).
+
+80.	NovoPsych. Kessler Psychological Distress Scale-5 (K5). Available from: [https://novopsych.com/assessments/depression/kessler-psychological-distress-scale-5/](https://novopsych.com/assessments/depression/kessler-psychological-distress-scale-5/).
+
+81.	Onifade OM, Endacott SK, Schumacher T, Rae KM, Pringle KG. Breastfeeding of Aboriginal and/or Torres Strait Islander infants from a small rural cohort in Australia. Int Breastfeed J. 2025;20(1):20. Available from: [https://doi.org/10.1186/s13006-025-00708-6](https://doi.org/10.1186/s13006-025-00708-6).
+
+82.	Pearlin LI, Schooler C. The structure of coping. Journal of Health and Social Behavior. 1978;19(1):2-21. Available from: [https://doi.org/10.2307/2136319](https://doi.org/10.2307/2136319).
+
+83.	Poirier B, Cachagee M, Jamieson L. Advancing health system accountability: a scoping review of cultural security and Indigenous health. First Nations Health and Wellbeing - The Lowitja Journal. 2025;3. Available from: [https://doi.org/10.1016/j.fnhli.2025.100073](https://doi.org/10.1016/j.fnhli.2025.100073).
+
+84.	Randall DA, Lujic S, Leyland AH, Jorm LR. Statistical methods to enhance reporting of Aboriginal Australians in routine hospital records using data linkage affect estimates of health disparities. Australian and New Zealand Journal of Public Health. 2013;37(5):442-9. Available from: [https://doi.org/10.1111/1753-6405.12114](https://doi.org/10.1111/1753-6405.12114).
+
+85.	Rowe SL, Cowie BC. Using data linkage to improve the completeness of Aboriginal and Torres Strait Islander status in communicable disease notifications in Victoria. Australian and New Zealand Journal of Public Health. 2016;40(2):148-53. Available from: [https://doi.org/10.1111/1753-6405.12434](https://doi.org/10.1111/1753-6405.12434).
+
+86.	Simpson N, Wepa D, Bria K. Improving antenatal engagement for Aboriginal women in Australia: a scoping review. Midwifery. 2020;91:102825. Available from: [https://doi.org/10.1016/j.midw.2020.102825](https://doi.org/10.1016/j.midw.2020.102825).
+
+87.	SNAICC – National Voice for our Children. Aboriginal and Torres Strait Islander Family-Led Decision Making: Summary Evidence Review. Melbourne; 2026. Available from: [https://www.snaicc.org.au/resources/aboriginal-and-torres-strait-islander-family-led-decision-making-summary-evidence-review/](https://www.snaicc.org.au/resources/aboriginal-and-torres-strait-islander-family-led-decision-making-summary-evidence-review/).
+
+88.	Springall TL, McLachlan HL, Forster DA, Browne J, Chamberlain C. Factors associated with breastfeeding initiation and maintenance for Aboriginal and Torres Strait Islander women in Australia: a systematic review and narrative analysis. Women Birth. 2023;36(2):224-34. Available from: [https://doi.org/10.1016/j.wombi.2022.06.012](https://doi.org/10.1016/j.wombi.2022.06.012).
+
+89.	Taylor LK, Bentley J, Hunt J, Madden R, McKeown S, Brandt P, et al. Enhanced reporting of deaths among Aboriginal and Torres Strait Islander peoples using linked administrative health datasets. BMC Med Res Methodol. 2012;12:91. Available from: [https://doi.org/10.1186/1471-2288-12-91](https://doi.org/10.1186/1471-2288-12-91).
+
+90.	Tervonen HE, Morrell S, Roder D, You H, Currow DC. Differences in cancer incidence by age at diagnosis between Aboriginal and non-Aboriginal people for cancer types included in Australian national screening programs. Cancer Epidemiology. 2019;60:102-5. Available from: [https://doi.org/10.1016/j.canep.2019.03.012](https://doi.org/10.1016/j.canep.2019.03.012).
+
+91.	Tervonen HE, Purdie S, Creighton N. Using data linkage to enhance the reporting of cancer outcomes of Aboriginal and Torres Strait Islander people in NSW, Australia. BMC Med Res Methodol. 2019;19(1):245. Available from: [https://doi.org/10.1186/s12874-019-0884-8](https://doi.org/10.1186/s12874-019-0884-8).
+
+92.	Victoria Police. What is Family Violence [updated 08/07/2025]. Available from: [https://www.police.vic.gov.au/what-is-family-violence](https://www.police.vic.gov.au/what-is-family-violence).
+
+93.	Victorian Aboriginal Child and Community Agency. Aboriginal Child Placement Principle. Available from: [https://www.vacca.org/page/about/aboriginal-child-placement-principle](https://www.vacca.org/page/about/aboriginal-child-placement-principle).
+
+94.	Victorian Aboriginal Community Controlled Health Organisation. Aboriginal and Torres Strait Islander Population Growth Model. Available from: [https://www.vaccho.org.au/aboriginal-and-torres-strait-islander-population-growth-model/](https://www.vaccho.org.au/aboriginal-and-torres-strait-islander-population-growth-model/).
+
+95.	Victorian Aboriginal Education Association. Thornbury Primary School Woiwurrung Language Program. Available from: [https://www.vaeai.org.au/6895/](https://www.vaeai.org.au/6895/).
+
+96.	Victorian Department of Health. Acute Rheumatic Fever (ARF) and Rheumatic Heart Disease (RHD) [updated 01/02/2024]. Available from: [https://www.health.vic.gov.au/infectious-diseases/acute-rheumatic-fever-arf-and-rheumatic-heart-disease-rhd](https://www.health.vic.gov.au/infectious-diseases/acute-rheumatic-fever-arf-and-rheumatic-heart-disease-rhd).
+
+97.	Victorian Department of Health. Chickenpox and Shingles (Varicella / Herpes Zoster) [updated 17/12/2024]. Available from: [https://www.health.vic.gov.au/infectious-diseases/chickenpox-and-shingles-varicella-herpes-zoster](https://www.health.vic.gov.au/infectious-diseases/chickenpox-and-shingles-varicella-herpes-zoster).
+
+98.	Victorian Department of Health. Gonorrhoea [updated 01/03/2022]. Available from: [https://www.health.vic.gov.au/infectious-diseases/gonorrhoea](https://www.health.vic.gov.au/infectious-diseases/gonorrhoea).
+
+99.	Victorian Department of Health. Hepatitis B [updated 02/07/2026]. Available from: [https://www.health.vic.gov.au/infectious-diseases/hepatitis-b](https://www.health.vic.gov.au/infectious-diseases/hepatitis-b).
+
+100.	Victorian Department of Health. Hepatitis C [updated 02/07/2026]. Available from: [https://www.health.vic.gov.au/infectious-diseases/hepatitis-c](https://www.health.vic.gov.au/infectious-diseases/hepatitis-c).
+
+101.	Victorian Department of Health. Human Immunodeficiency Virus (HIV) and Acquired Immunodeficiency Syndrome (AIDS) [updated 09/04/2025]. Available from: [https://www.health.vic.gov.au/infectious-diseases/human-immunodeficiency-virus-hiv-and-acquired-immunodeficiency-syndrome-aids](https://www.health.vic.gov.au/infectious-diseases/human-immunodeficiency-virus-hiv-and-acquired-immunodeficiency-syndrome-aids).
+
+102.	Victorian Department of Health. Invasive Group A Streptococcal Disease (iGAS) [updated 26/02/2024]. Available from: [https://www.health.vic.gov.au/infectious-diseases/invasive-group-a-streptococcal-disease-igas](https://www.health.vic.gov.au/infectious-diseases/invasive-group-a-streptococcal-disease-igas).
+
+103.	Victorian Department of Health. Invasive Pneumococcal Disease [updated 19/06/2026]. Available from: [https://www.health.vic.gov.au/infectious-diseases/invasive-pneumococcal-disease](https://www.health.vic.gov.au/infectious-diseases/invasive-pneumococcal-disease).
+
+104.	Victorian Department of Health. Meningococcal Disease [updated 07/04/2025]. Available from: [https://www.health.vic.gov.au/infectious-diseases/meningococcal-disease](https://www.health.vic.gov.au/infectious-diseases/meningococcal-disease).
+
+105.	Victorian Department of Health. Syphilis [updated 09/09/2026]. Available from: [https://www.health.vic.gov.au/infectious-diseases/syphilis](https://www.health.vic.gov.au/infectious-diseases/syphilis).
+
+106.	Walker KZ, O’Dea K, Gomez M, Girgis S, Colagiuri R. Diet and exercise in the prevention of diabetes. Journal of Human Nutrition and Dietetics. 2010;23(4):344-52. Available from: [https://doi.org/10.1111/j.1365-277X.2010.01061.x](https://doi.org/10.1111/j.1365-277X.2010.01061.x).
+
+107.	World Health Organization. Global Health Observatory: Need for Family Planning Satisfied with Modern Methods. Available from: [https://www.who.int/data/gho/data/indicators/indicator-details/GHO/proportion-of-women-of-reproductive-age-who-have-their-need-for-family-planning-satisfied-with-modern-methods](https://www.who.int/data/gho/data/indicators/indicator-details/GHO/proportion-of-women-of-reproductive-age-who-have-their-need-for-family-planning-satisfied-with-modern-methods).
+
+108.	World Health Organization. Global Health Observatory: SDG Target 3.1 Reduce the Global Maternal Mortality Ratio. Available from: [https://www.who.int/data/gho/data/themes/topics/sdg-target-3-1-maternal-mortality](https://www.who.int/data/gho/data/themes/topics/sdg-target-3-1-maternal-mortality).
+
+109.	World Health Organization. International Classification of Diseases for Oncology, 3rd Edition (ICD-O-3). Available from: [https://www.who.int/standards/classifications/other-classifications/international-classification-of-diseases-for-oncology](https://www.who.int/standards/classifications/other-classifications/international-classification-of-diseases-for-oncology).
+
+110.	World Health Organization. Obesity and Overweight [updated 07/10/2026]. Available from: [https://www.who.int/en/news-room/fact-sheets/detail/obesity-and-overweight](https://www.who.int/en/news-room/fact-sheets/detail/obesity-and-overweight).
+
+111.	World Health Organization. Waist Circumference and Waist-Hip Ratio: Report of a WHO Expert Consultation. Geneva; 2008. Available from: [https://www.who.int/publications/i/item/9789241501491](https://www.who.int/publications/i/item/9789241501491).
+
+112.	Zimet GD, Dahlem NW, Zimet SG, Farley GK. The Multidimensional Scale of Perceived Social Support. Journal of Personality Assessment. 1988;52(1):30-41. Available from: [https://doi.org/10.1207/s15327752jpa5201_2](https://doi.org/10.1207/s15327752jpa5201_2).
+

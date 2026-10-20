@@ -99,7 +99,7 @@ heart_agesex <- heart_agesex %>%
 
 - Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
 
-- Overall, 3.7% (n = 426) of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census have been told by a doctor or nurse that they have heart disease. This was similar to the proportion of non-Indigenous people living in the NEPHU catchment (3.7%), largely due to the younger age structure of the Aboriginal and/or Torres Strait Islander population.
+- Overall, 3.7% (n = 426) of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census have been told by a doctor or nurse that they have heart disease. This was similar to the proportion of non-Indigenous people living in the NEPHU catchment (3.7%).
 
 - The number of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who have been told by a doctor or nurse that they have heart disease ranged from 68 (Whittlesea LGA) to 4 (Nillumbik LGA).
 

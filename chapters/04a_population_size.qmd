@@ -153,7 +153,7 @@ population_lphu <- aboriginal_lga %>%
 
 - Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
 
-- NEPHU had the largest number of residents who identified as Aboriginal and/or Torres Strait Islander in the 2021 Census for the state of Victoria (n = 12,065), representing 0.7% of the NEPHU catchment population. 
+- Out of the nine Victorian local public health units (LPHUs), NEPHU had the largest number of residents who identified as Aboriginal and/or Torres Strait Islander in the 2021 Census (n = 12,065, representing 0.7% of the NEPHU catchment population). 
 
 - 19% of Victorians who identified as Aboriginal and/or Torres Strait Islander reside in the NEPHU catchment. 
 

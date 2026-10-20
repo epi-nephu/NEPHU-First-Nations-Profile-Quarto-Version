@@ -61,7 +61,7 @@ What chronic health conditions are experienced by Aboriginal and/or Torres Strai
 # ------------------------------------------------------------------------------
 # Read in Census data
 arthritis_lga <- f_read_census_lga("Aboriginal_Health_Arthritis_LGA.csv",
-                                   variable = "arthritis") %>% 
+                                   variable = "arthritis") %>%
   #
   dplyr::filter(arthritis != "Not stated")
 
@@ -70,7 +70,7 @@ arthritis_lga <- arthritis_lga %>%
   #
   dplyr::mutate(arthritis = dplyr::case_when(
     arthritis == "Has arthritis" ~ "yes",
-    TRUE ~ "no")) %>% 
+    TRUE ~ "no")) %>%
   #
   f_wrangle_census_lga(variable = arthritis,
                        level    = "person",
@@ -82,16 +82,16 @@ arthritis_lga <- arthritis_lga %>%
 # ------------------------------------------------------------------------------
 # Read in Census data
 arthritis_agesex <- f_read_census_agesex("Aboriginal_Health_Arthritis_AgeSex.csv",
-                                         variable = "arthritis") %>% 
+                                         variable = "arthritis") %>%
   #
   dplyr::filter(arthritis != "Not stated")
 
 # Data wrangling
-arthritis_agesex <- arthritis_agesex %>% 
+arthritis_agesex <- arthritis_agesex %>%
   #
   dplyr::mutate(arthritis = dplyr::case_when(
     arthritis == "Has arthritis" ~ "yes",
-    TRUE ~ "no")) %>% 
+    TRUE ~ "no")) %>%
   #
   f_wrangle_census_agesex(variable = arthritis,
                           dichot   = "yes")
@@ -99,7 +99,7 @@ arthritis_agesex <- arthritis_agesex %>%
 
 - Data for this topic were obtained from the [ABS Census 2021](https://www.abs.gov.au/census).
 
-- Overall, 6.9% (n = 791) of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census have been told by a doctor or nurse that they have arthritis. This was lower than for non-Indigenous people living in the NEPHU catchment (8.0%), largely due to the younger age structure of the Aboriginal and/or Torres Strait Islander population.
+- Overall, 6.9% (n = 791) of people living in the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census have been told by a doctor or nurse that they have arthritis. This was lower than for non-Indigenous people living in the NEPHU catchment (8.0%), which may be partly due to the younger age structure of the Aboriginal and/or Torres Strait Islander population.
 
 - The number of people living in different LGAs within the NEPHU catchment who identified as Aboriginal and/or Torres Strait Islander in the Census who have been told by a doctor or nurse that they have arthritis ranged from 134 (Yarra Ranges LGA) to 7 (Manningham LGA).
 
