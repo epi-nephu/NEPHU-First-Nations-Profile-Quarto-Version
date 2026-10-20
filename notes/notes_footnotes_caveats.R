@@ -1,8 +1,9 @@
-# NEPHU Population Profile - Aboriginal Health
+# Gumunatj Ngarrngatj - NEPHU First Nations Population Profile
 # Author: Alana Little, NEPHU (alana.little@austin.org.au)
 
-# Caveats and data notes for footnotes
-
+# ------------------------------------------------------------------------------
+# Caveats and data notes for "Data Notes" boxes
+# ------------------------------------------------------------------------------
 note_caveat_admissions <- glue::glue("
 - Data were based on the number of separations, or completions of episodes of care for a patient in hospital.
   - The completion of an episode of care can be due to discharge from hospital, death, transfer to another hospital, or change in the type of care within the same hospital (e.g. from acute care to rehabilitation).

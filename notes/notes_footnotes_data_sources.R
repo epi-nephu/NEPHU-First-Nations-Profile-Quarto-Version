@@ -1,8 +1,9 @@
-# NEPHU Population Profile - Aboriginal Health
+# Gumunatj Ngarrngatj - NEPHU First Nations Population Profile
 # Author: Alana Little, NEPHU (alana.little@austin.org.au)
 
-# Data source information for footnotes
-
+# ------------------------------------------------------------------------------
+# Data source information for "Data Notes" boxes
+# ------------------------------------------------------------------------------
 note_data_aedc <- glue::glue("
 - Data were obtained from the [Closing the Gap Information Repository](https://www.pc.gov.au/closing-the-gap-data/), compiled from the [Australian Early Development Census (AEDC)](https://www.aedc.gov.au/).
   - The Closing the Gap Information Repository brings together data from a wide range of data sources to provide up to date information for each Closing the Gap target, indicator, and contextual factors.

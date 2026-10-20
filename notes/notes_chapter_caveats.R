@@ -1,8 +1,9 @@
-# NEPHU Population Profile - Aboriginal Health
+# Gumunatj Ngarrngatj - NEPHU First Nations Population Profile
 # Author: Alana Little, NEPHU (alana.little@austin.org.au)
 
-# General notes and caveats for each topic
-
+# ------------------------------------------------------------------------------
+# Notes and caveats for "General notes and caveats for this topic" boxes
+# ------------------------------------------------------------------------------
 note_chapter_comparisons <- glue::glue("
 - Comparisons between Aboriginal and/or Torres Strait Islanders and non-Indigenous people in this section are provided as a rough guide only and should be interpreted with caution. Where different data sources have been used to provide comparisons, data may not be directly comparable due to differences in data collection, geographical areas, definitions, and analysis methods between data sources.")
 

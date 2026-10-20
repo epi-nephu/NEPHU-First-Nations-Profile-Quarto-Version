@@ -1,8 +1,9 @@
-# NEPHU Population Profile - Aboriginal Health
+# Gumunatj Ngarrngatj - NEPHU First Nations Population Profile
 # Author: Alana Little, NEPHU (alana.little@austin.org.au)
 
-# Aboriginality definitions for each data source
-
+# ------------------------------------------------------------------------------
+# Aboriginality definitions
+# ------------------------------------------------------------------------------
 note_aboriginality_aedc <- glue::glue("
 In the Australian Early Development Census, Aboriginal and/or Torres Strait Islander children were defined as those who had been identified as Aboriginal and/or Torres Strait Islander by their parent or guardian.")
 
@@ -28,7 +29,7 @@ note_aboriginality_crime <- glue::glue("
 Aboriginal and/or Torres Strait Islander status for affected family members and other parties was based on the most frequent recording of the Indigenous status for each person in the Law Enforcement Assistance Program (LEAP) database. If a person appeared in the database multiple times, the most frequently recorded response was taken as being correct.")
 
 note_aboriginality_naplan <- glue::glue("
-In NAPLAN, a student was classified as being of Aboriginal and/or Torres Strait Islander origin, based on information provided by the student, or their parent or guardian, on the school enrolment form.")
+In NAPLAN, a student was classified as being of Aboriginal and/or Torres Strait Islander origin based on information provided by the student, or their parent or guardian, on the school enrolment form.")
 
 note_aboriginality_natsihs <- glue::glue("
 In the National Aboriginal and Torres Strait Islander Health Survey, Aboriginal and/or Torres Strait Islander peoples were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander when they completed the survey.")

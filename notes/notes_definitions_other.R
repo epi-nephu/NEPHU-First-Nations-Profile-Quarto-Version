@@ -1,16 +1,25 @@
-# NEPHU Population Profile - Aboriginal Health
+# Gumunatj Ngarrngatj - NEPHU First Nations Population Profile
 # Author: Alana Little, NEPHU (alana.little@austin.org.au)
 
-################################################################################
-# Commonly used response options
-################################################################################
+# Commonly used notes and definitions
+# - Survey response options
+# - Numerator definitions
+# - Denominator definitions
+# - Geographical definitions
+# - Time period definitions
+# - Comparisons definitions
+
+# ------------------------------------------------------------------------------
+# Survey response options
+# ------------------------------------------------------------------------------
 note_response_binary <- "Dichotomous (*Yes*/*No*)"
 
-note_response_likert_always        <- "Likert scale (*Always*/*Sometimes*/*No*)"
-note_response_likert_increased     <- "Likert scale (*Increased*/*Stayed About The Same*/*Decreased*)"
-note_response_likert_often         <- "Likert scale (*Often*/*Sometimes*/*Never*)"
+note_response_likert_always    <- "Likert scale (*Always*/*Sometimes*/*No*)"
+note_response_likert_increased <- "Likert scale (*Increased*/*Stayed About The Same*/*Decreased*)"
+note_response_likert_often     <- "Likert scale (*Often*/*Sometimes*/*Never*)"
 
-note_response_likert_alltime       <- "5-point Likert scale (*All of the Time* to *None of the Time*)"
+note_response_likert_alltime <- "5-point Likert scale (*All of the Time* to *None of the Time*)"
+
 note_response_likert_excellent     <- "5-point Likert scale (*Excellent* to *Poor*)"
 note_response_likert_strongly      <- "4-point Likert scale (*Strongly Agree* to *Strongly Disagree*)"
 note_response_likert_veryimportant <- "5-point Likert scale (*Very Important* to *Not At All Important*)"
@@ -18,45 +27,39 @@ note_response_likert_verysatisfied <- "5-point Likert scale (*Very Satisfied* to
 note_response_likert_verystrongly  <- "7-point Likert scale (*Very Strongly Disagree* to *Very Strongly Agree*)"
 note_response_likert_verywell      <- "4-point Likert scale (*Very Well* to *Not At All*)"
 
-################################################################################
-# Commonly used numerator definitions
-################################################################################
-note_numerator_category_aboriginal <- "Number of Aboriginal and/or Torres Strait Islander people in each category"
-note_numerator_category_population <- "Number of people in each category"
-
+# ------------------------------------------------------------------------------
+# Numerator definitions
+# ------------------------------------------------------------------------------
+note_numerator_category_aboriginal  <- "Number of Aboriginal and/or Torres Strait Islander people in each category"
+note_numerator_category_population  <- "Number of people in each category"
+note_numerator_cancer               <- "Number of Aboriginal and/or Torres Strait Islander diagnosed with the specified cancer"
 note_numerator_emergency_aboriginal <- "Number of emergency presentations for Aboriginal and/or Torres Strait Islander people"
 note_numerator_hospital_aboriginal  <- "Number of hospital admissions for Aboriginal and/or Torres Strait Islander people"
+note_numerator_notification         <- "Number of notifications for the specified condition"
+note_numerator_vaccination          <- "Number of people who received the specified vaccine"
 
-note_numerator_cancer <- "Number of Aboriginal and/or Torres Strait Islander diagnosed with the specified cancer"
-
-note_numerator_notification <- "Number of notifications for the specified condition"
-
-note_numerator_vaccination <- "Number of people who received the specified vaccine"
-
-################################################################################
-# Commonly used denominator definitions
-################################################################################
+# ------------------------------------------------------------------------------
+# Denominator definitions
+# ------------------------------------------------------------------------------
 note_denominator_census_aboriginal <- "Total number of Aboriginal and/or Torres Strait Islander people who completed the Census"
 note_denominator_census_population <- "Total number of people who completed the Census"
+note_denominator_erp               <- "Estimated total number of people in the population for the specified year"
+note_denominator_natsihs           <- "Total number of Aboriginal and/or Torres Strait Islander people who answered this question/these questions in the National Aboriginal and Torres Strait Islander Health Survey"
+note_denominator_perinatal         <- "Total number of Aboriginal and/or Torres Strait Islander women who had at least one pregnancy between January 2019 and December 2021"
+note_denominator_vaccination       <- "Total number of people of the specified age enrolled in Medicare"
 
-note_denominator_erp <- "Estimated total number of people in the population for the specified year"
-
-note_denominator_natsihs     <- "Total number of Aboriginal and/or Torres Strait Islander people who answered this question/these questions in the National Aboriginal and Torres Strait Islander Health Survey"
-note_denominator_perinatal   <- "Total number of Aboriginal and/or Torres Strait Islander women who had at least one pregnancy between January 2019 and December 2021"
-note_denominator_vaccination <- "Total number of people of the specified age enrolled in Medicare"
-
-################################################################################
-# Commonly used geographical definitions
-################################################################################
+# ------------------------------------------------------------------------------
+# Geographical definitions
+# ------------------------------------------------------------------------------
 note_geography_australia <- "Australia"
 note_geography_iare      <- "Indigenous Area of Residence (IARE)"
 note_geography_melbourne <- "Greater Melbourne"
 note_geography_nephu     <- "NEPHU catchment area"
 note_geography_victoria  <- "Victoria"
 
-################################################################################
-# Commonly used time period definitions
-################################################################################
+# ------------------------------------------------------------------------------
+# Time period definitions
+# ------------------------------------------------------------------------------
 note_time_breastage        <- "2022-2023"
 note_time_cancer           <- "2019-2023"
 note_time_census           <- "2021"
@@ -72,9 +75,9 @@ note_time_coroner          <- "2020-2024"
 note_time_tax              <- "01 July 2020 to 30 June 2021"
 note_time_vaccination      <- "2022"
 
-################################################################################
-# Commonly used comparison definitions
-################################################################################
+# ------------------------------------------------------------------------------
+# Comparisons definitions
+# ------------------------------------------------------------------------------
 note_comparison_lphu <- "Local Public Health Unit (LPHU)"
 note_comparison_lga  <- "Local Government Area (LGA)"
 note_comparison_sa2  <- "Statistical Area Level 2 (SA2)"
@@ -90,5 +93,4 @@ note_comparison_grade     <- "School year (grade)"
 note_comparison_year      <- "Year"
 note_comparison_yearbirth <- "Year of birth"
 note_comparison_period    <- "Reporting period"
-
 
