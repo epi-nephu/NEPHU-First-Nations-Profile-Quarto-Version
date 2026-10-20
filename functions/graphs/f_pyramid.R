@@ -1,9 +1,9 @@
-# NEPHU Population Profile - Aboriginal Health
+# Gumunatj Ngarrngatj - NEPHU First Nations Population Profile
 # Author: Alana Little, NEPHU (alana.little@austin.org.au)
-# Version 2.0, 15/08/2025
-#
-# Chart type: population pyramid
 
+# ------------------------------------------------------------------------------
+# Chart type: population pyramid
+# ------------------------------------------------------------------------------
 f_pyramid <- function(data, prop_variable, fill_variable, fill_values, chart_title = NULL) {
   
   prop_variable <- rlang::enquo(prop_variable)

@@ -1,9 +1,9 @@
-# NEPHU Population Profile - Aboriginal Health
+# Gumunatj Ngarrngatj - NEPHU First Nations Population Profile
 # Author: Alana Little, NEPHU (alana.little@austin.org.au)
-# Version 2.0, 15/08/2025
-#
-# Chart type: leaflet map for population densities
 
+# ------------------------------------------------------------------------------
+# Chart type: leaflet map for population densities
+# ------------------------------------------------------------------------------
 f_map_density <- function(data) {
   
   pal <- colorNumeric(palette  = c(colour_maplow, colour_mapmid, colour_maphigh),

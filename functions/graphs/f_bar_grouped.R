@@ -1,12 +1,13 @@
-# NEPHU Population Profile - Aboriginal Health
+# Gumunatj Ngarrngatj - NEPHU First Nations Population Profile
 # Author: Alana Little, NEPHU (alana.little@austin.org.au)
-# Version 2.0, 15/08/2025
-#
-# Chart type: grouped bar chart
 
-################################################################################
+# ------------------------------------------------------------------------------
+# Chart type: grouped bar chart
+# ------------------------------------------------------------------------------
+
+# ------------------------------------------------------------------------------
 # Classic grouped bar chart
-################################################################################
+# ------------------------------------------------------------------------------
 f_bar_grouped <- function(data, x_variable, y_variable, fill_variable, fill_values, y_max = NA, 
                           y_breaks, y_expand, y_title, x_angle = 90, legend_offset = -0.3) {
   
@@ -59,9 +60,9 @@ f_bar_grouped <- function(data, x_variable, y_variable, fill_variable, fill_valu
   
 }
 
-################################################################################
+# ------------------------------------------------------------------------------
 # By age and sex
-################################################################################
+# ------------------------------------------------------------------------------
 f_bar_grouped_agesex <- function(data, y_variable, n_level = "people", legend_offset = -0.2) {
   
   y_variable <- rlang::enquo(y_variable)
@@ -144,9 +145,9 @@ f_bar_grouped_agesex <- function(data, y_variable, n_level = "people", legend_of
   
 }
 
-################################################################################
+# ------------------------------------------------------------------------------
 # By sex
-################################################################################
+# ------------------------------------------------------------------------------
 f_bar_grouped_sex <- function(data, x_variable, y_variable, y_title, x_angle = 0, legend_offset = -0.1) {
   
   x_variable <- rlang::enquo(x_variable)
@@ -242,9 +243,9 @@ f_bar_grouped_sex <- function(data, x_variable, y_variable, y_title, x_angle = 0
   
 }
 
-################################################################################
+# ------------------------------------------------------------------------------
 # By Indigenous status
-################################################################################
+# ------------------------------------------------------------------------------
 f_bar_grouped_indigenous <- function(data, x_variable, y_variable, n_level = "people", x_angle = 90, legend_offset = -0.3) {
   
   x_variable <- rlang::enquo(x_variable)
@@ -341,9 +342,9 @@ f_bar_grouped_indigenous <- function(data, x_variable, y_variable, n_level = "pe
   
 }
 
-################################################################################
+# ------------------------------------------------------------------------------
 # Combine count and percentage charts into two-panel figure
-################################################################################
+# ------------------------------------------------------------------------------
 f_bar_grouped_combine <- function(figure_number, figure_percent, legend_offset = -0.2) {
   
   figure <- plotly::subplot(figure_number, figure_percent,

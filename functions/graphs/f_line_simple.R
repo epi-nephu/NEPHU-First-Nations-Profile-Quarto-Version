@@ -1,12 +1,13 @@
-# NEPHU Population Profile - Aboriginal Health
+# Gumunatj Ngarrngatj - NEPHU First Nations Population Profile
 # Author: Alana Little, NEPHU (alana.little@austin.org.au)
-# Version 2.0, 15/08/2025
-#
-# Chart type: simple line chart
 
-################################################################################
+# ------------------------------------------------------------------------------
+# Chart type: simple line chart
+# ------------------------------------------------------------------------------
+
+# ------------------------------------------------------------------------------
 # Classic simple line chart
-################################################################################
+# ------------------------------------------------------------------------------
 f_line_simple <- function(data, y_variable, n_level = "people", ctg_target = NA) {
   
   y_variable <- rlang::enquo(y_variable)
@@ -90,9 +91,9 @@ f_line_simple <- function(data, y_variable, n_level = "people", ctg_target = NA)
 
 }
 
-################################################################################
+# ------------------------------------------------------------------------------
 # Combine count and percentage charts into two-panel figure
-################################################################################
+# ------------------------------------------------------------------------------
 f_line_simple_combine <- function(figure_number, figure_percent) {
   
   figure <- plotly::subplot(figure_number, figure_percent,
@@ -111,3 +112,4 @@ f_line_simple_combine <- function(figure_number, figure_percent) {
   return(figure)
   
 }
+

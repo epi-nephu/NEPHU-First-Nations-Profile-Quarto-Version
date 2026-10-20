@@ -1,12 +1,13 @@
-# NEPHU Population Profile - Aboriginal Health
+# Gumunatj Ngarrngatj - NEPHU First Nations Population Profile
 # Author: Alana Little, NEPHU (alana.little@austin.org.au)
-# Version 2.0, 15/08/2025
-#
-# Chart type: simple bar chart
 
-################################################################################
+# ------------------------------------------------------------------------------
+# Chart type: simple bar chart
+# ------------------------------------------------------------------------------
+
+# ------------------------------------------------------------------------------
 # Classic simple bar chart
-################################################################################
+# ------------------------------------------------------------------------------
 f_bar_simple <- function(data, x_variable, y_variable, y_title = "Number of people", x_angle = 90, ctg_target = NA) {
   
   x_variable <- rlang::enquo(x_variable)
@@ -68,9 +69,9 @@ f_bar_simple <- function(data, x_variable, y_variable, y_title = "Number of peop
 
 }
 
-################################################################################
+# ------------------------------------------------------------------------------
 # Flipped x-axis and y-axis
-################################################################################
+# ------------------------------------------------------------------------------
 f_bar_simple_flip <- function(data, x_variable, y_variable, x_title = "Number of people") {
   
   x_variable <- rlang::enquo(x_variable)
@@ -116,9 +117,9 @@ f_bar_simple_flip <- function(data, x_variable, y_variable, x_title = "Number of
   
 }
 
-################################################################################
+# ------------------------------------------------------------------------------
 # By LGA
-################################################################################
+# ------------------------------------------------------------------------------
 f_bar_simple_lga <- function(data, y_variable, n_level = "people", ctg_target = NA) {
   
   y_variable <- rlang::enquo(y_variable)
@@ -206,9 +207,9 @@ f_bar_simple_lga <- function(data, y_variable, n_level = "people", ctg_target = 
   
 }
 
-################################################################################
+# ------------------------------------------------------------------------------
 # By IARE
-################################################################################
+# ------------------------------------------------------------------------------
 f_bar_simple_iare <- function(data, y_variable, n_level = "people", ctg_target = NA, hospital = "no") {
   
   y_variable <- rlang::enquo(y_variable)
@@ -361,9 +362,9 @@ f_bar_simple_iare <- function(data, y_variable, n_level = "people", ctg_target =
   
 }
 
-################################################################################
+# ------------------------------------------------------------------------------
 # Combine count and percentage charts into two-panel figure
-################################################################################
+# ------------------------------------------------------------------------------
 f_bar_simple_combine <- function(figure_number, figure_percent, legend_offset = -0.3) {
   
   figure <- plotly::subplot(figure_number, figure_percent,

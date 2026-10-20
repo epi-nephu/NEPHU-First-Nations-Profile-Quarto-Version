@@ -1,12 +1,13 @@
-# NEPHU Population Profile - Aboriginal Health
+# Gumunatj Ngarrngatj - NEPHU First Nations Population Profile
 # Author: Alana Little, NEPHU (alana.little@austin.org.au)
-# Version 2.0, 15/08/2025
-#
-# Chart type: grouped line chart
 
-################################################################################
+# ------------------------------------------------------------------------------
+# Chart type: grouped line chart
+# ------------------------------------------------------------------------------
+
+# ------------------------------------------------------------------------------
 # Classic grouped line chart
-################################################################################
+# ------------------------------------------------------------------------------
 f_line_grouped <- function(data, y_variable, fill_variable, fill_values, y_max = NA, 
                            y_breaks, y_expand, y_title = "Percentage of people", ctg_target = NA) {
 
@@ -96,11 +97,9 @@ f_line_grouped <- function(data, y_variable, fill_variable, fill_values, y_max =
 
 }
 
-
-
-################################################################################
+# ------------------------------------------------------------------------------
 # By indigenous status
-################################################################################
+# ------------------------------------------------------------------------------
 f_line_grouped_indigenous <- function(data, y_variable, n_level = "people", ctg_target = NA) {
   
   y_variable <- rlang::enquo(y_variable)
@@ -234,9 +233,9 @@ f_line_grouped_indigenous <- function(data, y_variable, n_level = "people", ctg_
   
 }
 
-################################################################################
+# ------------------------------------------------------------------------------
 # By sex
-################################################################################
+# ------------------------------------------------------------------------------
 f_line_grouped_sex <- function(data, y_variable, n_level = "people", ctg_target = NA) {
   
   y_variable <- rlang::enquo(y_variable)
