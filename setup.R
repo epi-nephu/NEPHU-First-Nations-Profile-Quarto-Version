@@ -1,4 +1,4 @@
-# NEPHU Population Profile - Aboriginal Health
+# Gumunatj Ngarrngatj - NEPHU First Nations Population Profile
 # Author: Alana Little, NEPHU (alana.little@austin.org.au)
 
 # General code that applies to all indicators
@@ -7,6 +7,8 @@
 # - Data notes
 # - Functions
 # - LGA reference data
+# - Shape file data for maps
+# - API key for maps
 # - Constants
 # - Colours
 

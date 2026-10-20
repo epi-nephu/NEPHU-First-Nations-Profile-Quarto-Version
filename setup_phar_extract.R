@@ -1,4 +1,4 @@
-# NEPHU Population Profile - Aboriginal Health
+# Gumunatj Ngarrngatj - NEPHU First Nations Population Profile
 # Author: Alana Little, NEPHU (alana.little@austin.org.au)
 
 # Extract PHESS data from PHAR for Health Outcomes - Infectious Diseases chapter
