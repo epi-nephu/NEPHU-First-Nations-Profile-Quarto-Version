@@ -1,11 +1,10 @@
-# NEPHU Population Profile - Aboriginal Health
+# Gumunatj Ngarrngatj - NEPHU First Nations Population Profile
 # Author: Alana Little, NEPHU (alana.little@austin.org.au)
-# Version 2.0, 15/08/2025
-#
+
 # Code for importing and wrangling data
 # Data source: Data from ABS Technical Report
 # https://www.abs.gov.au/articles/technical-note-impact-using-multiple-sources-deriving-indigenous-status-deaths-2023-changes-victoria-and-coroner-referred-deaths
-#
+
 # ------------------------------------------------------------------------------
 # Read in ABS data
 # ------------------------------------------------------------------------------

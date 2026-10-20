@@ -1,14 +1,13 @@
-# NEPHU Population Profile - Aboriginal Health
+# Gumunatj Ngarrngatj - NEPHU First Nations Population Profile
 # Author: Alana Little, NEPHU (alana.little@austin.org.au)
-# Version 2.0, 15/08/2025
-#
+
 # Code for importing and wrangling data
 # Data source: ABS National Aboriginal and Torres Strait Islander Health Survey
 # https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/national-aboriginal-and-torres-strait-islander-health-survey/latest-release
 
-# ----------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # National Aboriginal and Torres Strait Islander Health Survey data - statewide
-# ----------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 f_read_natsihs <- function(data_sheet, variable, row_range) {
 
   variable <- rlang::enquo(variable)
@@ -43,9 +42,9 @@ f_read_natsihs <- function(data_sheet, variable, row_range) {
 
 }
 
-# ---------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # National Aboriginal and Torres Strait Islander Health Survey data - by sex
-# ---------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 f_read_natsihs_sex <- function(data, iare_level = "Melbourne") {
   
   data <- read.csv(file.path(root_folder, subfolder_natsihs, data),
@@ -100,3 +99,4 @@ f_read_natsihs_sex <- function(data, iare_level = "Melbourne") {
   return(data)
   
 }
+

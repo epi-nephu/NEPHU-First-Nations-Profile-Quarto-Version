@@ -1,7 +1,6 @@
-# NEPHU Population Profile - Aboriginal Health
+# Gumunatj Ngarrngatj - NEPHU First Nations Population Profile
 # Author: Alana Little, NEPHU (alana.little@austin.org.au)
-# Version 2.0, 15/08/2025
-#
+
 # Code for importing and wrangling data
 # Data source: ABS Census 2021
 # https://www.abs.gov.au/census
@@ -57,20 +56,7 @@ f_read_census_lga <- function(file, variable) {
                                      lphu_short),
                      by = "lga_name") %>%
     #
-    dplyr::mutate(
-      lphu_long = dplyr::case_when(
-        lga_name == "VIC" ~ "Victoria",
-        TRUE ~ as.character(lphu_long)),
-      #
-      lphu_short = dplyr::case_when(
-        lga_name == "VIC" ~ "VIC",
-        TRUE ~ as.character(lphu_short)),
-      #
-      lga_name = dplyr::case_when(
-        lphu_short %in% c("SEPHU", "WPHU") ~ "Other Metro",
-        TRUE ~ as.character(lga_name))) %>%
-    #
-    dplyr::filter(lga_name %in% c(nephu_lga, "Other Metro", "VIC"))
+    dplyr::filter(lga_name %in% c(nephu_lga))
   
   return(data)
   
@@ -99,16 +85,15 @@ f_wrangle_census_lga <- function(data, variable, level, dichot) {
       dplyr::mutate(aboriginal_n     = household_with_aboriginal_and_or_torres_strait_islander_person_s,
                     non_aboriginal_n = other_households + not_applicable)
     
+    data <- data %>%
+      dplyr::group_by(lga_name, !!variable) %>%
+      #
+      dplyr::summarise(aboriginal_n     = sum(aboriginal_n),
+                       non_aboriginal_n = sum(non_aboriginal_n)) %>%
+      #
+      dplyr::ungroup()
+    
   }
-  
-  data <- data %>%
-    dplyr::group_by(lga_name,
-                    !!variable) %>%
-    #
-    dplyr::summarise(aboriginal_n     = sum(aboriginal_n),
-                     non_aboriginal_n = sum(non_aboriginal_n)) %>%
-    #
-    dplyr::ungroup()
   
   data <- data %>%
     tidyr::pivot_wider(id_cols     = "lga_name",
@@ -120,18 +105,6 @@ f_wrangle_census_lga <- function(data, variable, level, dichot) {
     dplyr::mutate(aboriginal_total     = rowSums(select(., starts_with("aboriginal_"))),
                   non_aboriginal_total = rowSums(select(., starts_with("non_aboriginal_"))))
   
-  data <- data %>%
-    dplyr::bind_rows(data %>%
-                       dplyr::filter(lga_name %in% nephu_lga) %>%
-                       #
-                       janitor::adorn_totals(name = "NEPHU") %>%
-                       #
-                       dplyr::filter(lga_name == "NEPHU")) %>%
-    #
-    dplyr::mutate(lga_name = factor(lga_name, levels = c(nephu_lga, "NEPHU", "Other Metro", "VIC"))) %>%
-    #
-    dplyr::arrange(lga_name)
-  
   if (dichot == "yes") {
     
     data <- data %>%
@@ -140,17 +113,22 @@ f_wrangle_census_lga <- function(data, variable, level, dichot) {
     
     data <- data %>%
       dplyr::mutate(aboriginal_exp_non    = round((non_aboriginal_prop / 100) * aboriginal_total, digits = 0),
-                    aboriginal_difference = aboriginal_n_yes - aboriginal_exp_non,
+                    aboriginal_difference = aboriginal_n_yes - aboriginal_exp_non) %>%
+      #
+      dplyr::mutate(across(where(is.numeric), ~replace(., is.na(.), 0)),
+                    across(where(is.numeric), ~replace(., is.nan(.), 0))) %>% 
+      #
+      janitor::adorn_totals(name = "NEPHU") %>% 
+      #
+      dplyr::mutate(aboriginal_prop     = aboriginal_n_yes / aboriginal_total * 100,
+                    non_aboriginal_prop = non_aboriginal_n_yes / non_aboriginal_total * 100,
                     #
                     aboriginal_diff_format = formatC(abs(aboriginal_difference), big.mark = ","),
                     #
                     aboriginal_diff_label = dplyr::case_when(
                       aboriginal_difference > 0 ~ paste0(aboriginal_diff_format, " more"),
                       aboriginal_difference < 0 ~ paste0(aboriginal_diff_format, " fewer"),
-                      TRUE ~ "None")) %>%
-      #
-      dplyr::mutate(across(where(is.numeric), ~replace(., is.na(.), 0)),
-                    across(where(is.numeric), ~replace(., is.nan(.), 0))) %>% 
+                      TRUE ~ "None")) %>% 
       #
       dplyr::select(lga_name,
                     aboriginal_n = aboriginal_n_yes,
@@ -165,7 +143,8 @@ f_wrangle_census_lga <- function(data, variable, level, dichot) {
     
   } else if (dichot == "no") {
     
-    data <- data
+    data <- data %>% 
+      janitor::adorn_totals(name = "NEPHU")
     
   }
   
@@ -204,20 +183,7 @@ f_read_census_agesex <- function(file, variable) {
                                      lphu_short), 
                      by = "lga_name") %>% 
     #
-    dplyr::mutate(
-      lphu_long = dplyr::case_when(
-        lga_name == "VIC" ~ "Victoria",
-        TRUE ~ as.character(lphu_long)),
-      #
-      lphu_short = dplyr::case_when(
-        lga_name == "VIC" ~ "VIC",
-        TRUE ~ as.character(lphu_short)),
-      #
-      lga_name = dplyr::case_when(
-        lphu_short %in% c("SEPHU", "WPHU") ~ "Other Metro",
-        TRUE ~ as.character(lga_name))) %>% 
-    #
-    dplyr::filter(lga_name %in% c(nephu_lga, "Other Metro", "VIC"))
+    dplyr::filter(lga_name %in% c(nephu_lga))
   
   return(data)
   
@@ -249,8 +215,7 @@ f_wrangle_census_agesex <- function(data, variable, dichot) {
         age_group == "100 years and over" ~ "100+ yrs",
         TRUE ~ NA_character_)) %>%
     #
-    dplyr::group_by(lga_name,
-                    age_group,
+    dplyr::group_by(age_group,
                     sex,
                     !!variable) %>%
     #
@@ -260,38 +225,10 @@ f_wrangle_census_agesex <- function(data, variable, dichot) {
     dplyr::ungroup()
   
   data <- data %>% 
-    dplyr::filter(lga_name %in% nephu_lga) %>% 
-    #
-    dplyr::group_by(age_group,
-                    sex,
-                    !!variable) %>%
-    #
-    dplyr::summarise(aboriginal_n     = sum(aboriginal_n),
-                     non_aboriginal_n = sum(non_aboriginal_n)) %>%
-    #
-    dplyr::ungroup() %>%
-    #
-    dplyr::bind_rows(data %>%
-                       dplyr::filter(lga_name %in% nephu_lga) %>%
-                       #
-                       dplyr::group_by(sex,
-                                       !!variable) %>%
-                       #
-                       dplyr::summarise(aboriginal_n     = sum(aboriginal_n),
-                                        non_aboriginal_n = sum(non_aboriginal_n)) %>% 
-                       #
-                       dplyr::mutate(age_group = "Total") %>% 
-                       #
-                       dplyr::ungroup()) %>% 
-    #
     tidyr::pivot_wider(names_from  = !!variable,
                        values_from = c("aboriginal_n", "non_aboriginal_n")) %>%
     #
-    janitor::clean_names() %>% 
-    #
-    dplyr::mutate(age_group = factor(age_group, levels = c(age_group_lvl, "Total"))) %>% 
-    #
-    dplyr::arrange(age_group)
+    janitor::clean_names()
   
   if (dichot == "yes") {
     
@@ -302,18 +239,47 @@ f_wrangle_census_agesex <- function(data, variable, dichot) {
                     non_aboriginal_prop  = non_aboriginal_n_yes / non_aboriginal_total * 100)
     
     data <- data %>%
-      dplyr::mutate(across(where(is.numeric), ~replace(., is.na(.), 0)),
-                    across(where(is.numeric), ~replace(., is.nan(.), 0))) %>%
-      #
       dplyr::mutate(aboriginal_exp_non    = round((non_aboriginal_prop / 100) * aboriginal_total, digits = 0),
-                    aboriginal_difference = aboriginal_n_yes - aboriginal_exp_non,
+                    aboriginal_difference = aboriginal_n_yes - aboriginal_exp_non)
+    
+    total_female <- data %>% 
+      dplyr::filter(sex == "Female") %>% 
+      #
+      janitor::adorn_totals(name = "Total") %>% 
+      #
+      dplyr::filter(age_group == "Total") %>%
+      #
+      dplyr::mutate(sex = "Female")
+    
+    total_male <- data %>% 
+      dplyr::filter(sex == "Male") %>% 
+      #
+      janitor::adorn_totals(name = "Total") %>% 
+      #
+      dplyr::filter(age_group == "Total") %>% 
+      #
+      dplyr::mutate(sex = "Male") 
+
+    data <- data %>%
+      dplyr::bind_rows(total_female) %>% 
+      dplyr::bind_rows(total_male) %>%
+      #
+      dplyr::mutate(aboriginal_prop     = aboriginal_n_yes / aboriginal_total * 100,
+                    non_aboriginal_prop = non_aboriginal_n_yes / non_aboriginal_total * 100,
                     #
                     aboriginal_diff_format = formatC(abs(aboriginal_difference), big.mark = ","),
                     #
                     aboriginal_diff_label = dplyr::case_when(
                       aboriginal_difference > 0 ~ paste0(aboriginal_diff_format, " more"),
                       aboriginal_difference < 0 ~ paste0(aboriginal_diff_format, " fewer"),
-                      TRUE ~ "None")) %>%
+                      TRUE ~ "None")) %>% 
+      #
+      dplyr::mutate(across(where(is.numeric), ~replace(., is.na(.), 0)),
+                    across(where(is.numeric), ~replace(., is.nan(.), 0))) %>% 
+      #
+      dplyr::mutate(age_group = factor(age_group, levels = c(age_group_lvl, "Total"))) %>% 
+      #
+      dplyr::arrange(age_group) %>% 
       #
       dplyr::select(age_group,
                     sex,
@@ -329,8 +295,35 @@ f_wrangle_census_agesex <- function(data, variable, dichot) {
     
   } else if (dichot == "no") {
     
-    data <- data
+    total_female <- data %>% 
+      dplyr::filter(sex == "Female") %>% 
+      #
+      janitor::adorn_totals(name = "Total") %>% 
+      #
+      dplyr::filter(age_group == "Total") %>%
+      #
+      dplyr::mutate(sex = "Female")
     
+    total_male <- data %>% 
+      dplyr::filter(sex == "Male") %>% 
+      #
+      janitor::adorn_totals(name = "Total") %>% 
+      #
+      dplyr::filter(age_group == "Total") %>% 
+      #
+      dplyr::mutate(sex = "Male") 
+    
+    data <- data %>% 
+      dplyr::bind_rows(total_female) %>% 
+      dplyr::bind_rows(total_male) %>% 
+      #
+      dplyr::mutate(across(where(is.numeric), ~replace(., is.na(.), 0)),
+                    across(where(is.numeric), ~replace(., is.nan(.), 0))) %>% 
+      #
+      dplyr::mutate(age_group = factor(age_group, levels = c(age_group_lvl, "Total"))) %>% 
+      #
+      dplyr::arrange(age_group)
+
   }
   
   return(data)

@@ -1,11 +1,10 @@
-# NEPHU Population Profile - Aboriginal Health
+# Gumunatj Ngarrngatj - NEPHU First Nations Population Profile
 # Author: Alana Little, NEPHU (alana.little@austin.org.au)
-# Version 2.0, 15/08/2025
-#
+
 # Code for importing and wrangling data
 # Data source: AIHW Aboriginal and Torres Strait Islander Health Performance Framework
 # https://www.indigenoushpf.gov.au/
-#
+
 # ------------------------------------------------------------------------------
 # Read in HPF data
 # ------------------------------------------------------------------------------

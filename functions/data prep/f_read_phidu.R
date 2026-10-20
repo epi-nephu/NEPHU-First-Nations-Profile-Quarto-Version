@@ -1,7 +1,6 @@
-# NEPHU Population Profile - Aboriginal Health
+# Gumunatj Ngarrngatj - NEPHU First Nations Population Profile
 # Author: Alana Little, NEPHU (alana.little@austin.org.au)
-# Version 2.0, 15/08/2025
-#
+
 # Code for importing and wrangling data
 # Data source: PHIDU Social Health Atlas
 # https://phidu.torrens.edu.au/social-health-atlases

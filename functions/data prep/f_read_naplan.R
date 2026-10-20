@@ -1,11 +1,13 @@
-# NEPHU Population Profile - Aboriginal Health
+# Gumunatj Ngarrngatj - NEPHU First Nations Population Profile
 # Author: Alana Little, NEPHU (alana.little@austin.org.au)
-# Version 2.0, 15/08/2025
-#
+
 # Code for importing and wrangling data
 # Data source: NAPLAN
 # https://www.acara.edu.au/reporting/national-report-on-schooling-in-australia/naplan-national-results
 
+# ------------------------------------------------------------------------------
+# Wrangle NAPLAN data
+# ------------------------------------------------------------------------------
 f_read_naplan <- function(data, data_sheet) {
   
   data <- readxl::read_excel(file.path(root_folder, subfolder_ctg, "CTG05_Learning_Potential_Data_Tables.xlsx"),
