@@ -1,10 +1,10 @@
-# NEPHU Population Profile - Aboriginal Health
+# Gumunatj Ngarrngatj - NEPHU First Nations Population Profile
 # Author: Alana Little, NEPHU (alana.little@austin.org.au)
-# Version 2.0, 15/08/2025
-#
-# Grouping variables: age group and sex
-# Data source: National Aboriginal and Torres Strait Islander Health Survey
 
+# ------------------------------------------------------------------------------
+# Table type: grouped tables by age group and sex
+# Data source: National Aboriginal and Torres Strait Islander Health Survey
+# ------------------------------------------------------------------------------
 f_table_survey_agesex <- function(data, table_header) {
   
   data <- data %>%

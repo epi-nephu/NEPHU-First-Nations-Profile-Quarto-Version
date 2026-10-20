@@ -1,12 +1,13 @@
-# NEPHU Population Profile - Aboriginal Health
+# Gumunatj Ngarrngatj - NEPHU First Nations Population Profile
 # Author: Alana Little, NEPHU (alana.little@austin.org.au)
-# Version 2.0, 15/08/2025
-#
-# Table type: grouped tables
 
-################################################################################
+# ------------------------------------------------------------------------------
+# Table type: grouped tables
+# ------------------------------------------------------------------------------
+
+# ------------------------------------------------------------------------------
 # By sex
-################################################################################
+# ------------------------------------------------------------------------------
 f_table_grouped_sex <- function(data, n_variable, column_name, total_row = nrow(table)) {
   
   if (n_variable == "count") {
@@ -68,9 +69,9 @@ f_table_grouped_sex <- function(data, n_variable, column_name, total_row = nrow(
 
 }
 
-################################################################################
+# ------------------------------------------------------------------------------
 # By Indigenous status
-################################################################################
+# ------------------------------------------------------------------------------
 f_table_grouped_indigenous <- function(data, n_variable, column_name, total_row = nrow(table)) {
 
   if (n_variable == "count") {
@@ -174,9 +175,9 @@ f_table_grouped_indigenous <- function(data, n_variable, column_name, total_row 
   
 }
 
-################################################################################
+# ------------------------------------------------------------------------------
 # By Indigenous status (PHESS counts and rates)
-################################################################################
+# ------------------------------------------------------------------------------
 f_table_grouped_phess <- function(data, total_row = nrow(table), last_column = ncol(table)) {
   
   table <- data %>% 
