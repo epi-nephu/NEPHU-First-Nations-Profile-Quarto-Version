@@ -1,0 +1,105 @@
+---
+title-block: false
+---
+
+# Acronyms and Abbreviations
+
+## Top of Page {.toc-only}
+
+```{r}
+#
+source(here::here("setup.R"))
+
+# Set up numbering for figures and tables
+figtab_report_section <- "1F"
+figtab_csv_section    <- "01F"
+
+figtab_table_count  <- 0
+figtab_figure_count <- 0
+```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Acronyms and Abbreviations {.unnumbered .unlisted}
+
+| Acronym    | Description                                                                      |
+|:-----------|:---------------------------------------------------------------------------------|
+| ABS        | Australian Bureau of Statistics                                                  |  
+| ACARA      | Australian Curriculum, Assessment, and Reporting Authority                       | 
+| ACCHO      | Aboriginal Community Controlled Health Organisation                              | 
+| ACCO       | Aboriginal Community Controlled Organisation                                     | 
+| ACPCC      | Australian Centre for the Prevention of Cervical Cancer                          | 
+| AEDC       | Australian Early Development Census                                              | 
+| AIDS       | Acquired Immune Deficiency Syndrome                                              | 
+| AIHW       | Australian Institute of Health and Welfare                                       | 
+| AIR        | Australian Immunisation Register                                                 | 
+| AMS        | Aboriginal Medical Service                                                       | 
+| ARF        | Acute Rheumatic Fever                                                            | 
+| BSWPHU     | Barwon South West Public Health Unit                                             | 
+| COPD       | Chronic Obstructive Pulmonary Disease                                            | 
+| COVID-19   | Coronavirus Disease 2019                                                         |
+| CSV        | Comma Separated Values                                                           |
+| CtG        | Closing the Gap                                                                  |
+| DTP        | Diphtheria, Tetanus, and Pertussis                                               |
+| ECASA      | Eastern Centre Against Sexual Assault                                            | 
+| ERP        | Estimated Residential Population                                                 | 
+| GPHU       | Grampians Public Health Unit                                                     | 
+| GRPHU      | Gippsland Region Public Health Unit                                              | 
+| GVPHU      | Goulburn Valley Public Health Unit                                               | 
+| HBV        | Hepatitis B Virus                                                                | 
+| HCV        | Hepatitis C Virus                                                                | 
+| HiB        | *Haemophilus influenzae* type B                                                  | 
+| HIV        | Human Immunodeficiency Virus                                                     | 
+| HPV        | Human Papillomavirus                                                             | 
+| IARE       | Indigenous Area of Residence                                                     | 
+| ICD-10-AM  | International Classification of Diseases 10^th^ Edition, Australian Modification | 
+| ICD-O-3    | International Classification of Diseases for Oncology 3^rd^ Edition              | 
+| iGAS       | Invasive Group A *Streptococcus*                                                 | 
+| IMD        | Invasive Meningococcal Disease                                                   | 
+| IPD        | Invasive Pneumococcal Disease                                                    | 
+| IVF        | In Vitro Fertilisation                                                           | 
+| LEAP       | Law Enforcement Assistance Program                                               | 
+| LGA        | Local Government Area                                                            | 
+| LMPHU      | Loddon Mallee Public Health Unit                                                 | 
+| LPHU       | Local Public Health Unit                                                         | 
+| Men C      | Meningococcal Serogroup C                                                        | 
+| MMR        | Measles, Mumps, and Rubella                                                      | 
+| MSPSS      | Multidimensional Scale of Perceived Social Support                               | 
+| NAPLAN     | National Assessment Program – Literacy and Numeracy                              | 
+| NCSR       | National Cancer Screening Register                                               | 
+| NECECC     | National Early Childhood Education and Care Collection                           | 
+| NEPHU      | North Eastern Public Health Unit                                                 | 
+| NHMRC      | National Health and Medical Research Council                                     | 
+| NILS       | National Indigenous Languages Survey                                             | 
+| NIP        | National Immunisation Program                                                    | 
+| NNAPEDCD   | National Non-Admitted Patient Emergency Department Care Database                 | 
+| NPDC       | National Perinatal Data Collection                                               | 
+| OMPHU      | Ovens Murray Public Health Unit                                                  | 
+| PCOS       | Polycystic Ovary Syndrome                                                        | 
+| PHESS      | Public Health Event Surveillance System                                          | 
+| PHIDU      | Public Health Information Development Unit                                       | 
+| PLIDA      | Person Level Integrated Data Asset                                               | 
+| RHD        | Rheumatic Heart Disease                                                          | 
+| SA2        | Statistical Area Level 2                                                         | 
+| SACL       | Sexual Assault Crisis Line                                                       | 
+| SEPHU      | South Eastern Public Health Unit                                                 | 
+| VACCA      | Victorian Aboriginal Child and Community Agency                                  | 
+| VACCHO     | Victorian Aboriginal Community Controlled Health Organisation                    | 
+| VACL       | Victorian Aboriginal Corporation for Languages                                   | 
+| VAEAI      | Victorian Aboriginal Education Association                                       | 
+| VAED       | Victorian Admitted Episodes Dataset                                              |
+| VAHS       | Victorian Aboriginal Health Service                                              |
+| VALS       | Victorian Aboriginal Legal Service                                               |
+| VASCAL     | Victorian Aboriginal Community Services Association                              |
+| VCAL       | Victorian Certificate of Applied Learning                                        |
+| VCAMS      | Victorian Child and Adolescent Monitoring System                                 |
+| VCSF       | Victorian Cancer Screening Framework                                             |
+| WPHU       | Western Public Health Unit                                                       |
+| YBFS       | Year Before Full-time Schooling                                                  |
+
+: {tbl-colwidths="[20,80]"}
+

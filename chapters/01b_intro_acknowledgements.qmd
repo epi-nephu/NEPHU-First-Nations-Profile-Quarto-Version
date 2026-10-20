@@ -7,7 +7,6 @@ title-block: false
 ## Top of Page {.toc-only}
 
 ```{r}
-
 #
 source(here::here("setup.R"))
 

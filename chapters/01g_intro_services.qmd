@@ -1,0 +1,252 @@
+---
+title-block: false
+---
+
+# Support Services
+
+## Top of Page {.toc-only}
+
+```{r}
+#
+source(here::here("setup.R"))
+
+# Set up numbering for figures and tables
+figtab_report_section <- "1G"
+figtab_csv_section    <- "01G"
+
+figtab_table_count  <- 0
+figtab_figure_count <- 0
+```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Support Services {.unnumbered .unlisted}
+
+This report contains data across a wide range of topics. While all efforts have been made to present these data in respectful, non-stigmatising ways, it is acknowledged that certain topics can be sensitive and distressing.
+
+Take the time you need and connect with trusted supports, Elders, or loved ones. Your wellbeing matters. In an emergency, please call 000.
+
+If you or someone you know needs support, please consider reaching out to the services listed here or your local Aboriginal Community Controlled Health Organisation (ACCHO) – for culturally safe, ongoing care and support.
+
+**13 YARN – National Aboriginal and Torres Strait Islander Crisis Line**
+
+📱 Phone: 13 92 76 (available 24hr, 7 days a week)
+
+🌐 Website: [www.13yarn.org.au](www.13yarn.org.au)
+
+Free, confidential crisis support line staffed by Aboriginal and/or Torres Strait Islander people.
+
+<div style="height: 0.1em;"></div>
+
+**Victorian Aboriginal Legal Service (VALS)**
+
+📱 Phone: 1800 064 865 (available 24hr, 7 days a week) or (03) 9418 5999
+
+🌐 Website: [www.vals.org.au](www.vals.org.au)
+
+Legal advice, representation, and support services across criminal, family, and civil law.
+
+<div style="height: 0.1em;"></div>
+
+**Djirra – Supporting Aboriginal Women’s Safety and Wellbeing**
+
+📱 Phone: 1800 105 303
+
+🌐 Website: [www.djirra.org.au](www.djirra.org.au)
+
+Legal and non-legal support for Aboriginal women, particularly around family violence and wellbeing.
+
+<div style="height: 0.1em;"></div>
+
+**Healing Foundation – Stolen Generations Healing Support**
+
+📱 Phone: (02) 6272 7500
+
+🌐 Website: [www.healingfoundation.org.au](www.healingfoundation.org.au)
+
+Trauma-informed resources and support for healing from the impacts of past and present injustice.
+
+<div style="height: 0.1em;"></div>
+
+**Victorian Aboriginal Health Service (VAHS) – Social and Emotional Wellbeing**
+
+📱 Phone: (03) 9419 3000
+
+🌐 Website: [www.vahs.org.au](www.vahs.org.au)
+
+Mental health and suicide prevention programs that are culturally safe and community-led.
+
+<div style="height: 0.1em;"></div>
+
+**Victorian Aboriginal Health Service (VAHS) – Yarning Safe ‘n’ Strong**
+
+📱 Phone: 1800 959 563
+
+🌐 Website: [https://www.vahs.org.au/yarning-safenstrong/](https://www.vahs.org.au/yarning-safenstrong/)
+
+Free and confidential counselling service for Aboriginal and/or Torres Strait Islander Peoples. Yarning Safe 'n' Strong (YSNS) is available to people and families who need to have a yarn with someone about their wellbeing.
+
+<div style="height: 0.1em;"></div>
+
+**VACCHO – Victorian Aboriginal Community Controlled Health Organisation**
+
+📱 Phone: (03) 9411 9411
+
+🌐 Website: [www.vaccho.org.au](www.vaccho.org.au)
+
+Support and connection to local Aboriginal health services across the state.
+
+<div style="height: 0.1em;"></div>
+
+**Brother to Brother 24 Hour Crisis Line**
+
+📱 Phone: 1800 435 799 (available 24hr, 7 days a week)
+
+🌐 [https://dardimunwurro.com.au/brother-to-brother-crisis-line/](https://dardimunwurro.com.au/brother-to-brother-crisis-line/) 
+
+Phone support for Aboriginal men who need someone to talk to about relationship issues, family violence, parenting, drug and alcohol issues, or who are struggling to cope for other reasons. The line is staffed by Aboriginal men, including Elders, who have a lived experience in the issues that the line offers support for.
+
+<div style="height: 0.1em;"></div>
+
+**Victorian Legal Aid**
+
+📱 Phone: 1300 792 387
+
+🌐 Website: [https://www.legalaid.vic.gov.au/](https://www.legalaid.vic.gov.au/)
+
+Free legal information and advice to Victorians. Read their website, chat to them online, or call their Legal Help team. 
+
+<div style="height: 0.1em;"></div>
+
+**Lifeline**
+
+📱 Phone: 13 11 14 (available 24hr, 7 days a week)
+
+🌐 Website: [https://www.lifeline.org.au/](https://www.lifeline.org.au/)
+
+Crisis support and suicide prevention services.
+
+<div style="height: 0.1em;"></div>
+
+**Beyond Blue**
+
+📱 Phone: 1300 224 636
+
+🌐 Website: [https://www.beyondblue.org.au/](https://www.beyondblue.org.au/)
+
+Australian non-profit organisation focused on mental health. They provide programs and support for anxiety, depression, and suicide prevention.
+
+<div style="height: 0.1em;"></div>
+
+**Orange Door**
+
+📱 Phone (North East Melbourne): 1800 319 355
+
+📱 Phone (Inner East Melbourne): 1800 354 322
+
+🌐 Website: [https://www.orangedoor.vic.gov.au/](https://www.orangedoor.vic.gov.au/)
+
+Provides access to women’s and children’s family violence services, child and family services, Aboriginal services, and men’s family violence services.
+
+<div style="height: 0.1em;"></div>
+
+**Eastern Centre Against Sexual Assault (ECASA)**
+
+📱 Phone: 1800 806 292
+
+🌐 Website: [https://www.easternhealth.org.au/service/ecasa/](https://www.easternhealth.org.au/service/ecasa/)
+
+Provides a free counselling and support service to people who have experienced sexual assault either recently or in the past. ECASA’s services are also available to non-offending family members and friends. ECASA’s counsellor/advocate team is made up of psychologists and social workers.
+
+<div style="height: 0.1em;"></div>
+
+**Northern Centre Against Sexual Assault**
+
+📱 Phone: (03) 9496 2240
+
+🌐 Website: [https://www.austin.org.au/our-services-at-northern-casa/](https://www.austin.org.au/our-services-at-northern-casa/)
+
+Provides a free service to all members of the community aged 12 years and over who are affected by sexual assault. This is regardless of how long ago it happened and includes non-offending family and friends.
+
+<div style="height: 0.1em;"></div>
+
+**Sexual Assault Crisis Line (SACL)**
+
+📱 Phone: 1800 806 292
+
+🌐 Website: [https://www.sacl.com.au/](https://www.sacl.com.au/)
+
+The Sexual Assault Crisis Line (SACL) is Victoria's state-wide after-hours crisis telephone service for people impacted by sexual violence or sexual harm.
+
+<div style="height: 0.1em;"></div>
+
+**1800 RESPECT**
+
+📱 Phone: 1800 737 732 (available 24hr, 7 days a week)
+
+🌐 Website: [https://1800respect.org.au/](https://1800respect.org.au/)
+
+1800 RESPECT is available for free, 24 hours a day, 7 days a week to support people impacted by domestic, family, or sexual violence.
+
+<div style="height: 0.1em;"></div>
+
+**Men's Referral Service**
+
+📱 Phone: 1300 766 491 (available 24hr, 7 days a week)
+ 
+🌐 Website: [https://mrs.org.au/](https://mrs.org.au/)
+
+For people at risk of using family violence. Free, confidential, expert support for men and their family and friends.
+
+<div style="height: 0.1em;"></div>
+
+**Safe Steps**
+
+📱 Phone: 1800 015 188 (available 24hr, 7 days a week)
+ 
+🌐 Website: [https://safesteps.org.au/](https://safesteps.org.au/)
+
+For anyone in Victoria who is experiencing or afraid of family violence.
+
+<div style="height: 0.1em;"></div>
+
+**National Alcohol and Other Drug Hotline**
+
+📱 Phone: 1800 250 015 (available 24hr, 7 days a week)
+ 
+🌐 Website: [https://www.lifeline.org.au/get-help/national-services/national-alcohol-other-drug-hotline](https://www.lifeline.org.au/get-help/national-services/national-alcohol-other-drug-hotline)
+
+This hotline provides free and confidential information and support for people who have concerns about their own, or someone else's alcohol and/or other drug use.
+
+<div style="height: 0.1em;"></div>
+
+**Rainbow Door**
+
+📱 Phone: 1800 729 367 (available 10am to 5pm, 7 days a week)
+ 
+🌐 Website: [https://www.switchboard.org.au/rainbow-door](https://www.switchboard.org.au/rainbow-door)
+
+Specialist advice to LGBTIQA+ people and their friends and families.
+
+<div style="height: 0.1em;"></div>
+
+**1800 MyOptions**
+
+📱 Phone: 1800 696 784
+ 
+🌐 Website: [https://www.1800myoptions.org.au/](https://www.1800myoptions.org.au/)
+
+A confidential and free phone line and online service providing information about contraception, pregnancy options (including abortion), and sexual health.
+
+<div style="height: 0.1em;"></div>
+
+**Mental Health and Wellbeing Locals**
+
+🌐 Website: [https://www.health.vic.gov.au/mental-health-services/mental-health-and-wellbeing-locals](https://www.health.vic.gov.au/mental-health-services/mental-health-and-wellbeing-locals)
+
+Provides free treatment, care, and support for people aged 26 years and over who are experiencing mental health or wellbeing concerns – including people with co-occurring alcohol and drug treatment and care needs.
+

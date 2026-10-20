@@ -26,3 +26,44 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Foreword {.unnumbered .unlisted}
 
+## Foreword from the Consultation Group 
+
+People have been collecting, interpreting, and trying to make sense of information about themselves, their families, and societies in various forms for millennia. For more than 65,000 years Aboriginal and Torres Strait Islander peoples have, and continue today, to hold protected and shared knowledge about our peoples, families, communities, and Countries. Long before invasion and colonisation began in 1788, our knowledge systems were sustained through Story, Culture, Lore, Language, Art, Song, Dance, and Ceremony.
+
+Despite deliberate and ongoing attempts to silence our voices, disrupt our cultures, and erase our knowledge, Aboriginal and Torres Strait Islander peoples have continued to resist, survive, and pass knowledge from one generation to the next. Our knowledge is living knowledge, grounded in Country, Culture, Kinship, and Community.
+
+Since colonisation, 'official' government data about Aboriginal and Torres Strait Islander people has largely been collected, interpreted, controlled, and governed by non-Indigenous organisations. These systems have determined what information is collected, how our peoples and communities are represented, who can access the information, and how it is used to shape policies, services, and funding.
+
+This must continue to change. As Victoria progresses Treaty, Aboriginal and Torres Strait Islander peoples must have the authority to determine how information about our peoples and communities is collected, governed, interpreted, shared, and used. Self-determination and Indigenous Data Sovereignty are not optional considerations; they are fundamental rights.
+
+*Gumunatj Ngarrngatj* does not contain any new datasets. Instead, existing data have been brought together from a range of available sources. As these datasets were originally collected for different purposes, the extent to which Aboriginal and Torres Strait Islander peoples were involved in their design, collection, and governance is not always known. We acknowledge this limitation and hold a strong expectation that future datasets concerning Aboriginal and Torres Strait Islander people will be designed, governed, interpreted, and controlled by our peoples and communities. Nothing about us should be determined without us.
+
+The consultation group has exercised self-determination by guiding which data were included or excluded, identifying where information was absent or incomplete, and shaping the narratives and stories presented alongside the data. This work occurred through several rounds of consultation, with broader Community participation invited at each stage.
+
+We are Aboriginal and Torres Strait Islander Community members, health professionals, and representatives from the Aboriginal Community Controlled Organisations. We brought our cultural knowledge, professional expertise, and lived experiences to this work. We provided context, raised important cautions, and contributed a deeper understanding of the people, experiences, and stories behind the numbers. Our voices and knowledge have been woven throughout the presentation of the data, including the graphs, tables, commentary, and discussion. However, we acknowledge that no single group can represent the diversity of Aboriginal and Torres Strait Islander peoples, communities, Countries, or organisations. We encourage everyone reading this report to consider the information within their own cultural, local, and Community contexts.
+
+Access to *Gumunatj Ngarrngatj* must also be self-determined and guided by the principles of Indigenous Data Sovereignty. This recognises the inherent and collective rights of Aboriginal and Torres Strait Islander peoples to govern the collection, ownership, interpretation, access, sharing, and use of information about our peoples communities.
+
+This report does not belong to NEPHU. It has been developed in partnership with Community and belongs, first and foremost, to the Aboriginal and Torres Strait Islander peoples and communities whose knowledge, experiences, data, and stories are held within it.
+
+***Gumunatj Ngarrngatj*** **– Stakeholder Consultation Group**
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+
+## Note from the Director
+
+I would like to sincerely thank all those who have contributed their time, expertise, and wisdom to make *Gumunatj Ngarrngatj* a reality. First and foremost, the many people who participated in consultation sessions and chapter reviews over a period of almost 2 years. Those sessions were long, at times joyful and at others confronting, as participants generously shared knowledge, lived experience, and perspectives that have shaped this report as we explored data that demonstrated extraordinary strength and resilience and leadership of community, while also highlighting the ongoing impacts of colonisation, racism, and ongoing inequities. *Gumunatj Ngarrngatj* would not exist without your generosity.
+
+We are hugely grateful to the many people who have advised, developed, and revised the data sovereignty and access process. This was very new territory to many of us at NEPHU, and your expertise has been invaluable.
+
+I'd like to specifically acknowledge Aunty Gail Smith, Andrew Tanner, and the Wurundjeri Woi-wurrung Cultural Heritage Aboriginal Corporation for the name *Gumunatj Ngarrngatj*, and Stephanie Thompson for the beautiful artwork throughout the report.
+
+Finally to all those who worked on the report itself, thank you for all your efforts. I know for those of us within the NEPHU team it has been an incredible privilege to work on this project.
+
+With all that said, I am honoured to present *Gumunatj Ngarrngatj*. I hope the knowledge that has been woven into this report will contribute to meaningful improvements in the physical, social, emotional, and cultural wellbeing of Aboriginal and Torres Strait Islander people and support community-led decision making, self-determination, and lasting positive change for future. 
+
+**Dr Annaliese van Diemen**
+

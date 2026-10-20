@@ -1,0 +1,84 @@
+---
+title-block: false
+---
+
+# Conditions of Use for This Report
+
+## Top of Page {.toc-only}
+
+```{r}
+#
+source(here::here("setup.R"))
+
+# Set up numbering for figures and tables
+figtab_report_section <- "1C"
+figtab_csv_section    <- "01C"
+
+figtab_table_count  <- 0
+figtab_figure_count <- 0
+```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Conditions of Use for This Report {.unnumbered .unlisted}
+
+## Conditions of Use
+
+This report contains data that pertains to Aboriginal and/or Torres Strait Islander people and is considered Indigenous Data. For more information, please refer to the [Indigenous Data Sovereignty section](03a_consultation_datasovereignty.qmd).
+
+Access to this report is contingent on agreement that its use will be in keeping with the principles of [Indigenous Data Sovereignty](https://static1.squarespace.com/static/5b3043afb40b9d20411f3512/t/63ed934fe861fa061ebb9202/1676514134724/Communique-Indigenous-Data-Sovereignty-Summit.pdf). Access is limited to organisations (not individuals) with a responsible person accountable for upholding these conditions. This includes, but is not limited to:
+
+  - Recognition that the information contained within this report is owned by Aboriginal and/or Torres Strait Islander people who live within the NEPHU catchment.
+  - That use of data is undertaken in partnership with the Aboriginal and/or Torres Strait Islander community.
+  - That the contents of the report are only used to the benefit of the Aboriginal and/or Torres Strait Islander community (rather than non-Indigenous organisations).
+  - That context, acknowledgement of data limitations, and positive data framing are considered when interpreting and presenting the data.
+  - That the report is stored securely with appropriate governance controls in place over access and use.
+  - That the report in its entirety will not be onward shared with other organisations.
+
+Should aspects of data be shared with third-party organisations as part of discrete projects aligned with the above principles for which the report has been released, the following data acknowledgement must be included when sharing the data:
+
+*The data obtained from Gumunatj Ngarrngatj (the NEPHU First Nations Population Profile) are Indigenous data, and therefore are owned by Aboriginal and/or Torres Strait Islander people in line with the principles of Indigenous Data Sovereignty. Indigenous data must be presented using appropriate context, acknowledgement of data limitations, and positive data framing to ensure data are not misinterpreted or used to cause harm towards First Nations peoples or communities.*
+
+Non-ACCO organisations will be required to report against these principles as a condition of accessing the report. Failure to comply with these conditions may mean that access to the report is revoked.
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+
+## Suggested Citation
+
+North Eastern Public Health Unit. Gumunatj Ngarrngatj: Population Profile of the First Nations Population Living within the NEPHU Catchment. Melbourne: North Eastern Public Health Unit; 2026.
+
+We also recommend that the source data (e.g. ABS Census 2021) are also referenced when using data from this report.
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+
+## Providing Feedback
+
+Community voices are central to this work.
+
+If you would like to share feedback or reflections on this report, please fill out this [short feedback survey](https://forms.cloud.microsoft/r/jeG5StY0fx) or email [NEPHU@austin.org.au](mailto:NEPHU@austin.org.au).
+
+Your input will help ensure that this work continues to reflect community perspectives, priorities, and aspirations for health and wellbeing.
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_separator.png"))
+```
+
+## Version History
+
+| Date         | Version | Changelog       |
+|:-------------|:--------|:----------------|
+| October 2026 | 1.0     | Initial release |  
+
+: {tbl-colwidths="[25,20,55]"}
+

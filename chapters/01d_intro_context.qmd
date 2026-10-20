@@ -11,8 +11,8 @@ title-block: false
 source(here::here("setup.R"))
 
 # Set up numbering for figures and tables
-figtab_report_section <- "1C"
-figtab_csv_section    <- "01C"
+figtab_report_section <- "1D"
+figtab_csv_section    <- "01D"
 
 figtab_table_count  <- 0
 figtab_figure_count <- 0
@@ -203,7 +203,7 @@ This report draws primarily on publicly available data and existing datasets rel
 
 While these data are presented in tables and figures, interpretation and commentary have been approached with care and cultural awareness, ensuring that the information is accessible, meaningful, and reflective of community priorities.
 
-Short commentary has been included for specific indicators that were discussed through consultation sessions with Aboriginal and/or Torres Strait Islander stakeholders. These sessions guided how data have been interpreted and presented, ensuring it is relevant, strengths-based, and culturally appropriate. Please refer to [the Consultation Process section]() for more detail on the consultation process used in the development of this report.
+Short commentary has been included for specific indicators that were discussed through consultation sessions with Aboriginal and/or Torres Strait Islander stakeholders. These sessions guided how data have been interpreted and presented, ensuring it is relevant, strengths-based, and culturally appropriate. Please refer to the [Consultation Process section](03b_consultation_process.qmd) for more detail on the consultation process used in the development of this report.
 
 ```{r}
 #| out-width: "100%"
@@ -239,39 +239,26 @@ It is noted that many of the Closing the Gap indicators contain data that are se
 ### Overview of Closing the Gap Indicators in NEPHU
 
 ::: {.ctg-table}
-| Outcome Area                       | Data availability | Progress in NEPHU/VIC | Section                                   |
-|:-----------------------------------|:------------------|:----------------------|:------------------------------------------|
-| 1. Long and healthy lives          | Australia         | Data not available    | [Mortality]()                             |  
-| 2. Born healthy and strong         | Greater Melbourne | Meeting target        | [Perinatal Factors]()                     |
-| 3. Early childhood education       | Victoria          | Meeting target        | [Early Childhood]()                       |
-| 4. Children thriving               | Victoria          | Not meeting target    | [Early Childhood]()                       |
-| 5. Student learning potential      | LGA               | Not meeting target    | [Education]()                             |
-| 6. Further education pathways      | LGA               | Not meeting target    | [Education]()                             |
-| 7. Youth engagement                | LGA               | Meeting target        | [Employment]()                            |
-| 8. Economic participation          | LGA               | Meeting target        | [Employment]()                            |
-| 9. Housing                         | LGA               | Meeting target        | [Housing]()                               |
-| 10. Criminal justice               | Victoria          | Meeting target        | [Criminal Justice]()                      |
-| 11. Youth justice                  | Victoria          | Meeting target        | [Criminal Justice]()                      |
-| 12. Child protection               | Victoria          | Not meeting target    | [Family Safety and Wellbeing]()           |
-| 13. Family safety                  | Victoria          | Data not available    | [Family Safety and Wellbeing]()           |
-| 14. Social and emotional wellbeing | Victoria          | Not meeting target    | [Mortality]()                             |
-| 15. Land and waters                | Victoria          | Meeting target        | [Connection to Country]()                 |
-| 16. Culture and languages          | LGA               | Data not available    | [Language]()                              |
-| 17. Access to information          | Victoria          | Data not available    | [Connection Through Digital Technology]() |
+| Outcome Area                                                                                                                            | Data availability | Progress in NEPHU/VIC | Section                                                                 |
+|:----------------------------------------------------------------------------------------------------------------------------------------|:------------------|:----------------------|:------------------------------------------------------------------------|
+| [1. Long and healthy lives](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/long-and-healthy-lives/)                  | Australia         | Data not available    | [Mortality](10n_outcomes_mortality.qmd)                                 |  
+| [2. Born healthy and strong](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/born-healthy-and-strong/)                | Greater Melbourne | Meeting target        | [Perinatal Factors](06a_socioeconomic_perinatal.qmd)                    |
+| [3. Early childhood education](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/early-childhood-education/)            | Victoria          | Meeting target        | [Early Childhood](06b_socioeconomic_childhood.qmd)                      |
+| [4. Children thriving](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/children-thriving/)                            | Victoria          | Not meeting target    | [Early Childhood](06b_socioeconomic_childhood.qmd)                      |
+| [5. Student learning potential](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/student-learning-potential/)          | LGA               | Not meeting target    | [Education](06c_socioeconomic_education.qmd)                            |
+| [6. Further education pathways](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/further-education-pathways/)          | LGA               | Not meeting target    | [Education](06c_socioeconomic_education.qmd)                            |
+| [7. Youth engagement](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/youth-engagement/)                              | LGA               | Meeting target        | [Employment](06d_socioeconomic_employment.qmd)                          |
+| [8. Economic participation](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/economic-participation/)                  | LGA               | Meeting target        | [Employment](06d_socioeconomic_employment.qmd)                          |
+| [9. Housing](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/housing/)                                                | LGA               | Meeting target        | [Housing](06f_socioeconomic_housing.qmd)                                |
+| [10. Criminal justice](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/criminal-justice/)                             | Victoria          | Not meeting target    | [Criminal Justice](08a_other_justice.qmd)                               |
+| [11. Youth justice](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/youth-justice/)                                   | Victoria          | Meeting target        | [Criminal Justice](08a_other_justice.qmd)                               |
+| [12. Child protection](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/child-protection/)                             | Victoria          | Not meeting target    | [Family Safety and Wellbeing](08b_other_familysafety.qmd)               |
+| [13. Family safety](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/family-safety/)                                   | Victoria          | Data not available    | [Family Safety and Wellbeing](08b_other_familysafety.qmd)               |
+| [14. Social and emotional wellbeing](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/social-and-emotional-wellbeing/) | Victoria          | Not meeting target    | [Mortality](10n_outcomes_mortality.qmd)                                 |
+| [15. Land and waters](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/land-and-waters/)                               | Victoria          | Not meeting target    | [Connection to Country](07b_cultural_country.qmd)                       |
+| [16. Culture and languages](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/culture-and-languages/)                   | LGA               | Data not available    | [Language](05b_demographics_language.qmd)                               |
+| [17. Access to information](https://www.pc.gov.au/closing-the-gap-data/dashboard/outcome-area/access-information/)                      | Victoria          | Data not available    | [Connection Through Digital Technology](08d_other_digitalinclusion.qmd) |
 
 : {tbl-colwidths="[30,20,20,30]"}
 :::
-
-```{r}
-#| out-width: "100%"
-knitr::include_graphics(here::here("images", "banner_separator.png"))
-```
-
-## Providing Feedback
-
-Community voices are central to this work.
-
-If you would like to share feedback or reflections on this report, please email [NEPHU@austin.org.au](NEPHU@austin.org.au).
-
-Your input will help ensure that this work continues to reflect community perspectives, priorities, and aspirations for health and wellbeing.
 

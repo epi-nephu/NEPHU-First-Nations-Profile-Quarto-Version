@@ -1,0 +1,110 @@
+---
+title-block: false
+---
+
+# Navigating This Report
+
+## Top of Page {.toc-only}
+
+```{r}
+#
+source(here::here("setup.R"))
+
+# Set up numbering for figures and tables
+figtab_report_section <- "1H"
+figtab_csv_section    <- "01H"
+
+figtab_table_count  <- 0
+figtab_figure_count <- 0
+```
+
+
+```{r}
+#| out-width: "100%"
+knitr::include_graphics(here::here("images", "banner_header.png"))
+```
+
+## Navigating This Report {.unnumbered .unlisted}
+
+Double click on index.html to open the report's cover page.
+
+The table of contents for the major sections of the report are shown on the left hand side of the page. Click on a section name to navigate to that section.
+
+```{r}
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics(here::here("images", "screenshots", "left_toc.png"))
+```
+
+Within each section, there is a second table of contents on the right hand side of the page. Click on a section sub-heading name to navigate to that sub-section.
+
+You can return to the top of the page by clicking on the "Top of Page" link.
+
+```{r}
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics(here::here("images", "screenshots", "right_toc.png"))
+```
+
+The links at the bottom of each section allow you to move to the previous and next sections.
+
+```{r}
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics(here::here("images", "screenshots", "footer_toc.png"))
+```
+
+All references throughout the report are presented as hyperlinks. Click on the hyperlink (marked with underlined blue text) to open a hyperlink. Holding the shift button when clicking the hyperlink will open it in a new tab.
+
+```{r}
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics(here::here("images", "screenshots", "hyperlink.png"))
+```
+
+Important caveats and notes to consider are presented in the orange, green, and blue call-out boxes within each section. These sections are collapsible and can be hidden or shown by clicking on the coloured heading section.
+
+```{r}
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics(here::here("images", "screenshots", "callout_open.png"))
+```
+
+
+```{r}
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics(here::here("images", "screenshots", "callout_closed.png"))
+```
+
+The different figures and tables for each indicator are presented in side-by-side tabs. Click on each tab to view the relevant figure or table.
+
+```{r}
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics(here::here("images", "screenshots", "tabset_figure.png"))
+```
+
+
+```{r}
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics(here::here("images", "screenshots", "tabset_table.png"))
+```
+
+Figures can be saved to your local computer from within the report by clicking on the camera icon that appears when you hover your mouse over the figure.
+
+```{r}
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics(here::here("images", "screenshots", "figure_save.png"))
+```
+
+The underlying data used for the figures and tables can be saved to your local computer from within the report by clicking on the "Download table data as csv" button below the table.
+
+```{r}
+#| out-width: "100%"
+#| fig-align: "center"
+knitr::include_graphics(here::here("images", "screenshots", "table_csv.png"))
+```
+
