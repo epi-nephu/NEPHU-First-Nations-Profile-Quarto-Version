@@ -2,7 +2,7 @@
 title-block: false
 ---
 
-# Under-reporting of Aboriginal and/or Torres Strait Islander Status
+# Underreporting of Aboriginal and/or Torres Strait Islander Status
 
 ## Top of Page {.toc-only}
 

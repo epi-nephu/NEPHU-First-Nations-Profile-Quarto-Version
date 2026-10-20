@@ -138,6 +138,12 @@ Consultation sessions were designed to support shared understanding and collecti
 
 **Trust and truth-telling**: Engagement was underpinned by a commitment to building and maintaining trust through openness, respect, and honesty. This included NEPHU staff acknowledging contextual and data limitations, and supporting truth-telling through lived experience, professional practice, and personal stories shared by participants.
 
+### Feedback Session
+
+Effective community engagement requires a commitment to closing the loop. Communities that provide input should be informed about what was heard, what decisions were made, and how their feedback shaped planning, policy, or action. Closing the loop promotes accountability, builds trust, and reinforces the principle that community voices matter in decision-making processes.
+
+In alignment with those principles a closing the loop session was hosted for all organisations and Community members that supported the consultation sessions for *Gumunatj Ngarrngatj*. The closing the loop session was hosted at [Barrbunin Beek Aboriginal Gathering Place](https://www.barrbuninbeek.org/) to provide the consultation group members with an overview how their input has shaped the profile and to ensure it was reflected accurately. The group was provided a demonstration of the profile with the opportunity for hands-on interaction, allowing for any additional feedback or considerations to be captured. The proposed report governance process was discussed and endorsed by the group. 
+
 ```{r}
 #| out-width: "100%"
 knitr::include_graphics(here::here("images", "banner_separator.png"))
@@ -170,7 +176,7 @@ Throughout consultation, participants identified gaps in publicly available data
 
 The impact of underidentification was discussed frequently during consultation as a key factor contributing to potential underestimation of Aboriginal and/or Torres Strait Islander populations within available data. Participants noted that underidentification reflects broader systemic and cultural safety issues within data collection environments, rather than individual choice alone. This has implications for data accuracy, visibility, and service planning.
 
-More information about the impact of underidentification on this report can be found [here]().
+More information about the impact of underidentification on this report can be found [here](02c_methods_underreporting.qmd).
 
 ```{r}
 #| out-width: "100%"
@@ -183,5 +189,5 @@ Indigenous Data Sovereignty was upheld as a core ethical requirement in the deve
 
 As a result, maintaining First Nations governance over the dissemination of this report was a deliberate and necessary decision. The report is not intended for unrestricted public release, as open access without appropriate cultural, contextual, and governance controls poses a risk of misuse, misinterpretation, and harm. Decisions regarding access to and use of this report are guided by Indigenous Data Sovereignty principles and community accountability, rather than default institutional practices.
 
-More information about Indigenous Data Sovereignty and how it relates to this report can be found [here]().
+More information about Indigenous Data Sovereignty and how it relates to this report can be found [here](03a_consultation_datasovereignty.qmd).
 

@@ -51,7 +51,7 @@ knitr::include_graphics(here::here("images", "banner_separator.png"))
 
 The topics and indicators included in this report have been selected based on a review of the indicators included in the [*Population Profile of the NEPHU Catchment Area – General Report*](https://nephu.org.au/reports-and-publications/nephu-population-profile-general-report-2025/), review of the [Closing the Gap outcome areas](https://www.closingthegap.gov.au/national-agreement/targets), review of the indicators included in the [Aboriginal and Torres Strait Islander Social Health Atlas of Australia](https://phidu.torrens.edu.au/social-health-atlases), review of the indicators included in the [Aboriginal and Torres Strait Islander Health Performance Framework](https://www.indigenoushpf.gov.au/), and feedback from participants in the consultation sessions held during the development of this report.
 
-Topics and indicators were prioritised for inclusion according to geography, representativeness, data collection methods, and year of data collection. Data available at an Local Government Area (LGA) or Indigenous Area of Residence (IARE) level were prioritised as these data could be mapped to the NEPHU catchment area. Small surveys or research projects were not included due to limitations with representativeness and reliability; a small sample size leads to high variability which may lead to bias depending on the sampling method. Data collected in the last five years were prioritised, however if no data in this time frame were available, the most recent year of data was included.
+Topics and indicators were prioritised for inclusion according to geography, representativeness, data collection methods, and year of data collection. Data available at Local Government Area (LGA) or Indigenous Area of Residence (IARE) level were prioritised as these data could be mapped to the NEPHU catchment area. Small surveys or research projects were not included due to limitations with representativeness and reliability; a small sample size leads to high variability which may lead to bias depending on the sampling method. Data collected in the last five years were prioritised, however if no data in this time frame were available, the most recent year of data was included.
 
 Most of the data sources used in this report are publicly available. Data that are not publicly available but have been made available to the Local Public Health Units (LPHUs) include data on bowel, breast, and cervical cancer screening provided by the [Australian Centre for the Prevention of Cervical Cancer (ACPCC)](https://acpcc.org.au/), and data on notifiable conditions from the [Victorian Public Health Event Surveillance System (PHESS)](https://www.health.vic.gov.au/infectious-diseases/notification-procedures-for-infectious-diseases) that LPHUs have access to for the purpose of routine Health Protection work. While these data sources are not publicly available, requests for access to these data can be made via the links provided in the Data Sources section.
 
@@ -71,8 +71,19 @@ Data are presented as counts, percentages/proportions, rates, and/or ratios depe
 The observed vs. expected charts and tables compare what we see in the data (the observed number) with what we would see if there was no gap or difference between Aboriginal and/or Torres Strait Islander people and non-Indigenous people in each LGA or sex/age group (the expected number) for a particular indicator. These differences should be understood in the context of historical and ongoing impacts of colonisation, as well as social and structural factors that influence health and wellbeing.
 
 ```{r}
-#| out-width: "100%"
-knitr::include_graphics(here::here("images", "banner_separator.png"))
+#
+figtab_figure_count <- figtab_figure_count + 1
+figtab_figure_title <- paste0("Figure", " ", figtab_report_section, "-", figtab_figure_count)
+```
+
+::: {.fig-tab-title}
+**`r figtab_figure_title`:** Interpreting observed vs. expected charts
+:::
+
+```{r}
+#| out-width: "50%"
+#| fig-align: "center"
+knitr::include_graphics(here::here("images", "figure_obsexp.png"))
 ```
 
 ## Data Notes

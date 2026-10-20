@@ -40,6 +40,8 @@ This report collates data from a wide range of publicly available data sources.
 
 - Due to data limitations, data specific for Victoria were not available. However, life expectancy estimates for Australia include data from people living in Victoria.
 
+- The data included in *Gumunatj Ngarrngatj* were for birth cohorts (babies born during) 2005 to 2007, 2010 to 2012, 2015 to 2017, and 2020 to 2022.  
+
 <div style="height: 0.1em;"></div>
 
 [**ABS Causes of Death Data**](https://www.abs.gov.au/statistics/health/causes-death)
@@ -48,13 +50,21 @@ This report collates data from a wide range of publicly available data sources.
 
 - These data include all deaths that occurred and were registered in Australia, including deaths of persons whose place of usual residence was overseas.
 
+- These data use the [enhanced process developed by the ABS](https://www.abs.gov.au/articles/technical-note-impact-using-multiple-sources-deriving-indigenous-status-deaths-2023-changes-victoria-and-coroner-referred-deaths) for assigning Aboriginal and/or Torres Strait Islander status to deaths registered in Victoria.
+
+- The data included in *Gumunatj Ngarrngatj* were for deaths registered during 2023.  
+
 <div style="height: 0.1em;"></div>
 
 [**ABS Census**](https://www.abs.gov.au/census)
 
 - The Census is a survey that counts every person and household in Australia every five years.
 
+- Aboriginal and/or Torres Strait Islander peoples were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander when they completed the Census.
+
 - The 2021 Census was held on the evening of August 10th 2021.
+
+- The 2026 Census was held on the evening of August 11th 2026. Data from the 2026 Census are due to be released in mid to late 2027.
 
 <div style="height: 0.1em;"></div>
 
@@ -65,6 +75,8 @@ This report collates data from a wide range of publicly available data sources.
 - Data were collected through face-to-face interviews with survey respondents or their parent/guardian.
 
 - The survey was designed to collect a range of information about the health of Aboriginal and/or Torres Strait Islander Australians, including prevalence of long-term health conditions, health risk factors, use of health services, demographic characteristics, and socioeconomic characteristics.
+
+- Aboriginal and/or Torres Strait Islander peoples were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander when they completed the survey.
 
 - The 2018-19 ABS National Aboriginal and Torres Strait Islander Health Survey was conducted between July 2018 and April 2019.
 
@@ -92,11 +104,17 @@ This report collates data from a wide range of publicly available data sources.
 
 - These data are used to project how many Aboriginal and/or Torres Strait Islander people are expected to live in Australia at various time points over the next ten years.
 
+- The data included in *Gumunatj Ngarrngatj* were for population projections to 2031, based on data from the ABS Census 2021.  
+
 <div style="height: 0.1em;"></div>
 
 [**ABS Prisoners in Australia Dataset**](https://www.abs.gov.au/statistics/people/crime-and-justice/prisoners-australia/latest-release)
 
 - The ABS Prisoners in Australia Dataset includes all persons remanded or sentenced to adult custodial corrective services agencies in each Australian state and territory.
+
+- Aboriginal and/or Torres Strait Islander peoples were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander at the time of their contact with a corrective service agency.
+
+- The data included in *Gumunatj Ngarrngatj* cover the period 01 January 2016 to 31 December 2025.  
 
 <div style="height: 0.1em;"></div>
 
@@ -105,6 +123,8 @@ This report collates data from a wide range of publicly available data sources.
 - This report describes the implementation of an enhanced process for ascertaining Aboriginal and/or Torres Strait Islander status for deaths registered from 2023 onwards in Victoria.
 
 - This enhanced process assigns Aboriginal and/or Torres Strait Islander status based on data from three sources: the Death Registration Statement (completed by the person who notified the death, usually the funeral director or a family member), the Medical Certificate Cause of Death (for deaths that were certified by a doctor), and the National Coronial Information System (for deaths that were referred to the coroner). If these data sources do not agree, identification on any source is usually given preference over recording the deceased as non-Indigenous.
+
+- The data included in *Gumunatj Ngarrngatj* were for deaths registered during 2023.  
 
 <div style="height: 0.1em;"></div>
 
@@ -118,6 +138,10 @@ This report collates data from a wide range of publicly available data sources.
 
 - The AIHW Child Protection National Minimum Dataset includes information about children who come into contact with State and Territory departments responsible for child protection.
 
+- Aboriginal and/or Torres Strait Islander peoples were defined as those who were identified as such in the individual state and territory data collections that make up the AIHW Child Protection National Minimum Dataset.
+
+- The data included in *Gumunatj Ngarrngatj* cover the period 01 January 2019 to 31 December 2025.
+
 <div style="height: 0.1em;"></div>
 
 [**AIHW Mothers and Babies Report**](https://www.aihw.gov.au/reports/mothers-babies/australias-mothers-babies/contents/summary)
@@ -126,17 +150,29 @@ This report collates data from a wide range of publicly available data sources.
 
 - This report contains data at state level on pregnancy, childbirth and key outcomes for babies at the time of birth.
 
+- Aboriginal and/or Torres Strait Islander mothers were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander at the time of childbirth.
+
+- The data included in *Gumunatj Ngarrngatj* cover the period 01 January 2020 to 31 December 2020.
+
 <div style="height: 0.1em;"></div>
 
 [**AIHW National Non-Admitted Patient Emergency Department Care Database (NNAPEDCD)**](https://www.aihw.gov.au/reports/hospitals/non-admitted-patient-emergency-dept-care-nmds/summary)
 
 - The NNAPEDCD provides information on care provided to non-admitted patients in public hospital emergency departments in each state and territory in Australia.
 
+- Aboriginal and/or Torres Strait Islander peoples were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander at the time of their contact with the health service.
+
+- The data included in *Gumunatj Ngarrngatj* cover the period 01 July 2022 to 30 June 2023.  
+
 <div style="height: 0.1em;"></div>
 
 [**AIHW Youth Justice National Minimum Dataset**](https://www.aihw.gov.au/about-our-data/our-data-collections/youth-justice)
 
 - The AIHW Youth Justice National Minimum Dataset includes information about young people in Australia who were under youth justice supervision in each Australian state and territory.
+
+- Aboriginal and/or Torres Strait Islander peoples were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander at the time of their contact with the youth justice system.
+
+- The data included in *Gumunatj Ngarrngatj* cover the period 01 July 2016 to 30 June 2025.  
 
 <div style="height: 0.1em;"></div>
 
@@ -146,11 +182,19 @@ This report collates data from a wide range of publicly available data sources.
 
 - It measures five important domains of early childhood development: physical health and wellbeing, social competence, emotional maturity, language and cognitive skills, and communication skills and general knowledge.
 
+- Aboriginal and/or Torres Strait Islander children were defined as those who had been identified as Aboriginal and/or Torres Strait Islander by their parent or guardian.
+
+- The data included in *Gumunatj Ngarrngatj* were for cohorts attending their first year of school during 2009, 2012, 2015, 2018, 2021, and 2024.
+
 <div style="height: 0.1em;"></div>
 
 [**Australian Immunisation Register (AIR)**](https://www.servicesaustralia.gov.au/australian-immunisation-register)
 
 - The AIR records all vaccines given to people in Australia and includes vaccines given under the National Immunisation Program, through school programs, and privately (e.g. travel-related vaccines).
+
+- Aboriginal and/or Torres Strait Islander peoples were defined as those recorded as Aboriginal and/or Torres Strait Islander based on their Medicare records or as recorded by an immunisation provider.
+
+- The data included in *Gumunatj Ngarrngatj* cover the period 01 January 2022 to 31 December 2022.
 
 <div style="height: 0.1em;"></div>
 
@@ -158,11 +202,19 @@ This report collates data from a wide range of publicly available data sources.
 
 - The Australian Reconciliation Barometer is a national survey undertaken every two years since 2008, and aims to measure the progress of reconciliation between Aboriginal and/or Torres Strait Islander and non-Indigenous peoples.
 
+- Aboriginal and/or Torres Strait Islander peoples were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander when they completed the survey.
+
+- The data included in *Gumunatj Ngarrngatj* were for surveys conducted during 2018, 2020, 2022, and 2024.
+
 <div style="height: 0.1em;"></div>
 
 [**BreastScreen Australia**](https://www.breastscreen.org.au/)
 
 - BreastScreen Australia collates data on breast screening services and outcomes for screening offered under the national BreastScreen Australia program.
+
+- Aboriginal and/or Torres Strait Islander peoples were defined as those who identified as Aboriginal, Torres Strait Islander, or Aboriginal and Torres Strait Islander at the time of breast screening.
+
+- The data included in *Gumunatj Ngarrngatj* were for cohorts attending breast screening during 2015 to 2017, 2016 to 2018, 2017 to 2019, 2018 to 2020, 2019 to 2021, 2020 to 2022, and 2021 to 2023.
 
 <div style="height: 0.1em;"></div>
 
@@ -178,11 +230,21 @@ This report collates data from a wide range of publicly available data sources.
   
 - The program tests students’ ability in three domains of literacy (reading, writing, and language conventions) and in numeracy during Term 1 of Years 3, 5, 7, and 9.
 
+- Students were classified as being of Aboriginal and/or Torres Strait Islander origin based on information provided by the student, or their parent or guardian, on the school enrolment form.
+
+- The data included in *Gumunatj Ngarrngatj* were for NAPLAN tests conducted during 2024.
+
 <div style="height: 0.1em;"></div>
 
 [**National Cancer Screening Register (NCSR)**](https://www.ncsr.gov.au/)
 
 - The NCSR is Australia's digital platform which supports the implementation of cervical and bowel screening including invitation of eligible participants and storing results of relevant screening and follow-up diagnostic tests.
+
+- Aboriginal and/or Torres Strait Islander peoples were defined using the Indigenous Status Ever Identified field which indicates if a screening participant has ever indicated that they were Aboriginal, Torres Strait Islander, or Aboriginal and Torres Strait Islander at the time of bowel or cervical screening.
+
+- The bowel screening data included in *Gumunatj Ngarrngatj* were for cohorts invited to participate in screening during 2016 to 2017, 2017 to 2018, and 2018 to 2019.
+
+- The cervical screening data included in *Gumunatj Ngarrngatj* cover the period 01 January 2017 to 31 December 2021.
 
 <div style="height: 0.1em;"></div>
 
@@ -192,17 +254,27 @@ This report collates data from a wide range of publicly available data sources.
 
 - The NECEEC conducts an annual census on the first Friday in August, with the reference week for data collection being the week before the census date.
 
+- Aboriginal and/or Torres Strait Islander children were defined as those who had been identified as Aboriginal and/or Torres Strait Islander by their parent or guardian.
+
+- The data included in *Gumunatj Ngarrngatj* were for NECEEC censuses conducted annually between 2016 and 2025.
+
 <div style="height: 0.1em;"></div>
 
 [**National Native Title Tribunal Geospatial Data Model**](https://www.nntt.gov.au/assistance/Geospatial/Pages/Spatial-aata.aspx)
 
 - The National Native Title Tribunal Geospatial Data Model brings together information about native title claimant applications, native title determinations, Indigenous estates, registered and notified Indigenous Land Use Agreements, and registered native title bodies corporate.
 
+- The data included in *Gumunatj Ngarrngatj* were assessed on June 30^th^ each year between 2020 and 2025.
+
 <div style="height: 0.1em;"></div>
 
 [**National Perinatal Data Collection (NPDC)**](https://www.aihw.gov.au/about-our-data/our-data-collections/national-perinatal-data-collection)
 
 - The NPDC collates data about births reported by midwives and other birth attendants to the perinatal data collections in each state and territory in Australia.
+
+- Aboriginal and/or Torres Strait Islander mothers were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander at the time of childbirth.
+
+- The data included in *Gumunatj Ngarrngatj* cover the period 01 January 2019 to 31 December 2021.
 
 <div style="height: 0.1em;"></div>
 
@@ -220,11 +292,21 @@ This report collates data from a wide range of publicly available data sources.
 
 - The Victorian Suicide Register contains detailed information on suicides in Victoria, including information on demographics and potential contributing factors and stressors.
 
+- These data use the [enhanced process developed by the ABS](https://www.abs.gov.au/articles/technical-note-impact-using-multiple-sources-deriving-indigenous-status-deaths-2023-changes-victoria-and-coroner-referred-deaths) for assigning Aboriginal and/or Torres Strait Islander status to deaths registered in Victoria.
+
+- The data included in *Gumunatj Ngarrngatj* were for deaths registered during 2023.  
+
 <div style="height: 0.1em;"></div>
 
 [**Victorian Admitted Episodes Dataset (VAED)**](https://www.health.vic.gov.au/data-reporting/victorian-admitted-episodes-dataset)
 
 - The VAED includes data from all Victorian public and private hospitals, including rehabilitation centres, extended care facilities, and day procedure centres.
+
+- Aboriginal and/or Torres Strait Islander peoples were defined as those who had identified themselves as Aboriginal and/or Torres Strait Islander at the time of their contact with the health service.
+
+- The data included in *Gumunatj Ngarrngatj* for all hospital admissions and condition-specific hospital admissions cover the period 01 January 2019 to 31 December 2023.
+
+- The data included in *Gumunatj Ngarrngatj* for potentially preventable hospital admissions and acute condition-specific hospital admissions cover the period 01 January 2017 to 31 December 2021.
 
 <div style="height: 0.1em;"></div>
 
@@ -238,11 +320,19 @@ This report collates data from a wide range of publicly available data sources.
 
 - The full list of notifiable cancers and reporting requirements is available in the [Cancer Registration User Guide](https://www.cancervic.org.au/research/our-research/victoria-cancer-registry/submitting-data).
 
+- Aboriginal and/or Torres Strait Islander peoples were defined as those who were recorded as Aboriginal and/or Torres Strait Islander based on the patient records and cancer notifications provided to the Registry.
+
+- The data included in *Gumunatj Ngarrngatj* cover the period 01 January 2019 to 31 December 2023.
+
 <div style="height: 0.1em;"></div>
 
 [**Victorian Child and Adolescent Monitoring System (VCAMS)**](https://www.vic.gov.au/victorian-child-and-adolescent-monitoring-system-vcams)
 
 - VCAMS brings together data from a wide range of sources about early childhood, family functioning, and communities to monitor and report against the indicators in the VCAMS Outcomes Framework.
+
+- Aboriginal and/or Torres Strait Islander children were defined as those who were recorded as Aboriginal and/or Torres Strait Islander in the datasets that comprise VCAMS. For preschool enrolments, these data were sourced from the [Kindergarten Information Management System](https://www.vic.gov.au/kims).
+
+- The data included in *Gumunatj Ngarrngatj* cover the period 01 January 2018 to 31 December 2022.
 
 <div style="height: 0.1em;"></div>
 
@@ -252,9 +342,17 @@ This report collates data from a wide range of publicly available data sources.
 
 - For a record to be made in LEAP, a person needs to make a victim report or Victoria Police needs to detect that a crime has occurred.
 
+- Aboriginal and/or Torres Strait Islander status for affected family members and other parties was based on the most frequent recording of the Indigenous status for each person in the Law Enforcement Assistance Program (LEAP) database.
+
+- The data included in *Gumunatj Ngarrngatj* cover the period 01 January 2021 to 31 December 2025.
+
 <div style="height: 0.1em;"></div>
 
 [**Victorian Public Health Event Surveillance System (PHESS)**](https://www.health.vic.gov.au/infectious-diseases/infectious-diseases-surveillance-in-victoria)
 
 - PHESS contains data on conditions that are legally required to be notified to the Victorian Department of Health by medical practitioners and pathology services (laboratories) under the *Public Health and Wellbeing Act 2008* and *Public Health and Wellbeing Regulations 2019*.
+
+- Aboriginal and/or Torres Strait Islander peoples were defined based on the recording of Aboriginal and/or Torres Strait Islander status at the time of initial notification by a pathology service or medical practitioner, or as determined during case management and follow-up by Local Public Health Units or the Victorian Department of Health.
+
+- The data included in *Gumunatj Ngarrngatj* cover the period 01 January 2016 to 31 December 2025.
 

@@ -28,7 +28,7 @@ knitr::include_graphics(here::here("images", "banner_header.png"))
 
 ## Indigenous Data
 
-NEPHU is committed to producing this report in line with the principles of Indigenous Data Sovereignty as outlined in the [Communique](https://static1.squarespace.com/static/5b3043afb40b9d20411f3512/t/63ed934fe861fa061ebb9202/1676514134724/Communique-Indigenous-Data-Sovereignty-Summit.pdf) from the Indigenous Data Sovereignty Summit 2018 from the Maiam nayri Wingara Indigenous Data Sovereignty Collective and the Australian Indigenous Governance Institute.
+NEPHU is committed to producing this report in line with the principles of Indigenous Data Sovereignty as outlined in the Communique from the [Indigenous Data Sovereignty Summit 2018](https://static1.squarespace.com/static/5b3043afb40b9d20411f3512/t/63ed934fe861fa061ebb9202/1676514134724/Communique-Indigenous-Data-Sovereignty-Summit.pdf) from the [Maiam nayri Wingara](https://www.maiamnayriwingara.org/) Indigenous Data Sovereignty Collective and the [Australian Indigenous Governance Institute](https://aigi.org.au/).
 
 Indigenous Data refers to information or knowledge, in any format or medium, which is about and may affect Indigenous peoples both collectively and individually.
 
